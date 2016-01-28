@@ -7,25 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
-		B88C91331C59F2260089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91321C59F2260089BEAE /* AppDelegate.m */; };
-		B88C91361C59F2260089BEAE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91351C59F2260089BEAE /* ViewController.m */; };
-		B88C91391C59F2260089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91371C59F2260089BEAE /* Main.storyboard */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
-		B88C913E1C59F2260089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C913C1C59F2260089BEAE /* LaunchScreen.storyboard */; };
+		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
+		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
+		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
+		B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91861C5A084F0089BEAE /* MainPageViewController.m */; };
+		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
+		B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */; };
+		B88C91931C5A08E00089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91921C5A08E00089BEAE /* MyTableViewController.m */; };
+		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B88C91311C59F2260089BEAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		B88C91321C59F2260089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B88C91341C59F2260089BEAE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B88C91351C59F2260089BEAE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B88C91381C59F2260089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B88C913D1C59F2260089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B88C913F1C59F2260089BEAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B88C91571C59F9010089BEAE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B88C91671C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		B88C91691C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		B88C91851C5A084F0089BEAE /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
+		B88C91861C5A084F0089BEAE /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
+		B88C91881C5A08810089BEAE /* InfomationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewController.h; sourceTree = "<group>"; };
+		B88C91891C5A08810089BEAE /* InfomationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewController.m; sourceTree = "<group>"; };
+		B88C918B1C5A089E0089BEAE /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
+		B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewController.m; sourceTree = "<group>"; };
+		B88C91911C5A08E00089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
+		B88C91921C5A08E00089BEAE /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		B88C91941C5A09790089BEAE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B88C91991C5A0B620089BEAE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12F348AE78061F2F59F9AD2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */,
+				0DC533304EB964BB41F806FF /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2B3E1B6A3876F650B59C8A8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D65565201EC540E39F38219E /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B88C91221C59F2260089BEAE = {
 			isa = PBXGroup;
 			children = (
 				B88C912D1C59F2260089BEAE /* 30000day */,
 				B88C912C1C59F2260089BEAE /* Products */,
+				12F348AE78061F2F59F9AD2C /* Pods */,
+				2B3E1B6A3876F650B59C8A8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,14 +94,12 @@
 		B88C912D1C59F2260089BEAE /* 30000day */ = {
 			isa = PBXGroup;
 			children = (
-				B88C91311C59F2260089BEAE /* AppDelegate.h */,
-				B88C91321C59F2260089BEAE /* AppDelegate.m */,
-				B88C91341C59F2260089BEAE /* ViewController.h */,
-				B88C91351C59F2260089BEAE /* ViewController.m */,
-				B88C91371C59F2260089BEAE /* Main.storyboard */,
+				B88C915D1C59F96D0089BEAE /* 1.HomePage */,
+				B88C916C1C59FF490089BEAE /* 2.Information */,
+				B88C915B1C59F9270089BEAE /* 3.Shop */,
+				B88C918E1C5A08D00089BEAE /* 4.My */,
+				B88C914D1C59F4900089BEAE /* 5.Other */,
 				B88C913A1C59F2260089BEAE /* Assets.xcassets */,
-				B88C913C1C59F2260089BEAE /* LaunchScreen.storyboard */,
-				B88C913F1C59F2260089BEAE /* Info.plist */,
 				B88C912E1C59F2260089BEAE /* Supporting Files */,
 			);
 			path = 30000day;
@@ -74,9 +108,259 @@
 		B88C912E1C59F2260089BEAE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B88C91941C5A09790089BEAE /* InfoPlist.strings */,
+				B88C913F1C59F2260089BEAE /* Info.plist */,
 				B88C912F1C59F2260089BEAE /* main.m */,
+				B88C91991C5A0B620089BEAE /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B88C914D1C59F4900089BEAE /* 5.Other */ = {
+			isa = PBXGroup;
+			children = (
+				B88C919E1C5A16BA0089BEAE /* thirdPart */,
+				B88C91961C5A0AF50089BEAE /* model */,
+				B88C91561C59F8BA0089BEAE /* SignIn&signOut */,
+				B88C91551C59F8A90089BEAE /* AppDelegate&storyboard */,
+				B88C91541C59F8940089BEAE /* Base */,
+				B88C91531C59F8840089BEAE /* Network */,
+			);
+			path = 5.Other;
+			sourceTree = "<group>";
+		};
+		B88C91531C59F8840089BEAE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B88C91541C59F8940089BEAE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B88C91551C59F8A90089BEAE /* AppDelegate&storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91571C59F9010089BEAE /* AppDelegate.h */,
+				B88C91581C59F9010089BEAE /* AppDelegate.m */,
+				B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */,
+				B88C91681C59F9AF0089BEAE /* Main.storyboard */,
+			);
+			path = "AppDelegate&storyboard";
+			sourceTree = "<group>";
+		};
+		B88C91561C59F8BA0089BEAE /* SignIn&signOut */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "SignIn&signOut";
+			sourceTree = "<group>";
+		};
+		B88C915B1C59F9270089BEAE /* 3.Shop */ = {
+			isa = PBXGroup;
+			children = (
+				B88C917D1C5A07E30089BEAE /* controller */,
+				B88C917E1C5A07E30089BEAE /* view */,
+			);
+			path = 3.Shop;
+			sourceTree = "<group>";
+		};
+		B88C915D1C59F96D0089BEAE /* 1.HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91841C5A084F0089BEAE /* HomePageBase */,
+				B88C915E1C59F96D0089BEAE /* 1.MainPage */,
+				B88C915F1C59F96D0089BEAE /* 2.Person */,
+				B88C91601C59F96D0089BEAE /* 3.Message */,
+				B88C91611C59F96D0089BEAE /* 4.Calendar */,
+			);
+			path = 1.HomePage;
+			sourceTree = "<group>";
+		};
+		B88C915E1C59F96D0089BEAE /* 1.MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91701C5A07320089BEAE /* controller */,
+				B88C91731C5A07320089BEAE /* view */,
+			);
+			path = 1.MainPage;
+			sourceTree = "<group>";
+		};
+		B88C915F1C59F96D0089BEAE /* 2.Person */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91751C5A07630089BEAE /* controller */,
+				B88C91761C5A07630089BEAE /* view */,
+			);
+			path = 2.Person;
+			sourceTree = "<group>";
+		};
+		B88C91601C59F96D0089BEAE /* 3.Message */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91771C5A07940089BEAE /* controller */,
+				B88C91781C5A07940089BEAE /* view */,
+			);
+			path = 3.Message;
+			sourceTree = "<group>";
+		};
+		B88C91611C59F96D0089BEAE /* 4.Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91791C5A079C0089BEAE /* controller */,
+				B88C917A1C5A079C0089BEAE /* view */,
+			);
+			path = 4.Calendar;
+			sourceTree = "<group>";
+		};
+		B88C916C1C59FF490089BEAE /* 2.Information */ = {
+			isa = PBXGroup;
+			children = (
+				B88C917B1C5A07DA0089BEAE /* controller */,
+				B88C917C1C5A07DA0089BEAE /* view */,
+			);
+			path = 2.Information;
+			sourceTree = "<group>";
+		};
+		B88C91701C5A07320089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91731C5A07320089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91751C5A07630089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91761C5A07630089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91771C5A07940089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91781C5A07940089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91791C5A079C0089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C917A1C5A079C0089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C917B1C5A07DA0089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91881C5A08810089BEAE /* InfomationTableViewController.h */,
+				B88C91891C5A08810089BEAE /* InfomationTableViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C917C1C5A07DA0089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C917D1C5A07E30089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B88C918B1C5A089E0089BEAE /* ShopTableViewController.h */,
+				B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C917E1C5A07E30089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91841C5A084F0089BEAE /* HomePageBase */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91851C5A084F0089BEAE /* MainPageViewController.h */,
+				B88C91861C5A084F0089BEAE /* MainPageViewController.m */,
+			);
+			path = HomePageBase;
+			sourceTree = "<group>";
+		};
+		B88C918E1C5A08D00089BEAE /* 4.My */ = {
+			isa = PBXGroup;
+			children = (
+				B88C918F1C5A08D00089BEAE /* controller */,
+				B88C91901C5A08D00089BEAE /* view */,
+			);
+			path = 4.My;
+			sourceTree = "<group>";
+		};
+		B88C918F1C5A08D00089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91911C5A08E00089BEAE /* MyTableViewController.h */,
+				B88C91921C5A08E00089BEAE /* MyTableViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91901C5A08D00089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91961C5A0AF50089BEAE /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B88C919E1C5A16BA0089BEAE /* thirdPart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = thirdPart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,9 +370,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B88C91421C59F2260089BEAE /* Build configuration list for PBXNativeTarget "30000day" */;
 			buildPhases = (
+				A05258D0304CBAA6A0146F32 /* Check Pods Manifest.lock */,
 				B88C91271C59F2260089BEAE /* Sources */,
 				B88C91281C59F2260089BEAE /* Frameworks */,
 				B88C91291C59F2260089BEAE /* Resources */,
+				3C0D95248AFD32C7A4EDC054 /* Embed Pods Frameworks */,
+				DE82C0A2FACAB4C6253593A2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -110,6 +397,7 @@
 				TargetAttributes = {
 					B88C912A1C59F2260089BEAE = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = TTA54FV6AY;
 					};
 				};
 			};
@@ -136,21 +424,73 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B88C913E1C59F2260089BEAE /* LaunchScreen.storyboard in Resources */,
+				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
+				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
-				B88C91391C59F2260089BEAE /* Main.storyboard in Resources */,
+				B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C0D95248AFD32C7A4EDC054 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A05258D0304CBAA6A0146F32 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DE82C0A2FACAB4C6253593A2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B88C91271C59F2260089BEAE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B88C91361C59F2260089BEAE /* ViewController.m in Sources */,
-				B88C91331C59F2260089BEAE /* AppDelegate.m in Sources */,
+				B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */,
+				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
+				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
+				B88C91931C5A08E00089BEAE /* MyTableViewController.m in Sources */,
+				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,20 +498,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B88C91371C59F2260089BEAE /* Main.storyboard */ = {
+		B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B88C91381C59F2260089BEAE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B88C913C1C59F2260089BEAE /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B88C913D1C59F2260089BEAE /* Base */,
+				B88C91671C59F9AF0089BEAE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B88C91681C59F9AF0089BEAE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B88C91691C59F9AF0089BEAE /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -259,22 +599,34 @@
 		};
 		B88C91431C59F2260089BEAE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shutian.-0000day";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		B88C91441C59F2260089BEAE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DC533304EB964BB41F806FF /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shutian.-0000day";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -298,6 +650,7 @@
 				B88C91441C59F2260089BEAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
