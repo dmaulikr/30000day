@@ -19,4 +19,3 @@ pod 'UMengAnalytics'
 pod 'AVOSCloud' , '3.1.2.9'
 pod 'AVOSCloudIM', '3.1.2.9'
 pod 'UMengSocial', '~> 4.3'
-pod 'SBJSON’
