@@ -23,12 +23,12 @@
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="UaO-tm-3FN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="12" id="BTL-mk-IuN">
+                <constraint firstItem="UaO-tm-3FN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KW5-Dw-Ke1"/>
+                <constraint firstAttribute="trailing" secondItem="UaO-tm-3FN" secondAttribute="trailing" id="OKO-FY-Ura"/>
+                <constraint firstAttribute="bottom" secondItem="UaO-tm-3FN" secondAttribute="bottom" id="Og9-DW-5TJ"/>
+                <constraint firstItem="UaO-tm-3FN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="h84-IU-gVI">
                     <variation key="heightClass=regular-widthClass=compact" constant="76"/>
                 </constraint>
-                <constraint firstAttribute="trailing" secondItem="UaO-tm-3FN" secondAttribute="trailing" id="HFA-nx-X1c"/>
-                <constraint firstItem="UaO-tm-3FN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jad-yR-Ih3"/>
-                <constraint firstAttribute="bottom" secondItem="UaO-tm-3FN" secondAttribute="bottom" id="dJ2-Of-mMX"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
@@ -36,10 +36,10 @@
                     <exclude reference="UaO-tm-3FN"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="BTL-mk-IuN"/>
-                    <exclude reference="HFA-nx-X1c"/>
-                    <exclude reference="Jad-yR-Ih3"/>
-                    <exclude reference="dJ2-Of-mMX"/>
+                    <exclude reference="KW5-Dw-Ke1"/>
+                    <exclude reference="OKO-FY-Ura"/>
+                    <exclude reference="Og9-DW-5TJ"/>
+                    <exclude reference="h84-IU-gVI"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -47,10 +47,10 @@
                     <include reference="UaO-tm-3FN"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="BTL-mk-IuN"/>
-                    <include reference="HFA-nx-X1c"/>
-                    <include reference="Jad-yR-Ih3"/>
-                    <include reference="dJ2-Of-mMX"/>
+                    <include reference="KW5-Dw-Ke1"/>
+                    <include reference="OKO-FY-Ura"/>
+                    <include reference="Og9-DW-5TJ"/>
+                    <include reference="h84-IU-gVI"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="202" y="101"/>

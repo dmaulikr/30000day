@@ -13,7 +13,7 @@
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
 		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
 		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
-		B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91861C5A084F0089BEAE /* MainPageViewController.m */; };
+		B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */; };
 		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
 		B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */; };
 		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
@@ -91,6 +91,14 @@
 		B8F2D90B1C5B47ED002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9021C5B47ED002C7712 /* ProvinceLifeExpectancyWoman.plist */; };
 		B8F2D90C1C5B47ED002C7712 /* UserPassWordProblem.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9031C5B47ED002C7712 /* UserPassWordProblem.plist */; };
 		B8F2D90D1C5B47ED002C7712 /* theWholeTen.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9041C5B47ED002C7712 /* theWholeTen.plist */; };
+		B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */; };
+		B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */; };
+		B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */; };
+		B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */; };
+		B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9191C5B5F3C002C7712 /* MessageViewController.m */; };
+		B8F2D91C1C5B5F3C002C7712 /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D91A1C5B5F3C002C7712 /* MessageViewController.xib */; };
+		B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */; };
+		B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D91F1C5B5F4D002C7712 /* CalendarViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,8 +111,8 @@
 		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B88C91671C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B88C91691C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		B88C91851C5A084F0089BEAE /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
-		B88C91861C5A084F0089BEAE /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
+		B88C91851C5A084F0089BEAE /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
+		B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B88C91881C5A08810089BEAE /* InfomationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewController.h; sourceTree = "<group>"; };
 		B88C91891C5A08810089BEAE /* InfomationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewController.m; sourceTree = "<group>"; };
 		B88C918B1C5A089E0089BEAE /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
@@ -231,6 +239,18 @@
 		B8F2D9021C5B47ED002C7712 /* ProvinceLifeExpectancyWoman.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvinceLifeExpectancyWoman.plist; sourceTree = "<group>"; };
 		B8F2D9031C5B47ED002C7712 /* UserPassWordProblem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserPassWordProblem.plist; sourceTree = "<group>"; };
 		B8F2D9041C5B47ED002C7712 /* theWholeTen.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = theWholeTen.plist; sourceTree = "<group>"; };
+		B8F2D90E1C5B5BDB002C7712 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
+		B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
+		B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageViewController.xib; sourceTree = "<group>"; };
+		B8F2D9131C5B5DA1002C7712 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
+		B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
+		B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonViewController.xib; sourceTree = "<group>"; };
+		B8F2D9181C5B5F3C002C7712 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		B8F2D9191C5B5F3C002C7712 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		B8F2D91A1C5B5F3C002C7712 /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
+		B8F2D91D1C5B5F4D002C7712 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		B8F2D91F1C5B5F4D002C7712 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -427,6 +447,9 @@
 		B88C91701C5A07320089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D90E1C5B5BDB002C7712 /* MainPageViewController.h */,
+				B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */,
+				B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -441,6 +464,9 @@
 		B88C91751C5A07630089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9131C5B5DA1002C7712 /* PersonViewController.h */,
+				B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */,
+				B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -455,6 +481,9 @@
 		B88C91771C5A07940089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9181C5B5F3C002C7712 /* MessageViewController.h */,
+				B8F2D9191C5B5F3C002C7712 /* MessageViewController.m */,
+				B8F2D91A1C5B5F3C002C7712 /* MessageViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -469,6 +498,9 @@
 		B88C91791C5A079C0089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D91D1C5B5F4D002C7712 /* CalendarViewController.h */,
+				B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */,
+				B8F2D91F1C5B5F4D002C7712 /* CalendarViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -515,8 +547,8 @@
 		B88C91841C5A084F0089BEAE /* HomePageBase */ = {
 			isa = PBXGroup;
 			children = (
-				B88C91851C5A084F0089BEAE /* MainPageViewController.h */,
-				B88C91861C5A084F0089BEAE /* MainPageViewController.m */,
+				B88C91851C5A084F0089BEAE /* MainPageBaseViewController.h */,
+				B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */,
 			);
 			path = HomePageBase;
 			sourceTree = "<group>";
@@ -913,12 +945,14 @@
 				B8F2D9051C5B47ED002C7712 /* area.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B8F2D9081C5B47ED002C7712 /* ElementAlternative.plist in Resources */,
+				B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B8F2D9071C5B47ED002C7712 /* Element.plist in Resources */,
 				B88C920C1C5B07000089BEAE /* regitViewCtr.xib in Resources */,
 				B88C91C71C5B01D90089BEAE /* updatePwdViewCtr.xib in Resources */,
 				B88C921F1C5B08E00089BEAE /* SecondPwd.xib in Resources */,
+				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
 				B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* healthySetUpViewController.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
@@ -932,7 +966,9 @@
 				B8F2D9061C5B47ED002C7712 /* city.plist in Resources */,
 				B8F2D90B1C5B47ED002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
 				B8F2D9091C5B47ED002C7712 /* Day.plist in Resources */,
+				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
 				B8F2D90C1C5B47ED002C7712 /* UserPassWordProblem.plist in Resources */,
+				B8F2D91C1C5B5F3C002C7712 /* MessageViewController.xib in Resources */,
 				B88C91A61C5AFB030089BEAE /* SignInViewController.xib in Resources */,
 				B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */,
 				B8F2D90A1C5B47ED002C7712 /* ProvinceLifeExpectancyMan.plist in Resources */,
@@ -1004,7 +1040,7 @@
 				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
 				B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */,
 				B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */,
-				B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */,
+				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
 				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -1028,6 +1064,8 @@
 				B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* healthySetUpViewController.m in Sources */,
+				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
+				B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
@@ -1041,7 +1079,9 @@
 				B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B8F2D8B81C5B3796002C7712 /* userInfoTableViewCell.m in Sources */,
+				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
+				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B88C92191C5B08C80089BEAE /* ChoicePwd.m in Sources */,

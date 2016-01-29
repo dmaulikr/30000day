@@ -232,9 +232,11 @@
     
     if (indexPath.section==0) {
         
-        userInfoViewController* user=[[userInfoViewController alloc]init];
+        userInfoViewController *user=[[userInfoViewController alloc]init];
         
         user.title=@"个人信息";
+        
+//        user.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:user animated:YES];
         
@@ -242,7 +244,9 @@
         
         if (indexPath.row==0) {
             
-            healthySetUpViewController* hsc=[[healthySetUpViewController alloc]init];
+            healthySetUpViewController *hsc=[[healthySetUpViewController alloc]init];
+            
+//            hsc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:hsc animated:YES];
             
@@ -251,13 +255,17 @@
         
         if (indexPath.row==0) {
             
-            securityTableViewController* stc=[[securityTableViewController alloc]init];
+            securityTableViewController *stc=[[securityTableViewController alloc]init];
+            
+//            stc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:stc animated:YES];
             
         } else {
             
-            setUpTableViewController* suc=[[setUpTableViewController alloc] init];
+            setUpTableViewController *suc = [[setUpTableViewController alloc] init];
+            
+//            suc.hidesBottomBarWhenPushed = YES;
             
             suc.title=@"设置";
             

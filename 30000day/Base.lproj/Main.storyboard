@@ -202,7 +202,7 @@
         <!--主页-->
         <scene sceneID="cc4-Kj-djx">
             <objects>
-                <viewController id="Z1b-FS-tzv" userLabel="主页" customClass="MainPageViewController" sceneMemberID="viewController">
+                <viewController id="Z1b-FS-tzv" userLabel="主页" customClass="MainPageBaseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YFP-vT-j1J"/>
                         <viewControllerLayoutGuide type="bottom" id="kUU-lE-bTu"/>
@@ -210,16 +210,33 @@
                     <view key="view" contentMode="scaleToFill" id="4O5-5o-f16">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhF-7S-YHE">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Z1b-FS-tzv" id="Bae-i4-yEw"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kUU-lE-bTu" firstAttribute="top" secondItem="JhF-7S-YHE" secondAttribute="bottom" id="Bd2-Fm-THZ"/>
+                            <constraint firstItem="JhF-7S-YHE" firstAttribute="leading" secondItem="4O5-5o-f16" secondAttribute="leading" id="LBk-33-ZFJ"/>
+                            <constraint firstItem="JhF-7S-YHE" firstAttribute="top" secondItem="YFP-vT-j1J" secondAttribute="bottom" id="fwh-Z0-bTV"/>
+                            <constraint firstAttribute="trailing" secondItem="JhF-7S-YHE" secondAttribute="trailing" id="isn-pq-s2a"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="主页" image="homePage" selectedImage="selectHomePage" id="EhF-Dz-Hfa"/>
                     <navigationItem key="navigationItem" id="dwy-ya-rJt"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="scrollView" destination="JhF-7S-YHE" id="RFF-mL-nr0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaS-VT-DXS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="109" y="-366"/>
+            <point key="canvasLocation" x="114" y="-425"/>
         </scene>
     </scenes>
     <resources>

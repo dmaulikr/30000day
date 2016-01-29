@@ -49,6 +49,9 @@ static const NSInteger isfirstload=0;
 #define maxSelectDateTime 2050
 #define minSelectDateTime 1900
 
+#define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT           [[UIScreen mainScreen] bounds].size.height
+
 #endif
 
 #endif /* PrefixHeader_pch */
