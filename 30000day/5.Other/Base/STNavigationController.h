@@ -10,6 +10,9 @@
 
 @interface STNavigationController : UINavigationController
 
-@property (nonatomic ,copy) void (^(clickBlock))();
+@property (nonatomic ,strong) UIButton *backButton;
+
+@property (nonatomic ,copy) void (^(backClickBlock))();
+
 
 @end

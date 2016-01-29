@@ -31,7 +31,7 @@ static TKAddressBook *instance;
         
         if (!instance) {
             
-            instance=[[TKAddressBook alloc]init];
+            instance=[[TKAddressBook alloc] init];
             
         }
     }

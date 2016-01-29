@@ -31,7 +31,6 @@
     
     [self  navigationBar].layer.shadowRadius = 4.0f;//阴影半径
     
-    [self backBarButtonItem];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +39,7 @@
 }
 
 #pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem {
+- (void)backBarButtonItem:(UIViewController *)viewController {
     
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -56,9 +55,9 @@
     
     [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
+    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     
-    if(([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)){
+    if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0 )) {
         
         UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
                                            initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
@@ -78,14 +77,15 @@
         self.interactivePopGestureRecognizer.delegate = nil;
         
     }
+    
+    self.backButton = button;
 }
-
 
 - (void)backClick {
     
-    if (self.clickBlock) {
+    if (self.backClickBlock) {
         
-        self.clickBlock();
+        self.backClickBlock();
         
     }
 }

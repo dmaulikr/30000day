@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>全国</key>
+	<string>72.38</string>
+	<key>北京</key>
+	<string>78.28</string>
+	<key>天津</key>
+	<string>77.42</string>
+	<key>河北</key>
+	<string>72.70</string>
+	<key>山西</key>
+	<string>72.87</string>
+	<key>内蒙古</key>
+	<string>72.04</string>
+	<key>辽宁</key>
+	<string>74.12</string>
+	<key>吉林</key>
+	<string>74.12</string>
+	<key>黑龙江</key>
+	<string>73.52</string>
+	<key>上海</key>
+	<string>78.20</string>
+	<key>江苏</key>
+	<string>74.60</string>
+	<key>浙江</key>
+	<string>75.58</string>
+	<key>安徽</key>
+	<string>72.65</string>
+	<key>福建</key>
+	<string>73.27</string>
+	<key>江西</key>
+	<string>71.94</string>
+	<key>山东</key>
+	<string>74.05</string>
+	<key>河南</key>
+	<string>71.84</string>
+	<key>湖北</key>
+	<string>72.68</string>
+	<key>湖南</key>
+	<string>72.28</string>
+	<key>广东</key>
+	<string>74.00</string>
+	<key>广西</key>
+	<string>71.11</string>
+	<key>海南</key>
+	<string>73.20</string>
+	<key>重庆</key>
+	<string>73.16</string>
+	<key>四川</key>
+	<string>72.25</string>
+	<key>贵州 </key>
+	<string>68.43</string>
+	<key>云南</key>
+	<string>67.06</string>
+	<key>西藏</key>
+	<string>66.33</string>
+	<key>陕西</key>
+	<string>72.84</string>
+	<key>甘肃</key>
+	<string>70.60</string>
+	<key>青海</key>
+	<string>68.11</string>
+	<key>宁夏</key>
+	<string>71.31</string>
+	<key>新疆</key>
+	<string>70.30</string>
+</dict>
+</plist>
