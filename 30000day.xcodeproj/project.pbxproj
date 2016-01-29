@@ -16,8 +16,47 @@
 		B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91861C5A084F0089BEAE /* MainPageViewController.m */; };
 		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
 		B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */; };
-		B88C91931C5A08E00089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91921C5A08E00089BEAE /* MyTableViewController.m */; };
 		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
+		B88C91A51C5AFB030089BEAE /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91A31C5AFB030089BEAE /* SignInViewController.m */; };
+		B88C91A61C5AFB030089BEAE /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91A41C5AFB030089BEAE /* SignInViewController.xib */; };
+		B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91B21C5B00500089BEAE /* MyTableViewController.m */; };
+		B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91BC1C5B00A10089BEAE /* UserInfo.m */; };
+		B88C91C11C5B01A00089BEAE /* findPwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */; };
+		B88C91C21C5B01A00089BEAE /* findPwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */; };
+		B88C91C61C5B01D90089BEAE /* updatePwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */; };
+		B88C91C71C5B01D90089BEAE /* updatePwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */; };
+		B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */; };
+		B88C91CD1C5B02390089BEAE /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91CC1C5B02390089BEAE /* security.m */; };
+		B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91CF1C5B02F40089BEAE /* LogPwd.m */; };
+		B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */; };
+		B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D61C5B05FC0089BEAE /* SBJsonParser.m */; };
+		B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D81C5B05FC0089BEAE /* SBJsonStreamParser.m */; };
+		B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91DA1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m */; };
+		B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91DC1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m */; };
+		B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91DE1C5B05FC0089BEAE /* SBJsonStreamParserState.m */; };
+		B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E01C5B05FC0089BEAE /* SBJsonStreamWriter.m */; };
+		B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m */; };
+		B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E41C5B05FC0089BEAE /* SBJsonStreamWriterState.m */; };
+		B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E61C5B05FC0089BEAE /* SBJsonTokeniser.m */; };
+		B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E81C5B05FC0089BEAE /* SBJsonUTF8Stream.m */; };
+		B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */; };
+		B88C91FA1C5B06750089BEAE /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */; };
+		B88C91FB1C5B06750089BEAE /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */; };
+		B88C92011C5B06D50089BEAE /* SMSVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */; };
+		B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */; };
+		B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */; };
+		B88C92071C5B06E40089BEAE /* loginNameVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */; };
+		B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92091C5B06FF0089BEAE /* regitViewCtr.m */; };
+		B88C920C1C5B07000089BEAE /* regitViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C920A1C5B07000089BEAE /* regitViewCtr.xib */; };
+		B88C92131C5B08690089BEAE /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B88C920D1C5B08690089BEAE /* pinyin.c */; };
+		B88C92141C5B08690089BEAE /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92101C5B08690089BEAE /* ChineseString.m */; };
+		B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92121C5B08690089BEAE /* TKAddressBook.m */; };
+		B88C92191C5B08C80089BEAE /* ChoicePwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92171C5B08C80089BEAE /* ChoicePwd.m */; };
+		B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92181C5B08C80089BEAE /* ChoicePwd.xib */; };
+		B88C921E1C5B08E00089BEAE /* SecondPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C921C1C5B08E00089BEAE /* SecondPwd.m */; };
+		B88C921F1C5B08E00089BEAE /* SecondPwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C921D1C5B08E00089BEAE /* SecondPwd.xib */; };
+		B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92211C5B09070089BEAE /* FriendListInfo.m */; };
+		B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92241C5B11020089BEAE /* STNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,10 +75,80 @@
 		B88C91891C5A08810089BEAE /* InfomationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewController.m; sourceTree = "<group>"; };
 		B88C918B1C5A089E0089BEAE /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
 		B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewController.m; sourceTree = "<group>"; };
-		B88C91911C5A08E00089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
-		B88C91921C5A08E00089BEAE /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
 		B88C91941C5A09790089BEAE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B88C91991C5A0B620089BEAE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B88C91A21C5AFB030089BEAE /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		B88C91A31C5AFB030089BEAE /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		B88C91A41C5AFB030089BEAE /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		B88C91B11C5B00500089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
+		B88C91B21C5B00500089BEAE /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		B88C91BB1C5B00A10089BEAE /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		B88C91BC1C5B00A10089BEAE /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		B88C91BE1C5B01A00089BEAE /* findPwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = findPwdViewCtr.h; sourceTree = "<group>"; };
+		B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = findPwdViewCtr.m; sourceTree = "<group>"; };
+		B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = findPwdViewCtr.xib; sourceTree = "<group>"; };
+		B88C91C31C5B01D90089BEAE /* updatePwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updatePwdViewCtr.h; sourceTree = "<group>"; };
+		B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatePwdViewCtr.m; sourceTree = "<group>"; };
+		B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = updatePwdViewCtr.xib; sourceTree = "<group>"; };
+		B88C91C81C5B01FF0089BEAE /* UpdateLogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateLogPwd.h; sourceTree = "<group>"; };
+		B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateLogPwd.m; sourceTree = "<group>"; };
+		B88C91CB1C5B02390089BEAE /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
+		B88C91CC1C5B02390089BEAE /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
+		B88C91CE1C5B02F40089BEAE /* LogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogPwd.h; sourceTree = "<group>"; };
+		B88C91CF1C5B02F40089BEAE /* LogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogPwd.m; sourceTree = "<group>"; };
+		B88C91D21C5B05FC0089BEAE /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		B88C91D41C5B05FC0089BEAE /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		B88C91D51C5B05FC0089BEAE /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		B88C91D61C5B05FC0089BEAE /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		B88C91D71C5B05FC0089BEAE /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		B88C91D81C5B05FC0089BEAE /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		B88C91D91C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		B88C91DA1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		B88C91DB1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		B88C91DC1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		B88C91DD1C5B05FC0089BEAE /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		B88C91DE1C5B05FC0089BEAE /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		B88C91DF1C5B05FC0089BEAE /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		B88C91E01C5B05FC0089BEAE /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		B88C91E11C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		B88C91E21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		B88C91E31C5B05FC0089BEAE /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		B88C91E41C5B05FC0089BEAE /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		B88C91E51C5B05FC0089BEAE /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		B88C91E61C5B05FC0089BEAE /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		B88C91E71C5B05FC0089BEAE /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		B88C91E81C5B05FC0089BEAE /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		B88C91E91C5B05FC0089BEAE /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		B88C91F71C5B06750089BEAE /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
+		B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
+		B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
+		B88C91FE1C5B06D50089BEAE /* SMSVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerificationViewController.h; sourceTree = "<group>"; };
+		B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerificationViewController.m; sourceTree = "<group>"; };
+		B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerificationViewController.xib; sourceTree = "<group>"; };
+		B88C92031C5B06E40089BEAE /* loginNameVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginNameVerificationViewController.h; sourceTree = "<group>"; };
+		B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginNameVerificationViewController.m; sourceTree = "<group>"; };
+		B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginNameVerificationViewController.xib; sourceTree = "<group>"; };
+		B88C92081C5B06FF0089BEAE /* regitViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regitViewCtr.h; sourceTree = "<group>"; };
+		B88C92091C5B06FF0089BEAE /* regitViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regitViewCtr.m; sourceTree = "<group>"; };
+		B88C920A1C5B07000089BEAE /* regitViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = regitViewCtr.xib; sourceTree = "<group>"; };
+		B88C920D1C5B08690089BEAE /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
+		B88C920E1C5B08690089BEAE /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
+		B88C920F1C5B08690089BEAE /* ChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseString.h; sourceTree = "<group>"; };
+		B88C92101C5B08690089BEAE /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
+		B88C92111C5B08690089BEAE /* TKAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKAddressBook.h; sourceTree = "<group>"; };
+		B88C92121C5B08690089BEAE /* TKAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAddressBook.m; sourceTree = "<group>"; };
+		B88C92161C5B08C80089BEAE /* ChoicePwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoicePwd.h; sourceTree = "<group>"; };
+		B88C92171C5B08C80089BEAE /* ChoicePwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoicePwd.m; sourceTree = "<group>"; };
+		B88C92181C5B08C80089BEAE /* ChoicePwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoicePwd.xib; sourceTree = "<group>"; };
+		B88C921B1C5B08E00089BEAE /* SecondPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondPwd.h; sourceTree = "<group>"; };
+		B88C921C1C5B08E00089BEAE /* SecondPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondPwd.m; sourceTree = "<group>"; };
+		B88C921D1C5B08E00089BEAE /* SecondPwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondPwd.xib; sourceTree = "<group>"; };
+		B88C92201C5B09070089BEAE /* FriendListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListInfo.h; sourceTree = "<group>"; };
+		B88C92211C5B09070089BEAE /* FriendListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListInfo.m; sourceTree = "<group>"; };
+		B88C92231C5B11020089BEAE /* STNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNavigationController.h; sourceTree = "<group>"; };
+		B88C92241C5B11020089BEAE /* STNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STNavigationController.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,8 +228,8 @@
 		B88C914D1C59F4900089BEAE /* 5.Other */ = {
 			isa = PBXGroup;
 			children = (
-				B88C919E1C5A16BA0089BEAE /* thirdPart */,
-				B88C91961C5A0AF50089BEAE /* model */,
+				B88C91A91C5AFFA20089BEAE /* ThirdPart */,
+				B88C91A81C5AFF900089BEAE /* Model */,
 				B88C91561C59F8BA0089BEAE /* SignIn&signOut */,
 				B88C91551C59F8A90089BEAE /* AppDelegate&storyboard */,
 				B88C91541C59F8940089BEAE /* Base */,
@@ -139,6 +248,8 @@
 		B88C91541C59F8940089BEAE /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				B88C92231C5B11020089BEAE /* STNavigationController.h */,
+				B88C92241C5B11020089BEAE /* STNavigationController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -157,6 +268,9 @@
 		B88C91561C59F8BA0089BEAE /* SignIn&signOut */ = {
 			isa = PBXGroup;
 			children = (
+				B88C919F1C5AF6B30089BEAE /* model */,
+				B88C91A01C5AF6B30089BEAE /* controller */,
+				B88C91A11C5AF6B30089BEAE /* view */,
 			);
 			path = "SignIn&signOut";
 			sourceTree = "<group>";
@@ -327,40 +441,169 @@
 		B88C918E1C5A08D00089BEAE /* 4.My */ = {
 			isa = PBXGroup;
 			children = (
-				B88C918F1C5A08D00089BEAE /* controller */,
-				B88C91901C5A08D00089BEAE /* view */,
+				B88C91AF1C5B00500089BEAE /* BasePart */,
+				B88C91B41C5B00500089BEAE /* MySetting */,
 			);
 			path = 4.My;
 			sourceTree = "<group>";
 		};
-		B88C918F1C5A08D00089BEAE /* controller */ = {
+		B88C919F1C5AF6B30089BEAE /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B88C91911C5A08E00089BEAE /* MyTableViewController.h */,
-				B88C91921C5A08E00089BEAE /* MyTableViewController.m */,
+				B88C91BB1C5B00A10089BEAE /* UserInfo.h */,
+				B88C91BC1C5B00A10089BEAE /* UserInfo.m */,
+				B88C91C81C5B01FF0089BEAE /* UpdateLogPwd.h */,
+				B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */,
+				B88C91CB1C5B02390089BEAE /* security.h */,
+				B88C91CC1C5B02390089BEAE /* security.m */,
+				B88C91CE1C5B02F40089BEAE /* LogPwd.h */,
+				B88C91CF1C5B02F40089BEAE /* LogPwd.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B88C91A01C5AF6B30089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B88C92031C5B06E40089BEAE /* loginNameVerificationViewController.h */,
+				B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */,
+				B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */,
+				B88C91FE1C5B06D50089BEAE /* SMSVerificationViewController.h */,
+				B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */,
+				B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */,
+				B88C91A21C5AFB030089BEAE /* SignInViewController.h */,
+				B88C91A31C5AFB030089BEAE /* SignInViewController.m */,
+				B88C91A41C5AFB030089BEAE /* SignInViewController.xib */,
+				B88C91BE1C5B01A00089BEAE /* findPwdViewCtr.h */,
+				B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */,
+				B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */,
+				B88C91C31C5B01D90089BEAE /* updatePwdViewCtr.h */,
+				B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */,
+				B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */,
+				B88C91F71C5B06750089BEAE /* TextFieldCellTableViewCell.h */,
+				B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */,
+				B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */,
+				B88C92081C5B06FF0089BEAE /* regitViewCtr.h */,
+				B88C92091C5B06FF0089BEAE /* regitViewCtr.m */,
+				B88C920A1C5B07000089BEAE /* regitViewCtr.xib */,
+				B88C92161C5B08C80089BEAE /* ChoicePwd.h */,
+				B88C92171C5B08C80089BEAE /* ChoicePwd.m */,
+				B88C92181C5B08C80089BEAE /* ChoicePwd.xib */,
+				B88C921B1C5B08E00089BEAE /* SecondPwd.h */,
+				B88C921C1C5B08E00089BEAE /* SecondPwd.m */,
+				B88C921D1C5B08E00089BEAE /* SecondPwd.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
 		};
-		B88C91901C5A08D00089BEAE /* view */ = {
+		B88C91A11C5AF6B30089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = view;
 			sourceTree = "<group>";
 		};
-		B88C91961C5A0AF50089BEAE /* model */ = {
+		B88C91A81C5AFF900089BEAE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B88C920D1C5B08690089BEAE /* pinyin.c */,
+				B88C920E1C5B08690089BEAE /* pinyin.h */,
+				B88C920F1C5B08690089BEAE /* ChineseString.h */,
+				B88C92101C5B08690089BEAE /* ChineseString.m */,
+				B88C92111C5B08690089BEAE /* TKAddressBook.h */,
+				B88C92121C5B08690089BEAE /* TKAddressBook.m */,
+				B88C92201C5B09070089BEAE /* FriendListInfo.h */,
+				B88C92211C5B09070089BEAE /* FriendListInfo.m */,
 			);
-			path = model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		B88C919E1C5A16BA0089BEAE /* thirdPart */ = {
+		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91D11C5B05FC0089BEAE /* SBJson */,
+			);
+			path = ThirdPart;
+			sourceTree = "<group>";
+		};
+		B88C91AF1C5B00500089BEAE /* BasePart */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91B01C5B00500089BEAE /* controller */,
+				B88C91B31C5B00500089BEAE /* view */,
+			);
+			path = BasePart;
+			sourceTree = "<group>";
+		};
+		B88C91B01C5B00500089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91B11C5B00500089BEAE /* MyTableViewController.h */,
+				B88C91B21C5B00500089BEAE /* MyTableViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91B31C5B00500089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = thirdPart;
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91B41C5B00500089BEAE /* MySetting */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91B51C5B00500089BEAE /* controller */,
+				B88C91B81C5B00500089BEAE /* view */,
+			);
+			path = MySetting;
+			sourceTree = "<group>";
+		};
+		B88C91B51C5B00500089BEAE /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B88C91B81C5B00500089BEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B88C91D11C5B05FC0089BEAE /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				B88C91D21C5B05FC0089BEAE /* NSObject+SBJson.h */,
+				B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */,
+				B88C91D41C5B05FC0089BEAE /* SBJson.h */,
+				B88C91D51C5B05FC0089BEAE /* SBJsonParser.h */,
+				B88C91D61C5B05FC0089BEAE /* SBJsonParser.m */,
+				B88C91D71C5B05FC0089BEAE /* SBJsonStreamParser.h */,
+				B88C91D81C5B05FC0089BEAE /* SBJsonStreamParser.m */,
+				B88C91D91C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.h */,
+				B88C91DA1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m */,
+				B88C91DB1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.h */,
+				B88C91DC1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m */,
+				B88C91DD1C5B05FC0089BEAE /* SBJsonStreamParserState.h */,
+				B88C91DE1C5B05FC0089BEAE /* SBJsonStreamParserState.m */,
+				B88C91DF1C5B05FC0089BEAE /* SBJsonStreamWriter.h */,
+				B88C91E01C5B05FC0089BEAE /* SBJsonStreamWriter.m */,
+				B88C91E11C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.h */,
+				B88C91E21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m */,
+				B88C91E31C5B05FC0089BEAE /* SBJsonStreamWriterState.h */,
+				B88C91E41C5B05FC0089BEAE /* SBJsonStreamWriterState.m */,
+				B88C91E51C5B05FC0089BEAE /* SBJsonTokeniser.h */,
+				B88C91E61C5B05FC0089BEAE /* SBJsonTokeniser.m */,
+				B88C91E71C5B05FC0089BEAE /* SBJsonUTF8Stream.h */,
+				B88C91E81C5B05FC0089BEAE /* SBJsonUTF8Stream.m */,
+				B88C91E91C5B05FC0089BEAE /* SBJsonWriter.h */,
+				B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */,
+			);
+			path = SBJson;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,10 +667,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
+				B88C920C1C5B07000089BEAE /* regitViewCtr.xib in Resources */,
+				B88C91C71C5B01D90089BEAE /* updatePwdViewCtr.xib in Resources */,
+				B88C921F1C5B08E00089BEAE /* SecondPwd.xib in Resources */,
+				B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
+				B88C91FB1C5B06750089BEAE /* TextFieldCellTableViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
+				B88C92071C5B06E40089BEAE /* loginNameVerificationViewController.xib in Resources */,
+				B88C91A61C5AFB030089BEAE /* SignInViewController.xib in Resources */,
 				B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */,
+				B88C91C21C5B01A00089BEAE /* findPwdViewCtr.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,12 +738,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88C92131C5B08690089BEAE /* pinyin.c in Sources */,
+				B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */,
+				B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */,
 				B88C91871C5A084F0089BEAE /* MainPageViewController.m in Sources */,
+				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
+				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
+				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
+				B88C91A51C5AFB030089BEAE /* SignInViewController.m in Sources */,
+				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
+				B88C91C61C5B01D90089BEAE /* updatePwdViewCtr.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
+				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
+				B88C91CD1C5B02390089BEAE /* security.m in Sources */,
+				B88C92141C5B08690089BEAE /* ChineseString.m in Sources */,
+				B88C921E1C5B08E00089BEAE /* SecondPwd.m in Sources */,
+				B88C92011C5B06D50089BEAE /* SMSVerificationViewController.m in Sources */,
+				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
+				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
+				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
+				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
+				B88C91C11C5B01A00089BEAE /* findPwdViewCtr.m in Sources */,
+				B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
-				B88C91931C5A08E00089BEAE /* MyTableViewController.m in Sources */,
+				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
+				B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */,
+				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
+				B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */,
+				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
+				B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */,
+				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
+				B88C92191C5B08C80089BEAE /* ChoicePwd.m in Sources */,
+				B88C91FA1C5B06750089BEAE /* TextFieldCellTableViewCell.m in Sources */,
+				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
+				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

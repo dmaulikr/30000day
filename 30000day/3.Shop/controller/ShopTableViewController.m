@@ -15,8 +15,8 @@
 @implementation ShopTableViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
 }
 
 #pragma mark - Table view data source

@@ -94,7 +94,7 @@
         <!--Item-->
         <scene sceneID="7v7-at-6Eq">
             <objects>
-                <navigationController id="M3Z-iZ-srR" sceneMemberID="viewController">
+                <navigationController id="M3Z-iZ-srR" customClass="STNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Xgb-Tt-maw"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -145,7 +145,7 @@
         <!--Item-->
         <scene sceneID="Fd0-Pj-3oB">
             <objects>
-                <navigationController id="PLF-Sl-8Xt" sceneMemberID="viewController">
+                <navigationController id="PLF-Sl-8Xt" customClass="STNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fx7-zp-Ltz"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -164,7 +164,7 @@
         <!--Item-->
         <scene sceneID="ldC-a1-6yG">
             <objects>
-                <navigationController id="aKn-kt-rPL" sceneMemberID="viewController">
+                <navigationController id="aKn-kt-rPL" customClass="STNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="e1x-Rv-c0A"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -183,7 +183,7 @@
         <!--Item-->
         <scene sceneID="UBb-NB-YJw">
             <objects>
-                <navigationController id="a06-Eg-MEK" sceneMemberID="viewController">
+                <navigationController id="a06-Eg-MEK" customClass="STNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="3tG-zv-833"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>

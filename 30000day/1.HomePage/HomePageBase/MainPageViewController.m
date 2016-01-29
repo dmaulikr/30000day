@@ -7,8 +7,11 @@
 //
 
 #import "MainPageViewController.h"
+#import "SignInViewController.h"
 
 @interface MainPageViewController ()
+
+@property (nonatomic,strong) UserInfo* userinfo;
 
 @end
 
@@ -16,6 +19,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    _userinfo=[TKAddressBook shareControl].userInfo;
+    
+    if (_userinfo.isfirstlog==0) {
+        
+        NSString* logname=[[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
+        
+        NSString* password=[[NSUserDefaults standardUserDefaults]stringForKey:@"password"];
+        
+        if (logname==nil || password==nil) {
+            
+            SignInViewController *logview = [[SignInViewController alloc] init];
+            
+            [self.navigationController pushViewController:logview animated:YES];
+            
+            return;
+            
+        } else {
+            
+//            [self loginPree];
+            
+        }
+        
+    } else if (_userinfo.isfirstlog==1){
+        
+//      [self scrollViewWithConteroll];
+        
+        _userinfo.isfirstlog=-1;
+    }
+    
+    self.tabBarController.tabBar.hidden=NO;
 }
 
 - (void)didReceiveMemoryWarning {

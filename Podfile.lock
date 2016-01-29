@@ -20,11 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.1.2.9)
-  - AVOSCloudIM (3.1.2.9):
-    - AVOSCloud
-  - BaiduMapKit (2.10.0)
-  - DACircularProgress (2.3.1)
   - iCarousel (1.8.2)
   - JSONModel (1.2.0)
   - M13BadgeView (1.0.4)
@@ -34,10 +29,6 @@ PODS:
   - MagicalRecord/Core (2.3.2)
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.0)
-  - MWPhotoBrowser (2.1.1):
-    - DACircularProgress (~> 2.3)
-    - MBProgressHUD (~> 0.9)
-    - SDWebImage (!= 3.7.2, ~> 3.7)
   - pop (1.0.8)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -49,16 +40,11 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - UMengAnalytics (3.6.6)
-  - UMengSocial (4.4)
   - YYModel (0.9.12)
   - YYText (0.9.19)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
-  - AVOSCloud (= 3.1.2.9)
-  - AVOSCloudIM (= 3.1.2.9)
-  - BaiduMapKit
   - iCarousel
   - JSONModel
   - M13BadgeView
@@ -66,21 +52,14 @@ DEPENDENCIES:
   - MagicalRecord
   - MBProgressHUD
   - MJRefresh
-  - MWPhotoBrowser (~> 2.1.1)
   - pop
   - ReactiveCocoa
   - SDWebImage
-  - UMengAnalytics
-  - UMengSocial (~> 4.3)
   - YYModel
   - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AVOSCloud: 7d2406a4954c15c98363ce841b257b81cdba0bc9
-  AVOSCloudIM: 07f8d18692923c70d909ec82b7776210d38535d5
-  BaiduMapKit: 5df028c6b455d29e68e89694adbcf9d37a4bcc99
-  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
   M13BadgeView: 700dd0714fdc837c0cf1c8c004454963ec22441f
@@ -88,12 +67,9 @@ SPEC CHECKSUMS:
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
-  MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
-  UMengSocial: aba7296602310385114d82c255539a7bef3b7ab0
   YYModel: 33a27f41a995f4c36ff8178421bac9f221a9c7ea
   YYText: b823b71b99b526c4a81029ecb59f3d8172ed5c9a
 

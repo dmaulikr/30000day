@@ -9,21 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AVOSCloud.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>AVOSCloudIM.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>DACircularProgress.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -45,16 +30,6 @@
 			<false/>
 		</dict>
 		<key>MJRefresh.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MWPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -107,17 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1FEEB1B85A25D0A13B1B291A464D1E33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>342DE230F407040A38A63494D90B81F4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3FD66A1FAE21F468524C41DBCD371A1E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>40E0D9B63F3B0AB87133A0339297088E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,17 +97,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4571A5623B8F05CA11A80E371AA8454D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>51B105B523F366F13884508BBC4F2FCC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5813251FEA21E4AEE97385709F1912DE</key>
+		<key>712BA6C28F2645099D67AEAB7096A86E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,22 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9775596B3CA16905FC8F66DA8E2A3C67</key>
+		<key>B74DB0870CCF04E9A9F68C0498E027A9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1E41204D4576FC828D6968A90E49B0F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B137DF93D4C316FD4B1FA3BECCEB3C93</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BF4BD45FA0E037AC0DB14589A6580A56</key>
+		<key>B9AB2625EED34173C4378179B948416E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,12 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
+		<key>DDBAC02B384EF498F12403BF5E07AE7F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2FE87384A67337831E53490EEA8BF11</key>
+		<key>F41395E7993099AC5524402935C8D2B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
