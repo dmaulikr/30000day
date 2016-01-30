@@ -13,8 +13,6 @@
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
 
-#define BLUECOLOR [UIColor colorWithRed:109.0/255 green:157.0/255 blue:234.0/255 alpha:1.0]
-
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) UserInfo *userinfo;
@@ -38,29 +36,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    //设置子控制器
-    MainPageViewController *mainPageController = [[MainPageViewController alloc] init];
-    PersonViewController *personViewController = [[PersonViewController alloc] init];
-    MessageViewController *messageViewController = [[MessageViewController alloc] init];
-    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
-    [self addChildViewController:mainPageController];
-    [self addChildViewController:personViewController];
-    [self addChildViewController:messageViewController];
-    [self addChildViewController:calendarViewController];
     
-    //配置UI
-    [self configUI];
+    _userinfo = TKAddressBookManager.userInfo;
     
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
-    _userinfo = [TKAddressBook shareControl].userInfo;
-    
-    if (_userinfo.isfirstlog==0) {
+    if (_userinfo.isfirstlog == 0) {
         
         NSString *logname = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
         
@@ -83,7 +62,43 @@
     } else if (_userinfo.isfirstlog == 1) {
         
         //初始化UI界面
-//        [self configUI];
+         [self configUI];
+        
+        _userinfo.isfirstlog = -1;
+        
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    _userinfo = TKAddressBookManager.userInfo;
+    
+    if (_userinfo.isfirstlog == 0) {
+        
+        NSString *logname = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
+        
+        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+        
+        if (logname == nil || password == nil) {
+            
+            SignInViewController *logview = [[SignInViewController alloc] init];
+            
+            [self.navigationController pushViewController:logview animated:YES];
+            
+            return;
+            
+        } else {
+            
+            [self loginPree];
+            
+        }
+        
+    } else if (_userinfo.isfirstlog == 1) {
+        
+        //初始化UI界面
+        [self configUI];
         
         _userinfo.isfirstlog = -1;
         
@@ -95,11 +110,11 @@
 #pragma  mark -根据用户最近登录的账号自动登录
 - (void)loginPree {
     
-    NSString* logname=[[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
+    NSString *logname = [[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
     
-    NSString* password=[[NSUserDefaults standardUserDefaults]stringForKey:@"password"];
+    NSString *password = [[NSUserDefaults standardUserDefaults]stringForKey:@"password"];
     
-    NSString * url = @"http://116.254.206.7:12580/M/API/Login?";
+    NSString *url = @"http://116.254.206.7:12580/M/API/Login?";
     
     url = [url stringByAppendingString:@"LoginName="];
     
@@ -109,7 +124,7 @@
     
     url = [url stringByAppendingString:password];
     
-    NSMutableString *mUrl=[[NSMutableString alloc] initWithString:url];
+    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
     
     NSError *error;
     
@@ -140,16 +155,14 @@
     
     if (dict != nil) {
         
-        user.isfirstlog=-1;
+        user.isfirstlog = -1;
         
-        [TKAddressBook shareControl].userInfo = user;
+        TKAddressBookManager.userInfo = user;
         
-        _userinfo=user;
-        
-//       [self getMyFriends];
-        
+        _userinfo = user;
+    
         //初始化UI界面
-//       [self configUI];
+       [self configUI];
         
     } else {
         
@@ -170,29 +183,37 @@
 #pragma mark ----初始化UI界面
 - (void)configUI {
     
+    self.tabBarController.tabBar.hidden=NO;
+    //设置子控制器
+    MainPageViewController *mainPageController = [[MainPageViewController alloc] init];
+    
+    PersonViewController   *personViewController = [[PersonViewController alloc] init];
+    
+    MessageViewController  *messageViewController = [[MessageViewController alloc] init];
+    
+    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
+    
+    [self addChildViewController:mainPageController];
+    
+    [self addChildViewController:personViewController];
+    
+    [self addChildViewController:messageViewController];
+    
+    [self addChildViewController:calendarViewController];
+    
     [_scrollView setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
    
-    NSArray *childControllerArray = self.childViewControllers;
-    
-    MainPageViewController *pageViewController = (MainPageViewController *)childControllerArray[0];
-    
-    UIView *mainView = pageViewController.view;
+    UIView *mainView = mainPageController.view;
     
     mainView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    PersonViewController *viewController = (PersonViewController *)childControllerArray[1];
-    
-    UIView *personView = viewController.view;
+    UIView *personView = personViewController.view;
     
     personView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    MessageViewController *messageViewController = (MessageViewController *)childControllerArray[2];
-    
+
     UIView *messageView = messageViewController.view;
     
      messageView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    CalendarViewController *calendarViewController = (CalendarViewController *)childControllerArray[3];
     
     UIView *calendarView  = calendarViewController.view;
     

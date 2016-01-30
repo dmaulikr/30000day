@@ -31,7 +31,7 @@
     
     [super viewDidLoad];
     
-     _userinfo = [TKAddressBook shareControl].userInfo;
+     _userinfo = TKAddressBookManager.userInfo;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,7 +40,7 @@
     
     self.tabBarController.tabBar.hidden=NO;
     
-    UserInfo *u = [TKAddressBook shareControl].userInfo;
+    UserInfo *u = TKAddressBookManager.userInfo;
     
     if (u.isfirstlog==1) {
         
@@ -234,7 +234,7 @@
         
         userInfoViewController *user=[[userInfoViewController alloc]init];
         
-        user.title=@"个人信息";
+        user.title = @"个人信息";
         
 //        user.hidesBottomBarWhenPushed = YES;
         
@@ -285,7 +285,7 @@
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [TKAddressBook shareControl].userInfo = nil;
+        TKAddressBookManager.userInfo = nil;
         
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"username"];
         

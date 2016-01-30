@@ -19,24 +19,37 @@
 #import "STNavigationController.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
+
 #define DB_ID         @"id"
+
 #define DB_TITLE      @"title"
+
 #define DB_CONTENT    @"content"
+
 #define DB_DATE       @"date"
+
 #define DB_TIME       @"time"
+
 #define DB_NUMBER     @"number"
+
 #define DB_USERID     @"userid"
+
 #define DB_TABLENAME  @"calendarinfo"
 
 #define kSubViewHeight 25
-static const NSInteger isfirstload=0;
+
+static const NSInteger isfirstload = 0;
+
 #define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
-
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
+
 #define jhOpenID @"JHcac3a9be7b4f37a04bebb4b9bf5414eb"
+
 #define jhPath @"http://op.juhe.cn/onebox/weather/query"
+
 #define jhAppID @"73"
+
 #define jhMethod @"GET"
 
 //好友进度条圈圈的厚度
@@ -44,13 +57,26 @@ static const NSInteger isfirstload=0;
 
 //个人设置跟好友详细信息界面头像的大小
 #define userSetingIconSize [UIScreen mainScreen].bounds.size.width/3
+
 #define userFriendIconSize [UIScreen mainScreen].bounds.size.width/2
 
 #define maxSelectDateTime 2050
+
 #define minSelectDateTime 1900
 
 #define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
+
 #define SCREEN_HEIGHT           [[UIScreen mainScreen] bounds].size.height
+
+#define BLUECOLOR [UIColor colorWithRed:109.0/255 green:157.0/255 blue:234.0/255 alpha:1.0]
+
+#define  TKAddressBookManager [TKAddressBook shareControl]
+
+#define CLIENT_ID                   @"2015091511107"
+
+#define CLIENT_SECRET               @"0a34a9366d438e6ac5ae3480d024c4ef"
+
+#define LO_API_SERVER               @"https://moapi.lianjia.com"                   //正式服务器地址
 
 #endif
 

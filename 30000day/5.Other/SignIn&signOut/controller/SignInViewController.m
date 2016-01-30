@@ -220,7 +220,7 @@
         
         user.isfirstlog=1;
         
-        [TKAddressBook shareControl].userInfo = user;
+        TKAddressBookManager.userInfo = user;
         
         [[NSUserDefaults standardUserDefaults] setObject:_userNameTF.text forKey:@"username"];
         

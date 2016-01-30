@@ -10,4 +10,6 @@
 
 @interface MainPageViewController : UIViewController
 
+@property (nonatomic) UserInfo *userInfo;
+
 @end

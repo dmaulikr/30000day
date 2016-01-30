@@ -8,7 +8,11 @@
 
 #import "AppDelegate.h"
 
+@import HealthKit;
+
 @interface AppDelegate ()
+
+@property (nonatomic) HKHealthStore *healthStore1;
 
 @end
 
@@ -16,8 +20,38 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //***********************************配置获取健康信息*******************************//
+    if ([HKHealthStore isHealthDataAvailable]) {
+        _healthStore1 = [[HKHealthStore alloc] init];
+        //NSSet *writeDataTypes = [self dataTypesToWrite];
+        NSSet *readDataTypes = [self dataTypesToRead];
+        
+        [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+            
+            if (!success) {
+                NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
+                return;
+            }
+        }];
+        
+    }
     return YES;
+}
+
+// Returns the types of data that Fit wishes to read from HealthKit.
+- (NSSet *)dataTypesToRead {
+    
+    HKQuantityType *stepCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    
+    HKQuantityType* lo=[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+    
+    HKQuantityType *jl = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    
+    HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    
+    HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    
+    return [NSSet setWithObjects: stepCountType,lo,jl,heightType, weightType, nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

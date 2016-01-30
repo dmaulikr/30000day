@@ -10,18 +10,48 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="lNB-fq-ta1"/>
+                        <viewControllerLayoutGuide type="bottom" id="IOF-bU-skU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="Blb-8m-8G2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015年 30000天_001. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="inz-iF-oXJ">
+                                <rect key="frame" x="20" y="527" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30000天" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="rvk-1P-Qah">
+                                <rect key="frame" x="20" y="185" width="280" height="43"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="inz-iF-oXJ" secondAttribute="centerX" id="5rG-cQ-WTr"/>
+                            <constraint firstItem="rvk-1P-Qah" firstAttribute="leading" secondItem="Blb-8m-8G2" secondAttribute="leading" constant="20" symbolic="YES" id="LwL-e8-cVs"/>
+                            <constraint firstItem="rvk-1P-Qah" firstAttribute="centerY" secondItem="Blb-8m-8G2" secondAttribute="centerY" constant="-77.5" id="QRY-gv-s65"/>
+                            <constraint firstItem="inz-iF-oXJ" firstAttribute="leading" secondItem="Blb-8m-8G2" secondAttribute="leading" constant="20" symbolic="YES" id="aTE-Hd-H6X"/>
+                            <constraint firstAttribute="bottom" secondItem="inz-iF-oXJ" secondAttribute="bottom" constant="20" id="lWT-dY-ay0"/>
+                            <constraint firstItem="rvk-1P-Qah" firstAttribute="centerX" secondItem="Blb-8m-8G2" secondAttribute="centerX" id="v46-sN-RtG"/>
+                        </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="view" destination="Blb-8m-8G2" id="jfV-Me-Ea2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="251" y="358"/>
+            <point key="canvasLocation" x="165" y="343"/>
         </scene>
     </scenes>
 </document>
