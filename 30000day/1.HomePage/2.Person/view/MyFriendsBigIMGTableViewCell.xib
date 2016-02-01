@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendsBigIMGCell" id="KGk-i7-Jjw" customClass="MyFriendsBigIMGTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="425"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="424"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXm-OR-g2f">
+                        <rect key="frame" x="15" y="392" width="28" height="17"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-4A-whl">
+                        <rect key="frame" x="363" y="377" width="22" height="22"/>
+                        <animations/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-4N-lzk" customClass="SDPieLoopProgressView">
+                        <rect key="frame" x="336" y="377" width="22" height="22"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="3SL-Uu-bl1"/>
+                            <constraint firstAttribute="width" constant="22" id="6NG-HG-WYd"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-z8-I65">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="344"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="344" id="tOm-2o-chG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4s-rH-fDp">
+                        <rect key="frame" x="15" y="361" width="34" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="BXm-OR-g2f" secondAttribute="bottom" constant="15" id="3HN-Wt-3kd"/>
+                    <constraint firstItem="W4s-rH-fDp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="6U2-9v-2T4"/>
+                    <constraint firstAttribute="bottom" secondItem="Odj-4N-lzk" secondAttribute="bottom" constant="25" id="8Xl-52-aEO"/>
+                    <constraint firstAttribute="trailing" secondItem="Ekb-4A-whl" secondAttribute="trailing" constant="15" id="Pes-6R-gz4"/>
+                    <constraint firstAttribute="trailing" secondItem="Qvm-z8-I65" secondAttribute="trailing" id="RNR-rj-qEE"/>
+                    <constraint firstItem="BXm-OR-g2f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YSG-9h-Di4"/>
+                    <constraint firstItem="Qvm-z8-I65" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ebu-DA-zaA"/>
+                    <constraint firstItem="BXm-OR-g2f" firstAttribute="top" secondItem="W4s-rH-fDp" secondAttribute="bottom" constant="10" id="gLh-HI-SNS"/>
+                    <constraint firstItem="Qvm-z8-I65" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="iZD-CA-g6Y"/>
+                    <constraint firstAttribute="bottom" secondItem="Ekb-4A-whl" secondAttribute="bottom" constant="25" id="r2b-RD-KSk"/>
+                    <constraint firstItem="Ekb-4A-whl" firstAttribute="leading" secondItem="Odj-4N-lzk" secondAttribute="trailing" constant="5" id="zOA-O4-c5D"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <connections>
+                <outlet property="iconImg" destination="Qvm-z8-I65" id="Ebp-hb-x3o"/>
+                <outlet property="logName" destination="BXm-OR-g2f" id="ChJ-Kg-CN3"/>
+                <outlet property="nameLab" destination="W4s-rH-fDp" id="xjl-j3-oex"/>
+                <outlet property="progressView" destination="Odj-4N-lzk" id="rcG-ll-OS9"/>
+                <outlet property="upDownImg" destination="Ekb-4A-whl" id="2ad-55-x4k"/>
+            </connections>
+            <point key="canvasLocation" x="209" y="244"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="lower" width="22" height="22"/>
+    </resources>
+</document>

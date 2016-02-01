@@ -140,6 +140,13 @@
 		B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */; };
 		B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */; };
 		B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */; };
+		B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */; };
+		B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */; };
+		B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */; };
+		B8F2D9CF1C5F0507002C7712 /* SDPieLoopProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9CB1C5F0507002C7712 /* SDPieLoopProgressView.m */; };
+		B8F2D9D01C5F0507002C7712 /* SDTransparentPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9CD1C5F0507002C7712 /* SDTransparentPieProgressView.m */; };
+		B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */; };
+		B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -371,6 +378,18 @@
 		B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
 		B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabHeaderView.h; sourceTree = "<group>"; };
 		B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabHeaderView.m; sourceTree = "<group>"; };
+		B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFriendsTableViewCell.h; sourceTree = "<group>"; };
+		B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myFriendsTableViewCell.m; sourceTree = "<group>"; };
+		B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		B8F2D9C81C5F0507002C7712 /* SDBaseProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBaseProgressView.h; sourceTree = "<group>"; };
+		B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBaseProgressView.m; sourceTree = "<group>"; };
+		B8F2D9CA1C5F0507002C7712 /* SDPieLoopProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPieLoopProgressView.h; sourceTree = "<group>"; };
+		B8F2D9CB1C5F0507002C7712 /* SDPieLoopProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPieLoopProgressView.m; sourceTree = "<group>"; };
+		B8F2D9CC1C5F0507002C7712 /* SDTransparentPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTransparentPieProgressView.h; sourceTree = "<group>"; };
+		B8F2D9CD1C5F0507002C7712 /* SDTransparentPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTransparentPieProgressView.m; sourceTree = "<group>"; };
+		B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendsBigIMGTableViewCell.h; sourceTree = "<group>"; };
+		B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendsBigIMGTableViewCell.m; sourceTree = "<group>"; };
+		B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendsBigIMGTableViewCell.xib; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -612,6 +631,12 @@
 		B88C91761C5A07630089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */,
+				B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */,
+				B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */,
+				B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */,
+				B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */,
+				B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -790,6 +815,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9C71C5F04F6002C7712 /* SDPieLoopProgressView */,
 				B8F2D9781C5C8B19002C7712 /* JustBen */,
 				B8F2D9411C5B7260002C7712 /* HealthKit */,
 				B8F2D93C1C5B70E2002C7712 /* JHAPISDK */,
@@ -1196,6 +1222,19 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		B8F2D9C71C5F04F6002C7712 /* SDPieLoopProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9C81C5F0507002C7712 /* SDBaseProgressView.h */,
+				B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */,
+				B8F2D9CA1C5F0507002C7712 /* SDPieLoopProgressView.h */,
+				B8F2D9CB1C5F0507002C7712 /* SDPieLoopProgressView.m */,
+				B8F2D9CC1C5F0507002C7712 /* SDTransparentPieProgressView.h */,
+				B8F2D9CD1C5F0507002C7712 /* SDTransparentPieProgressView.m */,
+			);
+			path = SDPieLoopProgressView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1258,6 +1297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
+				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
 				B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9051C5B47ED002C7712 /* area.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
@@ -1296,6 +1336,7 @@
 				B8F2D8D61C5B3996002C7712 /* setUpTableViewController.xib in Resources */,
 				B8F2D9AD1C5C8D2B002C7712 /* MoreTableViewCell.xib in Resources */,
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
+				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityTableViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 			);
@@ -1363,7 +1404,9 @@
 				B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */,
 				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
 				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
+				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
+				B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
@@ -1402,6 +1445,7 @@
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
+				B8F2D9CF1C5F0507002C7712 /* SDPieLoopProgressView.m in Sources */,
 				B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* healthySetUpViewController.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
@@ -1411,6 +1455,7 @@
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
 				B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
+				B8F2D9D01C5F0507002C7712 /* SDTransparentPieProgressView.m in Sources */,
 				B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */,
@@ -1442,6 +1487,7 @@
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,
 				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
+				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

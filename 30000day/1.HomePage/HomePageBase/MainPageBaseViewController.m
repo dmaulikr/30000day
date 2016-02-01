@@ -160,7 +160,10 @@
         TKAddressBookManager.userInfo = user;
         
         _userinfo = user;
-    
+        
+        //为自己的人界面获取到所有好友列表数据
+        [self getMyFriends];
+        
         //初始化UI界面
        [self configUI];
         
@@ -171,6 +174,49 @@
         [alert setTag:-1];
         
         [alert show];
+    }
+}
+
+- (void)getMyFriends {
+    
+    NSString * url = @"http://116.254.206.7:12580/M/API/GetMyFriends?";
+    
+    url = [url stringByAppendingString:@"LoginName="];
+    
+    url = [url stringByAppendingString:_userinfo.LoginName];
+    
+    url = [url stringByAppendingString:@"&LoginPassword="];
+    
+    url = [url stringByAppendingString:_userinfo.LoginPassword];
+    
+    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
+    
+    NSError *error;
+    
+    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
+    
+    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+    
+    NSDictionary * dict = [jsonParser objectWithString:jsonStr error:nil];
+    
+    NSLog(@"%@",dict);
+    
+    if ( dict!= nil) {
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        for (NSDictionary *dic in dict) {
+            
+            FriendListInfo *ff = [[FriendListInfo alloc] init];
+            
+            [ff setValuesForKeysWithDictionary:dic];
+            
+            [array addObject:ff];
+        }
+        
+        UserInfo *user = [TKAddressBook shareControl].userInfo;
+        
+        user.friendsArray = array;
     }
 }
 

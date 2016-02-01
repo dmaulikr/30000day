@@ -57,7 +57,7 @@
 //@property (nonatomic ,copy) NSString *RegDate;//注册日期
 @property (nonatomic ,assign) NSInteger isfirstlog;
 
-@property (nonatomic ,copy)NSArray* friendsArray;
+@property (nonatomic ,copy) NSArray *friendsArray;
 
 +(UserInfo *)userWithUserInfo:(UserInfo*)user;
 
