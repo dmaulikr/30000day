@@ -282,7 +282,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section==0) {
+    if (indexPath.section == 0) {
         
         userInfoViewController *user=[[userInfoViewController alloc]init];
         
@@ -290,18 +290,18 @@
         
         [self.navigationController pushViewController:user animated:YES];
         
-    } else if (indexPath.section==1) {
+    } else if (indexPath.section == 1) {
         
-        if (indexPath.row==0) {
+        if (indexPath.row == 0) {
             
             healthySetUpViewController *hsc=[[healthySetUpViewController alloc]init];
             
             [self.navigationController pushViewController:hsc animated:YES];
             
         }
-    } else if (indexPath.section==2) {
+    } else if (indexPath.section == 2) {
         
-        if (indexPath.row==0) {
+        if (indexPath.row == 0) {
             
             securityTableViewController *stc=[[securityTableViewController alloc]init];
             

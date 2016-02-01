@@ -8,13 +8,9 @@
 
 #import "SignInViewController.h"
 #import "findPwdViewCtr.h"
-//#import "mainViewCtr.h"
-//#import "mainToolScrollViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
 #import "LogPwd.h"
-//#import "MainTabBarController.h"
-//#import "mainToolScrollViewController.h"
 #import "SMSVerificationViewController.h"
 #import "loginNameVerificationViewController.h"
 #import "TKAddressBook.h"
@@ -45,13 +41,12 @@
 
 @implementation SignInViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBarController.tabBar.hidden=YES;
+    self.tabBarController.tabBar.hidden = YES;
     
-    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationItem setHidesBackButton:NO animated:YES];
     
     self.navigationItem.title = @"登录";
     
@@ -106,13 +101,13 @@
     
     [self.userPwdTF setDelegate:self];
     
-    _userlognamepwd=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
+    _userlognamepwd = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
     
-    if (_userlognamepwd.count>0) {
+    if (_userlognamepwd.count > 0) {
         
-        _tableview=[[UITableView alloc]init];
+        _tableview = [[UITableView alloc]init];
         
-        _tableview.hidden=YES;
+        _tableview.hidden = YES;
         
         [self.view addSubview:_tableview];
         
@@ -130,18 +125,17 @@
         
         _userNameTF.clearButtonMode = UITextFieldViewModeWhileEditing;
         
-        //[_tableview setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
         [_tableview.layer setCornerRadius:8.0];
         
         [_tableview setDelegate:self];
         
         [_tableview setDataSource:self];
         
-        _tableview.layer.borderWidth=0.5;
+        _tableview.layer.borderWidth = 0.5;
         
-        _tableview.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        _tableview.layer.borderColor = [UIColor lightGrayColor].CGColor;
         
-        _tableview.bounces=NO;  //不让上下拉动弹簧效果
+        _tableview.bounces = NO;  //不让上下拉动弹簧效果
     }
 
 }

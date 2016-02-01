@@ -547,6 +547,7 @@
 		B88C915F1C59F96D0089BEAE /* 2.Person */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9C11C5EFE8A002C7712 /* model */,
 				B88C91751C5A07630089BEAE /* controller */,
 				B88C91761C5A07630089BEAE /* view */,
 			);
@@ -1184,6 +1185,13 @@
 			children = (
 				B8F2D9AF1C5C8D74002C7712 /* MoreInfo.h */,
 				B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B8F2D9C11C5EFE8A002C7712 /* model */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = model;
 			sourceTree = "<group>";

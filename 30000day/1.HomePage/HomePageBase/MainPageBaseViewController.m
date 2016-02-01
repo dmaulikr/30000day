@@ -405,7 +405,7 @@
 }
 
 #pragma mark ---- UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     CGPoint offset = scrollView.contentOffset;
     

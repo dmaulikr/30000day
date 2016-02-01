@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obu-rM-GgC">
-                    <rect key="frame" x="0.0" y="15" width="375" height="44"/>
+                    <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入要找回密码的账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="spd-md-8U4">
                             <rect key="frame" x="15" y="0.0" width="360" height="44"/>
@@ -36,7 +36,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAh-W9-Ggn">
-                    <rect key="frame" x="15" y="84" width="345" height="44"/>
+                    <rect key="frame" x="15" y="148" width="345" height="44"/>
                     <color key="backgroundColor" red="0.2627450980392157" green="0.41568627450980394" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="273-Qg-Dwy"/>
@@ -51,7 +51,7 @@
                 <constraint firstItem="YAh-W9-Ggn" firstAttribute="top" secondItem="Obu-rM-GgC" secondAttribute="bottom" constant="25" id="Lti-9o-DoQ"/>
                 <constraint firstAttribute="trailing" secondItem="YAh-W9-Ggn" secondAttribute="trailing" constant="15" id="SX3-x8-qVd"/>
                 <constraint firstAttribute="trailing" secondItem="Obu-rM-GgC" secondAttribute="trailing" id="dzF-9x-k9R"/>
-                <constraint firstItem="Obu-rM-GgC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="hEr-zB-xxu"/>
+                <constraint firstItem="Obu-rM-GgC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="79" id="hEr-zB-xxu"/>
                 <constraint firstItem="Obu-rM-GgC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nht-8b-CI5"/>
                 <constraint firstItem="YAh-W9-Ggn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="snN-2a-V1A"/>
             </constraints>
