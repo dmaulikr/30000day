@@ -145,13 +145,13 @@
     
    self.navigationItem.leftBarButtonItem = backItem;
     
-    LogPwd* lp=[LogPwd sharedLogPwd];
+    LogPwd *lp = [LogPwd sharedLogPwd];
     
-    if (lp.log!=nil) {
+    if (lp.log != nil) {
         
-        _userNameTF.text=lp.log;
+        _userNameTF.text = lp.log;
         
-        _userPwdTF.text=lp.pwd;
+        _userPwdTF.text = lp.pwd;
         
     }
 }
@@ -160,8 +160,7 @@
 - (IBAction)findPwd:(UIButton *)sender {
     
     loginNameVerificationViewController* logvf=[[loginNameVerificationViewController alloc]init];
-    
-    logvf.navigationItem.title=@"输入账号";
+
     
     [self.navigationController pushViewController:logvf animated:YES];
 }

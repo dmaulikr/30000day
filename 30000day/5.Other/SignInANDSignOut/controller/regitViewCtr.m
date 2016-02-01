@@ -78,14 +78,6 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-    //返回按钮回调
-    STNavigationController *navigationController = (STNavigationController *)self.navigationController;
-    
-    [navigationController setBackClickBlock:^{
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
 }
 
 

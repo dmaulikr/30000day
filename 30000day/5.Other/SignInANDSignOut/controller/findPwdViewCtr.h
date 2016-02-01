@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface findPwdViewCtr : UIViewController
+@interface findPwdViewCtr : STBaseViewController
 
 @property (weak, nonatomic) UITextField *accountText;
+
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
+
 @property (weak, nonatomic) IBOutlet UITextField *ckText;
+
 @property (weak, nonatomic) IBOutlet UIButton *ckbtn;
+
 - (IBAction)ckbtnclick:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
+
 @end

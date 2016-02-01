@@ -19,65 +19,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.s=[security shareControl];
+    
+    self.s = [security shareControl];
     
     [self loadbtntitle];
     
-    self.RightSwipeGestureRecognizer=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipes:)];
-    [self.RightSwipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:self.RightSwipeGestureRecognizer];
-    
 }
-- (void)handleSwipes:(UISwipeGestureRecognizer *)sender{
-    [self backclick];
-}
--(void)backclick{
-    [self.navigationController popViewControllerAnimated:YES];
-}
--(void)loadbtntitle
-{
+
+- (void)loadbtntitle {
 
     for (int i=1; i<=3; i++) {
+        
         NSString* str=[NSString stringWithFormat:@"Q%d",i];
+        
         NSString* str1=[NSString stringWithFormat:@"-w%d",i];
+        
         if ([self.s.securityDic[str] isEqualToString:str1]) {
+            
             continue;
-        }else{
+            
+        } else {
+            
             NSString* str=[NSString stringWithFormat:@"Q%d",i];
+            
             if (i==1) {
+                
                 [self.PBbtn1 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
-            }if(i==2){
+                
+            } if(i==2) {
+                
                 [self.PBbtn2 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
-            }if(i==3){
+                
+            } if(i==3) {
+                
                 [self.PBbtn3 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
             }
         }
     }
-
-
     if (self.PBbtn1.titleLabel.text==nil) {
-        self.PBbtn1.hidden=YES;
-        self.ASText1.hidden=YES;
+        
+        self.PBbtn1.hidden = YES;
+        
+        self.ASText1.hidden = YES;
+        
     }
-    if (self.PBbtn2.titleLabel.text==nil) {
-        self.PBbtn2.hidden=YES;
-        self.ASText2.hidden=YES;
+    if (self.PBbtn2.titleLabel.text == nil) {
+        
+        self.PBbtn2.hidden = YES;
+        
+        self.ASText2.hidden = YES;
     }
-    if (self.PBbtn3.titleLabel.text==nil) {
-        self.PBbtn3.hidden=YES;
-        self.ASText3.hidden=YES;
+    if (self.PBbtn3.titleLabel.text == nil) {
+        
+        self.PBbtn3.hidden = YES;
+        
+        self.ASText3.hidden = YES;
     }
 }
 
 - (IBAction)submitbtn:(UIButton *)sender {
  
     NSString *URLString=@"http://116.254.206.7:12580/M/API/ValidateQuestion?";
+    
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
-    NSString* p1=[[NSString alloc]init];
-    NSString* p2=[[NSString alloc]init];
-    NSString* p3=[[NSString alloc]init];
+    NSString *p1 = [[NSString alloc] init];
+    
+    NSString *p2 = [[NSString alloc] init];
+    NSString *p3 = [[NSString alloc]init];
     
     NSString* s1=[[NSString alloc]init];
     NSString* s2=[[NSString alloc]init];

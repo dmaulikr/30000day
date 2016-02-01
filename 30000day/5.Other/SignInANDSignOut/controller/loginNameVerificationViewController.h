@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface loginNameVerificationViewController : UIViewController
+@interface loginNameVerificationViewController : STBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 

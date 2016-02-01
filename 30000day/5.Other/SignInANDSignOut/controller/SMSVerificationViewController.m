@@ -29,43 +29,17 @@
     
     [super viewDidLoad];
     
-    [self backBarButtonItem];
     [self.phoneNumber setDelegate:self];
+    
     [self.sms setDelegate:self];
     
     self.textSubView.layer.borderWidth=1.0;
+    
     self.textSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
     self.nextBtn.layer.cornerRadius=6;
+    
     self.nextBtn.layer.masksToBounds=YES;
-}
-
-#pragma mark - 导航栏返回按钮封装
--(void)backBarButtonItem{
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    
-    if(([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)){
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-    }else{
-        self.navigationItem.leftBarButtonItem = leftButton;
-    }
-    
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

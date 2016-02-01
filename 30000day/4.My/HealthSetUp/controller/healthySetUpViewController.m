@@ -71,14 +71,7 @@
     [self ElementplistData];
     
     [self loadHealthy];
-    
-    STNavigationController *navigationController = (STNavigationController *)self.navigationController;
-    
-    [navigationController setBackClickBlock:^{
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    
+   
     [self.mainTable setTableFooterView:[[UIView alloc] init]];
 }
 

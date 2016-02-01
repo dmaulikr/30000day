@@ -10,15 +10,20 @@
 #import "updatePwdViewCtr.h"
 
 
-@interface SecondPwd : UIViewController
+@interface SecondPwd : STBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *PBbtn1;//问题1按钮
+
 @property (weak, nonatomic) IBOutlet UIButton *PBbtn2;
+
 @property (weak, nonatomic) IBOutlet UIButton *PBbtn3;
 
 @property (weak, nonatomic) IBOutlet UITextField *ASText1;//答案1
+
 @property (weak, nonatomic) IBOutlet UITextField *ASText2;
+
 @property (weak, nonatomic) IBOutlet UITextField *ASText3;
 
 - (IBAction)submitbtn:(UIButton *)sender;
+
 @end

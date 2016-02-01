@@ -19,63 +19,48 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self backBarButtonItem];
+    
+    self.title = @"输入账号";
     
     [self.submitBtn addTarget:self action:@selector(nextCP) forControlEvents:UIControlEventTouchUpInside];
+    
     self.submitBtn.layer.cornerRadius=6;
+    
     self.submitBtn.layer.masksToBounds=YES;
     
 }
-#pragma mark - 导航栏返回按钮封装
--(void)backBarButtonItem{
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    
-    if(([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)){
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-    }else{
-        self.navigationItem.leftBarButtonItem = leftButton;
-    }
-    
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-}
 
--(void)back{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)nextCP{
+- (void)nextCP {
+    
     if (self.loginNameText.text==nil) {
+        
         UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"请填写需要找回密码的账号" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        
         [alert show];
+        
         return;
     }
     
     NSString *URLString=@"http://116.254.206.7:12580/M/API/GetValidateQuestion?";
+    
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+    
     NSString *param=[NSString stringWithFormat:@"LoginName=%@",self.loginNameText.text];
+    
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"post"];
+    
     [request setURL:URL];
+    
     [request setHTTPBody:postData];
+    
     NSURLResponse * response;
+    
     NSError * error;
+    
     NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if (error) {

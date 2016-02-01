@@ -16,7 +16,7 @@
 
 @end
 
-@interface MoreMessageViewCtr : UIViewController {
+@interface MoreMessageViewCtr : STBaseViewController {
     
     FMDatabase *db;
     

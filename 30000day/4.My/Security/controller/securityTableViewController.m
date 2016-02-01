@@ -20,47 +20,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self backBarButtonItem];
-    self.title = @"安全中心";
-    UIView* footerview=[[UIView alloc]init];
-    [self.tableView setTableFooterView:footerview];
-    self.titleCellArray=[NSArray arrayWithObjects:@"修改密保",@"修改密码",@"修改手机号码",@"账号绑定", nil];
-    self.tableView.scrollEnabled=NO;
-    
-}
 
-#pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem {
+    self.title = @"安全中心";
     
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
+    UIView *footerview = [[UIView alloc] init];
     
+    [self.tableView setTableFooterView:footerview];
     
-    if (([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)) {
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-        
-    } else {
-        
-        self.navigationItem.leftBarButtonItem = leftButton;
-        
-    }
+    self.titleCellArray = [NSArray arrayWithObjects:@"修改密保",@"修改密码",@"修改手机号码",@"账号绑定", nil];
     
+    self.tableView.scrollEnabled = NO;
     
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,59 +67,6 @@
     
     return cell;
 }
-
--(void)back{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Table view delegate
-
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-*/
 
 /*
 #pragma mark - Navigation

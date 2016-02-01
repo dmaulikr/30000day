@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SMSVerificationViewController : UIViewController
+@interface SMSVerificationViewController : STBaseViewController
+
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+
 @property (weak, nonatomic) IBOutlet UITextField *sms;
+
 @property (weak, nonatomic) IBOutlet UIButton *smsBtn;
+
 - (IBAction)nextBtn:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIView *textSubView;
+
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
 @end

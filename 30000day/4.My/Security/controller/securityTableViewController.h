@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface securityTableViewController : UITableViewController
+@interface securityTableViewController : STBaseTableViewController
 
 @end

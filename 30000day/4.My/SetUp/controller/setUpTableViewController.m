@@ -10,54 +10,26 @@
 #import "setUpTableViewCell.h"
 
 @interface setUpTableViewController ()
-@property (nonatomic,strong)NSArray* titleCellArray;
+
+@property (nonatomic,strong) NSArray *titleCellArray;
+
 @end
 
 @implementation setUpTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self backBarButtonItem];
     
-    UIView* footerview=[[UIView alloc]init];
-    [self.tableView setTableFooterView:footerview];
-    self.titleCellArray=[NSArray arrayWithObjects:@"pm2.5预警",@"天龄下降预警",nil];
-    self.tableView.scrollEnabled=NO;
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-#pragma mark - 导航栏返回按钮封装
--(void)backBarButtonItem{
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    
-    if(([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)){
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-    }else{
-        self.navigationItem.leftBarButtonItem = leftButton;
-    }
-    
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-}
 
+    UIView *footerview = [[UIView alloc]init];
+    
+    [self.tableView setTableFooterView:footerview];
+    
+    self.titleCellArray = [NSArray arrayWithObjects:@"pm2.5预警",@"天龄下降预警",nil];
+    
+    self.tableView.scrollEnabled = NO;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -76,11 +48,12 @@
     return 2;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 12;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString* ID=@"setUpCell";
     setUpTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
     if (cell==nil) {
@@ -99,9 +72,6 @@
     return cell;
 }
 
--(void)back{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

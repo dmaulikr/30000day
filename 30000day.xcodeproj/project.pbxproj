@@ -17,17 +17,7 @@
 		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
 		B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */; };
 		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
-		B88C91A51C5AFB030089BEAE /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91A31C5AFB030089BEAE /* SignInViewController.m */; };
-		B88C91A61C5AFB030089BEAE /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91A41C5AFB030089BEAE /* SignInViewController.xib */; };
 		B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91B21C5B00500089BEAE /* MyTableViewController.m */; };
-		B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91BC1C5B00A10089BEAE /* UserInfo.m */; };
-		B88C91C11C5B01A00089BEAE /* findPwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */; };
-		B88C91C21C5B01A00089BEAE /* findPwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */; };
-		B88C91C61C5B01D90089BEAE /* updatePwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */; };
-		B88C91C71C5B01D90089BEAE /* updatePwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */; };
-		B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */; };
-		B88C91CD1C5B02390089BEAE /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91CC1C5B02390089BEAE /* security.m */; };
-		B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91CF1C5B02F40089BEAE /* LogPwd.m */; };
 		B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */; };
 		B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D61C5B05FC0089BEAE /* SBJsonParser.m */; };
 		B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D81C5B05FC0089BEAE /* SBJsonStreamParser.m */; };
@@ -40,21 +30,9 @@
 		B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E61C5B05FC0089BEAE /* SBJsonTokeniser.m */; };
 		B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91E81C5B05FC0089BEAE /* SBJsonUTF8Stream.m */; };
 		B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */; };
-		B88C91FA1C5B06750089BEAE /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */; };
-		B88C91FB1C5B06750089BEAE /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */; };
-		B88C92011C5B06D50089BEAE /* SMSVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */; };
-		B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */; };
-		B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */; };
-		B88C92071C5B06E40089BEAE /* loginNameVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */; };
-		B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92091C5B06FF0089BEAE /* regitViewCtr.m */; };
-		B88C920C1C5B07000089BEAE /* regitViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C920A1C5B07000089BEAE /* regitViewCtr.xib */; };
 		B88C92131C5B08690089BEAE /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B88C920D1C5B08690089BEAE /* pinyin.c */; };
 		B88C92141C5B08690089BEAE /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92101C5B08690089BEAE /* ChineseString.m */; };
 		B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92121C5B08690089BEAE /* TKAddressBook.m */; };
-		B88C92191C5B08C80089BEAE /* ChoicePwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92171C5B08C80089BEAE /* ChoicePwd.m */; };
-		B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C92181C5B08C80089BEAE /* ChoicePwd.xib */; };
-		B88C921E1C5B08E00089BEAE /* SecondPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C921C1C5B08E00089BEAE /* SecondPwd.m */; };
-		B88C921F1C5B08E00089BEAE /* SecondPwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B88C921D1C5B08E00089BEAE /* SecondPwd.xib */; };
 		B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92211C5B09070089BEAE /* FriendListInfo.m */; };
 		B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92241C5B11020089BEAE /* STNavigationController.m */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
@@ -147,6 +125,30 @@
 		B8F2D9D01C5F0507002C7712 /* SDTransparentPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9CD1C5F0507002C7712 /* SDTransparentPieProgressView.m */; };
 		B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */; };
 		B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */; };
+		B8F2D9FD1C5F324A002C7712 /* ChoicePwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9D91C5F324A002C7712 /* ChoicePwd.m */; };
+		B8F2D9FE1C5F324A002C7712 /* ChoicePwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9DA1C5F324A002C7712 /* ChoicePwd.xib */; };
+		B8F2D9FF1C5F324A002C7712 /* findPwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9DC1C5F324A002C7712 /* findPwdViewCtr.m */; };
+		B8F2DA001C5F324A002C7712 /* findPwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9DD1C5F324A002C7712 /* findPwdViewCtr.xib */; };
+		B8F2DA011C5F324A002C7712 /* loginNameVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9DF1C5F324A002C7712 /* loginNameVerificationViewController.m */; };
+		B8F2DA021C5F324A002C7712 /* loginNameVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9E01C5F324A002C7712 /* loginNameVerificationViewController.xib */; };
+		B8F2DA031C5F324A002C7712 /* regitViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9E21C5F324A002C7712 /* regitViewCtr.m */; };
+		B8F2DA041C5F324A002C7712 /* regitViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9E31C5F324A002C7712 /* regitViewCtr.xib */; };
+		B8F2DA051C5F324A002C7712 /* SecondPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9E51C5F324A002C7712 /* SecondPwd.m */; };
+		B8F2DA061C5F324A002C7712 /* SecondPwd.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9E61C5F324A002C7712 /* SecondPwd.xib */; };
+		B8F2DA071C5F324A002C7712 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9E81C5F324A002C7712 /* SignInViewController.m */; };
+		B8F2DA081C5F324A002C7712 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9E91C5F324A002C7712 /* SignInViewController.xib */; };
+		B8F2DA091C5F324A002C7712 /* SMSVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9EB1C5F324A002C7712 /* SMSVerificationViewController.m */; };
+		B8F2DA0A1C5F324A002C7712 /* SMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9EC1C5F324A002C7712 /* SMSVerificationViewController.xib */; };
+		B8F2DA0B1C5F324A002C7712 /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9EE1C5F324A002C7712 /* TextFieldCellTableViewCell.m */; };
+		B8F2DA0C1C5F324A002C7712 /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9EF1C5F324A002C7712 /* TextFieldCellTableViewCell.xib */; };
+		B8F2DA0D1C5F324A002C7712 /* updatePwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9F11C5F324A002C7712 /* updatePwdViewCtr.m */; };
+		B8F2DA0E1C5F324A002C7712 /* updatePwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9F21C5F324A002C7712 /* updatePwdViewCtr.xib */; };
+		B8F2DA0F1C5F324A002C7712 /* LogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9F51C5F324A002C7712 /* LogPwd.m */; };
+		B8F2DA101C5F324A002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9F71C5F324A002C7712 /* security.m */; };
+		B8F2DA111C5F324A002C7712 /* UpdateLogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9F91C5F324A002C7712 /* UpdateLogPwd.m */; };
+		B8F2DA121C5F324A002C7712 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9FB1C5F324A002C7712 /* UserInfo.m */; };
+		B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA141C5F3448002C7712 /* STBaseViewController.m */; };
+		B8F2DA181C5F396E002C7712 /* STBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA171C5F396E002C7712 /* STBaseTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,25 +169,8 @@
 		B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewController.m; sourceTree = "<group>"; };
 		B88C91941C5A09790089BEAE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B88C91991C5A0B620089BEAE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		B88C91A21C5AFB030089BEAE /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
-		B88C91A31C5AFB030089BEAE /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		B88C91A41C5AFB030089BEAE /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		B88C91B11C5B00500089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
 		B88C91B21C5B00500089BEAE /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
-		B88C91BB1C5B00A10089BEAE /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
-		B88C91BC1C5B00A10089BEAE /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
-		B88C91BE1C5B01A00089BEAE /* findPwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = findPwdViewCtr.h; sourceTree = "<group>"; };
-		B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = findPwdViewCtr.m; sourceTree = "<group>"; };
-		B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = findPwdViewCtr.xib; sourceTree = "<group>"; };
-		B88C91C31C5B01D90089BEAE /* updatePwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updatePwdViewCtr.h; sourceTree = "<group>"; };
-		B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatePwdViewCtr.m; sourceTree = "<group>"; };
-		B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = updatePwdViewCtr.xib; sourceTree = "<group>"; };
-		B88C91C81C5B01FF0089BEAE /* UpdateLogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateLogPwd.h; sourceTree = "<group>"; };
-		B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateLogPwd.m; sourceTree = "<group>"; };
-		B88C91CB1C5B02390089BEAE /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
-		B88C91CC1C5B02390089BEAE /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
-		B88C91CE1C5B02F40089BEAE /* LogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogPwd.h; sourceTree = "<group>"; };
-		B88C91CF1C5B02F40089BEAE /* LogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogPwd.m; sourceTree = "<group>"; };
 		B88C91D21C5B05FC0089BEAE /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		B88C91D41C5B05FC0089BEAE /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -211,30 +196,12 @@
 		B88C91E81C5B05FC0089BEAE /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		B88C91E91C5B05FC0089BEAE /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		B88C91F71C5B06750089BEAE /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
-		B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
-		B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
-		B88C91FE1C5B06D50089BEAE /* SMSVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerificationViewController.h; sourceTree = "<group>"; };
-		B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerificationViewController.m; sourceTree = "<group>"; };
-		B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerificationViewController.xib; sourceTree = "<group>"; };
-		B88C92031C5B06E40089BEAE /* loginNameVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginNameVerificationViewController.h; sourceTree = "<group>"; };
-		B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginNameVerificationViewController.m; sourceTree = "<group>"; };
-		B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginNameVerificationViewController.xib; sourceTree = "<group>"; };
-		B88C92081C5B06FF0089BEAE /* regitViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regitViewCtr.h; sourceTree = "<group>"; };
-		B88C92091C5B06FF0089BEAE /* regitViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regitViewCtr.m; sourceTree = "<group>"; };
-		B88C920A1C5B07000089BEAE /* regitViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = regitViewCtr.xib; sourceTree = "<group>"; };
 		B88C920D1C5B08690089BEAE /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
 		B88C920E1C5B08690089BEAE /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		B88C920F1C5B08690089BEAE /* ChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseString.h; sourceTree = "<group>"; };
 		B88C92101C5B08690089BEAE /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
 		B88C92111C5B08690089BEAE /* TKAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKAddressBook.h; sourceTree = "<group>"; };
 		B88C92121C5B08690089BEAE /* TKAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKAddressBook.m; sourceTree = "<group>"; };
-		B88C92161C5B08C80089BEAE /* ChoicePwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoicePwd.h; sourceTree = "<group>"; };
-		B88C92171C5B08C80089BEAE /* ChoicePwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoicePwd.m; sourceTree = "<group>"; };
-		B88C92181C5B08C80089BEAE /* ChoicePwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoicePwd.xib; sourceTree = "<group>"; };
-		B88C921B1C5B08E00089BEAE /* SecondPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondPwd.h; sourceTree = "<group>"; };
-		B88C921C1C5B08E00089BEAE /* SecondPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondPwd.m; sourceTree = "<group>"; };
-		B88C921D1C5B08E00089BEAE /* SecondPwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondPwd.xib; sourceTree = "<group>"; };
 		B88C92201C5B09070089BEAE /* FriendListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListInfo.h; sourceTree = "<group>"; };
 		B88C92211C5B09070089BEAE /* FriendListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListInfo.m; sourceTree = "<group>"; };
 		B88C92231C5B11020089BEAE /* STNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNavigationController.h; sourceTree = "<group>"; };
@@ -390,6 +357,45 @@
 		B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendsBigIMGTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendsBigIMGTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendsBigIMGTableViewCell.xib; sourceTree = "<group>"; };
+		B8F2D9D81C5F324A002C7712 /* ChoicePwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoicePwd.h; sourceTree = "<group>"; };
+		B8F2D9D91C5F324A002C7712 /* ChoicePwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoicePwd.m; sourceTree = "<group>"; };
+		B8F2D9DA1C5F324A002C7712 /* ChoicePwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoicePwd.xib; sourceTree = "<group>"; };
+		B8F2D9DB1C5F324A002C7712 /* findPwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = findPwdViewCtr.h; sourceTree = "<group>"; };
+		B8F2D9DC1C5F324A002C7712 /* findPwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = findPwdViewCtr.m; sourceTree = "<group>"; };
+		B8F2D9DD1C5F324A002C7712 /* findPwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = findPwdViewCtr.xib; sourceTree = "<group>"; };
+		B8F2D9DE1C5F324A002C7712 /* loginNameVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginNameVerificationViewController.h; sourceTree = "<group>"; };
+		B8F2D9DF1C5F324A002C7712 /* loginNameVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginNameVerificationViewController.m; sourceTree = "<group>"; };
+		B8F2D9E01C5F324A002C7712 /* loginNameVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginNameVerificationViewController.xib; sourceTree = "<group>"; };
+		B8F2D9E11C5F324A002C7712 /* regitViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regitViewCtr.h; sourceTree = "<group>"; };
+		B8F2D9E21C5F324A002C7712 /* regitViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regitViewCtr.m; sourceTree = "<group>"; };
+		B8F2D9E31C5F324A002C7712 /* regitViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = regitViewCtr.xib; sourceTree = "<group>"; };
+		B8F2D9E41C5F324A002C7712 /* SecondPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondPwd.h; sourceTree = "<group>"; };
+		B8F2D9E51C5F324A002C7712 /* SecondPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondPwd.m; sourceTree = "<group>"; };
+		B8F2D9E61C5F324A002C7712 /* SecondPwd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondPwd.xib; sourceTree = "<group>"; };
+		B8F2D9E71C5F324A002C7712 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		B8F2D9E81C5F324A002C7712 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		B8F2D9E91C5F324A002C7712 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		B8F2D9EA1C5F324A002C7712 /* SMSVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMSVerificationViewController.h; sourceTree = "<group>"; };
+		B8F2D9EB1C5F324A002C7712 /* SMSVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMSVerificationViewController.m; sourceTree = "<group>"; };
+		B8F2D9EC1C5F324A002C7712 /* SMSVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSVerificationViewController.xib; sourceTree = "<group>"; };
+		B8F2D9ED1C5F324A002C7712 /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
+		B8F2D9EE1C5F324A002C7712 /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
+		B8F2D9EF1C5F324A002C7712 /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
+		B8F2D9F01C5F324A002C7712 /* updatePwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updatePwdViewCtr.h; sourceTree = "<group>"; };
+		B8F2D9F11C5F324A002C7712 /* updatePwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatePwdViewCtr.m; sourceTree = "<group>"; };
+		B8F2D9F21C5F324A002C7712 /* updatePwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = updatePwdViewCtr.xib; sourceTree = "<group>"; };
+		B8F2D9F41C5F324A002C7712 /* LogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogPwd.h; sourceTree = "<group>"; };
+		B8F2D9F51C5F324A002C7712 /* LogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogPwd.m; sourceTree = "<group>"; };
+		B8F2D9F61C5F324A002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
+		B8F2D9F71C5F324A002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
+		B8F2D9F81C5F324A002C7712 /* UpdateLogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateLogPwd.h; sourceTree = "<group>"; };
+		B8F2D9F91C5F324A002C7712 /* UpdateLogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateLogPwd.m; sourceTree = "<group>"; };
+		B8F2D9FA1C5F324A002C7712 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		B8F2D9FB1C5F324A002C7712 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		B8F2DA131C5F3448002C7712 /* STBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBaseViewController.h; sourceTree = "<group>"; };
+		B8F2DA141C5F3448002C7712 /* STBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBaseViewController.m; sourceTree = "<group>"; };
+		B8F2DA161C5F396E002C7712 /* STBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBaseTableViewController.h; sourceTree = "<group>"; };
+		B8F2DA171C5F396E002C7712 /* STBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBaseTableViewController.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -478,10 +484,10 @@
 		B88C914D1C59F4900089BEAE /* 5.Other */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9D61C5F324A002C7712 /* SignInANDSignOut */,
 				B8F2D8FB1C5B47DE002C7712 /* Plist */,
 				B88C91A91C5AFFA20089BEAE /* ThirdPart */,
 				B88C91A81C5AFF900089BEAE /* Model */,
-				B88C91561C59F8BA0089BEAE /* SignIn&signOut */,
 				B88C91551C59F8A90089BEAE /* AppDelegate&storyboard */,
 				B88C91541C59F8940089BEAE /* Base */,
 				B88C91531C59F8840089BEAE /* Network */,
@@ -507,6 +513,10 @@
 			children = (
 				B88C92231C5B11020089BEAE /* STNavigationController.h */,
 				B88C92241C5B11020089BEAE /* STNavigationController.m */,
+				B8F2DA131C5F3448002C7712 /* STBaseViewController.h */,
+				B8F2DA141C5F3448002C7712 /* STBaseViewController.m */,
+				B8F2DA161C5F396E002C7712 /* STBaseTableViewController.h */,
+				B8F2DA171C5F396E002C7712 /* STBaseTableViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -520,16 +530,6 @@
 				B88C91681C59F9AF0089BEAE /* Main.storyboard */,
 			);
 			path = "AppDelegate&storyboard";
-			sourceTree = "<group>";
-		};
-		B88C91561C59F8BA0089BEAE /* SignIn&signOut */ = {
-			isa = PBXGroup;
-			children = (
-				B88C919F1C5AF6B30089BEAE /* model */,
-				B88C91A01C5AF6B30089BEAE /* controller */,
-				B88C91A11C5AF6B30089BEAE /* view */,
-			);
-			path = "SignIn&signOut";
 			sourceTree = "<group>";
 		};
 		B88C915B1C59F9270089BEAE /* 3.Shop */ = {
@@ -739,62 +739,6 @@
 				B8F2D8CF1C5B3982002C7712 /* SetUp */,
 			);
 			path = 4.My;
-			sourceTree = "<group>";
-		};
-		B88C919F1C5AF6B30089BEAE /* model */ = {
-			isa = PBXGroup;
-			children = (
-				B88C91BB1C5B00A10089BEAE /* UserInfo.h */,
-				B88C91BC1C5B00A10089BEAE /* UserInfo.m */,
-				B88C91C81C5B01FF0089BEAE /* UpdateLogPwd.h */,
-				B88C91C91C5B01FF0089BEAE /* UpdateLogPwd.m */,
-				B88C91CB1C5B02390089BEAE /* security.h */,
-				B88C91CC1C5B02390089BEAE /* security.m */,
-				B88C91CE1C5B02F40089BEAE /* LogPwd.h */,
-				B88C91CF1C5B02F40089BEAE /* LogPwd.m */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		B88C91A01C5AF6B30089BEAE /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				B88C92031C5B06E40089BEAE /* loginNameVerificationViewController.h */,
-				B88C92041C5B06E40089BEAE /* loginNameVerificationViewController.m */,
-				B88C92051C5B06E40089BEAE /* loginNameVerificationViewController.xib */,
-				B88C91FE1C5B06D50089BEAE /* SMSVerificationViewController.h */,
-				B88C91FF1C5B06D50089BEAE /* SMSVerificationViewController.m */,
-				B88C92001C5B06D50089BEAE /* SMSVerificationViewController.xib */,
-				B88C91A21C5AFB030089BEAE /* SignInViewController.h */,
-				B88C91A31C5AFB030089BEAE /* SignInViewController.m */,
-				B88C91A41C5AFB030089BEAE /* SignInViewController.xib */,
-				B88C91BE1C5B01A00089BEAE /* findPwdViewCtr.h */,
-				B88C91BF1C5B01A00089BEAE /* findPwdViewCtr.m */,
-				B88C91C01C5B01A00089BEAE /* findPwdViewCtr.xib */,
-				B88C91C31C5B01D90089BEAE /* updatePwdViewCtr.h */,
-				B88C91C41C5B01D90089BEAE /* updatePwdViewCtr.m */,
-				B88C91C51C5B01D90089BEAE /* updatePwdViewCtr.xib */,
-				B88C91F71C5B06750089BEAE /* TextFieldCellTableViewCell.h */,
-				B88C91F81C5B06750089BEAE /* TextFieldCellTableViewCell.m */,
-				B88C91F91C5B06750089BEAE /* TextFieldCellTableViewCell.xib */,
-				B88C92081C5B06FF0089BEAE /* regitViewCtr.h */,
-				B88C92091C5B06FF0089BEAE /* regitViewCtr.m */,
-				B88C920A1C5B07000089BEAE /* regitViewCtr.xib */,
-				B88C92161C5B08C80089BEAE /* ChoicePwd.h */,
-				B88C92171C5B08C80089BEAE /* ChoicePwd.m */,
-				B88C92181C5B08C80089BEAE /* ChoicePwd.xib */,
-				B88C921B1C5B08E00089BEAE /* SecondPwd.h */,
-				B88C921C1C5B08E00089BEAE /* SecondPwd.m */,
-				B88C921D1C5B08E00089BEAE /* SecondPwd.xib */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		B88C91A11C5AF6B30089BEAE /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		B88C91A81C5AFF900089BEAE /* Model */ = {
@@ -1235,6 +1179,72 @@
 			path = SDPieLoopProgressView;
 			sourceTree = "<group>";
 		};
+		B8F2D9D61C5F324A002C7712 /* SignInANDSignOut */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9D71C5F324A002C7712 /* controller */,
+				B8F2D9F31C5F324A002C7712 /* model */,
+				B8F2D9FC1C5F324A002C7712 /* view */,
+			);
+			path = SignInANDSignOut;
+			sourceTree = "<group>";
+		};
+		B8F2D9D71C5F324A002C7712 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9D81C5F324A002C7712 /* ChoicePwd.h */,
+				B8F2D9D91C5F324A002C7712 /* ChoicePwd.m */,
+				B8F2D9DA1C5F324A002C7712 /* ChoicePwd.xib */,
+				B8F2D9DB1C5F324A002C7712 /* findPwdViewCtr.h */,
+				B8F2D9DC1C5F324A002C7712 /* findPwdViewCtr.m */,
+				B8F2D9DD1C5F324A002C7712 /* findPwdViewCtr.xib */,
+				B8F2D9DE1C5F324A002C7712 /* loginNameVerificationViewController.h */,
+				B8F2D9DF1C5F324A002C7712 /* loginNameVerificationViewController.m */,
+				B8F2D9E01C5F324A002C7712 /* loginNameVerificationViewController.xib */,
+				B8F2D9E11C5F324A002C7712 /* regitViewCtr.h */,
+				B8F2D9E21C5F324A002C7712 /* regitViewCtr.m */,
+				B8F2D9E31C5F324A002C7712 /* regitViewCtr.xib */,
+				B8F2D9E41C5F324A002C7712 /* SecondPwd.h */,
+				B8F2D9E51C5F324A002C7712 /* SecondPwd.m */,
+				B8F2D9E61C5F324A002C7712 /* SecondPwd.xib */,
+				B8F2D9E71C5F324A002C7712 /* SignInViewController.h */,
+				B8F2D9E81C5F324A002C7712 /* SignInViewController.m */,
+				B8F2D9E91C5F324A002C7712 /* SignInViewController.xib */,
+				B8F2D9EA1C5F324A002C7712 /* SMSVerificationViewController.h */,
+				B8F2D9EB1C5F324A002C7712 /* SMSVerificationViewController.m */,
+				B8F2D9EC1C5F324A002C7712 /* SMSVerificationViewController.xib */,
+				B8F2D9ED1C5F324A002C7712 /* TextFieldCellTableViewCell.h */,
+				B8F2D9EE1C5F324A002C7712 /* TextFieldCellTableViewCell.m */,
+				B8F2D9EF1C5F324A002C7712 /* TextFieldCellTableViewCell.xib */,
+				B8F2D9F01C5F324A002C7712 /* updatePwdViewCtr.h */,
+				B8F2D9F11C5F324A002C7712 /* updatePwdViewCtr.m */,
+				B8F2D9F21C5F324A002C7712 /* updatePwdViewCtr.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8F2D9F31C5F324A002C7712 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9F41C5F324A002C7712 /* LogPwd.h */,
+				B8F2D9F51C5F324A002C7712 /* LogPwd.m */,
+				B8F2D9F61C5F324A002C7712 /* security.h */,
+				B8F2D9F71C5F324A002C7712 /* security.m */,
+				B8F2D9F81C5F324A002C7712 /* UpdateLogPwd.h */,
+				B8F2D9F91C5F324A002C7712 /* UpdateLogPwd.m */,
+				B8F2D9FA1C5F324A002C7712 /* UserInfo.h */,
+				B8F2D9FB1C5F324A002C7712 /* UserInfo.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B8F2D9FC1C5F324A002C7712 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1296,49 +1306,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F2DA081C5F324A002C7712 /* SignInViewController.xib in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
-				B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9051C5B47ED002C7712 /* area.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B8F2D9081C5B47ED002C7712 /* ElementAlternative.plist in Resources */,
 				B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
+				B8F2DA0E1C5F324A002C7712 /* updatePwdViewCtr.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B8F2D9071C5B47ED002C7712 /* Element.plist in Resources */,
-				B88C920C1C5B07000089BEAE /* regitViewCtr.xib in Resources */,
-				B88C91C71C5B01D90089BEAE /* updatePwdViewCtr.xib in Resources */,
-				B88C921F1C5B08E00089BEAE /* SecondPwd.xib in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
-				B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */,
+				B8F2DA0C1C5F324A002C7712 /* TextFieldCellTableViewCell.xib in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* healthySetUpViewController.xib in Resources */,
+				B8F2DA021C5F324A002C7712 /* loginNameVerificationViewController.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2D8B41C5B378F002C7712 /* userInfoViewController.xib in Resources */,
+				B8F2DA0A1C5F324A002C7712 /* SMSVerificationViewController.xib in Resources */,
 				B8F2D8B91C5B3796002C7712 /* userInfoTableViewCell.xib in Resources */,
-				B88C91FB1C5B06750089BEAE /* TextFieldCellTableViewCell.xib in Resources */,
 				B8F2D90D1C5B47ED002C7712 /* theWholeTen.plist in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
-				B88C92071C5B06E40089BEAE /* loginNameVerificationViewController.xib in Resources */,
 				B8F2D9061C5B47ED002C7712 /* city.plist in Resources */,
 				B8F2D90B1C5B47ED002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
 				B8F2D9091C5B47ED002C7712 /* Day.plist in Resources */,
 				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
+				B8F2DA041C5F324A002C7712 /* regitViewCtr.xib in Resources */,
 				B8F2D90C1C5B47ED002C7712 /* UserPassWordProblem.plist in Resources */,
 				B8F2D91C1C5B5F3C002C7712 /* MessageViewController.xib in Resources */,
-				B88C91A61C5AFB030089BEAE /* SignInViewController.xib in Resources */,
+				B8F2D9FE1C5F324A002C7712 /* ChoicePwd.xib in Resources */,
 				B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */,
 				B8F2D90A1C5B47ED002C7712 /* ProvinceLifeExpectancyMan.plist in Resources */,
+				B8F2DA061C5F324A002C7712 /* SecondPwd.xib in Resources */,
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
-				B88C91C21C5B01A00089BEAE /* findPwdViewCtr.xib in Resources */,
 				B8F2D8D61C5B3996002C7712 /* setUpTableViewController.xib in Resources */,
 				B8F2D9AD1C5C8D2B002C7712 /* MoreTableViewCell.xib in Resources */,
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityTableViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
+				B8F2DA001C5F324A002C7712 /* findPwdViewCtr.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1399,20 +1409,20 @@
 			files = (
 				B88C92131C5B08690089BEAE /* pinyin.c in Sources */,
 				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
+				B8F2DA051C5F324A002C7712 /* SecondPwd.m in Sources */,
+				B8F2DA101C5F324A002C7712 /* security.m in Sources */,
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
-				B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */,
-				B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */,
 				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
 				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
+				B8F2DA181C5F396E002C7712 /* STBaseTableViewController.m in Sources */,
 				B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
-				B88C91A51C5AFB030089BEAE /* SignInViewController.m in Sources */,
+				B8F2DA121C5F324A002C7712 /* UserInfo.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
-				B88C91C61C5B01D90089BEAE /* updatePwdViewCtr.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
@@ -1421,54 +1431,58 @@
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* securityTableViewController.m in Sources */,
-				B88C91CD1C5B02390089BEAE /* security.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
 				B88C92141C5B08690089BEAE /* ChineseString.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
+				B8F2DA091C5F324A002C7712 /* SMSVerificationViewController.m in Sources */,
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
 				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
+				B8F2DA071C5F324A002C7712 /* SignInViewController.m in Sources */,
+				B8F2D9FF1C5F324A002C7712 /* findPwdViewCtr.m in Sources */,
+				B8F2DA031C5F324A002C7712 /* regitViewCtr.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
-				B88C921E1C5B08E00089BEAE /* SecondPwd.m in Sources */,
-				B88C92011C5B06D50089BEAE /* SMSVerificationViewController.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */,
-				B88C91C11C5B01A00089BEAE /* findPwdViewCtr.m in Sources */,
 				B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */,
-				B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */,
 				B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */,
+				B8F2DA011C5F324A002C7712 /* loginNameVerificationViewController.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
+				B8F2DA0D1C5F324A002C7712 /* updatePwdViewCtr.m in Sources */,
 				B8F2D9CF1C5F0507002C7712 /* SDPieLoopProgressView.m in Sources */,
 				B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */,
+				B8F2DA111C5F324A002C7712 /* UpdateLogPwd.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* healthySetUpViewController.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */,
 				B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
-				B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B8F2D9D01C5F0507002C7712 /* SDTransparentPieProgressView.m in Sources */,
-				B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */,
+				B8F2DA0B1C5F324A002C7712 /* TextFieldCellTableViewCell.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* setUpTableViewController.m in Sources */,
 				B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */,
+				B8F2D9FD1C5F324A002C7712 /* ChoicePwd.m in Sources */,
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
+				B8F2DA0F1C5F324A002C7712 /* LogPwd.m in Sources */,
 				B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */,
 				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */,
 				B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */,
 				B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */,
+				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B8F2D8B81C5B3796002C7712 /* userInfoTableViewCell.m in Sources */,
 				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
@@ -1477,8 +1491,6 @@
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
-				B88C92191C5B08C80089BEAE /* ChoicePwd.m in Sources */,
-				B88C91FA1C5B06750089BEAE /* TextFieldCellTableViewCell.m in Sources */,
 				B8F2D8F01C5B3B10002C7712 /* VPImageCropperViewController.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,

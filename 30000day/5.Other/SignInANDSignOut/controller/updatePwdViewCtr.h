@@ -10,8 +10,11 @@
 
 
 @interface updatePwdViewCtr : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITextField *oneNewPass;
+
 @property (weak, nonatomic) IBOutlet UITextField *twoNewPass;
+
 @property (weak, nonatomic) IBOutlet UIButton *subimitBtn;
 
 @end

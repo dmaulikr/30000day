@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChoicePwd : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ChoicePwd : STBaseViewController <UITableViewDataSource,UITableViewDelegate>
 
 @end

@@ -11,8 +11,11 @@
 #import "SignInViewController.h"
 
 @interface updatePwdViewCtr ()
+
 @property (nonatomic,strong)NSString* logname;
+
 @property (nonatomic,strong)NSString* logpwd;
+
 @property (nonatomic,strong)NSString* Userid;
 
 @end

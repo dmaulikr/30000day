@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface healthySetUpViewController : UIViewController
+@interface healthySetUpViewController : STBaseViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 
