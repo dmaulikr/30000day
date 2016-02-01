@@ -10,23 +10,41 @@
 #import "ZHPickView.h"
 
 @interface ZHPickView ()<UIPickerViewDelegate,UIPickerViewDataSource>
+
 @property(nonatomic,copy)NSString *plistName;
+
 @property(nonatomic,strong)NSArray *plistArray;
+
 @property(nonatomic,assign)BOOL isLevelArray;
+
 @property(nonatomic,assign)BOOL isLevelString;
+
 @property(nonatomic,assign)BOOL isLevelDic;
+
 @property(nonatomic,strong)NSDictionary *levelTwoDic;
+
 @property(nonatomic,strong)UIToolbar *toolbar;
+
 @property(nonatomic,strong)UIPickerView *pickerView;
+
 @property(nonatomic,strong)UIDatePicker *datePicker;
+
 @property(nonatomic,assign)NSDate *defaulDate;
+
 @property(nonatomic,assign)BOOL isHaveNavControler;
+
 @property(nonatomic,assign)NSInteger pickeviewHeight;
+
 @property(nonatomic,copy)NSString *resultString;
+
 @property(nonatomic,strong)NSMutableArray *componentArray;
+
 @property(nonatomic,strong)NSMutableArray *dicKeyArray;
+
 @property(nonatomic,copy)NSMutableArray *state;
+
 @property(nonatomic,copy)NSMutableArray *city;
+
 @end
 
 @implementation ZHPickView

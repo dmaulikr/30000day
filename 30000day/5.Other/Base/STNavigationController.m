@@ -39,7 +39,7 @@
 }
 
 #pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem:(UIViewController *)viewController {
+- (void)backBarButtonItem {
     
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     

@@ -114,12 +114,32 @@
 		B8F2D94E1C5C467D002C7712 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D94D1C5C467D002C7712 /* AdSupport.framework */; };
 		B8F2D9501C5C4685002C7712 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D94F1C5C4685002C7712 /* CoreLocation.framework */; };
 		B8F2D9521C5C46BA002C7712 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D9511C5C46BA002C7712 /* libc++.tbd */; };
-		B8F2D9561C5C4700002C7712 /* totalLifeDay.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9551C5C4700002C7712 /* totalLifeDay.m */; };
 		B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9581C5C68C7002C7712 /* LONetError.m */; };
 		B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D95A1C5C68C7002C7712 /* LONetworkAgent.m */; };
 		B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9681C5C6924002C7712 /* LONetworkCache.m */; };
 		B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D96B1C5C6924002C7712 /* LOApiRequest.m */; };
 		B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D96D1C5C6924002C7712 /* LORequest.m */; };
+		B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D97C1C5C8B19002C7712 /* JBCalendarDate.m */; };
+		B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D97F1C5C8B19002C7712 /* JBCalendarLogic.m */; };
+		B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9811C5C8B19002C7712 /* JBEventModel.m */; };
+		B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9831C5C8B19002C7712 /* JBUnitGridView.m */; };
+		B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9851C5C8B19002C7712 /* JBUnitTileView.m */; };
+		B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9871C5C8B1A002C7712 /* JBUnitView.m */; };
+		B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9891C5C8B1A002C7712 /* JBWeekdaysBarView.m */; };
+		B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D98C1C5C8B1A002C7712 /* LunarCalendar.m */; };
+		B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D98F1C5C8B1A002C7712 /* NSDate+Calendar.m */; };
+		B8F2D9A21C5C8B1A002C7712 /* README in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9901C5C8B1A002C7712 /* README */; };
+		B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9941C5C8B1A002C7712 /* JBBasicFileManager.m */; };
+		B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9961C5C8B1A002C7712 /* JBImageFileManager.m */; };
+		B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9981C5C8B1A002C7712 /* JBPlistFileManager.m */; };
+		B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9A71C5C8D13002C7712 /* JBSXRCUnitTileView.m */; };
+		B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */; };
+		B8F2D9AD1C5C8D2B002C7712 /* MoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */; };
+		B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */; };
+		B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */; };
+		B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */; };
+		B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */; };
+		B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,8 +318,6 @@
 		B8F2D94D1C5C467D002C7712 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		B8F2D94F1C5C4685002C7712 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B8F2D9511C5C46BA002C7712 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		B8F2D9541C5C4700002C7712 /* totalLifeDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = totalLifeDay.h; sourceTree = "<group>"; };
-		B8F2D9551C5C4700002C7712 /* totalLifeDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = totalLifeDay.m; sourceTree = "<group>"; };
 		B8F2D9571C5C68C7002C7712 /* LONetError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LONetError.h; sourceTree = "<group>"; };
 		B8F2D9581C5C68C7002C7712 /* LONetError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LONetError.m; sourceTree = "<group>"; };
 		B8F2D9591C5C68C7002C7712 /* LONetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LONetworkAgent.h; sourceTree = "<group>"; };
@@ -310,6 +328,49 @@
 		B8F2D96B1C5C6924002C7712 /* LOApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOApiRequest.m; sourceTree = "<group>"; };
 		B8F2D96C1C5C6924002C7712 /* LORequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORequest.h; sourceTree = "<group>"; };
 		B8F2D96D1C5C6924002C7712 /* LORequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LORequest.m; sourceTree = "<group>"; };
+		B8F2D97A1C5C8B19002C7712 /* JBCalendarDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCalendarDataSourceDelegate.h; sourceTree = "<group>"; };
+		B8F2D97B1C5C8B19002C7712 /* JBCalendarDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCalendarDate.h; sourceTree = "<group>"; };
+		B8F2D97C1C5C8B19002C7712 /* JBCalendarDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBCalendarDate.m; sourceTree = "<group>"; };
+		B8F2D97D1C5C8B19002C7712 /* JBCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCalendarDelegate.h; sourceTree = "<group>"; };
+		B8F2D97E1C5C8B19002C7712 /* JBCalendarLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCalendarLogic.h; sourceTree = "<group>"; };
+		B8F2D97F1C5C8B19002C7712 /* JBCalendarLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBCalendarLogic.m; sourceTree = "<group>"; };
+		B8F2D9801C5C8B19002C7712 /* JBEventModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBEventModel.h; sourceTree = "<group>"; };
+		B8F2D9811C5C8B19002C7712 /* JBEventModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBEventModel.m; sourceTree = "<group>"; };
+		B8F2D9821C5C8B19002C7712 /* JBUnitGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBUnitGridView.h; sourceTree = "<group>"; };
+		B8F2D9831C5C8B19002C7712 /* JBUnitGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBUnitGridView.m; sourceTree = "<group>"; };
+		B8F2D9841C5C8B19002C7712 /* JBUnitTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBUnitTileView.h; sourceTree = "<group>"; };
+		B8F2D9851C5C8B19002C7712 /* JBUnitTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBUnitTileView.m; sourceTree = "<group>"; };
+		B8F2D9861C5C8B19002C7712 /* JBUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBUnitView.h; sourceTree = "<group>"; };
+		B8F2D9871C5C8B1A002C7712 /* JBUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBUnitView.m; sourceTree = "<group>"; };
+		B8F2D9881C5C8B1A002C7712 /* JBWeekdaysBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBWeekdaysBarView.h; sourceTree = "<group>"; };
+		B8F2D9891C5C8B1A002C7712 /* JBWeekdaysBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBWeekdaysBarView.m; sourceTree = "<group>"; };
+		B8F2D98B1C5C8B1A002C7712 /* LunarCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LunarCalendar.h; sourceTree = "<group>"; };
+		B8F2D98C1C5C8B1A002C7712 /* LunarCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LunarCalendar.m; sourceTree = "<group>"; };
+		B8F2D98E1C5C8B1A002C7712 /* NSDate+Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Calendar.h"; sourceTree = "<group>"; };
+		B8F2D98F1C5C8B1A002C7712 /* NSDate+Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Calendar.m"; sourceTree = "<group>"; };
+		B8F2D9901C5C8B1A002C7712 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B8F2D9911C5C8B1A002C7712 /* JBDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBDefine.h; sourceTree = "<group>"; };
+		B8F2D9931C5C8B1A002C7712 /* JBBasicFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBasicFileManager.h; sourceTree = "<group>"; };
+		B8F2D9941C5C8B1A002C7712 /* JBBasicFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBasicFileManager.m; sourceTree = "<group>"; };
+		B8F2D9951C5C8B1A002C7712 /* JBImageFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBImageFileManager.h; sourceTree = "<group>"; };
+		B8F2D9961C5C8B1A002C7712 /* JBImageFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBImageFileManager.m; sourceTree = "<group>"; };
+		B8F2D9971C5C8B1A002C7712 /* JBPlistFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBPlistFileManager.h; sourceTree = "<group>"; };
+		B8F2D9981C5C8B1A002C7712 /* JBPlistFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBPlistFileManager.m; sourceTree = "<group>"; };
+		B8F2D9A61C5C8D13002C7712 /* JBSXRCUnitTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSXRCUnitTileView.h; sourceTree = "<group>"; };
+		B8F2D9A71C5C8D13002C7712 /* JBSXRCUnitTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSXRCUnitTileView.m; sourceTree = "<group>"; };
+		B8F2D9A91C5C8D2B002C7712 /* MoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTableViewCell.h; sourceTree = "<group>"; };
+		B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTableViewCell.m; sourceTree = "<group>"; };
+		B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreTableViewCell.xib; sourceTree = "<group>"; };
+		B8F2D9AF1C5C8D74002C7712 /* MoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreInfo.h; sourceTree = "<group>"; };
+		B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreInfo.m; sourceTree = "<group>"; };
+		B8F2D9B51C5C8E81002C7712 /* MoreMessageViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreMessageViewCtr.h; sourceTree = "<group>"; };
+		B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreMessageViewCtr.m; sourceTree = "<group>"; };
+		B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreMessageViewCtr.xib; sourceTree = "<group>"; };
+		B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = addCalendarDelegate.h; sourceTree = "<group>"; };
+		B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
+		B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
+		B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabHeaderView.h; sourceTree = "<group>"; };
+		B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabHeaderView.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -504,6 +565,7 @@
 		B88C91611C59F96D0089BEAE /* 4.Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9AE1C5C8D63002C7712 /* model */,
 				B88C91791C5A079C0089BEAE /* controller */,
 				B88C917A1C5A079C0089BEAE /* view */,
 			);
@@ -576,6 +638,10 @@
 				B8F2D91D1C5B5F4D002C7712 /* CalendarViewController.h */,
 				B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */,
 				B8F2D91F1C5B5F4D002C7712 /* CalendarViewController.xib */,
+				B8F2D9B51C5C8E81002C7712 /* MoreMessageViewCtr.h */,
+				B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */,
+				B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */,
+				B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -583,6 +649,15 @@
 		B88C917A1C5A079C0089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9A61C5C8D13002C7712 /* JBSXRCUnitTileView.h */,
+				B8F2D9A71C5C8D13002C7712 /* JBSXRCUnitTileView.m */,
+				B8F2D9A91C5C8D2B002C7712 /* MoreTableViewCell.h */,
+				B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */,
+				B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */,
+				B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */,
+				B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */,
+				B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */,
+				B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -714,6 +789,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D9781C5C8B19002C7712 /* JustBen */,
 				B8F2D9411C5B7260002C7712 /* HealthKit */,
 				B8F2D93C1C5B70E2002C7712 /* JHAPISDK */,
 				B8F2D92C1C5B6E36002C7712 /* BEMSimpleLineGraphView */,
@@ -1012,8 +1088,6 @@
 		B8F2D9531C5C46F8002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9541C5C4700002C7712 /* totalLifeDay.h */,
-				B8F2D9551C5C4700002C7712 /* totalLifeDay.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1036,6 +1110,82 @@
 				B8F2D96D1C5C6924002C7712 /* LORequest.m */,
 			);
 			path = NetWorkRequest;
+			sourceTree = "<group>";
+		};
+		B8F2D9781C5C8B19002C7712 /* JustBen */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9791C5C8B19002C7712 /* JBCalendar */,
+				B8F2D9911C5C8B1A002C7712 /* JBDefine.h */,
+				B8F2D9921C5C8B1A002C7712 /* LocalFileManager */,
+			);
+			path = JustBen;
+			sourceTree = "<group>";
+		};
+		B8F2D9791C5C8B19002C7712 /* JBCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D97A1C5C8B19002C7712 /* JBCalendarDataSourceDelegate.h */,
+				B8F2D97B1C5C8B19002C7712 /* JBCalendarDate.h */,
+				B8F2D97C1C5C8B19002C7712 /* JBCalendarDate.m */,
+				B8F2D97D1C5C8B19002C7712 /* JBCalendarDelegate.h */,
+				B8F2D97E1C5C8B19002C7712 /* JBCalendarLogic.h */,
+				B8F2D97F1C5C8B19002C7712 /* JBCalendarLogic.m */,
+				B8F2D9801C5C8B19002C7712 /* JBEventModel.h */,
+				B8F2D9811C5C8B19002C7712 /* JBEventModel.m */,
+				B8F2D9821C5C8B19002C7712 /* JBUnitGridView.h */,
+				B8F2D9831C5C8B19002C7712 /* JBUnitGridView.m */,
+				B8F2D9841C5C8B19002C7712 /* JBUnitTileView.h */,
+				B8F2D9851C5C8B19002C7712 /* JBUnitTileView.m */,
+				B8F2D9861C5C8B19002C7712 /* JBUnitView.h */,
+				B8F2D9871C5C8B1A002C7712 /* JBUnitView.m */,
+				B8F2D9881C5C8B1A002C7712 /* JBWeekdaysBarView.h */,
+				B8F2D9891C5C8B1A002C7712 /* JBWeekdaysBarView.m */,
+				B8F2D98A1C5C8B1A002C7712 /* LunarCalendar */,
+				B8F2D98D1C5C8B1A002C7712 /* NSDate */,
+				B8F2D9901C5C8B1A002C7712 /* README */,
+			);
+			path = JBCalendar;
+			sourceTree = "<group>";
+		};
+		B8F2D98A1C5C8B1A002C7712 /* LunarCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D98B1C5C8B1A002C7712 /* LunarCalendar.h */,
+				B8F2D98C1C5C8B1A002C7712 /* LunarCalendar.m */,
+			);
+			path = LunarCalendar;
+			sourceTree = "<group>";
+		};
+		B8F2D98D1C5C8B1A002C7712 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D98E1C5C8B1A002C7712 /* NSDate+Calendar.h */,
+				B8F2D98F1C5C8B1A002C7712 /* NSDate+Calendar.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
+		B8F2D9921C5C8B1A002C7712 /* LocalFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9931C5C8B1A002C7712 /* JBBasicFileManager.h */,
+				B8F2D9941C5C8B1A002C7712 /* JBBasicFileManager.m */,
+				B8F2D9951C5C8B1A002C7712 /* JBImageFileManager.h */,
+				B8F2D9961C5C8B1A002C7712 /* JBImageFileManager.m */,
+				B8F2D9971C5C8B1A002C7712 /* JBPlistFileManager.h */,
+				B8F2D9981C5C8B1A002C7712 /* JBPlistFileManager.m */,
+			);
+			path = LocalFileManager;
+			sourceTree = "<group>";
+		};
+		B8F2D9AE1C5C8D63002C7712 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B8F2D9AF1C5C8D74002C7712 /* MoreInfo.h */,
+				B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1099,6 +1249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B88C92021C5B06D50089BEAE /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9051C5B47ED002C7712 /* area.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
@@ -1114,6 +1265,7 @@
 				B88C921A1C5B08C80089BEAE /* ChoicePwd.xib in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* healthySetUpViewController.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
+				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2D8B41C5B378F002C7712 /* userInfoViewController.xib in Resources */,
 				B8F2D8B91C5B3796002C7712 /* userInfoTableViewCell.xib in Resources */,
@@ -1134,6 +1286,7 @@
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
 				B88C91C21C5B01A00089BEAE /* findPwdViewCtr.xib in Resources */,
 				B8F2D8D61C5B3996002C7712 /* setUpTableViewController.xib in Resources */,
+				B8F2D9AD1C5C8D2B002C7712 /* MoreTableViewCell.xib in Resources */,
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityTableViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
@@ -1197,6 +1350,7 @@
 			files = (
 				B88C92131C5B08690089BEAE /* pinyin.c in Sources */,
 				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
+				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
 				B88C91BD1C5B00A10089BEAE /* UserInfo.m in Sources */,
 				B88C920B1C5B07000089BEAE /* regitViewCtr.m in Sources */,
 				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
@@ -1209,15 +1363,22 @@
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B88C91C61C5B01D90089BEAE /* updatePwdViewCtr.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
+				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
+				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* securityTableViewController.m in Sources */,
 				B88C91CD1C5B02390089BEAE /* security.m in Sources */,
+				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
 				B88C92141C5B08690089BEAE /* ChineseString.m in Sources */,
+				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
+				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
+				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
+				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B88C921E1C5B08E00089BEAE /* SecondPwd.m in Sources */,
 				B88C92011C5B06D50089BEAE /* SMSVerificationViewController.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
@@ -1225,8 +1386,11 @@
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
+				B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */,
 				B88C91C11C5B01A00089BEAE /* findPwdViewCtr.m in Sources */,
+				B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */,
 				B88C91CA1C5B01FF0089BEAE /* UpdateLogPwd.m in Sources */,
+				B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
@@ -1234,16 +1398,20 @@
 				B8F2D8E71C5B3A5D002C7712 /* healthySetUpViewController.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */,
+				B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
 				B88C91D01C5B02F40089BEAE /* LogPwd.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B88C92061C5B06E40089BEAE /* loginNameVerificationViewController.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
+				B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* setUpTableViewController.m in Sources */,
-				B8F2D9561C5C4700002C7712 /* totalLifeDay.m in Sources */,
+				B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */,
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
+				B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */,
+				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */,
 				B88C92151C5B08690089BEAE /* TKAddressBook.m in Sources */,
@@ -1252,6 +1420,7 @@
 				B8F2D8B81C5B3796002C7712 /* userInfoTableViewCell.m in Sources */,
 				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
+				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
@@ -1263,6 +1432,7 @@
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
+				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,
 				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -167,8 +167,8 @@
         
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:Cancellation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
-        //[cell setBackgroundColor:[UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]];
     }
+    
     return cell;
 }
 
@@ -221,7 +221,7 @@
     
     [cell addSubview:PhoneNumber];
     
-    PhoneNumber.translatesAutoresizingMaskIntoConstraints=NO;
+    PhoneNumber.translatesAutoresizingMaskIntoConstraints = NO;
     
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:PhoneNumber attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:imgview attribute:NSLayoutAttributeRight multiplier:1.0 constant:10]];
     
@@ -236,8 +236,6 @@
         
         user.title = @"个人信息";
         
-//        user.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:user animated:YES];
         
     } else if (indexPath.section==1) {
@@ -245,8 +243,6 @@
         if (indexPath.row==0) {
             
             healthySetUpViewController *hsc=[[healthySetUpViewController alloc]init];
-            
-//            hsc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:hsc animated:YES];
             
@@ -257,20 +253,17 @@
             
             securityTableViewController *stc=[[securityTableViewController alloc]init];
             
-//            stc.hidesBottomBarWhenPushed = YES;
-            
             [self.navigationController pushViewController:stc animated:YES];
             
         } else {
             
             setUpTableViewController *suc = [[setUpTableViewController alloc] init];
             
-//            suc.hidesBottomBarWhenPushed = YES;
-            
             suc.title=@"设置";
             
             [self.navigationController pushViewController:suc animated:YES];
         }
+        
     } else if (indexPath.section==4) {
         
         [self CancellationClick];

@@ -14,7 +14,6 @@
 #import "JHOpenidSupplier.h"
 #import "UIImageView+WebCache.h"
 #import "jk.h"
-#import "totalLifeDay.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface MainPageViewController () < CLLocationManagerDelegate,BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate >
@@ -71,6 +70,7 @@
     
     [self.weatherSupView.layer setBorderColor:[UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0].CGColor];
     
+    //设置聚合SDK的APPID
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
     [self.userHeadView.layer setCornerRadius:6.0];
@@ -193,11 +193,6 @@
         _dayarr=(NSMutableArray*)[[_dayarr reverseObjectEnumerator] allObjects];
     }
     
-    totalLifeDay* today=[totalLifeDay shareControl];
-    
-    today.ageDayArr=_dayarr;
-    
-    today.dateArr=_xarr;
 }
 
 //配置MDRadialProgressView

@@ -17,6 +17,8 @@
 #import "SBJson.h"
 #import "TKAddressBook.h"
 #import "STNavigationController.h"
+#import "ZHPickView.h"
+#import "FMDB.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 
