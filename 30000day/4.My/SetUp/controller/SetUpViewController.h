@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface setUpTableViewController : STBaseTableViewController
+@interface SetUpViewController : STBaseViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

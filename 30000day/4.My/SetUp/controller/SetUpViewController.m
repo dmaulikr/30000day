@@ -6,20 +6,21 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "setUpTableViewController.h"
+#import "SetUpViewController.h"
 #import "setUpTableViewCell.h"
 
-@interface setUpTableViewController ()
+@interface SetUpViewController ()
 
 @property (nonatomic,strong) NSArray *titleCellArray;
 
 @end
 
-@implementation setUpTableViewController
+@implementation SetUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"设置";
 
     UIView *footerview = [[UIView alloc]init];
     

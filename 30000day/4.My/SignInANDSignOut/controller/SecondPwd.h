@@ -10,7 +10,7 @@
 #import "updatePwdViewCtr.h"
 
 
-@interface SecondPwd : STBaseViewController
+@interface SecondPwd : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *PBbtn1;//问题1按钮
 

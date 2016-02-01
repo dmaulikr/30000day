@@ -193,6 +193,7 @@
     
     
     [self addRequestRecord:request];
+    
     return [self requestHashKey:request.operation];
 }
 

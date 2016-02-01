@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface userInfoViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface userInfoViewController : STBaseViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 

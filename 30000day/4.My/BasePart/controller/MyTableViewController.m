@@ -13,8 +13,8 @@
 #import "UIImageView+WebCache.h"
 #import "userInfoViewController.h"
 #import "SignInViewController.h"
-#import "securityTableViewController.h"
-#import "setUpTableViewController.h"
+#import "securityViewController.h"
+#import "SetUpViewController.h"
 #import "healthySetUpViewController.h"
 
 @interface MyTableViewController ()
@@ -303,15 +303,13 @@
         
         if (indexPath.row == 0) {
             
-            securityTableViewController *stc=[[securityTableViewController alloc]init];
+            securityViewController *stc = [[securityViewController alloc]init];
             
             [self.navigationController pushViewController:stc animated:YES];
             
         } else {
             
-            setUpTableViewController *suc = [[setUpTableViewController alloc] init];
-            
-            suc.title=@"设置";
+            SetUpViewController *suc = [[SetUpViewController alloc] init];
             
             [self.navigationController pushViewController:suc animated:YES];
         }

@@ -1,25 +1,27 @@
 //
-//  STBaseTableViewController.m
+//  ShowBackItemViewController.m
 //  30000day
 //
 //  Created by GuoJia on 16/2/1.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "STBaseTableViewController.h"
+#import "ShowBackItemViewController.h"
 
-@interface STBaseTableViewController ()
+@interface ShowBackItemViewController ()
 
 @end
 
-@implementation STBaseTableViewController
+@implementation ShowBackItemViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     //定制返回按钮
     [self backBarButtonItem];
+
 }
+
 #pragma mark - 导航栏返回按钮封装
 - (void)backBarButtonItem {
     
@@ -67,12 +69,10 @@
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation

@@ -9,7 +9,7 @@
 #import "updatePwdViewCtr.h"
 
 
-@interface updatePwdViewCtr : UIViewController
+@interface updatePwdViewCtr : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *oneNewPass;
 

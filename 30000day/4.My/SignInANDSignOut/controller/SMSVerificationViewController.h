@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SMSVerificationViewController : STBaseViewController
+@interface SMSVerificationViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
 

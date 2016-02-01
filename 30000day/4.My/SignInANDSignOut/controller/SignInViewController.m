@@ -159,14 +159,14 @@
 #pragma mark - 找回密码
 - (IBAction)findPwd:(UIButton *)sender {
     
-    loginNameVerificationViewController* logvf=[[loginNameVerificationViewController alloc]init];
+    loginNameVerificationViewController *logvf = [[loginNameVerificationViewController alloc]init];
 
     
     [self.navigationController pushViewController:logvf animated:YES];
 }
 
 #pragma mark - 登录
--(IBAction)loginPree:(UIButton *)sender {
+- (IBAction)loginPree:(UIButton *)sender {
     
     NSString * url = @"http://116.254.206.7:12580/M/API/Login?";
     
@@ -222,11 +222,11 @@
         
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        NSMutableArray* userlognamepwd=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
+        NSMutableArray *userlognamepwd=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
         
-        NSMutableDictionary* dic=[NSMutableDictionary dictionary];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         
-        if (userlognamepwd.count==0) {
+        if ( userlognamepwd.count == 0 ) {
             
             [dic setObject:_userNameTF.text forKey:@"logname"];
             

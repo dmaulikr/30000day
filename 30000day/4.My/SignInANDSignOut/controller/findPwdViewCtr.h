@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface findPwdViewCtr : STBaseViewController
+@interface findPwdViewCtr : ShowBackItemViewController
 
 @property (weak, nonatomic) UITextField *accountText;
 

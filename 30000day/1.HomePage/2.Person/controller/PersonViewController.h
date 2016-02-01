@@ -11,7 +11,7 @@
 #import "myFriendsTableViewCell.h"
 #import "FriendListInfo.h"
 
-@interface PersonViewController : UIViewController
+@interface PersonViewController : STBaseViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;//当期有多少个好友Label
 

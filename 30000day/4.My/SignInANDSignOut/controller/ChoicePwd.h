@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChoicePwd : STBaseViewController <UITableViewDataSource,UITableViewDelegate>
+@interface ChoicePwd : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
 
 @end

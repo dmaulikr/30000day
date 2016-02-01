@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface securityTableViewController : STBaseTableViewController
+@interface securityViewController : STBaseViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

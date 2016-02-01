@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainPageViewController : UIViewController
+@interface MainPageViewController : STBaseViewController
 
 @property (nonatomic) UserInfo *userInfo;
 

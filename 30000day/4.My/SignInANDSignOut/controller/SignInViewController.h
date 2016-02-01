@@ -8,13 +8,12 @@
 
 @class CLLocationManager;
 
-@interface SignInViewController : UIViewController <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface SignInViewController : STBaseViewController <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *userPwdTF;
 
-@property (weak, nonatomic) IBOutlet UIButton *findPwd;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 

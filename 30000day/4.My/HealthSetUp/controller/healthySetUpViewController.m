@@ -160,7 +160,7 @@
             //因素以及值
             self.nextSubResults=SubResults;
             //健康因素数据为0
-            self.nextSubResults[self.nextSubResults.count-3]=@"0";
+            self.nextSubResults[self.nextSubResults.count-3] = @"0";
             self.nextSubResults[self.nextSubResults.count-4]=@"0";
             self.nextSubResults[self.nextSubResults.count-5]=@"0";
             self.nextSubResults[self.nextSubResults.count-6]=@"0";

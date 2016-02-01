@@ -6,17 +6,17 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "securityTableViewController.h"
+#import "securityViewController.h"
 #import "securityTableViewCell.h"
 
 
-@interface securityTableViewController ()
+@interface securityViewController ()
 
 @property (nonatomic,strong)NSArray* titleCellArray;
 
 @end
 
-@implementation securityTableViewController
+@implementation securityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

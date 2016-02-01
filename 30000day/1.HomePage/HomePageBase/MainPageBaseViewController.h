@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainPageBaseViewController : UIViewController
+@interface MainPageBaseViewController : STBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
