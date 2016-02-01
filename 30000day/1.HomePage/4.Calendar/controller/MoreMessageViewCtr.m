@@ -39,8 +39,6 @@
     
     db = [FMDatabase databaseWithPath:database_path];
     
-    [self creatToolView];
-    
     [self  backBarButtonItem];
 }
 
@@ -66,7 +64,6 @@
     }
 
 }
-
 
 #pragma mark - 导航栏返回按钮封装
 - (void)backBarButtonItem {
@@ -107,46 +104,6 @@
     
     [self.navigationController popViewControllerAnimated:YES];
     
-}
-
-
-- (void)creatToolView {
-    
-    CGFloat w = self.view.bounds.size.width;
-    
-    CGFloat y = IS_IOS7 ? 20 : 0;
-
-    _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, y, w, kSubViewHeight+20)];
-    
-    [self.view addSubview:_toolView];
-    
-    UIButton * _btu1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [_btu1 setFrame:CGRectMake(5, 10, 50, kSubViewHeight)];
-    
-    [_btu1 setTitle:@"返回" forState:UIControlStateNormal];
-    
-    [_btu1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [_btu1.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    
-    [_btu1 addTarget:self action:@selector(retunViewControll) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_toolView addSubview:_btu1];
-    
-    UIButton * _btu2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [_btu2 setFrame:CGRectMake(w - 50, 10, 50, kSubViewHeight)];
-    
-    [_btu2 setTitle:@"完成" forState:UIControlStateNormal];
-    
-    [_btu2 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [_btu2.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    
-    [_btu2 addTarget:self action:@selector(addCalendar) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_toolView addSubview:_btu2];
 }
 
 - (void)retunViewControll {

@@ -12,4 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftImage;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *seperatorLineView;//分割线view
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *seprratorLineViewLeadingConstrain;//分割线的左约束
+
 @end

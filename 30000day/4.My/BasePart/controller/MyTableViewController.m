@@ -17,8 +17,6 @@
 #import "setUpTableViewController.h"
 #import "healthySetUpViewController.h"
 
-#define sectionCount 5
-
 @interface MyTableViewController ()
 
 @property (nonatomic,strong) UserInfo *userinfo;
@@ -58,20 +56,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return sectionCount;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     if (section==0) {
+        
         return 1;
-    }else if(section==1){
+        
+    } else if(section==1) {
+        
         return 2;
-    }else if (section==2){
+        
+    } else if (section==2) {
+        
         return 2;
-    }else if (section==3){
+        
+    } else if (section==3) {
+        
         return 1;
-    }else{
+        
+    } else {
+        
         return 1;
+        
     }
 }
 
@@ -88,6 +97,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     if (section==3) {
         
         return 100;
@@ -97,6 +107,35 @@
         return 12;
         
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        return 10;
+        
+    } else {
+        
+        return 0.1f;
+    }
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    static NSString *footViewIdentifier = @"UITableViewHeaderFooterView";
+    
+    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footViewIdentifier];
+    
+    if ( view == nil ) {
+        
+        view = [[UITableViewHeaderFooterView alloc] init];
+        
+        view.tintColor = RGBACOLOR(239, 239, 239, 1);
+    }
+    
+    return view;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -123,11 +162,16 @@
             
             [cell.titleLabel setText:@"健康因素"];
             
+            cell.seperatorLineView.hidden = NO;
+            
+            
         } else {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"consumption.png"]];
             
             [cell.titleLabel setText:@"消费记录"];
+            
+            cell.seperatorLineView.hidden = YES;
         }
         
     } else if (indexPath.section==2) {
@@ -138,11 +182,15 @@
             
             [cell.titleLabel setText:@"安全中心"];
             
+            cell.seperatorLineView.hidden = NO;
+            
         } else {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
             
             [cell.titleLabel setText:@"设置"];
+            
+            cell.seperatorLineView.hidden = YES;
         }
         
     } else if (indexPath.section==3) {
@@ -151,9 +199,13 @@
         
         [cell.titleLabel setText:@"关于"];
         
+        cell.seperatorLineView.hidden = YES;
+        
     } else if (indexPath.section==4) {
         
         [cell setAccessoryType:UITableViewCellAccessoryNone];
+        
+        cell.seperatorLineView.hidden = YES;
         
         UILabel* Cancellation=[[UILabel alloc]init];
         

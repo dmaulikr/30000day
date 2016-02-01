@@ -80,6 +80,8 @@ static const NSInteger isfirstload = 0;
 
 #define LO_API_SERVER               @"https://moapi.lianjia.com"                   //正式服务器地址
 
+#define RGBACOLOR(R,G,B,A)      [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
 #endif
 
 #endif /* PrefixHeader_pch */
