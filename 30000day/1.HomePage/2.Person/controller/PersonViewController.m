@@ -125,6 +125,7 @@
         cell.nameLab.text = friendInfo.FriendSelfNickName;
         
     }
+    
     cell.logName.text = @"暂无简介";
     
     int birthday = [self pastDay:[friendInfo.Birthday stringByAppendingString:@" 00:00:00"]];

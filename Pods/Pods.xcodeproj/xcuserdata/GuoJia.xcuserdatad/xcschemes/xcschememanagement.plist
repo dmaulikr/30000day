@@ -19,16 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>M13BadgeView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>M13ProgressSuite.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,17 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MagicalRecord.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -69,11 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>iCarousel.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,27 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>12C9D4A75CF5CB7110D136F4E32E3092</key>
+		<key>231ACB40D64A5FA84F442A68D18B82C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>14150D425C3359419A98B22EDA4511F3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>204168549F2225101F63E4440F134DC2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2D71D43A28FC15FAF1EB51C212C1BC9F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>342DE230F407040A38A63494D90B81F4</key>
+		<key>2F1A6A66221A9EB10EE05D0856749069</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,7 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7829C8CAD717E75EB796539E0470D452</key>
+		<key>424437D1FA5352EAE84F7650F9CD545C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>446D3AE4C6E6DF29796F995C256065CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,27 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9494390523250106847516AB47E5F9FF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B2415AA2021F92F884AD007807448C5F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D00FAD2C71C365194221F7781D5FB165</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D54AB3ECEB9A8FBA15D4F73CBE326692</key>
+		<key>E78565F49C56394F111C6B0F68923AB2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

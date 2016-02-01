@@ -45,9 +45,7 @@
     [super viewDidLoad];
     
     self.tabBarController.tabBar.hidden = YES;
-    
-    [self.navigationItem setHidesBackButton:NO animated:YES];
-    
+
     self.navigationItem.title = @"登录";
     
     self.textSubView.layer.borderWidth=1.0;
@@ -92,7 +90,6 @@
     
     [self textFielddidload];
 }
-
 
 #pragma mark - 加载历史记录
 -(void)textFielddidload{
@@ -143,7 +140,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]];
+    
+   self.navigationItem.leftBarButtonItem = backItem;
+    
     LogPwd* lp=[LogPwd sharedLogPwd];
     
     if (lp.log!=nil) {
@@ -156,7 +157,7 @@
 }
 
 #pragma mark - 找回密码
--(IBAction)findPwd:(UIButton *)sender {
+- (IBAction)findPwd:(UIButton *)sender {
     
     loginNameVerificationViewController* logvf=[[loginNameVerificationViewController alloc]init];
     

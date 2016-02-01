@@ -21,7 +21,7 @@
     
     [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
     
-    self.navigationBar.shadowImage = [[UIImage alloc]init];
+    self.navigationBar.shadowImage = [[UIImage alloc] init];
     
     [self navigationBar].layer.shadowColor = [UIColor blackColor].CGColor; //shadowColor阴影颜色
     
@@ -55,7 +55,7 @@
     
     [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0 )) {
         
