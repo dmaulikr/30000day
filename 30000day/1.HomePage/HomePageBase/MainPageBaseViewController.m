@@ -37,199 +37,35 @@
     
     [super viewDidLoad];
     
-    _userinfo = TKAddressBookManager.userInfo;
+    [self configUI];
     
-    if (_userinfo.isfirstlog == 0) {
+    //监听个人信息管理模型发出的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configUI) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    
+    self.tabBarController.tabBar.hidden = NO;
+    
+    if (![Common isUserLogin]) {//过去没有登录
         
-        NSString *logname = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
-        
-        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
-        
-        if (logname == nil || password == nil) {
-            
-            SignInViewController *logview = [[SignInViewController alloc] init];
-            
-            [self.navigationController pushViewController:logview animated:YES];
-            
-            return;
-            
-        } else {
-            
-            [self loginPree];
-            
-        }
-        
-    } else if (_userinfo.isfirstlog == 1) {
-        
-        //初始化UI界面
-         [self configUI];
-        
-        _userinfo.isfirstlog = -1;
-        
-    }
-}
+        SignInViewController *logview = [[SignInViewController alloc] init];
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
-    _userinfo = TKAddressBookManager.userInfo;
-    
-    if (_userinfo.isfirstlog == 0) {
-        
-        NSString *logname = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
-        
-        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
-        
-        if (logname == nil || password == nil) {
-            
-            SignInViewController *logview = [[SignInViewController alloc] init];
-            
-            [self.navigationController pushViewController:logview animated:YES];
-            
-            return;
-            
-        } else {
-            
-            [self loginPree];
-            
-        }
-        
-    } else if (_userinfo.isfirstlog == 1) {
-        
-        //初始化UI界面
-        [self configUI];
-        
-        _userinfo.isfirstlog = -1;
-        
-    }
-    
-    self.tabBarController.tabBar.hidden=NO;
-}
+        [self.navigationController pushViewController:logview animated:YES];
 
-#pragma  mark -根据用户最近登录的账号自动登录
-- (void)loginPree {
-    
-    NSString *logname = [[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
-    
-    NSString *password = [[NSUserDefaults standardUserDefaults]stringForKey:@"password"];
-    
-    NSString *url = @"http://116.254.206.7:12580/M/API/Login?";
-    
-    url = [url stringByAppendingString:@"LoginName="];
-    
-    url = [url stringByAppendingString:logname];
-    
-    url = [url stringByAppendingString:@"&LoginPassword="];
-    
-    url = [url stringByAppendingString:password];
-    
-    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
-    
-    NSError *error;
-    
-    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-    
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    
-    NSDictionary * dict = [jsonParser objectWithString:jsonStr error:nil];
-    
-    NSLog(@"%@",dict);
-    
-    UserInfo *user = [[UserInfo alloc] init];
-    
-    [user setValuesForKeysWithDictionary:dict];
-    
-    user.Birthday = [user.Birthday stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-    
-    user.Gender = [NSString stringWithFormat:@"%@",user.Gender];
-    
-    if ([user.Gender  isEqual: @"1"]) {
+    } else {//过去有登录
         
-        user.Gender = @"男";
+        [[UserAccountHandler shareUserAccountHandler] getUserInfo];
         
-    } else {
-        
-        user.Gender = @"女";
-    }
-    
-    if (dict != nil) {
-        
-        user.isfirstlog = -1;
-        
-        TKAddressBookManager.userInfo = user;
-        
-        _userinfo = user;
-        
-        //为自己的人界面获取到所有好友列表数据
-        [self getMyFriends];
-        
-        //初始化UI界面
-       [self configUI];
-        
-    } else {
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"身份信息过期，请重新登录。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        
-        [alert setTag:-1];
-        
-        [alert show];
-    }
-}
-
-- (void)getMyFriends {
-    
-    NSString * url = @"http://116.254.206.7:12580/M/API/GetMyFriends?";
-    
-    url = [url stringByAppendingString:@"LoginName="];
-    
-    url = [url stringByAppendingString:_userinfo.LoginName];
-    
-    url = [url stringByAppendingString:@"&LoginPassword="];
-    
-    url = [url stringByAppendingString:_userinfo.LoginPassword];
-    
-    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
-    
-    NSError *error;
-    
-    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-    
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    
-    NSDictionary * dict = [jsonParser objectWithString:jsonStr error:nil];
-    
-    NSLog(@"%@",dict);
-    
-    if ( dict!= nil) {
-        
-        NSMutableArray *array = [NSMutableArray array];
-        
-        for (NSDictionary *dic in dict) {
-            
-            FriendListInfo *ff = [[FriendListInfo alloc] init];
-            
-            [ff setValuesForKeysWithDictionary:dic];
-            
-            [array addObject:ff];
-        }
-        
-        UserInfo *user = [TKAddressBook shareControl].userInfo;
-        
-        user.friendsArray = array;
     }
 }
 
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-    
 }
 
 #pragma mark ----初始化UI界面
 - (void)configUI {
     
-    self.tabBarController.tabBar.hidden=NO;
+    self.tabBarController.tabBar.hidden = NO;
     //设置子控制器
     MainPageViewController *mainPageController = [[MainPageViewController alloc] init];
     
@@ -364,9 +200,9 @@
     [self.buttonParentView addSubview:_bottomScrollView];
 }
 
-- (UIButton*)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
+- (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
     
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [button setTitle:title forState:UIControlStateNormal];
     
@@ -516,6 +352,12 @@
             
             break;
     }
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 /*

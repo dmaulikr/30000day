@@ -35,7 +35,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="loginPree:" destination="-1" eventType="touchUpInside" id="qp1-Yy-ok9"/>
+                        <action selector="signInButtonClick:" destination="-1" eventType="touchUpInside" id="Umo-UI-RXz"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irt-oC-3vP">

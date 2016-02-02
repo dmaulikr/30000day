@@ -1,14 +1,14 @@
 //
-//  UserInfo.h
-//  30000天
+//  UserProfile.h
+//  30000day
 //
-//  Created by 30000天_001 on 15/7/29.
-//  Copyright (c) 2015年 30000天_001. All rights reserved.
+//  Created by GuoJia on 16/2/2.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface UserInfo : NSObject
+@interface UserProfile : NSObject
 
 @property (nonatomic ,copy) NSString *UserID;//用户id
 
@@ -55,8 +55,6 @@
 @property (nonatomic ,copy) NSString *Q3;//答案3
 
 
-@property (nonatomic ,copy) NSArray *friendsArray;
 
-//+ (UserInfo *)userWithUserInfo:(UserInfo*)user;
 
 @end

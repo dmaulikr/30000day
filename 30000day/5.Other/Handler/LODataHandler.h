@@ -16,33 +16,40 @@
 
 @property (nonatomic, weak) STBaseViewController *delegate;
 
-//***** 发送验证请求 *****/
-- (NSString *)postLoginVerifyCode:(NSString *)code
-                      phoneNumber:(NSString *)phonenumber
-                          picCode:(NSString *)piccode
-                          success:(void (^)(id responseObject))success
-                          failure:(void (^)(LONetError *))failure;
+////***** 发送验证请求 *****/
+//- (NSString *)postLoginVerifyCode:(NSString *)code
+//                      phoneNumber:(NSString *)phonenumber
+//                          picCode:(NSString *)piccode
+//                          success:(void (^)(id responseObject))success
+//
+//                          failure:(void (^)(LONetError *))failure;
 //***** 普通登录 *****/
-- (NSString *)postLoginWithPassword:(NSString *)password
+- (NSString *)postSignInWithPassword:(NSString *)password
                         phoneNumber:(NSString *)phonenumber
                             success:(void (^)(id responseObject))success
                             failure:(void (^)(LONetError *))failure;
-//***** 用户注册 *****/
-- (NSString *)postRegesiterWithPassword:(NSString *)password
-                            phoneNumber:(NSString *)phonenumber
-                                picCode:(NSString *)piccode
-                             verifyCode:(NSString *)verifycode
-                                success:(void (^)(id responseObject))success
-                                failure:(void (^)(LONetError *))failure;
-//***** 忘记密码 *****/
-- (NSString *)postChangePasswordWithPassword:(NSString *)password
-                            phoneNumber:(NSString *)phonenumber
-                             verifyCode:(NSString *)verifycode
-                                success:(void (^)(id responseObject))success
-                                failure:(void (^)(LONetError *))failure;
-//***** 忘记密码 *****/
-- (NSString *)getRecordCountIfSuccess:(void (^)(id responseObject))success
-                                     failure:(void (^)(LONetError *))failure;
+////***** 用户注册 *****/
+//- (NSString *)postRegesiterWithPassword:(NSString *)password
+//                            phoneNumber:(NSString *)phonenumber
+//                                picCode:(NSString *)piccode
+//                             verifyCode:(NSString *)verifycode
+//                                success:(void (^)(id responseObject))success
+//                                failure:(void (^)(LONetError *))failure;
+////***** 忘记密码 *****/
+//- (NSString *)postChangePasswordWithPassword:(NSString *)password
+//                            phoneNumber:(NSString *)phonenumber
+//                             verifyCode:(NSString *)verifycode
+//                                success:(void (^)(id responseObject))success
+//                                failure:(void (^)(LONetError *))failure;
+////***** 忘记密码 *****/
+//- (NSString *)getRecordCountIfSuccess:(void (^)(id responseObject))success
+//                                     failure:(void (^)(LONetError *))failure;
 
+
+//**** 获取好友 *****/
+- (NSString *)getMyFriendsWithPassword:(NSString *)password
+                            phoneNumber:(NSString *)phonenumber
+                                success:(void (^)(id responseObject))success
+                                failure:(void (^)(LONetError *))failure;
 
 @end

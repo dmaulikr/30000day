@@ -10,6 +10,12 @@
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate>
 
+{
+    NSMutableArray *_dataArray;
+}
+
+@property (nonatomic,assign) NSInteger state;
+
 @end
 
 @implementation PersonViewController
@@ -18,15 +24,53 @@
     [super viewDidLoad];
     
     self.state = 0;//列表
-    
-    self.userinfo = [TKAddressBook shareControl].userInfo;
-    
-    self.friendsArray = self.userinfo.friendsArray;
-    
-    self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)self.friendsArray.count];
-    
+
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
+    //获取我的好友
+    [self getMyFriends];
+    
+    //监听个人信息管理模型发出的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMyFriends) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    
+}
+
+//获取我的好友
+- (void)getMyFriends {
+    
+    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] phoneNumber:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
+        
+        NSError *localError = nil;
+        
+       id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+
+        NSArray  *recvArray = (NSArray *)parsedObject;
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        for (NSDictionary *dic in recvArray) {
+            
+            FriendListInfo *ff = [[FriendListInfo alloc] init];
+            
+            [ff setValuesForKeysWithDictionary:dic];
+            
+            [array addObject:ff];
+        }
+        
+        _dataArray = array;
+        
+       dispatch_async(dispatch_get_main_queue(), ^{
+           
+           self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
+           
+           [self.tableView reloadData];
+       });
+        
+    } failure:^(LONetError *error) {
+        
+        
+    }];
+
 }
 
 - (IBAction)switchModeButtonClick:(id)sender {
@@ -62,7 +106,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.friendsArray.count;
+    return _dataArray.count;
     
 }
 
@@ -80,7 +124,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FriendListInfo *friendInfo = self.friendsArray[indexPath.row];
+    FriendListInfo *friendInfo = _dataArray[indexPath.row];
     
     myFriendsTableViewCell *cell;
     
@@ -172,6 +216,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

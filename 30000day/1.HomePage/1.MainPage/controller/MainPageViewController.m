@@ -64,7 +64,7 @@
     
     [super viewDidLoad];
     
-     _userInfo = TKAddressBookManager.userInfo;
+     _userInfo = [UserAccountHandler shareUserAccountHandler].userInfo;
     
     [self.weatherSupView.layer setBorderWidth:1.0];
     

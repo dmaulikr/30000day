@@ -9,14 +9,22 @@
 #import "LogPwd.h"
 
 static LogPwd* class=nil;
+
 @implementation LogPwd
-+(LogPwd*)sharedLogPwd{
-    @synchronized(self){
+
++ (LogPwd *)sharedLogPwd {
+    
+    @synchronized(self) {
+        
         if (!class) {
-            class=[[LogPwd alloc]init];
+            
+            class = [[LogPwd alloc]init];
+            
         }
+        
         return class;
     }
     
 }
+
 @end

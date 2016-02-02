@@ -12,25 +12,6 @@
 #import "LONetworkAgent.h"
 #import "STBaseViewController.h"
 
-#ifdef TESTORG
-
-static const NSString *client_id = @"4pNYCsh91eXjs3RefSpY5j";
-
-static const NSString *client_secret = @"1vEPR1cZKoRyO2advV7yBD";
-
-#elif defined TEST
-
-static const NSString *client_id = @"2ERSJrrxJIjQRrJPnNKs9V";
-
-static const NSString *client_secret = @"3s0G9oU54yH4ZEtUulKoZC";
-
-#elif defined PRODUCT
-
-static const NSString *client_id = @"3RtLsXq06WrEnsy2nBvEEU";
-
-static const NSString *client_secret = @"7mepBXgu9BENP4tEuDevDs";
-
-#endif
 
 @interface NSMutableDictionary (Parameter)
 
@@ -116,31 +97,35 @@ static const NSString *client_secret = @"7mepBXgu9BENP4tEuDevDs";
 //    request.requestSerializerType = LORequestSerializerTypeJSON;
 //    return [self startRequest:request];
 //}
-//
-//- (NSString *)postLoginWithPassword:(NSString *)password
-//                        phoneNumber:(NSString *)phonenumber
-//                            success:(void (^)(id responseObject))success
-//                            failure:(void (^)(LONetError *))failure {
-//    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters addParameter:phonenumber forKey:@"mobile_phone_no"];
-//    [parameters addParameter:password forKey:@"password"];
-//    
-//    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
-//                                                        url:LOGIN_WITH_PASSWORD
-//                                                 parameters:parameters
-//                                                    success:^(id responseObject) {
-//                                                        
-//                                                        success(responseObject);
-//                                                        
-//                                                    } failure:^(LONetError *error) {
-//                                                        failure(error);
-//                                                    }];
-//    request.needHeaderAuthorization = YES;
-//    request.requestSerializerType = LORequestSerializerTypeJSON;
-//    return [self startRequest:request];
-//
-//}
-//
+
+- (NSString *)postSignInWithPassword:(NSString *)password
+                        phoneNumber:(NSString *)phonenumber
+                            success:(void (^)(id responseObject))success
+                            failure:(void (^)(LONetError *))failure {
+    
+     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:phonenumber forKey:@"LoginName"];
+    
+    [parameters addParameter:password forKey:@"LoginPassword"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
+                                                        url:LOGIN_WITH_PASSWORD
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        success(responseObject);
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        failure(error);
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    return [self startRequest:request];
+}
+
 //- (NSString *)postRegesiterWithPassword:(NSString *)password
 //                            phoneNumber:(NSString *)phonenumber
 //                                picCode:(NSString *)piccode
@@ -211,5 +196,34 @@ static const NSString *client_secret = @"7mepBXgu9BENP4tEuDevDs";
 //    request.requestSerializerType = LORequestSerializerTypeJSON;
 //    return [self startRequest:request];
 //}
+
+- (NSString *)getMyFriendsWithPassword:(NSString *)password
+                           phoneNumber:(NSString *)phonenumber
+                               success:(void (^)(id responseObject))success
+                               failure:(void (^)(LONetError *))failure {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:phonenumber forKey:@"LoginName"];
+    
+    [parameters addParameter:password forKey:@"LoginPassword"];
+    
+        LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                            url:GET_MY_FRIENDS
+                                                     parameters:parameters
+                                                        success:^(id responseObject) {
+    
+                                                            success(responseObject);
+    
+                                                        } failure:^(LONetError *error) {
+                                                            failure(error);
+                                                        }];
+        request.needHeaderAuthorization = NO;
+    
+        request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+        return [self startRequest:request];
+    
+}
 
 @end

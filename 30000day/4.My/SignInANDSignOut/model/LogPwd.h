@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface LogPwd : NSObject
+
 @property (nonatomic,strong)NSString* log;
+
 @property (nonatomic,strong)NSString* pwd;
-+(LogPwd*)sharedLogPwd;
+
++ (LogPwd *)sharedLogPwd;
 
 @end

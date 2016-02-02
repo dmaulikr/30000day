@@ -14,6 +14,7 @@
 #import "SMSVerificationViewController.h"
 #import "loginNameVerificationViewController.h"
 #import "TKAddressBook.h"
+#import "UserProfile.h"
 
 #define HCUSERINFO @"userinfo"
 
@@ -33,7 +34,7 @@
 
 @property (nonatomic,strong)UITableView* tableview;
 
-@property (nonatomic,strong)NSMutableArray* userlognamepwd;
+@property (nonatomic,strong)NSMutableArray *userlognamepwd;
 
 @property (nonatomic,assign)CGRect selectedTextFieldRect;
 
@@ -84,21 +85,21 @@
     
     [self.lockPassWord addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     
-    _userNameTF.tag=1;
+    _userNameTF.tag = 1;
     
-    _userPwdTF.tag=2;
+    _userPwdTF.tag = 2;
     
     [self textFielddidload];
 }
 
 #pragma mark - 加载历史记录
--(void)textFielddidload{
+-(void)textFielddidload {
     
     [self.userNameTF setDelegate:self];
     
     [self.userPwdTF setDelegate:self];
     
-    _userlognamepwd = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
+    _userlognamepwd = [UserAccountHandler shareUserAccountHandler].lastUserAccountArray;
     
     if (_userlognamepwd.count > 0) {
         
@@ -108,7 +109,7 @@
         
         [self.view addSubview:_tableview];
         
-        _tableview.translatesAutoresizingMaskIntoConstraints=NO;
+        _tableview.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableview attribute:NSLayoutAttributeWidth relatedBy:0 toItem:self.userNameTF attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
         
@@ -137,7 +138,7 @@
 
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:YES];
     
@@ -166,221 +167,159 @@
 }
 
 #pragma mark - 登录
-- (IBAction)loginPree:(UIButton *)sender {
+- (IBAction)signInButtonClick:(UIButton *)sender {
     
-    NSString * url = @"http://116.254.206.7:12580/M/API/Login?";
-    
-    url = [url stringByAppendingString:@"LoginName="];
-    
-    url = [url stringByAppendingString:_userNameTF.text];
-    
-    url = [url stringByAppendingString:@"&LoginPassword="];
-    
-    url = [url stringByAppendingString:_userPwdTF.text];
-    
-    NSMutableString *mUrl=[[NSMutableString alloc] initWithString:url] ;
-    
-    NSError *error;
-    
-    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-    
-    NSLog(@"%@",jsonStr);
-    
-    //第三方类库的json解析
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    
-    NSDictionary * dict = [jsonParser objectWithString:jsonStr error:nil];
-    
-    NSLog(@"%@",dict);
-    
-    UserInfo *user = [[UserInfo alloc] init];
-    
-    [user setValuesForKeysWithDictionary:dict];
-    
-    user.Birthday = [user.Birthday stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-    
-    user.Gender = [NSString stringWithFormat:@"%@",user.Gender];
-    
-    if([user.Gender  isEqual: @"1"]){
+    [self.dataHandler postSignInWithPassword:_userPwdTF.text
+                                 phoneNumber:_userNameTF.text
+                                     success:^(id responseObject) {
         
-        user.Gender = @"男";
+                                 NSError *localError = nil;
+                     
+                                 id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                     
+                                  NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                  
+                                  UserInfo *userInfo = [[UserInfo alloc] init];
+                                  
+                                  [userInfo setValuesForKeysWithDictionary:recvDic];
+                                     
+                                  //保存用户上次登录的账号,同时也会更新用户信息
+                                  [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userInfo];
+                                 
+                                 [self.navigationController popViewControllerAnimated:YES];
+                                         
+    } failure:^(LONetError *error) {
         
-    }else{
-        
-        user.Gender = @"女";
-    }
-
-    if (dict != nil){
-        
-        user.isfirstlog=1;
-        
-        TKAddressBookManager.userInfo = user;
-        
-        [[NSUserDefaults standardUserDefaults] setObject:_userNameTF.text forKey:@"username"];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:_userPwdTF.text forKey:@"password"];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        NSMutableArray *userlognamepwd=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"userlognamepwd"]];
-        
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        
-        if ( userlognamepwd.count == 0 ) {
-            
-            [dic setObject:_userNameTF.text forKey:@"logname"];
-            
-            [dic setObject:_userPwdTF.text forKey:@"logpwd"];
-            
-            [userlognamepwd addObject:dic];
-            
-            [[NSUserDefaults standardUserDefaults] setObject:userlognamepwd forKey:@"userlognamepwd"];
-            
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-        }else{
-            
-            NSInteger isexist=1;
-            
-            for (NSInteger i=0; i<userlognamepwd.count; i++) {
-                
-                dic=userlognamepwd[i];
-                
-                if ([[dic objectForKey:@"logname"] isEqualToString:_userNameTF.text]){
-                    
-                    isexist=0;
-                }
-                
-                if ([[dic objectForKey:@"logname"] isEqualToString:_userNameTF.text] && ![[dic objectForKey:@"logpwd"] isEqualToString:_userPwdTF.text]){
-                    
-                    NSDictionary* dc=[NSDictionary dictionaryWithObjectsAndKeys:_userNameTF.text,@"logname",_userPwdTF.text,@"logpwd", nil];
-                    
-                    userlognamepwd[i]=dc;
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:userlognamepwd forKey:@"userlognamepwd"];
-                    
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }
-            }
-            
-            if (isexist) {
-                
-                NSDictionary* dc=[NSDictionary dictionaryWithObjectsAndKeys:_userNameTF.text,@"logname",_userPwdTF.text,@"logpwd", nil];
-                
-                [userlognamepwd addObject:dc];
-                
-                [[NSUserDefaults standardUserDefaults] setObject:userlognamepwd forKey:@"userlognamepwd"];
-                
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-        }
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    } else {
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
         
         [alert show];
         
-        NSLog(@"error:%@",jsonStr);
-        
-    }
+    }];
 }
 
 #pragma mark - 账号密码历史记录tableview
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return _userlognamepwd.count;
     
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary* dic=_userlognamepwd[indexPath.row];
+    NSDictionary *dic = _userlognamepwd[indexPath.row];
     
-    NSString* log=[dic objectForKey:@"logname"];
-    TextFieldCellTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:@"TextCell"];
-    if (cell==nil) cell=[[NSBundle mainBundle]loadNibNamed:@"TextFieldCellTableViewCell" owner:self options:nil][0];
+    NSString *log = [dic objectForKey:KEY_SIGNIN_USER_NAME];
     
-    UIButton* deletebtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    TextFieldCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextCell"];
+    
+    if (cell == nil) cell=[[NSBundle mainBundle]loadNibNamed:@"TextFieldCellTableViewCell" owner:self options:nil][0];
+    
+    UIButton *deletebtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     [deletebtn setTitle:@"x" forState:UIControlStateNormal];
+    
     [deletebtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    
     [deletebtn setTag:indexPath.row];
-    //[deletebtn setFrame:CGRectMake(170, 0, 30, 44)];
+    
     [deletebtn addTarget:self action:@selector(deletebt:) forControlEvents:UIControlEventTouchUpInside];
+    
     [cell addSubview:deletebtn];
+    
     deletebtn.translatesAutoresizingMaskIntoConstraints=NO;
-    //[cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[btn]-20-|" options:NSLayoutFormatAlignAllRight metrics:nil views:@{@"btn":deletebtn}]];
+
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:deletebtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1 constant:-10]];
     
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:deletebtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:30]];
+    
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:deletebtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:44]];
+    
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:deletebtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    cell.textLabel.text=log;
+    cell.textLabel.text = log;
+    
     return cell;
 }
--(void)deletebt:(UIButton*)sender{
+
+- (void)deletebt:(UIButton*)sender {
     
     [_userlognamepwd removeObjectAtIndex:sender.tag];
+    
     [[NSUserDefaults standardUserDefaults] setObject:_userlognamepwd forKey:@"userlognamepwd"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [_tableview reloadData];
-    if (_userlognamepwd.count==0) {
+    
+    if (_userlognamepwd.count == 0) {
+        
         [_tableview removeFromSuperview];
     }
-    
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //[_userNameTF resignFirstResponder];
-    NSDictionary* dic=_userlognamepwd[indexPath.row];
-    NSString* log=[dic objectForKey:@"logname"];
-    NSString* pass=[dic objectForKey:@"logpwd"];
-    _userNameTF.text=log;
-    _userPwdTF.text=pass;
-    _tableview.hidden=YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary *dic = _userlognamepwd[indexPath.row];
+    
+    NSString *log=[dic objectForKey:KEY_SIGNIN_USER_NAME];
+    
+    NSString *pass = [dic objectForKey:KEY_SIGNIN_USER_PASSWORD];
+    
+    _userNameTF.text = log;
+    
+    _userPwdTF.text = pass;
+    
+    _tableview.hidden = YES;
 }
 
 #pragma mark - 键盘的代理方法以及键盘消失的方法
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.lockPassWord.hidden=NO;
-    if (textField.tag==1) {
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    self.lockPassWord.hidden = NO;
+    
+    if (textField.tag == 1) {
+        
         _tableview.hidden=NO;
+        
         textH=self.tableview.frame.size.height;
-    }else{
+        
+    } else {
+        
         textH=0;
     }
-    self.selectedTextFieldRect=textField.frame;
     
+    self.selectedTextFieldRect=textField.frame;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    //[_tableview setFrame:CGRectMake(50, -330, 200, 200)];
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
     if (textField.tag) {
-        _tableview.hidden=YES;
+        
+        _tableview.hidden = YES;
+        
     }
+    
     self.lockPassWord.hidden=YES;
 }
 
--(BOOL)textFieldShouldClear:(UITextField *)textField{
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
     
     if (textField.tag) {
+        
         _userPwdTF.text=@"";
     }
     //可以设置在特定条件下才允许清除内容
     return YES;
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];
     
     return YES;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [self.userNameTF resignFirstResponder];
     
@@ -388,46 +327,13 @@
     
 }
 
-//#pragma mark - 当键盘出现或改变时调用
-//- (void)keyboardWillShow:(NSNotification *)notification{
-//    //获取键盘高度，在不同设备上，以及中英文下是不同的
-//    CGFloat kbHeight = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-//    //计算出键盘顶端到inputTextView panel底端的距离(加上自定义的缓冲距离INTERVAL_KEYBOARD)
-//    CGFloat offset = (self.selectedTextFieldRect.origin.y+self.selectedTextFieldRect.size.height+textH) - (self.view.frame.size.height - kbHeight);
-//    // 取得键盘的动画时间，这样可以在视图上移的时候更连贯
-//    double duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-//    //将视图上移计算好的偏移
-//    if(offset > 0) {
-//        [UIView animateWithDuration:duration animations:^{
-//            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
-//        }];
-//    }
-//}
-//#pragma mark - 当键退出时调用
-//- (void)keyboardWillHide:(NSNotification *)aNotification{
-//    // 键盘动画时间
-//    double duration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-//    
-//    //视图下沉恢复原状
-//    [UIView animateWithDuration:duration animations:^{
-//        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-//    }];
-//}
-//#pragma mark - 视图消失时释放通知
-//-(void)viewDidDisappear:(BOOL)animated{
-//    [super viewDidDisappear:YES];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-//}
-
--(void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning{
     
     [super didReceiveMemoryWarning];
     
-    // Dispose of any resources that can be recreated.
 }
 
--(void)touchDown:(UIButton *)sender{
+- (void)touchDown:(UIButton *)sender {
     
     [sender setBackgroundImage:[UIImage imageNamed:@"DisplayPassword.png"] forState:UIControlStateNormal];
     
@@ -447,15 +353,6 @@
     SMSVerificationViewController* sms = [[SMSVerificationViewController alloc] init];
     
     sms.navigationItem.title = @"闪电注册";
-    
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-//    //[backItem setImage:[UIImage imageNamed:@"返回.png"]];
-//    
-//    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    UIImage* image = [UIImage imageNamed:@"返回.png"];
-//    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    //[backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-//    self.navigationItem.backBarButtonItem = backItem;
     
     [self.navigationController pushViewController:sms animated:YES];
     

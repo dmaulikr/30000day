@@ -270,7 +270,7 @@
 
 -(void)addToolView:(NSString*)time {
     
-    _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, kSubViewHeight+20)];
+    _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
     
     [self.view addSubview:_toolView];
     
@@ -280,7 +280,7 @@
     
     _dateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [_dateButton setFrame:CGRectMake(self.leftX, 10, btu1Width, kSubViewHeight)];
+    [_dateButton setFrame:CGRectMake(self.leftX, 10, btu1Width, 25)];
     
     [_dateButton setTitle:time forState:UIControlStateNormal];
     
@@ -294,7 +294,7 @@
     
     _backTodayButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [_backTodayButton setFrame:CGRectMake(self.leftX + btu1Width + 10, 10, btu2Width, kSubViewHeight)];
+    [_backTodayButton setFrame:CGRectMake(self.leftX + btu1Width + 10, 10, btu2Width, 25)];
     
     [_backTodayButton setTitle:@"今天" forState:UIControlStateNormal];
     
@@ -308,7 +308,7 @@
     
     _pushRemindButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [_pushRemindButton setFrame:CGRectMake(self.leftX + btu1Width + 10 + btu2Width, 10, btu2Width, kSubViewHeight)];
+    [_pushRemindButton setFrame:CGRectMake(self.leftX + btu1Width + 10 + btu2Width, 10, btu2Width, 25)];
     
     [_pushRemindButton setTitle:@"➕" forState:UIControlStateNormal];
     

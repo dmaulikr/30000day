@@ -21,6 +21,9 @@
 #import "FMDB.h"
 #import "STBaseViewController.h"
 #import "ShowBackItemViewController.h"
+#import "LODataHandler.h"
+#import "Common.h"
+#import "UserAccountHandler.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 
@@ -40,11 +43,8 @@
 
 #define DB_TABLENAME  @"calendarinfo"
 
-#define kSubViewHeight 25
 
-static const NSInteger isfirstload = 0;
 
-#define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
 
@@ -56,17 +56,24 @@ static const NSInteger isfirstload = 0;
 
 #define jhMethod @"GET"
 
+
+#define KEY_SIGNIN_USER_NAME         @"SignInUserName"    //登录用户名
+
+#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"    //用户密码
+
+#define KEY_SIGNIN_USER_UID          @"uid"              //用户登录的UID
+
+#define USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
+
+
+
 //好友进度条圈圈的厚度
 #define FriendProgressHeight 3
-
-//个人设置跟好友详细信息界面头像的大小
-#define userSetingIconSize [UIScreen mainScreen].bounds.size.width/3
-
-#define userFriendIconSize [UIScreen mainScreen].bounds.size.width/2
 
 #define maxSelectDateTime 2050
 
 #define minSelectDateTime 1900
+
 
 #define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
 
@@ -74,15 +81,19 @@ static const NSInteger isfirstload = 0;
 
 #define BLUECOLOR [UIColor colorWithRed:109.0/255 green:157.0/255 blue:234.0/255 alpha:1.0]
 
-#define  TKAddressBookManager [TKAddressBook shareControl]
+#define RGBACOLOR(R,G,B,A)      [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+#define  TKAddressBookManager   [TKAddressBook shareControl]
 
 #define CLIENT_ID                   @"2015091511107"
 
 #define CLIENT_SECRET               @"0a34a9366d438e6ac5ae3480d024c4ef"
 
-#define LO_API_SERVER               @"https://moapi.lianjia.com"                   //正式服务器地址
+#define ST_API_SERVER               @"http://116.254.206.7:12580/M/API"            //正式服务器地址
 
-#define RGBACOLOR(R,G,B,A)      [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+#define LOGIN_WITH_PASSWORD         @"/Login"                                      //用户登录
+
+#define GET_MY_FRIENDS              @"/GetMyFriends"                               //获取用户好友
 
 #endif
 

@@ -9,6 +9,7 @@
 #import "security.h"
 
 static security *instance;
+
 @implementation security
 
 +(security *)shareControl

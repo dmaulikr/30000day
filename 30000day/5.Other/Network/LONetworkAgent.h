@@ -14,9 +14,13 @@
 @interface LONetworkAgent : NSObject
 
 typedef NS_ENUM(NSInteger, LONetworkReachabilityStatus) {
+    
     LONetworkReachabilityStatusUnknown      = -1,
+    
     LONetworkReachabilityStatusNotReachable = 0,
+    
     LONetworkReachabilityStatus3G           = 1,
+    
     LONetworkReachabilityStatusWiFi         = 2,
 };
 

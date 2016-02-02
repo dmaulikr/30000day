@@ -29,22 +29,11 @@
     
     [super viewDidLoad];
     
-     _userinfo = TKAddressBookManager.userInfo;
+    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    
+    self.tabBarController.tabBar.hidden = NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
-    self.tabBarController.tabBar.hidden=NO;
-    
-    UserInfo *u = TKAddressBookManager.userInfo;
-    
-    if (u.isfirstlog==1) {
-        
-        [self.tabBarController setSelectedIndex:0];
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -286,8 +275,6 @@
         
         userInfoViewController *user=[[userInfoViewController alloc]init];
         
-        user.title = @"个人信息";
-        
         [self.navigationController pushViewController:user animated:YES];
         
     } else if (indexPath.section == 1) {
@@ -328,13 +315,8 @@
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        TKAddressBookManager.userInfo = nil;
-        
-        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"username"];
-        
-        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        //登出
+        [[UserAccountHandler shareUserAccountHandler] logout];
         
         SignInViewController *viewController = [[SignInViewController alloc] init];
         

@@ -19,12 +19,4 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic,strong) UserInfo *userinfo;
-
-@property (nonatomic,strong) FriendListInfo *friendInfo;
-
-@property (nonatomic,strong) NSArray *friendsArray;
-
-@property (nonatomic,assign) NSInteger state;
-
 @end

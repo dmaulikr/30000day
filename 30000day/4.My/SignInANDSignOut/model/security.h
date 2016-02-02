@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface security : NSObject
+
 @property (nonatomic,copy)NSMutableDictionary* securityDic;
+
 @property (nonatomic,copy)NSString* loginName;
-+(security*)shareControl;
+
++ (security *)shareControl;
 @end

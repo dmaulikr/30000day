@@ -45,18 +45,28 @@
     
     [super viewDidLoad];
     
+    self.title = @"个人信息";
+    
     UIBarButtonItem* rightBarButton=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;
     
-    self.mainTableState=0;
+    self.mainTableState = 0;
+    
     [self.mainTable setDelegate:self];
+    
     [self.mainTable setDataSource:self];
-    _userinfo=[TKAddressBook shareControl].userInfo;
-    self.NickName=_userinfo.NickName;
-    self.Gender=_userinfo.Gender;
+    
+    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    
+    self.NickName = _userinfo.NickName;
+    
+    self.Gender = _userinfo.Gender;
+    
     self.Birthday=_userinfo.Birthday;
-    _titleArray=[NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
+    
+    _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
+    
     self.mainTable.scrollEnabled = NO;
     
     [self backBarButtonItem];

@@ -11,28 +11,42 @@
 #import "LORequest.h"
 
 @implementation LONetworkAgent {
+    
     AFHTTPRequestOperationManager *_manager;
+    
     NSMutableDictionary *_requestsRecord;
 }
 
 + (LONetworkAgent *)sharedAgent {
+    
     static id sharedInstance = nil;
+    
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
+        
         sharedInstance = [[self alloc] init];
+        
     });
+    
     return sharedInstance;
 }
 
 - (id)init {
+    
     self = [super init];
+    
     if (self) {
+        
         _manager = [AFHTTPRequestOperationManager manager];
+        
         _manager.operationQueue.maxConcurrentOperationCount = 4;
+        
         _urlFilters = [[NSMutableDictionary alloc] init];
 
         _requestsRecord = [NSMutableDictionary dictionary];
     }
+    
     return self;
 }
 
@@ -40,23 +54,37 @@
 #pragma mark Reachability
 
 - (BOOL)isReachable {
+    
     return [[AFNetworkReachabilityManager sharedManager] isReachable];
+    
 }
 
 - (LONetworkReachabilityStatus)networkReachabilityStatus {
+    
     LONetworkReachabilityStatus status = LONetworkReachabilityStatusUnknown;
     
     switch ([[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]) {
+            
         case AFNetworkReachabilityStatusNotReachable:
+            
             status = LONetworkReachabilityStatusNotReachable;
+            
             break;
+            
         case AFNetworkReachabilityStatusReachableViaWWAN:
+            
             status = LONetworkReachabilityStatus3G;
+            
             break;
+            
         case AFNetworkReachabilityStatusReachableViaWiFi:
+            
             status = LONetworkReachabilityStatusWiFi;
+            
             break;
+            
         default:
+            
             break;
     }
     
@@ -70,25 +98,38 @@
 - (NSString *)addRequest:(LORequest *)request {
     
     if (request.requestSerializerType == LORequestSerializerTypeHTTP) {
+        
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
     } else if (request.requestSerializerType == LORequestSerializerTypeJSON) {
+        
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
     }
     if (request.responseSerializerType == LOResponseTypeImage) {
+        
         _manager.responseSerializer = [AFImageResponseSerializer serializer];
+        
     } else {
-        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
     }
     
     _manager.requestSerializer.timeoutInterval = [request requestTimeoutInterval];
     
     [self buildRequestHeader:request];
+    
     NSString *url = [self buildRequestUrl:request];
+    
     id param = [self buildRequestParam:request];
     
     __weak typeof (self) weakSelf = self;
+    
     __weak typeof (request) weakRequest = request;
+    
     switch ([request requestMethod]) {
+            
         case LORequestMethodGet:
         {
             request.operation = [_manager GET:url
@@ -102,10 +143,13 @@
                                  ];
         }
             break;
+            
         case LORequestMethodPost:
         {
             AFConstructingBlock constructingBlock = [request constructingBodyBlock];
+            
             if (constructingBlock != nil) {
+                
                 request.operation = [_manager POST:url
                                         parameters:param
                          constructingBodyWithBlock:constructingBlock
@@ -118,10 +162,13 @@
                                      ];
                 
                 [request.operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                    
                     weakRequest.progressBlock(totalBytesWritten, totalBytesExpectedToWrite);
+                    
                 }];
                 
             } else {
+                
                 request.operation = [_manager POST:url
                                         parameters:param
                                            success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -199,16 +246,23 @@
 
 
 - (void)cancelRequestsWithHashArray:(NSArray *)requestHashArray {
+    
     for (NSString *hash in requestHashArray) {
+        
         [self cancelRequestWithHash:hash];
     }
 }
 
 - (void)cancelAllRequests {
+    
     NSDictionary *copyRecord = [_requestsRecord copy];
+    
     for (NSString *key in copyRecord) {
+        
         LORequest *request = copyRecord[key];
+        
         request.delegate = nil;
+        
         [request.operation cancel];
         
         [self removeRequestRecord:request];
@@ -220,15 +274,22 @@
 #pragma mark Private Method
 
 - (NSString *)buildRequestUrl:(LORequest *)request {
+    
     NSString *detailUrl = [request requestUrl];
+    
     if ([detailUrl hasPrefix:@"http"]) {
+        
         return detailUrl;
     }
     
     NSString *baseUrl;
+    
     if ([request baseUrl].length > 0) {
+        
         baseUrl = [request baseUrl];
+        
     } else {
+        
         baseUrl = nil;
     }
     
@@ -236,15 +297,21 @@
 }
 
 - (id)buildRequestParam:(LORequest *)request {
+    
     id param = request.parameters;
+    
     if ([param isKindOfClass:[NSDictionary class]] && [request needParameterFilter]) {
+        
         param = [[NSMutableDictionary alloc] initWithDictionary:param];
+        
         [param addEntriesFromDictionary:_urlFilters];
     }
+    
     return param;
 }
 
 - (void)buildRequestHeader:(LORequest *)request {
+    
     if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
 //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
         [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
@@ -260,12 +327,19 @@
     
     // if api need add custom value to HTTPHeaderField
     NSDictionary *headerFieldValueDictionary = [request requestHeaderFieldValueDictionary];
+    
     if (headerFieldValueDictionary != nil) {
+        
         for (id httpHeaderField in headerFieldValueDictionary.allKeys) {
+            
             id value = headerFieldValueDictionary[httpHeaderField];
+            
             if ([httpHeaderField isKindOfClass:[NSString class]] && [value isKindOfClass:[NSString class]]) {
+                
                 [_manager.requestSerializer setValue:(NSString *)value forHTTPHeaderField:(NSString *)httpHeaderField];
+                
             } else {
+                
                 NSLog(@"Error, class of key/value in headerFieldValueDictionary should be NSString.");
             }
         }

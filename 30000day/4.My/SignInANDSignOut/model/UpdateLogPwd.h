@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface UpdateLogPwd : NSObject
-@property (nonatomic,strong)NSString* log;
-@property (nonatomic,strong)NSString* pwd;
-@property (nonatomic,strong)NSString* UserID;
-+(UpdateLogPwd*)sharedLogPwd;
+
+@property (nonatomic,strong)NSString *log;
+
+@property (nonatomic,strong)NSString *pwd;
+
+@property (nonatomic,strong)NSString *UserID;
+
++ (UpdateLogPwd *)sharedLogPwd;
+
 @end

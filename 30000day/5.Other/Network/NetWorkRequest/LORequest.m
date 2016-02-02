@@ -68,35 +68,47 @@
 #pragma mark - Network Cache
 
 - (void)startRequestCacheWithResponseObject:(id)responseObject {
+    
     if (self.cacheSwitch) {
+        
         [[LONetworkCache globalCache] setObject:responseObject forKey:[self cacheKey]];
+        
     }
 }
 
 
 - (NSString *)cacheKey {
+    
     NSMutableDictionary *parametersForCache = [[NSMutableDictionary alloc] initWithDictionary:(NSDictionary *)self.parameters];
+    
     [parametersForCache removeObjectsForKeys:self.ignoredParametersForCache];
     
     NSString *requestInfo = [NSString stringWithFormat:@"Method:%ld Host:%@ Url:%@ Parameters:%@ AppVersion:%@",
                              (long)self.requestMethod, self.baseUrl, self.requestUrl, parametersForCache, [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    
     NSString *cacheKeyStr = [self md5StringFromString:requestInfo];
+    
     return cacheKeyStr;
 }
 
 #pragma mark - Utils
 
 - (NSString *)md5StringFromString:(NSString *)string {
+    
     if(string == nil || [string length] == 0)
+        
         return nil;
     
     const char *value = [string UTF8String];
     
     unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
+    
     CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
     
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
     for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
+        
         [outputString appendFormat:@"%02x",outputBuffer[count]];
     }
     

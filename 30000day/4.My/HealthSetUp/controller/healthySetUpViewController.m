@@ -60,7 +60,7 @@
     
     self.navigationItem.rightBarButtonItem = barButton;
     
-    _userInfo = TKAddressBookManager.userInfo;
+    _userInfo = [UserAccountHandler shareUserAccountHandler].userInfo;
     
     [self.mainTable setDelegate:self];
     

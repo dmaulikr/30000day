@@ -36,16 +36,20 @@
     LOApiRequest *request = [[LOApiRequest alloc] init];
     
     //设置 baseurl
-    request.baseUrl = LO_API_SERVER;
+    request.baseUrl = ST_API_SERVER;
     
     request.requestMethod = requestMethod;
+    
     request.requestUrl = requesturl;
+    
     request.parameters = parameters;
     
     request.constructingBodyBlock = constructingBodyBlock;
+    
     request.progressBlock = progress;
     
     request.successCompletionBlock = success;
+    
     request.failureCompletionBlock = failure;
     
     return request;

@@ -37,6 +37,9 @@
 		B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C92241C5B11020089BEAE /* STNavigationController.m */; };
 		B89216B11C5F3EEA0023F8A8 /* LODataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216B01C5F3EEA0023F8A8 /* LODataHandler.m */; };
 		B89216B41C5F468C0023F8A8 /* ShowBackItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216B31C5F468C0023F8A8 /* ShowBackItemViewController.m */; };
+		B89216B71C603C060023F8A8 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216B61C603C060023F8A8 /* Common.m */; };
+		B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216BC1C6045070023F8A8 /* UserProfile.m */; };
+		B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216C21C6075150023F8A8 /* UserAccountHandler.m */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* userInfoViewController.m */; };
@@ -211,6 +214,12 @@
 		B89216B01C5F3EEA0023F8A8 /* LODataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LODataHandler.m; sourceTree = "<group>"; };
 		B89216B21C5F468C0023F8A8 /* ShowBackItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowBackItemViewController.h; sourceTree = "<group>"; };
 		B89216B31C5F468C0023F8A8 /* ShowBackItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowBackItemViewController.m; sourceTree = "<group>"; };
+		B89216B51C603C060023F8A8 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		B89216B61C603C060023F8A8 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		B89216BB1C6045070023F8A8 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
+		B89216BC1C6045070023F8A8 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		B89216C11C6075150023F8A8 /* UserAccountHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountHandler.h; sourceTree = "<group>"; };
+		B89216C21C6075150023F8A8 /* UserAccountHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAccountHandler.m; sourceTree = "<group>"; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
 		B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myViewCell.xib; sourceTree = "<group>"; };
@@ -481,6 +490,8 @@
 				B88C913F1C59F2260089BEAE /* Info.plist */,
 				B88C912F1C59F2260089BEAE /* main.m */,
 				B88C91991C5A0B620089BEAE /* PrefixHeader.pch */,
+				B89216B51C603C060023F8A8 /* Common.h */,
+				B89216B61C603C060023F8A8 /* Common.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1222,6 +1233,8 @@
 				B8F2DA3C1C5F3D04002C7712 /* UpdateLogPwd.m */,
 				B8F2DA3D1C5F3D04002C7712 /* UserInfo.h */,
 				B8F2DA3E1C5F3D04002C7712 /* UserInfo.m */,
+				B89216BB1C6045070023F8A8 /* UserProfile.h */,
+				B89216BC1C6045070023F8A8 /* UserProfile.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1238,6 +1251,8 @@
 			children = (
 				B89216AF1C5F3EEA0023F8A8 /* LODataHandler.h */,
 				B89216B01C5F3EEA0023F8A8 /* LODataHandler.m */,
+				B89216C11C6075150023F8A8 /* UserAccountHandler.h */,
+				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -1422,6 +1437,7 @@
 			files = (
 				B88C92131C5B08690089BEAE /* pinyin.c in Sources */,
 				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
+				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
 				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
 				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
@@ -1440,6 +1456,7 @@
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
 				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
+				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
@@ -1488,6 +1505,7 @@
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
+				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
 				B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */,
 				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
