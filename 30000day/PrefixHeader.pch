@@ -99,6 +99,8 @@
 
 #define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
 
+#define  UPDATE_IMAGE               @"/UploadPortrait"                             //上传图片接口
+
 #endif
 
 #endif /* PrefixHeader_pch */

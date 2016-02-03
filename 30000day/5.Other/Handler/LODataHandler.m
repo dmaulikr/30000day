@@ -226,37 +226,57 @@
     
 }
 
-- (NSString *)postUpdateProfileWithUserID:(NSString *)userID
+- (void)postUpdateProfileWithUserID:(NSString *)userID
                                  Password:(NSString *)password
                               PhoneNumber:(NSString *)phonenumber
                                  NickName:(NSString *)nickName
                                    Gender:(NSString *)gender
                                  Birthday:(NSString *)birthday
-                                  success:(void (^)(id responseObject))success
-                                  failure:(void (^)(LONetError *))failure {
+                                  success:(void (^)(BOOL))success
+                                  failure:(void (^)(NSError *))failure {
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
-                                                        url:UPDATE_PROFILE
-                                                 parameters:nil
-                                                    success:^(id responseObject) {
-       
-                                                    success(responseObject);
-    }
-                                                    failure:^(LONetError *error) {
-        
-                                                    failure(error);
-        
-    }];
+        NSString *URLString= @"http://116.254.206.7:12580/M/API/UpdateProfile?";
     
-    request.needHeaderAuthorization = NO;
+        NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",userID,phonenumber,password,nickName,[gender intValue],birthday];
+        NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
-    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",userID,phonenumber,password,nickName,[gender intValue],birthday];
     
-    request.bodyData = postData;
+        NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
-    return [self startRequest:request];
+        [request setHTTPMethod:@"post"];
+    
+        [request setURL:URL];
+    
+        [request setHTTPBody:postData];
+    
+        NSURLResponse * response;
+    
+        NSError * error;
+    
+        NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+        if (error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                failure(error);
+                
+            });
+            
+        } else {
+            
+            if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
+                
+                success(YES);
+                
+            } else {
+                
+                failure(error);
+            }
+        }
+    
 }
 
 

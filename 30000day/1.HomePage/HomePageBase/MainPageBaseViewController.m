@@ -397,10 +397,13 @@
     }
 }
 
--(void)addFriendsClick{
+- (void)addFriendsClick{
+    
     AddFriendsViewController* addfvc=[[AddFriendsViewController alloc]init];
+    
     [self.navigationController pushViewController:addfvc animated:YES];
 }
+
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

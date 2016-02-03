@@ -69,49 +69,9 @@
     
     self.mainTable.scrollEnabled = NO;
     
-    [self backBarButtonItem];
-    
 }
 
-#pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem {
-    
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    
-    if (([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)) {
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-        
-    } else {
-        
-        self.navigationItem.leftBarButtonItem = leftButton;
-        
-    }
-    
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-}
-
-- (void)back {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)rightBarButtonClick:(UIBarButtonItem *)button{
+- (void)rightBarButtonClick:(UIBarButtonItem *)button{
     if ([button.title isEqualToString:@"编辑"]) {
         button.title=@"保存";
         self.mainTableState=1;
@@ -305,7 +265,7 @@
     }
 }
 
--(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
+- (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
     
     NSDateFormatter *datef = [[NSDateFormatter alloc] init];
     
@@ -339,39 +299,31 @@
     if ([self.NickName isEqualToString:_userinfo.NickName] &&
         [self.Gender isEqualToString:_userinfo.Gender] &&
         [self.Birthday isEqualToString:_userinfo.Birthday]) {
+        
         UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"您未做任何修改，如修改图片则无需再保存。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
         [alert show];
+        
         return;
     }
     
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/UpdateProfile?";
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",_userinfo.UserID,_userinfo.LoginName,_userinfo.LoginPassword,_userinfo.NickName,[_userinfo.Gender intValue],_userinfo.Birthday];
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"post"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
-    
-    NSURLResponse * response;
-    NSError * error;
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-    }else{
-        NSLog(@"response : %@",response);
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-        if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-            UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+    //上传服务器
+    [self.dataHandler postUpdateProfileWithUserID:_userinfo.UserID Password:_userinfo.LoginPassword PhoneNumber:_userinfo.LoginName NickName:_userinfo.NickName Gender:_userinfo.Gender Birthday:_userinfo.Birthday success:^(BOOL responseObject) {
+        
+        if (responseObject) {
             
-        }else{
-            UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            
             [alert show];
         }
-    }
-    
+        
+    } failure:^(NSError *error) {
+        
+        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }];
+
     // 保存生日到本地文件，用于其他地方提取计算数值
     [[NSUserDefaults standardUserDefaults] setObject:[_userinfo.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -380,16 +332,16 @@
 - (void)shangchuantupian:(UIImage*)img {
     
     //第一步，创建URL
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
+    NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
     
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     //第二步，创建请求
     
     //    2.创建请求对象
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
     //设置请求体
-    NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userinfo.LoginName,_userinfo.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userinfo.LoginName,_userinfo.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
     
     //把拼接后的字符串转换为data，设置请求体
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
@@ -410,9 +362,15 @@
         //访问服务器失败进此方法
         NSLog(@"error : %@",[error localizedDescription]);
         
+        [self showToast:@"图片上传失败"];
+        
     }else{
+        
         //成功访问服务器，返回图片的URL
         NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+        _userinfo.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
+        
+        [UserAccountHandler shareUserAccountHandler].userInfo = _userinfo;
     }
 }
 
@@ -426,15 +384,22 @@
 }
 
 // 把图片转换成base64位字符串，返回数组［0］：图片后缀名(.png/.jpeg)--［1］：base64位字符串
-- (NSArray *) image2DataURL: (UIImage *) image{
+- (NSArray *) image2DataURL: (UIImage *) image {
+    
     NSData *imageData = nil;
+    
     NSString *mimeType = nil;
     
     if ([self imageHasAlpha: image]) {
+        
         imageData = UIImagePNGRepresentation(image);
+        
         mimeType = @".png";
+        
     } else {
+        
         imageData = UIImageJPEGRepresentation(image, 1.0f);
+        
         mimeType = @".jpeg";
     }
     
@@ -443,19 +408,13 @@
     // 转成base64位字符串之后要进行下面这一步替换，不然传到后台之后，加号等于号等一些特殊字符会变成空格，导致图片出问题
     NSString *baseString = (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)baseStr,NULL,CFSTR(":/?#[]@!$&’()*+,;="),kCFStringEncodingUTF8);
     
-    NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString/*[imageData base64EncodedStringWithOptions: 0]*/, nil];
-    return arr;//[NSString stringWithFormat:@"data:%@;base64,%@", mimeType,[imageData base64EncodedStringWithOptions: 0]];
-}
-
-// 图片下载函数。把URL的图片下载到本地
-- (UIImage*) getImageFromURL:(NSString *)fileURL {
-    UIImage * result;
-    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
-    result = [UIImage imageWithData:data];
-    return result;
+    NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString, nil];
+    
+    return arr;
 }
 
 - (void)editPortrait {
+    
     UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"取消"
@@ -466,22 +425,30 @@
 
 #pragma mark VPImageCropperDelegate
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
+    
     self.portraitImageView.image = editedImage;
+    
     [self shangchuantupian:editedImage];
+    
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
         // TO DO  ok
     }];
 }
 
 - (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
+    
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
+        
         NSLog(@"ddd");
+        
     }];
 }
 
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     if (buttonIndex == 0) {
+        
         // 拍照
         if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
             UIImagePickerController *controller = [[UIImagePickerController alloc] init];

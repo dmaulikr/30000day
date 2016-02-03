@@ -53,15 +53,13 @@
                                 failure:(void (^)(LONetError *))failure;
 
 //***** 跟新个人信息 *****/
-- (NSString *)postUpdateProfileWithUserID:(NSString *)userID
+- (void )postUpdateProfileWithUserID:(NSString *)userID
                                  Password:(NSString *)password
                               PhoneNumber:(NSString *)phonenumber
                                  NickName:(NSString *)nickName
                                    Gender:(NSString *)gender
                                  Birthday:(NSString *)birthday
-                                 success:(void (^)(id responseObject))success
-                                 failure:(void (^)(LONetError *))failure;
-
-
+                                 success:(void (^)(BOOL))success
+                                 failure:(void (^)(NSError *))failure;
 
 @end

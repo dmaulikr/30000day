@@ -123,22 +123,6 @@
     
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    static NSString *footViewIdentifier = @"UITableViewHeaderFooterView";
-    
-    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footViewIdentifier];
-    
-    if ( view == nil ) {
-        
-        view = [[UITableViewHeaderFooterView alloc] init];
-        
-        view.tintColor = RGBACOLOR(239, 239, 239, 1);
-    }
-    
-    return view;
-}
-
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString* ID = @"mainCell";
