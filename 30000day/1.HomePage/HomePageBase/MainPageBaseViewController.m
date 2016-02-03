@@ -12,6 +12,7 @@
 #import "PersonViewController.h"
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
+#import "AddFriendsViewController.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -25,6 +26,8 @@
 
 @property (nonatomic,strong) UIButton *moreAgeButton;//天龄日历
 
+@property (nonatomic,strong) UIButton *addFriendsButton;//添加好友
+
 @property (nonatomic,strong) UIView *buttonParentView;//顶部按钮的父视图
 
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
@@ -36,7 +39,6 @@
 @implementation MainPageBaseViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
 
     //监听个人信息管理模型发出的通知
@@ -160,7 +162,7 @@
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:calendarView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     
-    //创建底部按钮
+    //创建顶部按钮
     [self createButton];
 }
 
@@ -223,6 +225,21 @@
     [_bottomScrollView setBackgroundColor:BLUECOLOR];
     
     [self.buttonParentView addSubview:_bottomScrollView];
+    
+    
+    self.addFriendsButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [self.addFriendsButton setImage:[UIImage imageNamed:@"addFriends.png"] forState:UIControlStateNormal];
+    
+    [self.addFriendsButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
+    
+    [self.buttonParentView addSubview:self.addFriendsButton];
+    
+    self.addFriendsButton.translatesAutoresizingMaskIntoConstraints=NO;
+    
+    [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.buttonParentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.buttonParentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
 }
 
 - (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
@@ -379,6 +396,10 @@
     }
 }
 
+-(void)addFriendsClick{
+    AddFriendsViewController* addfvc=[[AddFriendsViewController alloc]init];
+    [self.navigationController pushViewController:addfvc animated:YES];
+}
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
+		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
+		B6A5E76C1C61AA6A00A4322D /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */; };
+		B6A5E76D1C61AA6A00A4322D /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */; };
+		B6A5E76E1C61AA6A00A4322D /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7681C61AA6A00A4322D /* mailList.m */; };
+		B6A5E76F1C61AA6A00A4322D /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */; };
+		B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
 		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
 		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
-		B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */; };
 		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
 		B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C918C1C5A089E0089BEAE /* ShopTableViewController.m */; };
 		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
@@ -157,6 +162,16 @@
 
 /* Begin PBXFileReference section */
 		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
+		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
+		B6A5E7641C61AA6A00A4322D /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
+		B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
+		B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsViewController.xib; sourceTree = "<group>"; };
+		B6A5E7671C61AA6A00A4322D /* mailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mailList.h; sourceTree = "<group>"; };
+		B6A5E7681C61AA6A00A4322D /* mailList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailList.m; sourceTree = "<group>"; };
+		B6A5E7691C61AA6A00A4322D /* MailListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListViewController.h; sourceTree = "<group>"; };
+		B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListViewController.m; sourceTree = "<group>"; };
+		B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListViewController.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,8 +180,6 @@
 		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B88C91671C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B88C91691C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		B88C91851C5A084F0089BEAE /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
-		B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B88C91881C5A08810089BEAE /* InfomationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewController.h; sourceTree = "<group>"; };
 		B88C91891C5A08810089BEAE /* InfomationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewController.m; sourceTree = "<group>"; };
 		B88C918B1C5A089E0089BEAE /* ShopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewController.h; sourceTree = "<group>"; };
@@ -448,6 +461,21 @@
 				D65565201EC540E39F38219E /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B6A5E7631C61AA6A00A4322D /* AddFriends */ = {
+			isa = PBXGroup;
+			children = (
+				B6A5E7641C61AA6A00A4322D /* AddFriendsViewController.h */,
+				B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */,
+				B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */,
+				B6A5E7671C61AA6A00A4322D /* mailList.h */,
+				B6A5E7681C61AA6A00A4322D /* mailList.m */,
+				B6A5E7691C61AA6A00A4322D /* MailListViewController.h */,
+				B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */,
+				B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */,
+			);
+			path = AddFriends;
 			sourceTree = "<group>";
 		};
 		B88C91221C59F2260089BEAE = {
@@ -737,8 +765,9 @@
 		B88C91841C5A084F0089BEAE /* HomePageBase */ = {
 			isa = PBXGroup;
 			children = (
-				B88C91851C5A084F0089BEAE /* MainPageBaseViewController.h */,
-				B88C91861C5A084F0089BEAE /* MainPageBaseViewController.m */,
+				B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */,
+				B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */,
+				B6A5E7631C61AA6A00A4322D /* AddFriends */,
 			);
 			path = HomePageBase;
 			sourceTree = "<group>";
@@ -1358,6 +1387,7 @@
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* SecondPwd.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* userInfoViewController.xib in Resources */,
+				B6A5E76D1C61AA6A00A4322D /* AddFriendsViewController.xib in Resources */,
 				B8F2D8B91C5B3796002C7712 /* userInfoTableViewCell.xib in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B8F2DA651C5F3D8B002C7712 /* ElementAlternative.plist in Resources */,
@@ -1374,6 +1404,7 @@
 				B8F2DA4F1C5F3D04002C7712 /* TextFieldCellTableViewCell.xib in Resources */,
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
+				B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B8F2DA451C5F3D04002C7712 /* loginNameVerificationViewController.xib in Resources */,
@@ -1439,7 +1470,6 @@
 				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
-				B88C91871C5A084F0089BEAE /* MainPageBaseViewController.m in Sources */,
 				B88C92221C5B09070089BEAE /* FriendListInfo.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
@@ -1515,10 +1545,13 @@
 				B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
+				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8F2D8B81C5B3796002C7712 /* userInfoTableViewCell.m in Sources */,
 				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
+				B6A5E76C1C61AA6A00A4322D /* AddFriendsViewController.m in Sources */,
+				B6A5E76F1C61AA6A00A4322D /* MailListViewController.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
@@ -1532,6 +1565,7 @@
 				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
 				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* SecondPwd.m in Sources */,
+				B6A5E76E1C61AA6A00A4322D /* mailList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

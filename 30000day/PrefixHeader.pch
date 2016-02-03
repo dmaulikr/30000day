@@ -83,6 +83,8 @@
 
 #define RGBACOLOR(R,G,B,A)      [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
 
+#define VIEWBORDERLINECOLOR [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
+
 #define  TKAddressBookManager   [TKAddressBook shareControl]
 
 #define CLIENT_ID                   @"2015091511107"
