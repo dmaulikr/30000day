@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserInfo.h"
 
-//extern NSString *const UserAccountHandlerUseProfileDidChangeNotification;
+static NSString *const UserAccountHandlerUseProfileDidChangeNotification;
 
 @interface UserAccountHandler : NSObject
 

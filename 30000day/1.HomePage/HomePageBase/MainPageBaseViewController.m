@@ -13,6 +13,7 @@
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
+#import "UserAccountHandler.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 

@@ -226,4 +226,38 @@
     
 }
 
+- (NSString *)postUpdateProfileWithUserID:(NSString *)userID
+                                 Password:(NSString *)password
+                              PhoneNumber:(NSString *)phonenumber
+                                 NickName:(NSString *)nickName
+                                   Gender:(NSString *)gender
+                                 Birthday:(NSString *)birthday
+                                  success:(void (^)(id responseObject))success
+                                  failure:(void (^)(LONetError *))failure {
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
+                                                        url:UPDATE_PROFILE
+                                                 parameters:nil
+                                                    success:^(id responseObject) {
+       
+                                                    success(responseObject);
+    }
+                                                    failure:^(LONetError *error) {
+        
+                                                    failure(error);
+        
+    }];
+    
+    request.needHeaderAuthorization = NO;
+    
+    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",userID,phonenumber,password,nickName,[gender intValue],birthday];
+    
+    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    
+    request.bodyData = postData;
+    
+    return [self startRequest:request];
+}
+
+
 @end

@@ -9,11 +9,13 @@
 #import "VPImageCropperViewController.h"
 
 #define SCALE_FRAME_Y 100.0f
+
 #define BOUNDCE_DURATION 0.3f
 
 @interface VPImageCropperViewController ()
 
 @property (nonatomic, retain) UIImage *originalImage;
+
 @property (nonatomic, retain) UIImage *editedImage;
 
 @property (nonatomic, retain) UIImageView *showImgView;

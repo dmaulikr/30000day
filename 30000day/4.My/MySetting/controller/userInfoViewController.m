@@ -190,12 +190,25 @@
             self.portraitImageView=imgview;
 
         }else if(indexPath.row==1){
+            
             cell.detailTextLabel.text=_userinfo.NickName;
+            
         }else if(indexPath.row==2){
-            cell.detailTextLabel.text=_userinfo.Gender;
-        }else if(indexPath.row==3){
+            
+            if ([_userinfo.Gender isEqualToString:@"1"]) {
+                
+                cell.detailTextLabel.text = @"男";
+                
+            } else {
+                
+                cell.detailTextLabel.text = @"女";
+            }
+            
+        }else if(indexPath.row == 3){
+            
             cell.detailTextLabel.text=_userinfo.Birthday;
         }
+        
     }else{
         cell.textLabel.text=@"账号";
         cell.detailTextLabel.text=_userinfo.LoginName;
@@ -263,17 +276,29 @@
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSIndexPath* indexpath=self.mainTable.indexPathForSelectedRow;
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSIndexPath *indexpath = self.mainTable.indexPathForSelectedRow;
 
-    if (indexpath.section==0 && buttonIndex!=0) {
+    if ( indexpath.section == 0 && buttonIndex!= 0 ) {
         
-        if (indexpath.row==1) {
-            UITextField* textfile=[alertView textFieldAtIndex:0];
+        if (indexpath.row == 1 ) {
+            
+            UITextField *textfile = [alertView textFieldAtIndex:0];
+            
             _userinfo.NickName=textfile.text;
         }
         if (indexpath.row==2) {
-            _userinfo.Gender=[alertView buttonTitleAtIndex:buttonIndex];
+            
+            if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
+                
+                _userinfo.Gender = @"1";
+                
+            } else {
+                
+                _userinfo.Gender = @"0";
+                
+            }
         }
 
         [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -311,17 +336,6 @@
 
 - (void)updInfo {
     
-    int sex;
-    
-    if ([_userinfo.Gender isEqualToString:@"男"]) {
-        
-        sex = 1;
-        
-    } else {
-        
-        sex = 0;
-    }
-    
     if ([self.NickName isEqualToString:_userinfo.NickName] &&
         [self.Gender isEqualToString:_userinfo.Gender] &&
         [self.Birthday isEqualToString:_userinfo.Birthday]) {
@@ -333,7 +347,7 @@
     NSString *URLString=@"http://116.254.206.7:12580/M/API/UpdateProfile?";
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",_userinfo.UserID,_userinfo.LoginName,_userinfo.LoginPassword,_userinfo.NickName,sex,_userinfo.Birthday];
+    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",_userinfo.UserID,_userinfo.LoginName,_userinfo.LoginPassword,_userinfo.NickName,[_userinfo.Gender intValue],_userinfo.Birthday];
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPMethod:@"post"];
     [request setURL:URL];
@@ -364,8 +378,10 @@
 }
 
 - (void)shangchuantupian:(UIImage*)img {
+    
     //第一步，创建URL
     NSString *URLString=@"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
+    
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     //第二步，创建请求
     
@@ -379,16 +395,21 @@
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"post"]; //指定请求方式
+    
     [request setURL:URL]; //设置请求的地址
+    
     [request setHTTPBody:postData];  //设置请求的参数
     
     NSURLResponse * response;
+    
     NSError * error;
+    
     NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if (error) {
         //访问服务器失败进此方法
         NSLog(@"error : %@",[error localizedDescription]);
+        
     }else{
         //成功访问服务器，返回图片的URL
         NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
@@ -403,6 +424,7 @@
             alpha == kCGImageAlphaPremultipliedFirst ||
             alpha == kCGImageAlphaPremultipliedLast);
 }
+
 // 把图片转换成base64位字符串，返回数组［0］：图片后缀名(.png/.jpeg)--［1］：base64位字符串
 - (NSArray *) image2DataURL: (UIImage *) image{
     NSData *imageData = nil;
@@ -415,9 +437,12 @@
         imageData = UIImageJPEGRepresentation(image, 1.0f);
         mimeType = @".jpeg";
     }
+    
     NSString *baseStr = [imageData base64Encoding];
+    
     // 转成base64位字符串之后要进行下面这一步替换，不然传到后台之后，加号等于号等一些特殊字符会变成空格，导致图片出问题
     NSString *baseString = (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)baseStr,NULL,CFSTR(":/?#[]@!$&’()*+,;="),kCFStringEncodingUTF8);
+    
     NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString/*[imageData base64EncodedStringWithOptions: 0]*/, nil];
     return arr;//[NSString stringWithFormat:@"data:%@;base64,%@", mimeType,[imageData base64EncodedStringWithOptions: 0]];
 }

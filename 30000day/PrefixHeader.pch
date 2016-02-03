@@ -97,6 +97,8 @@
 
 #define GET_MY_FRIENDS              @"/GetMyFriends"                               //获取用户好友
 
+#define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
+
 #endif
 
 #endif /* PrefixHeader_pch */

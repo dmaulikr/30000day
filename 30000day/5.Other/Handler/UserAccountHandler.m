@@ -133,7 +133,6 @@
     _privateUserInfo = nil;
 }
 
-
 - (void)getUserInfo {
     
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];

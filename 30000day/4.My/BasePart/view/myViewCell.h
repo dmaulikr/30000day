@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface myViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *leftImage;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *seperatorLineView;//分割线view

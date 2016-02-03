@@ -158,20 +158,28 @@
             CGFloat AvearageLife=[[SubResults lastObject] floatValue];
             
             //因素以及值
-            self.nextSubResults=SubResults;
+            self.nextSubResults = SubResults;
+            
             //健康因素数据为0
             self.nextSubResults[self.nextSubResults.count-3] = @"0";
-            self.nextSubResults[self.nextSubResults.count-4]=@"0";
-            self.nextSubResults[self.nextSubResults.count-5]=@"0";
-            self.nextSubResults[self.nextSubResults.count-6]=@"0";
             
-            self.nextSubFators=SubFators;
+            self.nextSubResults[self.nextSubResults.count-4] = @"0";
+            
+            self.nextSubResults[self.nextSubResults.count-5] = @"0";
+            
+            self.nextSubResults[self.nextSubResults.count-6] = @"0";
+            
+            self.nextSubFators = SubFators;
+            
             //总天数
-            self.sumDay=sumDay;
-            self.SubResultsString=SubResultsString;
+            self.sumDay = sumDay;
+            
+            self.SubResultsString = SubResultsString;
+            
             //基数
-            self.AvearageLife=AvearageLife;
-            self.cityDay=[SubResults[0] integerValue];
+            self.AvearageLife = AvearageLife;
+            
+            self.cityDay = [SubResults[0] integerValue];
         }
     }
     

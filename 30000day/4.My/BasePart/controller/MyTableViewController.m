@@ -16,6 +16,7 @@
 #import "securityViewController.h"
 #import "SetUpViewController.h"
 #import "healthySetUpViewController.h"
+#import "UserHeadViewTableViewCell.h"
 
 @interface MyTableViewController ()
 
@@ -32,6 +33,16 @@
     _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
     
     self.tabBarController.tabBar.hidden = NO;
+    
+    //监听个人信息管理模型发出的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+}
+
+- (void)reloadData:(NSNotification *)notification {
+    
+    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    
+    [self.tableView reloadData];
 }
 
 
@@ -50,7 +61,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section==0) {
+    if (section == 0) {
         
         return 1;
         
@@ -58,11 +69,11 @@
         
         return 2;
         
-    } else if (section==2) {
+    } else if (section == 2) {
         
         return 2;
         
-    } else if (section==3) {
+    } else if (section == 3) {
         
         return 1;
         
@@ -75,7 +86,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section==0) {
+    if (indexPath.section == 0) {
         
         return 105;
         
@@ -87,7 +98,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section==3) {
+    if (section == 3 ) {
         
         return 100;
         
@@ -129,11 +140,11 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString* ID=@"mainCell";
+    static NSString* ID = @"mainCell";
     
     myViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
-    if (cell==nil) {
+    if (cell == nil) {
     
         cell= [[[NSBundle mainBundle] loadNibNamed:@"myViewCell" owner:self options:nil] lastObject];
       
@@ -141,9 +152,18 @@
     
     if (indexPath.section==0) {
         
-        [self loadMainTableViewOneSection:cell];
+        UserHeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserHeadViewTableViewCell"];
         
-    } else if (indexPath.section==1) {
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"UserHeadViewTableViewCell" owner:self options:nil] lastObject];
+        }
+        
+        cell.userInfo = _userinfo;
+        
+        return cell;
+        
+    } else if (indexPath.section == 1) {
         
         if (indexPath.row==0) {
             
@@ -153,6 +173,7 @@
             
             cell.seperatorLineView.hidden = NO;
             
+            return cell;
             
         } else {
             
@@ -161,9 +182,11 @@
             [cell.titleLabel setText:@"消费记录"];
             
             cell.seperatorLineView.hidden = YES;
+            
+            return cell;
         }
         
-    } else if (indexPath.section==2) {
+    } else if (indexPath.section == 2) {
         
         if (indexPath.row==0) {
             
@@ -173,6 +196,8 @@
             
             cell.seperatorLineView.hidden = NO;
             
+            return cell;
+            
         } else {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
@@ -180,6 +205,8 @@
             [cell.titleLabel setText:@"设置"];
             
             cell.seperatorLineView.hidden = YES;
+            
+            return cell;
         }
         
     } else if (indexPath.section==3) {
@@ -189,6 +216,8 @@
         [cell.titleLabel setText:@"关于"];
         
         cell.seperatorLineView.hidden = YES;
+        
+        return cell;
         
     } else if (indexPath.section==4) {
         
@@ -208,65 +237,12 @@
         
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:Cancellation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
+        return cell;
+        
     }
     
-    return cell;
-}
-
-- (void)loadMainTableViewOneSection:(UITableViewCell*)cell {
+    return nil;
     
-    NSURL* imgurl=[NSURL URLWithString:_userinfo.HeadImg];
-    
-    UIImageView* imgview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
-    
-    if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl==nil ) {
-        
-        [imgview setImage:[UIImage imageNamed:@"lcon.png"]];
-        
-    } else {
-
-        [imgview sd_setImageWithURL:imgurl];
-    }
-    
-    [cell addSubview:imgview];
-    
-    imgview.translatesAutoresizingMaskIntoConstraints=NO;
-    
-    [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:65]];
-    
-    [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:65]];
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeLeft multiplier:1.0 constant:15]];
-    
-    UILabel* nickName=[[UILabel alloc]init];
-    
-    [nickName setFont:[UIFont systemFontOfSize:20.0 weight:0.3]];
-    
-    [nickName setText:_userinfo.NickName];
-    
-    [cell addSubview:nickName];
-    
-    nickName.translatesAutoresizingMaskIntoConstraints=NO;
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:nickName attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:imgview attribute:NSLayoutAttributeRight multiplier:1.0 constant:10]];
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:nickName attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeTop multiplier:1.0 constant:30]];
-    
-    UILabel* PhoneNumber=[[UILabel alloc]init];
-    
-    [PhoneNumber setFont:[UIFont systemFontOfSize:15.0]];
-    
-    [PhoneNumber setText:_userinfo.PhoneNumber];
-    
-    [cell addSubview:PhoneNumber];
-    
-    PhoneNumber.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:PhoneNumber attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:imgview attribute:NSLayoutAttributeRight multiplier:1.0 constant:10]];
-    
-    [cell addConstraint:[NSLayoutConstraint constraintWithItem:PhoneNumber attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:nickName attribute:NSLayoutAttributeBottom multiplier:1.0 constant:5]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -330,6 +306,11 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 /*
 #pragma mark - Navigation

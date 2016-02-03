@@ -309,7 +309,7 @@
         
     }
     
-    self.lockPassWord.hidden=YES;
+    self.lockPassWord.hidden = YES;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {

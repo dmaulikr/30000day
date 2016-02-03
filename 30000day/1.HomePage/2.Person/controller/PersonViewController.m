@@ -29,10 +29,6 @@
     
     //获取我的好友
     [self getMyFriends];
-    
-//    //监听个人信息管理模型发出的通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMyFriends) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
-    
 }
 
 //获取我的好友
@@ -68,9 +64,7 @@
         
     } failure:^(LONetError *error) {
         
-        
     }];
-
 }
 
 - (IBAction)switchModeButtonClick:(id)sender {

@@ -83,7 +83,7 @@
                                 <outlet property="delegate" destination="-1" id="CRB-TY-EPa"/>
                             </connections>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsU-tq-HBZ">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsU-tq-HBZ">
                             <rect key="frame" x="296" y="59" width="16" height="16"/>
                             <state key="normal" backgroundImage="hidePassword"/>
                         </button>
