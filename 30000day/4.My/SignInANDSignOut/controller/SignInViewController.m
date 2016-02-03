@@ -191,13 +191,11 @@
                                              
                                          } else {
                                              
-                                             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
                                              
                                              [alert show];
                                              
                                          }
-                                 
-                                         
     } failure:^(LONetError *error) {
         
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];

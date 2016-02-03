@@ -17,6 +17,7 @@
 #import "SetUpViewController.h"
 #import "healthySetUpViewController.h"
 #import "UserHeadViewTableViewCell.h"
+#import "LogoutTableViewCell.h"
 
 @interface MyTableViewController ()
 
@@ -173,8 +174,6 @@
             
             cell.seperatorLineView.hidden = NO;
             
-            return cell;
-            
         } else {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"consumption.png"]];
@@ -183,8 +182,9 @@
             
             cell.seperatorLineView.hidden = YES;
             
-            return cell;
+          
         }
+         return cell;
         
     } else if (indexPath.section == 2) {
         
@@ -196,8 +196,6 @@
             
             cell.seperatorLineView.hidden = NO;
             
-            return cell;
-            
         } else {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
@@ -205,9 +203,9 @@
             [cell.titleLabel setText:@"设置"];
             
             cell.seperatorLineView.hidden = YES;
-            
-            return cell;
         }
+        
+        return cell;
         
     } else if (indexPath.section==3) {
         
@@ -221,21 +219,13 @@
         
     } else if (indexPath.section==4) {
         
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
         
-        cell.seperatorLineView.hidden = YES;
-        
-        UILabel* Cancellation=[[UILabel alloc]init];
-        
-        [Cancellation setText:@"注销"];
-        
-        [cell addSubview:Cancellation];
-        
-        Cancellation.translatesAutoresizingMaskIntoConstraints=NO;
-        
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:Cancellation attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-        
-        [cell addConstraint:[NSLayoutConstraint constraintWithItem:Cancellation attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"LogoutTableViewCell" owner:self options:nil] lastObject];
+            
+        }
         
         return cell;
         
