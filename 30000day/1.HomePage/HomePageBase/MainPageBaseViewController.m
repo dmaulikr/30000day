@@ -17,7 +17,7 @@
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
-@property (nonatomic,strong) UserInfo *userinfo;
+@property (nonatomic,strong) UserProfile *useProfile;
 
 @property (nonatomic,strong) UIButton *mainPageButton;//主页
 

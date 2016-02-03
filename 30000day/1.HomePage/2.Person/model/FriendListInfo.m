@@ -10,9 +10,9 @@
 
 @implementation FriendListInfo
 
-+(UserInfo *)userWithUserInfo:(UserInfo *)user
++(UserProfile *)userWithUserInfo:(UserProfile *)user
 {
-    UserInfo *info = [[UserInfo alloc] init];
+    UserProfile *info = [[UserProfile alloc] init];
     info.UserID = user.UserID;
     info.LoginName = user.LoginName;
     info.LoginPassword = user.LoginPassword;

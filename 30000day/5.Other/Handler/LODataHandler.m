@@ -11,7 +11,7 @@
 #import "LOApiRequest.h"
 #import "LONetworkAgent.h"
 #import "STBaseViewController.h"
-
+#import "FriendListInfo.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -114,10 +114,29 @@
                                                  parameters:parameters
                                                     success:^(id responseObject) {
                                                         
-                                                        success(responseObject);
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            UserProfile *userProfile = [[UserProfile alloc] init];
+                                                            
+                                                            [userProfile setValuesForKeysWithDictionary:recvDic];
+                                                            
+                                                            //保存用户上次登录的账号,同时也会更新用户信息
+                                                            [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userProfile];
+                                                            
+                                                            success(responseObject);
+                                                            
+                                                        }
                                                         
                                                     } failure:^(LONetError *error) {
+                                                        
                                                         failure(error);
+                                                        
                                                     }];
     request.needHeaderAuthorization = NO;
     
@@ -212,11 +231,36 @@
                                                             url:GET_MY_FRIENDS
                                                      parameters:parameters
                                                         success:^(id responseObject) {
-    
-                                                            success(responseObject);
-    
+                                                            
+                                                            NSError *localError = nil;
+                                                            
+                                                            id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                            
+                                                            NSArray  *array = (NSArray *)parsedObject;
+                                                            
+                                                            NSMutableArray *dataArray = [NSMutableArray array];
+                                                            
+                                                            for (NSDictionary *dictionary in array) {
+                                                                
+                                                                FriendListInfo *listInfo = [[FriendListInfo alloc] init];
+                                                                
+                                                                [listInfo setValuesForKeysWithDictionary:dictionary];
+                                                                
+                                                                [dataArray addObject:listInfo];
+                                                            }
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                success(dataArray);
+                                                            });
+                                                            
                                                         } failure:^(LONetError *error) {
-                                                            failure(error);
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                    failure(error);
+                                                            });
+                                                            
                                                         }];
         request.needHeaderAuthorization = NO;
     

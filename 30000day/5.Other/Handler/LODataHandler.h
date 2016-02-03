@@ -45,14 +45,13 @@
 //- (NSString *)getRecordCountIfSuccess:(void (^)(id responseObject))success
 //                                     failure:(void (^)(LONetError *))failure;
 
-
 //**** 获取好友 *****/
 - (NSString *)getMyFriendsWithPassword:(NSString *)password
                             phoneNumber:(NSString *)phonenumber
                                 success:(void (^)(id responseObject))success
                                 failure:(void (^)(LONetError *))failure;
 
-//***** 跟新个人信息 *****/
+//***** 更新个人信息 *****/
 - (void )postUpdateProfileWithUserID:(NSString *)userID
                                  Password:(NSString *)password
                               PhoneNumber:(NSString *)phonenumber
@@ -61,5 +60,7 @@
                                  Birthday:(NSString *)birthday
                                  success:(void (^)(BOOL))success
                                  failure:(void (^)(NSError *))failure;
+
+
 
 @end

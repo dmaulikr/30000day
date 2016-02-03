@@ -31,7 +31,7 @@ typedef NSUInteger ABHelperCheckExistResultType;
 // 通讯录跟数据库所有好友的数组
 @property (nonatomic, retain)NSMutableArray *allFriends;
 
-@property (nonatomic,strong)UserInfo *userInfo;
+@property (nonatomic,strong)UserProfile *userProfile;
 
 //通讯录对象数组
 @property (nonatomic, retain)NSMutableArray *booksFriends;

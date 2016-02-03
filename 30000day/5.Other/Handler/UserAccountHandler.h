@@ -7,28 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInfo.h"
+#import "UserProfile.h"
 
 static NSString *const UserAccountHandlerUseProfileDidChangeNotification;
 
 @interface UserAccountHandler : NSObject
 
-@property (nonatomic ,strong) UserInfo *userInfo;//保存在处理器里面的用户信息,setter方法会发出通知
+@property (nonatomic ,strong) UserProfile *userProfile;//保存在处理器里面的用户信息,setter方法会发出通知
 
-@property (nonatomic ,strong) NSMutableArray *lastUserAccountArray;//之前保存用户登录的账号和密码
+@property (nonatomic ,strong,readonly) NSMutableArray *lastUserAccountArray;//之前保存用户登录的账号和密码
 
 + (UserAccountHandler *)shareUserAccountHandler;
 
-//获取用户的各种信息(注意:该用户之前登录过才能获取数据)
+//获取用户的各种信息
 - (void)getUserInfo;
-
-/**
- *   保存用户上次登录的账号(注意:该方法是用户首次登录的时候调用的)
- *   同时也会更新用户信息
- **/
-- (void)saveUserAccountWithModel:(UserInfo *)userProfile;
 
 //退出登录
 - (void)logout;
+
+
+//********************************系统调用的接口************************//
+/**
+ *   1.保存用户上次登录的账号
+ *   2.同时也会更新用户信息
+ *   3.该接口不要调用,是系统调用的
+ **/
+- (void)saveUserAccountWithModel:(UserProfile *)userProfile;
 
 @end

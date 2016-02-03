@@ -8,7 +8,6 @@
 
 #import "userInfoViewController.h"
 #import "userInfoTableViewCell.h"
-#import "UserInfo.h"
 #import "UIImageView+WebCache.h"
 #import "HZAreaPickerView.h"
 #import "VPImageCropperViewController.h"
@@ -21,7 +20,7 @@
 
 @interface userInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,VPImageCropperDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
-@property (nonatomic,strong)UserInfo* userinfo;
+@property (nonatomic,strong)UserProfile* userProfile;
 
 @property (nonatomic,strong)NSArray* titleArray;
 
@@ -57,13 +56,13 @@
     
     [self.mainTable setDataSource:self];
     
-    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
-    self.NickName = _userinfo.NickName;
+    self.NickName = _userProfile.NickName;
     
-    self.Gender = _userinfo.Gender;
+    self.Gender = _userProfile.Gender;
     
-    self.Birthday=_userinfo.Birthday;
+    self.Birthday=_userProfile.Birthday;
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
@@ -134,7 +133,7 @@
     if (indexPath.section==0) {
         cell.textLabel.text=self.titleArray[indexPath.row];
         if (indexPath.row==0) {
-            NSURL* imgurl=[NSURL URLWithString:_userinfo.HeadImg];
+            NSURL* imgurl=[NSURL URLWithString:_userProfile.HeadImg];
             UIImageView* imgview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
             if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl==nil ) {
                 [imgview setImage:[UIImage imageNamed:@"lcon.png"]];
@@ -151,11 +150,11 @@
 
         }else if(indexPath.row==1){
             
-            cell.detailTextLabel.text=_userinfo.NickName;
+            cell.detailTextLabel.text=_userProfile.NickName;
             
         }else if(indexPath.row==2){
             
-            if ([_userinfo.Gender isEqualToString:@"1"]) {
+            if ([_userProfile.Gender isEqualToString:@"1"]) {
                 
                 cell.detailTextLabel.text = @"男";
                 
@@ -166,12 +165,12 @@
             
         }else if(indexPath.row == 3){
             
-            cell.detailTextLabel.text=_userinfo.Birthday;
+            cell.detailTextLabel.text=_userProfile.Birthday;
         }
         
     }else{
         cell.textLabel.text=@"账号";
-        cell.detailTextLabel.text=_userinfo.LoginName;
+        cell.detailTextLabel.text=_userProfile.LoginName;
         cell.detailTextLabel.textColor=[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
     }
     
@@ -200,13 +199,13 @@
                 
             }else if(indexPath.row==1){
                 
-                UIAlertView* alert=[[UIAlertView alloc]initWithTitle:_userinfo.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView* alert=[[UIAlertView alloc]initWithTitle:_userProfile.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 
                 [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
                 
                 UITextField* textfile=[alert textFieldAtIndex:0];
                 
-                [textfile setText:_userinfo.NickName];
+                [textfile setText:_userProfile.NickName];
                 
                 [alert show];
                 
@@ -218,7 +217,7 @@
                 
             } else if(indexPath.row==3) {
                 
-                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userInfo.Birthday;
+                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 
@@ -246,17 +245,17 @@
             
             UITextField *textfile = [alertView textFieldAtIndex:0];
             
-            _userinfo.NickName=textfile.text;
+            _userProfile.NickName=textfile.text;
         }
         if (indexpath.row==2) {
             
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
                 
-                _userinfo.Gender = @"1";
+                _userProfile.Gender = @"1";
                 
             } else {
                 
-                _userinfo.Gender = @"0";
+                _userProfile.Gender = @"0";
                 
             }
         }
@@ -287,18 +286,18 @@
     
     NSString *Birthday = [NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
     
-    _userinfo.Birthday = Birthday;
+    _userProfile.Birthday = Birthday;
     
-    [UserAccountHandler shareUserAccountHandler].userInfo = _userinfo;
+    [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
     
      [self.mainTable reloadData];
 }
 
 - (void)updInfo {
     
-    if ([self.NickName isEqualToString:_userinfo.NickName] &&
-        [self.Gender isEqualToString:_userinfo.Gender] &&
-        [self.Birthday isEqualToString:_userinfo.Birthday]) {
+    if ([self.NickName isEqualToString:_userProfile.NickName] &&
+        [self.Gender isEqualToString:_userProfile.Gender] &&
+        [self.Birthday isEqualToString:_userProfile.Birthday]) {
         
         UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"您未做任何修改，如修改图片则无需再保存。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
@@ -308,7 +307,7 @@
     }
     
     //上传服务器
-    [self.dataHandler postUpdateProfileWithUserID:_userinfo.UserID Password:_userinfo.LoginPassword PhoneNumber:_userinfo.LoginName NickName:_userinfo.NickName Gender:_userinfo.Gender Birthday:_userinfo.Birthday success:^(BOOL responseObject) {
+    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword PhoneNumber:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
         
         if (responseObject) {
             
@@ -325,7 +324,8 @@
     }];
 
     // 保存生日到本地文件，用于其他地方提取计算数值
-    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
+    [[NSUserDefaults standardUserDefaults] setObject:[_userProfile.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -341,7 +341,7 @@
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
     //设置请求体
-    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userinfo.LoginName,_userinfo.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
     
     //把拼接后的字符串转换为data，设置请求体
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
@@ -368,9 +368,10 @@
         
         //成功访问服务器，返回图片的URL
         NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-        _userinfo.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
         
-        [UserAccountHandler shareUserAccountHandler].userInfo = _userinfo;
+        _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
+        
+        [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
     }
 }
 

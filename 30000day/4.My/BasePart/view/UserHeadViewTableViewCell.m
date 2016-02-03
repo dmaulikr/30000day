@@ -21,16 +21,15 @@
     // Configure the view for the selected state
 }
 
-- (void)setUserInfo:(UserInfo *)userInfo {
+- (void)setUserProfile:(UserProfile *)userProfile {
     
-    _userInfo = userInfo;
+    _userProfile = userProfile;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.HeadImg]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.HeadImg]];
     
-    self.nameLabel.text =  _userInfo.NickName;
+    self.nameLabel.text =  _userProfile.NickName;
     
-    self.phoneNumberLabel.text = _userInfo.PhoneNumber;
-    
+    self.phoneNumberLabel.text = _userProfile.PhoneNumber;
 }
 
 @end

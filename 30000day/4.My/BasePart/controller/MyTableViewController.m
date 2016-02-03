@@ -9,7 +9,6 @@
 
 #import "MyTableViewController.h"
 #import "myViewCell.h"
-#import "UserInfo.h"
 #import "UIImageView+WebCache.h"
 #import "userInfoViewController.h"
 #import "SignInViewController.h"
@@ -21,7 +20,7 @@
 
 @interface MyTableViewController ()
 
-@property (nonatomic,strong) UserInfo *userinfo;
+@property (nonatomic,strong) UserProfile *userProfile;
 
 @end
 
@@ -31,7 +30,7 @@
     
     [super viewDidLoad];
     
-    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
     self.tabBarController.tabBar.hidden = NO;
     
@@ -41,11 +40,10 @@
 
 - (void)reloadData:(NSNotification *)notification {
     
-    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
     [self.tableView reloadData];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,7 +142,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"UserHeadViewTableViewCell" owner:self options:nil] lastObject];
         }
         
-        cell.userInfo = _userinfo;
+        cell.userProfile = self.userProfile;
         
         return cell;
         
@@ -268,12 +266,11 @@
         //登出
         [[UserAccountHandler shareUserAccountHandler] logout];
         
-        SignInViewController *logview = [[SignInViewController alloc] init];
+         SignInViewController *logview = [[SignInViewController alloc] init];
         
-        STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+         STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
         
         [self presentViewController:navigationController animated:YES completion:nil];
-        
         
     }]];
     

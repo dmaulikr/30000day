@@ -16,6 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 
-@property (nonatomic ,strong) UserInfo *userInfo;
+@property (nonatomic ,strong) UserProfile *userProfile;
 
 @end

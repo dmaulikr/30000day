@@ -153,7 +153,7 @@ static TKAddressBook *instance;
     
     NSLog(@"=====%@",_dataArrayDic);
     
-    _userInfo=[TKAddressBook shareControl].userInfo;
+    _userProfile = [TKAddressBook shareControl].userProfile;
     
     //在各种排序判断之前加入用户好友
     NSString * url = @"http://116.254.206.7:12580/M/API/GetMyFriends?";
@@ -161,11 +161,11 @@ static TKAddressBook *instance;
     //字符串的拼接
     url = [url stringByAppendingString:@"LoginName="];
     
-    url = [url stringByAppendingString:_userInfo.LoginName];
+    url = [url stringByAppendingString:_userProfile.LoginName];
     
     url = [url stringByAppendingString:@"&LoginPassword="];
     
-    url = [url stringByAppendingString:_userInfo.LoginPassword];
+    url = [url stringByAppendingString:_userProfile.LoginPassword];
     
     //*mUrl 就是拼接好的请求地址
     NSMutableString *mUrl=[[NSMutableString alloc] initWithString:url] ;

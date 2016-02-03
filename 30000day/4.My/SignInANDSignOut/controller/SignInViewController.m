@@ -168,34 +168,13 @@
 #pragma mark - 登录
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
+    //登录接口，同时也会设置UseInfo
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
                                  phoneNumber:_userNameTF.text
                                      success:^(id responseObject) {
-        
-                                 NSError *localError = nil;
-                     
-                                 id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                     
-                                  NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                  
-                                         if (recvDic) {
-                                             
-                                             UserInfo *userInfo = [[UserInfo alloc] init];
-                                             
-                                             [userInfo setValuesForKeysWithDictionary:recvDic];
-                                             
-                                             //保存用户上次登录的账号,同时也会更新用户信息
-                                             [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userInfo];
-                                             
-                                             [self dismissViewControllerAnimated:YES completion:nil];
-                                             
-                                         } else {
-                                             
-                                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                                             
-                                             [alert show];
-                                             
-                                         }
+                                         
+                                     [self dismissViewControllerAnimated:YES completion:nil];
+                                         
     } failure:^(LONetError *error) {
         
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
