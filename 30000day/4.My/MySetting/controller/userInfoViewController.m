@@ -127,18 +127,24 @@
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0) {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
         return 4;
-    }else{
+        
+    } else {
+        
         return 1;
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     return 12;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         if (indexPath.row==0) {
             return 105;
@@ -149,7 +155,8 @@
         return 43;
     }
 }
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString* ID=@"userInfoTableViewCell";
     userInfoTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
     if (cell==nil) {
@@ -199,12 +206,16 @@
 
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
     UIView* view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 43)];
+    
     [view setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0]];
+    
     return view;
     
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.mainTableState) {
         
@@ -234,11 +245,15 @@
                 
             } else if(indexPath.row==3) {
                 
-                NSDate *localDate = [NSDate date];
+                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userInfo.Birthday;
                 
-                _zpk=[[ZHPickView alloc] initDatePickWithDate:localDate datePickerMode:UIDatePickerModeDate isHaveNavControler:YES];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 
-                _zpk.delegate=self;
+                [formatter setDateFormat:@"yyyy/MM/dd"];
+                
+                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:YES];
+                
+                _zpk.delegate = self;
                 
                 [_zpk setMaxMinYer];
                 
@@ -247,6 +262,7 @@
         }
     }
 }
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSIndexPath* indexpath=self.mainTable.indexPathForSelectedRow;
 
@@ -263,31 +279,46 @@
         [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
+
 -(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
     
-    NSDateFormatter* datef=[[NSDateFormatter alloc]init];
+    NSDateFormatter *datef = [[NSDateFormatter alloc] init];
+    
     [datef setDateFormat:@"yyyy/MM/dd HH:mm"];
-    NSDate* now=[datef dateFromString:resultString];
+    
+    NSDate *now = [datef dateFromString:resultString];
     
     NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    
     NSInteger interval = [zone secondsFromGMTForDate: now];
+    
     NSDate *localeDate = [now  dateByAddingTimeInterval: interval];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    
     NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:localeDate];
     
-
-    NSString* Birthday=[NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
-    NSIndexPath* indexpath=self.mainTable.indexPathForSelectedRow;
-    _userinfo.Birthday=Birthday;
-    [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
+    NSString *Birthday = [NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
+    
+    _userinfo.Birthday = Birthday;
+    
+    [UserAccountHandler shareUserAccountHandler].userInfo = _userinfo;
+    
+     [self.mainTable reloadData];
 }
--(void)updInfo{
+
+- (void)updInfo {
+    
     int sex;
+    
     if ([_userinfo.Gender isEqualToString:@"男"]) {
+        
         sex = 1;
-    }else{
+        
+    } else {
+        
         sex = 0;
     }
     
@@ -320,6 +351,7 @@
         if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
             UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
+            
         }else{
             UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
@@ -391,7 +423,7 @@
 }
 
 // 图片下载函数。把URL的图片下载到本地
--(UIImage*) getImageFromURL:(NSString *)fileURL {
+- (UIImage*) getImageFromURL:(NSString *)fileURL {
     UIImage * result;
     NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
     result = [UIImage imageWithData:data];

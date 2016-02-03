@@ -34,7 +34,7 @@
                         <constraint firstAttribute="height" constant="30" id="glO-dB-tQR"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title=" 列表" image="list">
+                    <state key="normal" title="大图" image="list">
                         <color key="titleColor" red="0.26274509800000001" green="0.41568627450000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>

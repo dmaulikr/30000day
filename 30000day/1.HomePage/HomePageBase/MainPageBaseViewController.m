@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
 
+@property (nonatomic ,strong) UIScrollView *scrollView;
+
 @end
 
 @implementation MainPageBaseViewController
@@ -36,9 +38,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    [self configUI];
-    
+
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configUI) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
     
@@ -47,8 +47,10 @@
     if (![Common isUserLogin]) {//过去没有登录
         
         SignInViewController *logview = [[SignInViewController alloc] init];
-
-        [self.navigationController pushViewController:logview animated:YES];
+        
+        STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+        
+        [self presentViewController:navigationController animated:YES completion:nil];
 
     } else {//过去有登录
         
@@ -66,6 +68,29 @@
 - (void)configUI {
     
     self.tabBarController.tabBar.hidden = NO;
+    
+    for (int i = 0;i < self.childViewControllers.count; i++) {
+        
+        UIViewController *viewController =  self.childViewControllers[i];
+        
+        [viewController removeFromParentViewController];
+        
+    }
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
+    
+    _scrollView.delegate = self;
+    
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    
+    _scrollView.pagingEnabled = YES;
+    
+    _scrollView.delegate = self;
+    
+    _scrollView.bounces = NO;
+    
+    [self.view addSubview:_scrollView];
+    
     //设置子控制器
     MainPageViewController *mainPageController = [[MainPageViewController alloc] init];
     
@@ -141,7 +166,7 @@
 
 - (void)createButton {
     
-    self.buttonParentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width , 44)];
+    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width , 44)];
     
     self.navigationItem.titleView = self.buttonParentView;
     

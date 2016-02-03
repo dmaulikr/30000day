@@ -160,9 +160,8 @@
 #pragma mark - 找回密码
 - (IBAction)findPwd:(UIButton *)sender {
     
-    loginNameVerificationViewController *logvf = [[loginNameVerificationViewController alloc]init];
+    loginNameVerificationViewController *logvf = [[loginNameVerificationViewController alloc] init];
 
-    
     [self.navigationController pushViewController:logvf animated:YES];
 }
 
@@ -179,14 +178,25 @@
                                      
                                   NSDictionary *recvDic = (NSDictionary *)parsedObject;
                                   
-                                  UserInfo *userInfo = [[UserInfo alloc] init];
-                                  
-                                  [userInfo setValuesForKeysWithDictionary:recvDic];
-                                     
-                                  //保存用户上次登录的账号,同时也会更新用户信息
-                                  [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userInfo];
+                                         if (recvDic) {
+                                             
+                                             UserInfo *userInfo = [[UserInfo alloc] init];
+                                             
+                                             [userInfo setValuesForKeysWithDictionary:recvDic];
+                                             
+                                             //保存用户上次登录的账号,同时也会更新用户信息
+                                             [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userInfo];
+                                             
+                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                             
+                                         } else {
+                                             
+                                             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                                             
+                                             [alert show];
+                                             
+                                         }
                                  
-                                 [self.navigationController popViewControllerAnimated:YES];
                                          
     } failure:^(LONetError *error) {
         

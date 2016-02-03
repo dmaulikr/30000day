@@ -318,9 +318,12 @@
         //登出
         [[UserAccountHandler shareUserAccountHandler] logout];
         
-        SignInViewController *viewController = [[SignInViewController alloc] init];
+        SignInViewController *logview = [[SignInViewController alloc] init];
         
-        [self.navigationController pushViewController:viewController animated:YES];
+        STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+        
+        [self presentViewController:navigationController animated:YES completion:nil];
+        
         
     }]];
     

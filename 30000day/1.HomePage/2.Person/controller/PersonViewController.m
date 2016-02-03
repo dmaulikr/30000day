@@ -30,8 +30,8 @@
     //获取我的好友
     [self getMyFriends];
     
-    //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMyFriends) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+//    //监听个人信息管理模型发出的通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMyFriends) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
     
 }
 
@@ -81,7 +81,7 @@
         
         [self.switchModeButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
         
-        [self.switchModeButton setTitle:@" 大图" forState:UIControlStateNormal];
+        [self.switchModeButton setTitle:@" 列表" forState:UIControlStateNormal];
         
     } else {
         
@@ -89,7 +89,7 @@
         
         [self.switchModeButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
         
-        [self.switchModeButton setTitle:@" 列表" forState:UIControlStateNormal];
+        [self.switchModeButton setTitle:@" 大图" forState:UIControlStateNormal];
         
     }
     

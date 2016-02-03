@@ -31,7 +31,6 @@
         
         sharedHandler = [[self alloc] init];
         
-        
     });
     
     return sharedHandler;
@@ -63,7 +62,6 @@
     
     //保存用户密码
     [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:_privateUserInfo.LoginPassword];
-    
     
      NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
@@ -117,6 +115,12 @@
     
 }
 
+- (void)setUserInfo:(UserInfo *)userInfo {
+    
+    _privateUserInfo = userInfo;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+}
 
 - (void)logout {
     
@@ -165,7 +169,8 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
         
-        
+         
+         
      }];
 }
 

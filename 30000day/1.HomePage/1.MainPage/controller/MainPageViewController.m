@@ -165,7 +165,7 @@
             
             _dayarr[i] = ar[i][@"TotalLife"];
             
-            NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+            NSDateFormatter *formatter=[[NSDateFormatter alloc] init];
             
             [formatter setDateFormat:@"yyyy/MM/dd"];
             
@@ -190,7 +190,7 @@
         
         _xarr = (NSMutableArray *)[[_xarr reverseObjectEnumerator] allObjects];
         
-        _dayarr=(NSMutableArray*)[[_dayarr reverseObjectEnumerator] allObjects];
+        _dayarr = (NSMutableArray*)[[_dayarr reverseObjectEnumerator] allObjects];
     }
     
 }
@@ -211,7 +211,7 @@
         hasbeen = [self getDays:_userInfo.Birthday];
     }
     
-    NSArray *arr = [_userInfo.Birthday componentsSeparatedByString:@"-"];
+    NSArray *arr = [_userInfo.Birthday componentsSeparatedByString:@"/"];
     
     NSLog(@"%@",arr);
     
@@ -233,7 +233,7 @@
     
     float uday = [[_dayarr lastObject] floatValue];
     
-    NSString* userday=[NSString stringWithFormat:@"%.2f",uday];
+    NSString *userday = [NSString stringWithFormat:@"%.2f",uday];
     
     _progressView.progressTotal = [userday floatValue];  //总数
     
@@ -380,13 +380,15 @@
 
 - (int)getDays:(NSString *)theDate {
     
-    NSDateFormatter *date=[[NSDateFormatter alloc] init];
+    NSDateFormatter *date = [[NSDateFormatter alloc] init];
     
-    [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [date setDateFormat:@"yyyy-MM-dd"];
     
-    NSDate *d=[date dateFromString:theDate];
+    NSArray *dateArray = [theDate componentsSeparatedByString:@"/"];
     
-    NSLog(@"%@",d);
+    theDate = [NSString stringWithFormat:@"%@-%@-%@",dateArray[0],dateArray[1],dateArray[2]];
+    
+    NSDate *d = [date dateFromString:theDate];
     
     NSTimeInterval late=[d timeIntervalSince1970]*1;
     
