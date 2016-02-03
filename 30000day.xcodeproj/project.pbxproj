@@ -14,6 +14,8 @@
 		B6A5E76E1C61AA6A00A4322D /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7681C61AA6A00A4322D /* mailList.m */; };
 		B6A5E76F1C61AA6A00A4322D /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */; };
 		B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */; };
+		B6A5E7741C61CBB600A4322D /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */; };
+		B6A5E7751C61CBB600A4322D /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
@@ -174,6 +176,9 @@
 		B6A5E7691C61AA6A00A4322D /* MailListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListViewController.h; sourceTree = "<group>"; };
 		B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListViewController.m; sourceTree = "<group>"; };
 		B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListViewController.xib; sourceTree = "<group>"; };
+		B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
+		B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
+		B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -479,6 +484,9 @@
 				B6A5E7691C61AA6A00A4322D /* MailListViewController.h */,
 				B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */,
 				B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */,
+				B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */,
+				B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */,
+				B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */,
 			);
 			path = AddFriends;
 			sourceTree = "<group>";
@@ -1377,6 +1385,7 @@
 				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
+				B6A5E7751C61CBB600A4322D /* MailListTableViewCell.xib in Resources */,
 				B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */,
@@ -1511,6 +1520,7 @@
 				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
 				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
+				B6A5E7741C61CBB600A4322D /* MailListTableViewCell.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
