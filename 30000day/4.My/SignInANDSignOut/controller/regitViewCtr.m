@@ -7,7 +7,6 @@
 //
 
 #import "regitViewCtr.h"
-#import "LogPwd.h"
 
 #define IdentityCount 60
 #define INTERVAL_KEYBOARD 100
@@ -36,11 +35,13 @@
     
     [super viewDidLoad];
     
-    self.passwordTextSubView.layer.borderWidth=1.0;
+    self.title = @"闪电注册";
     
-    self.passwordTextSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.passwordTextSubView.layer.borderWidth = 1.0;
     
-    self.niceNameTextSubView.layer.borderWidth=1.0;
+    self.passwordTextSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    
+    self.niceNameTextSubView.layer.borderWidth = 1.0;
     
     self.niceNameTextSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
@@ -100,145 +101,80 @@
 
 #pragma mark - 注册验证
 - (IBAction)regitF:(UIButton *)sender {
-    if ([_userNameTxt.text isEqualToString:@""] || [_userPwdTxt.text isEqualToString:@""]){
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"账户密码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+    
+    if( [_userPwdTxt.text isEqualToString:@""] ) {
         
-        [alert show];
-        return;
-    }else if(![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"密码不一致，请重新确认" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [alert show];
+        [self showToast:@"密码不能为空"];
+        
         return;
     }
-    [self submitUserInfo];
+    
+    if ([_userNameTxt.text isEqualToString:@""]){
+        
+        [self showToast:@"账户不能为空"];
+        
+        return;
+        
+    }
+    
+   if (![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
+        
+        [self showToast:@"密码不一致，请重新确认"];
+        
+        return;
+    }
+    
+    [self registerUser];
 }
 
 #pragma mark - 注册
--(void)submitUserInfo{
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/Register?";
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-
-    NSString *param=[NSString stringWithFormat:@"LoginName=%@&LoginPassword=%@&NickName=%@&PhoneNumber=%@",_userNameTxt.text,_userPwdTxt.text,_userNickNameTxt.text,_PhoneNumber];
+- (void)registerUser {
     
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"POST"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
-    
-    NSURLResponse * response;
-    NSError * error;
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-    }else{
-        NSLog(@"response : %@",response);
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-    }
-    
-    if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-        [self bcclick];
-    }else{
-        NSString* errorstring=[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"注册失败" message:errorstring delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [alert show];
-        NSLog(@"error:%@",error);
-    }
+    //调用注册接口
+    [self.dataHandler postRegesiterWithPassword:_userPwdTxt.text
+                                    phoneNumber:_PhoneNumber
+                                       nickName:_userNickNameTxt.text
+                                      loginName:_userNameTxt.text
+                                        success:^(id responseObject) {
+                                           
+                                            //保存健康因素
+                                            [self.dataHandler postUpdateHealthDataWithPassword:self.userPwdTxt.text loginName:self.userNameTxt.text cityName:self.cityName success:^(BOOL sucess) {
+                                                
+                                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                                                
+                                                [alert setTag:1];
+                                                
+                                                [alert show];
+                                                
+                                            } failure:^(NSError *error) {
+                                                
+                                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"注册失败" message:[error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                                                
+                                                [alert show];
+                                                
+                                            }];
+                                        }
+     
+                                        failure:^(NSError *error) {
+                                            
+                                            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"注册失败" message:[error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                                            [alert show];
+                                            
+                                        }];
     
 }
+
 #pragma mark - alertView代理
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag==1) {
-        if (buttonIndex==0) {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        
+        if (buttonIndex == 0) {
+            
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
-#pragma mark - 保存默认健康因素
--(void)bcclick{
-    if ([self.cityName isEqualToString:@""] || self.cityName==nil) {
-        self.cityName=@"北京";
-    }else{
-        self.cityName=[self.cityName substringToIndex:self.cityName.length-1];//去掉市
-    }
-    NSString* ProvinceLifeExpectancyMan=[[NSBundle mainBundle]pathForResource:@"ProvinceLifeExpectancyMan" ofType:@"plist"];
-    NSDictionary* citydic=[[NSDictionary alloc]initWithContentsOfFile:ProvinceLifeExpectancyMan];
-    NSInteger yeardate=[citydic[self.cityName] integerValue];
-    NSInteger AvearageLife=[self AverageLifeToDay:yeardate];//默认基数
-    
-    NSMutableArray* UserDayArr=[[NSMutableArray alloc]initWithObjects:@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",
-                                @"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",
-                                @"0",@"0",@"0",@"0",@"0",@"0",@"0", nil];
-    UserDayArr[0]=[NSString stringWithFormat:@"+%ld",(long)AvearageLife];
-    
-    NSArray* Elements=[NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",
-                    @"5",@"6",@"7",@"8",@"9",
-                    @"10",@"11",@"12",@"13",@"14",
-                    @"15",@"16",@"17",@"18",@"19",
-                    @"20",@"21",@"22",@"23",@"24",@"25",@"26",nil];
-    
-    //用户选项
-    NSString* SubResultsString=[NSString stringWithFormat:@"%@,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,",self.cityName];
-    
-    //因素
-    NSString* ElementsStr=[[NSString alloc]init];
-    
-    NSString* UserAlternative=[[NSString alloc]init];
-    
-    for (int i=0; i<Elements.count; i++) {
-        if (i==0) {
-            ElementsStr=[ElementsStr stringByAppendingString:[NSString stringWithFormat:@"%@",Elements[i]]];
-            UserAlternative=[UserAlternative stringByAppendingString:[NSString stringWithFormat:@"%@",UserDayArr[i]]];
-        }else{
-            ElementsStr=[ElementsStr stringByAppendingString:[NSString stringWithFormat:@",%@",Elements[i]]];
-            UserAlternative=[UserAlternative stringByAppendingString:[NSString stringWithFormat:@",%@",UserDayArr[i]]];
-        }
-    }
-    ElementsStr=[ElementsStr stringByAppendingString:@",pm25,StepCount,FloorCount,ExerciseDistance,AvearageLife"];
-    //用户选择因素
-    UserAlternative=[UserAlternative stringByAppendingString:[NSString stringWithFormat:@",0,0,0,0,%ld",(long)AvearageLife]];
-    //AvearageLife 为初始的默认平均寿命基数
-    NSDate *  senddate=[NSDate date];//当前时间
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"yyyy-MM-dd"];
-    NSString* locationString=[dateformatter stringFromDate:senddate];//系统当前时间
-    NSString* resultstring=[NSString stringWithFormat:@"%ld",(long)AvearageLife];
-    
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/WriteUserLifeForEachDay?";
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    
-    NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%ld&result=%@&date=%@&subFators=%@&subResults=%@&SubResultsString=%@",self.userNameTxt.text,self.userPwdTxt.text,(long)AvearageLife,resultstring,locationString,ElementsStr,UserAlternative,SubResultsString];
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"post"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
-    NSURLResponse * response;
-    NSError * error;
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-    }else{
-        NSLog(@"response : %@",response);
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-        
-        if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-            LogPwd* lp=[LogPwd sharedLogPwd];
-            [lp setLog:_userNameTxt.text];
-            [lp setPwd:_userPwdTxt.text];
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert setTag:1];
-            [alert show];
-
-        }else{
-            NSString* errorstring=[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"注册失败" message:errorstring delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
-            NSLog(@"error:%@",error);
-        }
-    }}
 
 #pragma mark - 定位
 -(void)startLocation{
@@ -270,7 +206,7 @@
     
 }
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation
     //如果调用已经一次，不再执行
     CLLocation *currentLocation = [locations lastObject];
@@ -312,53 +248,6 @@
     
 }
 
-#pragma mark - 计算平均寿命的天数
--(NSInteger)AverageLifeToDay:(NSInteger)today {
-    
-    NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    [gregorian setFirstWeekday:2];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate *fromDate;
-    
-    NSDate *toDate;
-    
-    [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:[self day:today]];
-    
-    [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:[NSDate date]];
-    
-    NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
-
-    NSLog(@"%ld",(long)dayComponents.day);
-    
-    return dayComponents.day;
-}
-
-#pragma mark - 现在时间减去平均寿命
-- (NSDate *)day:(NSInteger)today {
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-    
-    NSDateComponents *components = [calendar components:unitFlags fromDate:[NSDate date]];
-    
-    components.year=components.year-today;
-    
-    NSString* newdate=[NSString stringWithFormat:@"%ld-%ld-%ld",(long)components.year,(long)components.month,(long)components.day];
-    
-    NSDateFormatter* date=[[NSDateFormatter alloc] init];
-    
-    [date setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate* returndate=[date dateFromString:newdate];
-    
-    return returndate;
-}
 
 #pragma mark - 文本框开始编辑
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

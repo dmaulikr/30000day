@@ -34,7 +34,7 @@
 //获取我的好友
 - (void)getMyFriends {
     
-    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] phoneNumber:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
+    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
         
         _dataArray = (NSMutableArray *)responseObject;
         

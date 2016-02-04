@@ -33,6 +33,7 @@
 @implementation VPImageCropperViewController
 
 - (void)dealloc {
+    
     self.originalImage = nil;
     self.showImgView = nil;
     self.editedImage = nil;

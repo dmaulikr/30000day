@@ -106,11 +106,16 @@
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
     }
+    
     if (request.responseSerializerType == LOResponseTypeImage) {
         
         _manager.responseSerializer = [AFImageResponseSerializer serializer];
         
-    } else {
+    } else if (request.responseSerializerType == LOResponseTypeJSON) {
+        
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    else {
         
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         

@@ -10,7 +10,6 @@
 #import "findPwdViewCtr.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
-#import "LogPwd.h"
 #import "SMSVerificationViewController.h"
 #import "loginNameVerificationViewController.h"
 #import "TKAddressBook.h"
@@ -93,7 +92,7 @@
 }
 
 #pragma mark - 加载历史记录
--(void)textFielddidload {
+- (void)textFielddidload {
     
     [self.userNameTF setDelegate:self];
     
@@ -144,15 +143,13 @@
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]];
     
-   self.navigationItem.leftBarButtonItem = backItem;
+    self.navigationItem.leftBarButtonItem = backItem;
     
-    LogPwd *lp = [LogPwd sharedLogPwd];
-    
-    if (lp.log != nil) {
+    if ([Common readAppDataForKey:KEY_SIGNIN_USER_NAME] && [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]) {
         
-        _userNameTF.text = lp.log;
+        _userNameTF.text = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
         
-        _userPwdTF.text = lp.pwd;
+        _userPwdTF.text  = [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
         
     }
 }
@@ -170,14 +167,14 @@
     
     //登录接口，同时也会设置UseInfo
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
-                                 phoneNumber:_userNameTF.text
+                                 loginName:_userNameTF.text
                                      success:^(id responseObject) {
                                          
                                      [self dismissViewControllerAnimated:YES completion:nil];
                                          
     } failure:^(LONetError *error) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:[error.error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
         
         [alert show];
         
@@ -337,9 +334,7 @@
 #pragma mark - 跳转注册
 - (IBAction)regitView:(UIButton *)sender {
     
-    SMSVerificationViewController* sms = [[SMSVerificationViewController alloc] init];
-    
-    sms.navigationItem.title = @"闪电注册";
+    SMSVerificationViewController *sms = [[SMSVerificationViewController alloc] init];
     
     [self.navigationController pushViewController:sms animated:YES];
     

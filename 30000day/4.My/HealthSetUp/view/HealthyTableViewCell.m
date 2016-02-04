@@ -23,4 +23,12 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)setButtonClick:(id)sender {
+    
+    if (self.setButtonClick) {
+        
+        self.setButtonClick(self.cellIndexPath);
+    }
+}
+
 @end

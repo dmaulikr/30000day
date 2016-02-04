@@ -13,8 +13,39 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-CM-5S8">
+                        <rect key="frame" x="10" y="11" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paI-og-Qh9">
+                        <rect key="frame" x="159" y="4" width="151" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="151" id="kyf-ce-VJX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <state key="normal" title="设置">
+                            <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="setButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sJp-Ae-SJq"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="paI-og-Qh9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZVm-rd-XF6"/>
+                    <constraint firstItem="4bR-CM-5S8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ctd-6U-AIY"/>
+                    <constraint firstItem="4bR-CM-5S8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iCv-f6-KiE"/>
+                    <constraint firstAttribute="trailing" secondItem="paI-og-Qh9" secondAttribute="trailing" constant="10" id="lzA-y2-LEI"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="215" y="212"/>
+            <connections>
+                <outlet property="setButton" destination="paI-og-Qh9" id="JIl-9K-L7B"/>
+                <outlet property="titleLabel" destination="4bR-CM-5S8" id="KfU-FI-dmb"/>
+            </connections>
+            <point key="canvasLocation" x="273" y="189"/>
         </tableViewCell>
     </objects>
 </document>

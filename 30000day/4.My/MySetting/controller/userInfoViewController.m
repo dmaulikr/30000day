@@ -46,7 +46,7 @@
     
     self.title = @"个人信息";
     
-    UIBarButtonItem* rightBarButton=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;
     
@@ -70,7 +70,8 @@
     
 }
 
-- (void)rightBarButtonClick:(UIBarButtonItem *)button{
+- (void)rightBarButtonClick:(UIBarButtonItem *)button {
+    
     if ([button.title isEqualToString:@"编辑"]) {
         button.title=@"保存";
         self.mainTableState=1;
@@ -82,7 +83,8 @@
     [self.mainTable reloadData];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 2;
 }
 
@@ -98,12 +100,18 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 12;
+    if (section == 0) {
+        
+        return 10;
+    }
+    
+    return 0.1f;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.section==0) {
         if (indexPath.row==0) {
             return 105;
@@ -188,7 +196,8 @@
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (self.mainTableState) {
         
         if (indexPath.section==0) {
@@ -215,7 +224,7 @@
                 
                 [alertView show];
                 
-            } else if(indexPath.row==3) {
+            } else if(indexPath.row == 3) {
                 
                 NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
                 
@@ -223,7 +232,7 @@
                 
                 [formatter setDateFormat:@"yyyy/MM/dd"];
                 
-                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:YES];
+                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
                 
                 _zpk.delegate = self;
                 
@@ -307,7 +316,7 @@
     }
     
     //上传服务器
-    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword PhoneNumber:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
+    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
         
         if (responseObject) {
             

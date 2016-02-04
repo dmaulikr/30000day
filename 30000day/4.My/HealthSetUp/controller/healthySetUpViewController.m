@@ -200,58 +200,66 @@
     return 44;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         //健康因素
         HealthyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (cell==nil) cell=[[NSBundle mainBundle]loadNibNamed:@"HealthyTableViewCell" owner:self options:nil][0];
-        
-        UIButton* Healthybtn=[UIButton buttonWithType:UIButtonTypeCustom];
-        [Healthybtn setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
-        [Healthybtn.titleLabel setFont:[UIFont systemFontOfSize:20.0]];
-        [Healthybtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [Healthybtn addTarget:self action:@selector(HealthybtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.textLabel.text=self.Elements[indexPath.row];
+    
+        if (cell==nil) cell = [[NSBundle mainBundle] loadNibNamed:@"HealthyTableViewCell" owner:self options:nil][0];
+    
+        cell.cellIndexPath = indexPath;
+    
+        cell.titleLabel.text = self.Elements[indexPath.row];
+    
         if ([self.UserAlternative[indexPath.row] isEqualToString:@""]) {
-            [Healthybtn setTitle:@"设置" forState:UIControlStateNormal];
-        }else{
-            [Healthybtn setTitle:self.UserAlternative[indexPath.row] forState:UIControlStateNormal];
+            
+            [cell.setButton setTitle:@"设置" forState:UIControlStateNormal];
+            
+        } else {
+            
+            [cell.setButton setTitle:self.UserAlternative[indexPath.row] forState:UIControlStateNormal];
         }
-        [cell addSubview:Healthybtn];
-        
-        [cell.textLabel setFont:[UIFont systemFontOfSize:20.0]];
-        Healthybtn.translatesAutoresizingMaskIntoConstraints=NO;
-        [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[Healthybtn(200)]-15-|" options:0 metrics:nil views:@{@"Healthybtn":Healthybtn}]];
-        [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[Healthybtn(30)]" options:0 metrics:nil views:@{@"Healthybtn":Healthybtn}]];
+    
+        //按钮点击回调
+        [cell setSetButtonClick:^(NSIndexPath *cellIndexPath) {
+            
+            [self cancelLocatePicker];
+            
+
+            self.clickindexpath = cellIndexPath;
+            
+            if (cellIndexPath.section == 0) {
+                
+                if (cellIndexPath.row == 0) {
+                    
+                    [self cancelLocatePicker];
+                    
+                    self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
+                    
+                    [self.locatePicker showInView:self.view];
+                    
+                } else {
+                    
+                    [self alertView:self.Alternative[cellIndexPath.row] title:self.Elements[cellIndexPath.row]];
+                }
+            }
+            
+        }];
     
         return cell;
 
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self cancelLocatePicker];
-}
--(void)HealthybtnClick:(UIButton*)sender
-{
-    [self cancelLocatePicker];
-    NSIndexPath* indexpath=[self.mainTable indexPathForCell:(HealthyTableViewCell*)[sender superview]];
-    self.clickindexpath=indexpath;
-    if (indexpath.section==0) {
-        if (indexpath.row==0) {
-            [self cancelLocatePicker];
-            self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
-            [self.locatePicker showInView:self.view];
-        }else{
-            [self alertView:self.Alternative[indexpath.row] title:self.Elements[indexpath.row]];
-        }
-    }
 }
 
--(void)alertView:(NSArray*)btntitlearr title:(NSString*)titlestring
-{
-    UIAlertView* alert;
+
+- (void)alertView:(NSArray*)btntitlearr title:(NSString*)titlestring {
+    
+    UIAlertView *alert;
+    
     switch (btntitlearr.count) {
         case 2:
             alert=[[UIAlertView alloc]initWithTitle:titlestring message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:btntitlearr[0], btntitlearr[1],nil];

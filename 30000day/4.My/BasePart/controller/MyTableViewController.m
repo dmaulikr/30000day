@@ -221,7 +221,9 @@
     
     if (indexPath.section == 0) {
         
-        userInfoViewController *user=[[userInfoViewController alloc]init];
+        userInfoViewController *user = [[userInfoViewController alloc] init];
+        
+        user.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:user animated:YES];
         
@@ -229,7 +231,9 @@
         
         if (indexPath.row == 0) {
             
-            healthySetUpViewController *hsc=[[healthySetUpViewController alloc]init];
+            healthySetUpViewController *hsc = [[healthySetUpViewController alloc]init];
+            
+            hsc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:hsc animated:YES];
             
@@ -240,11 +244,15 @@
             
             securityViewController *stc = [[securityViewController alloc]init];
             
+            stc.hidesBottomBarWhenPushed = YES;
+            
             [self.navigationController pushViewController:stc animated:YES];
             
         } else {
             
             SetUpViewController *suc = [[SetUpViewController alloc] init];
+            
+            suc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:suc animated:YES];
         }

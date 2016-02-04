@@ -151,7 +151,6 @@
 		B8F2DA4F1C5F3D04002C7712 /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA321C5F3D04002C7712 /* TextFieldCellTableViewCell.xib */; };
 		B8F2DA501C5F3D04002C7712 /* updatePwdViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA341C5F3D04002C7712 /* updatePwdViewCtr.m */; };
 		B8F2DA511C5F3D04002C7712 /* updatePwdViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA351C5F3D04002C7712 /* updatePwdViewCtr.xib */; };
-		B8F2DA521C5F3D04002C7712 /* LogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA381C5F3D04002C7712 /* LogPwd.m */; };
 		B8F2DA531C5F3D04002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3A1C5F3D04002C7712 /* security.m */; };
 		B8F2DA541C5F3D04002C7712 /* UpdateLogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3C1C5F3D04002C7712 /* UpdateLogPwd.m */; };
 		B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA581C5F3D8B002C7712 /* area.plist */; };
@@ -418,8 +417,6 @@
 		B8F2DA331C5F3D04002C7712 /* updatePwdViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updatePwdViewCtr.h; sourceTree = "<group>"; };
 		B8F2DA341C5F3D04002C7712 /* updatePwdViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatePwdViewCtr.m; sourceTree = "<group>"; };
 		B8F2DA351C5F3D04002C7712 /* updatePwdViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = updatePwdViewCtr.xib; sourceTree = "<group>"; };
-		B8F2DA371C5F3D04002C7712 /* LogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogPwd.h; sourceTree = "<group>"; };
-		B8F2DA381C5F3D04002C7712 /* LogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogPwd.m; sourceTree = "<group>"; };
 		B8F2DA391C5F3D04002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		B8F2DA3A1C5F3D04002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
 		B8F2DA3B1C5F3D04002C7712 /* UpdateLogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateLogPwd.h; sourceTree = "<group>"; };
@@ -1275,8 +1272,6 @@
 		B8F2DA361C5F3D04002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2DA371C5F3D04002C7712 /* LogPwd.h */,
-				B8F2DA381C5F3D04002C7712 /* LogPwd.m */,
 				B8F2DA391C5F3D04002C7712 /* security.h */,
 				B8F2DA3A1C5F3D04002C7712 /* security.m */,
 				B8F2DA3B1C5F3D04002C7712 /* UpdateLogPwd.h */,
@@ -1534,7 +1529,6 @@
 				B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */,
 				B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */,
 				B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */,
-				B8F2DA521C5F3D04002C7712 /* LogPwd.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* updatePwdViewCtr.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
