@@ -53,6 +53,7 @@
 		B89216ED1C634E650023F8A8 /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E21C634E650023F8A8 /* mailList.m */; };
 		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
 		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
+		B89216F21C635ABD0023F8A8 /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216F11C635ABD0023F8A8 /* AddressBookModel.m */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* userInfoViewController.m */; };
@@ -251,6 +252,8 @@
 		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
+		B89216F01C635ABD0023F8A8 /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
+		B89216F11C635ABD0023F8A8 /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
 		B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myViewCell.xib; sourceTree = "<group>"; };
@@ -945,6 +948,8 @@
 			children = (
 				B89216E11C634E650023F8A8 /* mailList.h */,
 				B89216E21C634E650023F8A8 /* mailList.m */,
+				B89216F01C635ABD0023F8A8 /* AddressBookModel.h */,
+				B89216F11C635ABD0023F8A8 /* AddressBookModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1521,6 +1526,7 @@
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
+				B89216F21C635ABD0023F8A8 /* AddressBookModel.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
