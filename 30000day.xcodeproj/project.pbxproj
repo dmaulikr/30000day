@@ -16,6 +16,8 @@
 		B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */; };
 		B6A5E7741C61CBB600A4322D /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */; };
 		B6A5E7751C61CBB600A4322D /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */; };
+		B6BD1B211C62E48A005D951D /* ShareBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */; };
+		B6BD1B221C62E48A005D951D /* ShareBackgroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
@@ -177,6 +179,9 @@
 		B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
+		B6BD1B1E1C62E48A005D951D /* ShareBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBackgroundViewController.h; sourceTree = "<group>"; };
+		B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBackgroundViewController.m; sourceTree = "<group>"; };
+		B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareBackgroundViewController.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -482,6 +487,9 @@
 				B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */,
 				B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */,
 				B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */,
+				B6BD1B1E1C62E48A005D951D /* ShareBackgroundViewController.h */,
+				B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */,
+				B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */,
 			);
 			path = AddFriends;
 			sourceTree = "<group>";
@@ -1414,6 +1422,7 @@
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */,
+				B6BD1B221C62E48A005D951D /* ShareBackgroundViewController.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B8F2DA451C5F3D04002C7712 /* loginNameVerificationViewController.xib in Resources */,
@@ -1567,6 +1576,7 @@
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8F2D8F01C5B3B10002C7712 /* VPImageCropperViewController.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */,
+				B6BD1B211C62E48A005D951D /* ShareBackgroundViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,

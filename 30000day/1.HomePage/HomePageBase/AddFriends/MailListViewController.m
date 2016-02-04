@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import "mailList.h"
 #import "MailListTableViewCell.h"
+#import "ShareBackgroundViewController.h"
 
 @interface MailListViewController ()
 @property (nonatomic,strong)NSMutableArray *mailListArray;
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchText;
 @property (weak, nonatomic) IBOutlet UIView *searchSuperView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (strong, nonatomic) ShareBackgroundViewController* sbvc;
 
 @end
 
@@ -25,7 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
     self.searchText.leftView = image;
     self.searchText.leftViewMode = UITextFieldViewModeUnlessEditing;
@@ -39,6 +40,32 @@
     [self.mailListTable setDelegate:self];
     [self.mailListTable setDataSource:self];
     
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    
+        NSMutableArray* array=[NSMutableArray array];
+        for (int i=0; i<self.mailListArray.count; i++) {
+            
+            mailList* ml=self.mailListArray[i];
+            NSString* name=[ml.name substringFromIndex:0];
+            
+            unichar c = [ml.name characterAtIndex:0];
+            if (c >= 0x4E00 && c <= 0x9FFF){
+                printf("汉字");
+                if ([[self firstCharactor:name] isEqualToString:@"A"]) {
+                    [array addObject:ml.name];
+                    [dic setObject:array forKey:@"A"];
+                }
+            }
+            else if((c >= 97 && c <= 122) || (c >= 65 && c <= 90)){
+                printf("英文");
+            }else{
+                printf("乱码");
+            }
+            
+            
+            
+            
+        }
 }
 
 - (void)loadPerson{
@@ -156,7 +183,32 @@
 }
 
 -(void)invitationBtnClick{
+    self.sbvc=[[ShareBackgroundViewController alloc]init];
+    [self.sbvc.view setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
+    [self.sbvc.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     
+    [UIView animateWithDuration:0.4 animations:^{
+        [self.sbvc.view setFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
+    }];
+    
+    [self.sbvc.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    [[[UIApplication sharedApplication].delegate window]addSubview:self.sbvc.view];
+}
+
+//传入汉子返回拼音首字母
+- (NSString *)firstCharactor:(NSString *)aString
+{
+    //转成了可变字符串
+    NSMutableString *str = [NSMutableString stringWithString:aString];
+    //先转换为带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+    //再转换为不带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+    //转化为大写拼音
+    NSString *pinYin = [str capitalizedString];
+    //获取并返回首字母
+    return [pinYin substringToIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {

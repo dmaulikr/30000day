@@ -113,13 +113,13 @@
                     <exclude reference="Ib7-Y3-bxF"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="DGQ-Cr-icS"/>
-                    <exclude reference="nbP-lg-kTU"/>
-                    <exclude reference="tvO-uy-U6U"/>
                     <exclude reference="3KP-3e-t9P"/>
                     <exclude reference="QKa-LV-lSG"/>
                     <exclude reference="fDA-k4-IOX"/>
                     <exclude reference="uH2-Mf-Ls8"/>
+                    <exclude reference="DGQ-Cr-icS"/>
+                    <exclude reference="nbP-lg-kTU"/>
+                    <exclude reference="tvO-uy-U6U"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -128,29 +128,19 @@
                     <include reference="Ib7-Y3-bxF"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="DGQ-Cr-icS"/>
-                    <include reference="nbP-lg-kTU"/>
-                    <include reference="tvO-uy-U6U"/>
                     <include reference="3KP-3e-t9P"/>
                     <include reference="QKa-LV-lSG"/>
                     <include reference="fDA-k4-IOX"/>
                     <include reference="uH2-Mf-Ls8"/>
+                    <include reference="DGQ-Cr-icS"/>
+                    <include reference="nbP-lg-kTU"/>
+                    <include reference="tvO-uy-U6U"/>
                 </mask>
             </variation>
         </view>
-        <searchBar contentMode="redraw" id="kZJ-JS-5lZ">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-            <textInputTraits key="textInputTraits"/>
-            <connections>
-                <outlet property="delegate" destination="-1" id="fzR-AZ-EdD"/>
-            </connections>
-            <point key="canvasLocation" x="609" y="6"/>
-        </searchBar>
         <searchDisplayController id="IsT-kC-8jf">
             <connections>
                 <outlet property="delegate" destination="-1" id="QG8-pP-jdi"/>
-                <outlet property="searchBar" destination="kZJ-JS-5lZ" id="0nU-QD-IuZ"/>
                 <outlet property="searchContentsController" destination="-1" id="6Ve-qZ-pnq"/>
                 <outlet property="searchResultsDataSource" destination="-1" id="VRm-Ja-bRD"/>
                 <outlet property="searchResultsDelegate" destination="-1" id="KhY-l5-Xal"/>

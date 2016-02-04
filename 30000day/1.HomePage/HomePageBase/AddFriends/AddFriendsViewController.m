@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tabBarController.tabBar.hidden=YES;
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
     self.searchBarView.leftView = image;
     self.searchBarView.leftViewMode = UITextFieldViewModeUnlessEditing;
