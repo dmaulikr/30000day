@@ -404,7 +404,9 @@
 
 - (void)addFriendsClick{
     
-    AddFriendsViewController* addfvc=[[AddFriendsViewController alloc]init];
+    AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
+    
+    addfvc.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:addfvc animated:YES];
 }

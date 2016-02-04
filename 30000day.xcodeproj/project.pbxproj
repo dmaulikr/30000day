@@ -9,15 +9,6 @@
 /* Begin PBXBuildFile section */
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
-		B6A5E76C1C61AA6A00A4322D /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */; };
-		B6A5E76D1C61AA6A00A4322D /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */; };
-		B6A5E76E1C61AA6A00A4322D /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7681C61AA6A00A4322D /* mailList.m */; };
-		B6A5E76F1C61AA6A00A4322D /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */; };
-		B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */; };
-		B6A5E7741C61CBB600A4322D /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */; };
-		B6A5E7751C61CBB600A4322D /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */; };
-		B6BD1B211C62E48A005D951D /* ShareBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */; };
-		B6BD1B221C62E48A005D951D /* ShareBackgroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
@@ -53,6 +44,15 @@
 		B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216CF1C61F6960023F8A8 /* LogoutTableViewCell.m */; };
 		B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216D01C61F6960023F8A8 /* LogoutTableViewCell.xib */; };
 		B89216D51C6243830023F8A8 /* FriendListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216D41C6243830023F8A8 /* FriendListInfo.m */; };
+		B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216D81C634E650023F8A8 /* AddFriendsViewController.m */; };
+		B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */; };
+		B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DB1C634E650023F8A8 /* MailListViewController.m */; };
+		B89216EA1C634E650023F8A8 /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216DC1C634E650023F8A8 /* MailListViewController.xib */; };
+		B89216EB1C634E650023F8A8 /* ShareBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DE1C634E650023F8A8 /* ShareBackgroundViewController.m */; };
+		B89216EC1C634E650023F8A8 /* ShareBackgroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216DF1C634E650023F8A8 /* ShareBackgroundViewController.xib */; };
+		B89216ED1C634E650023F8A8 /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E21C634E650023F8A8 /* mailList.m */; };
+		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
+		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* userInfoViewController.m */; };
@@ -170,20 +170,6 @@
 		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
-		B6A5E7641C61AA6A00A4322D /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
-		B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
-		B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsViewController.xib; sourceTree = "<group>"; };
-		B6A5E7671C61AA6A00A4322D /* mailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mailList.h; sourceTree = "<group>"; };
-		B6A5E7681C61AA6A00A4322D /* mailList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailList.m; sourceTree = "<group>"; };
-		B6A5E7691C61AA6A00A4322D /* MailListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListViewController.h; sourceTree = "<group>"; };
-		B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListViewController.m; sourceTree = "<group>"; };
-		B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListViewController.xib; sourceTree = "<group>"; };
-		B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
-		B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
-		B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
-		B6BD1B1E1C62E48A005D951D /* ShareBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBackgroundViewController.h; sourceTree = "<group>"; };
-		B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBackgroundViewController.m; sourceTree = "<group>"; };
-		B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareBackgroundViewController.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -251,6 +237,20 @@
 		B89216D01C61F6960023F8A8 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
 		B89216D31C6243830023F8A8 /* FriendListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListInfo.h; sourceTree = "<group>"; };
 		B89216D41C6243830023F8A8 /* FriendListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListInfo.m; sourceTree = "<group>"; };
+		B89216D71C634E650023F8A8 /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
+		B89216D81C634E650023F8A8 /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
+		B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsViewController.xib; sourceTree = "<group>"; };
+		B89216DA1C634E650023F8A8 /* MailListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListViewController.h; sourceTree = "<group>"; };
+		B89216DB1C634E650023F8A8 /* MailListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListViewController.m; sourceTree = "<group>"; };
+		B89216DC1C634E650023F8A8 /* MailListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListViewController.xib; sourceTree = "<group>"; };
+		B89216DD1C634E650023F8A8 /* ShareBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBackgroundViewController.h; sourceTree = "<group>"; };
+		B89216DE1C634E650023F8A8 /* ShareBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBackgroundViewController.m; sourceTree = "<group>"; };
+		B89216DF1C634E650023F8A8 /* ShareBackgroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareBackgroundViewController.xib; sourceTree = "<group>"; };
+		B89216E11C634E650023F8A8 /* mailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mailList.h; sourceTree = "<group>"; };
+		B89216E21C634E650023F8A8 /* mailList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailList.m; sourceTree = "<group>"; };
+		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
+		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
+		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
 		B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myViewCell.xib; sourceTree = "<group>"; };
@@ -480,20 +480,9 @@
 		B6A5E7631C61AA6A00A4322D /* AddFriends */ = {
 			isa = PBXGroup;
 			children = (
-				B6A5E7641C61AA6A00A4322D /* AddFriendsViewController.h */,
-				B6A5E7651C61AA6A00A4322D /* AddFriendsViewController.m */,
-				B6A5E7661C61AA6A00A4322D /* AddFriendsViewController.xib */,
-				B6A5E7671C61AA6A00A4322D /* mailList.h */,
-				B6A5E7681C61AA6A00A4322D /* mailList.m */,
-				B6A5E7691C61AA6A00A4322D /* MailListViewController.h */,
-				B6A5E76A1C61AA6A00A4322D /* MailListViewController.m */,
-				B6A5E76B1C61AA6A00A4322D /* MailListViewController.xib */,
-				B6A5E7711C61CBB600A4322D /* MailListTableViewCell.h */,
-				B6A5E7721C61CBB600A4322D /* MailListTableViewCell.m */,
-				B6A5E7731C61CBB600A4322D /* MailListTableViewCell.xib */,
-				B6BD1B1E1C62E48A005D951D /* ShareBackgroundViewController.h */,
-				B6BD1B1F1C62E48A005D951D /* ShareBackgroundViewController.m */,
-				B6BD1B201C62E48A005D951D /* ShareBackgroundViewController.xib */,
+				B89216D61C634E650023F8A8 /* controller */,
+				B89216E01C634E650023F8A8 /* model */,
+				B89216E31C634E650023F8A8 /* view */,
 			);
 			path = AddFriends;
 			sourceTree = "<group>";
@@ -933,6 +922,41 @@
 				B88C91EA1C5B05FC0089BEAE /* SBJsonWriter.m */,
 			);
 			path = SBJson;
+			sourceTree = "<group>";
+		};
+		B89216D61C634E650023F8A8 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B89216D71C634E650023F8A8 /* AddFriendsViewController.h */,
+				B89216D81C634E650023F8A8 /* AddFriendsViewController.m */,
+				B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */,
+				B89216DA1C634E650023F8A8 /* MailListViewController.h */,
+				B89216DB1C634E650023F8A8 /* MailListViewController.m */,
+				B89216DC1C634E650023F8A8 /* MailListViewController.xib */,
+				B89216DD1C634E650023F8A8 /* ShareBackgroundViewController.h */,
+				B89216DE1C634E650023F8A8 /* ShareBackgroundViewController.m */,
+				B89216DF1C634E650023F8A8 /* ShareBackgroundViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B89216E01C634E650023F8A8 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B89216E11C634E650023F8A8 /* mailList.h */,
+				B89216E21C634E650023F8A8 /* mailList.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B89216E31C634E650023F8A8 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B89216E41C634E650023F8A8 /* MailListTableViewCell.h */,
+				B89216E51C634E650023F8A8 /* MailListTableViewCell.m */,
+				B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		B8F2D8BF1C5B38FA002C7712 /* Security */ = {
@@ -1389,9 +1413,11 @@
 				B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */,
 				B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
 				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
+				B89216EC1C634E650023F8A8 /* ShareBackgroundViewController.xib in Resources */,
+				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
+				B89216EA1C634E650023F8A8 /* MailListViewController.xib in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
-				B6A5E7751C61CBB600A4322D /* MailListTableViewCell.xib in Resources */,
 				B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */,
@@ -1410,11 +1436,11 @@
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* SecondPwd.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* userInfoViewController.xib in Resources */,
-				B6A5E76D1C61AA6A00A4322D /* AddFriendsViewController.xib in Resources */,
 				B8F2D8B91C5B3796002C7712 /* userInfoTableViewCell.xib in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */,
 				B8F2DA651C5F3D8B002C7712 /* ElementAlternative.plist in Resources */,
+				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
 				B8F2DA4D1C5F3D04002C7712 /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
@@ -1429,8 +1455,6 @@
 				B8F2DA4F1C5F3D04002C7712 /* TextFieldCellTableViewCell.xib in Resources */,
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
-				B6A5E7701C61AA6A00A4322D /* MailListViewController.xib in Resources */,
-				B6BD1B221C62E48A005D951D /* ShareBackgroundViewController.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* securityViewController.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B8F2DA451C5F3D04002C7712 /* loginNameVerificationViewController.xib in Resources */,
@@ -1502,7 +1526,9 @@
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
+				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
+				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
 				B8F2DA421C5F3D04002C7712 /* findPwdViewCtr.m in Sources */,
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
@@ -1516,8 +1542,11 @@
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				B8F2DA4E1C5F3D04002C7712 /* TextFieldCellTableViewCell.m in Sources */,
+				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* securityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
+				B89216ED1C634E650023F8A8 /* mailList.m in Sources */,
+				B89216EB1C634E650023F8A8 /* ShareBackgroundViewController.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* regitViewCtr.m in Sources */,
 				B88C92141C5B08690089BEAE /* ChineseString.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
@@ -1527,7 +1556,6 @@
 				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
 				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
-				B6A5E7741C61CBB600A4322D /* MailListTableViewCell.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
@@ -1576,14 +1604,11 @@
 				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
-				B6A5E76C1C61AA6A00A4322D /* AddFriendsViewController.m in Sources */,
-				B6A5E76F1C61AA6A00A4322D /* MailListViewController.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8F2D8F01C5B3B10002C7712 /* VPImageCropperViewController.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* userInfoViewController.m in Sources */,
-				B6BD1B211C62E48A005D951D /* ShareBackgroundViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
@@ -1593,7 +1618,6 @@
 				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
 				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* SecondPwd.m in Sources */,
-				B6A5E76E1C61AA6A00A4322D /* mailList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
