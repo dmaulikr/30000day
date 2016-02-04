@@ -29,48 +29,22 @@
     
     //获取我的好友
     [self getMyFriends];
-    
-//    //监听个人信息管理模型发出的通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMyFriends) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
-    
 }
 
 //获取我的好友
 - (void)getMyFriends {
     
-    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] phoneNumber:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
+    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
         
-        NSError *localError = nil;
+        _dataArray = (NSMutableArray *)responseObject;
         
-       id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-
-        NSArray  *recvArray = (NSArray *)parsedObject;
+        self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
         
-        NSMutableArray *array = [NSMutableArray array];
-        
-        for (NSDictionary *dic in recvArray) {
-            
-            FriendListInfo *ff = [[FriendListInfo alloc] init];
-            
-            [ff setValuesForKeysWithDictionary:dic];
-            
-            [array addObject:ff];
-        }
-        
-        _dataArray = array;
-        
-       dispatch_async(dispatch_get_main_queue(), ^{
-           
-           self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
-           
-           [self.tableView reloadData];
-       });
+        [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
         
-        
     }];
-
 }
 
 - (IBAction)switchModeButtonClick:(id)sender {
@@ -90,7 +64,6 @@
         [self.switchModeButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
         
         [self.switchModeButton setTitle:@" 大图" forState:UIControlStateNormal];
-        
     }
     
     [self.tableView reloadData];
@@ -182,7 +155,7 @@
 
 - (int)pastDay:(NSString *)theDate {
     
-    NSDateFormatter *date=[[NSDateFormatter alloc] init];
+    NSDateFormatter *date = [[NSDateFormatter alloc] init];
     
     [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
@@ -216,11 +189,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-}
-
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

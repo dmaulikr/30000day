@@ -88,7 +88,7 @@
     
     hud.mode = MBProgressHUDModeText;
     
-    hud.yOffset = SCREEN_HEIGHT / 2 - 100;
+//  hud.yOffset = SCREEN_HEIGHT / 2 - 100;
     
     hud.labelText = content;
     

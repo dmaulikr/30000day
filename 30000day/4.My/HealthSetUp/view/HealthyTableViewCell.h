@@ -10,4 +10,12 @@
 
 @interface HealthyTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *setButton;
+
+@property (nonatomic,strong) NSIndexPath *cellIndexPath;
+
+@property (nonatomic ,copy) void (^(setButtonClick))(NSIndexPath *);
+
 @end

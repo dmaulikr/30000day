@@ -10,7 +10,7 @@
 
 @interface UserAccountHandler () {
 
-    UserInfo *_privateUserInfo;//私有的用户信息
+    UserProfile *_privateUserProfile;//私有的用户信息
     
     NSMutableArray *_privateUserAccountArray;//私有的之前保存用户登录的账号和密码
 }
@@ -19,7 +19,6 @@
 
 
 @implementation UserAccountHandler
-
 
 + (UserAccountHandler *)shareUserAccountHandler {
     
@@ -43,33 +42,33 @@
         //从磁盘中读取上次存储的数组
         _privateUserAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
         
-        _privateUserInfo = [[UserInfo alloc] init];
+        _privateUserProfile = [[UserProfile alloc] init];
         
     }
     
     return self;
 }
 
-- (void)saveUserAccountWithModel:(UserInfo *)userInfo {
+- (void)saveUserAccountWithModel:(UserProfile *)userInfo {
     
-    _privateUserInfo = userInfo;
+    _privateUserProfile = userInfo;
     
     //保存用户的UID
-    [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:_privateUserInfo.UserID];
+    [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:_privateUserProfile.UserID];
     
     //保存用户名
-    [Common saveAppDataForKey:KEY_SIGNIN_USER_NAME withObject:_privateUserInfo.LoginName];
+    [Common saveAppDataForKey:KEY_SIGNIN_USER_NAME withObject:_privateUserProfile.LoginName];
     
     //保存用户密码
-    [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:_privateUserInfo.LoginPassword];
+    [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:_privateUserProfile.LoginPassword];
     
      NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
     if (_privateUserAccountArray.count == 0 ) {
         
-        [userAccountDictionary setObject:_privateUserInfo.LoginName forKey:KEY_SIGNIN_USER_NAME];
+        [userAccountDictionary setObject:_privateUserProfile.LoginName forKey:KEY_SIGNIN_USER_NAME];
         
-        [userAccountDictionary setObject:_privateUserInfo.LoginPassword forKey:KEY_SIGNIN_USER_PASSWORD];
+        [userAccountDictionary setObject:_privateUserProfile.LoginPassword forKey:KEY_SIGNIN_USER_PASSWORD];
         
         [_privateUserAccountArray addObject:userAccountDictionary];
         
@@ -83,7 +82,7 @@
 
                 userAccountDictionary = _privateUserAccountArray[i];
 
-                if ([[userAccountDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:_privateUserInfo.LoginName] && [[userAccountDictionary objectForKey:KEY_SIGNIN_USER_PASSWORD] isEqualToString:_privateUserInfo.LoginPassword]) {
+                if ([[userAccountDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:_privateUserProfile.LoginName] && [[userAccountDictionary objectForKey:KEY_SIGNIN_USER_PASSWORD] isEqualToString:_privateUserProfile.LoginPassword]) {
                     
                     isExist = YES;
                     
@@ -91,7 +90,7 @@
             }
             if (isExist == NO) {//如果不存在，就要保存
 
-                NSDictionary *dc = [NSDictionary dictionaryWithObjectsAndKeys:_privateUserInfo.LoginName,KEY_SIGNIN_USER_NAME,_privateUserInfo.LoginPassword,KEY_SIGNIN_USER_PASSWORD, nil];
+                NSDictionary *dc = [NSDictionary dictionaryWithObjectsAndKeys:_privateUserProfile.LoginName,KEY_SIGNIN_USER_NAME,_privateUserProfile.LoginPassword,KEY_SIGNIN_USER_PASSWORD, nil];
 
                 [_privateUserAccountArray addObject:dc];
                 
@@ -109,15 +108,15 @@
     
 }
 
-- (UserInfo *)userInfo {
+- (UserProfile *)userProfile {
     
-    return _privateUserInfo;
+    return _privateUserProfile;
     
 }
 
-- (void)setUserInfo:(UserInfo *)userInfo {
+- (void)setUserProfile:(UserProfile *)userProfile {
     
-    _privateUserInfo = userInfo;
+    _privateUserProfile = userProfile;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
 }
@@ -130,17 +129,16 @@
     
     [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
     
-    _privateUserInfo = nil;
+    _privateUserProfile = nil;
 }
-
 
 - (void)getUserInfo {
     
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    mgr.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
@@ -148,7 +146,7 @@
     
     parameters[@"LoginPassword"] = [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
     
-    [mgr GET:@"http://116.254.206.7:12580/M/API/Login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
+    [manager GET:@"http://116.254.206.7:12580/M/API/Login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          
          NSError *localError = nil;
@@ -159,7 +157,7 @@
          
          dispatch_async(dispatch_get_main_queue(), ^{
          
-             [_privateUserInfo setValuesForKeysWithDictionary:recvDic];
+             [_privateUserProfile setValuesForKeysWithDictionary:recvDic];
              
              //登录的时候进行发送通知
              [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
@@ -169,8 +167,6 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
         
-         
-         
      }];
 }
 

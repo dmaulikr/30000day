@@ -13,7 +13,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "UserInfo.h"
+#import "UserProfile.h"
 #import "SBJson.h"
 #import "TKAddressBook.h"
 #import "STNavigationController.h"
@@ -57,13 +57,14 @@
 #define jhMethod @"GET"
 
 
-#define KEY_SIGNIN_USER_NAME         @"SignInUserName"    //登录用户名
+#define KEY_SIGNIN_USER_NAME         @"SignInUserName"      //登录用户名
 
-#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"    //用户密码
+#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"      //用户密码
 
-#define KEY_SIGNIN_USER_UID          @"uid"              //用户登录的UID
+#define KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
 
 #define USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
+
 
 
 
@@ -96,6 +97,14 @@
 #define LOGIN_WITH_PASSWORD         @"/Login"                                      //用户登录
 
 #define GET_MY_FRIENDS              @"/GetMyFriends"                               //获取用户好友
+
+#define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
+
+#define  UPDATE_IMAGE               @"/UploadPortrait"                             //上传图片接口
+
+#define  REGISTER                   @"/Register"                                   //注册
+
+#define  GET_SMS_CODE                @"/SendCode"                                   //获取短信验证码
 
 #endif
 

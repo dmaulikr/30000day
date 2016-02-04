@@ -22,7 +22,7 @@
     
     self.title = @"设置";
 
-    UIView *footerview = [[UIView alloc]init];
+    UIView *footerview = [[UIView alloc] init];
     
     [self.tableView setTableFooterView:footerview];
     
@@ -55,19 +55,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString* ID=@"setUpCell";
-    setUpTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell==nil) {
-        NSBundle* bundle=[NSBundle mainBundle];
-        NSArray* objs=[bundle loadNibNamed:@"setUpTableViewCell" owner:nil options:nil];
-        cell=[objs lastObject];
-    }
-    cell.textLabel.text=self.titleCellArray[indexPath.row];
+    static NSString* ID = @"setUpCell";
     
-    UISwitch* sw=[[UISwitch alloc]init];
+    setUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        
+        NSBundle* bundle=[NSBundle mainBundle];
+        
+        NSArray *objs=[bundle loadNibNamed:@"setUpTableViewCell" owner:nil options:nil];
+        
+        cell = [objs lastObject];
+    }
+    
+    cell.textLabel.text = self.titleCellArray[indexPath.row];
+    
+    UISwitch *sw = [[UISwitch alloc] init];
+    
     [cell addSubview:sw];
-    sw.translatesAutoresizingMaskIntoConstraints=NO;
+    
+    sw.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:sw attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
     [cell addConstraint:[NSLayoutConstraint constraintWithItem:sw attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:-28]];
     
     return cell;

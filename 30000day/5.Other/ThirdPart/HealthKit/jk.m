@@ -7,26 +7,35 @@
 //
 
 #import "jk.h"
-#import "UserInfo.h"
 
-@interface jk ()
-{
+@interface jk () {
+    
     HKHealthStore *healthStore;
 }
-@property (nonatomic,strong)UserInfo* user;
+
+@property (nonatomic,strong)UserProfile *userProfile;
+
 @end
+
 @implementation jk
 
 
 - (id) init {
+    
     if (self = [super init]) {
+        
         healthStore = [[HKHealthStore alloc] init];
+        
         NSSet *readDataTypes = [self dataTypesToRead];
+        
         [healthStore requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             if (success) {
-                _user=[TKAddressBook shareControl].userInfo;
+                _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
+                
                 [self GetHealthUserDateOfBirth];
-            }else{
+                
+            } else {
+                
                 NSLog(@"设备不支持_%@", error);
             }
         }];
@@ -279,7 +288,7 @@
     NSString * URLString = @"http://116.254.206.7:12580/M/API/GetLatestUserLifeStatDetails?";
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSString * postString = [NSString stringWithFormat:@"howManyDays=%d&userID=%@&loginname=%@&loginpassword=%@",1,_user.UserID,_user.LoginName,_user.LoginPassword];
+    NSString * postString = [NSString stringWithFormat:@"howManyDays=%d&userID=%@&loginname=%@&loginpassword=%@",1,_userProfile.UserID,_userProfile.LoginName,_userProfile.LoginPassword];
     NSData * postData = [postString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
@@ -393,7 +402,8 @@
             NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
             
-            NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%@&result=%@&date=%@&subFators=%@&subResults=%@&SubResultsString=%@",_user.LoginName,_user.LoginPassword,[NSString stringWithFormat:@"%.2lf",sumDay],[NSString stringWithFormat:@"%.2f",result] ,locationString,subFators,subResults,SubResultsString];
+            NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%@&result=%@&date=%@&subFators=%@&subResults=%@&SubResultsString=%@",_userProfile.LoginName,_userProfile.LoginPassword,[NSString stringWithFormat:@"%.2lf",sumDay],[NSString stringWithFormat:@"%.2f",result] ,locationString,subFators,subResults,SubResultsString];
+            
             NSLog(@"%@",param);
             
             NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];

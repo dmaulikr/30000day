@@ -7,53 +7,34 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="userInfoViewController">
             <connections>
-                <outlet property="mainTable" destination="UaO-tm-3FN" id="sal-3E-nRE"/>
+                <outlet property="mainTable" destination="Q8v-qH-ydv" id="rgv-qg-Z5p"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="588"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UaO-tm-3FN">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Q8v-qH-ydv">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="588"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="sectionIndexBackgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="45L-mX-rzy"/>
+                        <outlet property="delegate" destination="-1" id="PGu-Mm-6uk"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="UaO-tm-3FN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KW5-Dw-Ke1"/>
-                <constraint firstAttribute="trailing" secondItem="UaO-tm-3FN" secondAttribute="trailing" id="OKO-FY-Ura"/>
-                <constraint firstAttribute="bottom" secondItem="UaO-tm-3FN" secondAttribute="bottom" id="Og9-DW-5TJ"/>
-                <constraint firstItem="UaO-tm-3FN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="h84-IU-gVI">
-                    <variation key="heightClass=regular-widthClass=compact" constant="76"/>
-                </constraint>
+                <constraint firstItem="Q8v-qH-ydv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4LB-42-6Mw"/>
+                <constraint firstItem="Q8v-qH-ydv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Twa-aj-tDA"/>
+                <constraint firstAttribute="trailing" secondItem="Q8v-qH-ydv" secondAttribute="trailing" id="cpv-Bm-bBB"/>
+                <constraint firstAttribute="bottom" secondItem="Q8v-qH-ydv" secondAttribute="bottom" id="zAT-9Z-eRB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="UaO-tm-3FN"/>
-                </mask>
-                <mask key="constraints">
-                    <exclude reference="KW5-Dw-Ke1"/>
-                    <exclude reference="OKO-FY-Ura"/>
-                    <exclude reference="Og9-DW-5TJ"/>
-                    <exclude reference="h84-IU-gVI"/>
-                </mask>
-            </variation>
-            <variation key="heightClass=regular-widthClass=compact">
-                <mask key="subviews">
-                    <include reference="UaO-tm-3FN"/>
-                </mask>
-                <mask key="constraints">
-                    <include reference="KW5-Dw-Ke1"/>
-                    <include reference="OKO-FY-Ura"/>
-                    <include reference="Og9-DW-5TJ"/>
-                    <include reference="h84-IU-gVI"/>
-                </mask>
-            </variation>
-            <point key="canvasLocation" x="202" y="101"/>
+            <point key="canvasLocation" x="216" y="65"/>
         </view>
     </objects>
 </document>

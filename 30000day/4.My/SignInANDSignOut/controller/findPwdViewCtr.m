@@ -33,12 +33,20 @@
     
     self.nextBtn.layer.masksToBounds=YES;
     
+    self.backGroundView.layer.borderWidth = 1.0f;
+    
+    self.backGroundView.layer.borderColor = RGBACOLOR(220, 220, 220, 1).CGColor;
+    
 }
 
 - (IBAction)submitBtn:(UIButton *)sender {
-    if ([self.phoneText.text isEqualToString:@" "] || self.phoneText.text==nil) {
+    
+    if ([self.phoneText.text isEqualToString:@" "] || self.phoneText.text == nil) {
+        
         UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        
         [alert show];
+        
         return;
     }
     

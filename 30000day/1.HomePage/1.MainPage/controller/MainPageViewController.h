@@ -10,6 +10,6 @@
 
 @interface MainPageViewController : STBaseViewController
 
-@property (nonatomic) UserInfo *userInfo;
+
 
 @end

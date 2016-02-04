@@ -8,7 +8,6 @@
 
 #import "userInfoViewController.h"
 #import "userInfoTableViewCell.h"
-#import "UserInfo.h"
 #import "UIImageView+WebCache.h"
 #import "HZAreaPickerView.h"
 #import "VPImageCropperViewController.h"
@@ -21,7 +20,7 @@
 
 @interface userInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,VPImageCropperDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
-@property (nonatomic,strong)UserInfo* userinfo;
+@property (nonatomic,strong)UserProfile* userProfile;
 
 @property (nonatomic,strong)NSArray* titleArray;
 
@@ -47,7 +46,7 @@
     
     self.title = @"个人信息";
     
-    UIBarButtonItem* rightBarButton=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
     
     self.navigationItem.rightBarButtonItem = rightBarButton;
     
@@ -57,61 +56,22 @@
     
     [self.mainTable setDataSource:self];
     
-    _userinfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
-    self.NickName = _userinfo.NickName;
+    self.NickName = _userProfile.NickName;
     
-    self.Gender = _userinfo.Gender;
+    self.Gender = _userProfile.Gender;
     
-    self.Birthday=_userinfo.Birthday;
+    self.Birthday=_userProfile.Birthday;
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
     self.mainTable.scrollEnabled = NO;
     
-    [self backBarButtonItem];
-    
 }
 
-#pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem {
+- (void)rightBarButtonClick:(UIBarButtonItem *)button {
     
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    
-    if (([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0?20:0)) {
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-        
-    } else {
-        
-        self.navigationItem.leftBarButtonItem = leftButton;
-        
-    }
-    
-    
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-}
-
-- (void)back {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)rightBarButtonClick:(UIBarButtonItem *)button{
     if ([button.title isEqualToString:@"编辑"]) {
         button.title=@"保存";
         self.mainTableState=1;
@@ -123,7 +83,8 @@
     [self.mainTable reloadData];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 2;
 }
 
@@ -139,12 +100,18 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 12;
+    if (section == 0) {
+        
+        return 10;
+    }
+    
+    return 0.1f;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.section==0) {
         if (indexPath.row==0) {
             return 105;
@@ -174,7 +141,7 @@
     if (indexPath.section==0) {
         cell.textLabel.text=self.titleArray[indexPath.row];
         if (indexPath.row==0) {
-            NSURL* imgurl=[NSURL URLWithString:_userinfo.HeadImg];
+            NSURL* imgurl=[NSURL URLWithString:_userProfile.HeadImg];
             UIImageView* imgview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
             if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl==nil ) {
                 [imgview setImage:[UIImage imageNamed:@"lcon.png"]];
@@ -190,15 +157,28 @@
             self.portraitImageView=imgview;
 
         }else if(indexPath.row==1){
-            cell.detailTextLabel.text=_userinfo.NickName;
+            
+            cell.detailTextLabel.text=_userProfile.NickName;
+            
         }else if(indexPath.row==2){
-            cell.detailTextLabel.text=_userinfo.Gender;
-        }else if(indexPath.row==3){
-            cell.detailTextLabel.text=_userinfo.Birthday;
+            
+            if ([_userProfile.Gender isEqualToString:@"1"]) {
+                
+                cell.detailTextLabel.text = @"男";
+                
+            } else {
+                
+                cell.detailTextLabel.text = @"女";
+            }
+            
+        }else if(indexPath.row == 3){
+            
+            cell.detailTextLabel.text=_userProfile.Birthday;
         }
+        
     }else{
         cell.textLabel.text=@"账号";
-        cell.detailTextLabel.text=_userinfo.LoginName;
+        cell.detailTextLabel.text=_userProfile.LoginName;
         cell.detailTextLabel.textColor=[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
     }
     
@@ -216,7 +196,8 @@
     
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (self.mainTableState) {
         
         if (indexPath.section==0) {
@@ -227,13 +208,13 @@
                 
             }else if(indexPath.row==1){
                 
-                UIAlertView* alert=[[UIAlertView alloc]initWithTitle:_userinfo.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView* alert=[[UIAlertView alloc]initWithTitle:_userProfile.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 
                 [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
                 
                 UITextField* textfile=[alert textFieldAtIndex:0];
                 
-                [textfile setText:_userinfo.NickName];
+                [textfile setText:_userProfile.NickName];
                 
                 [alert show];
                 
@@ -243,15 +224,15 @@
                 
                 [alertView show];
                 
-            } else if(indexPath.row==3) {
+            } else if(indexPath.row == 3) {
                 
-                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userInfo.Birthday;
+                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
                 
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 
                 [formatter setDateFormat:@"yyyy/MM/dd"];
                 
-                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:YES];
+                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
                 
                 _zpk.delegate = self;
                 
@@ -263,24 +244,36 @@
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSIndexPath* indexpath=self.mainTable.indexPathForSelectedRow;
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSIndexPath *indexpath = self.mainTable.indexPathForSelectedRow;
 
-    if (indexpath.section==0 && buttonIndex!=0) {
+    if ( indexpath.section == 0 && buttonIndex!= 0 ) {
         
-        if (indexpath.row==1) {
-            UITextField* textfile=[alertView textFieldAtIndex:0];
-            _userinfo.NickName=textfile.text;
+        if (indexpath.row == 1 ) {
+            
+            UITextField *textfile = [alertView textFieldAtIndex:0];
+            
+            _userProfile.NickName=textfile.text;
         }
         if (indexpath.row==2) {
-            _userinfo.Gender=[alertView buttonTitleAtIndex:buttonIndex];
+            
+            if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
+                
+                _userProfile.Gender = @"1";
+                
+            } else {
+                
+                _userProfile.Gender = @"0";
+                
+            }
         }
 
         [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 
--(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
+- (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
     
     NSDateFormatter *datef = [[NSDateFormatter alloc] init];
     
@@ -302,96 +295,92 @@
     
     NSString *Birthday = [NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
     
-    _userinfo.Birthday = Birthday;
+    _userProfile.Birthday = Birthday;
     
-    [UserAccountHandler shareUserAccountHandler].userInfo = _userinfo;
+    [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
     
      [self.mainTable reloadData];
 }
 
 - (void)updInfo {
     
-    int sex;
-    
-    if ([_userinfo.Gender isEqualToString:@"男"]) {
+    if ([self.NickName isEqualToString:_userProfile.NickName] &&
+        [self.Gender isEqualToString:_userProfile.Gender] &&
+        [self.Birthday isEqualToString:_userProfile.Birthday]) {
         
-        sex = 1;
-        
-    } else {
-        
-        sex = 0;
-    }
-    
-    if ([self.NickName isEqualToString:_userinfo.NickName] &&
-        [self.Gender isEqualToString:_userinfo.Gender] &&
-        [self.Birthday isEqualToString:_userinfo.Birthday]) {
         UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"您未做任何修改，如修改图片则无需再保存。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
         [alert show];
+        
         return;
     }
     
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/UpdateProfile?";
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",_userinfo.UserID,_userinfo.LoginName,_userinfo.LoginPassword,_userinfo.NickName,sex,_userinfo.Birthday];
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"post"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
-    
-    NSURLResponse * response;
-    NSError * error;
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-    }else{
-        NSLog(@"response : %@",response);
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-        if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-            UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+    //上传服务器
+    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
+        
+        if (responseObject) {
             
-        }else{
-            UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            
             [alert show];
         }
-    }
-    
+        
+    } failure:^(NSError *error) {
+        
+        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }];
+
     // 保存生日到本地文件，用于其他地方提取计算数值
-    [[NSUserDefaults standardUserDefaults] setObject:[_userinfo.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
+    [[NSUserDefaults standardUserDefaults] setObject:[_userProfile.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)shangchuantupian:(UIImage*)img {
+    
     //第一步，创建URL
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
+    
+    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     //第二步，创建请求
     
     //    2.创建请求对象
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
     //设置请求体
-    NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userinfo.LoginName,_userinfo.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
     
     //把拼接后的字符串转换为data，设置请求体
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"post"]; //指定请求方式
+    
     [request setURL:URL]; //设置请求的地址
+    
     [request setHTTPBody:postData];  //设置请求的参数
     
     NSURLResponse * response;
+    
     NSError * error;
+    
     NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
     if (error) {
         //访问服务器失败进此方法
         NSLog(@"error : %@",[error localizedDescription]);
+        
+        [self showToast:@"图片上传失败"];
+        
     }else{
+        
         //成功访问服务器，返回图片的URL
         NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+        
+        _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
+        
+        [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
     }
 }
 
@@ -403,34 +392,39 @@
             alpha == kCGImageAlphaPremultipliedFirst ||
             alpha == kCGImageAlphaPremultipliedLast);
 }
+
 // 把图片转换成base64位字符串，返回数组［0］：图片后缀名(.png/.jpeg)--［1］：base64位字符串
-- (NSArray *) image2DataURL: (UIImage *) image{
+- (NSArray *) image2DataURL: (UIImage *) image {
+    
     NSData *imageData = nil;
+    
     NSString *mimeType = nil;
     
     if ([self imageHasAlpha: image]) {
+        
         imageData = UIImagePNGRepresentation(image);
+        
         mimeType = @".png";
+        
     } else {
+        
         imageData = UIImageJPEGRepresentation(image, 1.0f);
+        
         mimeType = @".jpeg";
     }
+    
     NSString *baseStr = [imageData base64Encoding];
+    
     // 转成base64位字符串之后要进行下面这一步替换，不然传到后台之后，加号等于号等一些特殊字符会变成空格，导致图片出问题
     NSString *baseString = (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)baseStr,NULL,CFSTR(":/?#[]@!$&’()*+,;="),kCFStringEncodingUTF8);
-    NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString/*[imageData base64EncodedStringWithOptions: 0]*/, nil];
-    return arr;//[NSString stringWithFormat:@"data:%@;base64,%@", mimeType,[imageData base64EncodedStringWithOptions: 0]];
-}
-
-// 图片下载函数。把URL的图片下载到本地
-- (UIImage*) getImageFromURL:(NSString *)fileURL {
-    UIImage * result;
-    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:fileURL]];
-    result = [UIImage imageWithData:data];
-    return result;
+    
+    NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString, nil];
+    
+    return arr;
 }
 
 - (void)editPortrait {
+    
     UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"取消"
@@ -441,22 +435,30 @@
 
 #pragma mark VPImageCropperDelegate
 - (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
+    
     self.portraitImageView.image = editedImage;
+    
     [self shangchuantupian:editedImage];
+    
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
         // TO DO  ok
     }];
 }
 
 - (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
+    
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
+        
         NSLog(@"ddd");
+        
     }];
 }
 
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     if (buttonIndex == 0) {
+        
         // 拍照
         if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
             UIImagePickerController *controller = [[UIImagePickerController alloc] init];

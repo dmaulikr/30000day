@@ -13,10 +13,11 @@
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
+#import "UserAccountHandler.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
-@property (nonatomic,strong) UserInfo *userinfo;
+@property (nonatomic,strong) UserProfile *useProfile;
 
 @property (nonatomic,strong) UIButton *mainPageButton;//主页
 
@@ -401,10 +402,13 @@
     }
 }
 
--(void)addFriendsClick{
+- (void)addFriendsClick{
+    
     AddFriendsViewController* addfvc=[[AddFriendsViewController alloc]init];
+    
     [self.navigationController pushViewController:addfvc animated:YES];
 }
+
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

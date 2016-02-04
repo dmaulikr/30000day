@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="findPwdViewCtr">
             <connections>
+                <outlet property="backGroundView" destination="Ww0-7c-xtV" id="LZa-GT-Dfz"/>
                 <outlet property="ckText" destination="EtK-my-Yn0" id="Sm7-kL-ZXR"/>
                 <outlet property="ckbtn" destination="ZaC-Ak-b8C" id="t81-e0-ezb"/>
                 <outlet property="nextBtn" destination="OVN-Qc-yJi" id="VHQ-Ey-W9Q"/>
@@ -194,7 +195,7 @@
                 <constraint firstAttribute="trailing" secondItem="OVN-Qc-yJi" secondAttribute="trailing" constant="15" id="Z5k-KO-rOb"/>
                 <constraint firstAttribute="trailing" secondItem="Ww0-7c-xtV" secondAttribute="trailing" id="cq2-rG-puG"/>
                 <constraint firstItem="Ww0-7c-xtV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="nZG-wz-kFH">
-                    <variation key="heightClass=regular-widthClass=compact" constant="79"/>
+                    <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                 </constraint>
                 <constraint firstItem="OVN-Qc-yJi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="ppA-J6-tYu"/>
             </constraints>

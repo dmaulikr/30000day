@@ -56,6 +56,8 @@
 
 @property (nonatomic, copy) NSString *cityName;
 
+@property (nonatomic) UserProfile *userProfile;
+
 @end
 
 @implementation MainPageViewController
@@ -64,20 +66,20 @@
     
     [super viewDidLoad];
     
-     _userInfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+     _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
+    
+     //设置聚合SDK的APPID
+    [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
     [self.weatherSupView.layer setBorderWidth:1.0];
     
     [self.weatherSupView.layer setBorderColor:[UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0].CGColor];
     
-    //设置聚合SDK的APPID
-    [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
-    
     [self.userHeadView.layer setCornerRadius:6.0];
     
     [self.userHeadView.layer setMasksToBounds:YES];
     
-    NSURL *imgurl = [NSURL URLWithString:_userInfo.HeadImg];
+    NSURL *imgurl = [NSURL URLWithString:_userProfile.HeadImg];
     
     if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl == nil ) {
         
@@ -131,13 +133,13 @@
 //获取当前用户的天龄
 - (void)getCurrentUserDays {
     
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/GetLatestUserLifeStat?";//不需要传递参数
+    NSString *URLString = @"http://116.254.206.7:12580/M/API/GetLatestUserLifeStat?";//不需要传递参数
     
     NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     
-    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&howManyDays=%d&userID=%d",_userInfo.LoginName,_userInfo.LoginPassword,7,_userInfo.UserID.intValue];
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&howManyDays=%d&userID=%d",_userProfile.LoginName,_userProfile.LoginPassword,7,_userProfile.UserID.intValue];
     
     NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -177,11 +179,11 @@
             
             NSString *stringday = [NSString stringWithFormat:@"%@",[f stringFromDate:da]];
             
-            _xarr[i]=stringday;
+            _xarr[i] = stringday;
     
         }
         
-        if (_xarr.count==1) {
+        if (_xarr.count == 1) {
             
             [_xarr addObject:_xarr[0]];
             
@@ -202,16 +204,16 @@
     
     int count = 0;
     
-    if ([_userInfo.Birthday isEqualToString:@""] || _userInfo.Birthday == nil) {
+    if ([_userProfile.Birthday isEqualToString:@""] || _userProfile.Birthday == nil) {
         
         hasbeen=0;
         
     } else {
         
-        hasbeen = [self getDays:_userInfo.Birthday];
+        hasbeen = [self getDays:_userProfile.Birthday];
     }
     
-    NSArray *arr = [_userInfo.Birthday componentsSeparatedByString:@"/"];
+    NSArray *arr = [_userProfile.Birthday componentsSeparatedByString:@"/"];
     
     NSLog(@"%@",arr);
     

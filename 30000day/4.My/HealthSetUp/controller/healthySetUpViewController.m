@@ -8,13 +8,12 @@
 
 #import "healthySetUpViewController.h"
 #import "sys/utsname.h"
-#import "UserInfo.h"
 #import "HealthyTableViewCell.h"
 #import "HZAreaPickerView.h"
 
 @interface healthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,HZAreaPickerDelegate>
 
-@property (nonatomic,strong) UserInfo* userInfo;
+@property (nonatomic,strong) UserProfile *userProfile;
 
 @property (strong, nonatomic) HZAreaPickerView *locatePicker;
 
@@ -60,7 +59,7 @@
     
     self.navigationItem.rightBarButtonItem = barButton;
     
-    _userInfo = [UserAccountHandler shareUserAccountHandler].userInfo;
+    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
     [self.mainTable setDelegate:self];
     
@@ -119,7 +118,7 @@
 #pragma mark -查询以前设置的健康因素选项
 - (void)loadHealthy {
     //先提取   如果没有就初始化数组
-    NSArray* ar=[[NSUserDefaults standardUserDefaults] objectForKey:self.userInfo.LoginName];
+    NSArray* ar=[[NSUserDefaults standardUserDefaults] objectForKey:self.userProfile.LoginName];
     self.UserAlternative=[NSMutableArray arrayWithArray:ar];
     if (self.UserAlternative==nil || self.UserAlternative.count==0) {
         //用户选项
@@ -129,7 +128,7 @@
     }
     NSString * URLString = @"http://116.254.206.7:12580/M/API/GetLatestUserLifeStatDetails?";
     NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSString * postString = [NSString stringWithFormat:@"howManyDays=%d&userID=%@&loginname=%@&loginpassword=%@",1,_userInfo.UserID,_userInfo.LoginName,_userInfo.LoginPassword];
+    NSString * postString = [NSString stringWithFormat:@"howManyDays=%d&userID=%@&loginname=%@&loginpassword=%@",1,_userProfile.UserID,_userProfile.LoginName,_userProfile.LoginPassword];
     NSData * postData = [postString dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
     [request setHTTPMethod:@"post"];
@@ -158,20 +157,28 @@
             CGFloat AvearageLife=[[SubResults lastObject] floatValue];
             
             //因素以及值
-            self.nextSubResults=SubResults;
+            self.nextSubResults = SubResults;
+            
             //健康因素数据为0
             self.nextSubResults[self.nextSubResults.count-3] = @"0";
-            self.nextSubResults[self.nextSubResults.count-4]=@"0";
-            self.nextSubResults[self.nextSubResults.count-5]=@"0";
-            self.nextSubResults[self.nextSubResults.count-6]=@"0";
             
-            self.nextSubFators=SubFators;
+            self.nextSubResults[self.nextSubResults.count-4] = @"0";
+            
+            self.nextSubResults[self.nextSubResults.count-5] = @"0";
+            
+            self.nextSubResults[self.nextSubResults.count-6] = @"0";
+            
+            self.nextSubFators = SubFators;
+            
             //总天数
-            self.sumDay=sumDay;
-            self.SubResultsString=SubResultsString;
+            self.sumDay = sumDay;
+            
+            self.SubResultsString = SubResultsString;
+            
             //基数
-            self.AvearageLife=AvearageLife;
-            self.cityDay=[SubResults[0] integerValue];
+            self.AvearageLife = AvearageLife;
+            
+            self.cityDay = [SubResults[0] integerValue];
         }
     }
     
@@ -193,58 +200,66 @@
     return 44;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         //健康因素
         HealthyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        if (cell==nil) cell=[[NSBundle mainBundle]loadNibNamed:@"HealthyTableViewCell" owner:self options:nil][0];
-        
-        UIButton* Healthybtn=[UIButton buttonWithType:UIButtonTypeCustom];
-        [Healthybtn setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
-        [Healthybtn.titleLabel setFont:[UIFont systemFontOfSize:20.0]];
-        [Healthybtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [Healthybtn addTarget:self action:@selector(HealthybtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.textLabel.text=self.Elements[indexPath.row];
+    
+        if (cell==nil) cell = [[NSBundle mainBundle] loadNibNamed:@"HealthyTableViewCell" owner:self options:nil][0];
+    
+        cell.cellIndexPath = indexPath;
+    
+        cell.titleLabel.text = self.Elements[indexPath.row];
+    
         if ([self.UserAlternative[indexPath.row] isEqualToString:@""]) {
-            [Healthybtn setTitle:@"设置" forState:UIControlStateNormal];
-        }else{
-            [Healthybtn setTitle:self.UserAlternative[indexPath.row] forState:UIControlStateNormal];
+            
+            [cell.setButton setTitle:@"设置" forState:UIControlStateNormal];
+            
+        } else {
+            
+            [cell.setButton setTitle:self.UserAlternative[indexPath.row] forState:UIControlStateNormal];
         }
-        [cell addSubview:Healthybtn];
-        
-        [cell.textLabel setFont:[UIFont systemFontOfSize:20.0]];
-        Healthybtn.translatesAutoresizingMaskIntoConstraints=NO;
-        [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[Healthybtn(200)]-15-|" options:0 metrics:nil views:@{@"Healthybtn":Healthybtn}]];
-        [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[Healthybtn(30)]" options:0 metrics:nil views:@{@"Healthybtn":Healthybtn}]];
+    
+        //按钮点击回调
+        [cell setSetButtonClick:^(NSIndexPath *cellIndexPath) {
+            
+            [self cancelLocatePicker];
+            
+
+            self.clickindexpath = cellIndexPath;
+            
+            if (cellIndexPath.section == 0) {
+                
+                if (cellIndexPath.row == 0) {
+                    
+                    [self cancelLocatePicker];
+                    
+                    self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
+                    
+                    [self.locatePicker showInView:self.view];
+                    
+                } else {
+                    
+                    [self alertView:self.Alternative[cellIndexPath.row] title:self.Elements[cellIndexPath.row]];
+                }
+            }
+            
+        }];
     
         return cell;
 
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self cancelLocatePicker];
-}
--(void)HealthybtnClick:(UIButton*)sender
-{
-    [self cancelLocatePicker];
-    NSIndexPath* indexpath=[self.mainTable indexPathForCell:(HealthyTableViewCell*)[sender superview]];
-    self.clickindexpath=indexpath;
-    if (indexpath.section==0) {
-        if (indexpath.row==0) {
-            [self cancelLocatePicker];
-            self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
-            [self.locatePicker showInView:self.view];
-        }else{
-            [self alertView:self.Alternative[indexpath.row] title:self.Elements[indexpath.row]];
-        }
-    }
 }
 
--(void)alertView:(NSArray*)btntitlearr title:(NSString*)titlestring
-{
-    UIAlertView* alert;
+
+- (void)alertView:(NSArray*)btntitlearr title:(NSString*)titlestring {
+    
+    UIAlertView *alert;
+    
     switch (btntitlearr.count) {
         case 2:
             alert=[[UIAlertView alloc]initWithTitle:titlestring message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:btntitlearr[0], btntitlearr[1],nil];
@@ -344,9 +359,9 @@
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger status = 0;
     
-    if ([userDefaults objectForKey:self.userInfo.LoginName]) {
+    if ([userDefaults objectForKey:_userProfile.LoginName]) {
         NSMutableArray * tempArr = [[NSMutableArray alloc]init];
-        [tempArr addObjectsFromArray:[userDefaults objectForKey:self.userInfo.LoginName]];
+        [tempArr addObjectsFromArray:[userDefaults objectForKey:_userProfile.LoginName]];
         
         if ([self.UserAlternative isEqualToArray:tempArr]) {
             status = 1;
@@ -389,7 +404,7 @@
         NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
         
-        NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%lf&result=%@&date=%@&subFators=%@&subResults=%@",_userInfo.LoginName,_userInfo.LoginPassword,self.sumDay,[NSString stringWithFormat:@"%.2lf",resultsDay],locationString,nextSubFatorsString,nextSubResultsString];
+        NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%lf&result=%@&date=%@&subFators=%@&subResults=%@",_userProfile.LoginName,_userProfile.LoginPassword,self.sumDay,[NSString stringWithFormat:@"%.2lf",resultsDay],locationString,nextSubFatorsString,nextSubResultsString];
         NSLog(@"%@",param);
         
         //把拼接后的字符串转换为data，设置请求体
@@ -405,7 +420,7 @@
             NSLog(@"error : %@",[error localizedDescription]);
         }else{
             if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-                [[NSUserDefaults standardUserDefaults] setObject:self.UserAlternative forKey:self.userInfo.LoginName];
+                [[NSUserDefaults standardUserDefaults] setObject:self.UserAlternative forKey:self.userProfile.LoginName];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"健康因素保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
                 [alert show];

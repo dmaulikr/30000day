@@ -76,14 +76,14 @@
                                 </mask>
                             </variation>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SjS-6p-aU1">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SjS-6p-aU1">
                             <rect key="frame" x="276" y="538" width="138" height="30"/>
                             <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="J5v-cy-Kee"/>
                                 <constraint firstAttribute="width" constant="87" id="k0C-ZM-Z89"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="获取验证码">
                                 <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -194,7 +194,7 @@
             <constraints>
                 <constraint firstItem="fjf-Ny-M3k" firstAttribute="top" secondItem="umo-Sk-0AX" secondAttribute="bottom" constant="25" id="CNZ-3f-exA"/>
                 <constraint firstItem="umo-Sk-0AX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="12" id="Gfh-oT-9XE">
-                    <variation key="heightClass=regular-widthClass=compact" constant="76"/>
+                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
                 </constraint>
                 <constraint firstAttribute="trailing" secondItem="fjf-Ny-M3k" secondAttribute="trailing" constant="15" id="UVO-1e-efa"/>
                 <constraint firstAttribute="trailing" secondItem="umo-Sk-0AX" secondAttribute="trailing" id="g0P-WG-zLo"/>

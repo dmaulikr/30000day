@@ -10,11 +10,15 @@
 #import "MailListViewController.h"
 
 @interface AddFriendsViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *searchBarView;
+
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+
 @property (weak, nonatomic) IBOutlet UIView *searchBarSuperView;
 
 @property (weak, nonatomic) IBOutlet UIView *mailListView;
+
 @property (weak, nonatomic) IBOutlet UIButton *mailListRightBtn;
 
 @end
@@ -23,22 +27,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tabBarController.tabBar.hidden=YES;
+    
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
+    
     self.searchBarView.leftView = image;
+    
     self.searchBarView.leftViewMode = UITextFieldViewModeUnlessEditing;
     
     [self.searchBarSuperView.layer setBorderWidth:1.0];
+    
     [self.searchBarSuperView.layer setBorderColor:VIEWBORDERLINECOLOR.CGColor];
     
     [self.mailListView.layer setBorderWidth:1.0];
+    
     [self.mailListView.layer setBorderColor:VIEWBORDERLINECOLOR.CGColor];
 }
+
 - (IBAction)mailListPushClick:(UIButton *)sender {
-    MailListViewController *mlvc=[[MailListViewController alloc]init];
+    
+    MailListViewController *mlvc = [[MailListViewController alloc] init];
+    
     [self.navigationController pushViewController:mlvc animated:YES];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
