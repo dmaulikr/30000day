@@ -110,7 +110,7 @@
     
     [self addToolView:timeString];
     
-    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(self.leftX, CGRectGetMaxY(_toolView.frame), [UIScreen mainScreen].bounds.size.width, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
+    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(self.leftX, CGRectGetMaxY(_toolView.frame),SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
    
     [self.view addSubview:self.unitView];
     

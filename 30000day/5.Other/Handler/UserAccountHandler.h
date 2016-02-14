@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "UserProfile.h"
 
+//用来刷新首页以及我的界面通知
+static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
+
 @interface UserAccountHandler : NSObject
 
 @property (nonatomic ,strong) UserProfile *userProfile;//保存在处理器里面的用户信息,setter方法会发出通知

@@ -23,6 +23,7 @@
 #import "LODataHandler.h"
 #import "Common.h"
 #import "UserAccountHandler.h"
+#import "VRGCalendarView.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 

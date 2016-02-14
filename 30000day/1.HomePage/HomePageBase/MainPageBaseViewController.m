@@ -14,6 +14,7 @@
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"
+#import "STCalendarViewController.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -99,7 +100,8 @@
     
     MessageViewController  *messageViewController = [[MessageViewController alloc] init];
     
-    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
+  CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
+//    STCalendarViewController *calendarViewController = [[STCalendarViewController alloc] init];
     
     [self addChildViewController:mainPageController];
     
