@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="securityViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecurityViewController">
             <connections>
                 <outlet property="tableView" destination="beS-sj-flq" id="GM0-8a-YNr"/>
                 <outlet property="view" destination="ESI-36-DcR" id="7Vq-i7-XdW"/>

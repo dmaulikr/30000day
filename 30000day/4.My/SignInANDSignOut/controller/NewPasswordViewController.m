@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 30000天_001. All rights reserved.
 //
 
-#import "updatePwdViewCtr.h"
+#import "NewPasswordViewController.h"
 #import "UpdateLogPwd.h"
 #import "SignInViewController.h"
 
-@interface updatePwdViewCtr ()
+@interface NewPasswordViewController ()
 
 @property (nonatomic,strong)NSString* logname;
 
@@ -20,15 +20,18 @@
 
 @end
 
-@implementation updatePwdViewCtr
+@implementation NewPasswordViewController
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.subimitBtn.layer.cornerRadius=6;
-    self.subimitBtn.layer.masksToBounds=YES;
+    self.title = @"新密码";
+    
+    self.subimitBtn.layer.cornerRadius = 6;
+    
+    self.subimitBtn.layer.masksToBounds = YES;
     
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(backbt)];
 }
@@ -41,7 +44,8 @@
         [alert show];
     }else{
     
-        UpdateLogPwd* uplog=[UpdateLogPwd sharedLogPwd];
+        UpdateLogPwd *uplog = [UpdateLogPwd sharedLogPwd];
+        
         NSString * url = @"http://116.254.206.7:12580/M/API/UpdateProfile?";
         //字符串的拼接
         url = [url stringByAppendingString:@"UserID="];

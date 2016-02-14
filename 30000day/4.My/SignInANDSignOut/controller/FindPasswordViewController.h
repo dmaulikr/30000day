@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface findPwdViewCtr : ShowBackItemViewController
+@interface FindPasswordViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) UITextField *accountText;
 

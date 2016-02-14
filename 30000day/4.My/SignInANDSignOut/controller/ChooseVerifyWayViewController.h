@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChoicePwd : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
+@interface ChooseVerifyWayViewController : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
 
 @end

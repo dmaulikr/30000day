@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "updatePwdViewCtr.h"
+#import "NewPasswordViewController.h"
 
 
-@interface SecondPwd : ShowBackItemViewController
+@interface PasswordVerifiedViewController: ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *PBbtn1;//问题1按钮
 

@@ -7,7 +7,7 @@
 //
 
 #import "SMSVerificationViewController.h"
-#import "regitViewCtr.h"
+#import "SignOutViewController.h"
 #import "AFNetworking.h"
 
 #define IdentityCount 60
@@ -71,11 +71,11 @@
     //调用验证接口
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(BOOL sucess) {
        
-        regitViewCtr *regit = [[regitViewCtr alloc] init];
+        SignOutViewController *signOut = [[SignOutViewController alloc] init];
         
-        regit.PhoneNumber = self.phoneNumber.text;
+        signOut.PhoneNumber = self.phoneNumber.text;
         
-        [self.navigationController pushViewController:regit animated:YES];
+        [self.navigationController pushViewController:signOut animated:YES];
         
     } failure:^(NSError *error) {
         

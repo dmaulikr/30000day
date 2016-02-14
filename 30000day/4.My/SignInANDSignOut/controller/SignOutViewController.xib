@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="regitViewCtr">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignOutViewController">
             <connections>
                 <outlet property="ConfirmPasswordTxt" destination="MOx-G6-weS" id="4wU-bF-O5e"/>
                 <outlet property="niceNameTextSubView" destination="UKh-5R-eMu" id="0Ni-G8-1uO"/>
@@ -14,7 +14,7 @@
                 <outlet property="userNameTxt" destination="EPy-za-A0G" id="LHz-Lz-RVQ"/>
                 <outlet property="userNickNameTxt" destination="loc-pj-6T6" id="8eX-7p-yy8"/>
                 <outlet property="userPwdTxt" destination="vfd-TA-U2v" id="zFu-WK-T92"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="ABG-Sc-Chg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

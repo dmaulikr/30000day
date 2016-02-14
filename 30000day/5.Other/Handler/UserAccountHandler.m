@@ -99,7 +99,7 @@
         }
     
     //登录的时候进行发送通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (NSMutableArray *)lastUserAccountArray {
@@ -118,7 +118,7 @@
     
     _privateUserProfile = userProfile;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)logout {
@@ -160,7 +160,7 @@
              [_privateUserProfile setValuesForKeysWithDictionary:recvDic];
              
              //登录的时候进行发送通知
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+             [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
             
          });//主队列，主线程
          
@@ -168,6 +168,8 @@
      {
         
      }];
+    
+    
 }
 
 @end

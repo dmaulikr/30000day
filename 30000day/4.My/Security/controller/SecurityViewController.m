@@ -6,17 +6,17 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "securityViewController.h"
+#import "SecurityViewController.h"
 #import "securityTableViewCell.h"
 
 
-@interface securityViewController ()
+@interface SecurityViewController ()
 
-@property (nonatomic,strong)NSArray* titleCellArray;
+@property (nonatomic,strong) NSArray *titleCellArray;
 
 @end
 
-@implementation securityViewController
+@implementation SecurityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,20 +50,27 @@
     return 4;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
     return 12;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* ID=@"securityCell";
-    securityTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell==nil) {
-        NSBundle* bundle=[NSBundle mainBundle];
-        NSArray* objs=[bundle loadNibNamed:@"securityTableViewCell" owner:nil options:nil];
-        cell=[objs lastObject];
-    }
-    cell.textLabel.text=self.titleCellArray[indexPath.row];
     
+    static NSString *ID = @"securityCell";
+    
+    securityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        
+        NSBundle *bundle = [NSBundle mainBundle];
+        
+        NSArray *objs = [bundle loadNibNamed:@"securityTableViewCell" owner:nil options:nil];
+        
+        cell = [objs lastObject];
+    }
+    
+    cell.textLabel.text=self.titleCellArray[indexPath.row];
     
     return cell;
 }

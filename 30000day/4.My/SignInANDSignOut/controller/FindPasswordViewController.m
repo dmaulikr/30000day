@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 30000天_001. All rights reserved.
 //
 
-#import "findPwdViewCtr.h"
-#import "updatePwdViewCtr.h"
+#import "FindPasswordViewController.h"
+#import "NewPasswordViewController.h"
 #import "UpdateLogPwd.h"
 #import "security.h"
 #define IdentityCount 10
 
-@interface findPwdViewCtr ()
+@interface FindPasswordViewController ()
 {
     int count;
 }
@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UISwipeGestureRecognizer *RightSwipeGestureRecognizer;
 @end
 
-@implementation findPwdViewCtr
+@implementation FindPasswordViewController
 
 
 - (void)viewDidLoad
@@ -29,9 +29,9 @@
     
     self.title = @"找回密码";
     
-    self.nextBtn.layer.cornerRadius=6;
+    self.nextBtn.layer.cornerRadius = 6;
     
-    self.nextBtn.layer.masksToBounds=YES;
+    self.nextBtn.layer.masksToBounds = YES;
     
     self.backGroundView.layer.borderWidth = 1.0f;
     
@@ -69,11 +69,11 @@
     
     NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
     
-    NSLog(@"%@",jsonStr);
+    
     
     if ([jsonStr isEqualToString:@"1"]) {
-        updatePwdViewCtr *upd = [[updatePwdViewCtr alloc] init];
-        upd.navigationItem.title = @"新密码";
+        NewPasswordViewController *upd = [[NewPasswordViewController alloc] init];
+       
         [self.navigationController pushViewController:upd animated:YES];
 
     }else{
@@ -142,7 +142,6 @@
     NSError *error;
     
     NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"----%@",jsonStr);
 
     if ([jsonStr isEqualToString:@"1"]){
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"发送成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
@@ -150,7 +149,6 @@
     }else{
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:[NSString stringWithFormat:@"验证失败:%@",jsonStr] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alert show];
-        NSLog(@"error:%@",jsonStr);
     }
 
 }

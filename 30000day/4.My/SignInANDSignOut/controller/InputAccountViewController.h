@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface loginNameVerificationViewController : ShowBackItemViewController
+@interface InputAccountViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 

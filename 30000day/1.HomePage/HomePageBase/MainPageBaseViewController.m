@@ -43,7 +43,7 @@
     [super viewDidLoad];
 
     //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configUI) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configUI) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     self.tabBarController.tabBar.hidden = NO;
     
@@ -60,16 +60,7 @@
         [[UserAccountHandler shareUserAccountHandler] getUserInfo];
         
     }
-}
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    self.tabBarController.tabBar.hidden=NO;
-}
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark ----初始化UI界面

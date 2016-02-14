@@ -6,12 +6,12 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "healthySetUpViewController.h"
+#import "HealthySetUpViewController.h"
 #import "sys/utsname.h"
 #import "HealthyTableViewCell.h"
 #import "HZAreaPickerView.h"
 
-@interface healthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,HZAreaPickerDelegate>
+@interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,HZAreaPickerDelegate>
 
 @property (nonatomic,strong) UserProfile *userProfile;
 
@@ -47,7 +47,7 @@
 
 @end
 
-@implementation healthySetUpViewController
+@implementation HealthySetUpViewController
 
 - (void)viewDidLoad {
     
@@ -332,8 +332,9 @@
     }
     
     NSMutableArray* SubResults =[NSMutableArray arrayWithArray:[self.UserAlternative[0] componentsSeparatedByString:@"."]];
-    NSString* cick=SubResults[0];
-    NSLog(@"%@",cick);
+    
+    NSString *cick = SubResults[0];
+    
     if (cick!=nil && ![cick isEqualToString:@""]) {
         NSString* ProvinceLifeExpectancyMan=[[NSBundle mainBundle]pathForResource:@"ProvinceLifeExpectancyMan" ofType:@"plist"];
         NSDictionary* citydic=[[NSDictionary alloc]initWithContentsOfFile:ProvinceLifeExpectancyMan];
@@ -405,7 +406,6 @@
         NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
         
         NSString *param=[NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%lf&result=%@&date=%@&subFators=%@&subResults=%@",_userProfile.LoginName,_userProfile.LoginPassword,self.sumDay,[NSString stringWithFormat:@"%.2lf",resultsDay],locationString,nextSubFatorsString,nextSubResultsString];
-        NSLog(@"%@",param);
         
         //把拼接后的字符串转换为data，设置请求体
         NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
@@ -447,7 +447,6 @@
     [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:[NSDate date]];
     NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
     
-    NSLog(@"%ld",(long)dayComponents.day);
     return dayComponents.day;
 }
 

@@ -6,12 +6,12 @@
 //  Copyright © 2015年 wei. All rights reserved.
 //
 
-#import "regitViewCtr.h"
+#import "SignOutViewController.h"
 
 #define IdentityCount 60
 #define INTERVAL_KEYBOARD 100
 
-@interface regitViewCtr () {
+@interface SignOutViewController () {
     int gaodu;//记录当前view的高度是不是负数
 }
 
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation regitViewCtr
+@implementation SignOutViewController
 
 - (void)viewDidLoad {
     

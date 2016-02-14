@@ -367,8 +367,6 @@
     
     NSDate *d=[date dateFromString:theDate];
     
-    NSLog(@"%@",d);
-    
     NSTimeInterval late=[d timeIntervalSince1970]*1;
     
     NSTimeInterval now=[endDate timeIntervalSince1970]*1;
@@ -865,7 +863,6 @@
             
             [_array addObject:info];
             
-            NSLog(@"%@",_array);
         }
         
         [db close];
@@ -881,8 +878,6 @@
     }
     
     NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
-    
-    NSLog(@"%d",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]);
     
     [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
     

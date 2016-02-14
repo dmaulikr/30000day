@@ -219,15 +219,15 @@
     
     int year = [arr[0] intValue];
     
-    for (int i=year; i<year+80; i++) {
+    for (int i = year; i < year + 80; i++) {
         
-        if (i%400==0||(i%4==0 && i%100!=0)) {
+        if (i%400 == 0 || (i%4 == 0 && i%100 != 0)) {
             
-            count+=366;
+            count += 366;
             
         } else {
             
-            count+=365;
+            count += 365;
         }
     }
     

@@ -195,7 +195,7 @@
     return [self startRequest:request];
 }
 
-//***** 用户注册 *****/
+//********** 用户注册 ************/
 - (void)postRegesiterWithPassword:(NSString *)password
                             phoneNumber:(NSString *)phoneNumber
                                nickName:(NSString *)nickName

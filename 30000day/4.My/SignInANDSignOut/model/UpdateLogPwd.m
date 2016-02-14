@@ -7,15 +7,23 @@
 //
 
 #import "UpdateLogPwd.h"
-static UpdateLogPwd* class=nil;
+
+static UpdateLogPwd *class = nil;
+
 @implementation UpdateLogPwd
-+(UpdateLogPwd*)sharedLogPwd{
-    @synchronized(self){
+
++ (UpdateLogPwd *)sharedLogPwd {
+    
+    @synchronized(self) {
+        
         if (!class) {
-            class=[[UpdateLogPwd alloc]init];
+            
+            class = [[UpdateLogPwd alloc] init];
         }
+        
         return class;
     }
     
 }
+
 @end

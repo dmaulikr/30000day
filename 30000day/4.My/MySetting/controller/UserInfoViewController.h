@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface userInfoViewController : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
+@interface UserInfoViewController : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 

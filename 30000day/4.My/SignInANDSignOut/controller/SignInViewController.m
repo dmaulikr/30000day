@@ -7,12 +7,11 @@
 //
 
 #import "SignInViewController.h"
-#import "findPwdViewCtr.h"
+#import "FindPasswordViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
 #import "SMSVerificationViewController.h"
-#import "loginNameVerificationViewController.h"
-#import "TKAddressBook.h"
+#import "InputAccountViewController.h"
 #import "UserProfile.h"
 
 #define HCUSERINFO @"userinfo"
@@ -157,7 +156,7 @@
 #pragma mark - 找回密码
 - (IBAction)findPwd:(UIButton *)sender {
     
-    loginNameVerificationViewController *logvf = [[loginNameVerificationViewController alloc] init];
+    InputAccountViewController *logvf = [[InputAccountViewController alloc] init];
 
     [self.navigationController pushViewController:logvf animated:YES];
 }

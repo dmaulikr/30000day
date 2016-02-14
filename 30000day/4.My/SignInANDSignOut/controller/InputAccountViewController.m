@@ -6,16 +6,16 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "loginNameVerificationViewController.h"
-#import "ChoicePwd.h"
-#import "SecondPwd.h"
+#import "InputAccountViewController.h"
+#import "ChooseVerifyWayViewController.h"
+#import "PasswordVerifiedViewController.h"
 #import "security.h"
 
-@interface loginNameVerificationViewController ()
+@interface InputAccountViewController ()
 
 @end
 
-@implementation loginNameVerificationViewController
+@implementation InputAccountViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,8 +86,8 @@
             s.securityDic=dic;
             s.loginName=self.loginNameText.text;
             
-            ChoicePwd* cp=[[ChoicePwd alloc]init];
-            cp.navigationItem.title=@"验证方式";
+            ChooseVerifyWayViewController* cp=[[ChooseVerifyWayViewController alloc]init];
+            
             [self.navigationController pushViewController:cp animated:YES];
         }
     }

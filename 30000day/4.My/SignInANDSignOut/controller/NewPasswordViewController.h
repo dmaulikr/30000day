@@ -6,10 +6,9 @@
 //  Copyright (c) 2014年 30000天_001. All rights reserved.
 //
 
-#import "updatePwdViewCtr.h"
+#import "NewPasswordViewController.h"
 
-
-@interface updatePwdViewCtr : ShowBackItemViewController
+@interface NewPasswordViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *oneNewPass;
 

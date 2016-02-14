@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+//用来刷新首页以及我的界面通知
+static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
+
 @interface Common : NSObject
 
 + (BOOL) isUserLogin;//判断客户端过去是否登录过

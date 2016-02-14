@@ -6,19 +6,21 @@
 //  Copyright (c) 2015年 wei. All rights reserved.
 //
 
-#import "SecondPwd.h"
+#import "PasswordVerifiedViewController.h"
 #import "UpdateLogPwd.h"
 #import "security.h"
 
-@interface SecondPwd ()
+@interface PasswordVerifiedViewController ()
 @property (nonatomic, strong) UISwipeGestureRecognizer *RightSwipeGestureRecognizer;
 @property (nonatomic, strong) security* s;
 @end
 
-@implementation SecondPwd
+@implementation PasswordVerifiedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"密保验证";
     
     self.s = [security shareControl];
     
@@ -28,11 +30,11 @@
 
 - (void)loadbtntitle {
 
-    for (int i=1; i<=3; i++) {
+    for (int i = 1; i <= 3; i++) {
         
-        NSString* str=[NSString stringWithFormat:@"Q%d",i];
+        NSString *str = [NSString stringWithFormat:@"Q%d",i];
         
-        NSString* str1=[NSString stringWithFormat:@"-w%d",i];
+        NSString *str1 = [NSString stringWithFormat:@"-w%d",i];
         
         if ([self.s.securityDic[str] isEqualToString:str1]) {
             
@@ -153,12 +155,19 @@
             [alert show];
         }else{
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:backData options:NSJSONReadingAllowFragments error:nil];
+            
             if ([dic[@"loginName"] isEqualToString:self.s.loginName]) {
-                UpdateLogPwd* uplog=[UpdateLogPwd sharedLogPwd];
+                
+                UpdateLogPwd *uplog = [UpdateLogPwd sharedLogPwd];
+                
                 [uplog setLog:dic[@"loginName"]];
+                
                 [uplog setPwd:dic[@"loginPassword"]];
+                
                 [uplog setUserID:dic[@"UserID"]];
-                updatePwdViewCtr* uppwd=[[updatePwdViewCtr alloc]init];
+                
+                NewPasswordViewController *uppwd = [[NewPasswordViewController alloc]init];
+                
                 uppwd.navigationItem.title=@"新密码";
 
                 [self.navigationController pushViewController:uppwd animated:YES];

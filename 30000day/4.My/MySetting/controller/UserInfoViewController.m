@@ -6,7 +6,7 @@
 //  Copyright © 2016年 wei. All rights reserved.
 //
 
-#import "userInfoViewController.h"
+#import "UserInfoViewController.h"
 #import "userInfoTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "HZAreaPickerView.h"
@@ -18,27 +18,27 @@
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
-@interface userInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,VPImageCropperDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
+@interface UserInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,VPImageCropperDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
-@property (nonatomic,strong)UserProfile* userProfile;
+@property (nonatomic,strong)UserProfile *userProfile;
 
-@property (nonatomic,strong)NSArray* titleArray;
+@property (nonatomic,strong)NSArray *titleArray;
 
-@property (nonatomic,strong)ZHPickView* zpk;
+@property (nonatomic,strong)ZHPickView *zpk;
 
 @property (nonatomic,strong) UIImageView *portraitImageView;
 
 @property (nonatomic,assign) NSInteger mainTableState;
 
-@property (nonatomic,copy)NSString* NickName;
+@property (nonatomic,copy)NSString *NickName;
 
-@property (nonatomic,copy)NSString* Gender;
+@property (nonatomic,copy)NSString *Gender;
 
-@property (nonatomic,copy)NSString* Birthday;
+@property (nonatomic,copy)NSString *Birthday;
 
 @end
 
-@implementation userInfoViewController
+@implementation UserInfoViewController
 
 - (void)viewDidLoad {
     
@@ -73,13 +73,21 @@
 - (void)rightBarButtonClick:(UIBarButtonItem *)button {
     
     if ([button.title isEqualToString:@"编辑"]) {
-        button.title=@"保存";
-        self.mainTableState=1;
-    }else{
-        button.title=@"编辑";
-        self.mainTableState=0;
+        
+        button.title = @"保存";
+        
+        self.mainTableState = 1;
+        
+    } else {
+        
+        button.title = @"编辑";
+        
+        self.mainTableState = 0;
+        
         [self updInfo];
+        
     }
+    
     [self.mainTable reloadData];
 }
 
@@ -112,55 +120,84 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section==0) {
-        if (indexPath.row==0) {
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row == 0) {
+            
             return 105;
-        }else{
+            
+        } else {
+            
             return 43;
         }
-    }else{
+        
+    } else {
+        
         return 43;
     }
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString* ID=@"userInfoTableViewCell";
-    userInfoTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell==nil) {
-        NSBundle* bundle=[NSBundle mainBundle];
-        NSArray* objs=[bundle loadNibNamed:@"userInfoTableViewCell" owner:nil options:nil];
-        cell=[objs lastObject];
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *ID = @"userInfoTableViewCell";
+    
+    userInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if ( cell == nil ) {
+        
+        NSBundle *bundle = [NSBundle mainBundle];
+        
+        NSArray *objs = [bundle loadNibNamed:@"userInfoTableViewCell" owner:nil options:nil];
+        
+        cell = [objs lastObject];
     }
     
     if (self.mainTableState) {
+        
         cell.detailTextLabel.textColor=[UIColor blackColor];
-    }else{
-        cell.detailTextLabel.textColor=[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
+        
+    } else {
+        
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
     }
     
-    if (indexPath.section==0) {
-        cell.textLabel.text=self.titleArray[indexPath.row];
-        if (indexPath.row==0) {
-            NSURL* imgurl=[NSURL URLWithString:_userProfile.HeadImg];
-            UIImageView* imgview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
+    if (indexPath.section == 0) {
+        
+        cell.textLabel.text = self.titleArray[indexPath.row];
+        
+        if (indexPath.row == 0) {
+            
+            NSURL *imgurl = [NSURL URLWithString:_userProfile.HeadImg];
+            
+            UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
             if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl==nil ) {
+                
                 [imgview setImage:[UIImage imageNamed:@"lcon.png"]];
-            }else{
+                
+            } else {
+                
                 [imgview sd_setImageWithURL:imgurl];
             }
+            
             [cell addSubview:imgview];
-            imgview.translatesAutoresizingMaskIntoConstraints=NO;
+            
+            imgview.translatesAutoresizingMaskIntoConstraints = NO;
+            
             [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:65]];
+            
             [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:65]];
+            
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+            
             [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:-28]];
+            
             self.portraitImageView=imgview;
 
-        }else if(indexPath.row==1){
+        } else if (indexPath.row == 1) {
             
-            cell.detailTextLabel.text=_userProfile.NickName;
+            cell.detailTextLabel.text = _userProfile.NickName;
             
-        }else if(indexPath.row==2){
+        }else if(indexPath.row == 2){
             
             if ([_userProfile.Gender isEqualToString:@"1"]) {
                 

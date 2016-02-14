@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "UserProfile.h"
 
-static NSString *const UserAccountHandlerUseProfileDidChangeNotification;
-
 @interface UserAccountHandler : NSObject
 
 @property (nonatomic ,strong) UserProfile *userProfile;//保存在处理器里面的用户信息,setter方法会发出通知
@@ -24,7 +22,6 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification;
 
 //退出登录
 - (void)logout;
-
 
 //********************************系统调用的接口************************//
 /**

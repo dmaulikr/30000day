@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface regitViewCtr : ShowBackItemViewController < UITextFieldDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate >
+@interface SignOutViewController : ShowBackItemViewController < UITextFieldDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate >
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTxt;
 

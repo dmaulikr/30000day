@@ -15,7 +15,6 @@
 #import <Foundation/Foundation.h>
 #import "UserProfile.h"
 #import "SBJson.h"
-#import "TKAddressBook.h"
 #import "STNavigationController.h"
 #import "ZHPickView.h"
 #import "FMDB.h"
@@ -44,8 +43,6 @@
 #define DB_TABLENAME  @"calendarinfo"
 
 
-
-
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
 
 #define jhOpenID @"JHcac3a9be7b4f37a04bebb4b9bf5414eb"
@@ -66,8 +63,6 @@
 #define USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
 
 
-
-
 //好友进度条圈圈的厚度
 #define FriendProgressHeight 3
 
@@ -86,7 +81,6 @@
 
 #define VIEWBORDERLINECOLOR [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
 
-#define  TKAddressBookManager   [TKAddressBook shareControl]
 
 #define CLIENT_ID                   @"2015091511107"
 

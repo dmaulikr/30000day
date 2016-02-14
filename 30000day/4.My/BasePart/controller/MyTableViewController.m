@@ -12,9 +12,9 @@
 #import "UIImageView+WebCache.h"
 #import "userInfoViewController.h"
 #import "SignInViewController.h"
-#import "securityViewController.h"
+#import "SecurityViewController.h"
 #import "SetUpViewController.h"
-#import "healthySetUpViewController.h"
+#import "HealthySetUpViewController.h"
 #import "UserHeadViewTableViewCell.h"
 #import "LogoutTableViewCell.h"
 
@@ -35,7 +35,7 @@
     self.tabBarController.tabBar.hidden = NO;
     
     //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:@"UserAccountHandlerUseProfileDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)reloadData:(NSNotification *)notification {
@@ -221,7 +221,7 @@
     
     if (indexPath.section == 0) {
         
-        userInfoViewController *user = [[userInfoViewController alloc] init];
+        UserInfoViewController *user = [[UserInfoViewController alloc] init];
         
         user.hidesBottomBarWhenPushed = YES;
         
@@ -231,7 +231,7 @@
         
         if (indexPath.row == 0) {
             
-            healthySetUpViewController *hsc = [[healthySetUpViewController alloc]init];
+            HealthySetUpViewController *hsc = [[HealthySetUpViewController alloc]init];
             
             hsc.hidesBottomBarWhenPushed = YES;
             
@@ -242,7 +242,7 @@
         
         if (indexPath.row == 0) {
             
-            securityViewController *stc = [[securityViewController alloc]init];
+            SecurityViewController *stc = [[SecurityViewController alloc] init];
             
             stc.hidesBottomBarWhenPushed = YES;
             

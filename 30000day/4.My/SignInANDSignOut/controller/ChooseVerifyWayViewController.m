@@ -6,11 +6,11 @@
 //  Copyright (c) 2015年 wei. All rights reserved.
 //
 
-#import "ChoicePwd.h"
-#import "findPwdViewCtr.h"
-#import "SecondPwd.h"
+#import "ChooseVerifyWayViewController.h"
+#import "FindPasswordViewController.h"
+#import "PasswordVerifiedViewController.h"
 
-@interface ChoicePwd ()
+@interface ChooseVerifyWayViewController ()
 
 @property (strong, nonatomic)UITableView *CPTable;//选择找回密码方式
 
@@ -18,12 +18,14 @@
 
 @end
 
-@implementation ChoicePwd
+@implementation ChooseVerifyWayViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _CPTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 15, [UIScreen mainScreen].bounds.size.width, 88) style:UITableViewStylePlain];
+    self.title = @"验证方式";
+    
+    _CPTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 15, [UIScreen mainScreen].bounds.size.width, 88) style:UITableViewStylePlain];
     
     _CPTable.tableFooterView = [[UIView alloc] init];
     
@@ -80,13 +82,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row==0) {
-        findPwdViewCtr* tm=[[findPwdViewCtr alloc]init];
-        tm.navigationItem.title=@"手机验证";
+    if (indexPath.row == 0) {
+        
+        FindPasswordViewController *tm = [[FindPasswordViewController alloc]init];
+
+        
         [self.navigationController pushViewController:tm animated:YES];
-    }if (indexPath.row==1) {
-        SecondPwd* sp=[[SecondPwd alloc]init];
-        sp.navigationItem.title=@"密保验证";
+        
+    } if(indexPath.row == 1) {
+        
+        PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
+        
         [self.navigationController pushViewController:sp animated:YES];
     }
 }
