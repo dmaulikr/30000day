@@ -109,22 +109,23 @@
             nextUnitDate = [self.selectedDate associateDayOfTheFollowingWeek];            
         }
         
-        self.previousUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.bounds.size.width, self.bounds.size.width, self.bounds.size.height) UnitType:unitType];
+        self.previousUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.bounds.size.width, frame.size.width, frame.size.height) UnitType:unitType];
         self.previousUnitGridView.delegate = self;
         self.previousUnitGridView.dataSource = self;
 #warning frame.origin.y-----0.0f
-        self.selectedUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height) UnitType:unitType];
+        self.selectedUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) UnitType:unitType];
         self.selectedUnitGridView.delegate = self;
         self.selectedUnitGridView.dataSource = self;
         self.selectedUnitGridView.selectedDate = [JBCalendarDate dateFromNSDate:self.selectedDate];
         //self.frame = self.selectedUnitGridView.frame;
         
-        self.followingUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f,self.bounds.size.width, self.bounds.size.width, self.bounds.size.height) UnitType:unitType];
+        self.followingUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f,frame.size.width, frame.size.width, frame.size.height) UnitType:unitType];
         self.followingUnitGridView.delegate = self;
         self.followingUnitGridView.dataSource = self;
         
         
         self.calendarView = [[UIView alloc] initWithFrame:frame];//self.selectedUnitGridView.bounds];
+        
         [self.calendarView setClipsToBounds:YES];
         [self.calendarView setContentMode:UIViewContentModeCenter];
         [self.calendarView addSubview:self.previousUnitGridView];
@@ -132,8 +133,12 @@
         [self.calendarView addSubview:self.selectedUnitGridView];
         [self addSubview:self.calendarView];
         
+        self.selectedUnitGridView.backgroundColor =  RGBACOLOR(230, 230, 230, 1);
+        self.previousUnitGridView.backgroundColor =  RGBACOLOR(230, 230, 230, 1);
+        self.followingUnitGridView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
         
-        dispatch_async(dispatch_get_current_queue(), ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             self.previousUnitGridView.selectedDate = [JBCalendarDate dateFromNSDate:previousUnitDate];
             if (self.selectedDate.year == minSelectDateTime && self.selectedDate.month == 1) {
                 self.previousUnitGridView.selectedDate = [JBCalendarDate dateFromNSDate:selectedDate];
@@ -150,7 +155,7 @@
             self.swipeRightGR.direction = UISwipeGestureRecognizerDirectionDown;
             [self.calendarView addGestureRecognizer:self.swipeRightGR];
             
-            self.todayUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f - self.bounds.size.width, 0.0f, self.bounds.size.width, self.bounds.size.height) UnitType:unitType];
+            self.todayUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(0.0f - self.bounds.size.width, 0.0f, frame.size.width, frame.size.height) UnitType:unitType];
             self.todayUnitGridView.delegate = self;
             self.todayUnitGridView.dataSource = self;
             self.todayUnitGridView.selectedDate = [JBCalendarDate dateFromNSDate:[NSDate date]];

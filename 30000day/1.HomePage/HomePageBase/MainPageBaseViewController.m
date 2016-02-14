@@ -14,7 +14,6 @@
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"
-#import "STCalendarViewController.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 

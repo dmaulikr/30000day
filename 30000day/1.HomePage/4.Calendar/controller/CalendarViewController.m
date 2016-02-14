@@ -48,51 +48,65 @@
 
 @property(nonatomic,copy)NSString *resultString;
 
-@property (nonatomic,strong)UIButton *timeBtn;
-
-@property (nonatomic,strong) UIView *toolView;//底部几个按钮的父视图
-
-@property (nonatomic,strong) UIButton *dateButton;// 顶端第一个按钮，选择日期时间
-
-@property (nonatomic,strong) UIButton *backTodayButton;// 顶端第二个按钮，回到今天
-
-@property (nonatomic,strong) UIButton *pushRemindButton;// 顶端第三个按钮，跳转到添加页面
-
-@property (nonatomic,strong) UIView *updView;
-
 @property (nonatomic,strong) UILabel* lab1;
 
 @property (nonatomic,strong) UILabel* lab2;
 
 @property (nonatomic,strong) UIButton *ageButton;
 
-@property (nonatomic,assign)NSInteger leftX;
+@property (nonatomic,strong) UIView *lineView;//日历下面的背景线条
 
-- (void)selectorForButton;
-
--(void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date;
 
 @end
 
 // 选一个有意义的日期作倒计时（备注：可添加多个？）
 @implementation CalendarViewController
 
+//选中日期按钮的点击事件
+- (IBAction)selectorDateAction:(id)sender {
+
+    count = 1;
+    
+    [_pickview remove];
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:1];
+    
+    //获取到当前时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    
+    _pickview = [[ZHPickView alloc] initDatePickWithDate:localeDate datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
+    
+    _pickview.delegate = self;
+    
+    [_pickview show];
+    
+}
+
+//返回今天按钮点击事件
+- (IBAction)backTodayAction:(id)sender {
+    
+    [self.unitView selectDate:[NSDate date]];
+    
+}
+
+//添加提醒按钮点击事件
+- (IBAction)addRemindAction:(id)sender {
+    
+    _MessageViewUpd.time = self.time;
+    
+    _MessageViewUpd.into = @"add";
+    
+    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if ([UIScreen mainScreen].bounds.size.width ==  320) {
-        
-        self.leftX=0;
-        
-    } else if ([UIScreen mainScreen].bounds.size.width == 375 ) {
-        
-        self.leftX=25;
-        
-    } else {
-        
-        self.leftX=45;
-    }
-    
+
     _MessageViewUpd = [[MoreMessageViewCtr alloc] init];
     
     //获取当前时间作为初始化显示需要推送的消息查询条件
@@ -104,13 +118,13 @@
     
     NSString * timeString = [dateformatter stringFromDate:senddate];
     
+    [self.dateTtitleButton setTitle:timeString forState:UIControlStateNormal];
+    
     _array = [NSMutableArray array];
     
     [self loadData:timeString];
     
-    [self addToolView:timeString];
-    
-    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(self.leftX, CGRectGetMaxY(_toolView.frame),SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
+    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
    
     [self.view addSubview:self.unitView];
     
@@ -147,12 +161,12 @@
     
     MoreTabHeaderView *tabHeader = [[MoreTabHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
     
-    _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(self.leftX, 5, 300, 22)];
+    _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 22)];
     
     [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self getNowDateFromatAnDate:[NSDate date]]]]];
     
     
-    _lab2 = [[UILabel alloc] initWithFrame:CGRectMake(self.leftX, 30, 300, 22)];
+    _lab2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 300, 22)];
     
     [_lab2 setFont:[UIFont fontWithName:@"STHeiti-Medium" size:10]];
     
@@ -160,7 +174,7 @@
     
     [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
     
-    _ageButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_lab2.frame) - 50, 30, 100, 22)];
+    _ageButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_lab2.frame) -70, 30, 100, 22)];
     
     [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
     
@@ -175,7 +189,7 @@
     [tabHeader addSubview:_lab2];
     
     _tableView.tableHeaderView = tabHeader;
-    
+
     //带有UITableView的界面如果到遇到警告用这句代码解决
     self.tableView.rowHeight = 44.0f;
     
@@ -184,6 +198,13 @@
     _tableView.dataSource = self;
     
     [self.unitView selectDate:[NSDate date]];
+    
+    
+    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(0 ,self.unitView.bounds.size.height - 1, SCREEN_WIDTH, 1)];
+    
+    self.lineView.backgroundColor = RGBACOLOR(235, 235, 235, 1);
+    
+    [self.unitView addSubview:self.lineView];
 }
 
 // 选择整十年的按钮点击事件
@@ -193,7 +214,7 @@
     
         [_pickview remove];
         
-        _pickview=[[ZHPickView alloc] initPickviewWithPlistName:@"theWholeTen" isHaveNavControler:NO];
+        _pickview = [[ZHPickView alloc] initPickviewWithPlistName:@"theWholeTen" isHaveNavControler:NO];
     
         _pickview.delegate=self;
         
@@ -201,7 +222,7 @@
 }
 
 //从数据库里面取数据
--(void)loadData:(NSString*)timeString{
+- (void)loadData:(NSString*)timeString {
     
     NSString *birthStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserBirthday"];
     
@@ -268,93 +289,6 @@
     
 }
 
--(void)addToolView:(NSString*)time {
-    
-    _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
-    
-    [self.view addSubview:_toolView];
-    
-    int btu1Width = 100;
-    
-    int btu2Width = btu1Width / 2;
-    
-    _dateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [_dateButton setFrame:CGRectMake(self.leftX, 10, btu1Width, 25)];
-    
-    [_dateButton setTitle:time forState:UIControlStateNormal];
-    
-    [_dateButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [_dateButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    
-    [_dateButton addTarget:self action:@selector(selDate:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_toolView addSubview:_dateButton];
-    
-    _backTodayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [_backTodayButton setFrame:CGRectMake(self.leftX + btu1Width + 10, 10, btu2Width, 25)];
-    
-    [_backTodayButton setTitle:@"今天" forState:UIControlStateNormal];
-    
-    [_backTodayButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [_backTodayButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    
-    [_backTodayButton addTarget:self action:@selector(selectorForButton) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_toolView addSubview:_backTodayButton];
-    
-    _pushRemindButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [_pushRemindButton setFrame:CGRectMake(self.leftX + btu1Width + 10 + btu2Width, 10, btu2Width, 25)];
-    
-    [_pushRemindButton setTitle:@"➕" forState:UIControlStateNormal];
-    
-    [_pushRemindButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [_pushRemindButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
-
-    [_pushRemindButton addTarget:self action:@selector(pushRemindButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_toolView addSubview:_pushRemindButton];
-}
-
-//推出提醒控制器的按钮的点击事件
-- (void)pushRemindButtonClick {
-    
-    _MessageViewUpd.time = self.time;
-    
-    _MessageViewUpd.into = @"add";
-    
-    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
-    
-}
-
-// 弹出时间选择器视图
--(void)selDate:(UIButton*)Btn {
-    
-    count = 1;
-    
-    [_pickview remove];
-    
-    NSDate *date=[NSDate dateWithTimeIntervalSinceNow:1];
-    
-    //获取到当前时区
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    
-    NSInteger interval = [zone secondsFromGMTForDate: date];
-    
-    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
-    
-    _pickview=[[ZHPickView alloc] initDatePickWithDate:localeDate datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
-    
-    _pickview.delegate = self;
-    
-    [_pickview show];
-}
-
 /**
  *   theDate:用户生日
  *   endDate:点击的时间
@@ -401,13 +335,16 @@
 }
 
 // 输入一个生日的date跟要加的int年份，返回一个生日加上int年份之后的date   比如 1991  20 返回2011
--(NSDate*)BirthdayAddYear:(NSDate*)birthday addYears:(int)addyear
-{
+- (NSDate*)BirthdayAddYear:(NSDate*)birthday addYears:(int)addyear {
+    
     NSString *string = [self DateToString:birthday];
+    
     NSArray *arr = [string componentsSeparatedByString:@" "];
+    
     NSArray *arr1 = [arr[0] componentsSeparatedByString:@"-"];
+    
     NSString *newYear = [NSString stringWithFormat:@"%d-%@-%@ %@",[arr1[0] intValue]+addyear,arr1[1],arr1[2],arr[1]];
-    //NSLog(@"%@",newYear);
+
     return [self StringToDate:newYear];
 }
 
@@ -457,66 +394,6 @@
     return tomorrow;
 }
 
-#pragma mark -
-#pragma mark - Class Extensions
-- (void)selectorForButton {
-    
-    [self.unitView selectDate:[NSDate date]];
-    
-}
-
-#pragma mark -
-#pragma mark - JBUnitGridViewDelegate
-/**************************************************************
- *@Description:获取当前UnitGridView中UnitTileView的高度
- *@Params:
- *  unitGridView:当前unitGridView
- *@Return:当前unitGridView中UnitTileView的高度
- **************************************************************/
-- (CGFloat)heightOfUnitTileViewsInUnitGridView:(JBUnitGridView *)unitGridView {
-    
-    return 46.0f;
-    
-}
-
-
-/**************************************************************
- *@Description:获取当前UnitGridView中UnitTileView的宽度
- *@Params:
- *  unitGridView:当前unitGridView
- *@Return:当前UnitGridView中UnitTileView的宽度
- **************************************************************/
-- (CGFloat)widthOfUnitTileViewsInUnitGridView:(JBUnitGridView *)unitGridView {
-    
-    return 46.0f;
-    
-}
-
-//  ------------选中了当前月份或周之外的时间--------------
-/**************************************************************
- *@Description:选中了当前Unit的上一个Unit中的时间点
- *@Params:
- *  unitGridView:当前unitGridView
- *  date:选中的时间点
- *@Return:nil
- **************************************************************/
-- (void)unitGridView:(JBUnitGridView *)unitGridView selectedOnPreviousUnitWithDate:(JBCalendarDate *)date {
-    
-    NSLog(@"-----%@",date);
-    
-}
-
-/**************************************************************
- *@Description:选中了当前Unit的下一个Unit中的时间点
- *@Params:
- *  unitGridView:当前unitGridView
- *  date:选中的时间点
- *@Return:nil
- **************************************************************/
-- (void)unitGridView:(JBUnitGridView *)unitGridView selectedOnNextUnitWithDate:(JBCalendarDate *)date {
-    
-    
-}
 
 #pragma mark -
 #pragma mark - JBUnitGridViewDataSource
@@ -528,21 +405,7 @@
  **************************************************************/
 - (JBUnitTileView *)unitTileViewInUnitGridView:(JBUnitGridView *)unitGridView {
     
-    return [[JBSXRCUnitTileView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 46.0f, 46.0f)];
-    
-}
-
-/**************************************************************
- *@Description:设置unitGridView中的weekdaysBarView
- *@Params:
- *  unitGridView:当前unitGridView
- *@Return:weekdaysBarView
- **************************************************************/
-- (UIView *)weekdaysBarViewInUnitGridView:(JBUnitGridView *)unitGridView {
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weekdaysBarView"]];
-    
-    return imageView;
+    return [[JBSXRCUnitTileView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH/7.00f, SCREEN_WIDTH/7.00f)];
     
 }
 
@@ -584,7 +447,7 @@
  **************************************************************/
 - (CGFloat)heightOfUnitTileViewsInUnitView:(JBUnitView *)unitView {
     
-    return 46.0f;
+    return SCREEN_WIDTH/7.00f;
     
 }
 
@@ -596,7 +459,7 @@
  **************************************************************/
 - (CGFloat)widthOfUnitTileViewsInUnitView:(JBUnitView *)unitView {
     
-    return 46.0f;
+    return SCREEN_WIDTH/7.00f;
     
 }
 
@@ -610,9 +473,9 @@
 - (void)unitView:(JBUnitView *)unitView UpdatingFrameTo:(CGRect)newFrame {
     
     self.tableView.frame = CGRectMake(0.0f,
-                                      newFrame.size.height + newFrame.origin.y ,
-                                      self.view.bounds.size.width,
-                                      self.view.bounds.size.height - newFrame.size.height - (self.tableView.tableHeaderView.frame.size.height+10+_toolView.frame.size.height));
+                                      newFrame.size.height + newFrame.origin.y ,SCREEN_WIDTH,SCREEN_HEIGHT - newFrame.size.height - (self.tableView.tableHeaderView.frame.size.height+10));
+    
+    self.lineView.y = newFrame.size.height - 1;
 }
 
 /**************************************************************
@@ -637,19 +500,7 @@
  **************************************************************/
 - (JBUnitTileView *)unitTileViewInUnitView:(JBUnitView *)unitView
 {
-    return [[JBSXRCUnitTileView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width/7, 46.0f)];
-}
-
-/**************************************************************
- *@Description:设置unitView中的weekdayView
- *@Params:
- *unitView:当前unitView
- *@Return:weekdayView
- **************************************************************/
-- (UIView *)weekdaysBarViewInUnitView:(JBUnitView *)unitView
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weekdaysBarView"]];
-    return imageView;
+    return [[JBSXRCUnitTileView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH / 7, 46.0f)];
 }
 
 /**************************************************************
@@ -678,125 +529,51 @@
     completedBlock(nil);
 }
 
-//获取当前设备
-- (NSString*)getDeviceType {
-    
-    //需要导入 "sys/utsname.h"
-    struct utsname systemInfo;
-    
-    uname(&systemInfo);
-    
-    //get the device model and the system version
-    NSString *deviceString=[NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    
-    //iPhone
-    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
-    
-    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
-    
-    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
-    
-    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
-    
-    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"iPhone4";
-    
-    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
-    
-    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
-    
-    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
-    
-    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5c";
-    
-    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5c";
-    
-    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5s";
-    
-    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5s";
-    
-    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6Plus";
-    
-    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
-    
-    //iPod Touch
-    if ([deviceString isEqualToString:@"iPod1,1"])      return @"iPodTouch1G";
-    
-    if ([deviceString isEqualToString:@"iPod2,1"])      return @"iPodTouch2G";
-    
-    if ([deviceString isEqualToString:@"iPod3,1"])      return @"iPodTouch3G";
-    
-    if ([deviceString isEqualToString:@"iPod4,1"])      return @"iPodTouch4G";
-    
-    if ([deviceString isEqualToString:@"iPod5,1"])      return @"iPodTouch5G";
-    
-    //iPad
-    if ([deviceString isEqualToString:@"iPad1,1"])      return @"iPad";
-    
-    if ([deviceString isEqualToString:@"iPad2,1"])      return @"iPad2(WiFi)";
-    
-    if ([deviceString isEqualToString:@"iPad2,2"])      return @"iPad 2 (GSM)";
-    
-    if ([deviceString isEqualToString:@"iPad2,3"])      return @"iPad 2 (CDMA)";
-    
-    if ([deviceString isEqualToString:@"iPad2,5"])      return @"iPad Mini (WiFi)";
-    
-    if ([deviceString isEqualToString:@"iPad2,6"])      return @"iPad Mini (GSM)";
-    
-    if ([deviceString isEqualToString:@"iPad2,7"])      return @"iPad Mini (CDMA)";
-    
-    if ([deviceString isEqualToString:@"iPad3,1"])      return @"iPad 3 (WiFi)";
-    
-    if ([deviceString isEqualToString:@"iPad3,2"])      return @"iPad 3 (GSM)";
-    
-    if ([deviceString isEqualToString:@"iPad3,3"])      return @"iPad 3 (CDMA)";
-    
-    if ([deviceString isEqualToString:@"iPad3,4"])      return @"iPad 4 (WiFi)";
-    
-    if ([deviceString isEqualToString:@"iPad3,5"])      return @"iPad 4 (GSM)";
-    
-    if ([deviceString isEqualToString:@"iPad3,6"])      return @"iPad 4 (CDMA)";
-    
-    //Simulator
-    if ([deviceString isEqualToString:@"i386"])         return @"Simulator";
-    
-    if ([deviceString isEqualToString:@"x86_64"])       return @"Simulator";
-    
-    return deviceString;
-}
-
-
 #pragma mark ZhpickVIewDelegate
--(void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
-    if(count == 1){
+- (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString {
+    
+    if ( count == 1 ) {
+        
         // 取到时间后跳转到对应日期，并且重新设置导航栏显示的日期
         NSArray *arr = [resultString componentsSeparatedByString:@" "];
-        _resultString = [NSString stringWithFormat:@"%@ %@",arr[0],arr[1]];
-        NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init] ;
-        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        NSDate* tomorrow = [inputFormatter dateFromString:_resultString];
-        [self.unitView selectDate:tomorrow];
         
-        [_timeBtn setTitle:arr[0] forState:UIControlStateNormal];
-        //[self setNavigationBarButtonItems:arr[0]];
-        [_dateButton setTitle:arr[0] forState:UIControlStateNormal];
-    }else if (count == 2)
-    {
+        _resultString = [NSString stringWithFormat:@"%@ %@",arr[0],arr[1]];
+        
+        NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+        
+        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        
+        NSDate* tomorrow = [inputFormatter dateFromString:_resultString];
+        
+        [self.unitView selectDate:tomorrow];
+
+        [self.dateTtitleButton setTitle:arr[0] forState:UIControlStateNormal];
+        
+    } else if (count == 2) {
+        
         selDay = [resultString intValue];
+        
         // 保存生日到本地文件，用于其他地方提取计算数值
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i",selDay] forKey:@"selDay"];
-        //// 提交到文件中
+        
+        // 提交到文件中
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]){
+            
             [_lab1 setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
-        }else
-        {
+            
+        } else {
+            
             [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
         }
         
         NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
+        
         [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
+        
         [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
+        
         [_tableView reloadData];
     }
 }
@@ -815,7 +592,7 @@
     
     NSString *day;
     
-    if (date.month<10) {
+    if (date.month < 10) {
         
         monthStr = [NSString stringWithFormat:@"0%lu",(unsigned long)date.month];
         
@@ -823,7 +600,7 @@
         
         monthStr = [NSString stringWithFormat:@"%lu",(unsigned long)date.month];
         
-    } if (date.day<10) {
+    } if (date.day < 10) {
         
         day = [NSString stringWithFormat:@"0%lu",(unsigned long)date.day];
         
@@ -834,7 +611,7 @@
     
     _time = [NSString stringWithFormat:@"%lu-%@-%@",(unsigned long)date.year,monthStr,day];
     
-    [_dateButton setTitle:_time forState:UIControlStateNormal];
+    [self.dateTtitleButton setTitle:_time forState:UIControlStateNormal];
     
     [_array removeAllObjects];
     

@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 
 #ifndef DefaultWeekdaysBarHeight
-#define DefaultWeekdaysBarHeight    20.0f
+#define DefaultWeekdaysBarHeight    30.0f
 #endif
 
 @interface JBWeekdaysBarView : UIView

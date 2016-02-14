@@ -125,6 +125,7 @@ typedef struct {
         self.weekTileViews = [[NSMutableArray alloc] init];
         
         self.tileViewsInSelectedUnit = [[NSMutableArray alloc] init];
+        
     }
     return self;
 }
@@ -141,7 +142,7 @@ typedef struct {
     self = [self initWithFrame:frame];
     if (self) {
         self.unitType = unitType;
-        self.unitTileViewWidth = self.bounds.size.width / TileCountInOneLine;
+        self.unitTileViewWidth = frame.size.width / TileCountInOneLine;
         
         if (self.unitType == UnitTypeMonth) {
             self.unitTileViewHeight = self.unitTileViewWidth;
@@ -250,8 +251,8 @@ typedef struct {
             for (NSInteger i = 0; i < MaxTileRowInUnit_Month; i++) {
                 for (NSInteger j = 0; j < TileCountInOneLine; j++) {
                     UnitTilePosition position;
-                    position.row = i;
-                    position.line = j;
+                    position.row = (unsigned int)i;
+                    position.line = (unsigned int)j;
                     
                     JBUnitTileView *tileView = nil;
                     if (self.dataSource) {
@@ -270,8 +271,8 @@ typedef struct {
             for (NSInteger i = 0; i < MaxTileRowInUnit_Week; i++) {
                 for (NSInteger j = 0; j < TileCountInOneLine; j++) {
                     UnitTilePosition position;
-                    position.row = i;
-                    position.line = j;
+                    position.row = (unsigned int)i;
+                    position.line = (unsigned int)j;
                     
                     JBUnitTileView *tileView = nil;
                     if (self.dataSource) {
@@ -287,6 +288,7 @@ typedef struct {
                 }
             }
         }
+        self.weekdaysBarView.backgroundColor = [UIColor whiteColor];
     });
     
     [self.tileViewsInSelectedUnit removeAllObjects];

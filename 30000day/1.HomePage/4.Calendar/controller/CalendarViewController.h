@@ -10,4 +10,6 @@
 
 @interface CalendarViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *dateTtitleButton;//显示当前选择的日期lable
+
 @end

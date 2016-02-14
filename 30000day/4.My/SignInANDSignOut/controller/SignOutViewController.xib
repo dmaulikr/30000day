@@ -332,6 +332,7 @@
                 <constraint firstItem="8bP-tl-xOd" firstAttribute="top" secondItem="jIf-jF-We7" secondAttribute="bottom" constant="30" id="pRr-gb-Fbc"/>
                 <constraint firstItem="UKh-5R-eMu" firstAttribute="top" secondItem="Yhq-uz-Dry" secondAttribute="bottom" constant="15" id="tC3-Zk-rEo"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="Yhq-uz-Dry"/>
@@ -380,7 +381,7 @@
                     <include reference="pRr-gb-Fbc"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="17" y="102"/>
+            <point key="canvasLocation" x="-85" y="-300"/>
         </view>
     </objects>
 </document>

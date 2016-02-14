@@ -70,7 +70,7 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     //增加监听，当键盘出现或改变时收出消息

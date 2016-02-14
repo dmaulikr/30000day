@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarViewController">
             <connections>
+                <outlet property="dateTtitleButton" destination="S0a-hf-iJr" id="hiJ-R1-pxX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +15,74 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-8F-bLJ">
+                    <rect key="frame" x="0.0" y="76" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="zFl-Z2-UB0"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-PR-Sgp">
+                    <rect key="frame" x="185" y="85" width="50" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Tii-gB-hwG"/>
+                        <constraint firstAttribute="width" constant="50" id="hkJ-hC-3Jy"/>
+                    </constraints>
+                    <state key="normal" title="➕"/>
+                    <connections>
+                        <action selector="addRemindAction:" destination="-1" eventType="touchUpInside" id="S52-Cb-C0u"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0l-BM-ZUc">
+                    <rect key="frame" x="125" y="85" width="50" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="3lL-54-qJN"/>
+                        <constraint firstAttribute="width" constant="50" id="BhD-yO-apS"/>
+                    </constraints>
+                    <state key="normal" title="今天">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="backTodayAction:" destination="-1" eventType="touchUpInside" id="Hl2-Xk-qst"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJT-ib-UUt">
+                    <rect key="frame" x="0.0" y="115" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Kh4-GX-FNK"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0a-hf-iJr">
+                    <rect key="frame" x="10" y="85" width="100" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="CIU-OF-Iwt"/>
+                        <constraint firstAttribute="height" constant="25" id="N1J-Aw-vG3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="2016-03-14">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectorDateAction:" destination="-1" eventType="touchUpInside" id="7Oi-gZ-vaD"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="KJT-ib-UUt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="53e-un-V5O"/>
+                <constraint firstAttribute="trailing" secondItem="s6S-8F-bLJ" secondAttribute="trailing" id="8Yz-1f-l27"/>
+                <constraint firstItem="s6S-8F-bLJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kh8-qy-lJ7"/>
+                <constraint firstAttribute="trailing" secondItem="KJT-ib-UUt" secondAttribute="trailing" id="OGS-W8-GBd"/>
+                <constraint firstItem="KJT-ib-UUt" firstAttribute="top" secondItem="Y0l-BM-ZUc" secondAttribute="bottom" constant="5" id="OIV-0V-OhL"/>
+                <constraint firstItem="xhR-PR-Sgp" firstAttribute="top" secondItem="s6S-8F-bLJ" secondAttribute="bottom" constant="8" id="SAS-jY-OVM"/>
+                <constraint firstItem="xhR-PR-Sgp" firstAttribute="leading" secondItem="Y0l-BM-ZUc" secondAttribute="trailing" constant="10" id="aQr-7e-wZX"/>
+                <constraint firstItem="S0a-hf-iJr" firstAttribute="top" secondItem="s6S-8F-bLJ" secondAttribute="bottom" constant="8" id="lkD-Ro-fHs"/>
+                <constraint firstItem="Y0l-BM-ZUc" firstAttribute="top" secondItem="s6S-8F-bLJ" secondAttribute="bottom" constant="8" id="oVc-E6-Ykq"/>
+                <constraint firstItem="Y0l-BM-ZUc" firstAttribute="leading" secondItem="S0a-hf-iJr" secondAttribute="trailing" constant="15" id="ojf-e2-xZP"/>
+                <constraint firstItem="s6S-8F-bLJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="sTT-kG-gaY"/>
+                <constraint firstItem="S0a-hf-iJr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="uec-aE-MCY"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="380" y="76"/>
         </view>

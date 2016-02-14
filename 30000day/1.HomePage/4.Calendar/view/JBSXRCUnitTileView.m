@@ -32,6 +32,10 @@
         self.lunarLabel.font = [UIFont systemFontOfSize:9.0f];
         self.lunarLabel.textColor = [UIColor grayColor];
         
+        self.backgroundColor = [UIColor whiteColor];
+        
+        self.dayLabel.backgroundColor = [UIColor whiteColor];
+        
         self.lunarLabel.hidden = NO;
     }
     return self;

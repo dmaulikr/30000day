@@ -35,6 +35,7 @@
 
 @property (nonatomic, retain) NSArray *weekdays;
 @property (nonatomic, retain) NSMutableArray *weekdayLabels;
+@property (nonatomic, strong) UIView *lineView;
 
 @end
 
@@ -52,7 +53,7 @@
         for (NSUInteger i = 0; i < DaysCountPerWeek; i++) {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * labelWidth, 0.0f, labelWidth, DefaultWeekdaysBarHeight)];
             label.backgroundColor = [UIColor clearColor];
-            label.textColor = [UIColor lightGrayColor];
+            label.textColor = [UIColor darkGrayColor];
             
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
             label.textAlignment = NSTextAlignmentCenter;
@@ -63,6 +64,10 @@
             label.text = [self.weekdays objectAtIndex:i];
             [self.weekdayLabels addObject:label];
             [self addSubview:label];
+            
+            self.lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 1, self.bounds.size.width, 1)];
+            self.lineView.backgroundColor = RGBACOLOR(235,235,235, 1);
+            [self addSubview:self.lineView];
         }
     }
     return self;
