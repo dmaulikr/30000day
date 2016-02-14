@@ -66,6 +66,8 @@
 #pragma mark ----初始化UI界面
 - (void)configUI {
     
+    [self showHUDWithContent:@"正在加载" animated:YES];
+    
     self.tabBarController.tabBar.hidden = NO;
     
     for (int i = 0;i < self.childViewControllers.count; i++) {
@@ -161,6 +163,8 @@
     
     //创建顶部按钮
     [self createButton];
+    
+    [self hideHUD:YES];
 }
 
 - (void)createButton {
@@ -237,6 +241,7 @@
     [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.buttonParentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     
     [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.buttonParentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
+
 }
 
 - (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
@@ -254,6 +259,7 @@
     button.tag = tag;
     
     return button;
+    
 }
 
 #pragma mark 按钮监听方法
