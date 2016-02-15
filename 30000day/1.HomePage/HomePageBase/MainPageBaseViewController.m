@@ -70,12 +70,22 @@
     
     self.tabBarController.tabBar.hidden = NO;
     
+   
+    
     for (int i = 0;i < self.childViewControllers.count; i++) {
         
         UIViewController *viewController =  self.childViewControllers[i];
         
         [viewController removeFromParentViewController];
         
+    }
+    
+    for (UIView *view in self.view.subviews) {
+        
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            
+            [view removeFromSuperview];
+        }
     }
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
@@ -99,8 +109,7 @@
     
     MessageViewController  *messageViewController = [[MessageViewController alloc] init];
     
-  CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
-//    STCalendarViewController *calendarViewController = [[STCalendarViewController alloc] init];
+    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     
     [self addChildViewController:mainPageController];
     
@@ -169,6 +178,11 @@
 }
 
 - (void)createButton {
+    
+    //移除之前的titleView
+    self.navigationItem.titleView = nil;
+    
+    self.buttonParentView = nil;
     
     self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width , 44)];
     

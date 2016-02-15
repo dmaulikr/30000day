@@ -10,4 +10,6 @@
 
 @interface ShareBackgroundViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *backgroudView;
+
 @end

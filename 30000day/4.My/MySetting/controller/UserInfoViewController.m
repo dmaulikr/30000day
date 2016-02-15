@@ -7,18 +7,16 @@
 //
 
 #import "UserInfoViewController.h"
-#import "userInfoTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "HZAreaPickerView.h"
-#import "VPImageCropperViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ZYQAssetPickerController.h"
 #import "ZHPickView.h"
+#import "HeadViewTableViewCell.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
-@interface UserInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,VPImageCropperDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
+@interface UserInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong)UserProfile *userProfile;
 
@@ -28,13 +26,17 @@
 
 @property (nonatomic,strong) UIImageView *portraitImageView;
 
-@property (nonatomic,assign) NSInteger mainTableState;
+@property (nonatomic,strong) UIImage * editorImage;
 
-@property (nonatomic,copy)NSString *NickName;
+@property (nonatomic,copy) NSString *NickName;
 
-@property (nonatomic,copy)NSString *Gender;
+@property (nonatomic,copy) NSString *Gender;
 
-@property (nonatomic,copy)NSString *Birthday;
+@property (nonatomic,copy) NSString *Birthday;
+
+@property (nonatomic ,strong) UIBarButtonItem *saveButton;
+
+@property (nonatomic ,strong) UIImage *copareImage;
 
 @end
 
@@ -46,11 +48,11 @@
     
     self.title = @"个人信息";
     
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
+    self.saveButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonClick)];
     
-    self.navigationItem.rightBarButtonItem = rightBarButton;
+    self.saveButton.enabled = NO;
     
-    self.mainTableState = 0;
+    self.navigationItem.rightBarButtonItem = self.saveButton;
     
     [self.mainTable setDelegate:self];
     
@@ -62,34 +64,50 @@
     
     self.Gender = _userProfile.Gender;
     
-    self.Birthday=_userProfile.Birthday;
-    
+    self.Birthday= _userProfile.Birthday;
+
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
-    
-    self.mainTable.scrollEnabled = NO;
     
 }
 
-- (void)rightBarButtonClick:(UIBarButtonItem *)button {
+- (void)saveButtonClick {
+
+    [self showHUDWithContent:@"正在保存" animated:YES];
     
-    if ([button.title isEqualToString:@"编辑"]) {
+    //上传服务器
+    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
         
-        button.title = @"保存";
+        if (responseObject) {
+            
+            if (![self.editorImage isEqual:self.copareImage]) {
+            
+                [self shangchuantupian:self.editorImage];
+                
+            } else {
+                
+                [self hideHUD:YES];
+                
+                [self showToast:@"个人信息保存成功"];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
         
-        self.mainTableState = 1;
+    } failure:^(NSError *error) {
         
-    } else {
+        [self hideHUD:YES];
         
-        button.title = @"编辑";
-        
-        self.mainTableState = 0;
-        
-        [self updInfo];
-        
-    }
+        [self showToast:@"个人信息保存失败"];
+    }];
     
-    [self.mainTable reloadData];
+    // 保存生日到本地文件，用于其他地方提取计算数值
+    [[NSUserDefaults standardUserDefaults] setObject:[_userProfile.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+#pragma ---
+#pragma mark --- UITableViewDelegate/UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -139,93 +157,109 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ID = @"userInfoTableViewCell";
-    
-    userInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if ( cell == nil ) {
+    if (indexPath.section == 0 ) {
         
-        NSBundle *bundle = [NSBundle mainBundle];
-        
-        NSArray *objs = [bundle loadNibNamed:@"userInfoTableViewCell" owner:nil options:nil];
-        
-        cell = [objs lastObject];
-    }
-    
-    if (self.mainTableState) {
-        
-        cell.detailTextLabel.textColor=[UIColor blackColor];
-        
-    } else {
-        
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
-    }
-    
-    if (indexPath.section == 0) {
-        
-        cell.textLabel.text = self.titleArray[indexPath.row];
-        
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0 ) {
             
-            NSURL *imgurl = [NSURL URLWithString:_userProfile.HeadImg];
+            HeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HeadViewTableViewCell"];
             
-            UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 65, 65)];
-            if ([[NSString stringWithFormat:@"%@",imgurl] isEqualToString:@""] || imgurl==nil ) {
+            if (cell == nil) {
                 
-                [imgview setImage:[UIImage imageNamed:@"lcon.png"]];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:self options:nil] lastObject];
                 
-            } else {
-                
-                [imgview sd_setImageWithURL:imgurl];
             }
             
-            [cell addSubview:imgview];
+            cell.headImageViewURLString = _userProfile.HeadImg;
             
-            imgview.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:65]];
-            
-            [imgview addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:65]];
-            
-            [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-            
-            [cell addConstraint:[NSLayoutConstraint constraintWithItem:imgview attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:-28]];
-            
-            self.portraitImageView=imgview;
+            //给这连个判断条件赋值
+            self.portraitImageView = cell.headImageView;
 
-        } else if (indexPath.row == 1) {
+            self.editorImage = self.portraitImageView.image;
             
-            cell.detailTextLabel.text = _userProfile.NickName;
+            self.copareImage = self.portraitImageView.image;
             
-        }else if(indexPath.row == 2){
+            return cell;
             
-            if ([_userProfile.Gender isEqualToString:@"1"]) {
+        } else {
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+            
+            if ( cell == nil ) {
                 
-                cell.detailTextLabel.text = @"男";
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
                 
-            } else {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 
-                cell.detailTextLabel.text = @"女";
+                cell.textLabel.textColor = [UIColor blackColor];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
+                
+                cell.textLabel.font = [UIFont systemFontOfSize:15];
+                
+                cell.detailTextLabel.textColor = RGBACOLOR(130, 130, 130, 1);
+                
             }
             
-        }else if(indexPath.row == 3){
+            if ( indexPath.row == 1) {
+                
+                cell.detailTextLabel.text = _userProfile.NickName;
+                
+                cell.textLabel.text = @"昵称";
             
-            cell.detailTextLabel.text=_userProfile.Birthday;
+            } else if ( indexPath.row == 2) {
+                
+                cell.detailTextLabel.text = [_userProfile.Gender isEqualToString:@"1"] ? @"男" : @"女";
+                
+                cell.textLabel.text = @"性别";
+                
+            } else if ( indexPath.row == 3) {
+                
+                cell.detailTextLabel.text=_userProfile.Birthday;
+                
+                cell.textLabel.text = @"生日";
+            }
+            
+            return cell;
+            
         }
         
-    }else{
-        cell.textLabel.text=@"账号";
-        cell.detailTextLabel.text=_userProfile.LoginName;
-        cell.detailTextLabel.textColor=[UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:185.0/255.0 alpha:1.0];
+    } else if (indexPath.section == 1) {
+        
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
+        
+        if ( cell == nil ) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TableViewCell"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            cell.textLabel.textColor = [UIColor blackColor];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
+            
+            cell.detailTextLabel.textColor = RGBACOLOR(130, 130, 130, 1);
+            
+            cell.textLabel.font = [UIFont systemFontOfSize:15];
+        }
+        
+            cell.textLabel.text = @"账号";
+    
+            cell.detailTextLabel.text = _userProfile.LoginName;
+        
+        return cell;
     }
     
-    return cell;
-
+    return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    UIView* view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 43)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 43)];
     
     [view setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0]];
     
@@ -235,65 +269,63 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.mainTableState) {
+    if (indexPath.section == 0) {
         
-        if (indexPath.section==0) {
+        if (indexPath.row == 0) {
             
-            if (indexPath.row==0) {
-                
-                [self editPortrait];
-                
-            }else if(indexPath.row==1){
-                
-                UIAlertView* alert=[[UIAlertView alloc]initWithTitle:_userProfile.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                
-                [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-                
-                UITextField* textfile=[alert textFieldAtIndex:0];
-                
-                [textfile setText:_userProfile.NickName];
-                
-                [alert show];
-                
-            } else if(indexPath.row==2) {
-                
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"选择性别"message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"男",@"女", nil];
-                
-                [alertView show];
-                
-            } else if(indexPath.row == 3) {
-                
-                NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
-                
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                
-                [formatter setDateFormat:@"yyyy/MM/dd"];
-                
-                _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
-                
-                _zpk.delegate = self;
-                
-                [_zpk setMaxMinYer];
-                
-                [_zpk show];
-            }
+            [self editPortrait];
+            
+        }else if(indexPath.row == 1){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:_userProfile.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+            
+            UITextField *textfile = [alert textFieldAtIndex:0];
+            
+            [textfile setText:_userProfile.NickName];
+            
+            [alert show];
+            
+        } else if(indexPath.row == 2) {
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"选择性别"message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"男",@"女", nil];
+            
+            [alertView show];
+            
+        } else if(indexPath.row == 3) {
+            
+            NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+            
+            _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
+            
+            _zpk.delegate = self;
+            
+            [_zpk setMaxMinYer];
+            
+            [_zpk show];
         }
     }
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSIndexPath *indexpath = self.mainTable.indexPathForSelectedRow;
 
-    if ( indexpath.section == 0 && buttonIndex!= 0 ) {
+    if ( indexpath.section == 0 && buttonIndex != 0 ) {
         
         if (indexpath.row == 1 ) {
             
             UITextField *textfile = [alertView textFieldAtIndex:0];
             
-            _userProfile.NickName=textfile.text;
+            _userProfile.NickName = textfile.text;
         }
-        if (indexpath.row==2) {
+        if (indexpath.row == 2 ) {
             
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
                 
@@ -307,8 +339,13 @@
         }
 
         [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
+        //判断按钮是否可用
+        [self judgeSaveButtonCanUse];
     }
+    
 }
+
+#pragma mark --- ZHPickViewDelegate
 
 - (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
     
@@ -334,48 +371,14 @@
     
     _userProfile.Birthday = Birthday;
     
-    [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
+    [self.mainTable reloadData];
     
-     [self.mainTable reloadData];
+    //判断保存按钮是否可用
+    [self judgeSaveButtonCanUse];
 }
 
-- (void)updInfo {
-    
-    if ([self.NickName isEqualToString:_userProfile.NickName] &&
-        [self.Gender isEqualToString:_userProfile.Gender] &&
-        [self.Birthday isEqualToString:_userProfile.Birthday]) {
-        
-        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"您未做任何修改，如修改图片则无需再保存。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        
-        [alert show];
-        
-        return;
-    }
-    
-    //上传服务器
-    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
-        
-        if (responseObject) {
-            
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息保存成功。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            
-            [alert show];
-        }
-        
-    } failure:^(NSError *error) {
-        
-        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"保存出错。" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }];
 
-    // 保存生日到本地文件，用于其他地方提取计算数值
-    [[NSUserDefaults standardUserDefaults] setObject:[_userProfile.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)shangchuantupian:(UIImage*)img {
+- (void)shangchuantupian:(UIImage*)image {
     
     //第一步，创建URL
     NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
@@ -387,7 +390,7 @@
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
     
     //设置请求体
-    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:img][1],[self image2DataURL:img][0]];
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:image][1],[self image2DataURL:image][0]];
     
     //把拼接后的字符串转换为data，设置请求体
     NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
@@ -408,22 +411,42 @@
         //访问服务器失败进此方法
         NSLog(@"error : %@",[error localizedDescription]);
         
-        [self showToast:@"图片上传失败"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self hideHUD:YES];
+            
+            [self showToast:@"图片上传失败"];
+
+        });
         
     }else{
         
-        //成功访问服务器，返回图片的URL
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功访问服务器，返回图片的URL
+            NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+            
+            _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
+            
+            [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
+            
+            [self hideHUD:YES];
+            
+            [self showToast:@"个人信息保存成功"];
+            
+            self.copareImage = self.editorImage;
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        });
         
-        _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-        
-        [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
     }
 }
 
 // 判断图片后缀名的方法
-- (BOOL) imageHasAlpha: (UIImage *) image {
+- (BOOL)imageHasAlpha:(UIImage *)image {
+    
     CGImageAlphaInfo alpha = CGImageGetAlphaInfo(image.CGImage);
+    
     return (alpha == kCGImageAlphaFirst ||
             alpha == kCGImageAlphaLast ||
             alpha == kCGImageAlphaPremultipliedFirst ||
@@ -470,213 +493,72 @@
     [choiceSheet showInView:self.view];
 }
 
-#pragma mark VPImageCropperDelegate
-- (void)imageCropper:(VPImageCropperViewController *)cropperViewController didFinished:(UIImage *)editedImage {
-    
-    self.portraitImageView.image = editedImage;
-    
-    [self shangchuantupian:editedImage];
-    
-    [cropperViewController dismissViewControllerAnimated:YES completion:^{
-        // TO DO  ok
-    }];
-}
-
-- (void)imageCropperDidCancel:(VPImageCropperViewController *)cropperViewController {
-    
-    [cropperViewController dismissViewControllerAnimated:YES completion:^{
-        
-        NSLog(@"ddd");
-        
-    }];
-}
-
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (buttonIndex == 0) {
-        
-        // 拍照
-        if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
-            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-            controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-            if ([self isFrontCameraAvailable]) {
-                controller.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-            }
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-            controller.mediaTypes = mediaTypes;
-            controller.delegate = self;
-            [self presentViewController:controller
-                               animated:YES
-                             completion:^(void){
-                                 NSLog(@"Picker View Controller is presented");
-                             }];
+    UIImagePickerController *pickCtrl = [[UIImagePickerController alloc] init];
+    //设置代理
+    pickCtrl.delegate = self;
+    //设置允许编辑
+    pickCtrl.allowsEditing = YES;
+    if (buttonIndex == 0) {//拍照
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] ) {
+            pickCtrl.sourceType = UIImagePickerControllerSourceTypeCamera;
         }
-        
-    } else if (buttonIndex == 1) {
-        // 从相册中选取
-        if ([self isPhotoLibraryAvailable]) {
-            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-            controller.mediaTypes = mediaTypes;
-            controller.delegate = self;
-            [self presentViewController:controller
-                               animated:YES
-                             completion:^(void){
-                                 NSLog(@"Picker View Controller is presented");
-                             }];
-        }
+        //显示图片选择器
+        [self presentViewController:pickCtrl animated:YES completion:nil];
+    }else if (buttonIndex == 1){//从手机中选取照片
+        pickCtrl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //显示图片选择器
+        [self presentViewController:pickCtrl animated:YES completion:nil];
     }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [picker dismissViewControllerAnimated:YES completion:^() {
-        UIImage *portraitImg = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        portraitImg = [self imageByScalingToMaxSize:portraitImg];
-        // 裁剪
-        VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:portraitImg cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
-        imgEditorVC.delegate = self;
-        [self presentViewController:imgEditorVC animated:YES completion:^{
-            // TO DO
-            NSLog(@"aaa");
-        }];
-    }];
-}
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:^(){
-        NSLog(@"bbb");
-    }];
-}
-
-
-#pragma mark camera utility
-- (BOOL) isCameraAvailable{
-    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    
+    UIImage *originImage = info[UIImagePickerControllerOriginalImage];
+    
+    self.editorImage = image;
+    
+    //判断按钮是否可用
+    [self judgeSaveButtonCanUse];
+    
+    self.portraitImageView.image = image;
+    
+    //保存图片到本地相册
+    UIImageWriteToSavedPhotosAlbum(originImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL) isRearCameraAvailable{
-    return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
-}
-
-- (BOOL) isFrontCameraAvailable {
-    return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
-}
-
-- (BOOL) doesCameraSupportTakingPhotos {
-    return [self cameraSupportsMedia:(__bridge NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypeCamera];
-}
-
-- (BOOL) isPhotoLibraryAvailable{
-    return [UIImagePickerController isSourceTypeAvailable:
-            UIImagePickerControllerSourceTypePhotoLibrary];
-}
-
-- (BOOL) canUserPickVideosFromPhotoLibrary{
-    return [self
-            cameraSupportsMedia:(__bridge NSString *)kUTTypeMovie sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-}
-
-- (BOOL) canUserPickPhotosFromPhotoLibrary{
-    return [self
-            cameraSupportsMedia:(__bridge NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-}
-
-- (BOOL) cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType{
-    __block BOOL result = NO;
-    if ([paramMediaType length] == 0) {
-        return NO;
-    }
-    NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:paramSourceType];
-    [availableMediaTypes enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-        NSString *mediaType = (NSString *)obj;
-        if ([mediaType isEqualToString:paramMediaType]){
-            result = YES;
-            *stop= YES;
-        }
-    }];
-    return result;
-}
-
-#pragma mark image scale utility
-- (UIImage *)imageByScalingToMaxSize:(UIImage *)sourceImage {
-    if (sourceImage.size.width < ORIGINAL_MAX_WIDTH) return sourceImage;
-    CGFloat btWidth = 0.0f;
-    CGFloat btHeight = 0.0f;
-    if (sourceImage.size.width > sourceImage.size.height) {
-        btHeight = ORIGINAL_MAX_WIDTH;
-        btWidth = sourceImage.size.width * (ORIGINAL_MAX_WIDTH / sourceImage.size.height);
+//判断保存按钮是否可用
+- (void)judgeSaveButtonCanUse {
+    
+    if ([self.NickName isEqualToString:_userProfile.NickName] &&
+        [self.Gender isEqualToString:_userProfile.Gender] &&
+        [self.Birthday isEqualToString:_userProfile.Birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
+        
+        self.saveButton.enabled = NO;
+        
     } else {
-        btWidth = ORIGINAL_MAX_WIDTH;
-        btHeight = sourceImage.size.height * (ORIGINAL_MAX_WIDTH / sourceImage.size.width);
+        
+        self.saveButton.enabled = YES;
     }
-    CGSize targetSize = CGSizeMake(btWidth, btHeight);
-    return [self imageByScalingAndCroppingForSourceImage:sourceImage targetSize:targetSize];
 }
 
-- (UIImage *)imageByScalingAndCroppingForSourceImage:(UIImage *)sourceImage targetSize:(CGSize)targetSize {
-    UIImage *newImage = nil;
-    CGSize imageSize = sourceImage.size;
-    CGFloat width = imageSize.width;
-    CGFloat height = imageSize.height;
-    CGFloat targetWidth = targetSize.width;
-    CGFloat targetHeight = targetSize.height;
-    CGFloat scaleFactor = 0.0;
-    CGFloat scaledWidth = targetWidth;
-    CGFloat scaledHeight = targetHeight;
-    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
-    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    NSString *message = @"呵呵";
+    if (!error) {
+        message = @"成功保存到相册";
+    }else
     {
-        CGFloat widthFactor = targetWidth / width;
-        CGFloat heightFactor = targetHeight / height;
-        
-        if (widthFactor > heightFactor)
-            scaleFactor = widthFactor; // scale to fit height
-        else
-            scaleFactor = heightFactor; // scale to fit width
-        scaledWidth  = width * scaleFactor;
-        scaledHeight = height * scaleFactor;
-        
-        // center the image
-        if (widthFactor > heightFactor){
-            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
-        }
-        else if (widthFactor < heightFactor){
-                thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
-        }
+        message = [error description];
     }
-    UIGraphicsBeginImageContext(targetSize); // this will crop
-    CGRect thumbnailRect = CGRectZero;
-    thumbnailRect.origin = thumbnailPoint;
-    thumbnailRect.size.width  = scaledWidth;
-    thumbnailRect.size.height = scaledHeight;
-    
-    [sourceImage drawInRect:thumbnailRect];
-    
-    newImage = UIGraphicsGetImageFromCurrentImageContext();
-    if(newImage == nil) NSLog(@"could not scale image");
-    
-    //pop the context to get back to the default
-    UIGraphicsEndImageContext();
-    return newImage;
+    NSLog(@"message is %@",message);
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

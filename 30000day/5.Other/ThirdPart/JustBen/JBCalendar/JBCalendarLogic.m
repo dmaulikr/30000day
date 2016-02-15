@@ -267,8 +267,6 @@ static BOOL MonthDataForInit, WeekDataForInit;
     }
 }
 
-
-
 #pragma mark -
 #pragma mark - Class Extensions
 /********************************************

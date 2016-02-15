@@ -75,6 +75,8 @@
         
         signOut.PhoneNumber = self.phoneNumber.text;
         
+        signOut.hidesBottomBarWhenPushed = YES;
+        
         [self.navigationController pushViewController:signOut animated:YES];
         
     } failure:^(NSError *error) {

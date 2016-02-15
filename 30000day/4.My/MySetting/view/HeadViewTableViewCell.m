@@ -1,15 +1,15 @@
 //
-//  UserHeadViewTableViewCell.m
+//  HeadViewTableViewCell.m
 //  30000day
 //
-//  Created by GuoJia on 16/2/3.
+//  Created by GuoJia on 16/2/15.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "UserHeadViewTableViewCell.h"
+#import "HeadViewTableViewCell.h"
 #import "UIImageView+WebCache.h"
 
-@implementation UserHeadViewTableViewCell
+@implementation HeadViewTableViewCell
 
 - (void)awakeFromNib {
     
@@ -24,15 +24,15 @@
     // Configure the view for the selected state
 }
 
-- (void)setUserProfile:(UserProfile *)userProfile {
+- (void)setHeadImageViewURLString:(NSString *)headImageViewURLString {
     
-    _userProfile = userProfile;
+    _headImageViewURLString = headImageViewURLString;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.HeadImg]];
+    if (![Common isObjectNull:_headImageViewURLString]) {
+        
+        [self.headImageView  sd_setImageWithURL:[NSURL URLWithString:_headImageViewURLString]];
+    }
     
-    self.nameLabel.text =  _userProfile.NickName;
-    
-    self.phoneNumberLabel.text = _userProfile.PhoneNumber;
 }
 
 @end

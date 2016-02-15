@@ -402,11 +402,20 @@
             
             if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
                 
-                success(YES);
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                     success(YES);
+                    
+                });
                 
             } else {
                 
-                failure(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(error);
+                    
+                });
             }
         }
     

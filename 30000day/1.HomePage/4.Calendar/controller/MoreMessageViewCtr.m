@@ -61,7 +61,6 @@
         
         _time = _moreInfo.time;
     }
-
 }
 
 - (void)addCalendar {
@@ -338,7 +337,7 @@
     return mm;
 }
 
-+(id)initWithInfo:(MoreInfo *)info intoMode:(NSString *)into {
++ (id)initWithInfo:(MoreInfo *)info intoMode:(NSString *)into {
     
     MoreMessageViewCtr *mm = [[MoreMessageViewCtr alloc] init];
     

@@ -7,6 +7,7 @@
 //
 
 #import "SignOutViewController.h"
+#import "SignInViewController.h"
 
 #define IdentityCount 60
 #define INTERVAL_KEYBOARD 100
@@ -57,7 +58,7 @@
     
     self.submitBtn.layer.borderWidth=0.5;
     
-    self.submitBtn.layer.borderColor=[UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0].CGColor;
+    self.submitBtn.layer.borderColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0].CGColor;
     
     [self.userNameTxt setDelegate:self];
     
@@ -159,7 +160,15 @@
         
         if (buttonIndex == 0) {
             
-            [self.navigationController popViewControllerAnimated:YES];
+            for (id controller in [self.navigationController childViewControllers])
+            {
+                if ([controller isKindOfClass:[SignInViewController class]])
+                {
+                    [self.navigationController popToViewController:controller animated:YES];
+                    
+                }
+            }
+            
         }
     }
 }

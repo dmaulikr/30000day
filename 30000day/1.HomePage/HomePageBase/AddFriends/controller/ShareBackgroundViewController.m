@@ -9,6 +9,7 @@
 #import "ShareBackgroundViewController.h"
 
 @interface ShareBackgroundViewController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *WeChatFriendsBtn;
 @property (weak, nonatomic) IBOutlet UIButton *WeChatBtn;
 @property (weak, nonatomic) IBOutlet UIButton *QQspaceBtn;

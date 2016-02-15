@@ -137,7 +137,7 @@
             //获取电话Label
             NSString * personPhoneLabel = (__bridge NSString*)ABAddressBookCopyLocalizedLabel(ABMultiValueCopyLabelAtIndex(phone, k));
             
-            if ([personPhoneLabel isEqualToString:@"mobile"]) {
+            if ([personPhoneLabel isEqualToString:@"住宅"] || [personPhoneLabel isEqualToString:@"手机"]) {
                 //获取該Label下的电话值
                 NSString * personPhone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phone, k);
                 
@@ -188,16 +188,22 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *ID=@"MailListCell";
-    MailListTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell==nil) {
-        cell=[[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:nil options:nil]lastObject];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *ID = @"MailListCell";
+    
+    MailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:nil options:nil]lastObject];
     }
-    mailList* ml=self.mailListArray[indexPath.row];
+    mailList *ml = self.mailListArray[indexPath.row];
+    
     cell.textLabel.text=ml.name;
     
     [self createBtn:cell];
+    
     return cell;
 }
 
@@ -236,14 +242,16 @@
     
     [self.sbvc.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     
-    [UIView animateWithDuration:0.4 animations:^{
-        
-        [self.sbvc.view setFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height)];
-    }];
-    
-    [self.sbvc.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.sbvc.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 350);
     
     [[[UIApplication sharedApplication].delegate window] addSubview:self.sbvc.view];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.sbvc.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT - 350, SCREEN_WIDTH, 350);
+        
+    } completion:nil];
+    
 }
 
 //传入汉子返回拼音首字母

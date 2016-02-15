@@ -119,7 +119,7 @@
 - (void)loadHealthy {
     //先提取   如果没有就初始化数组
     NSArray* ar=[[NSUserDefaults standardUserDefaults] objectForKey:self.userProfile.LoginName];
-    self.UserAlternative=[NSMutableArray arrayWithArray:ar];
+    self.UserAlternative = [NSMutableArray arrayWithArray:ar];
     if (self.UserAlternative==nil || self.UserAlternative.count==0) {
         //用户选项
         self.UserAlternative=[[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",

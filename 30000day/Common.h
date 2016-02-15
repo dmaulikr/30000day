@@ -20,4 +20,6 @@
 
 + (void)removeAppDataForKey:(NSString *)key ;
 
++ (BOOL) isObjectNull : (id) obj;
+
 @end

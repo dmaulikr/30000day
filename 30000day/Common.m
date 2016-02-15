@@ -49,4 +49,12 @@
     [defaults synchronize];
 }
 
++ (BOOL) isObjectNull : (id) obj
+{
+    if ((obj == nil) || (obj == [NSNull null]) || ([[NSString stringWithFormat:@""] isEqualToString:obj]))
+        return YES;
+    else
+        return NO;
+}
+
 @end
