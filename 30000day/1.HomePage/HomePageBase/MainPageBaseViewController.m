@@ -70,8 +70,6 @@
     
     self.tabBarController.tabBar.hidden = NO;
     
-   
-    
     for (int i = 0;i < self.childViewControllers.count; i++) {
         
         UIViewController *viewController =  self.childViewControllers[i];

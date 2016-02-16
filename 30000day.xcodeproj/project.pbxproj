@@ -13,6 +13,9 @@
 		B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A4D1C709BA400063269 /* SignOutViewController.xib */; };
 		B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A551C71A53500063269 /* HeadViewTableViewCell.m */; };
 		B8365A581C71A53500063269 /* HeadViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A561C71A53500063269 /* HeadViewTableViewCell.xib */; };
+		B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5A1C71DFA000063269 /* AddressBookModel.m */; };
+		B8365A5F1C71E08200063269 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5D1C71E08200063269 /* pinyin.c */; };
+		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
@@ -53,10 +56,8 @@
 		B89216EA1C634E650023F8A8 /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216DC1C634E650023F8A8 /* MailListViewController.xib */; };
 		B89216EB1C634E650023F8A8 /* ShareBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DE1C634E650023F8A8 /* ShareBackgroundViewController.m */; };
 		B89216EC1C634E650023F8A8 /* ShareBackgroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216DF1C634E650023F8A8 /* ShareBackgroundViewController.xib */; };
-		B89216ED1C634E650023F8A8 /* mailList.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E21C634E650023F8A8 /* mailList.m */; };
 		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
 		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
-		B89216F21C635ABD0023F8A8 /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216F11C635ABD0023F8A8 /* AddressBookModel.m */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* UserInfoViewController.m */; };
@@ -174,6 +175,12 @@
 		B8365A541C71A53500063269 /* HeadViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadViewTableViewCell.h; sourceTree = "<group>"; };
 		B8365A551C71A53500063269 /* HeadViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadViewTableViewCell.m; sourceTree = "<group>"; };
 		B8365A561C71A53500063269 /* HeadViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadViewTableViewCell.xib; sourceTree = "<group>"; };
+		B8365A591C71DFA000063269 /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
+		B8365A5A1C71DFA000063269 /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
+		B8365A5D1C71E08200063269 /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
+		B8365A5E1C71E08200063269 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
+		B8365A601C71E0BC00063269 /* ChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseString.h; sourceTree = "<group>"; };
+		B8365A611C71E0BC00063269 /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -247,13 +254,9 @@
 		B89216DD1C634E650023F8A8 /* ShareBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBackgroundViewController.h; sourceTree = "<group>"; };
 		B89216DE1C634E650023F8A8 /* ShareBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBackgroundViewController.m; sourceTree = "<group>"; };
 		B89216DF1C634E650023F8A8 /* ShareBackgroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareBackgroundViewController.xib; sourceTree = "<group>"; };
-		B89216E11C634E650023F8A8 /* mailList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mailList.h; sourceTree = "<group>"; };
-		B89216E21C634E650023F8A8 /* mailList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mailList.m; sourceTree = "<group>"; };
 		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
-		B89216F01C635ABD0023F8A8 /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
-		B89216F11C635ABD0023F8A8 /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
 		B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myViewCell.xib; sourceTree = "<group>"; };
@@ -488,6 +491,17 @@
 				B8365A4B1C70820100063269 /* UIView+Extension.m */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B8365A5C1C71E07600063269 /* chineseSorting */ = {
+			isa = PBXGroup;
+			children = (
+				B8365A5D1C71E08200063269 /* pinyin.c */,
+				B8365A5E1C71E08200063269 /* pinyin.h */,
+				B8365A601C71E0BC00063269 /* ChineseString.h */,
+				B8365A611C71E0BC00063269 /* ChineseString.m */,
+			);
+			path = chineseSorting;
 			sourceTree = "<group>";
 		};
 		B88C91221C59F2260089BEAE = {
@@ -808,6 +822,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B8365A5C1C71E07600063269 /* chineseSorting */,
 				B8F2D9C71C5F04F6002C7712 /* SDPieLoopProgressView */,
 				B8F2D9781C5C8B19002C7712 /* JustBen */,
 				B8F2D9411C5B7260002C7712 /* HealthKit */,
@@ -939,10 +954,8 @@
 		B89216E01C634E650023F8A8 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B89216E11C634E650023F8A8 /* mailList.h */,
-				B89216E21C634E650023F8A8 /* mailList.m */,
-				B89216F01C635ABD0023F8A8 /* AddressBookModel.h */,
-				B89216F11C635ABD0023F8A8 /* AddressBookModel.m */,
+				B8365A591C71DFA000063269 /* AddressBookModel.h */,
+				B8365A5A1C71DFA000063269 /* AddressBookModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1518,7 +1531,6 @@
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
-				B89216F21C635ABD0023F8A8 /* AddressBookModel.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */,
@@ -1543,7 +1555,6 @@
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
-				B89216ED1C634E650023F8A8 /* mailList.m in Sources */,
 				B89216EB1C634E650023F8A8 /* ShareBackgroundViewController.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
@@ -1565,6 +1576,7 @@
 				B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,
+				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
 				B88C918D1C5A089E0089BEAE /* ShopTableViewController.m in Sources */,
@@ -1574,6 +1586,7 @@
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */,
+				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
 				B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
@@ -1583,6 +1596,7 @@
 				B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */,
+				B8365A5F1C71E08200063269 /* pinyin.c in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,

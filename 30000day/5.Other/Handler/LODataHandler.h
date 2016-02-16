@@ -76,4 +76,7 @@
                                 failure:(void (^)(NSError *))failure;
 
 
+//************获取通讯录好友************/
+- (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
+
 @end

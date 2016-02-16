@@ -12,6 +12,9 @@
 #import "LONetworkAgent.h"
 #import "STBaseViewController.h"
 #import "FriendListInfo.h"
+#import <AddressBook/AddressBook.h>
+#import "AddressBookModel.h"
+#import "ChineseString.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -31,6 +34,14 @@
 }
 
 @end
+
+
+@interface LODataHandler ()
+
+@property (nonatomic ,copy) void (^(addressBookBlock))(NSMutableArray *,NSMutableArray *,NSMutableArray *);
+
+@end
+
 
 @implementation LODataHandler
 
@@ -603,6 +614,121 @@
     NSDate *returndate = [date dateFromString:newdate];
     
     return returndate;
+}
+
+//************获取通讯录好友************/
+- (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
+    
+    //保存回调代码块
+    self.addressBookBlock = handler;
+    
+    dispatch_async(dispatch_queue_create("AddressBookModel", DISPATCH_QUEUE_SERIAL), ^{
+        
+        ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+        
+        NSMutableArray *addressBookArray = [NSMutableArray array];
+        
+        if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+            
+            ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error){
+                
+                CFErrorRef *error1 = NULL;
+                
+                ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error1);
+                
+                [self copyAddressBook:addressBook addressBookArray:addressBookArray];
+            });
+            
+        } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
+            
+            CFErrorRef *error = NULL;
+            
+            ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
+            
+            [self copyAddressBook:addressBook addressBookArray:addressBookArray];
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 更新界面
+                //[hud turnToError:@"没有获取通讯录权限"];
+            });
+        }
+        
+    });
+}
+
+//私有Api
+- (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray {
+
+    CFIndex numberOfPeople = ABAddressBookGetPersonCount(addressBook);
+    
+    CFArrayRef people = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    
+    for ( int i = 0; i < numberOfPeople; i++) {
+        
+        ABRecordRef person = CFArrayGetValueAtIndex(people, i);
+        
+        NSString *firstName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonFirstNameProperty));
+        
+        NSString *lastName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonLastNameProperty));
+        
+        //读取电话多值
+        ABMultiValueRef phone = ABRecordCopyValue(person, kABPersonPhoneProperty);
+        
+        for (int k = 0; k < ABMultiValueGetCount(phone); k++ ) {
+            
+            //获取电话Label
+            NSString * personPhoneLabel = (__bridge NSString*)ABAddressBookCopyLocalizedLabel(ABMultiValueCopyLabelAtIndex(phone, k));
+            
+            if ([personPhoneLabel isEqualToString:@"住宅"] || [personPhoneLabel isEqualToString:@"手机"]) {
+                //获取該Label下的电话值
+                NSString * personPhone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phone, k);
+                
+                NSLog(@"%@",personPhone);
+                
+                NSString *name;
+                
+                AddressBookModel *bookModel = [[AddressBookModel alloc] init];
+                
+                if (firstName!= nil && lastName != nil) {
+                    
+                    name = [lastName stringByAppendingString:firstName];
+                }
+                
+                if (firstName!= nil && lastName == nil) {
+                    
+                    name = firstName;
+                }
+                
+                if (firstName == nil && lastName != nil) {
+                    
+                    name = lastName;
+                }
+                
+                bookModel.name = name;
+                
+                bookModel.mobilePhone = personPhone;
+                
+                [addressBookArray addObject:bookModel];
+                
+                break;
+            }
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *array =  [ChineseString LetterSortArray:addressBookArray];
+        
+        NSMutableArray *sortArray = [ChineseString SortArray:addressBookArray];
+        
+        NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
+        
+        self.addressBookBlock(array,sortArray,indexArray);
+        
+        
+    });
 }
 
 

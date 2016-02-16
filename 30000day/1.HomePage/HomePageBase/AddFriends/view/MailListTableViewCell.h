@@ -10,4 +10,10 @@
 
 @interface MailListTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIButton *invitationButton;
+
+@property (nonatomic , copy) void (^(invitationButtonBlock))();
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

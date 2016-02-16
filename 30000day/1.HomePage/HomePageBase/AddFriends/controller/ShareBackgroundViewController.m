@@ -38,7 +38,7 @@
     [self.view removeFromSuperview];
 }
 
--(void)addButtonsLines{
+- (void)addButtonsLines {
     
     self.WeChatFriendsBtn.layer.borderWidth=1.0;
     self.WeChatFriendsBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
@@ -87,8 +87,10 @@
     
 }
 
--(void)cancelClick{
+- (void)cancelClick {
+    
     [self.view removeFromSuperview];
+    
 }
 /*
 #pragma mark - Navigation

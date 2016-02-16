@@ -11,13 +11,25 @@
 @implementation MailListTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    self.invitationButton.layer.cornerRadius=6;
+    
+    self.invitationButton.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+
+- (IBAction)invitationButtonAction:(id)sender {
+    
+    if (self.invitationButtonBlock) {
+        
+        self.invitationButtonBlock();
+    }
 }
 
 @end
