@@ -685,8 +685,6 @@
                 //获取該Label下的电话值
                 NSString * personPhone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phone, k);
                 
-                NSLog(@"%@",personPhone);
-                
                 NSString *name;
                 
                 AddressBookModel *bookModel = [[AddressBookModel alloc] init];

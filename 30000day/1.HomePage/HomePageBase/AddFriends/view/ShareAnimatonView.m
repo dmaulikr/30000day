@@ -1,50 +1,55 @@
+
 //
-//  ShareBackgroundViewController.m
+//  ShareAnimatonView.m
 //  30000day
 //
-//  Created by wei on 16/2/4.
+//  Created by GuoJia on 16/2/16.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "ShareBackgroundViewController.h"
+#import "ShareAnimatonView.h"
 
-@interface ShareBackgroundViewController ()
+
+
+@interface ShareAnimatonView () 
 
 @property (weak, nonatomic) IBOutlet UIButton *WeChatFriendsBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *WeChatBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *QQspaceBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *qqBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *SinaBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *emailBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *shortMessageBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *LinkBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
 @end
 
-@implementation ShareBackgroundViewController
+@implementation ShareAnimatonView
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self addButtonsLines];
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
+*/
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view removeFromSuperview];
-}
-
-- (void)addButtonsLines {
+- (void)awakeFromNib {
     
     self.WeChatFriendsBtn.layer.borderWidth=1.0;
     self.WeChatFriendsBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
     self.WeChatFriendsBtn.layer.cornerRadius = 6;
     self.WeChatFriendsBtn.layer.masksToBounds = YES;
-
+    
     self.WeChatBtn.layer.borderWidth=1.0;
     self.WeChatBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
     self.WeChatBtn.layer.cornerRadius = 6.0;
@@ -83,23 +88,66 @@
     self.cancelBtn.layer.borderWidth=1.0;
     self.cancelBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
     
-    [self.cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchUpInside];
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+
+    [self addGestureRecognizer:tap];
 }
 
-- (void)cancelClick {
+- (void)tapAction:(UITapGestureRecognizer *)tap {
     
-    [self.view removeFromSuperview];
+    CGPoint location = [tap locationInView:self];
     
+    if (location.y < SCREEN_HEIGHT - SCREEN_WIDTH * 50 / 75) {//表示点击上面空白才会取消
+        
+        [self removeFromSuperview];
+        
+    }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)buttonClickAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (button.tag == 1) {
+        
+        
+    } else if (button.tag == 2) {
+        
+        
+        
+    } else if (button.tag == 3) {
+        
+        
+        
+    } else if (button.tag == 4) {
+     
+        
+        
+    } else if (button.tag == 5) {
+        
+        
+    } else if (button.tag == 6 ) {
+        
+        
+    } else if (button.tag == 7) {
+        
+        
+    } else if (button.tag == 8) {
+        
+        
+    } else if (button.tag == 9) {//取消按钮
+        
+        
+    }
+    
+    if (self.shareButtonBlock) {
+        
+        [self removeFromSuperview];
+        
+        self.shareButtonBlock(button.tag);
+    }
 }
-*/
+
+
 
 @end

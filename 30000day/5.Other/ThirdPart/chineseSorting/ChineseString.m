@@ -26,15 +26,20 @@
     
     for (NSString *object in tempArray)
     {
-        NSString *pinyin = [((ChineseString *)object).pinYin substringToIndex:1];
-        
-        //不同
-        if(![tempString isEqualToString:pinyin])
-        {
-            [A_Result addObject:pinyin];
+        if (![Common isObjectNull:((ChineseString *)object).pinYin]) {
             
-            tempString = pinyin;
+            NSString *pinyin = [((ChineseString *)object).pinYin substringToIndex:1];
+            
+            //不同
+            if(![tempString isEqualToString:pinyin])
+            {
+                [A_Result addObject:pinyin];
+                
+                tempString = pinyin;
+            }
+            
         }
+        
     }
     return A_Result;
 }
@@ -53,24 +58,30 @@
     //拼音分组
     for (NSString *object in tempArray) {
         
-        NSString *pinyin = [((ChineseString *)object).pinYin substringToIndex:1];
+        ChineseString *chineseString = (ChineseString *)object;
         
-        //不同
-        if(![tempString isEqualToString:pinyin])
-        {
-            //分组
-            item = [NSMutableArray array];
+        if (![Common isObjectNull:chineseString.pinYin]) {
             
-            [item  addObject:object];
+            NSString *pinyin = [((ChineseString *)object).pinYin substringToIndex:1];
             
-            [LetterResult addObject:item];
+            //不同
+            if(![tempString isEqualToString:pinyin])
+            {
+                //分组
+                item = [NSMutableArray array];
+                
+                [item  addObject:object];
+                
+                [LetterResult addObject:item];
+                
+                //遍历
+                tempString = pinyin;
+                
+            } else {//相同
+                
+                [item  addObject:object];
+            }
             
-            //遍历
-            tempString = pinyin;
-            
-        } else {//相同
-            
-            [item  addObject:object];
         }
     }
     
@@ -88,7 +99,7 @@
     //获取字符串中文字的拼音首字母并与字符串共同存放
     NSMutableArray *chineseStringsArray = [NSMutableArray array];
     
-    for(int i = 0;i<[addressBookArray count];i++) {
+    for(int i = 0;i < [addressBookArray count];i++) {
         
         ChineseString *chineseString = [[ChineseString alloc]init];
         
@@ -118,7 +129,6 @@
         
         if ([predicate evaluateWithObject:initialStr]) {
             
-            NSLog(@"chineseString.string== %@",chineseString.string);
             //首字母大写
             chineseString.pinYin = [chineseString.string capitalizedString] ;
             
@@ -167,8 +177,7 @@
     for(int i = 0;i < [tempArray count]; i++ ){
         
         [result addObject:((ChineseString*)[tempArray objectAtIndex:i]).string];
-        
-        NSLog(@"SortArray----->%@",((ChineseString*)[tempArray objectAtIndex:i]).string);
+    
     }
     
     return result;

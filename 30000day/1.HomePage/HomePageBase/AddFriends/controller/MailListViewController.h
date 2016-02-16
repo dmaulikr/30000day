@@ -8,6 +8,6 @@
 
 #import "STBaseViewController.h"
 
-@interface MailListViewController : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
+@interface MailListViewController : ShowBackItemViewController 
 
 @end

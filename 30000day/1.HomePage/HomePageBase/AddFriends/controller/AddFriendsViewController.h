@@ -10,5 +10,4 @@
 
 @interface AddFriendsViewController : ShowBackItemViewController
 
-
 @end
