@@ -268,104 +268,52 @@
 
 }
 
-//- (NSString *)postChangePasswordWithPassword:(NSString *)newpassword
-//                                 phoneNumber:(NSString *)phonenumber
-//                                  verifyCode:(NSString *)verifycode
-//                                     success:(void (^)(id responseObject))success
-//                                     failure:(void (^)(LONetError *))failure {
-//    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-//    [parameters addParameter:phonenumber forKey:@"mobile_phone_no"];
-//    [parameters addParameter:newpassword forKey:@"new_password"];
-//    [parameters addParameter:verifycode forKey:@"verify_code"];
-//    
-//    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
-//                                                        url:CHANGE_PASSWORD_PATH
-//                                                 parameters:parameters
-//                                                    success:^(id responseObject) {
-//                                                        
-//                                                        success(responseObject);
-//                                                        
-//                                                    } failure:^(LONetError *error) {
-//                                                        failure(error);
-//                                                    }];
-//    request.needHeaderAuthorization = YES;
-//    request.requestSerializerType = LORequestSerializerTypeJSON;
-//    return [self startRequest:request];
-//
-//}
-
-//- (NSString *)getRecordCountIfSuccess:(void (^)(id responseObject))success
-//                              failure:(void (^)(LONetError *))failure {
-//    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
-//                                                        url:GET_RECORD_COUNT
-//                                                 parameters:nil
-//                                                    success:^(id responseObject) {
-//                                                        
-//                                                        success(responseObject);
-//                                                        
-//                                                    } failure:^(LONetError *error) {
-//                                                        failure(error);
-//                                                    }];
-//    request.needHeaderAuthorization = YES;
-//    request.requestSerializerType = LORequestSerializerTypeJSON;
-//    return [self startRequest:request];
-//}
-
-
 //**** 获取好友 *****/
-- (NSString *)getMyFriendsWithPassword:(NSString *)password
+- (void)getMyFriendsWithPassword:(NSString *)password
                              loginName:(NSString *)loginName
-                               success:(void (^)(id responseObject))success
-                               failure:(void (^)(LONetError *))failure {
+                               success:(void (^)(NSMutableArray * dataArray))success
+                               failure:(void (^)(NSError *))failure {
+
+    NSString * url = @"http://116.254.206.7:12580/M/API/GetMyFriends?";
     
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    url = [url stringByAppendingString:@"LoginName="];
     
-    [parameters addParameter:loginName forKey:@"LoginName"];
+    url = [url stringByAppendingString:loginName];
     
-    [parameters addParameter:password forKey:@"LoginPassword"];
+    url = [url stringByAppendingString:@"&LoginPassword="];
     
-        LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                            url:GET_MY_FRIENDS
-                                                     parameters:parameters
-                                                        success:^(id responseObject) {
-                                                            
-                                                            NSError *localError = nil;
-                                                            
-                                                            id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                            
-                                                            NSArray  *array = (NSArray *)parsedObject;
-                                                            
-                                                            NSMutableArray *dataArray = [NSMutableArray array];
-                                                            
-                                                            for (NSDictionary *dictionary in array) {
-                                                                
-                                                                FriendListInfo *listInfo = [[FriendListInfo alloc] init];
-                                                                
-                                                                [listInfo setValuesForKeysWithDictionary:dictionary];
-                                                                
-                                                                [dataArray addObject:listInfo];
-                                                            }
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                success(dataArray);
-                                                            });
-                                                            
-                                                        } failure:^(LONetError *error) {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                    failure(error);
-                                                            });
-                                                            
-                                                        }];
-        request.needHeaderAuthorization = NO;
+    url = [url stringByAppendingString:password];
     
-        request.requestSerializerType = LORequestSerializerTypeJSON;
+    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
     
-        request.responseSerializerType = LOResponseTypeJSON;
+    NSError *error;
     
-        return [self startRequest:request];
+    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
+    
+    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+    
+    NSDictionary * dict = [jsonParser objectWithString:jsonStr error:nil];
+    
+    if (dict != nil) {
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        for (NSDictionary *dic in dict) {
+            
+            FriendListInfo *ff = [[FriendListInfo alloc] init];
+            
+            [ff setValuesForKeysWithDictionary:dic];
+            
+            [array addObject:ff];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+          success(array);
+        });
+    } else {
+        
+        failure([[NSError alloc] init]);
+    }
     
 }
 
@@ -429,7 +377,6 @@
                 });
             }
         }
-    
 }
 
 

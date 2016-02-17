@@ -72,7 +72,7 @@
     [self.view addSubview:cancelButton];
     
     //3.配置tableView
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 44) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108) style:UITableViewStylePlain];
     
     [tableView setTableFooterView:[[UIView alloc] init]];
     
@@ -92,7 +92,7 @@
     
     [self.view addSubview:self.backgroundView];
     
-    //监听键盘通知
+    //4.监听键盘通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
@@ -129,7 +129,7 @@
         
         self.searchBar.frame = CGRectMake(0, 64, SCREEN_WIDTH, 44);
         
-        self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+        self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
         
     } completion:^(BOOL finished) {
         
@@ -165,7 +165,6 @@
     
      self.backgroundView.hidden = [searchText isEqualToString:@""] ? NO:YES;
 }
-
 
 - (void)dealloc {
     

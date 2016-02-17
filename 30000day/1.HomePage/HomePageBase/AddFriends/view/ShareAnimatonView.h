@@ -15,6 +15,9 @@
 @property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger ,ShareAnimatonView *);
 
 //类方法，动画般的把ShareAnimatonView从父视图上移除
-+ (void)annimationRemoveFromSuperView:(ShareAnimatonView *)animationview;
++ (void)annimateRemoveFromSuperView:(ShareAnimatonView *)animationview;
+
+//类方法，动画般的把ShareAnimatonView从加载到UIWindow上
++ (void)animateWindowsAddSubView:(ShareAnimatonView *)animationview;
 
 @end

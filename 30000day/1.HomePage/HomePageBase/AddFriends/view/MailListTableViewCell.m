@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     
-    self.invitationButton.layer.cornerRadius=6;
+    self.invitationButton.layer.cornerRadius = 6;
     
     self.invitationButton.layer.masksToBounds = YES;
 }

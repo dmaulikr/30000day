@@ -75,6 +75,8 @@
     
 }
 
+#pragma ---
+#pragma mark ---- 父视图的生命周期方法
 - (void)searchBarDidBeginRestore {
     
     [super searchBarDidBeginRestore];
@@ -254,14 +256,13 @@
     
     ShareAnimatonView *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"ShareAnimatonView" owner:self options:nil] lastObject];
     
-    [shareAnimationView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    shareAnimationView.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+    //封装的动画般推出视图
+    [ShareAnimatonView animateWindowsAddSubView:shareAnimationView];
     
     //按钮点击回调
     [shareAnimationView setShareButtonBlock:^(NSInteger tag,ShareAnimatonView *animationView) {
         
-        [ShareAnimatonView annimationRemoveFromSuperView:animationView];
+        [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
         if (tag == 7) {//发送短信
             
@@ -286,7 +287,6 @@
             } else {
                 
                 [self showToast:@"该设备不支持短信功能"];
-                
             }
             
         } else if (tag == 6) {//发送邮件
@@ -312,16 +312,8 @@
             }
             
         }
-        
     }];
     
-    [[[UIApplication sharedApplication].delegate window] addSubview:shareAnimationView];
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        shareAnimationView.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT - SCREEN_WIDTH * 50/75, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
-        
-    } completion:nil];
 }
 
 #pragma mark ---- MFMessageComposeViewControllerDelegate
@@ -356,6 +348,7 @@
             break;
             
         default:
+            
             break;
     }
     

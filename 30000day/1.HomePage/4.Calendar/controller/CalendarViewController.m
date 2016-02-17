@@ -226,7 +226,7 @@
     
     NSString *birthStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserBirthday"];
     
-    _birthdayDate = [NSString stringWithString:birthStr==nil?@" ":birthStr];
+    _birthdayDate = [NSString stringWithString:birthStr == nil ? @" ":birthStr];
     
 
     [self.view setUserInteractionEnabled:YES];

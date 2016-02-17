@@ -25,6 +25,7 @@
 #import "UserAccountHandler.h"
 #import "UIView+Extension.h"
 #import "UIView+viewController.h"
+#import "UIImageView+WebCache.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 

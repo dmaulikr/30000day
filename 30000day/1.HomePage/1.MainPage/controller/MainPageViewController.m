@@ -12,7 +12,6 @@
 #import "MDRadialProgressTheme.h"
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
-#import "UIImageView+WebCache.h"
 #import "jk.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -261,7 +260,7 @@
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_progressView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:165]];
     
-    self.rankingLabel=[[UILabel alloc]init];
+    self.rankingLabel = [[UILabel alloc]init];
     
     [self.rankingLabel setText:@"当前您已经击败9999个用户！"];
     

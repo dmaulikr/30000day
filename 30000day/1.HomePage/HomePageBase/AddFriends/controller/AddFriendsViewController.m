@@ -8,18 +8,9 @@
 
 #import "AddFriendsViewController.h"
 #import "MailListViewController.h"
+#import "SearchFriendsViewController.h"
 
-@interface AddFriendsViewController ()
-
-@property (weak, nonatomic) IBOutlet UITextField *searchBarView;
-
-@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
-
-@property (weak, nonatomic) IBOutlet UIView *searchBarSuperView;
-
-@property (weak, nonatomic) IBOutlet UIView *mailListView;
-
-@property (weak, nonatomic) IBOutlet UIButton *mailListRightBtn;
+@interface AddFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -27,42 +18,67 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
-    
-    self.searchBarView.leftView = image;
-    
-    self.searchBarView.leftViewMode = UITextFieldViewModeUnlessEditing;
-    
-    [self.searchBarSuperView.layer setBorderWidth:1.0];
-    
-    [self.searchBarSuperView.layer setBorderColor:VIEWBORDERLINECOLOR.CGColor];
-    
-    [self.mailListView.layer setBorderWidth:1.0];
-    
-    [self.mailListView.layer setBorderColor:VIEWBORDERLINECOLOR.CGColor];
+ 
+    self.title = @"添加好友";
 }
 
-- (IBAction)mailListPushClick:(UIButton *)sender {
+#pragma ---
+#pragma mark --- UITableViewDataSource/UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    MailListViewController *mlvc = [[MailListViewController alloc] init];
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    [self.navigationController pushViewController:mlvc animated:YES];
+    return 2;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+        return [[[NSBundle mainBundle] loadNibNamed:@"SearchFriendsTableViewCell" owner:nil options:nil] lastObject];
+        
+    } else {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        cell.textLabel.text = @"通讯录好友";
+        
+        return cell;
+    }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        
+        SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
+        
+        controller.view.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        [self addChildViewController:controller];
+        
+        [self.view addSubview:controller.view];
+    
+    } else {
+        
+        MailListViewController *mlvc = [[MailListViewController alloc] init];
+        
+        [self.navigationController pushViewController:mlvc animated:YES];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
 @end

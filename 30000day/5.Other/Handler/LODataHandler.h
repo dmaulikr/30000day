@@ -42,21 +42,11 @@
                                 success:(void (^)(id responseObject))success
                                 failure:(void (^)(NSError *))failure;
 
-////***** 忘记密码 *****/
-//- (NSString *)postChangePasswordWithPassword:(NSString *)password
-//                            phoneNumber:(NSString *)phonenumber
-//                             verifyCode:(NSString *)verifycode
-//                                success:(void (^)(id responseObject))success
-//                                failure:(void (^)(LONetError *))failure;
-////***** 忘记密码 *****/
-//- (NSString *)getRecordCountIfSuccess:(void (^)(id responseObject))success
-//                                     failure:(void (^)(LONetError *))failure;
-
 //**** 获取好友 *****/
-- (NSString *)getMyFriendsWithPassword:(NSString *)password
+- (void)getMyFriendsWithPassword:(NSString *)password
                              loginName:(NSString *)loginName
-                                success:(void (^)(id responseObject))success
-                                failure:(void (^)(LONetError *))failure;
+                                success:(void (^)(NSMutableArray * dataArray))success
+                                failure:(void (^)(NSError *))failure;
 
 //***** 更新个人信息 *****/
 - (void )postUpdateProfileWithUserID:(NSString *)userID

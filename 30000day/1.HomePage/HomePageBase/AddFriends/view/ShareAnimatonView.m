@@ -9,8 +9,6 @@
 
 #import "ShareAnimatonView.h"
 
-
-
 @interface ShareAnimatonView () 
 
 @property (weak, nonatomic) IBOutlet UIButton *WeChatFriendsBtn;
@@ -101,7 +99,7 @@
     
     if (location.y < SCREEN_HEIGHT - SCREEN_WIDTH * 50 / 75) {//表示点击上面空白才会取消
         
-        [ShareAnimatonView annimationRemoveFromSuperView:self];
+        [ShareAnimatonView annimateRemoveFromSuperView:self];
         
     }
 }
@@ -112,34 +110,22 @@
     
     if (button.tag == 1) {
         
-        
     } else if (button.tag == 2) {
-        
-        
         
     } else if (button.tag == 3) {
         
-        
-        
     } else if (button.tag == 4) {
      
-        
-        
     } else if (button.tag == 5) {
-        
         
     } else if (button.tag == 6 ) {
         
-        
     } else if (button.tag == 7) {
-        
         
     } else if (button.tag == 8) {
         
-        
     } else if (button.tag == 9) {//取消按钮
-        
-        
+    
     }
     
     if (self.shareButtonBlock) {
@@ -148,7 +134,7 @@
     }
 }
 
-+ (void)annimationRemoveFromSuperView:(ShareAnimatonView *)animationview {
++ (void)annimateRemoveFromSuperView:(ShareAnimatonView *)animationview {
     
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
@@ -159,6 +145,22 @@
         [animationview removeFromSuperview];
         
     }];
+    
+}
+
++ (void)animateWindowsAddSubView:(ShareAnimatonView *)animationview {
+    
+    [animationview setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+    
+    [[[UIApplication sharedApplication].delegate window] addSubview:animationview];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT - SCREEN_WIDTH * 50/75, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+        
+    } completion:nil];
     
 }
 

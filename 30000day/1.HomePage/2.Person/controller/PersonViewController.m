@@ -34,15 +34,15 @@
 //获取我的好友
 - (void)getMyFriends {
     
-    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(id responseObject) {
+    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray * dataArray) {
         
-        _dataArray = (NSMutableArray *)responseObject;
+        _dataArray = dataArray;
         
         self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
         
         [self.tableView reloadData];
         
-    } failure:^(LONetError *error) {
+    } failure:^(NSError *error) {
         
     }];
 }
