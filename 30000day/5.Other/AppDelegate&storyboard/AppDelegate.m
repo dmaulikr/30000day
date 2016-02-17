@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "JHAPISDK.h"
+#import "JHOpenidSupplier.h"
 
 @import HealthKit;
 
@@ -20,10 +22,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     //***********************************配置获取健康信息*******************************//
     if ([HKHealthStore isHealthDataAvailable]) {
+        
         _healthStore1 = [[HKHealthStore alloc] init];
-        //NSSet *writeDataTypes = [self dataTypesToWrite];
+        
         NSSet *readDataTypes = [self dataTypesToRead];
         
         [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
@@ -35,6 +39,10 @@
         }];
         
     }
+    
+    //***********************************设置聚合SDK的APPID*******************************//
+    [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
+    
     return YES;
 }
 

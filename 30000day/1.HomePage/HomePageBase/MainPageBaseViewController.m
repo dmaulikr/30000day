@@ -8,12 +8,12 @@
 
 #import "MainPageBaseViewController.h"
 #import "SignInViewController.h"
-#import "MainPageViewController.h"
 #import "PersonViewController.h"
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"
+#import "MainViewController.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -42,8 +42,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configUI) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+   
+    [self configUI];
     
     self.tabBarController.tabBar.hidden = NO;
     
@@ -70,22 +70,6 @@
     
     self.tabBarController.tabBar.hidden = NO;
     
-    for (int i = 0;i < self.childViewControllers.count; i++) {
-        
-        UIViewController *viewController =  self.childViewControllers[i];
-        
-        [viewController removeFromParentViewController];
-        
-    }
-    
-    for (UIView *view in self.view.subviews) {
-        
-        if ([view isKindOfClass:[UIScrollView class]]) {
-            
-            [view removeFromSuperview];
-        }
-    }
-    
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
     
     _scrollView.delegate = self;
@@ -101,7 +85,7 @@
     [self.view addSubview:_scrollView];
     
     //设置子控制器
-    MainPageViewController *mainPageController = [[MainPageViewController alloc] init];
+    MainViewController *mainPageController = [[MainViewController alloc] init];
     
     PersonViewController   *personViewController = [[PersonViewController alloc] init];
     
@@ -176,11 +160,6 @@
 }
 
 - (void)createButton {
-    
-    //移除之前的titleView
-    self.navigationItem.titleView = nil;
-    
-    self.buttonParentView = nil;
     
     self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width , 44)];
     

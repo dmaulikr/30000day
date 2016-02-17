@@ -44,7 +44,7 @@
                 <outlet property="invitationButton" destination="KWa-fK-32s" id="HR9-r0-cSF"/>
                 <outlet property="titleLabel" destination="EKu-rJ-LIU" id="pKW-jm-XOr"/>
             </connections>
-            <point key="canvasLocation" x="401" y="245"/>
+            <point key="canvasLocation" x="324" y="225"/>
         </tableViewCell>
     </objects>
 </document>

@@ -15,6 +15,14 @@
 #import <AddressBook/AddressBook.h>
 #import "AddressBookModel.h"
 #import "ChineseString.h"
+#import "WeatherInformationModel.h"
+
+//定位头文件
+#import <CoreLocation/CoreLocation.h>
+
+//聚合头文件
+#import "JHAPISDK.h"
+#import "JHOpenidSupplier.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -36,9 +44,15 @@
 @end
 
 
-@interface LODataHandler ()
+@interface LODataHandler () <CLLocationManagerDelegate>
 
-@property (nonatomic ,copy) void (^(addressBookBlock))(NSMutableArray *,NSMutableArray *,NSMutableArray *);
+@property (nonatomic ,copy) void (^(addressBookBlock))(NSMutableArray *,NSMutableArray *,NSMutableArray *);//获取电话簿的回调代码块
+
+@property (nonatomic,strong)CLLocationManager *locationManager;
+
+@property (nonatomic,copy) void (^(getLocationBlock))(NSString *);//获取地理位置和城市名称的回调代码块
+
+@property (nonatomic,copy) void (^(getLocationErrorBlock))(NSError *);//获取地理位置和城市名称出错回调代码块
 
 @end
 
@@ -671,10 +685,256 @@
         NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
         
         self.addressBookBlock(array,sortArray,indexArray);
-        
-        
+    
     });
 }
+
+
+//***************开始定位操作********************/
+- (void)startFindLocationSucess:(void (^)(NSString *))sucess
+                        failure:(void (^)(NSError *))failure {
+    
+    
+    self.getLocationBlock = sucess;
+    
+    self.getLocationErrorBlock = failure;
+    
+    // 判断定位操作是否被允许
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        self.locationManager = [[CLLocationManager alloc] init] ;
+        
+        self.locationManager.delegate = self;
+        
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        _locationManager.distanceFilter = 100;
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            
+            [_locationManager requestWhenInUseAuthorization];
+            
+        }
+        
+    } else {
+        
+        //提示用户无法进行定位操作  Product
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示"
+                                                           message:@"开启定位功能可查看天气噢！"
+                                                          delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView show];
+        
+        return;
+    }
+
+    //开始定位
+    [_locationManager startUpdatingLocation];
+}
+
+#pragma ---
+#pragma mark --- CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
+    //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation
+    
+    //如果调用已经一次，不再执行
+    CLLocation *currentLocation = [locations lastObject];
+    
+    // 获取当前所在的城市名
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    //根据经纬度反向地理编译出地址信息
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *array, NSError *error){
+        
+        if (array.count > 0){
+            
+            CLPlacemark *placemark = [array objectAtIndex:0];
+            
+            //将获得的所有信息显示到label上
+            NSString *city = placemark.locality;
+            
+            if (!city) {
+                
+                //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
+                city = placemark.administrativeArea;
+                
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                if (![Common isObjectNull:city]) {
+                    
+                    self.getLocationBlock(city);//回调
+                    
+                    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
+                    [manager stopUpdatingLocation];
+                }
+            });
+            
+        } else if (error == nil && [array count] == 0) {
+            
+           NSError *newError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
+            
+            self.getLocationErrorBlock(newError);
+            
+        } else if (error != nil) {
+        
+            self.getLocationErrorBlock(error);
+        }
+
+    }];
+    
+}
+
+
+//*****************获取天气情况(代码块返回的是天气模型)***********/
+- (void)getWeatherInformation:(NSString *)cityName
+                       sucess:(void (^)(WeatherInformationModel *))sucess
+                      failure:(void (^)(NSError *))failure {
+    
+    if (cityName != nil) {
+        
+        NSDictionary *param = @{ @"cityname" : cityName};
+        
+        JHAPISDK *jhapi = [JHAPISDK shareJHAPISDK];
+        
+        [jhapi executeWorkWithAPI:jhPath
+                            APIID:jhAppID
+                       Parameters:param
+                           Method:jhMethod
+                          Success:^(id responseObject) {
+                              
+                              if ([[responseObject valueForKey:@"result"] isKindOfClass:[NSNull class]]) return;
+                              
+                              NSString *getCityName = [[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"realtime"] valueForKey:@"city_name"];
+                              
+                              NSString *img = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"realtime"] valueForKey:@"weather"] valueForKey:@"img"];
+                              
+                              if (![img isKindOfClass:[NSNull class]]) {
+                                  
+                                  if ([img intValue] < 10) {
+                                      
+                                      img = [NSString stringWithFormat:@"0%@",img];
+                                  }
+                              }
+                              
+                              NSString *maxTem = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"weather"][0] valueForKey:@"info"] valueForKey:@"day"][2];
+                              
+                              NSString *minTem = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"weather"][0] valueForKey:@"info"] valueForKey:@"night"][2];
+                              
+//                              NSString *pm25 = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"pm25"] valueForKey:@"pm25"] valueForKey:@"curPm"];
+                              
+                              NSString *pm25Index = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"pm25"] valueForKey:@"pm25"] valueForKey:@"quality"];
+                              
+                              WeatherInformationModel *informationModel = [[WeatherInformationModel alloc] init];
+                              
+                              informationModel.cityName = getCityName;
+                              
+                              informationModel.temperatureString = [NSString stringWithFormat:@"%@ ~ %@ ℃",maxTem,minTem];
+                              
+                              informationModel.pm25Quality = pm25Index;
+                              
+                              informationModel.weatherShowImageString = [NSString stringWithFormat:@"%@.png",img];
+
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                 
+                                  sucess(informationModel);
+                                  
+                              });
+                          }
+         
+                          Failure:^(NSError *error) {
+                              
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  
+                                  failure(error);
+                                  
+                              });
+                              
+                          }];
+    }
+}
+
+//**********获取用户的天龄**********************/
+- (void)getUserLifeStateUserID:(NSString *)userID
+                      Password:(NSString *)password
+                     loginName:(NSString *)loginName
+                       success:(void (^)(NSMutableArray *,NSMutableArray*))success
+                       failure:(void (^)(NSError *))failure {
+    
+    NSString *URLString = @"http://116.254.206.7:12580/M/API/GetLatestUserLifeStat?";
+    
+    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    
+    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&howManyDays=%d&userID=%d",loginName,password,7,userID.intValue];
+    
+    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setURL:URL];
+    
+    [request setHTTPBody:postData];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+       
+        NSError *localError = nil;
+        
+        NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+        
+        if (localError != nil) {
+            
+            failure(localError);
+        }
+        
+        NSMutableArray *allDayArray = [NSMutableArray array];
+        
+        NSMutableArray *dayNumberArray = [NSMutableArray array];
+        
+        for (int i = 0; i< array.count; i++) {
+            
+            [allDayArray addObject:array[i][@"TotalLife"]];
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+            
+            NSDate *da = [formatter dateFromString:array[i][@"CreateDate"]];
+            
+            NSDateFormatter *f = [[NSDateFormatter alloc] init];
+            
+            [f setDateFormat:@"dd"];
+            
+            NSString *stringday = [NSString stringWithFormat:@"%@",[f stringFromDate:da]];
+            
+            [dayNumberArray addObject:stringday];
+            
+        }
+        
+        if (dayNumberArray.count == 1) {
+            
+            [dayNumberArray addObject:dayNumberArray[0]];
+            
+            [allDayArray addObject:allDayArray[0]];
+        }
+        
+        dayNumberArray = (NSMutableArray *)[[dayNumberArray reverseObjectEnumerator] allObjects];//倒序
+        
+        allDayArray = (NSMutableArray*)[[allDayArray reverseObjectEnumerator] allObjects];//倒序
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            success(allDayArray,dayNumberArray);
+            
+        });
+        
+    }];
+    
+}
+
+
 
 
 @end

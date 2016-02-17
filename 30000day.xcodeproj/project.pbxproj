@@ -18,6 +18,15 @@
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
+		B8695AA71C7479C9001B4B95 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */; };
+		B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */; };
+		B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */; };
+		B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */; };
+		B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAF1C748150001B4B95 /* ChartTableViewCell.m */; };
+		B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AB01C748150001B4B95 /* ChartTableViewCell.xib */; };
+		B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AB71C74949A001B4B95 /* MainViewController.m */; };
+		B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AB81C74949A001B4B95 /* MainViewController.xib */; };
+		B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
@@ -87,8 +96,6 @@
 		B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8F31C5B3C9F002C7712 /* ZHPickView.m */; };
 		B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8F61C5B3D30002C7712 /* ZYQAssetPicker.Bundle */; };
 		B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8F81C5B3D30002C7712 /* ZYQAssetPickerController.m */; };
-		B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */; };
-		B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */; };
 		B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */; };
 		B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */; };
 		B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9191C5B5F3C002C7712 /* MessageViewController.m */; };
@@ -191,6 +198,20 @@
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
+		B8695AA41C7479C9001B4B95 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
+		B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
+		B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
+		B8695AA91C747DAC001B4B95 /* ActivityIndicatorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorTableViewCell.h; sourceTree = "<group>"; };
+		B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorTableViewCell.m; sourceTree = "<group>"; };
+		B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorTableViewCell.xib; sourceTree = "<group>"; };
+		B8695AAE1C748150001B4B95 /* ChartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTableViewCell.h; sourceTree = "<group>"; };
+		B8695AAF1C748150001B4B95 /* ChartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTableViewCell.m; sourceTree = "<group>"; };
+		B8695AB01C748150001B4B95 /* ChartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartTableViewCell.xib; sourceTree = "<group>"; };
+		B8695AB61C74949A001B4B95 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B8695AB71C74949A001B4B95 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B8695AB81C74949A001B4B95 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		B8695ABB1C74A6E8001B4B95 /* WeatherInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherInformationModel.h; sourceTree = "<group>"; };
+		B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherInformationModel.m; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -310,9 +331,6 @@
 		B8F2D8F61C5B3D30002C7712 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
 		B8F2D8F71C5B3D30002C7712 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYQAssetPickerController.h; sourceTree = "<group>"; };
 		B8F2D8F81C5B3D30002C7712 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYQAssetPickerController.m; sourceTree = "<group>"; };
-		B8F2D90E1C5B5BDB002C7712 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
-		B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
-		B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageViewController.xib; sourceTree = "<group>"; };
 		B8F2D9131C5B5DA1002C7712 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
 		B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
 		B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonViewController.xib; sourceTree = "<group>"; };
@@ -694,9 +712,9 @@
 		B88C91701C5A07320089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D90E1C5B5BDB002C7712 /* MainPageViewController.h */,
-				B8F2D90F1C5B5BDB002C7712 /* MainPageViewController.m */,
-				B8F2D9101C5B5BDB002C7712 /* MainPageViewController.xib */,
+				B8695AB61C74949A001B4B95 /* MainViewController.h */,
+				B8695AB71C74949A001B4B95 /* MainViewController.m */,
+				B8695AB81C74949A001B4B95 /* MainViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -704,6 +722,15 @@
 		B88C91731C5A07320089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8695AA41C7479C9001B4B95 /* WeatherTableViewCell.h */,
+				B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */,
+				B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */,
+				B8695AA91C747DAC001B4B95 /* ActivityIndicatorTableViewCell.h */,
+				B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */,
+				B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */,
+				B8695AAE1C748150001B4B95 /* ChartTableViewCell.h */,
+				B8695AAF1C748150001B4B95 /* ChartTableViewCell.m */,
+				B8695AB01C748150001B4B95 /* ChartTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1177,6 +1204,8 @@
 		B8F2D9531C5C46F8002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B8695ABB1C74A6E8001B4B95 /* WeatherInformationModel.h */,
+				B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1458,11 +1487,13 @@
 				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
+				B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
+				B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */,
 				B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
-				B8F2D9121C5B5BDB002C7712 /* MainPageViewController.xib in Resources */,
 				B8F2DA661C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist in Resources */,
+				B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
@@ -1475,6 +1506,7 @@
 				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
+				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
@@ -1574,6 +1606,7 @@
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
+				B8695AA71C7479C9001B4B95 /* WeatherTableViewCell.m in Sources */,
 				B8F2DA421C5F3D04002C7712 /* FindPasswordViewController.m in Sources */,
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
@@ -1591,6 +1624,8 @@
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
+				B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */,
+				B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
@@ -1600,6 +1635,7 @@
 				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
+				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,
@@ -1642,6 +1678,7 @@
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
 				B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */,
 				B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */,
+				B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */,
 				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */,
@@ -1650,7 +1687,6 @@
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
-				B8F2D9111C5B5BDB002C7712 /* MainPageViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,

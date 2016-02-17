@@ -79,6 +79,8 @@
 	
 	// Register the progress label for changes in the thickness so that it can be repositioned.
 	[self addObserver:self.label forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
+    
+    self.label.hidden = YES;
 }
 
 #pragma mark - Setters

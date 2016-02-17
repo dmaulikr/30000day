@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="130" id="KGk-i7-Jjw" customClass="ActivityIndicatorTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前您已经击败9999个用户!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAm-ci-nK9">
+                        <rect key="frame" x="45" y="100" width="230" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zk-SB-zfl" customClass="MDRadialProgressView">
+                        <rect key="frame" x="96" y="-7" width="128" height="128"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdp-yn-4zJ">
+                                <rect key="frame" x="40" y="72" width="49" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.38823529411764707" green="0.55294117647058827" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daL-GT-LmA">
+                                <rect key="frame" x="40" y="43" width="49" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.38823529411764707" green="0.55294117647058827" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Sdp-yn-4zJ" firstAttribute="top" secondItem="daL-GT-LmA" secondAttribute="bottom" constant="5" id="KFp-pe-u4M"/>
+                            <constraint firstItem="Sdp-yn-4zJ" firstAttribute="centerX" secondItem="1zk-SB-zfl" secondAttribute="centerX" id="bvz-wy-a7g"/>
+                            <constraint firstItem="daL-GT-LmA" firstAttribute="centerY" secondItem="1zk-SB-zfl" secondAttribute="centerY" multiplier="0.85" id="cbt-AQ-ose"/>
+                            <constraint firstAttribute="width" secondItem="1zk-SB-zfl" secondAttribute="height" multiplier="1:1" id="ggI-pr-W9T"/>
+                            <constraint firstItem="daL-GT-LmA" firstAttribute="centerX" secondItem="1zk-SB-zfl" secondAttribute="centerX" id="nbf-Re-dXx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="1zk-SB-zfl" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="6aV-Iq-l0N"/>
+                    <constraint firstItem="RAm-ci-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="103:60" id="D5D-Rm-Prq"/>
+                    <constraint firstItem="RAm-ci-nK9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="V7K-pq-Lyd"/>
+                    <constraint firstItem="1zk-SB-zfl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="52:60" constant="1" id="nNR-PF-pDm"/>
+                    <constraint firstItem="1zk-SB-zfl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="og3-tO-NSA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="indicatiorView" destination="1zk-SB-zfl" id="W8T-Gf-xMD"/>
+                <outlet property="label_1" destination="daL-GT-LmA" id="go1-Ub-B0u"/>
+                <outlet property="label_2" destination="Sdp-yn-4zJ" id="GCh-OH-NlZ"/>
+            </connections>
+            <point key="canvasLocation" x="263" y="312"/>
+        </tableViewCell>
+    </objects>
+</document>
