@@ -53,13 +53,12 @@
 		B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216D81C634E650023F8A8 /* AddFriendsViewController.m */; };
 		B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */; };
 		B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DB1C634E650023F8A8 /* MailListViewController.m */; };
-		B89216EA1C634E650023F8A8 /* MailListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216DC1C634E650023F8A8 /* MailListViewController.xib */; };
 		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
 		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
-		B8D67A011C72BFB000805EE2 /* AddressAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A001C72BFB000805EE2 /* AddressAnimationView.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A0B1C7327D700805EE2 /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */; };
+		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* UserInfoViewController.m */; };
@@ -252,17 +251,16 @@
 		B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsViewController.xib; sourceTree = "<group>"; };
 		B89216DA1C634E650023F8A8 /* MailListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListViewController.h; sourceTree = "<group>"; };
 		B89216DB1C634E650023F8A8 /* MailListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListViewController.m; sourceTree = "<group>"; };
-		B89216DC1C634E650023F8A8 /* MailListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListViewController.xib; sourceTree = "<group>"; };
 		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
-		B8D679FF1C72BFB000805EE2 /* AddressAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressAnimationView.h; sourceTree = "<group>"; };
-		B8D67A001C72BFB000805EE2 /* AddressAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressAnimationView.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
 		B8D67A091C7327D700805EE2 /* UIView+viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+viewController.h"; sourceTree = "<group>"; };
 		B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+viewController.m"; sourceTree = "<group>"; };
+		B8D67A0F1C73356400805EE2 /* AddressBookBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookBaseViewController.h; sourceTree = "<group>"; };
+		B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookBaseViewController.m; sourceTree = "<group>"; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
 		B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myViewCell.xib; sourceTree = "<group>"; };
@@ -951,7 +949,8 @@
 				B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */,
 				B89216DA1C634E650023F8A8 /* MailListViewController.h */,
 				B89216DB1C634E650023F8A8 /* MailListViewController.m */,
-				B89216DC1C634E650023F8A8 /* MailListViewController.xib */,
+				B8D67A0F1C73356400805EE2 /* AddressBookBaseViewController.h */,
+				B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -971,8 +970,6 @@
 				B89216E41C634E650023F8A8 /* MailListTableViewCell.h */,
 				B89216E51C634E650023F8A8 /* MailListTableViewCell.m */,
 				B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */,
-				B8D679FF1C72BFB000805EE2 /* AddressAnimationView.h */,
-				B8D67A001C72BFB000805EE2 /* AddressAnimationView.m */,
 				B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */,
 				B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */,
 				B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */,
@@ -1435,7 +1432,6 @@
 				B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
 				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
-				B89216EA1C634E650023F8A8 /* MailListViewController.xib in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
 				B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */,
@@ -1558,6 +1554,7 @@
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
 				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
+				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
@@ -1573,7 +1570,6 @@
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
 				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
-				B8D67A011C72BFB000805EE2 /* AddressAnimationView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,

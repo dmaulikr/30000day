@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddressAnimationView.h"
 
 @interface ShareAnimatonView : UIView
 
 @property (weak, nonatomic) IBOutlet UIView *backgroudView;
 
-@property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger tag);
+@property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger ,ShareAnimatonView *);
+
+//类方法，动画般的把ShareAnimatonView从父视图上移除
++ (void)annimationRemoveFromSuperView:(ShareAnimatonView *)animationview;
 
 @end

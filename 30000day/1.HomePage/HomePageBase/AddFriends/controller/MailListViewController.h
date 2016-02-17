@@ -7,7 +7,8 @@
 //
 
 #import "STBaseViewController.h"
+#import "AddressBookBaseViewController.h"
 
-@interface MailListViewController : ShowBackItemViewController 
+@interface MailListViewController : AddressBookBaseViewController
 
 @end

@@ -7,68 +7,390 @@
 //
 
 #import "MailListViewController.h"
-#import "AddressAnimationView.h"
+#import "MailListTableViewCell.h"
+#import "ChineseString.h"
+#import "ShareAnimatonView.h"
+#import <MessageUI/MessageUI.h>
 
-@interface MailListViewController () <AddressAnimationViewDelegate>
+@interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate>
+
+@property (nonatomic,assign) BOOL isSearch;
+
+@property (nonatomic ,strong) NSMutableArray *indexArray;//里面装的NSSting(A,B,C,D.......)
+
+@property (nonatomic ,strong) NSMutableArray *chineseStringArray;//该数组里面装的是chineseString这个模型
+@property (nonatomic ,strong) NSMutableArray *cellArray;//存储的MailListTableViewCell
+
+@property (nonatomic ,strong) NSMutableArray *searchResultArray;//存储的是搜索后的MailListTableViewCell
 
 @end
 
 @implementation MailListViewController
 
+@synthesize searchResultArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"所有联系人";
     
-    //1.初始化电话簿动画View
-    AddressAnimationView *animationView = [[AddressAnimationView alloc] init];
+    self.isSearch = NO;
     
-    [animationView setFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];    
+    self.tableView.delegate = self;
     
-    animationView.delegate = self;
+    self.tableView.dataSource = self;
     
-    [self.view addSubview:animationView];
-    
-    //2.下载通信录好友
+    //1.下载通信录好友
     [self.dataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
-        animationView.indexArray = [NSMutableArray arrayWithArray:indexArray];
+        self.cellArray = [NSMutableArray array];
         
-        animationView.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
+        self.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
         
-        [animationView reloadData];
+        self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+        
+        for (int i = 0 ; i < chineseStringArray.count ; i++) {
+            
+            NSMutableArray *subDataArray = chineseStringArray[i];
+            
+            NSMutableArray *subArray = [NSMutableArray array];
+            
+            for (int j = 0; j < subDataArray.count; j++) {
+                
+                ChineseString *chineseString = subDataArray[j];
+                
+                MailListTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
+                
+                cell.titleLabel.text = chineseString.string;
+                
+                [subArray addObject:cell];
+            }
+            
+            [self.cellArray addObject:subArray];
+        }
+        
+        [self.tableView reloadData];
         
     }];
+    
+}
+
+- (void)searchBarDidBeginRestore {
+    
+    [super searchBarDidBeginRestore];
+    
+     self.isSearch = NO;
+    
+    [self.tableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    [super searchBar:searchBar textDidChange:searchText];
+    
+    self.isSearch = [searchText isEqualToString:@""] ? NO : YES;
+    
+    //开始搜索
+    self.searchResultArray = [NSMutableArray array];
+    
+    for (int i = 0; i < self.chineseStringArray.count; i++ ) {
+        
+        NSMutableArray *dataArray = self.chineseStringArray[i];
+        
+        for (int j = 0; j < dataArray.count; j++ ) {
+            
+            ChineseString *chineseString = dataArray[j];
+            
+            if ([chineseString.string containsString:searchText]) {
+                
+                [self.searchResultArray addObject:chineseString];
+            }
+            
+        }
+        
+    }
+    
+    [self.tableView reloadData];
+    
 }
 
 #pragma ---
-#pragma mark --- AddressAnimationViewDelegate
+#pragma mark --- UITableViewDelegate/UITableViewDataSource
 
-- (void)addressAnimationViewBeginSearch:(AddressAnimationView *)addressAnimationView {
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if (!self.isSearch) {
+        
+        return self.indexArray;
+    }
     
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        addressAnimationView.frame = CGRectMake(0, 22, SCREEN_WIDTH, SCREEN_HEIGHT - 22);
-        
-    } completion:^(BOOL finished) {
-        
-    }];
+    return [NSMutableArray array];
 }
 
-- (void)addressAnimationViewcancelAction:(AddressAnimationView *)addressAnimationView {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    if (!self.isSearch) {
         
-        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        NSString *key = [self.indexArray objectAtIndex:section];
         
-        addressAnimationView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+        return key;
+    }
+    
+    return @"";
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (self.isSearch) {
         
-    } completion:^(BOOL finished) {
+        return 1;
+        
+    } else {
+        
+        return self.cellArray.count;
+    }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (self.isSearch) {
+        
+        return self.searchResultArray.count;
+        
+    }  else {
+        
+        NSMutableArray *array = self.cellArray[section];
+        
+        return array.count;
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (self.isSearch) {
+        
+        return 0;
+        
+    } else {
+        
+        return 30;
+    }
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    
+    view.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH, 20)];
+    
+    label.text = [self.indexArray objectAtIndex:section];
+    
+    label.textColor = [UIColor darkGrayColor];
+    
+    [view addSubview:label];
+    
+    return view;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    
+    return index;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.isSearch) {
+        
+        MailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MailListTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
+        }
+        
+        ChineseString *chineseString = self.searchResultArray[indexPath.row];
+        
+        cell.titleLabel.text = chineseString.string;
+        
+        //按钮点击回调
+        [cell setInvitationButtonBlock:^{
+            
+            [self.view endEditing:YES];
+            
+            //显示分享界面
+            [self showShareAnimatonView:indexPath];
+            
+        }];
+        
+        return cell;
+        
+    } else {
+        
+        NSMutableArray *array = self.cellArray[indexPath.section];
+        
+        MailListTableViewCell *cell = array[indexPath.row];
+        
+        //按钮点击回调
+        [cell setInvitationButtonBlock:^{
+            
+            [self.view endEditing:YES];
+            
+            //显示分享界面
+            [self showShareAnimatonView:indexPath];
+            
+        }];
+        
+        return cell;
+    }
+}
+
+//显示分享界面
+- (void)showShareAnimatonView:(NSIndexPath *)indexPath {
+    
+    ShareAnimatonView *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"ShareAnimatonView" owner:self options:nil] lastObject];
+    
+    [shareAnimationView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    shareAnimationView.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+    
+    //按钮点击回调
+    [shareAnimationView setShareButtonBlock:^(NSInteger tag,ShareAnimatonView *animationView) {
+        
+        [ShareAnimatonView annimationRemoveFromSuperView:animationView];
+        
+        if (tag == 7) {//发送短信
+            
+            if ([MFMessageComposeViewController canSendText] ) {
+
+                //调用短信接口
+                MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
+                
+                picker.messageComposeDelegate = self;
+                
+                ChineseString *chineseSting = ((NSMutableArray *)self.chineseStringArray[indexPath.section])[indexPath.row];
+                
+                picker.recipients = [NSArray arrayWithObject:chineseSting.phoneNumber];
+                
+                picker.body = @"我们正在玩30000day,你也来玩吧http://www.baidu.com(别激动测试下短信分享)";
+                
+                if (picker) {
+                    
+                    [self presentViewController:picker animated:YES completion:nil];
+                }
+                
+            } else {
+                
+                [self showToast:@"该设备不支持短信功能"];
+                
+            }
+            
+        } else if (tag == 6) {//发送邮件
+            
+            if ([MFMailComposeViewController canSendMail]) {
+                
+                MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+                
+                controller.mailComposeDelegate = self;
+                
+                [controller setSubject:@"My Subject"];
+                
+                [controller setMessageBody:@"我们正在玩30000day，你也来玩吧" isHTML:NO];
+                
+                if (controller) {
+                    
+                    [self presentViewController:controller animated:YES completion:nil];
+                }
+                
+            } else {
+                
+                [self showToast:@"该设备没有设置邮箱账号"];
+            }
+            
+        }
         
     }];
+    
+    [[[UIApplication sharedApplication].delegate window] addSubview:shareAnimationView];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        shareAnimationView.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT - SCREEN_WIDTH * 50/75, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+        
+    } completion:nil];
+}
+
+#pragma mark ---- MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    
+    [controller dismissViewControllerAnimated:NO completion:nil];
+    
+    switch ( result ) {
+            
+        case MessageComposeResultCancelled:
+        {
+            [controller dismissViewControllerAnimated:YES completion:nil];
+        }
+            break;
+            
+        case MessageComposeResultFailed:// send failed
+            
+            [self showToast:@"短信发送失败"];
+            
+            [controller dismissViewControllerAnimated:YES completion:nil];
+            
+            break;
+            
+        case MessageComposeResultSent:
+        {
+            [self showToast:@"短信发送成功"];
+            
+            [controller dismissViewControllerAnimated:YES completion:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark ---- MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error;
+{
+    [controller dismissViewControllerAnimated:NO completion:nil];
+    
+    if (result == MFMailComposeResultSent) {
+        
+        [self showToast:@"邮件发送成功"];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else if (result == MFMailComposeResultCancelled) {
+        
+         [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else if (result == MFMailComposeResultFailed) {
+        
+        [self showToast:@"邮件发送失败"];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else if (result == MFMailComposeResultSaved) {
+        
+        [self showToast:@"邮件已经保存"];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 @end

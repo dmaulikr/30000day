@@ -91,6 +91,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 
     [self addGestureRecognizer:tap];
+    
+    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap {
@@ -99,7 +101,7 @@
     
     if (location.y < SCREEN_HEIGHT - SCREEN_WIDTH * 50 / 75) {//表示点击上面空白才会取消
         
-        [self removeFromSuperview];
+        [ShareAnimatonView annimationRemoveFromSuperView:self];
         
     }
 }
@@ -142,12 +144,22 @@
     
     if (self.shareButtonBlock) {
         
-        [self removeFromSuperview];
-        
-        self.shareButtonBlock(button.tag);
+        self.shareButtonBlock(button.tag,self);
     }
 }
 
-
++ (void)annimationRemoveFromSuperView:(ShareAnimatonView *)animationview {
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH,SCREEN_WIDTH * 50/75);
+        
+    } completion:^(BOOL finished) {
+        
+        [animationview removeFromSuperview];
+        
+    }];
+    
+}
 
 @end
