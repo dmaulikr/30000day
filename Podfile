@@ -1,12 +1,8 @@
 platform:ios, '7.0'
 
 pod 'AFNetworking', '~> 2.6.3'
-pod 'YYModel'
 pod 'SDWebImage'
 pod 'pop'
 pod 'MJRefresh'
-pod 'JSONModel'
 pod 'MBProgressHUD'
-pod 'YYText'
 pod 'FMDB'
-pod 'skpsmtpmessage'

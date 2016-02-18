@@ -30,6 +30,6 @@
 + (void)getYearArrayMonthArrayDayArray:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler;
 
 //获取现在的时间字符串:比如2016-12-12
-+ (NSString *)getCurrentDate;
++ (NSString *)getCurrentDateString;
 
 @end

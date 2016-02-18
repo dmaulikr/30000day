@@ -31,6 +31,8 @@
 
 @protocol QGPickerViewDelegate <NSObject>
 
+@optional
+
 /**
  * QGPicerkview代理回调方法
  * @param pickView 本视图
@@ -39,8 +41,6 @@
  * @param valueIndex value处在之前初始化的数组中的位置[这个数组是之前一一对应的]
  */
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex;
-
-@optional
 
 - (void)didCancelWithQGPickerView:(QGPickerView *)pickView;
 

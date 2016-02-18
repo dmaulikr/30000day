@@ -23,36 +23,27 @@ PODS:
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
-  - JSONModel (1.2.0)
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.0)
   - pop (1.0.8)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - YYModel (0.9.12)
-  - YYText (0.9.19)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
   - FMDB
-  - JSONModel
   - MBProgressHUD
   - MJRefresh
   - pop
   - SDWebImage
-  - YYModel
-  - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
-  JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  YYModel: 33a27f41a995f4c36ff8178421bac9f221a9c7ea
-  YYText: b823b71b99b526c4a81029ecb59f3d8172ed5c9a
 
 COCOAPODS: 0.39.0

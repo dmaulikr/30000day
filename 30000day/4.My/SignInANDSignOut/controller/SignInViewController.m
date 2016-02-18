@@ -14,10 +14,6 @@
 #import "InputAccountViewController.h"
 #import "UserProfile.h"
 
-#define HCUSERINFO @"userinfo"
-
-@import HealthKit;
-
 @interface SignInViewController () {
     
     CGFloat textH;
@@ -25,8 +21,6 @@
 }
 
 @property (nonatomic, copy) NSString *cityName;
-
-@property (nonatomic) HKHealthStore *healthStore1;
 
 @property (nonatomic, copy) NSString *str;
 
@@ -141,14 +135,6 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]];
     
     self.navigationItem.leftBarButtonItem = backItem;
-    
-    if ([Common readAppDataForKey:KEY_SIGNIN_USER_NAME] && [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]) {
-        
-        _userNameTF.text = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
-        
-        _userPwdTF.text  = [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
-        
-    }
 }
 
 #pragma mark - 找回密码
@@ -162,21 +148,47 @@
 #pragma mark - 登录
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
-    //登录接口，同时也会设置UseInfo
+    [self beginSignIn];
+}
+
+//开始登录
+- (void)beginSignIn {
+    
+    if ([Common isObjectNull:_userNameTF.text]) {
+        
+        [self showToast:@"请完善账号"];
+        
+        return;
+    }
+    
+    if ([Common isObjectNull:_userPwdTF.text]) {
+        
+        [self showToast:@"请完善密码"];
+        
+        return;
+    }
+    
+    [self showHUDWithContent:@"正在登录" animated:YES];
+    
+    [self.view endEditing:YES];
+    
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
-                                 loginName:_userNameTF.text
+                                   loginName:_userNameTF.text
                                      success:^(BOOL success) {
                                          
-                                     [self dismissViewControllerAnimated:YES completion:nil];
+                                         [self dismissViewControllerAnimated:YES completion:nil];
                                          
-    } failure:^(LONetError *error) {
-        
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败，请确认用户名或密码是否正确" message:[error.error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        
-        [alert show];
-        
-    }];
+                                         [self hideHUD:YES];
+                                         
+                                     } failure:^(LONetError *error) {
+                                         
+                                         [self hideHUD:YES];
+                                         
+                                         [self showToast:@"登录失败，请重新登录"];
+                                         
+                                     }];
 }
+
 
 #pragma mark - 账号密码历史记录tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -222,7 +234,7 @@
     return cell;
 }
 
-- (void)deletebt:(UIButton*)sender {
+- (void)deletebt:(UIButton *)sender {
     
     [_userlognamepwd removeObjectAtIndex:sender.tag];
     
@@ -242,7 +254,7 @@
     
     NSDictionary *dic = _userlognamepwd[indexPath.row];
     
-    NSString *log=[dic objectForKey:KEY_SIGNIN_USER_NAME];
+    NSString *log = [dic objectForKey:KEY_SIGNIN_USER_NAME];
     
     NSString *pass = [dic objectForKey:KEY_SIGNIN_USER_PASSWORD];
     
@@ -295,16 +307,26 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
-    [textField resignFirstResponder];
+    if (textField == self.userNameTF) {
+        
+        [self.userNameTF resignFirstResponder];
+        
+        [self.userPwdTF becomeFirstResponder];
+        
+    } else {
+        
+        [self.view endEditing:YES];
+        
+        //开始登录
+        [self beginSignIn];
+    }
     
     return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    [self.userNameTF resignFirstResponder];
-    
-    [self.userPwdTF resignFirstResponder];
+    [self.view endEditing:YES];
     
 }
 

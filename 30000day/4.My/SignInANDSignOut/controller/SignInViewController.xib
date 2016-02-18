@@ -57,7 +57,7 @@
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="flb-5h-AAk"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="next"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="ExB-8t-U7f"/>
                             </connections>

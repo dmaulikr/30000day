@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
-        
+    
 }
 
 - (void)didReceiveMemoryWarning {

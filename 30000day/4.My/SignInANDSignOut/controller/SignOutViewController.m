@@ -90,7 +90,7 @@
     //3.赋值
     [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
         
-        NSArray *dateArray = [[Common getCurrentDate] componentsSeparatedByString:@"-"];
+        NSArray *dateArray = [[Common getCurrentDateString] componentsSeparatedByString:@"-"];
         
         NSString *monthStr = dateArray[1];
         
@@ -114,6 +114,7 @@
             dayStr = [NSString stringWithFormat:@"%@日",dayStr];
         }
         
+        //显示QGPickerView
         [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
         
     }];
