@@ -9,7 +9,6 @@
 
 #import "MyTableViewController.h"
 #import "myViewCell.h"
-#import "UIImageView+WebCache.h"
 #import "userInfoViewController.h"
 #import "SignInViewController.h"
 #import "SecurityViewController.h"
@@ -20,8 +19,6 @@
 
 @interface MyTableViewController ()
 
-@property (nonatomic,strong) UserProfile *userProfile;
-
 @end
 
 @implementation MyTableViewController
@@ -30,17 +27,11 @@
     
     [super viewDidLoad];
     
-    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
-    
-    self.tabBarController.tabBar.hidden = NO;
-    
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)reloadData:(NSNotification *)notification {
-    
-    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
     [self.tableView reloadData];
 }
@@ -142,7 +133,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"UserHeadViewTableViewCell" owner:self options:nil] lastObject];
         }
         
-        cell.userProfile = self.userProfile;
+        cell.userProfile = STUserAccountHandler.userProfile;
         
         return cell;
         
@@ -257,7 +248,7 @@
             [self.navigationController pushViewController:suc animated:YES];
         }
         
-    } else if (indexPath.section==4) {
+    } else if (indexPath.section == 4) {
         
         [self CancellationClick];
     }
@@ -271,9 +262,13 @@
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        //登出
-        [[UserAccountHandler shareUserAccountHandler] logout];
+        //***********退出登录  *****/
+        [Common removeAppDataForKey:KEY_SIGNIN_USER_UID];
         
+        [Common removeAppDataForKey:KEY_SIGNIN_USER_NAME];
+        
+        [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
+
          SignInViewController *logview = [[SignInViewController alloc] init];
         
          STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];

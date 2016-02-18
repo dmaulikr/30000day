@@ -106,81 +106,34 @@
                                success:(void (^)(NSString *responseObject))success
                                failure:(void (^)(NSString *error))failure {
     
-        NSString * url = @"http://116.254.206.7:12580/M/API/SendCode?";
+//        NSString * url = @"http://116.254.206.7:12580/M/API/SendCode?";
+//    
+//        url = [url stringByAppendingString:@"&phoneNumber="];
+//    
+//        url = [url stringByAppendingString:phoneNumber];
+//    
+//        NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
+//    
+//        NSError *error;
+//    
+//        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
+//    
+//        if ([jsonStr isEqualToString:@"1"]){
+//    
+//            success(jsonStr);
+//            
+//        } else {
+//            
+//            failure(jsonStr);
+//        }
     
-        url = [url stringByAppendingString:@"&phoneNumber="];
-    
-        url = [url stringByAppendingString:phoneNumber];
-    
-        NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
-    
-        NSError *error;
-    
-        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-    
-        if ([jsonStr isEqualToString:@"1"]){
-    
-            success(jsonStr);
-            
-        } else {
-            
-            failure(jsonStr);
-        }    
-}
-
-//*********** 核对短信验证码是否正确 ********/
-- (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
-                             smsCode:(NSString *)smsCode
-                             success:(void (^)(BOOL))success
-                             failure:(void (^)(NSError *))failure {
-    
-    NSString *urlString = @"http://116.254.206.7:12580/M/API/ValidateSmsCode";
-    
-    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    NSString *param = [NSString stringWithFormat:@"phoneNumber=%@&validateCode=%@",phoneNumber,smsCode];
-    
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [request setHTTPMethod:@"POST"];
-    
-    [request setURL:url];
-    
-    [request setHTTPBody:postData];
-    
-    NSURLResponse * response;
-    
-    NSError * error;
-    
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue] == 1) {
+//内部测试接口
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
         
-        success(YES);
-        
-    } else {
-        
-        failure(error);
-        
-    }
-}
-
-//***** 普通登录 *****/
-- (NSString *)postSignInWithPassword:(NSString *)password
-                           loginName:(NSString *)loginName
-                             success:(void (^)(id responseObject))success
-                             failure:(void (^)(LONetError *))failure {
+        [parameters addParameter:phoneNumber forKey:@"mobile"];
     
-     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    [parameters addParameter:loginName forKey:@"LoginName"];
-    
-    [parameters addParameter:password forKey:@"LoginPassword"];
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodPost
-                                                        url:LOGIN_WITH_PASSWORD
+        LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_SMS_CODE
                                                  parameters:parameters
                                                     success:^(id responseObject) {
                                                         
@@ -192,14 +145,222 @@
                                                             
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
                                                             
-                                                            UserProfile *userProfile = [[UserProfile alloc] init];
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   
+                                                                    success(recvDic[@"value"]);
+                                                                });
+                                                                
+                                                            } else if ([recvDic[@"code"] isEqualToNumber:@1100]){
+                                                                
+                                                                failure(recvDic[@"msg"]);
+                                                            }
+                                                        
+                                                        } else {
                                                             
-                                                            [userProfile setValuesForKeysWithDictionary:recvDic];
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(@"发生了未知错误");
+                                                            });
                                                             
-                                                            //保存用户上次登录的账号,同时也会更新用户信息
-                                                            [[UserAccountHandler shareUserAccountHandler] saveUserAccountWithModel:userProfile];
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
                                                             
-                                                            success(responseObject);
+                                                            failure(@"发生了未知错误");
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+}
+
+//*********** 核对短信验证码是否正确 ********/
+- (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
+                             smsCode:(NSString *)smsCode
+                             success:(void (^)(NSString *mobileToken))success
+                             failure:(void (^)(NSError *error))failure {
+    
+//    NSString *urlString = @"http://116.254.206.7:12580/M/API/ValidateSmsCode";
+//    
+//    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    
+//    NSString *param = [NSString stringWithFormat:@"phoneNumber=%@&validateCode=%@",phoneNumber,smsCode];
+//    
+//    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    [request setHTTPMethod:@"POST"];
+//    
+//    [request setURL:url];
+//    
+//    [request setHTTPBody:postData];
+//    
+//    NSURLResponse * response;
+//    
+//    NSError * error;
+//    
+//    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    
+//    if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue] == 1) {
+//        
+//        success(YES);
+//        
+//    } else {
+//        
+//        failure(error);
+//        
+//    }
+    
+//内部测试接口
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:phoneNumber forKey:@"mobile"];
+    
+    [parameters addParameter:smsCode forKey:@"code"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:VALIDATE_SMS_CODE
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                });
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+}
+
+//***** 普通登录 *****/
+- (NSString *)postSignInWithPassword:(NSString *)password
+                           loginName:(NSString *)loginName
+                             success:(void (^)(BOOL success))success
+                             failure:(void (^)(LONetError *))failure {
+    
+     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:loginName forKey:@"userName"];
+    
+    [parameters addParameter:password forKey:@"password"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:LOGIN_WITH_PASSWORD
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDictionary = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDictionary[@"code"] isEqual:@0]) {
+                                                                
+                                                                NSDictionary *jsonDictionary = recvDictionary[@"value"];
+                                                                
+                                                                UserProfile *userProfile = [[UserProfile alloc] init];
+                                                                
+                                                                [userProfile setValuesForKeysWithDictionary:jsonDictionary];
+                                                                
+                                                    
+                                                                //保存用户的UID
+                                                                [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userProfile.userId];
+                                                                
+                                                                NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
+                                                                
+                                                                //从磁盘中读取上次存储的数组
+                                                                NSMutableArray *userAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
+                                                                
+                                                                if (userAccountArray.count == 0 ) {
+                                                                    
+                                                                    [userAccountDictionary setObject:loginName forKey:KEY_SIGNIN_USER_NAME];
+                                                                    
+                                                                    [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                                                                    
+                                                                    [userAccountArray addObject:userAccountDictionary];
+                                                                    
+                                                                    [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    BOOL isExist = NO;//默认是不存在的
+                                                                    
+                                                                    for (NSInteger i = 0; i < userAccountArray.count; i++) {
+                                                                        
+                                                                        userAccountDictionary = userAccountArray[i];
+                                                                        
+                                                                        if ([[userAccountDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:loginName] && [[userAccountDictionary objectForKey:KEY_SIGNIN_USER_PASSWORD] isEqualToString:password]) {
+                                                                            
+                                                                            isExist = YES;
+                                                                            
+                                                                        }
+                                                                    }
+                                                                    if (isExist == NO) {//如果不存在，就要保存
+                                                                        
+                                                                        NSDictionary *dictionary = [NSDictionary dictionary];
+                                                                        
+                                                                        [dictionary setValue:loginName forKey:KEY_SIGNIN_USER_NAME];
+                                                                        
+                                                                        [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                                                                        
+                                                                        [userAccountArray addObject:dictionary];
+                                                                        
+                                                                        [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
+                                                                    }
+                                                                }
+                                                                
+                                                                //登录的时候进行发送通知
+                                                                [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                
+                                                            }
+                                                            
+                                                            success(YES);
                                                             
                                                         } else {
                                                             
@@ -220,66 +381,130 @@
     return [self startRequest:request];
 }
 
+
+
 //********** 用户注册 ************/
 - (void)postRegesiterWithPassword:(NSString *)password
-                            phoneNumber:(NSString *)phoneNumber
-                               nickName:(NSString *)nickName
-                              loginName:(NSString *)loginName
-                                success:(void (^)(id responseObject))success
-                                failure:(void (^)(NSError *))failure {
+                      phoneNumber:(NSString *)phoneNumber
+                         nickName:(NSString *)nickName
+                      mobileToken:(NSString *)mobileToken//校验后获取的验证码
+                         birthday:(NSString *)birthday//校验后获取的验证码
+                          success:(void (^)(BOOL success))success
+                          failure:(void (^)(NSError *))failure {
     
-    NSString *URLString = @"http://116.254.206.7:12580/M/API/Register?";
+//    NSString *URLString = @"http://116.254.206.7:12580/M/API/Register?";
+//    
+//    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+//    
+//    NSString *param=[NSString stringWithFormat:@"LoginName=%@&LoginPassword=%@&NickName=%@&PhoneNumber=%@",loginName,password,nickName,phoneNumber];
+//    
+//    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    [request setHTTPMethod:@"POST"];
+//    
+//    [request setURL:URL];
+//    
+//    [request setHTTPBody:postData];
+//    
+//    NSURLResponse * response;
+//    
+//    NSError * error;
+//    
+//    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    
+//    if (error) {
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//           
+//            failure(error);
+//        });
+//        
+//    } else {
+//        
+//        NSLog(@"response : %@",response);
+//        
+//        NSLog(@"backData : %@",[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding]);
+//    }
+//    
+//    if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue] == 1) {
+//        
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            success(backData);
+//        });
+//        
+//    } else {
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            failure(error);
+//        });
+//    }
     
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+    [parameters addParameter:phoneNumber forKey:@"userName"];
     
-    NSString *param=[NSString stringWithFormat:@"LoginName=%@&LoginPassword=%@&NickName=%@&PhoneNumber=%@",loginName,password,nickName,phoneNumber];
+    [parameters addParameter:mobileToken forKey:@"mobileToken"];
     
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    [parameters addParameter:password forKey:@"password"];
     
-    [request setHTTPMethod:@"POST"];
+    [parameters addParameter:nickName forKey:@"nickName"];
     
-    [request setURL:URL];
+    [parameters addParameter:birthday forKey:@"birthday"];
     
-    [request setHTTPBody:postData];
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:REGISTER
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    
+                                                                    success(YES);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                failure([[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}]);
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
     
-    NSURLResponse * response;
+    request.requestSerializerType = LORequestSerializerTypeJSON;
     
-    NSError * error;
-    
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-           
-            failure(error);
-        });
-        
-    } else {
-        
-        NSLog(@"response : %@",response);
-        
-        NSLog(@"backData : %@",[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding]);
-    }
-    
-    if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue] == 1) {
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            success(backData);
-        });
-        
-    } else {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            failure(error);
-        });
-    }
-
+    [self startRequest:request];
 }
 
 //**** 获取好友 *****/
@@ -292,11 +517,11 @@
     
     url = [url stringByAppendingString:@"LoginName="];
     
-    url = [url stringByAppendingString:loginName];
+    url = [url stringByAppendingString:![Common isObjectNull:loginName] ? loginName : @"" ];
     
     url = [url stringByAppendingString:@"&LoginPassword="];
     
-    url = [url stringByAppendingString:password];
+    url = [url stringByAppendingString:![Common isObjectNull:loginName] ? password : @""];
     
     NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
     
@@ -394,7 +619,7 @@
 }
 
 
-//******* 保存默认健康因素  ************/
+//******* 设置健康因子  ************/
 - (void)postUpdateHealthDataWithPassword:(NSString *)password
                                loginName:(NSString *)loginName
                                 cityName:(NSString *)cityName
@@ -886,7 +1111,11 @@
         
         if (localError != nil) {
             
-            failure(localError);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                 failure(localError);
+                
+            });
         }
         
         NSMutableArray *allDayArray = [NSMutableArray array];

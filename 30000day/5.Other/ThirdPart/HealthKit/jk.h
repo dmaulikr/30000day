@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @import HealthKit;
+
 @interface jk : NSObject
 @property(nonatomic,strong)NSString* StepCount;//步数
 @property(nonatomic,strong)NSString* ExerciseDistance;//运动距离

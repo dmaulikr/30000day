@@ -10,6 +10,4 @@
 
 @interface AddFriendsViewController : ShowBackItemViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @end

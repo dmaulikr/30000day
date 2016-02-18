@@ -27,22 +27,23 @@
 //*********** 核对短信验证码是否正确 ********/
 - (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
                              smsCode:(NSString *)smsCode
-                             success:(void (^)(BOOL sucess))success
-                             failure:(void (^)(NSError *))failure;
+                             success:(void (^)(NSString *mobileToken))success
+                             failure:(void (^)(NSError *error))failure;
 
 //***** 普通登录 *****/
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
-                             success:(void (^)(id responseObject))success
+                             success:(void (^)(BOOL success))success
                              failure:(void (^)(LONetError *))failure;
 
 //***** 用户注册 *****/
 - (void)postRegesiterWithPassword:(NSString *)password
-                            phoneNumber:(NSString *)phoneNumber
-                                nickName:(NSString *)nickName
-                               loginName:(NSString *)loginName
-                                success:(void (^)(id responseObject))success
-                                failure:(void (^)(NSError *))failure;
+                      phoneNumber:(NSString *)phoneNumber
+                         nickName:(NSString *)nickName
+                      mobileToken:(NSString *)mobileToken//校验后获取的验证码
+                         birthday:(NSString *)birthday//生日
+                          success:(void (^)(BOOL success))success
+                          failure:(void (^)(NSError *))failure;
 
 //**** 获取好友 *****/
 - (void)getMyFriendsWithPassword:(NSString *)password
@@ -60,7 +61,7 @@
                                  success:(void (^)(BOOL))success
                                  failure:(void (^)(NSError *))failure;
 
-//******* 保存默认健康因素  ************/
+//******* 设置健康因子  ************/
 - (void)postUpdateHealthDataWithPassword:(NSString *)password
                                loginName:(NSString *)loginName
                                 cityName:(NSString *)cityName

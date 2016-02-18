@@ -7,17 +7,15 @@
 //
 
 #import "MainPageBaseViewController.h"
-#import "SignInViewController.h"
 #import "PersonViewController.h"
 #import "MessageViewController.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"
 #import "MainViewController.h"
+#import "SignInViewController.h"
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
-
-@property (nonatomic,strong) UserProfile *useProfile;
 
 @property (nonatomic,strong) UIButton *mainPageButton;//主页
 
@@ -44,28 +42,42 @@
     
     [self configUI];
     
-    self.tabBarController.tabBar.hidden = NO;
-    
+    //*******************进行用户登录判断************************************************/
     if (![Common isUserLogin]) {//过去没有登录
         
-        SignInViewController *logview = [[SignInViewController alloc] init];
+        [self jumpToSignInViewController];
         
-        STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-        
-        [self presentViewController:navigationController animated:YES completion:nil];
-
     } else {//过去有登录
         
-        [[UserAccountHandler shareUserAccountHandler] getUserInfo];
+       [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
+                                      loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                                        success:^(BOOL success) {
+                                           
+                        
+                                        }
+                                        failure:^(LONetError *error) {
+                                            
+                                            [self showToast:@"账户无效，请重新登录"];
+                                            
+                                            [self jumpToSignInViewController];
+                                            
+                                        }];
         
     }
+}
 
+//跳到登录控制器
+- (void)jumpToSignInViewController {
+    
+    SignInViewController *logview = [[SignInViewController alloc] init];
+    
+    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark ----初始化UI界面
 - (void)configUI {
-    
-    self.tabBarController.tabBar.hidden = NO;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
     
@@ -395,19 +407,5 @@
     [self.navigationController pushViewController:addfvc animated:YES];
 }
 
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
-
-/*
-#pragma mark - Navigation
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

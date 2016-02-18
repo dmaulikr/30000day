@@ -47,37 +47,37 @@
 
     self.navigationItem.title = @"登录";
     
-    self.textSubView.layer.borderWidth=1.0;
+    self.textSubView.layer.borderWidth = 1.0;
     
-    self.textSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.textSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
-    self.sina.layer.borderWidth=1.0;
+    self.sina.layer.borderWidth = 1.0;
     
-    self.sina.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.sina.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
     self.sina.layer.cornerRadius = 6;
     
     self.sina.layer.masksToBounds = YES;
     
-    self.qq.layer.borderWidth=1.0;
+    self.qq.layer.borderWidth = 1.0;
     
-    self.qq.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.qq.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
     self.qq.layer.cornerRadius = 6;
     
     self.qq.layer.masksToBounds = YES;
     
-    self.water.layer.borderWidth=1.0;
+    self.water.layer.borderWidth = 1.0;
     
-    self.water.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.water.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
     self.water.layer.cornerRadius = 6;
     
     self.water.layer.masksToBounds = YES;
     
-    self.loginBtn.layer.cornerRadius=6;
+    self.loginBtn.layer.cornerRadius = 6;
     
-    self.loginBtn.layer.masksToBounds=YES;
+    self.loginBtn.layer.masksToBounds = YES;
     
     [self.lockPassWord addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
     
@@ -97,7 +97,7 @@
     
     [self.userPwdTF setDelegate:self];
     
-    _userlognamepwd = [UserAccountHandler shareUserAccountHandler].lastUserAccountArray;
+    _userlognamepwd = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
     
     if (_userlognamepwd.count > 0) {
         
@@ -131,9 +131,7 @@
         
         _tableview.layer.borderColor = [UIColor lightGrayColor].CGColor;
         
-        _tableview.bounces = NO;  //不让上下拉动弹簧效果
     }
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -167,7 +165,7 @@
     //登录接口，同时也会设置UseInfo
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
                                  loginName:_userNameTF.text
-                                     success:^(id responseObject) {
+                                     success:^(BOOL success) {
                                          
                                      [self dismissViewControllerAnimated:YES completion:nil];
                                          

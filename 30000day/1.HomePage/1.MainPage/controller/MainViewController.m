@@ -143,7 +143,7 @@
         cell.informationModel = self.informationModel;
         
         //下载头像
-        [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[UserAccountHandler shareUserAccountHandler].userProfile.HeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:STUserAccountHandler.userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
         
         return cell;
         

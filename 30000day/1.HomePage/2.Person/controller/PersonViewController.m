@@ -46,10 +46,6 @@
     }];
 }
 
-- (IBAction)switchModeButtonClick:(id)sender {
-    
-    
-}
 
 #pragma ---
 #pragma mark ----- UITableViewDelegate/UITableViewDatasource

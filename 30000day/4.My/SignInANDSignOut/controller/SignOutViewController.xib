@@ -8,10 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignOutViewController">
             <connections>
                 <outlet property="ConfirmPasswordTxt" destination="kip-bp-AMZ" id="TBB-VI-9ps"/>
+                <outlet property="birthdayButton" destination="pVp-Ea-mjf" id="foM-za-riw"/>
                 <outlet property="niceNameTextSubView" destination="8w0-wn-4mg" id="Mw5-qY-XGe"/>
                 <outlet property="passwordTextSubView" destination="Gtv-WO-RSr" id="Ph5-vz-EnX"/>
                 <outlet property="submitBtn" destination="kIe-11-75Y" id="rbj-UW-bZe"/>
-                <outlet property="userNameTxt" destination="vnM-4c-xD8" id="7GD-QG-4o9"/>
                 <outlet property="userNickNameTxt" destination="tB5-MC-0vS" id="Wm8-Jp-pqc"/>
                 <outlet property="userPwdTxt" destination="bkM-kh-3hk" id="S6b-dn-Npt"/>
                 <outlet property="view" destination="0Lr-CE-oyE" id="kOg-dg-KAJ"/>
@@ -95,25 +95,6 @@
                                 <constraint firstAttribute="height" constant="1" id="sI9-xi-TF0"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="账号(邮箱)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnM-4c-xD8">
-                            <rect key="frame" x="15" y="0.0" width="305" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="Uee-Ja-7yh"/>
-                            </constraints>
-                            <color key="textColor" red="0.20379990179999999" green="0.20379990179999999" blue="0.20379990179999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="Uee-Ja-7yh"/>
-                                </mask>
-                            </variation>
-                            <variation key="heightClass=regular-widthClass=compact">
-                                <mask key="constraints">
-                                    <include reference="Uee-Ja-7yh"/>
-                                </mask>
-                            </variation>
-                        </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="昵称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tB5-MC-0vS">
                             <rect key="frame" x="15" y="45" width="305" height="44"/>
                             <constraints>
@@ -132,21 +113,31 @@
                                 </mask>
                             </variation>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVp-Ea-mjf">
+                            <rect key="frame" x="15" y="0.0" width="305" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="生日">
+                                <color key="titleColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="chooseBirthdayAction:" destination="-1" eventType="touchUpInside" id="a5n-pe-q5e"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="tB5-MC-0vS" firstAttribute="top" secondItem="2QB-0d-7xt" secondAttribute="bottom" id="65M-09-Gbf"/>
                         <constraint firstAttribute="height" constant="89" id="Bhr-Rv-FV1"/>
                         <constraint firstItem="tB5-MC-0vS" firstAttribute="leading" secondItem="8w0-wn-4mg" secondAttribute="leading" constant="15" id="Dsd-Yf-E57"/>
-                        <constraint firstItem="2QB-0d-7xt" firstAttribute="top" secondItem="vnM-4c-xD8" secondAttribute="bottom" id="TK7-kP-zeL"/>
+                        <constraint firstItem="pVp-Ea-mjf" firstAttribute="leading" secondItem="8w0-wn-4mg" secondAttribute="leading" constant="15" id="ORV-mI-3zI"/>
+                        <constraint firstItem="pVp-Ea-mjf" firstAttribute="top" secondItem="8w0-wn-4mg" secondAttribute="top" id="Tc3-tS-U6n"/>
                         <constraint firstItem="2QB-0d-7xt" firstAttribute="centerY" secondItem="8w0-wn-4mg" secondAttribute="centerY" id="VKm-cA-hOf"/>
-                        <constraint firstItem="vnM-4c-xD8" firstAttribute="top" secondItem="8w0-wn-4mg" secondAttribute="top" id="VZ2-ru-xdz"/>
-                        <constraint firstAttribute="trailing" secondItem="vnM-4c-xD8" secondAttribute="trailing" id="a3B-pS-DZr"/>
+                        <constraint firstAttribute="trailing" secondItem="pVp-Ea-mjf" secondAttribute="trailing" id="Whf-fx-XdF"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="89" id="eGq-l4-2F7"/>
                         <constraint firstAttribute="trailing" secondItem="2QB-0d-7xt" secondAttribute="trailing" id="jj7-rk-RrA"/>
                         <constraint firstAttribute="bottom" secondItem="tB5-MC-0vS" secondAttribute="bottom" id="nSd-KX-FN4"/>
                         <constraint firstAttribute="trailing" secondItem="tB5-MC-0vS" secondAttribute="trailing" id="oWR-9J-0Cb"/>
-                        <constraint firstItem="vnM-4c-xD8" firstAttribute="leading" secondItem="8w0-wn-4mg" secondAttribute="leading" constant="15" id="pZO-6b-mX9"/>
+                        <constraint firstItem="2QB-0d-7xt" firstAttribute="top" secondItem="pVp-Ea-mjf" secondAttribute="bottom" id="uOQ-jr-LD9"/>
                         <constraint firstItem="2QB-0d-7xt" firstAttribute="leading" secondItem="8w0-wn-4mg" secondAttribute="leading" constant="15" id="z5f-fj-cmn"/>
                     </constraints>
                 </view>

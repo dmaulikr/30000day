@@ -13,10 +13,6 @@
 
 @interface PersonViewController : STBaseViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;//当期有多少个好友Label
-
-@property (weak, nonatomic) IBOutlet UIButton *switchModeButton;//切换UITableView显示的模式
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

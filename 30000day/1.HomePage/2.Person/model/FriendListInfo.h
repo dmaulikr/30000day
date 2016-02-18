@@ -40,6 +40,6 @@
 
 @property (nonatomic ,copy) NSString *YesterdayAddedDays;//昨天的天龄增减量
 
-+ (UserProfile *)userWithUserInfo:(UserProfile*)user;
+
 
 @end

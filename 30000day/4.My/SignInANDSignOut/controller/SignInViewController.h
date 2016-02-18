@@ -14,7 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *userPwdTF;
 
-
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UIView *textSubView;

@@ -30,16 +30,16 @@
     
     int count = 0;
     
-    if ([[UserAccountHandler shareUserAccountHandler].userProfile.Birthday isEqualToString:@""] || [UserAccountHandler shareUserAccountHandler].userProfile.Birthday == nil) {
+    if ([[UserAccountHandler shareUserAccountHandler].userProfile.birthday isEqualToString:@""] || [UserAccountHandler shareUserAccountHandler].userProfile.birthday == nil) {
         
         hasbeen = 0;
         
     } else {
         
-        hasbeen = [self getDays:[UserAccountHandler shareUserAccountHandler].userProfile.Birthday];
+        hasbeen = [self getDays:[UserAccountHandler shareUserAccountHandler].userProfile.birthday];
     }
     
-    NSArray *array = [[UserAccountHandler shareUserAccountHandler].userProfile.Birthday componentsSeparatedByString:@"/"];
+    NSArray *array = [[UserAccountHandler shareUserAccountHandler].userProfile.birthday componentsSeparatedByString:@"/"];
     
     int year = [array[0] intValue];
     

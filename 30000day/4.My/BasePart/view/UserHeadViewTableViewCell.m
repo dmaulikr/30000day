@@ -7,7 +7,6 @@
 //
 
 #import "UserHeadViewTableViewCell.h"
-#import "UIImageView+WebCache.h"
 
 @implementation UserHeadViewTableViewCell
 
@@ -28,11 +27,11 @@
     
     _userProfile = userProfile;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.HeadImg]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.headImg]];
     
-    self.nameLabel.text =  _userProfile.NickName;
+    self.nameLabel.text =  _userProfile.nickName;
     
-    self.phoneNumberLabel.text = _userProfile.PhoneNumber;
+    self.phoneNumberLabel.text = _userProfile.userName;
 }
 
 @end

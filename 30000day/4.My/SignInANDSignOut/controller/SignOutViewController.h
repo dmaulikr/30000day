@@ -6,24 +6,10 @@
 //  Copyright © 2015年 wei. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
+@interface SignOutViewController : ShowBackItemViewController < UITextFieldDelegate,UITextFieldDelegate >
 
-@interface SignOutViewController : ShowBackItemViewController < UITextFieldDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate >
+@property (nonatomic,strong) NSString *PhoneNumber;
 
-@property (weak, nonatomic) IBOutlet UITextField *userNameTxt;
-
-@property (weak, nonatomic) IBOutlet UITextField *userPwdTxt;
-
-@property (weak, nonatomic) IBOutlet UITextField *ConfirmPasswordTxt;
-
-@property (weak, nonatomic) IBOutlet UITextField *userNickNameTxt;
-
-@property (weak, nonatomic) IBOutlet UIButton *submitBtn;
-
-@property (weak, nonatomic) IBOutlet UIView *passwordTextSubView;
-
-@property (weak, nonatomic) IBOutlet UIView *niceNameTextSubView;
-
-@property (nonatomic,strong) NSString* PhoneNumber;
+@property (nonatomic,copy) NSString *mobileToken;//校验后获取的验证码
 
 @end

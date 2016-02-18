@@ -21,6 +21,8 @@
 
 @property (nonatomic,assign)CGRect selectedTextFieldRect;
 
+@property (nonatomic,copy) NSString *mobileToken;//校验后获取的验证码
+
 @end
 
 @implementation SMSVerificationViewController
@@ -35,13 +37,13 @@
     
     [self.sms setDelegate:self];
     
-    self.textSubView.layer.borderWidth=1.0;
+    self.textSubView.layer.borderWidth = 1.0;
     
-    self.textSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.textSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
-    self.nextBtn.layer.cornerRadius=6;
+    self.nextBtn.layer.cornerRadius = 6;
     
-    self.nextBtn.layer.masksToBounds=YES;
+    self.nextBtn.layer.masksToBounds = YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -69,23 +71,19 @@
     }
     
     //调用验证接口
-    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(BOOL sucess) {
+    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
        
         SignOutViewController *signOut = [[SignOutViewController alloc] init];
         
         signOut.PhoneNumber = self.phoneNumber.text;
         
-        signOut.hidesBottomBarWhenPushed = YES;
+        signOut.mobileToken = mobileToken;
         
         [self.navigationController pushViewController:signOut animated:YES];
         
     } failure:^(NSError *error) {
-        
-        NSLog(@"error : %@",[error localizedDescription]);
-        
-        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:@"验证失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        
-        [alert show];
+
+        [self showToast:@"验证失败"];
         
     }];
 
@@ -114,9 +112,7 @@
         
     } failure:^(id error) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"验证失败:%@",error] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        
-        [alert show];
+        [self showToast:@"手机已被注册"];
         
     }];
 }

@@ -18,7 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-       
     //定制网络请求
     self.requestRecord = [[NSMutableArray alloc] init];
     

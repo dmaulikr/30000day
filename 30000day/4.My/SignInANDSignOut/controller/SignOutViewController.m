@@ -9,24 +9,23 @@
 #import "SignOutViewController.h"
 #import "SignInViewController.h"
 
-#define IdentityCount 60
-#define INTERVAL_KEYBOARD 100
+@interface SignOutViewController () <QGPickerViewDelegate>
 
-@interface SignOutViewController () {
-    int gaodu;//记录当前view的高度是不是负数
-}
+@property (weak, nonatomic) IBOutlet UITextField *userPwdTxt;
 
-@property (nonatomic,copy) NSString *cityName;
+@property (weak, nonatomic) IBOutlet UITextField *ConfirmPasswordTxt;
 
-@property (nonatomic) NSTimer *timer;
+@property (weak, nonatomic) IBOutlet UITextField *userNickNameTxt;
 
-@property (nonatomic) CGRect newFream;// 当前view的位置，用于记录 弹出键盘的时候使用
+@property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 
-@property (nonatomic,strong)UISwipeGestureRecognizer *RightSwipeGestureRecognizer;
+@property (weak, nonatomic) IBOutlet UIView *passwordTextSubView;
 
-@property (strong,nonatomic)CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UIView *niceNameTextSubView;
 
-@property (nonatomic,assign)CGRect selectedTextFieldRect;
+@property (nonatomic,copy) NSString *birthdayString;//生日字符串
+
+@property (weak, nonatomic) IBOutlet UIButton *birthdayButton;
 
 @end
 
@@ -44,49 +43,117 @@
     
     self.niceNameTextSubView.layer.borderWidth = 1.0;
     
-    self.niceNameTextSubView.layer.borderColor=[UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
+    self.niceNameTextSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
-    self.submitBtn.layer.cornerRadius=6;
+    self.submitBtn.layer.cornerRadius = 6;
     
-    self.submitBtn.layer.masksToBounds=YES;
-    
-    [self startLocation];//开启定位
-    
-    _newFream = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.submitBtn.layer.masksToBounds = YES;
     
     _userNickNameTxt.delegate = self;
     
-    self.submitBtn.layer.borderWidth=0.5;
+    self.submitBtn.layer.borderWidth = 0.5;
     
     self.submitBtn.layer.borderColor = [UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0].CGColor;
-    
-    [self.userNameTxt setDelegate:self];
-    
+        
     [self.userPwdTxt setDelegate:self];
     
     [self.ConfirmPasswordTxt setDelegate:self];
     
     [self.userNickNameTxt setDelegate:self];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+- (void)tapAction {
     
-    //增加监听，当键盘出现或改变时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+    [self.view endEditing:YES];
 }
 
+- (IBAction)chooseBirthdayAction:(id)sender {
+    
+    [self chooseBirthday];
+}
+
+//选择生日
+- (void)chooseBirthday {
+    
+    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+    
+    picker.delegate = self;
+    
+    picker.titleText = @"生日选择";
+    
+    self.birthdayString = @"";
+    
+    //3.赋值
+    [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
+        
+        NSArray *dateArray = [[Common getCurrentDate] componentsSeparatedByString:@"-"];
+        
+        NSString *monthStr = dateArray[1];
+        
+        NSString *dayStr = dateArray[2];
+        
+        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
+            
+            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
+            
+        } else {
+            
+            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
+        }
+        
+        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
+            
+            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
+            
+        } else {
+            
+            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
+        }
+        
+        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
+        
+    }];
+  
+}
+
+#pragma mark -- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+
+    self.birthdayString = [self.birthdayString stringByAppendingString:value];
+    
+    [self.birthdayButton setTitle:self.birthdayString forState:UIControlStateNormal];
+    
+    if (index == 3) {
+        
+        NSArray *array  = [self.birthdayString componentsSeparatedByString:@"年"];
+        
+        NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
+        
+        NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
+        
+        //保存之前选择的生日
+        self.birthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[self addZeroWithString:array_second[0]],[self addZeroWithString:array_third[0]]];
+
+    }
+   
+}
+
+- (NSString *)addZeroWithString:(NSString *)string {
+    
+    if ([string length] == 1) {
+        
+        return string = [NSString stringWithFormat:@"0%@",string];
+        
+    } else {
+        
+        return string;
+    }
+}
 
 #pragma mark - 注册验证
 - (IBAction)regitF:(UIButton *)sender {
@@ -98,16 +165,8 @@
         return;
     }
     
-    if ([_userNameTxt.text isEqualToString:@""]){
-        
-        [self showToast:@"账户不能为空"];
-        
-        return;
-        
-    }
-    
    if (![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
-        
+       
         [self showToast:@"密码不一致，请重新确认"];
         
         return;
@@ -123,133 +182,27 @@
     [self.dataHandler postRegesiterWithPassword:_userPwdTxt.text
                                     phoneNumber:_PhoneNumber
                                        nickName:_userNickNameTxt.text
-                                      loginName:_userNameTxt.text
-                                        success:^(id responseObject) {
-                                           
-                                            //保存健康因素
-                                            [self.dataHandler postUpdateHealthDataWithPassword:self.userPwdTxt.text loginName:self.userNameTxt.text cityName:self.cityName success:^(BOOL sucess) {
-                                                
-                                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                                                
-                                                [alert setTag:1];
-                                                
-                                                [alert show];
-                                                
-                                            } failure:^(NSError *error) {
-                                                
-                                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"注册失败" message:[error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                                                
-                                                [alert show];
-                                                
-                                            }];
+                                    mobileToken:self.mobileToken//校验后获取的验证码
+                                       birthday:self.birthdayString//生日
+                                        success:^(BOOL success) {
+                                            
+                                            [self showToast:@"注册成功"];
+                                            
+                                            for (id controller in [self.navigationController childViewControllers])
+                                            {
+                                                if ([controller isKindOfClass:[SignInViewController class]])
+                                                {
+                                                    [self.navigationController popToViewController:controller animated:YES];
+                                                    
+                                                }
+                                            }
+                                        
                                         }
-     
                                         failure:^(NSError *error) {
                                             
-                                            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"注册失败" message:[error localizedDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-                                            [alert show];
+                                            [self showToast:@"注册失败"];
                                             
                                         }];
-    
-}
-
-#pragma mark - alertView代理
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 1) {
-        
-        if (buttonIndex == 0) {
-            
-            for (id controller in [self.navigationController childViewControllers])
-            {
-                if ([controller isKindOfClass:[SignInViewController class]])
-                {
-                    [self.navigationController popToViewController:controller animated:YES];
-                    
-                }
-            }
-            
-        }
-    }
-}
-
-#pragma mark - 定位
--(void)startLocation{
-    
-    // 判断定位操作是否被允许
-    if([CLLocationManager locationServicesEnabled]) {
-        
-        self.locationManager = [[CLLocationManager alloc] init] ;
-        
-        self.locationManager.delegate = self;
-        
-        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
-        
-        _locationManager.distanceFilter=100;
-        
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)[_locationManager requestWhenInUseAuthorization];
-    }else{
-        
-        //提示用户无法进行定位操作  Product
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示"
-                                                           message:@"开启定位功能可获取当地平均寿命哦"
-                                                          delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-        
-        return;
-    }
-    
-    [_locationManager startUpdatingLocation];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation
-    //如果调用已经一次，不再执行
-    CLLocation *currentLocation = [locations lastObject];
-    
-    // 获取当前所在的城市名
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
-    //根据经纬度反向地理编译出地址信息
-    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *array, NSError *error) {
-        
-        if (array.count > 0){
-            
-            CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            //将获得的所有信息显示到label上
-            NSString *city = placemark.locality;
-            
-            NSLog(@"%@",city);
-            
-            if (!city) {
-                //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
-                city = placemark.administrativeArea;
-            }
-            
-            self.cityName = city;
-            
-        } else if (error == nil && [array count] == 0) {
-            
-            NSLog(@"No results were returned.");
-            
-        } else if (error != nil) {
-            
-            NSLog(@"An error occurred = %@", error);
-            
-        }
-    }];
-    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
-    [manager stopUpdatingLocation];
-    
-}
-
-
-#pragma mark - 文本框开始编辑
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    self.selectedTextFieldRect=textField.frame;
     
 }
 
@@ -259,77 +212,6 @@
     [textField resignFirstResponder];
     
     return YES;
-}
-
-#pragma mark - 点击空白处收起键盘
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-    [self.userNameTxt resignFirstResponder];
-    
-    [self.userPwdTxt resignFirstResponder];
-    
-    [self.ConfirmPasswordTxt resignFirstResponder];
-    
-    [self.userNickNameTxt resignFirstResponder];
-}
-
-#pragma mark - 当键盘出现或改变时调用
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
-    //获取键盘高度，在不同设备上，以及中英文下是不同的
-    CGFloat kbHeight = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    
-    //计算出键盘顶端到inputTextView panel底端的距离(加上自定义的缓冲距离INTERVAL_KEYBOARD)
-    CGFloat offset = (self.selectedTextFieldRect.origin.y+self.selectedTextFieldRect.size.height+INTERVAL_KEYBOARD) - (self.view.frame.size.height - kbHeight);
-    
-    // 取得键盘的动画时间，这样可以在视图上移的时候更连贯
-    double duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    //将视图上移计算好的偏移
-    if(offset > 0) {
-        [UIView animateWithDuration:duration animations:^{
-            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
-        }];
-    }
-}
-
-#pragma mark - 当键退出时调用
-- (void)keyboardWillHide:(NSNotification *)aNotification {
-    
-    // 键盘动画时间
-    double duration = [[aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    //视图下沉恢复原状
-    [UIView animateWithDuration:duration animations:^{
-        self.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
-    }];
-}
-
-#pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    
-    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        
-        return NO;
-        
-    }
-    
-    return  YES;
-}
-
-#pragma mark - 视图消失时释放通知
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:YES];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

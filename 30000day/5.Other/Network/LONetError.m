@@ -24,9 +24,9 @@
     
     netError.statusCode = operation.response.statusCode;
     
-    netError.messageStatusCode = [[operation.responseObject objectForKey:@"statusCode"] intValue];
-    
-    netError.messageContent = [operation.responseObject objectForKey:@"message"];
+//    netError.messageStatusCode = [[operation.responseObject objectForKey:@"statusCode"] intValue];
+//    
+//    netError.messageContent = [operation.responseObject objectForKey:@"message"];
     
     return netError;
 }

@@ -43,6 +43,8 @@
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
+
+    
     return YES;
 }
 

@@ -18,8 +18,6 @@
 
 @interface UserInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
-@property (nonatomic,strong)UserProfile *userProfile;
-
 @property (nonatomic,strong)NSArray *titleArray;
 
 @property (nonatomic,strong)ZHPickView *zpk;
@@ -30,7 +28,7 @@
 
 @property (nonatomic,copy) NSString *NickName;
 
-@property (nonatomic,copy) NSString *Gender;
+@property (nonatomic,copy) NSNumber *gender;
 
 @property (nonatomic,copy) NSString *Birthday;
 
@@ -58,13 +56,11 @@
     
     [self.mainTable setDataSource:self];
     
-    _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
+    self.NickName = STUserAccountHandler.userProfile.nickName;
     
-    self.NickName = _userProfile.NickName;
+    self.gender = STUserAccountHandler.userProfile.gender;
     
-    self.Gender = _userProfile.Gender;
-    
-    self.Birthday= _userProfile.Birthday;
+    self.Birthday = STUserAccountHandler.userProfile.birthday;
 
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
@@ -75,35 +71,31 @@
     [self showHUDWithContent:@"正在保存" animated:YES];
     
     //上传服务器
-    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
-        
-        if (responseObject) {
-            
-            if (![self.editorImage isEqual:self.copareImage]) {
-            
-                [self shangchuantupian:self.editorImage];
-                
-            } else {
-                
-                [self hideHUD:YES];
-                
-                [self showToast:@"个人信息保存成功"];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-        
-    } failure:^(NSError *error) {
-        
-        [self hideHUD:YES];
-        
-        [self showToast:@"个人信息保存失败"];
-    }];
-    
-    // 保存生日到本地文件，用于其他地方提取计算数值
-    [[NSUserDefaults standardUserDefaults] setObject:[_userProfile.Birthday stringByAppendingString:@" 00:00:00"] forKey:@"UserBirthday"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
+//        
+//        if (responseObject) {
+//            
+//            if (![self.editorImage isEqual:self.copareImage]) {
+//            
+//                [self shangchuantupian:self.editorImage];
+//                
+//            } else {
+//                
+//                [self hideHUD:YES];
+//                
+//                [self showToast:@"个人信息保存成功"];
+//                
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        
+//        [self hideHUD:YES];
+//        
+//        [self showToast:@"个人信息保存失败"];
+//    }];
+
 }
 
 #pragma ---
@@ -169,7 +161,7 @@
                 
             }
             
-            cell.headImageViewURLString = _userProfile.HeadImg;
+            cell.headImageViewURLString = STUserAccountHandler.userProfile.headImg;
             
             //给这连个判断条件赋值
             self.portraitImageView = cell.headImageView;
@@ -204,19 +196,19 @@
             
             if ( indexPath.row == 1) {
                 
-                cell.detailTextLabel.text = _userProfile.NickName;
+                cell.detailTextLabel.text = STUserAccountHandler.userProfile.nickName;
                 
                 cell.textLabel.text = @"昵称";
             
             } else if ( indexPath.row == 2) {
                 
-                cell.detailTextLabel.text = [_userProfile.Gender isEqualToString:@"1"] ? @"男" : @"女";
+                cell.detailTextLabel.text = [STUserAccountHandler.userProfile.gender isEqual:@1] ? @"男" : @"女";
                 
                 cell.textLabel.text = @"性别";
                 
             } else if ( indexPath.row == 3) {
                 
-                cell.detailTextLabel.text=_userProfile.Birthday;
+                cell.detailTextLabel.text= STUserAccountHandler.userProfile.birthday;
                 
                 cell.textLabel.text = @"生日";
             }
@@ -249,7 +241,7 @@
         
             cell.textLabel.text = @"账号";
     
-            cell.detailTextLabel.text = _userProfile.LoginName;
+            cell.detailTextLabel.text = STUserAccountHandler.userProfile.userName;
         
         return cell;
     }
@@ -277,13 +269,13 @@
             
         }else if(indexPath.row == 1){
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:_userProfile.NickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STUserAccountHandler.userProfile.nickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
             
             UITextField *textfile = [alert textFieldAtIndex:0];
             
-            [textfile setText:_userProfile.NickName];
+            [textfile setText:STUserAccountHandler.userProfile.nickName];
             
             [alert show];
             
@@ -295,7 +287,7 @@
             
         } else if(indexPath.row == 3) {
             
-            NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.Birthday;
+            NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.birthday;
             
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             
@@ -323,22 +315,23 @@
             
             UITextField *textfile = [alertView textFieldAtIndex:0];
             
-            _userProfile.NickName = textfile.text;
+            STUserAccountHandler.userProfile.nickName = textfile.text;
         }
         if (indexpath.row == 2 ) {
             
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
                 
-                _userProfile.Gender = @"1";
+                STUserAccountHandler.userProfile.gender = @1;
                 
             } else {
                 
-                _userProfile.Gender = @"0";
+                STUserAccountHandler.userProfile.gender = @0;
                 
             }
         }
 
-        [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+        
         //判断按钮是否可用
         [self judgeSaveButtonCanUse];
     }
@@ -369,7 +362,7 @@
     
     NSString *Birthday = [NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
     
-    _userProfile.Birthday = Birthday;
+    STUserAccountHandler.userProfile.birthday = Birthday;
     
     [self.mainTable reloadData];
     
@@ -378,69 +371,69 @@
 }
 
 
-- (void)shangchuantupian:(UIImage*)image {
-    
-    //第一步，创建URL
-    NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
-    
-    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    //第二步，创建请求
-    
-    //    2.创建请求对象
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    
-    //设置请求体
-    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:image][1],[self image2DataURL:image][0]];
-    
-    //把拼接后的字符串转换为data，设置请求体
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [request setHTTPMethod:@"post"]; //指定请求方式
-    
-    [request setURL:URL]; //设置请求的地址
-    
-    [request setHTTPBody:postData];  //设置请求的参数
-    
-    NSURLResponse * response;
-    
-    NSError * error;
-    
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        //访问服务器失败进此方法
-        NSLog(@"error : %@",[error localizedDescription]);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            [self hideHUD:YES];
-            
-            [self showToast:@"图片上传失败"];
-
-        });
-        
-    }else{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //成功访问服务器，返回图片的URL
-            NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-            
-            _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-            
-            [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
-            
-            [self hideHUD:YES];
-            
-            [self showToast:@"个人信息保存成功"];
-            
-            self.copareImage = self.editorImage;
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
-        });
-        
-    }
-}
+//- (void)shangchuantupian:(UIImage*)image {
+//    
+//    //第一步，创建URL
+//    NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
+//    
+//    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    //第二步，创建请求
+//    
+//    //    2.创建请求对象
+//    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+//    
+//    //设置请求体
+//    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:image][1],[self image2DataURL:image][0]];
+//    
+//    //把拼接后的字符串转换为data，设置请求体
+//    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    [request setHTTPMethod:@"post"]; //指定请求方式
+//    
+//    [request setURL:URL]; //设置请求的地址
+//    
+//    [request setHTTPBody:postData];  //设置请求的参数
+//    
+//    NSURLResponse * response;
+//    
+//    NSError * error;
+//    
+//    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    
+//    if (error) {
+//        //访问服务器失败进此方法
+//        NSLog(@"error : %@",[error localizedDescription]);
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//            [self hideHUD:YES];
+//            
+//            [self showToast:@"图片上传失败"];
+//
+//        });
+//        
+//    }else{
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //成功访问服务器，返回图片的URL
+//            NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+//            
+//            _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
+//            
+//            [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
+//            
+//            [self hideHUD:YES];
+//            
+//            [self showToast:@"个人信息保存成功"];
+//            
+//            self.copareImage = self.editorImage;
+//            
+//            [self.navigationController popViewControllerAnimated:YES];
+//            
+//        });
+//        
+//    }
+//}
 
 // 判断图片后缀名的方法
 - (BOOL)imageHasAlpha:(UIImage *)image {
@@ -537,9 +530,9 @@
 //判断保存按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
-    if ([self.NickName isEqualToString:_userProfile.NickName] &&
-        [self.Gender isEqualToString:_userProfile.Gender] &&
-        [self.Birthday isEqualToString:_userProfile.Birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
+    if ([self.NickName isEqualToString:STUserAccountHandler.userProfile.nickName] &&
+        [self.gender isEqual:STUserAccountHandler.userProfile.gender] &&
+        [self.Birthday isEqualToString:STUserAccountHandler.userProfile.birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
         
         self.saveButton.enabled = NO;
         
@@ -552,13 +545,15 @@
 - (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     NSString *message = @"呵呵";
+    
     if (!error) {
+        
         message = @"成功保存到相册";
-    }else
-    {
+        
+    } else {
+        
         message = [error description];
     }
-    NSLog(@"message is %@",message);
 }
 
 @end
