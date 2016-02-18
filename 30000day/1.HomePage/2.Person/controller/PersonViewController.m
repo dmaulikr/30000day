@@ -7,6 +7,7 @@
 //
 
 #import "PersonViewController.h"
+#import "PersonHeadView.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -38,8 +39,6 @@
         
         _dataArray = dataArray;
         
-        self.friendsNumLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
-        
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
@@ -49,28 +48,57 @@
 
 - (IBAction)switchModeButtonClick:(id)sender {
     
-    if (self.state == 0) {
-        
-        self.state = 1;
-        
-        [self.switchModeButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
-        
-        [self.switchModeButton setTitle:@" 列表" forState:UIControlStateNormal];
-        
-    } else {
-        
-        self.state = 0;
-        
-        [self.switchModeButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
-        
-        [self.switchModeButton setTitle:@" 大图" forState:UIControlStateNormal];
-    }
     
-    [self.tableView reloadData];
 }
 
 #pragma ---
 #pragma mark ----- UITableViewDelegate/UITableViewDatasource
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    static NSString *headViewIndentifier = @"PersonHeadView";
+    
+    PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
+    
+    if (view == nil) {
+        
+        view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
+    }
+
+    view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
+    
+    [view setChangeStateBlock:^(UIButton *changeStatusButton){
+       
+        self.state = self.state ? 0 : 1 ;
+        
+        [self.tableView reloadData];
+        
+    }];
+    
+    if (self.state == 1) {
+        
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
+        
+        [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
+        
+    } else {
+        
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+        
+        [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
+    }
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        return 44;
+    }
+    return 0;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -103,7 +131,7 @@
     
     if (self.state) {
         
-        static NSString *ID=@"friendsBigIMGCell";
+        static NSString *ID = @"friendsBigIMGCell";
         
         cell = [tableView dequeueReusableCellWithIdentifier:ID];
         

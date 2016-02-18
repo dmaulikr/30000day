@@ -27,6 +27,8 @@
 		B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AB71C74949A001B4B95 /* MainViewController.m */; };
 		B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AB81C74949A001B4B95 /* MainViewController.xib */; };
 		B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */; };
+		B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ABF1C755975001B4B95 /* PersonHeadView.m */; };
+		B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AC11C755981001B4B95 /* PersonHeadView.xib */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
@@ -212,6 +214,9 @@
 		B8695AB81C74949A001B4B95 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		B8695ABB1C74A6E8001B4B95 /* WeatherInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherInformationModel.h; sourceTree = "<group>"; };
 		B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherInformationModel.m; sourceTree = "<group>"; };
+		B8695ABE1C755975001B4B95 /* PersonHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonHeadView.h; sourceTree = "<group>"; };
+		B8695ABF1C755975001B4B95 /* PersonHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonHeadView.m; sourceTree = "<group>"; };
+		B8695AC11C755981001B4B95 /* PersonHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonHeadView.xib; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -754,6 +759,9 @@
 				B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */,
 				B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */,
 				B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */,
+				B8695ABE1C755975001B4B95 /* PersonHeadView.h */,
+				B8695ABF1C755975001B4B95 /* PersonHeadView.m */,
+				B8695AC11C755981001B4B95 /* PersonHeadView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1483,6 +1491,7 @@
 				B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */,
 				B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */,
 				B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
+				B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */,
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
 				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
@@ -1636,6 +1645,7 @@
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
+				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,

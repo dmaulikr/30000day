@@ -57,19 +57,19 @@
 
     self.chartView.colorTop = [UIColor whiteColor];
     
-    self.chartView.colorBottom = [UIColor colorWithRed:232.0/255 green:232.0/255 blue:232.0/255 alpha:1.0];
+    self.chartView.colorBottom = [UIColor whiteColor];
     
     self.chartView.colorLine = BLUECOLOR;
     
     self.chartView.colorPoint = BLUECOLOR;
     
-    self.chartView.colorXaxisLabel = [UIColor blackColor];
+    self.chartView.colorXaxisLabel = [UIColor darkGrayColor];
     
-    self.chartView.colorYaxisLabel = [UIColor blackColor];
+    self.chartView.colorYaxisLabel = [UIColor darkGrayColor];
     
     self.chartView.colorBackgroundYaxis = [UIColor whiteColor];
     
-    self.chartView.colorBackgroundXaxis=[UIColor whiteColor];
+    self.chartView.colorBackgroundXaxis = [UIColor whiteColor];
     
     self.chartView.colorReferenceLines = [UIColor blackColor];
 }

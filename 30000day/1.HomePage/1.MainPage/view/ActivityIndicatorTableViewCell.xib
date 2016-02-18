@@ -17,22 +17,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前您已经击败9999个用户!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAm-ci-nK9">
-                        <rect key="frame" x="45" y="100" width="230" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <rect key="frame" x="64" y="104" width="192" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zk-SB-zfl" customClass="MDRadialProgressView">
-                        <rect key="frame" x="96" y="-7" width="128" height="128"/>
+                        <rect key="frame" x="91" y="-14" width="138" height="138"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdp-yn-4zJ">
-                                <rect key="frame" x="40" y="72" width="49" height="24"/>
+                                <rect key="frame" x="45" y="76" width="49" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.38823529411764707" green="0.55294117647058827" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daL-GT-LmA">
-                                <rect key="frame" x="40" y="43" width="49" height="24"/>
+                                <rect key="frame" x="45" y="47" width="49" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.38823529411764707" green="0.55294117647058827" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -48,10 +48,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1zk-SB-zfl" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="6aV-Iq-l0N"/>
-                    <constraint firstItem="RAm-ci-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="103:60" id="D5D-Rm-Prq"/>
+                    <constraint firstItem="1zk-SB-zfl" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.43" id="6aV-Iq-l0N"/>
+                    <constraint firstItem="RAm-ci-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="105:60" id="D5D-Rm-Prq"/>
                     <constraint firstItem="RAm-ci-nK9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="V7K-pq-Lyd"/>
-                    <constraint firstItem="1zk-SB-zfl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="52:60" constant="1" id="nNR-PF-pDm"/>
+                    <constraint firstItem="1zk-SB-zfl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="50:60" constant="1" id="nNR-PF-pDm"/>
                     <constraint firstItem="1zk-SB-zfl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="og3-tO-NSA"/>
                 </constraints>
             </tableViewCellContentView>

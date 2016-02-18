@@ -60,6 +60,7 @@
                     <constraint firstItem="lix-Uf-QFw" firstAttribute="leading" secondItem="2Et-LE-mJ2" secondAttribute="trailing" constant="15" id="yds-q3-ioD"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="airLabel" destination="UZy-KZ-007" id="qPW-pz-X9y"/>
                 <outlet property="cityLabel" destination="xBN-1Y-H19" id="HUc-85-Yl9"/>

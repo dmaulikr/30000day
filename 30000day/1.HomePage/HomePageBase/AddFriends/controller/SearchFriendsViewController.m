@@ -150,7 +150,7 @@
     
     if (cell == nil) {
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"SearchResultTableViewCell" owner:self options:nil] lastObject];
+        cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
     }
     
     cell.friendsInfo = self.searchResultArray[indexPath.row];

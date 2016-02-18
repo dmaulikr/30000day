@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYQ-uz-Yf6" customClass="BEMSimpleLineGraphView">
-                        <rect key="frame" x="0.0" y="0.0" width="310" height="108"/>
+                        <rect key="frame" x="0.0" y="10" width="310" height="98"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="LYQ-uz-Yf6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dt7-gA-fEa"/>
                     <constraint firstAttribute="trailing" secondItem="LYQ-uz-Yf6" secondAttribute="trailing" constant="10" id="lRp-Et-tBm"/>
-                    <constraint firstItem="LYQ-uz-Yf6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mBv-ZT-C3x"/>
+                    <constraint firstItem="LYQ-uz-Yf6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="mBv-ZT-C3x"/>
                     <constraint firstAttribute="bottom" secondItem="LYQ-uz-Yf6" secondAttribute="bottom" constant="10" id="vJH-Ke-wDd"/>
                 </constraints>
             </tableViewCellContentView>

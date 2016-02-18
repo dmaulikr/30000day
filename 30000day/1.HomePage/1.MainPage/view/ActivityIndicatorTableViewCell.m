@@ -15,6 +15,7 @@
    self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
     
    self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,16 +25,6 @@
 }
 
 - (void)reloadData:(float)totalLifeDayNumber {
-    
-    self.indicatiorView.progressTotal = totalLifeDayNumber;
-    
-    self.indicatiorView.theme.sliceDividerHidden = YES;//部分分开是否隐藏
-    
-    self.indicatiorView.theme.incompletedColor = [UIColor colorWithRed:232.0/255 green:232.0/255 blue:232.0/255 alpha:1.0];
-    
-    self.indicatiorView.theme.completedColor = BLUECOLOR;
-    
-    self.indicatiorView.theme.thickness = 12.0;//粗细
     
     int hasbeen;
     
@@ -64,9 +55,18 @@
         }
     }
     
-    
     self.indicatiorView.progressCounter = hasbeen;
     
+    self.indicatiorView.progressTotal = totalLifeDayNumber;
+    
+    self.indicatiorView.theme.sliceDividerHidden = YES;//部分分开是否隐藏
+    
+    self.indicatiorView.theme.incompletedColor = RGBACOLOR(230, 230, 230, 1);
+    
+    self.indicatiorView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
+    
+    self.indicatiorView.theme.thickness = 30.0;//粗细
+
     self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
     
     self.label_1.text = [NSString stringWithFormat:@"%.2d",hasbeen];

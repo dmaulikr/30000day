@@ -41,8 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-   
+    
     [self configUI];
     
     self.tabBarController.tabBar.hidden = NO;
@@ -65,8 +64,6 @@
 
 #pragma mark ----初始化UI界面
 - (void)configUI {
-    
-    [self showHUDWithContent:@"正在加载" animated:YES];
     
     self.tabBarController.tabBar.hidden = NO;
     
@@ -155,8 +152,6 @@
     
     //创建顶部按钮
     [self createButton];
-    
-    [self hideHUD:YES];
 }
 
 - (void)createButton {
@@ -242,7 +237,7 @@
     
     [button setTitle:title forState:UIControlStateNormal];
     
-    button.titleLabel.font=[UIFont systemFontOfSize:15.0];
+    button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
     
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     

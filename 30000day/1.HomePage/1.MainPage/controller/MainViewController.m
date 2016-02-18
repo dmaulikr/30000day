@@ -42,7 +42,7 @@
             
             [self calculateMoreAge:informationModel.pm25Quality];
             
-            [self.tableView reloadData];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
         } failure:^(NSError *error) {
             
@@ -56,7 +56,7 @@
         
     }];
     
-//    //2.获取用户的天龄
+    //2.获取用户的天龄
     [self.dataHandler getUserLifeStateUserID:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] Password:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray *allDayArray,NSMutableArray *dayNumberArray) {
         
         self.totalLifeDayNumber = [[allDayArray lastObject] floatValue];
@@ -64,8 +64,8 @@
         self.allDayArray = [NSMutableArray arrayWithArray:allDayArray];
         
         self.dayNumberArray = [NSMutableArray arrayWithArray:dayNumberArray];
-        
-        [self.tableView reloadData];
+
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         
     } failure:^(NSError *error) {
         
@@ -178,8 +178,11 @@
         
         cell.dayNumberArray = self.dayNumberArray;
         
-        [cell reloadData];
-        
+        if (self.allDayArray && self.dayNumberArray) {
+            
+             [cell reloadData];
+        }
+       
         return cell;
     }
     
