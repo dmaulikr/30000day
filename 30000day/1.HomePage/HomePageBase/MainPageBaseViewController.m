@@ -227,7 +227,7 @@
     [self.buttonParentView addSubview:_bottomScrollView];
     
     
-    self.addFriendsButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    self.addFriendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [self.addFriendsButton setImage:[UIImage imageNamed:@"addFriends.png"] forState:UIControlStateNormal];
     

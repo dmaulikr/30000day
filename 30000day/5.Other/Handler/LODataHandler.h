@@ -6,6 +6,12 @@
 //  Copyright © 2015年 GuoJia. All rights reserved.
 //
 
+//当前用户成功添加好友发出的通知
+static NSString *const UserAddFriendsSuccessPostNotification = @"UserAddFriendsSuccessPostNotification";
+
+//当前用户个人信息改变发出通知
+static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
+
 #import <Foundation/Foundation.h>
 
 @class LONetError;
@@ -45,10 +51,22 @@
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *))failure;
 
-//**** 获取好友 *****/
+//**** 获取好友(dataArray存储的是UserInformationModel) *****/
 - (void)getMyFriendsWithUserId:(NSString *)userId
                                 success:(void (^)(NSMutableArray * dataArray))success
                                 failure:(void (^)(NSError *))failure;
+
+//**********搜索某一个用户（里面装的UserInformationModel）**********************/
+- (void)sendSearchUserRequestWithNickName:(NSString *)nickName
+                                  success:(void(^)(NSMutableArray *))success
+                                  failure:(void (^)(LONetError *))failure;
+
+//************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
+- (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
+                                     userId:(NSString *)userId
+                                   nickName:(NSString *)nickName
+                                    success:(void(^)(BOOL success))success
+                                    failure:(void (^)(LONetError *error))failure;
 
 //***** 更新个人信息 *****/
 - (void )postUpdateProfileWithUserID:(NSString *)userID
@@ -72,6 +90,7 @@
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
 
 
+
 //***********开始定位操作(sucess是城市的名字)****************/
 - (void)startFindLocationSucess:(void (^)(NSString *))sucess
                         failure:(void (^)(NSError *))failure;
@@ -89,6 +108,5 @@
                      loginName:(NSString *)loginName
                        success:(void (^)(NSMutableArray *,NSMutableArray*))success
                        failure:(void (^)(NSError *))failure;
-
 
 @end

@@ -32,14 +32,24 @@
     // Configure the view for the selected state
 }
 
-- (void)setFriendsInfo:(FriendListInfo *)friendsInfo {
+
+- (void)setUserInformationModel:(UserInformationModel *)userInformationModel {
     
-    _friendsInfo = friendsInfo;
+    _userInformationModel = userInformationModel;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_friendsInfo.HeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userInformationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    self.nickName.text = _friendsInfo.Nickname;
+    self.nickName.text = _userInformationModel.nickName;
+  
+}
+
+- (IBAction)addUserAction:(id)sender {
     
+    if (self.addUserBlock) {
+        
+        self.addUserBlock(_userInformationModel);
+        
+    }
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FriendListInfo.h"
+#import "UserInformationModel.h"
 
 @interface SearchResultTableViewCell : UITableViewCell
 
@@ -17,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 
-@property (nonatomic,strong) FriendListInfo *friendsInfo;
+@property (nonatomic,strong) UserInformationModel *userInformationModel;
+
+@property (nonatomic , copy) void (^(addUserBlock))(UserInformationModel *userInformationModel);
 
 @end

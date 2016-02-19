@@ -8,6 +8,7 @@
 
 #import "SearchFriendsViewController.h"
 #import "SearchResultTableViewCell.h"
+#import "UserInformationModel.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -24,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIView *noResultView;//无搜索结果的时候显示的视图
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;//搜索的textField
-
 
 @end
 
@@ -91,9 +91,9 @@
         
         //只要开始搜索先隐藏backgroundView
         self.backgroundView.hidden = YES;
-        
+         
         //开始搜索
-        [self.dataHandler getMyFriendsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSMutableArray *dataArray) {
+        [self.dataHandler sendSearchUserRequestWithNickName:self.textField.text success:^(NSMutableArray *dataArray) {
             
             self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
             
@@ -101,7 +101,7 @@
             
             [self.tableView reloadData];
             
-        } failure:^(NSError *error) {
+        } failure:^(LONetError *error) {
             
             self.searchResultArray = [NSMutableArray array];
             
@@ -154,7 +154,23 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
     }
     
-    cell.friendsInfo = self.searchResultArray[indexPath.row];
+    cell.userInformationModel = self.searchResultArray[indexPath.row];
+    
+    //点击添加按钮回调
+    [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
+        
+        //添加好友,接口
+        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] nickName:userInformationModel.nickName success:^(BOOL success) {
+            
+            [self showToast:@"添加成功"];
+            
+        } failure:^(LONetError *error) {
+            
+            [self showToast:@"添加失败"];
+            
+        }];
+        
+    }];
     
     return cell;
 }

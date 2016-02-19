@@ -26,6 +26,7 @@
 #import "UIView+Extension.h"
 #import "UIImageView+WebCache.h"
 #import "QGPickerView.h"
+#import "MJExtension.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 
@@ -97,6 +98,10 @@
 #define LOGIN_WITH_PASSWORD         @"/stapi/user/login"                           //用户登录
 
 #define GET_MY_FRIENDS              @"/stapi/friend/getMyFriends"                  //获取用户好友
+
+#define SEARCH_USER                 @"/stapi/search/searchUser"                    //搜索用户
+
+#define ADD_USER                    @"/stapi/friend/addFriend"                     //添加好友
 
 #define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
 

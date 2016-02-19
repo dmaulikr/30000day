@@ -1,7 +1,7 @@
 //
 //  AddressBookModel.h
 //  30000day
-//
+//  电话簿模型
 //  Created by GuoJia on 16/2/15.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //

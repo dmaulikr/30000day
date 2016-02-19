@@ -16,6 +16,7 @@
 #import "AddressBookModel.h"
 #import "ChineseString.h"
 #import "WeatherInformationModel.h"
+#import "UserInformationModel.h"
 
 //定位头文件
 #import <CoreLocation/CoreLocation.h>
@@ -106,7 +107,6 @@
                                success:(void (^)(NSString *responseObject))success
                                failure:(void (^)(NSString *error))failure {
     
-//内部测试接口
         NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
         
         [parameters addParameter:phoneNumber forKey:@"mobile"];
@@ -258,13 +258,24 @@
                                                                 //设置个人信息
                                                                 [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password];
                                                                 
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                   
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
                                                             }
                                                             
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                success(YES);
-                                                                
-                                                            });
+                                                           
                                                             
                                                         } else {
                                                             
@@ -302,8 +313,14 @@
     
     [userProfile setValuesForKeysWithDictionary:jsonDictionary];
     
+    STUserAccountHandler.userProfile = userProfile;
+    
     //保存用户的UID
     [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userProfile.userId];
+    
+    [Common saveAppDataForKey:KEY_SIGNIN_USER_NAME withObject:userName];
+    
+    [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:password];
     
     NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
@@ -349,7 +366,7 @@
     }
     
     //登录的时候进行发送通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:STUserAccountHandler.userProfile];
     
 }
 
@@ -432,7 +449,7 @@
     [self startRequest:request];
 }
 
-//**** 获取好友 *****/
+//**** 获取好友(dataArray存储的是UserInformationModel) *****/
 - (void)getMyFriendsWithUserId:(NSString *)userId
                                success:(void (^)(NSMutableArray * dataArray))success
                                failure:(void (^)(NSError *))failure {
@@ -457,9 +474,11 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
+                                                                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(recvDic[@"value"]);
+                                                                    success(array);
                                                                 });
                                                             }
                                                             
@@ -846,6 +865,155 @@
         self.addressBookBlock(array,sortArray,indexArray);
     
     });
+}
+
+//*************搜索某一个用户（里面装的SearchUserInformationModel）**********************/
+- (void)sendSearchUserRequestWithNickName:(NSString *)nickName
+                        success:(void(^)(NSMutableArray *))success
+                                  failure:(void (^)(LONetError *))failure {
+    
+    //内部测试接口
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:nickName forKey:@"nickName"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:SEARCH_USER
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                //字典数组创建一个模型数组
+                                                                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(array);
+                                                                
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                failure(error);
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                failure(error);
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+ 
+}
+
+//************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
+- (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
+                                     userId:(NSString *)userId
+                                   nickName:(NSString *)nickName
+                                    success:(void(^)(BOOL success))success
+                                    failure:(void (^)(LONetError *error))failure {
+    //内部测试接口
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:currentUserId forKey:@"curUserId"];
+    
+    [parameters addParameter:userId forKey:@"fUserId"];
+    
+    [parameters addParameter:nickName forKey:@"nickName"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:ADD_USER
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    if ([recvDic[@"value"] isEqual:@1]) {
+                                                                        
+                                                                         success(YES);
+                                                                        
+                                                                        //发出通知
+                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:UserAddFriendsSuccessPostNotification object:nil];
+                                                                        
+                                                                    } else {
+                                                                        
+                                                                        LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                        
+                                                                        failure(error);
+                                                                    }
+                                                                    
+                                                                });
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                failure(error);
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+    
+    
+    
 }
 
 

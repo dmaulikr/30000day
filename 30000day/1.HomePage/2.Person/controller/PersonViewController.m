@@ -9,11 +9,10 @@
 #import "PersonViewController.h"
 #import "PersonHeadView.h"
 #import "myFriendsTableViewCell.h"
-#import "FriendListInfo.h"
+#import "UserInformationModel.h"
 
-@interface PersonViewController () <UITableViewDataSource,UITableViewDelegate>
-
-{
+@interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
+    
     NSMutableArray *_dataArray;
 }
 
@@ -31,6 +30,17 @@
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
     //获取我的好友
+    [self getMyFriends];
+    
+    //监听个人信息管理模型发出的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    //监听成功添加好友发出的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAddFriendsSuccessPostNotification object:nil];
+}
+
+- (void)reloadData {
+    
     [self getMyFriends];
 }
 
@@ -122,7 +132,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FriendListInfo *friendInfo = _dataArray[indexPath.row];
+    UserInformationModel *informationModel = _dataArray[indexPath.row];
     
     myFriendsTableViewCell *cell;
     
@@ -132,7 +142,7 @@
         
         cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        if (cell==nil) {
+        if (cell == nil) {
             
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MyFriendsBigIMGTableViewCell" owner:nil options:nil] lastObject];
         }
@@ -149,30 +159,13 @@
         }
     }
     
-    if ( [friendInfo.HeadImg length] > 0) {
-        
-        [cell.iconImg sd_setImageWithURL:[NSURL URLWithString:friendInfo.HeadImg]];
-        
-    } else {
-        
-        [cell.iconImg sd_setImageWithURL:[NSURL URLWithString:friendInfo.FriendHeadImg]];
-    }
+    [cell.iconImg sd_setImageWithURL:[NSURL URLWithString:informationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    if (friendInfo.Remarks != nil && ![friendInfo.Remarks isEqualToString:@""]) {
-        
-        cell.nameLab.text = friendInfo.Remarks;
-        
-    } else {
-        
-        cell.nameLab.text = friendInfo.FriendSelfNickName;
-        
-    }
+    cell.nameLab.text = informationModel.nickName;
     
     cell.logName.text = @"暂无简介";
     
-    int birthday = [self pastDay:[friendInfo.Birthday stringByAppendingString:@" 00:00:00"]];
-    
-    cell.progressView.progress = (double)birthday/[friendInfo.TotalDays doubleValue];
+    cell.progressView.progress = (double)([informationModel.lifed doubleValue]/[informationModel.totalLife doubleValue]);
     
     return cell;
     
@@ -214,6 +207,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*

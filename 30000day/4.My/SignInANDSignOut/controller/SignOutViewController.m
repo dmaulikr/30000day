@@ -79,6 +79,8 @@
 //选择生日
 - (void)chooseBirthday {
     
+    [self.view endEditing:YES];
+    
     QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
     
     picker.delegate = self;

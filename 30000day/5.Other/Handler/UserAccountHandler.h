@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserProfile.h"
 
-//用来刷新首页以及我的界面通知
-static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
+
 
 @interface UserAccountHandler : NSObject
 

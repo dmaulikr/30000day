@@ -34,6 +34,9 @@
                             <constraint firstAttribute="height" constant="30" id="Oy2-d3-Phw"/>
                         </constraints>
                         <state key="normal" title="添加"/>
+                        <connections>
+                            <action selector="addUserAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YYZ-uK-NUJ"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
