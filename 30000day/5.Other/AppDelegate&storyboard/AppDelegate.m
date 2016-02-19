@@ -50,15 +50,29 @@
     
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
+    
     [MobClick startWithAppkey:@"56c6d04f67e58e0833000755" reportPolicy:BATCH channelId:nil];
+    
     [MobClick setAppVersion:BUNDEL_VERSION];
+    
     [MobClick setCrashReportEnabled:NO];
     
     [UMSocialWechatHandler setWXAppId:@"" appSecret:@"" url:@"http://www.umeng.com/social"];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://http://www.umeng.com/social"];
-    [UMSocialQQHandler  setQQWithAppId:@"" appKey:@"" url:@"http://www.umeng.com/social"];
+    
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
 }
 
 // Returns the types of data that Fit wishes to read from HealthKit.

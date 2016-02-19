@@ -12,7 +12,12 @@
 #import "ShareAnimatonView.h"
 #import <MessageUI/MessageUI.h>
 
-@interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate>
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+
+@interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
 @property (nonatomic,assign) BOOL isSearch;
 
@@ -311,9 +316,24 @@
                 [self showToast:@"该设备没有设置邮箱账号"];
             }
             
+        } else if (tag == 5) {
+            
+            [[UMSocialControllerService defaultControllerService] setShareText:@"我只是测试下分享" shareImage:[UIImage imageNamed:@"00"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
+        } else if (tag == 3) {
+            
+            [[UMSocialControllerService defaultControllerService] setShareText:@"测试QQ空间分享" shareImage:[UIImage imageNamed:@"IMG_1613"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQzone].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
+        } else if (tag == 4) {
+            
+            [[UMSocialControllerService defaultControllerService] setShareText:@"测试QQ分享" shareImage:[UIImage imageNamed:@"IMG_1613"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
         }
     }];
-    
+
 }
 
 #pragma mark ---- MFMessageComposeViewControllerDelegate
@@ -385,5 +405,19 @@
     }
     
 }
+
+
+#pragma mark --- UMSocialUIDelegate
+
+- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
+    
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
+
 
 @end

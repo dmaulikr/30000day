@@ -12,12 +12,15 @@
 #import "LONetworkAgent.h"
 #import "STBaseViewController.h"
 #import "FriendListInfo.h"
-#import <AddressBook/AddressBook.h>
+
 #import "AddressBookModel.h"
 #import "ChineseString.h"
 #import "WeatherInformationModel.h"
 #import "UserInformationModel.h"
 #import "UserLifeModel.h"
+
+//电话簿
+#import <AddressBook/AddressBook.h>
 
 //定位头文件
 #import <CoreLocation/CoreLocation.h>
@@ -1277,7 +1280,6 @@
     }];
     
 }
-
 
 //**********获取用户的天龄**********************/
 - (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
