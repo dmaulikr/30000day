@@ -102,7 +102,7 @@
  
 }
 
-+ (NSString *)getCurrentDate {
++ (NSString *)getCurrentDateString {
     
     NSDate *date = [NSDate date];
     

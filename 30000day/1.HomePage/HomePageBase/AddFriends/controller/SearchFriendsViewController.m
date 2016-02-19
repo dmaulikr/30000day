@@ -93,7 +93,7 @@
         self.backgroundView.hidden = YES;
         
         //开始搜索
-        [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray * dataArray) {
+        [self.dataHandler getMyFriendsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSMutableArray *dataArray) {
             
             self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
             
@@ -108,6 +108,7 @@
             self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
             
             [self.tableView reloadData];
+            
         }];
         
     } else {

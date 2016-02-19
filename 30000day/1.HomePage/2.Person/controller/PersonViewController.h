@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIImageView+WebCache.h"
-#import "myFriendsTableViewCell.h"
-#import "FriendListInfo.h"
+
 
 @interface PersonViewController : STBaseViewController
 

@@ -96,7 +96,7 @@
 
 #define LOGIN_WITH_PASSWORD         @"/stapi/user/login"                           //用户登录
 
-#define GET_MY_FRIENDS              @"/GetMyFriends"                               //获取用户好友
+#define GET_MY_FRIENDS              @"/stapi/friend/getMyFriends"                  //获取用户好友
 
 #define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
 
@@ -107,9 +107,6 @@
 #define  GET_SMS_CODE               @"/stapi/user/sendMobileCode"                  //获取短信验证码
 
 #define  VALIDATE_SMS_CODE          @"/stapi/user/validateMobileCode"              //验证短信验证码
-
-
-
 
 
 #endif

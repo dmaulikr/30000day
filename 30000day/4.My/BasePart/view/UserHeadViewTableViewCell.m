@@ -27,7 +27,7 @@
     
     _userProfile = userProfile;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.headImg]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     self.nameLabel.text =  _userProfile.nickName;
     

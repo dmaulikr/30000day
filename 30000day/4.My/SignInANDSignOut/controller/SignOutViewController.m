@@ -187,17 +187,16 @@
                                        birthday:self.birthdayString//生日
                                         success:^(BOOL success) {
                                             
-                                            [self showToast:@"注册成功"];
+                                           [self showToast:@"注册成功"];
                                             
-                                            for (id controller in [self.navigationController childViewControllers])
-                                            {
-                                                if ([controller isKindOfClass:[SignInViewController class]])
-                                                {
-                                                    [self.navigationController popToViewController:controller animated:YES];
-                                                    
-                                                }
-                                            }
-                                        
+                                            UIStoryboard *mainStroyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                            
+                                            UIViewController *controller = mainStroyboard.instantiateInitialViewController;
+                                            
+                                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                            
+                                            window.rootViewController = controller;
+                                            
                                         }
                                         failure:^(NSError *error) {
                                             

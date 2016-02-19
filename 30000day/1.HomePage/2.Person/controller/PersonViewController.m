@@ -8,6 +8,8 @@
 
 #import "PersonViewController.h"
 #import "PersonHeadView.h"
+#import "myFriendsTableViewCell.h"
+#import "FriendListInfo.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -35,7 +37,7 @@
 //获取我的好友
 - (void)getMyFriends {
     
-    [self.dataHandler getMyFriendsWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray * dataArray) {
+    [self.dataHandler getMyFriendsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSMutableArray *dataArray) {
         
         _dataArray = dataArray;
         
@@ -45,7 +47,6 @@
         
     }];
 }
-
 
 #pragma ---
 #pragma mark ----- UITableViewDelegate/UITableViewDatasource

@@ -17,7 +17,6 @@
 #import "MoreInfo.h"
 #import "MoreMessageViewCtr.h"
 #import "MoreTabHeaderView.h"
-#import "sys/utsname.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
     

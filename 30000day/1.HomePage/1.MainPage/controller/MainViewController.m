@@ -46,13 +46,13 @@
             
         } failure:^(NSError *error) {
             
-            [self showToast:[error description]];
+            [self showToast:@"获取天气失败"];
             
         }];
         
     } failure:^(NSError *error) {
         
-        [self showToast:[error description]];
+        [self showToast:@"定位失败"];
         
     }];
     
@@ -69,9 +69,8 @@
         
     } failure:^(NSError *error) {
         
-        [self showToast:[error description]];
+        [self showToast:@"获取天龄失败"];
     }];
-    
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];

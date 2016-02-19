@@ -46,8 +46,7 @@
                           failure:(void (^)(NSError *))failure;
 
 //**** 获取好友 *****/
-- (void)getMyFriendsWithPassword:(NSString *)password
-                             loginName:(NSString *)loginName
+- (void)getMyFriendsWithUserId:(NSString *)userId
                                 success:(void (^)(NSMutableArray * dataArray))success
                                 failure:(void (^)(NSError *))failure;
 
@@ -69,11 +68,11 @@
                                 failure:(void (^)(NSError *))failure;
 
 
-//************获取通讯录好友************/
+//************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
 
 
-//***********开始定位操作****************/
+//***********开始定位操作(sucess是城市的名字)****************/
 - (void)startFindLocationSucess:(void (^)(NSString *))sucess
                         failure:(void (^)(NSError *))failure;
 
