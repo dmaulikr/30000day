@@ -24,6 +24,7 @@
     
     self.addButton.layer.borderWidth = 0.5f;
 
+    self.addButton.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,6 +42,15 @@
     
     self.nickName.text = _userInformationModel.nickName;
   
+    if ([_userInformationModel.flag isEqual:@0]) {
+        
+        self.addButton.hidden = NO;
+        
+    } else {
+        
+        self.addButton.hidden = YES;
+    }
+    
 }
 
 - (IBAction)addUserAction:(id)sender {

@@ -26,4 +26,6 @@
 
 @property (nonatomic,strong) NSNumber *lifed;//已经过去的天龄
 
+@property (nonatomic , strong) NSNumber *flag;//0 表示不是好友 1表示是好友
+
 @end

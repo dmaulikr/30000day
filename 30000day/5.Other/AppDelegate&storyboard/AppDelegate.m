@@ -49,7 +49,7 @@
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
     /******** UMeng分享 ********/
-    [UMSocialData setAppKey:@""];
+    [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     [MobClick startWithAppkey:@"" reportPolicy:BATCH channelId:nil];
     [MobClick setAppVersion:BUNDEL_VERSION];
     [MobClick setCrashReportEnabled:NO];

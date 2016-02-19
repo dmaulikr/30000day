@@ -168,7 +168,7 @@
             
         } failure:^(LONetError *error) {
             
-            [self showToast:@"添加失败"];
+            [self showToast:[error.error  userInfo][NSLocalizedDescriptionKey]];
             
         }];
         

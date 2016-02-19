@@ -957,7 +957,7 @@
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:ADD_USER
                                                  parameters:parameters
-                                                    success:^(id responseObject) {
+                                            success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
                                                         
@@ -986,6 +986,13 @@
                                                                     }
                                                                     
                                                                 });
+                                                            } else if ([recvDic[@"code"] isEqualToNumber:@1014]) {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"不能添加自己为好友"}];
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                
+                                                                failure(error);
                                                             }
                                                             
                                                         } else {
@@ -1013,9 +1020,6 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
-    
-    
     
 }
 
