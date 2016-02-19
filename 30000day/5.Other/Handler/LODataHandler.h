@@ -110,4 +110,12 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                        success:(void (^)(NSMutableArray *,NSMutableArray*))success
                        failure:(void (^)(NSError *))failure;
 
+
+//**********获取用户的天龄(dataArray装的是模型)**********************/
+- (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
+                                   endDay:(NSString *)endDay//2016-02-19这种模式
+                                dayNumber:(NSString *)dayNumber
+                                success:(void (^)(NSMutableArray *dataArray))success
+                                failure:(void (^)(LONetError *error))failure;
+
 @end

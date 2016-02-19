@@ -110,6 +110,8 @@
 
 #define  VALIDATE_SMS_CODE          @"/stapi/user/validateMobileCode"              //验证短信验证码
 
+#define GET_USER_LIFE_LIST          @"/stapi/life/getUserLifeList"                 //获取用户天龄
+
 
 #endif
 

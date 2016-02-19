@@ -97,14 +97,22 @@
         });
         
     });
-    
-   
- 
 }
 
 + (NSString *)getCurrentDateString {
     
     NSDate *date = [NSDate date];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    return [formatter stringFromDate:date];
+}
+
++ (NSString *)getDateStringWithTimeInterval:(long)timeNumber {
+    
+    NSDate *date  =  [NSDate dateWithTimeIntervalSince1970:timeNumber/1000];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     

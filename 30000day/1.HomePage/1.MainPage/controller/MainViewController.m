@@ -12,6 +12,7 @@
 #import "ChartTableViewCell.h"
 #import "WeatherInformationModel.h"
 #import "jk.h"
+#import "UserLifeModel.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -56,20 +57,55 @@
         
     }];
     
+//    //2.获取用户的天龄
+//    [self.dataHandler getUserLifeStateUserID:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] Password:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray *allDayArray,NSMutableArray *dayNumberArray) {
+//        
+//        self.totalLifeDayNumber = [[allDayArray lastObject] floatValue];
+//        
+//        self.allDayArray = [NSMutableArray arrayWithArray:allDayArray];
+//        
+//        self.dayNumberArray = [NSMutableArray arrayWithArray:dayNumberArray];
+//
+//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//        
+//    } failure:^(NSError *error) {
+//        
+//        [self showToast:@"获取天龄失败"];
+//    }];
+    
     //2.获取用户的天龄
-    [self.dataHandler getUserLifeStateUserID:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] Password:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD] loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSMutableArray *allDayArray,NSMutableArray *dayNumberArray) {
+    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getCurrentDateString] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
         
-        self.totalLifeDayNumber = [[allDayArray lastObject] floatValue];
         
-        self.allDayArray = [NSMutableArray arrayWithArray:allDayArray];
+        UserLifeModel *lastModel = [dataArray lastObject];
         
-        self.dayNumberArray = [NSMutableArray arrayWithArray:dayNumberArray];
+        self.totalLifeDayNumber = [lastModel.curLife floatValue];
+        
+        //算出数组
+        self.allDayArray = [NSMutableArray array];
+        
+        self.dayNumberArray = [NSMutableArray array];
+        
+        for (int  i = 0; i < dataArray.count ; i++ ) {
+            
+            UserLifeModel *model = dataArray[i];
+            
+            [self.allDayArray addObject:model.curLife];
+            
+            NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+            
+            NSString *string = array[2];
+            
+            NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+            
+            [self.dayNumberArray addObject:newString];
+            
+        }
 
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         
-    } failure:^(NSError *error) {
+    } failure:^(LONetError *error) {
         
-        [self showToast:@"获取天龄失败"];
     }];
     
     //监听个人信息管理模型发出的通知

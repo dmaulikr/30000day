@@ -17,6 +17,7 @@
 #import "ChineseString.h"
 #import "WeatherInformationModel.h"
 #import "UserInformationModel.h"
+#import "UserLifeModel.h"
 
 //定位头文件
 #import <CoreLocation/CoreLocation.h>
@@ -992,7 +993,12 @@
                                                                 
                                                                 LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
-                                                                failure(error);
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
+                                                                
                                                             }
                                                             
                                                         } else {
@@ -1272,6 +1278,88 @@
     
 }
 
+
+//**********获取用户的天龄**********************/
+- (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
+                                   endDay:(NSString *)endDay//2016-02-19这种模式
+                                dayNumber:(NSString *)dayNumber
+                                  success:(void (^)(NSMutableArray *dataArray))success
+                                  failure:(void (^)(LONetError *error))failure {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:currentUserId forKey:@"userId"];
+    
+    [parameters addParameter:endDay forKey:@"endDay"];
+    
+    [parameters addParameter:dayNumber forKey:@"day"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_USER_LIFE_LIST
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *array = [UserLifeModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(array);
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                             failure(error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+}
 
 
 

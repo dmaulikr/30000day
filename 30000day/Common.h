@@ -29,7 +29,18 @@
  **/
 + (void)getYearArrayMonthArrayDayArray:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler;
 
-//获取现在的时间字符串:比如2016-12-12
+/**
+ * 获取现在的时间字符串
+ *
+ * @return  @"2016-12-12"
+ */
 + (NSString *)getCurrentDateString;
+
+/**
+ *  @param  timeNumber long类型的数字
+ *
+ *  @return  @"2015-12-12"
+ **/
++ (NSString *)getDateStringWithTimeInterval:(long)timeNumber;
 
 @end
