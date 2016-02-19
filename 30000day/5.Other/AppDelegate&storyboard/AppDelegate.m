@@ -50,12 +50,12 @@
     
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
-    [MobClick startWithAppkey:@"" reportPolicy:BATCH channelId:nil];
+    [MobClick startWithAppkey:@"56c6d04f67e58e0833000755" reportPolicy:BATCH channelId:nil];
     [MobClick setAppVersion:BUNDEL_VERSION];
     [MobClick setCrashReportEnabled:NO];
     
     [UMSocialWechatHandler setWXAppId:@"" appSecret:@"" url:@"http://www.umeng.com/social"];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://http://www.umeng.com/social"];
     [UMSocialQQHandler  setQQWithAppId:@"" appKey:@"" url:@"http://www.umeng.com/social"];
     
     return YES;
