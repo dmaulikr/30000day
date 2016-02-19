@@ -58,6 +58,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 //**********搜索某一个用户（里面装的UserInformationModel）**********************/
 - (void)sendSearchUserRequestWithNickName:(NSString *)nickName
+                            currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(LONetError *))failure;
 

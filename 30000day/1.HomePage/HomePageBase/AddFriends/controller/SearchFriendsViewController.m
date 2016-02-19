@@ -93,7 +93,9 @@
         self.backgroundView.hidden = YES;
          
         //开始搜索
-        [self.dataHandler sendSearchUserRequestWithNickName:self.textField.text success:^(NSMutableArray *dataArray) {
+        [self.dataHandler sendSearchUserRequestWithNickName:self.textField.text
+                                              currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                                    success:^(NSMutableArray *dataArray) {
             
             self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
             

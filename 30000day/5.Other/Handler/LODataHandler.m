@@ -869,13 +869,16 @@
 
 //*************搜索某一个用户（里面装的SearchUserInformationModel）**********************/
 - (void)sendSearchUserRequestWithNickName:(NSString *)nickName
-                        success:(void(^)(NSMutableArray *))success
+                                   currentUserId:(NSString *)curUserId
+                                  success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(LONetError *))failure {
     
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:nickName forKey:@"nickName"];
+    
+    [parameters addParameter:curUserId forKey:@"curUserId"];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SEARCH_USER
