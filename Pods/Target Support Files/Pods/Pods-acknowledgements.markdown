@@ -147,6 +147,11 @@ THE SOFTWARE.
 
 
 
+## UMengAnalytics
+
+Copyright 2011 - 2015 UMeng.com. All rights reserved.
+
+
 ## UMengSocial
 
 Copyright 2011 - 2015 UMeng.com. All rights reserved.

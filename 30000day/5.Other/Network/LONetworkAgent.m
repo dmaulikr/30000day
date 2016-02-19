@@ -319,8 +319,8 @@
     
     if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
 //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
-        [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
-        [_manager.requestSerializer setValue:CLIENT_ID forHTTPHeaderField:@"Lianjia-App-Id"];
+//        [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
+//        [_manager.requestSerializer setValue:CLIENT_ID forHTTPHeaderField:@"Lianjia-App-Id"];
 //        [_manager.requestSerializer setValue:[LOSession sharedSession].UDID forHTTPHeaderField:@"Lianjia-Device-Id"];
 //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
     }

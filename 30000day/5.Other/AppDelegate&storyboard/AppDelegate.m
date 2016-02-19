@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
+#import "MobClick.h"
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
 
 @import HealthKit;
 
@@ -43,7 +48,15 @@
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
-
+    /******** UMeng分享 ********/
+    [UMSocialData setAppKey:@""];
+    [MobClick startWithAppkey:@"" reportPolicy:BATCH channelId:nil];
+    [MobClick setAppVersion:BUNDEL_VERSION];
+    [MobClick setCrashReportEnabled:NO];
+    
+    [UMSocialWechatHandler setWXAppId:@"" appSecret:@"" url:@"http://www.umeng.com/social"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialQQHandler  setQQWithAppId:@"" appKey:@"" url:@"http://www.umeng.com/social"];
     
     return YES;
 }

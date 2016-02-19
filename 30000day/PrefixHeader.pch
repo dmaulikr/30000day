@@ -86,12 +86,9 @@
 #define VIEWBORDERLINECOLOR     [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
 
 
-#define CLIENT_ID                   @"2015091511107"
-
-#define CLIENT_SECRET               @"0a34a9366d438e6ac5ae3480d024c4ef"
+#define BUNDEL_VERSION      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 #define  STUserAccountHandler       [UserAccountHandler shareUserAccountHandler]  //用户的个人信息单例
-
 
 #define ST_API_SERVER               @"http://192.168.1.112:8080"                  //测试服务器地址
 

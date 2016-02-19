@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "UserProfile.h"
 
-
-
 @interface UserAccountHandler : NSObject
 
 @property (nonatomic ,strong) UserProfile *userProfile;//保存在处理器里面的用户信息,setter方法会发出通知
