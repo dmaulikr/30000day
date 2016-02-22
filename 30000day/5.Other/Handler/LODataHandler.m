@@ -1663,8 +1663,10 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                   
-                                                                    success(YES);
+                                                                    //当用户成功保存健康因子的时候会发出通知
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                      success(YES);
+                                                                    
                                                                 });
                                                                 
                                                             } else {

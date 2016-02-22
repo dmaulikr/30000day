@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic,strong) UIBarButtonItem *barButton;
+
 @end
 
 @implementation HealthySetUpViewController
@@ -27,6 +29,10 @@
     self.title = @"健康因素";
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveFactor)];
+    
+    self.barButton = barButton;
+    
+    barButton.enabled = NO;
     
     self.navigationItem.rightBarButtonItem = barButton;
     
@@ -42,6 +48,8 @@
     [self.dataHandler sendSaveUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:self.getFactorArray success:^(BOOL success) {
         
         [self showToast:@"保存成功"];
+        
+        self.barButton.enabled = NO;
         
     } failure:^(LONetError *error) {
         
@@ -98,6 +106,11 @@
     if (index == 1) {
     
         GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
+        
+        if (![factorModel.userSubFactorModel.title isEqualToString:value] && ![factorModel.userSubFactorModel.data isEqualToNumber:[GetFactorModel dataNumberWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
+            
+            self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
+        }
         
         factorModel.userSubFactorModel.title = value;
         
