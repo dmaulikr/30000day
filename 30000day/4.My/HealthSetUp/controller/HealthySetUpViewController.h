@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HealthySetUpViewController : STBaseViewController
+@interface HealthySetUpViewController : ShowBackItemViewController
 
 @end

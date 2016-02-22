@@ -39,6 +39,23 @@
     return @"";
 }
 
++ (NSNumber *)dataNumberWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray {
+    
+    for (int i = 0; i < subFactorArray.count ; i++) {
+        
+        SubFactorModel *subFactorModel = subFactorArray[i];
+        
+        if ([subFactorModel.title isEqualToString:string]) {
+            
+            return subFactorModel.data;
+            
+        }
+    }
+    
+    return @0;
+}
+
+
 @end
 
 @implementation SubFactorModel

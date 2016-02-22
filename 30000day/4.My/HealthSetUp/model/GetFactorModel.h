@@ -31,6 +31,14 @@
 
 + (NSString *)titleStringWithDataNumber:(NSNumber *)data subFactorArray:(NSMutableArray *)subFactorArray;
 
+/**
+ *
+ * 用一个string 来取得subFactorArray里面模型里面的一个data
+ *
+ * 例子: @0.5 @[SubFactorModel,SubFactorModel,SubFactorModel]   -->  SubFactorModel.data
+ **/
+
++ (NSNumber *)dataNumberWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray;
 
 @end
 

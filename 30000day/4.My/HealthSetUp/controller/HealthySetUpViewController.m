@@ -41,7 +41,11 @@
     
     [self.dataHandler sendSaveUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:self.getFactorArray success:^(BOOL success) {
         
+        [self showToast:@"保存成功"];
+        
     } failure:^(LONetError *error) {
+        
+        [self showToast:@"保存失败"];
         
     }];
 }
@@ -97,6 +101,8 @@
         
         factorModel.userSubFactorModel.title = value;
         
+        factorModel.userSubFactorModel.data  = [GetFactorModel dataNumberWithTitleString:value subFactorArray:factorModel.subFactorArray];
+        
         [self.tableView reloadData];
     }
 }
@@ -135,9 +141,6 @@
     cell.cellIndexPath = indexPath;
     
     cell.factorModel = factorModel;
-    
-    //如果用户有选择设置健康因子，那么就要显示该健康因子,如果用户没有选择健康因子，那么要显示设置
-    [cell.setButton setTitle:[Common isObjectNull:factorModel.userSubFactorModel.title] ? @"设置" : factorModel.userSubFactorModel.title  forState:UIControlStateNormal];
     
     //按钮点击回调
     [cell setSetButtonClick:^(NSIndexPath *cellIndexPath) {
