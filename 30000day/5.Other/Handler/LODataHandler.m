@@ -453,7 +453,6 @@
                                success:(void (^)(NSMutableArray * dataArray))success
                                failure:(void (^)(NSError *))failure {
 
-    //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:userId forKey:@"userId"];
@@ -1613,6 +1612,27 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     params[@"userId"] = userId;
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    
+    for (int i = 0; i < factorsModelArray.count; i++) {
+        
+        GetFactorModel *factorModel = factorsModelArray[i];
+        
+        if (factorModel.userSubFactorModel.data) {
+            
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+            
+            dictionary[@"v"] = factorModel.userSubFactorModel.data ;
+            
+            dictionary[@"k"] = [NSNumber numberWithInt:i + 1];
+            
+            [dataArray addObject:dictionary];
+            
+        }
+    }
+    
+    NSString *dataString = [dataArray mj_JSONString];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SAVE_USER_FACTORS
