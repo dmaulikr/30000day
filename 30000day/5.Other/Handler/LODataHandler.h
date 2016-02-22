@@ -1,6 +1,6 @@
 //
 //  LODataHandler.h
-//  LianjiaOnlineApp
+//  30000day
 //
 //  Created by GuoJia on 15/12/10.
 //  Copyright © 2015年 GuoJia. All rights reserved.
@@ -86,15 +86,6 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                  Birthday:(NSString *)birthday
                                  success:(void (^)(BOOL))success
                                  failure:(void (^)(NSError *))failure;
-
-
-//******* 设置健康因子  ************/
-- (void)postUpdateHealthDataWithPassword:(NSString *)password
-                               loginName:(NSString *)loginName
-                                cityName:(NSString *)cityName
-                                 success:(void (^)(BOOL))success
-                                failure:(void (^)(NSError *))failure;
-
 
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;

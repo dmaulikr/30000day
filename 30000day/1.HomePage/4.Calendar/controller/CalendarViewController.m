@@ -17,6 +17,7 @@
 #import "MoreInfo.h"
 #import "MoreMessageViewCtr.h"
 #import "MoreTabHeaderView.h"
+#import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
     
@@ -95,11 +96,16 @@
 //添加提醒按钮点击事件
 - (IBAction)addRemindAction:(id)sender {
     
-    _MessageViewUpd.time = self.time;
+//    _MessageViewUpd.time = self.time;
+//    
+//    _MessageViewUpd.into = @"add";
+//    
+//    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
     
-    _MessageViewUpd.into = @"add";
+    AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
-    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 

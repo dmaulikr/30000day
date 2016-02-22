@@ -183,6 +183,10 @@
 		B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */; };
 		B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */; };
 		B8F2DA691C5F3D8B002C7712 /* UserPassWordProblem.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */; };
+		B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */; };
+		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
+		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
+		B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -486,6 +490,12 @@
 		B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvinceLifeExpectancyWoman.plist; sourceTree = "<group>"; };
 		B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = theWholeTen.plist; sourceTree = "<group>"; };
 		B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserPassWordProblem.plist; sourceTree = "<group>"; };
+		B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
+		B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
+		B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindViewController.xib; sourceTree = "<group>"; };
+		B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindTextTableViewCell.h; sourceTree = "<group>"; };
+		B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindTextTableViewCell.m; sourceTree = "<group>"; };
+		B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindTextTableViewCell.xib; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -814,6 +824,9 @@
 				B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */,
 				B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */,
 				B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */,
+				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
+				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
+				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -830,6 +843,9 @@
 				B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */,
 				B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */,
 				B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */,
+				B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */,
+				B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */,
+				B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1543,6 +1559,8 @@
 				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
+				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
+				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
@@ -1660,6 +1678,7 @@
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
+				B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */,
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
@@ -1731,6 +1750,7 @@
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
+				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
