@@ -63,13 +63,17 @@
     
     self.indicatiorView.theme.incompletedColor = RGBACOLOR(230, 230, 230, 1);
     
-    self.indicatiorView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
-    
     self.indicatiorView.theme.thickness = 30.0;//粗细
 
+    self.label_1.text = [NSString stringWithFormat:@"%.2d",hasbeen];
+    
     self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
     
-    self.label_1.text = [NSString stringWithFormat:@"%.2d",hasbeen];
+    if (hasbeen==0) {
+        self.indicatiorView.theme.completedColor = RGBACOLOR(230, 230, 230, 1);
+    }else{
+        self.indicatiorView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
+    }
     
 }
 
