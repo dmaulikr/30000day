@@ -1599,7 +1599,7 @@
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"获取个人健康因子失败"}];
             
             LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
             
@@ -1663,8 +1663,10 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
                                                                     //当用户成功保存健康因子的时候会发出通知
                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                    
                                                                       success(YES);
                                                                     
                                                                 });

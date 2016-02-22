@@ -30,19 +30,24 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                           failure:(void (^)(NSString *error))failure;
 
 
+
 //*********** 核对短信验证码是否正确 ********/
 - (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
                              smsCode:(NSString *)smsCode
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure;
 
+
 //***** 普通登录 *****/
+//提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(LONetError *))failure;
 
+
 //***** 用户注册 *****/
+//提醒:注册成功会获取用户的个人信息，首界面应刷新，所以注册成功会发出一个通知
 - (void)postRegesiterWithPassword:(NSString *)password
                       phoneNumber:(NSString *)phoneNumber
                          nickName:(NSString *)nickName
@@ -50,10 +55,12 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *))failure;
 
+
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
 - (void)getMyFriendsWithUserId:(NSString *)userId
                                 success:(void (^)(NSMutableArray * dataArray))success
                                 failure:(void (^)(NSError *))failure;
+
 
 //**********搜索某一个用户（里面装的UserInformationModel）**********************/
 - (void)sendSearchUserRequestWithNickName:(NSString *)nickName
@@ -61,12 +68,14 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(LONetError *))failure;
 
+
 //************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
                                    nickName:(NSString *)nickName
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(LONetError *error))failure;
+
 
 //***** 更新个人信息 *****/
 - (void )postUpdateProfileWithUserID:(NSString *)userID
@@ -78,6 +87,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                  success:(void (^)(BOOL))success
                                  failure:(void (^)(NSError *))failure;
 
+
 //******* 设置健康因子  ************/
 - (void)postUpdateHealthDataWithPassword:(NSString *)password
                                loginName:(NSString *)loginName
@@ -85,8 +95,10 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                  success:(void (^)(BOOL))success
                                 failure:(void (^)(NSError *))failure;
 
+
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
+
 
 //***********开始定位操作(sucess是城市的名字)****************/
 - (void)startFindLocationSucess:(void (^)(NSString *))sucess
@@ -97,6 +109,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 - (void)getWeatherInformation:(NSString *)cityName
                         sucess:(void (^)(WeatherInformationModel *))sucess
                        failure:(void (^)(NSError *))failure;
+
 
 //**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
 - (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
@@ -109,6 +122,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
 - (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
                failure:(void (^)(LONetError *error))failure;
+
 
 
 //***********获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
@@ -125,7 +139,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
-//提醒:如果保存成功前面的用户天龄应该改变,所以保存成功会发出一个通知
+//提醒:如果保存成功前面的首界面天龄应该改变,所以保存成功会发出一个通知
 - (void)sendSaveUserFactorsWithUserId:(NSString *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
                               success:(void (^)(BOOL success))success
