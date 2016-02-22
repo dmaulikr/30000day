@@ -21,6 +21,7 @@
 - (IBAction)ckbtnclick:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
+
 @property (weak, nonatomic) IBOutlet UIView *backGroundView;
 
 @end

@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
 
     [self.textLabel setFont:[UIFont systemFontOfSize:14.0]];
+    
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
 }
@@ -29,6 +30,14 @@
         
         self.setButtonClick(self.cellIndexPath);
     }
+}
+
+
+- (void)setFactorModel:(GetFactorModel *)factorModel {
+    
+    _factorModel = factorModel;
+    
+    self.titleLabel.text = _factorModel.title;
 }
 
 @end

@@ -58,15 +58,6 @@
 #define jhMethod @"GET"
 
 
-#define KEY_SIGNIN_USER_NAME         @"SignInUserName"      //登录用户名
-
-#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"      //用户密码
-
-#define KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
-
-#define USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
-
-
 //好友进度条圈圈的厚度
 #define FriendProgressHeight 3
 
@@ -86,32 +77,43 @@
 #define VIEWBORDERLINECOLOR     [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
 
 
-#define BUNDEL_VERSION      [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define HEALTHSETINDICATE            @"HEALTHSETINDICATE"   //健康界面的indicate
 
-#define  STUserAccountHandler       [UserAccountHandler shareUserAccountHandler]  //用户的个人信息单例
+#define KEY_SIGNIN_USER_NAME         @"SignInUserName"      //登录用户名
 
-#define ST_API_SERVER               @"http://192.168.1.112:8080"                  //测试服务器地址
+#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"      //用户密码
 
-#define LOGIN_WITH_PASSWORD         @"/stapi/user/login"                           //用户登录
+#define KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
 
-#define GET_MY_FRIENDS              @"/stapi/friend/getMyFriends"                  //获取用户好友
+#define USER_ACCOUNT_ARRAY           @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
 
-#define SEARCH_USER                 @"/stapi/search/searchUser"                    //搜索用户
+#define BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
-#define ADD_USER                    @"/stapi/friend/addFriend"                     //添加好友
+#define  STUserAccountHandler        [UserAccountHandler shareUserAccountHandler]  //用户的个人信息单例
 
-#define  UPDATE_PROFILE             @"/UpdateProfile"                              //更新用户信息
+#define ST_API_SERVER                @"http://192.168.1.112:8080"                  //测试服务器地址
 
-#define  UPDATE_IMAGE               @"/UploadPortrait"                             //上传图片接口
+#define LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
 
-#define  REGISTER                   @"/stapi/user/register"                         //注册
+#define GET_MY_FRIENDS               @"/stapi/friend/getMyFriends"                  //获取用户好友
 
-#define  GET_SMS_CODE               @"/stapi/user/sendMobileCode"                  //获取短信验证码
+#define SEARCH_USER                  @"/stapi/search/searchUser"                    //搜索用户
 
-#define  VALIDATE_SMS_CODE          @"/stapi/user/validateMobileCode"              //验证短信验证码
+#define ADD_USER                     @"/stapi/friend/addFriend"                     //添加好友
 
-#define GET_USER_LIFE_LIST          @"/stapi/life/getUserLifeList"                 //获取用户天龄
+#define  REGISTER                    @"/stapi/user/register"                         //注册
 
+#define  GET_SMS_CODE                @"/stapi/user/sendMobileCode"                  //获取短信验证码
+
+#define  VALIDATE_SMS_CODE           @"/stapi/user/validateMobileCode"              //验证短信验证码
+
+#define GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
+
+#define  GET_FACTORS                 @"/stapi/factor/getFactors"                    //获取健康因子
+
+#define GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
+
+#define GET_USER_FACTORS             @"/stapi/factor/getUserFactor"                 //获取某人的健康因子
 
 #endif
 

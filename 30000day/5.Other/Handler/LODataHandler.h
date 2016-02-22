@@ -47,7 +47,6 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                       phoneNumber:(NSString *)phoneNumber
                          nickName:(NSString *)nickName
                       mobileToken:(NSString *)mobileToken//校验后获取的验证码
-                         birthday:(NSString *)birthday//生日
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *))failure;
 
@@ -86,11 +85,8 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                  success:(void (^)(BOOL))success
                                 failure:(void (^)(NSError *))failure;
 
-
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
-
-
 
 //***********开始定位操作(sucess是城市的名字)****************/
 - (void)startFindLocationSucess:(void (^)(NSString *))sucess
@@ -102,20 +98,34 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                         sucess:(void (^)(WeatherInformationModel *))sucess
                        failure:(void (^)(NSError *))failure;
 
-
-//**********获取用户的天龄**********************/
-- (void)getUserLifeStateUserID:(NSString *)userID
-                      Password:(NSString *)password
-                     loginName:(NSString *)loginName
-                       success:(void (^)(NSMutableArray *,NSMutableArray*))success
-                       failure:(void (^)(NSError *))failure;
-
-
-//**********获取用户的天龄(dataArray装的是模型)**********************/
+//**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
 - (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                 success:(void (^)(NSMutableArray *dataArray))success
                                 failure:(void (^)(LONetError *error))failure;
+
+
+//***********获取健康因子(里面装的是GetFacotorModel数组)***************/
+- (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
+               failure:(void (^)(LONetError *error))failure;
+
+
+//***********获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
+- (void)sendGetSubFactorsWithFactorsModel:(NSMutableArray *)factorsArray
+                                  success:(void (^)(NSMutableArray *dataArray))success
+                                  failure:(void (^)(LONetError *error))failure;
+
+
+//***********获获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
+- (void)sendGetUserFactorsWithUserId:(NSString *)userId
+                   factorsModelArray:(NSMutableArray *)factorsModelArray
+                             success:(void (^)(NSMutableArray *dataArray))success
+                             failure:(void (^)(LONetError *error))failure;
+
+//http://192.168.1.112:8080/stapi/factor/setUserFactor?userId=1000000000&data
+
+//********保存某人健康因子到服务器*********************/
+
 
 @end

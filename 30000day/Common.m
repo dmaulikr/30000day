@@ -26,6 +26,24 @@
     return [defaults objectForKey:key];
 }
 
++ (void)saveAppIntegerDataForKey : (NSString *) key  withObject : (NSInteger) value {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:value forKey:key];
+    
+    [defaults synchronize];
+    
+}
+
++ (NSInteger)readAppIntegerDataForKey : (NSString *) key {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults integerForKey:key];
+    
+}
+
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -33,11 +51,6 @@
     [defaults setBool:value forKey:key];
     
     [defaults synchronize];
-}
-
-+ (BOOL)isUserLogin {
-    
-    return ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil);
 }
 
 + (void)removeAppDataForKey:(NSString *)key {
@@ -49,6 +62,13 @@
     [defaults synchronize];
 }
 
+
++ (BOOL)isUserLogin {
+    
+    return ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil);
+}
+
+
 + (BOOL) isObjectNull : (id) obj
 {
     if ((obj == nil) || (obj == [NSNull null]) || ([[NSString stringWithFormat:@""] isEqualToString:obj]))
@@ -57,7 +77,11 @@
         return NO;
 }
 
-
+/**
+ * yearArray存储的是 @"2016年",@"2015年"等字符串（100个）
+ * monthArray存储的是 @"1月",@"2月"等字符串(12个)
+ * dayArray存储的是  @"1日"，@"2日"等字符串（31个）
+ **/
 + (void)getYearArrayMonthArrayDayArray:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler {
     
     dispatch_async(dispatch_queue_create("creatArrays", DISPATCH_QUEUE_SERIAL), ^{

@@ -10,6 +10,4 @@
 
 @interface HealthySetUpViewController : STBaseViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *mainTable;
-
 @end

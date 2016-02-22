@@ -147,18 +147,24 @@
         
         if (row_1 >= 0 ) {
             
-            NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-            
-            if (self.delegate) {
+            if (self.dataArray_1.count >= 1) {
                 
-                if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
+                
+                if (self.delegate) {
                     
-                   [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                        
+                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                        
+                    }
                     
                 }
                 
-                [self hide];
             }
+            
+            [self hide];
+            
         }
     } else if (self.num == 2) {
         
@@ -168,22 +174,29 @@
         
         if (row_1 >= 0 && (row_2 >= 0) ) {
             
-            NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-            
-            NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
-            
-            if (self.delegate) {
+            if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1)) {
                 
-                if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
-                    
-                    [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
-                    
-                    [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
-               }
+                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
                 
-              [self hide];
+                NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
+                
+                if (self.delegate) {
+                    
+                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                        
+                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                        
+                        [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
+                    }
+                    
+                    
+                }
+                
             }
+ 
         }
+        
+        [self hide];
         
     } else if (self.num == 3) {
         
@@ -195,36 +208,42 @@
         
         if ((row_1 >= 0) && (row_2 >= 0) &&  (row_3 >= 0)) {
             
-            NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-            
-            NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
-            
-            NSString *title_3 = [self.dataArray_3 objectAtIndex:row_3];
-            
-            if (self.delegate) {
+            if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1) && (self.dataArray_3.count >= 1)) {
                 
-               if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
-                   
-                   [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
-                   
-                   [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
-                   
-                   [self.delegate didSelectPickView:self value:title_3 indexOfPickerView:3 indexOfValue:row_3];
-               }
+                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
                 
-              [self hide];
+                NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
+                
+                NSString *title_3 = [self.dataArray_3 objectAtIndex:row_3];
+                
+                if (self.delegate) {
+                    
+                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                        
+                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                        
+                        [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
+                        
+                        [self.delegate didSelectPickView:self value:title_3 indexOfPickerView:3 indexOfValue:row_3];
+                    }
+                    
+                    
+                }
             }
+            
+            [self hide];
+            
         }
     }
 }
 
 - (void)showOnView:(UIView *)superView withPickerViewNum:(NSInteger)num withArray:(NSArray *)dataArray_1 withArray:(NSArray *)dataArray_2 withArray:(NSArray *)dataArray_3 selectedTitle:(NSString *)selectedTitle_1 selectedTitle:(NSString *)selectedTitle_2 selectedTitle:(NSString *)selectedTitle_3 {
     
-    self.dataArray_1 = dataArray_1;
+    self.dataArray_1 = dataArray_1 ? dataArray_1 : [NSMutableArray array];
     
-    self.dataArray_2 = dataArray_2;
+    self.dataArray_2 = dataArray_2 ? dataArray_2 : [NSMutableArray array];
     
-    self.dataArray_3 = dataArray_3;
+    self.dataArray_3 = dataArray_3 ? dataArray_3 : [NSMutableArray array];
     
     self.num = num;
     
@@ -327,12 +346,12 @@
 }
 
 #pragma mark --- UIPickerViewDelegate
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     
     return 1;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if (pickerView == self.pickerView_1) {
         
@@ -349,11 +368,13 @@
     return 0;
 }
 
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    
     return 40;
+    
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
     if (pickerView == self.pickerView_1) {
         
@@ -374,7 +395,7 @@
     return nil;
 }
 
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
 }
 

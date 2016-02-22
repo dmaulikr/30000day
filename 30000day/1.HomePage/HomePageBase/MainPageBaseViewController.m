@@ -45,7 +45,7 @@
     //*******************进行用户登录判断************************************************/
     if (![Common isUserLogin]) {//过去没有登录
         
-//        [self jumpToSignInViewController];
+        [self jumpToSignInViewController];
         
     } else {//过去有登录
         
@@ -59,7 +59,7 @@
                                             
                                             [self showToast:@"账户无效，请重新登录"];
                                             
-//                                            [self jumpToSignInViewController];
+                                            [self jumpToSignInViewController];
                                             
                                         }];
         
@@ -176,7 +176,7 @@
     
     [self.buttonParentView addSubview:_mainPageButton];
     
-    _mainPageButton.translatesAutoresizingMaskIntoConstraints=NO;
+    _mainPageButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     [_mainPageButton addConstraint:[NSLayoutConstraint constraintWithItem:_mainPageButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:60]];
     
@@ -225,7 +225,6 @@
     [_bottomScrollView setBackgroundColor:BLUECOLOR];
     
     [self.buttonParentView addSubview:_bottomScrollView];
-    
     
     self.addFriendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     

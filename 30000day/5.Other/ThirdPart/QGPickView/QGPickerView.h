@@ -13,7 +13,7 @@
 @interface QGPickerView : UIView
 
 @property(nonatomic,copy)NSString *titleText;
-@property (nonatomic,weak)id<QGPickerViewDelegate>delegate;
+@property (nonatomic,weak)id <QGPickerViewDelegate> delegate;
 
 /**
  * 配置QGPickerView 并初始化数据源

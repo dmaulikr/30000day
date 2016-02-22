@@ -23,10 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *niceNameTextSubView;
 
-@property (nonatomic,copy) NSString *birthdayString;//生日字符串
-
-@property (weak, nonatomic) IBOutlet UIButton *birthdayButton;
-
 @end
 
 @implementation SignOutViewController
@@ -71,92 +67,86 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)chooseBirthdayAction:(id)sender {
-    
-    [self chooseBirthday];
-}
-
 //选择生日
-- (void)chooseBirthday {
-    
-    [self.view endEditing:YES];
-    
-    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-    
-    picker.delegate = self;
-    
-    picker.titleText = @"生日选择";
-    
-    self.birthdayString = @"";
-    
-    //3.赋值
-    [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
-        
-        NSArray *dateArray = [[Common getCurrentDateString] componentsSeparatedByString:@"-"];
-        
-        NSString *monthStr = dateArray[1];
-        
-        NSString *dayStr = dateArray[2];
-        
-        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
-            
-            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
-            
-        } else {
-            
-            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
-        }
-        
-        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
-            
-            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
-            
-        } else {
-            
-            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
-        }
-        
-        //显示QGPickerView
-        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
-        
-    }];
-  
-}
+//- (void)chooseBirthday {
+//    
+//    [self.view endEditing:YES];
+//    
+//    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+//    
+//    picker.delegate = self;
+//    
+//    picker.titleText = @"生日选择";
+//    
+//    self.birthdayString = @"";
+//    
+//    //3.赋值
+//    [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
+//        
+//        NSArray *dateArray = [[Common getCurrentDateString] componentsSeparatedByString:@"-"];
+//        
+//        NSString *monthStr = dateArray[1];
+//        
+//        NSString *dayStr = dateArray[2];
+//        
+//        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
+//            
+//            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
+//            
+//        } else {
+//            
+//            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
+//        }
+//        
+//        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
+//            
+//            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
+//            
+//        } else {
+//            
+//            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
+//        }
+//        
+//        //显示QGPickerView
+//        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
+//        
+//    }];
+//  
+//}
 
-#pragma mark -- QGPickerViewDelegate
-
-- (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
-
-    self.birthdayString = [self.birthdayString stringByAppendingString:value];
-    
-    [self.birthdayButton setTitle:self.birthdayString forState:UIControlStateNormal];
-    
-    if (index == 3) {
-        
-        NSArray *array  = [self.birthdayString componentsSeparatedByString:@"年"];
-        
-        NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
-        
-        NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
-        
-        //保存之前选择的生日
-        self.birthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[self addZeroWithString:array_second[0]],[self addZeroWithString:array_third[0]]];
-
-    }
-   
-}
-
-- (NSString *)addZeroWithString:(NSString *)string {
-    
-    if ([string length] == 1) {
-        
-        return string = [NSString stringWithFormat:@"0%@",string];
-        
-    } else {
-        
-        return string;
-    }
-}
+//#pragma mark -- QGPickerViewDelegate
+//
+//- (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+//
+//    self.birthdayString = [self.birthdayString stringByAppendingString:value];
+//    
+//    [self.birthdayButton setTitle:self.birthdayString forState:UIControlStateNormal];
+//    
+//    if (index == 3) {
+//        
+//        NSArray *array  = [self.birthdayString componentsSeparatedByString:@"年"];
+//        
+//        NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
+//        
+//        NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
+//        
+//        //保存之前选择的生日
+//        self.birthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[self addZeroWithString:array_second[0]],[self addZeroWithString:array_third[0]]];
+//
+//    }
+//}
+//
+//- (NSString *)addZeroWithString:(NSString *)string {
+//    
+//    if ([string length] == 1) {
+//        
+//        return string = [NSString stringWithFormat:@"0%@",string];
+//        
+//    } else {
+//        
+//        return string;
+//    }
+//}
 
 #pragma mark - 注册验证
 - (IBAction)regitF:(UIButton *)sender {
@@ -186,7 +176,6 @@
                                     phoneNumber:_PhoneNumber
                                        nickName:_userNickNameTxt.text
                                     mobileToken:self.mobileToken//校验后获取的验证码
-                                       birthday:self.birthdayString//生日
                                         success:^(BOOL success) {
                                             
                                            [self showToast:@"注册成功"];

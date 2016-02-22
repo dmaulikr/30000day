@@ -10,11 +10,15 @@
 
 @interface Common : NSObject
 
-+ (BOOL) isUserLogin;//判断客户端过去是否登录过
++ (BOOL)isUserLogin;//判断客户端过去是否登录过
 
-+ (void) saveAppDataForKey : (NSString *) key  withObject : (id) value;
++ (void)saveAppDataForKey : (NSString *) key  withObject : (id) value;
 
-+ (id)   readAppDataForKey : (NSString *) key;
++ (id)readAppDataForKey : (NSString *) key;
+
++ (void)saveAppIntegerDataForKey : (NSString *) key  withObject : (NSInteger) value;
+
++ (NSInteger)readAppIntegerDataForKey : (NSString *) key;
 
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value;
 

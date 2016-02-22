@@ -65,11 +65,11 @@
     
     if (indexPath.row == 0) {
         
-        cell.textLabel.text=@"手机验证";
+        cell.textLabel.text = @"手机验证";
         
     }if (indexPath.row == 1) {
         
-        cell.textLabel.text=@"密保验证";
+        cell.textLabel.text = @"密保验证";
         
     }
     
@@ -80,8 +80,8 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.row == 0) {
         
         FindPasswordViewController *tm = [[FindPasswordViewController alloc]init];
@@ -89,7 +89,7 @@
         
         [self.navigationController pushViewController:tm animated:YES];
         
-    } if(indexPath.row == 1) {
+    } if (indexPath.row == 1) {
         
         PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
         

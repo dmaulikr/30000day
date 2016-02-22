@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GetFactorModel.h"
 
 @interface HealthyTableViewCell : UITableViewCell
 
@@ -17,5 +18,7 @@
 @property (nonatomic,strong) NSIndexPath *cellIndexPath;
 
 @property (nonatomic ,copy) void (^(setButtonClick))(NSIndexPath *);
+
+@property (nonatomic ,strong) GetFactorModel *factorModel;
 
 @end

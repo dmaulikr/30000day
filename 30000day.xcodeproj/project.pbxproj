@@ -10,6 +10,7 @@
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B808FB581C7718D20000449C /* UserLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB571C7718D20000449C /* UserLifeModel.m */; };
+		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
 		B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A4B1C70820100063269 /* UIView+Extension.m */; };
 		B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A4D1C709BA400063269 /* SignOutViewController.xib */; };
 		B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A551C71A53500063269 /* HeadViewTableViewCell.m */; };
@@ -190,6 +191,8 @@
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B808FB561C7718D20000449C /* UserLifeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLifeModel.h; sourceTree = "<group>"; };
 		B808FB571C7718D20000449C /* UserLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLifeModel.m; sourceTree = "<group>"; };
+		B808FB5A1C780D250000449C /* GetFactorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFactorModel.h; sourceTree = "<group>"; };
+		B808FB5B1C780D250000449C /* GetFactorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFactorModel.m; sourceTree = "<group>"; };
 		B8365A4A1C70820100063269 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B8365A4B1C70820100063269 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B8365A4D1C709BA400063269 /* SignOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignOutViewController.xib; sourceTree = "<group>"; };
@@ -948,8 +951,8 @@
 		B88C91B41C5B00500089BEAE /* MySetting */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D8DC1C5B39D3002C7712 /* model */,
 				B88C91B51C5B00500089BEAE /* controller */,
+				B8F2D8DC1C5B39D3002C7712 /* model */,
 				B88C91B81C5B00500089BEAE /* view */,
 			);
 			path = MySetting;
@@ -1147,6 +1150,8 @@
 		B8F2D8E21C5B3A39002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B808FB5A1C780D250000449C /* GetFactorModel.h */,
+				B808FB5B1C780D250000449C /* GetFactorModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1731,6 +1736,7 @@
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
+				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,

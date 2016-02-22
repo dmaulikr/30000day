@@ -97,22 +97,28 @@
     return self;
 }
 
--(instancetype)initDatePickWithDate:(NSDate *)defaulDate datePickerMode:(UIDatePickerMode)datePickerMode isHaveNavControler:(BOOL)isHaveNavControler{
+- (instancetype)initDatePickWithDate:(NSDate *)defaulDate datePickerMode:(UIDatePickerMode)datePickerMode isHaveNavControler:(BOOL)isHaveNavControler {
     
-    self=[super init];
+    self = [super init];
+    
     if (self) {
-        _defaulDate=defaulDate;
+        
+        _defaulDate = defaulDate;
+        
         [self setUpDatePickerWithdatePickerMode:(UIDatePickerMode)datePickerMode];
+        
         [self setFrameWith:isHaveNavControler];
     }
     return self;
 }
 
 
--(NSArray *)getPlistArrayByplistName:(NSString *)plistName{
+- (NSArray *)getPlistArrayByplistName:(NSString *)plistName {
     
     NSString *path= [[NSBundle mainBundle] pathForResource:plistName ofType:@"plist"];
-    NSArray * array=[[NSArray alloc] initWithContentsOfFile:path];
+    
+    NSArray *array = [[NSArray alloc] initWithContentsOfFile:path];
+    
     [self setArrayClass:array];
     return array;
 }

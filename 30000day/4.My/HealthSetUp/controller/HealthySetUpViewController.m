@@ -10,8 +10,9 @@
 #import "sys/utsname.h"
 #import "HealthyTableViewCell.h"
 #import "HZAreaPickerView.h"
+#import "GetFactorModel.h"
 
-@interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,HZAreaPickerDelegate>
+@interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,HZAreaPickerDelegate,QGPickerViewDelegate>
 
 @property (nonatomic,strong) UserProfile *userProfile;
 
@@ -45,6 +46,10 @@
 
 @property (nonatomic,assign)NSInteger cityDay;
 
+@property (nonatomic , strong) NSMutableArray *getFactorArray;//从服务器获取到的健康因子
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation HealthySetUpViewController
@@ -55,43 +60,99 @@
     
     self.title = @"健康因素";
     
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(preservation)];
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveFactor)];
     
     self.navigationItem.rightBarButtonItem = barButton;
     
     _userProfile = [UserAccountHandler shareUserAccountHandler].userProfile;
     
-    [self.mainTable setDelegate:self];
+    [self.tableView setTableFooterView:[[UIView alloc] init]];
     
-    [self.mainTable setDataSource:self];
+    //下载健康因素
+    [self loadFactor];
+
+}
+
+//保存健康因素
+- (void)saveFactor {
     
-    self.mainTable.showsVerticalScrollIndicator = NO;//关闭滚动条
     
-    [self ElementplistData];
     
-    [self loadHealthy];
-   
-    [self.mainTable setTableFooterView:[[UIView alloc] init]];
+}
+
+- (void)loadFactor {
+    
+    //获取所有的健康因子
+    [self.dataHandler sendGetFactors:^(NSMutableArray *dataArray) {
+       
+        self.getFactorArray = dataArray;
+        
+        [self.tableView reloadData];
+        
+    } failure:^(LONetError *error) {
+        
+        [self showToast:error.error.userInfo[NSLocalizedDescriptionKey]];
+        
+    }];
+}
+
+//设置QGPickView,并显示QGPickView
+- (void)setQGPickViewWith:(GetFactorModel *)factorModel indexPath:(NSIndexPath *)indexPath {
+    
+    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+    
+    picker.delegate = self;
+    
+    picker.titleText = factorModel.title;
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (int i = 0;  i < factorModel.subFactorArray.count; i++) {
+        
+        NSString *title = [(SubFactorModel *)factorModel.subFactorArray[i] title];
+        
+        [array addObject:title];
+    }
+    
+    //显示QGPickerView
+    [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.title selectedTitle:nil selectedTitle:nil];
+    
+    [Common saveAppIntegerDataForKey:HEALTHSETINDICATE withObject:indexPath.row];
+}
+
+#pragma ---
+#pragma mark --- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+    
+    if (index == 1) {
+    
+        GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
+        
+        factorModel.userSubFactorModel.title = value;
+        
+        [self.tableView reloadData];
+    }
 }
 
 //初始化加载plist数据
--(void)ElementplistData{
+-(void)ElementplistData {
     
     //因素
-    NSString* ElementPath=[[NSBundle mainBundle]pathForResource:@"Element" ofType:@"plist"];
-    self.Elements=[[NSMutableArray alloc]initWithContentsOfFile:ElementPath];
+    NSString* ElementPath = [[NSBundle mainBundle]pathForResource:@"Element" ofType:@"plist"];
+    self.Elements = [[NSMutableArray alloc]initWithContentsOfFile:ElementPath];
     
     //选项
-    NSString* AlternativePath=[[NSBundle mainBundle]pathForResource:@"ElementAlternative" ofType:@"plist"];
+    NSString *AlternativePath = [[NSBundle mainBundle]pathForResource:@"ElementAlternative" ofType:@"plist"];
     
-    self.Alternative=[[NSMutableArray alloc]initWithContentsOfFile:AlternativePath];
+    self.Alternative = [[NSMutableArray alloc]initWithContentsOfFile:AlternativePath];
     
     //用户选项项
     self.UserAlternative = [[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                           @"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                           @"",@"",@"",@"",@"",@"",@"", nil];
     //用户加减的因素
-    self.UserElements=[[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
+    self.UserElements = [[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                        @"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                        @"",@"",@"",@"",@"",@"",@"", nil];
     
@@ -105,12 +166,12 @@
     //    }
     
     //天数计算
-    NSString* Day=[[NSBundle mainBundle]pathForResource:@"Day" ofType:@"plist"];
+    NSString *Day = [[NSBundle mainBundle]pathForResource:@"Day" ofType:@"plist"];
     
-    self.DayArr=[[NSMutableArray alloc]initWithContentsOfFile:Day];
+    self.DayArr = [[NSMutableArray alloc]initWithContentsOfFile:Day];
     
     //用户选择匹配天数
-    self.UserDayArr=[[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
+    self.UserDayArr = [[NSMutableArray alloc]initWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                      @"",@"",@"",@"",@"",@"",@"",@"",@"",@"",
                      @"",@"",@"",@"",@"",@"",@"", nil];
 }
@@ -198,68 +259,69 @@
     //ElementsStr=[ElementsStr stringByAppendingString:[NSString stringWithFormat:@"pm25,StepCount,FloorCount,ExerciseDistance,AvearageLife"]];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.Elements.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.getFactorArray.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 44;
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-        //健康因素
-        HealthyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-        if (cell==nil) cell = [[NSBundle mainBundle] loadNibNamed:@"HealthyTableViewCell" owner:self options:nil][0];
-    
-        cell.cellIndexPath = indexPath;
-    
-        cell.titleLabel.text = self.Elements[indexPath.row];
-    
-        if ([self.UserAlternative[indexPath.row] isEqualToString:@""]) {
-            
-            [cell.setButton setTitle:@"设置" forState:UIControlStateNormal];
-            
-        } else {
-            
-            [cell.setButton setTitle:self.UserAlternative[indexPath.row] forState:UIControlStateNormal];
-        }
-    
-        //按钮点击回调
-        [cell setSetButtonClick:^(NSIndexPath *cellIndexPath) {
-            
-            [self cancelLocatePicker];
-            
+    static NSString *healthyIdentifier = @"HealthyTableViewCell";
 
-            self.clickindexpath = cellIndexPath;
-            
-            if (cellIndexPath.section == 0) {
-                
-                if (cellIndexPath.row == 0) {
-                    
-                    [self cancelLocatePicker];
-                    
-                    self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
-                    
-                    [self.locatePicker showInView:self.view];
-                    
-                } else {
-                    
-                    [self alertView:self.Alternative[cellIndexPath.row] title:self.Elements[cellIndexPath.row]];
-                }
-            }
-            
-        }];
+    HealthyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:healthyIdentifier];
     
-        return cell;
+    if (cell == nil) {
+    
+        cell = [[[NSBundle mainBundle] loadNibNamed:healthyIdentifier owner:self options:nil] lastObject];
+    }
+    
+    GetFactorModel *factorModel = self.getFactorArray[indexPath.row];
+    
+    cell.cellIndexPath = indexPath;
+    
+    cell.factorModel = factorModel;
+    
+    //如果用户有选择设置健康因子，那么就要显示该健康因子,如果用户没有选择健康因子，那么要显示设置
+    [cell.setButton setTitle:[Common isObjectNull:factorModel.userSubFactorModel.title] ? @"设置" : factorModel.userSubFactorModel.title  forState:UIControlStateNormal];
+    
+    //按钮点击回调
+    [cell setSetButtonClick:^(NSIndexPath *cellIndexPath) {
+        
+//        [self cancelLocatePicker];
+//        
+//        self.clickindexpath = cellIndexPath;
+//        
+//        if (cellIndexPath.section == 0) {
+//            
+//            if (cellIndexPath.row == 0) {
+//                
+//                [self cancelLocatePicker];
+//                
+//                self.locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCity delegate:self];
+//                
+//                [self.locatePicker showInView:self.view];
+//                
+//            } else {
+//                
+//                [self alertView:self.Alternative[cellIndexPath.row] title:self.Elements[cellIndexPath.row]];
+//            }
+//        }
+        
+        [self setQGPickViewWith:self.getFactorArray[cellIndexPath.row] indexPath:indexPath];
+        
+    }];
+
+    return cell;
 
 }
 
@@ -274,12 +336,19 @@
     UIAlertView *alert;
     
     switch (btntitlearr.count) {
+            
         case 2:
+            
             alert=[[UIAlertView alloc]initWithTitle:titlestring message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:btntitlearr[0], btntitlearr[1],nil];
+            
             break;
+            
         case 3:
+            
             alert=[[UIAlertView alloc]initWithTitle:titlestring message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:btntitlearr[0], btntitlearr[1],btntitlearr[2],nil];
+            
             break;
+            
         case 4:
             alert=[[UIAlertView alloc]initWithTitle:titlestring message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:btntitlearr[0], btntitlearr[1],btntitlearr[2],btntitlearr[3],nil];
             break;
@@ -302,14 +371,14 @@
             self.UserDayArr[self.clickindexpath.row]=@"0";
             self.UserElements[self.clickindexpath.row]=@"";
             self.UserAlternative[self.clickindexpath.row]=@"";
-            [self.mainTable reloadRowsAtIndexPaths:@[self.clickindexpath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView reloadRowsAtIndexPaths:@[self.clickindexpath] withRowAnimation:UITableViewRowAnimationMiddle];
         }else{
             NSString* UserSelectSubResultsIndexString=[NSString stringWithFormat:@"%ld.%ld",(long)self.clickindexpath.row,(long)buttonIndex];
             self.UserSelectSubResultsIndex[self.clickindexpath.row]=UserSelectSubResultsIndexString;
             self.UserElements[self.clickindexpath.row]=self.Elements[self.clickindexpath.row];
             self.UserAlternative[self.clickindexpath.row]=[alertView buttonTitleAtIndex:buttonIndex];
             self.UserDayArr[self.clickindexpath.row]=self.DayArr[self.clickindexpath.row][buttonIndex-1];
-            [self.mainTable reloadRowsAtIndexPaths:@[self.clickindexpath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView reloadRowsAtIndexPaths:@[self.clickindexpath] withRowAnimation:UITableViewRowAnimationMiddle];
         }
 }
 
@@ -477,22 +546,22 @@
     return returndate;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     [self cancelLocatePicker];
 }
 
--(void)cancelLocatePicker{
+- (void)cancelLocatePicker{
     [self.locatePicker cancelPicker];
     self.locatePicker.delegate = nil;
     self.locatePicker = nil;
 }
 
--(void)back{
+- (void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
