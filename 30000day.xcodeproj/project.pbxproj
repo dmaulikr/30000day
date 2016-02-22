@@ -187,6 +187,8 @@
 		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
 		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
 		B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */; };
+		B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */; };
+		B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -496,6 +498,9 @@
 		B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindTextTableViewCell.h; sourceTree = "<group>"; };
 		B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindTextTableViewCell.m; sourceTree = "<group>"; };
 		B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindTextTableViewCell.xib; sourceTree = "<group>"; };
+		B8F931521C7B0AB3000FED7C /* AddTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTimeTableViewCell.h; sourceTree = "<group>"; };
+		B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTimeTableViewCell.m; sourceTree = "<group>"; };
+		B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTimeTableViewCell.xib; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -846,6 +851,9 @@
 				B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */,
 				B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */,
 				B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */,
+				B8F931521C7B0AB3000FED7C /* AddTimeTableViewCell.h */,
+				B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */,
+				B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1586,6 +1594,7 @@
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
+				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B8365A581C71A53500063269 /* HeadViewTableViewCell.xib in Resources */,
 				B8F2DA451C5F3D04002C7712 /* InputAccountViewController.xib in Resources */,
@@ -1751,6 +1760,7 @@
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
+				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "AddRemindViewController.h"
 #import "AddRemindTextTableViewCell.h"
+#import "AddTimeTableViewCell.h"
 
 @interface AddRemindViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -31,7 +32,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -40,7 +41,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     static NSString *addRemindIdentifier = @"AddRemindTextTableViewCell";
     
     AddRemindTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:addRemindIdentifier];
@@ -62,6 +63,26 @@
         
         cell.titleLabel.text = @"内容:";
         
+    } else if (indexPath.section == 2) {
+        
+        static NSString *addTimeIdentifier = @"AddTimeTableViewCell";
+        
+        AddTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:addTimeIdentifier];
+        
+        if (cell == nil ) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:addTimeIdentifier owner:nil options:nil] lastObject];
+        
+        }
+        
+        //点击时间回调
+        [cell setAddTimeAction:^{
+           
+            
+            
+        }];
+        
+        return cell;
     }
     
     return cell;
