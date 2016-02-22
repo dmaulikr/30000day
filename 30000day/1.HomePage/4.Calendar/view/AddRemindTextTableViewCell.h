@@ -14,4 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *contentTextField;
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+
 @end

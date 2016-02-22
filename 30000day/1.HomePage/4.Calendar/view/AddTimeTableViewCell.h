@@ -12,4 +12,6 @@
 
 @property (nonatomic,strong) void (^(addTimeAction))();
 
+@property (weak, nonatomic) IBOutlet UIButton *addTimeButton;
+
 @end

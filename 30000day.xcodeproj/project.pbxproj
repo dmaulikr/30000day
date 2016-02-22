@@ -147,8 +147,6 @@
 		B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */; };
 		B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */; };
 		B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */; };
-		B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */; };
-		B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */; };
 		B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */; };
 		B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */; };
 		B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */; };
@@ -438,10 +436,6 @@
 		B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreMessageViewCtr.m; sourceTree = "<group>"; };
 		B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreMessageViewCtr.xib; sourceTree = "<group>"; };
 		B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = addCalendarDelegate.h; sourceTree = "<group>"; };
-		B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
-		B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
-		B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabHeaderView.h; sourceTree = "<group>"; };
-		B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabHeaderView.m; sourceTree = "<group>"; };
 		B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFriendsTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myFriendsTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myFriendsTableViewCell.xib; sourceTree = "<group>"; };
@@ -844,10 +838,6 @@
 				B8F2D9A91C5C8D2B002C7712 /* MoreTableViewCell.h */,
 				B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */,
 				B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */,
-				B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */,
-				B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */,
-				B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */,
-				B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */,
 				B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */,
 				B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */,
 				B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */,
@@ -1698,8 +1688,6 @@
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
-				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
-				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,

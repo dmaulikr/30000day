@@ -16,7 +16,6 @@
 #import "MoreTableViewCell.h"
 #import "MoreInfo.h"
 #import "MoreMessageViewCtr.h"
-#import "MoreTabHeaderView.h"
 #import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
@@ -164,7 +163,7 @@
         selDay = 80;// 设置初始值，默认到80岁。
     }
     
-    MoreTabHeaderView *tabHeader = [[MoreTabHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
+    UIView *tabHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
     
     _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 22)];
     

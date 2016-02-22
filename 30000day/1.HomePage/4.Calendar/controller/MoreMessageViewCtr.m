@@ -7,7 +7,6 @@
 //
 
 #import "MoreMessageViewCtr.h"
-#import "PopoverView.h"
 
 @interface MoreMessageViewCtr () < UITextFieldDelegate,UIActionSheetDelegate,ZHPickViewDelegate>
 {

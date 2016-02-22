@@ -50,6 +50,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentTextField" destination="jIw-oh-zGO" id="7uR-N1-981"/>
+                <outlet property="textField" destination="jIw-oh-zGO" id="KN1-GN-T9X"/>
                 <outlet property="titleLabel" destination="Nog-Ry-2Nd" id="Fvi-4x-AFf"/>
             </connections>
         </tableViewCell>
