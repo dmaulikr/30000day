@@ -123,9 +123,10 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(LONetError *error))failure;
 
-//http://192.168.1.112:8080/stapi/factor/setUserFactor?userId=1000000000&data
-
-//********保存某人健康因子到服务器*********************/
-
+//********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
+- (void)sendSaveUserFactorsWithUserId:(NSString *)userId
+                    factorsModelArray:(NSMutableArray *)factorsModelArray
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(LONetError *error))failure;
 
 @end

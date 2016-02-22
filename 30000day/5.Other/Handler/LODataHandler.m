@@ -1327,13 +1327,17 @@
                                                                     });
                                                                     
                                                                     //获取某人健康因素模型
-                                                                    [self sendGetUserFactorsWithUserId:@"1000000001" factorsModelArray:dataArray success:^(NSMutableArray *dataArray) {
+                                                                    [self sendGetUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:dataArray success:^(NSMutableArray *dataArray) {
                                                                         
                                                                         
                                                                         
                                                                     } failure:^(LONetError *error) {
                                                                         
-                                                                        
+                                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                                            
+                                                                            failure(error);
+                                                                            
+                                                                        });
                                                                         
                                                                     }];
                                                                     
@@ -1494,19 +1498,128 @@
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(LONetError *error))failure {
     
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.1.112:8080/stapi/factor/getUserFactor?userId=%@",userId];
     
-    [parameters addParameter:userId forKey:@"userId"];
+    NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url] ;
+    
+    NSError *error;
+    
+    NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error == nil  && ![Common isObjectNull:jsonStr]) {
+        
+        SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+        
+        NSError *firstError;
+        
+        NSDictionary * dictionary = [jsonParser objectWithString:jsonStr error:&firstError];
+        
+        if (firstError == nil && ![Common isObjectNull:dictionary]) {
+            
+            NSString *valueString = dictionary[@"value"];
+            
+            NSError *secondError;
+            
+            NSArray *valueArray = [jsonParser objectWithString:valueString error:&secondError];
+            
+            if (secondError == nil && ![Common isObjectNull:valueArray]) {
+                
+                if ([dictionary[@"code"] isEqualToNumber:@0]) {
+                    
+                    NSMutableArray *oldArray = [NSMutableArray arrayWithArray:valueArray];
+                    
+                    for (int i = 0; i < oldArray.count ; i++) {
+                        
+                        NSDictionary *dictionary = oldArray[i];
+                        
+                        NSNumber *dataNumber = dictionary[@"v"];
+                        
+                        GetFactorModel *factorModel = factorsModelArray[i];
+                        
+                        factorModel.userSubFactorModel.data = dataNumber;
+                        
+                        factorModel.factorId = [NSNumber numberWithInt:i + 1];
+                        
+                        factorModel.title = [GetFactorModel titleStringWithDataNumber:dataNumber subFactorArray:factorModel.subFactorArray];
+                        
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(factorsModelArray);
+                        
+                    });
+                    
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
+                    
+                    LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        failure(error);
+                        
+                    });
+                }
+            
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
+                
+                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(error);
+                    
+                });
+            
+            }
 
+        } else {
+            
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
+            
+            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(error);
+                
+            });
+        }
+        
+    } else {
+        
+        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+        
+        LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            failure(error);
+            
+        });
+    }
+}
+
+//********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
+- (void)sendSaveUserFactorsWithUserId:(NSString *)userId
+                    factorsModelArray:(NSMutableArray *)factorsModelArray
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(LONetError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    params[@"userId"] = userId;
+    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:GET_USER_FACTORS
-                                                 parameters:nil
+                                                        url:SAVE_USER_FACTORS
+                                                 parameters:params
                                                     success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
-                                                        
-                                                        NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-                                                       
                                                         
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
                                                         
@@ -1516,29 +1629,6 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
-                                                                NSMutableArray *oldArray = [NSMutableArray arrayWithArray:recvDic[@"value"]];
-                                                                
-                                                                for (int i = 0; i < oldArray.count ; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = oldArray[i];
-                                                                    
-                                                                    NSNumber *dataNumber = dictionary[@"v"];
-                                                                    
-                                                                    GetFactorModel *factorModel = factorsModelArray[i];
-                                                                    
-                                                                    factorModel.userSubFactorModel.data = dataNumber;
-                                                                    
-                                                                    factorModel.factorId = [NSNumber numberWithInt:i + 1];
-                                                                    
-                                                                    factorModel.title = [GetFactorModel titleStringWithDataNumber:dataNumber subFactorArray:factorModel.subFactorArray];
-                                                                    
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(factorsModelArray);
-                                                                    
-                                                                });
                                                                 
                                                             } else {
                                                                 
@@ -1551,6 +1641,7 @@
                                                                     failure(error);
                                                                     
                                                                 });
+                                                                
                                                             }
                                                             
                                                         } else {
@@ -1582,7 +1673,7 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
+   
 }
 
 @end
