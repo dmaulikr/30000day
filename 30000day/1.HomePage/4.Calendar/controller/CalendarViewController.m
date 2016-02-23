@@ -7,7 +7,6 @@
 //
 
 #import "CalendarViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "JBCalendarLogic.h"
 #import "JBUnitView.h"
 #import "JBUnitGridView.h"
@@ -16,8 +15,6 @@
 #import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
-    
-    NSString *database_path;
     
     int count;// 点击弹出时间或者plist数据的区分计数  1=时间   2=plist文件数据
     

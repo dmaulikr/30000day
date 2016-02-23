@@ -14,6 +14,7 @@
 #import "UserAccountHandler.h"
 #import "MainViewController.h"
 #import "SignInViewController.h"
+#import "STCalendarViewController.h"
 
 #define BUTTON_WIDTH 60
 #define BUTTON_HEIGHT 39
@@ -98,8 +99,8 @@
     MainViewController *mainPageController = [[MainViewController alloc] init];
     PersonViewController *personViewController = [[PersonViewController alloc] init];
     MessageViewController *messageViewController = [[MessageViewController alloc] init];
-    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
-    
+//    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
+    STCalendarViewController *calendarViewController = [[STCalendarViewController alloc] init];
     [self addChildViewController:mainPageController];
     [self addChildViewController:personViewController];
     [self addChildViewController:messageViewController];
