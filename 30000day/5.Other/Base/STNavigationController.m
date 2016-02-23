@@ -19,7 +19,7 @@
     
     [super viewDidLoad];
     
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 
