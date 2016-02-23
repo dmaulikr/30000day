@@ -27,6 +27,7 @@
 #import "UIImageView+WebCache.h"
 #import "QGPickerView.h"
 #import "MJExtension.h"
+#import "STRemindManager.h"
 
 #define DBNAME        @"calendarinfo.sqlite"
 

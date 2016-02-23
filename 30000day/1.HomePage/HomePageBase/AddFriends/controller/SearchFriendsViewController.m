@@ -49,7 +49,6 @@
     
     [self.textField becomeFirstResponder];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChangeText) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 //点击事件
@@ -77,9 +76,9 @@
 }
 
 #pragma ---
-#pragma mark --- UITextFieldTextDidChangeNotification
+#pragma mark --- UITextFieldDelegate
 
-- (void)textFieldChangeText {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
     self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
@@ -124,6 +123,7 @@
     
     [self.tableView reloadData];
     
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

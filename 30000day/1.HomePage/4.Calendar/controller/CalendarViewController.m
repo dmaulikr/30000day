@@ -12,10 +12,8 @@
 #import "JBUnitView.h"
 #import "JBUnitGridView.h"
 #import "JBSXRCUnitTileView.h"
-#import <EventKit/EventKit.h>
+//#import <EventKit/EventKit.h>
 #import "MoreTableViewCell.h"
-#import "MoreInfo.h"
-#import "MoreMessageViewCtr.h"
 #import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
@@ -39,8 +37,6 @@
 
 @property (nonatomic,strong)UIButton *morecell;
 
-@property (nonatomic,strong) MoreMessageViewCtr *MessageViewUpd;
-
 @property (nonatomic,strong)NSMutableArray *array;
 
 @property(nonatomic,strong)ZHPickView *pickview;
@@ -55,6 +51,7 @@
 
 @property (nonatomic,strong) UIView *lineView;//日历下面的背景线条
 
+@property (nonatomic,strong) NSMutableArray *dataArray_new;
 
 @end
 
@@ -103,16 +100,28 @@
     
     AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
+    [controller setAddSuccessBlock:^{
+       
+        [self loadData];
+        
+        [self.tableView reloadData];
+        
+    }];
+    
     [self.navigationController pushViewController:controller animated:YES];
     
 }
 
+- (void)loadData {
+    
+    self.dataArray_new = [[STRemindManager shareRemindManager] allRemindModelWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
+    
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _MessageViewUpd = [[MoreMessageViewCtr alloc] init];
-    
     //获取当前时间作为初始化显示需要推送的消息查询条件
     NSDate *senddate = [NSDate date];
     
@@ -126,7 +135,8 @@
     
     _array = [NSMutableArray array];
     
-    [self loadData:timeString];
+//    [self loadData:timeString];
+    [self loadData];
     
     self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
    
@@ -223,74 +233,6 @@
         _pickview.delegate=self;
         
         [_pickview show];
-}
-
-//从数据库里面取数据
-- (void)loadData:(NSString*)timeString {
-    
-    NSString *birthStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserBirthday"];
-    
-    _birthdayDate = [NSString stringWithString:birthStr == nil ? @" ":birthStr];
-    
-
-    [self.view setUserInteractionEnabled:YES];
-    
-    // fmdb初始化
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *documents = [paths objectAtIndex:0];
-    
-    database_path = [documents stringByAppendingPathComponent:DBNAME];
-    
-    db = [FMDatabase databaseWithPath:database_path];
-    
-    //sql 语句 创建表
-    if ([db open]) {
-        
-        NSString *sqlCreateTable =  [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' ('%@' INTEGER PRIMARY KEY AUTOINCREMENT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT)",DB_TABLENAME,DB_ID,DB_TITLE,DB_CONTENT,DB_DATE,DB_TIME,DB_NUMBER,DB_USERID];
-        
-        BOOL res = [db executeUpdate:sqlCreateTable];
-        
-        if (!res) {
-            
-            NSLog(@"error when creating db table");
-            
-        } else {
-            
-            NSLog(@"success to creating db table");
-        }
-        
-        NSString * sql = [NSString stringWithFormat:
-                          @"SELECT * FROM %@ WHERE TIME='%@'",DB_TABLENAME,timeString];
-        
-        FMResultSet * rs = [db executeQuery:sql];
-        
-        while ([rs next]) {
-            
-            MoreInfo *info = [[MoreInfo alloc] init];
-            
-            info.title = [rs stringForColumn:DB_TITLE];
-            
-            info.content = [rs stringForColumn:DB_CONTENT];
-            
-            info.date = [rs stringForColumn:DB_DATE];
-            
-            info.time = [rs stringForColumn:DB_TIME];
-            
-            info.number = [rs stringForColumn:DB_NUMBER];
-            
-            info.userid = [rs stringForColumn:DB_USERID];
-            
-            NSLog(@"%@  %@  %@  %@  %@  %@",info.title,info.content,info.date,info.time,info.number,info.userid);
-            
-            [_array addObject:info];
-            
-            NSLog(@"%@",_array);
-        }
-        
-        [db close];
-    }
-    
 }
 
 /**
@@ -619,36 +561,6 @@
     
     [_array removeAllObjects];
     
-    if ([db open]) {
-        
-        NSString * sql = [NSString stringWithFormat:
-                          @"SELECT * FROM %@ WHERE TIME='%@'",DB_TABLENAME,_time];
-        
-        FMResultSet * rs = [db executeQuery:sql];
-        
-        while ([rs next]) {
-            
-            MoreInfo *info = [[MoreInfo alloc] init];
-            
-            info.title = [rs stringForColumn:DB_TITLE];
-            
-            info.content = [rs stringForColumn:DB_CONTENT];
-            
-            info.date = [rs stringForColumn:DB_DATE];
-            
-            info.time = [rs stringForColumn:DB_TIME];
-            
-            info.number = [rs stringForColumn:DB_NUMBER];
-            
-            info.userid = [rs stringForColumn:DB_USERID];
-            
-            [_array addObject:info];
-            
-        }
-        
-        [db close];
-    }
-    
     if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]) {
         
         [_lab1 setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
@@ -673,7 +585,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _array.count;
+    return  self.dataArray_new.count;
     
 }
 
@@ -687,25 +599,19 @@
         
     }
     
-    MoreInfo *info = [_array objectAtIndex:indexPath.row];
+    RemindModel *info = [ self.dataArray_new objectAtIndex:indexPath.row];
     
     cell.titleLab.text = info.title;
     
-    cell.timeLab.text = info.date;
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
     
-    cell.moreInfo = info;
+    cell.timeLab.text = [formatter stringFromDate:info.date];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 根据点击行号去到对应cell
-    MoreTableViewCell *cell = (MoreTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-
-    // 跳转
-    _MessageViewUpd.moreInfo = cell.moreInfo;
-    
-    _MessageViewUpd.into = @"upd";
+   
 }
 
 - (void)didReceiveMemoryWarning {

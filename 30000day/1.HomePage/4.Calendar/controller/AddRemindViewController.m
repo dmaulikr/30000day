@@ -10,7 +10,7 @@
 #import "AddRemindTextTableViewCell.h"
 #import "AddTimeTableViewCell.h"
 
-@interface AddRemindViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate,UITextFieldDelegate>
+@interface AddRemindViewController () <QGPickerViewDelegate>
 
 @property (nonatomic , copy) NSString *timeString;
 
@@ -36,10 +36,6 @@
         
         _titleCell.contentTextField.placeholder = @"请输入标题";
         
-        _titleCell.titleLabel.text = @"标题:";
-        
-        _titleCell.textField.delegate = self;
-        
     }
     
     return _titleCell;
@@ -52,10 +48,6 @@
         _contentCell = [[[NSBundle mainBundle] loadNibNamed:@"AddRemindTextTableViewCell" owner:nil options:nil] lastObject];
     }
     _contentCell.contentTextField.placeholder = @"请输入内容";
-    
-    _contentCell.textField.delegate = self;
-    
-    _contentCell.titleLabel.text = @"内容:";
     
     return _contentCell;
 }
@@ -79,7 +71,6 @@
     return _addTimeCell;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -95,7 +86,6 @@
     
     [STNotificationCenter addObserver:self selector:@selector(textFieldDidChange) name:UITextFieldTextDidChangeNotification object:nil];
 }
-
 
 - (void)textFieldDidChange {
     
@@ -118,6 +108,42 @@
 
 - (void)saveAction {
     
+    RemindModel *model = [[RemindModel alloc] init];
+    
+    model.title = self.titleCell.textField.text;
+    
+    model.content = self.contentCell.textField.text;
+    
+    model.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
+    
+    NSDate *currentDate = [NSDate date];
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    
+    NSString *dateString = [formatter stringFromDate:currentDate];
+    
+    dateString = [NSString stringWithFormat:@"%@ %@",dateString,self.timeString];
+    
+    NSDateFormatter *newFormatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+    
+    NSDate *newDate = [newFormatter dateFromString:dateString];
+    
+    model.date = newDate;
+    
+    if ([[STRemindManager shareRemindManager] changeORAddObject:model]) {
+        
+        [self showToast:@"保存成功"];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        if (self.addSuccessBlock) {
+            self.addSuccessBlock();
+        }
+        
+    } else {
+        
+        [self showToast:@"保存失败"];
+    }
     
 }
 
@@ -268,15 +294,6 @@
         [self judgeSaveButtonCanUse];
     }
 }
-
-#pragma ---
-#pragma mark -- UITextFieldDelegate
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    
-}
-
 
 /*
 #pragma mark - Navigation

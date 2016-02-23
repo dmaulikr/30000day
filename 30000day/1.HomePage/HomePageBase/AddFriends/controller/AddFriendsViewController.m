@@ -51,7 +51,7 @@
             
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.text = @"通讯录好友";
         
         return cell;

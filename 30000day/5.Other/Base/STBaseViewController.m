@@ -9,7 +9,12 @@
 #import "STBaseViewController.h"
 #import "LONetworkAgent.h"
 
-@interface STBaseViewController () 
+@interface STBaseViewController ()
+//{
+//    
+//    UIImageView *navBarHairlineImageView;
+//    
+//}
 
 @end
 
@@ -24,7 +29,36 @@
     self.dataHandler = [[LODataHandler alloc] init];
     
     self.dataHandler.delegate = self;
+    
+//    //IOS8吧导航栏设置透明的话会有一条黑线，，这个方法就是隐藏的
+//    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
 }
+
+//- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+//    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+//        return (UIImageView *)view;
+//    }
+//    for (UIView *subview in view.subviews) {
+//        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+//        if (imageView) {
+//            return imageView;
+//        }
+//    }
+//    return nil;
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    navBarHairlineImageView.hidden = YES;
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav"] forBarMetrics:UIBarMetricsCompact];
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    navBarHairlineImageView.hidden = NO;
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
+//}
+
 
 #pragma mark -
 #pragma mark handleHTTPError

@@ -157,4 +157,13 @@
     }
 }
 
++ (NSDateFormatter *)dateFormatterWithFormatterString:(NSString *)formatterString {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateFormat:formatterString];
+    
+    return formatter;
+}
+
 @end
