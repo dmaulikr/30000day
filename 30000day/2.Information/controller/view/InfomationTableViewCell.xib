@@ -14,11 +14,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cell1" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-uQ-8U4">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="80"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell1" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-uQ-8U4">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="79"/>
                     </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="1UW-uQ-8U4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KJh-Ap-Skm"/>
+                    <constraint firstItem="1UW-uQ-8U4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ywa-Xj-4jb"/>
+                    <constraint firstAttribute="bottom" secondItem="1UW-uQ-8U4" secondAttribute="bottom" id="jIH-yg-1Lt"/>
+                    <constraint firstAttribute="trailing" secondItem="1UW-uQ-8U4" secondAttribute="trailing" id="x69-Kb-WKb"/>
+                </constraints>
             </tableViewCellContentView>
+            <point key="canvasLocation" x="179" y="312"/>
         </tableViewCell>
     </objects>
     <resources>
