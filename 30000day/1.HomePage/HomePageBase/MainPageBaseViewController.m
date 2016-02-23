@@ -142,12 +142,12 @@
 
     
      _newsButton = [self buttonWithTitle:@"消息" numberAndTag:2];
-    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH*2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_newsButton];
     
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:3];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH*3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
 
