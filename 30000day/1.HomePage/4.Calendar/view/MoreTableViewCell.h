@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MoreInfo.h"
 
 @interface MoreTableViewCell : UITableViewCell
 
@@ -15,5 +14,4 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLab;
 
-@property (nonatomic) MoreInfo *moreInfo;
 @end

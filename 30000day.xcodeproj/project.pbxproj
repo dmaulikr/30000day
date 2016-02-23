@@ -144,9 +144,6 @@
 		B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9A71C5C8D13002C7712 /* JBSXRCUnitTileView.m */; };
 		B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */; };
 		B8F2D9AD1C5C8D2B002C7712 /* MoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */; };
-		B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */; };
-		B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */; };
-		B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */; };
 		B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */; };
 		B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */; };
 		B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */; };
@@ -435,12 +432,6 @@
 		B8F2D9A91C5C8D2B002C7712 /* MoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreTableViewCell.xib; sourceTree = "<group>"; };
-		B8F2D9AF1C5C8D74002C7712 /* MoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreInfo.h; sourceTree = "<group>"; };
-		B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreInfo.m; sourceTree = "<group>"; };
-		B8F2D9B51C5C8E81002C7712 /* MoreMessageViewCtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreMessageViewCtr.h; sourceTree = "<group>"; };
-		B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreMessageViewCtr.m; sourceTree = "<group>"; };
-		B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreMessageViewCtr.xib; sourceTree = "<group>"; };
-		B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = addCalendarDelegate.h; sourceTree = "<group>"; };
 		B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFriendsTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myFriendsTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myFriendsTableViewCell.xib; sourceTree = "<group>"; };
@@ -833,10 +824,6 @@
 				B8F2D91D1C5B5F4D002C7712 /* CalendarViewController.h */,
 				B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */,
 				B8F2D91F1C5B5F4D002C7712 /* CalendarViewController.xib */,
-				B8F2D9B51C5C8E81002C7712 /* MoreMessageViewCtr.h */,
-				B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */,
-				B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */,
-				B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */,
 				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
 				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
 				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
@@ -1364,8 +1351,6 @@
 		B8F2D9AE1C5C8D63002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9AF1C5C8D74002C7712 /* MoreInfo.h */,
-				B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */,
 				B8F931591C7BF101000FED7C /* STRemindManager.h */,
 				B8F9315A1C7BF101000FED7C /* STRemindManager.m */,
 				B8F9315C1C7BF111000FED7C /* Model.xcdatamodeld */,
@@ -1577,7 +1562,6 @@
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F2DA431C5F3D04002C7712 /* FindPasswordViewController.xib in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
-				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
@@ -1742,7 +1726,6 @@
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8F2D91B1C5B5F3C002C7712 /* MessageViewController.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
-				B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
@@ -1760,7 +1743,6 @@
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
 				B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */,
-				B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */,
 				B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */,
 				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,

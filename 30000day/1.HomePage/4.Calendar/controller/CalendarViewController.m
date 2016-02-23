@@ -12,10 +12,8 @@
 #import "JBUnitView.h"
 #import "JBUnitGridView.h"
 #import "JBSXRCUnitTileView.h"
-#import <EventKit/EventKit.h>
+//#import <EventKit/EventKit.h>
 #import "MoreTableViewCell.h"
-#import "MoreInfo.h"
-#import "MoreMessageViewCtr.h"
 #import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
@@ -38,8 +36,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic,strong)UIButton *morecell;
-
-@property (nonatomic,strong) MoreMessageViewCtr *MessageViewUpd;
 
 @property (nonatomic,strong)NSMutableArray *array;
 
@@ -126,8 +122,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _MessageViewUpd = [[MoreMessageViewCtr alloc] init];
-    
     //获取当前时间作为初始化显示需要推送的消息查询条件
     NSDate *senddate = [NSDate date];
     
@@ -240,75 +234,6 @@
         
         [_pickview show];
 }
-
-//从数据库里面取数据
-- (void)loadData:(NSString*)timeString {
-    
-    NSString *birthStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserBirthday"];
-    
-    _birthdayDate = [NSString stringWithString:birthStr == nil ? @" ":birthStr];
-    
-
-    [self.view setUserInteractionEnabled:YES];
-    
-    // fmdb初始化
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *documents = [paths objectAtIndex:0];
-    
-    database_path = [documents stringByAppendingPathComponent:DBNAME];
-    
-    db = [FMDatabase databaseWithPath:database_path];
-    
-    //sql 语句 创建表
-    if ([db open]) {
-        
-        NSString *sqlCreateTable =  [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' ('%@' INTEGER PRIMARY KEY AUTOINCREMENT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT, '%@' TEXT)",DB_TABLENAME,DB_ID,DB_TITLE,DB_CONTENT,DB_DATE,DB_TIME,DB_NUMBER,DB_USERID];
-        
-        BOOL res = [db executeUpdate:sqlCreateTable];
-        
-        if (!res) {
-            
-            NSLog(@"error when creating db table");
-            
-        } else {
-            
-            NSLog(@"success to creating db table");
-        }
-        
-        NSString * sql = [NSString stringWithFormat:
-                          @"SELECT * FROM %@ WHERE TIME='%@'",DB_TABLENAME,timeString];
-        
-        FMResultSet * rs = [db executeQuery:sql];
-        
-        while ([rs next]) {
-            
-            MoreInfo *info = [[MoreInfo alloc] init];
-            
-            info.title = [rs stringForColumn:DB_TITLE];
-            
-            info.content = [rs stringForColumn:DB_CONTENT];
-            
-            info.date = [rs stringForColumn:DB_DATE];
-            
-            info.time = [rs stringForColumn:DB_TIME];
-            
-            info.number = [rs stringForColumn:DB_NUMBER];
-            
-            info.userid = [rs stringForColumn:DB_USERID];
-            
-            NSLog(@"%@  %@  %@  %@  %@  %@",info.title,info.content,info.date,info.time,info.number,info.userid);
-            
-            [_array addObject:info];
-            
-            NSLog(@"%@",_array);
-        }
-        
-        [db close];
-    }
-    
-}
-
 
 /**
  *   theDate:用户生日
@@ -636,36 +561,6 @@
     
     [_array removeAllObjects];
     
-    if ([db open]) {
-        
-        NSString * sql = [NSString stringWithFormat:
-                          @"SELECT * FROM %@ WHERE TIME='%@'",DB_TABLENAME,_time];
-        
-        FMResultSet * rs = [db executeQuery:sql];
-        
-        while ([rs next]) {
-            
-            MoreInfo *info = [[MoreInfo alloc] init];
-            
-            info.title = [rs stringForColumn:DB_TITLE];
-            
-            info.content = [rs stringForColumn:DB_CONTENT];
-            
-            info.date = [rs stringForColumn:DB_DATE];
-            
-            info.time = [rs stringForColumn:DB_TIME];
-            
-            info.number = [rs stringForColumn:DB_NUMBER];
-            
-            info.userid = [rs stringForColumn:DB_USERID];
-            
-            [_array addObject:info];
-            
-        }
-        
-        [db close];
-    }
-    
     if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]) {
         
         [_lab1 setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
@@ -716,13 +611,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 根据点击行号去到对应cell
-    MoreTableViewCell *cell = (MoreTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-
-    // 跳转
-    _MessageViewUpd.moreInfo = cell.moreInfo;
-    
-    _MessageViewUpd.into = @"upd";
+   
 }
 
 - (void)didReceiveMemoryWarning {
