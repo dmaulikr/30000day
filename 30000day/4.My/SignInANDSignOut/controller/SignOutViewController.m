@@ -171,6 +171,8 @@
 #pragma mark - 注册
 - (void)registerUser {
     
+    [self.view endEditing:YES];
+    
     //调用注册接口
     [self.dataHandler postRegesiterWithPassword:_userPwdTxt.text
                                     phoneNumber:_PhoneNumber

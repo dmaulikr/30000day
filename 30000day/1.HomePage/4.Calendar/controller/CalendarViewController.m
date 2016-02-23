@@ -16,7 +16,7 @@
 #import "MoreTableViewCell.h"
 #import "MoreInfo.h"
 #import "MoreMessageViewCtr.h"
-#import "MoreTabHeaderView.h"
+#import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
     
@@ -95,11 +95,16 @@
 //添加提醒按钮点击事件
 - (IBAction)addRemindAction:(id)sender {
     
-    _MessageViewUpd.time = self.time;
+//    _MessageViewUpd.time = self.time;
+//    
+//    _MessageViewUpd.into = @"add";
+//    
+//    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
     
-    _MessageViewUpd.into = @"add";
+    AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
-    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 
@@ -158,7 +163,7 @@
         selDay = 80;// 设置初始值，默认到80岁。
     }
     
-    MoreTabHeaderView *tabHeader = [[MoreTabHeaderView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
+    UIView *tabHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
     
     _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 22)];
     

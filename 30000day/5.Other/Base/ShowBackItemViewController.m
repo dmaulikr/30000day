@@ -19,7 +19,17 @@
     
     //定制返回按钮
     [self backBarButtonItem];
+    
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    //开启ios右滑返回
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 #pragma mark - 导航栏返回按钮封装
@@ -41,6 +51,8 @@
     
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     
+    self.navigationItem.leftBarButtonItem = leftButton;
+    
     if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0 )) {
         
         UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
@@ -55,12 +67,13 @@
         self.navigationItem.leftBarButtonItem = leftButton;
         
     }
-    
+   
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
         
     }
+    
 }
 
 - (void)backClick {

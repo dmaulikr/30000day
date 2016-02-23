@@ -9,7 +9,7 @@
 #import "STBaseViewController.h"
 #import "LONetworkAgent.h"
 
-@interface STBaseViewController ()
+@interface STBaseViewController () 
 
 @end
 

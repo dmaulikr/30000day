@@ -83,23 +83,25 @@
 
 #define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"      //用户密码
 
-#define KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
+#define  KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
 
-#define USER_ACCOUNT_ARRAY           @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
+#define  USER_ACCOUNT_ARRAY           @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
 
-#define BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 #define  STUserAccountHandler        [UserAccountHandler shareUserAccountHandler]  //用户的个人信息单例
 
-#define ST_API_SERVER                @"http://192.168.1.112:8080"                  //测试服务器地址
+#define  STNotificationCenter        [NSNotificationCenter defaultCenter]          //取得系统通知中心单例
 
-#define LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
+#define  ST_API_SERVER                @"http://192.168.1.101:8081"                  //测试服务器地址
 
-#define GET_MY_FRIENDS               @"/stapi/friend/getMyFriends"                  //获取用户好友
+#define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
 
-#define SEARCH_USER                  @"/stapi/search/searchUser"                    //搜索用户
+#define  GET_MY_FRIENDS               @"/stapi/friend/getMyFriends"                  //获取用户好友
 
-#define ADD_USER                     @"/stapi/friend/addFriend"                     //添加好友
+#define  SEARCH_USER                  @"/stapi/search/searchUser"                    //搜索用户
+
+#define  ADD_USER                     @"/stapi/friend/addFriend"                     //添加好友
 
 #define  REGISTER                    @"/stapi/user/register"                         //注册
 
@@ -107,15 +109,15 @@
 
 #define  VALIDATE_SMS_CODE           @"/stapi/user/validateMobileCode"              //验证短信验证码
 
-#define GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
+#define  GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
 
 #define  GET_FACTORS                 @"/stapi/factor/getFactors"                    //获取健康因子
 
-#define GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
+#define  GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
 
-#define GET_USER_FACTORS             @"/stapi/factor/getUserFactor"                 //获取某人的健康因子
+#define  GET_USER_FACTORS             @"/stapi/factor/getUserFactor"                 //获取某人的健康因子
 
-#define SAVE_USER_FACTORS            @"/stapi/factor/setUserFactor"                 //保存某一个人的健康因子
+#define  SAVE_USER_FACTORS            @"/stapi/factor/setUserFactor"                 //保存某一个人的健康因子
 
 #endif
 

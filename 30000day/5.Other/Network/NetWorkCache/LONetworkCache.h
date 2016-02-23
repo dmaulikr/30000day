@@ -1,6 +1,6 @@
 //
 //  LONetworkCache.h
-//  LianjiaOnlineApp
+//  30000day
 //  主要用来缓存一些最近的请求 
 //  Created by GuoJia on 15/12/10.
 //  Copyright © 2015年 GuoJia. All rights reserved.

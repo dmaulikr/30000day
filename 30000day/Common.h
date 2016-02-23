@@ -47,4 +47,10 @@
  **/
 + (NSString *)getDateStringWithTimeInterval:(long)timeNumber;
 
+/**
+ * 给定一个数字string（长度为1）前面加个0,比如: 1 ----> 01
+ *
+ */
++ (NSString *)addZeroWithString:(NSString *)numberString;
+
 @end

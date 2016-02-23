@@ -148,8 +148,6 @@
 		B8F2D9B11C5C8D74002C7712 /* MoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B01C5C8D74002C7712 /* MoreInfo.m */; };
 		B8F2D9B81C5C8E81002C7712 /* MoreMessageViewCtr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */; };
 		B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */; };
-		B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */; };
-		B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */; };
 		B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */; };
 		B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */; };
 		B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C91C5F0507002C7712 /* SDBaseProgressView.m */; };
@@ -184,6 +182,12 @@
 		B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */; };
 		B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */; };
 		B8F2DA691C5F3D8B002C7712 /* UserPassWordProblem.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */; };
+		B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */; };
+		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
+		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
+		B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */; };
+		B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */; };
+		B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -435,10 +439,6 @@
 		B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreMessageViewCtr.m; sourceTree = "<group>"; };
 		B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreMessageViewCtr.xib; sourceTree = "<group>"; };
 		B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = addCalendarDelegate.h; sourceTree = "<group>"; };
-		B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
-		B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
-		B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabHeaderView.h; sourceTree = "<group>"; };
-		B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabHeaderView.m; sourceTree = "<group>"; };
 		B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFriendsTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myFriendsTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myFriendsTableViewCell.xib; sourceTree = "<group>"; };
@@ -489,6 +489,15 @@
 		B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvinceLifeExpectancyWoman.plist; sourceTree = "<group>"; };
 		B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = theWholeTen.plist; sourceTree = "<group>"; };
 		B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserPassWordProblem.plist; sourceTree = "<group>"; };
+		B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
+		B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
+		B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindViewController.xib; sourceTree = "<group>"; };
+		B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindTextTableViewCell.h; sourceTree = "<group>"; };
+		B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindTextTableViewCell.m; sourceTree = "<group>"; };
+		B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindTextTableViewCell.xib; sourceTree = "<group>"; };
+		B8F931521C7B0AB3000FED7C /* AddTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTimeTableViewCell.h; sourceTree = "<group>"; };
+		B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTimeTableViewCell.m; sourceTree = "<group>"; };
+		B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTimeTableViewCell.xib; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -817,6 +826,9 @@
 				B8F2D9B61C5C8E81002C7712 /* MoreMessageViewCtr.m */,
 				B8F2D9B71C5C8E81002C7712 /* MoreMessageViewCtr.xib */,
 				B8F2D9BA1C5C8EF5002C7712 /* addCalendarDelegate.h */,
+				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
+				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
+				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -829,10 +841,12 @@
 				B8F2D9A91C5C8D2B002C7712 /* MoreTableViewCell.h */,
 				B8F2D9AA1C5C8D2B002C7712 /* MoreTableViewCell.m */,
 				B8F2D9AB1C5C8D2B002C7712 /* MoreTableViewCell.xib */,
-				B8F2D9BB1C5C8F34002C7712 /* PopoverView.h */,
-				B8F2D9BC1C5C8F34002C7712 /* PopoverView.m */,
-				B8F2D9BE1C5C8F8E002C7712 /* MoreTabHeaderView.h */,
-				B8F2D9BF1C5C8F8E002C7712 /* MoreTabHeaderView.m */,
+				B8F9314D1C7AFB3A000FED7C /* AddRemindTextTableViewCell.h */,
+				B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */,
+				B8F9314F1C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib */,
+				B8F931521C7B0AB3000FED7C /* AddTimeTableViewCell.h */,
+				B8F931531C7B0AB3000FED7C /* AddTimeTableViewCell.m */,
+				B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1548,6 +1562,8 @@
 				B8F2D9B91C5C8E81002C7712 /* MoreMessageViewCtr.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
+				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
+				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
@@ -1573,6 +1589,7 @@
 				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
+				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B8365A581C71A53500063269 /* HeadViewTableViewCell.xib in Resources */,
 				B8F2DA451C5F3D04002C7712 /* InputAccountViewController.xib in Resources */,
@@ -1665,6 +1682,7 @@
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
+				B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */,
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
@@ -1675,9 +1693,7 @@
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
-				B8F2D9C01C5C8F8E002C7712 /* MoreTabHeaderView.m in Sources */,
 				B61B09861C7C035700FFA946 /* NavigationBarView.m in Sources */,
-				B8F2D9BD1C5C8F34002C7712 /* PopoverView.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
@@ -1737,6 +1753,8 @@
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
+				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
+				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,

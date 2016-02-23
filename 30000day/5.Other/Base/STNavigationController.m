@@ -9,7 +9,7 @@
 
 #import "STNavigationController.h"
 
-@interface STNavigationController ()
+@interface STNavigationController () 
 
 @end
 
@@ -20,8 +20,8 @@
     [super viewDidLoad];
     
     [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
-    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

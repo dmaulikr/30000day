@@ -145,4 +145,16 @@
     return [formatter stringFromDate:date];
 }
 
++ (NSString *)addZeroWithString:(NSString *)numberString {
+
+    if ([numberString length] == 1) {
+
+        return numberString = [NSString stringWithFormat:@"0%@",numberString];
+
+    } else {
+
+        return numberString;
+    }
+}
+
 @end

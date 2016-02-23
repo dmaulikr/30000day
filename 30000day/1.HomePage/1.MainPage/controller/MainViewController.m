@@ -57,41 +57,8 @@
         
     }];
     
-    
-    //2.获取用户的天龄
-    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getCurrentDateString] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
-        
-        
-        UserLifeModel *lastModel = [dataArray lastObject];
-        
-        self.totalLifeDayNumber = [lastModel.curLife floatValue];
-        
-        //算出数组
-        self.allDayArray = [NSMutableArray array];
-        
-        self.dayNumberArray = [NSMutableArray array];
-        
-        for (int  i = 0; i < dataArray.count ; i++ ) {
-            
-            UserLifeModel *model = dataArray[i];
-            
-            [self.allDayArray addObject:model.curLife];
-            
-            NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-            
-            NSString *string = array[2];
-            
-            NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-            
-            [self.dayNumberArray addObject:newString];
-            
-        }
-
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        
-    } failure:^(LONetError *error) {
-        
-    }];
+    //刷新页面信息
+    [self reloadData];
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
@@ -136,7 +103,39 @@
 
 - (void)reloadData {
     
-    [self.tableView reloadData];
+    //2.获取用户的天龄
+    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getCurrentDateString] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
+        
+        UserLifeModel *lastModel = [dataArray lastObject];
+        
+        self.totalLifeDayNumber = [lastModel.curLife floatValue];
+        
+        //算出数组
+        self.allDayArray = [NSMutableArray array];
+        
+        self.dayNumberArray = [NSMutableArray array];
+        
+        for (int  i = 0; i < dataArray.count ; i++ ) {
+            
+            UserLifeModel *model = dataArray[i];
+            
+            [self.allDayArray addObject:model.curLife];
+            
+            NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+            
+            NSString *string = array[2];
+            
+            NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+            
+            [self.dayNumberArray addObject:newString];
+            
+        }
+        
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        
+    } failure:^(LONetError *error) {
+        
+    }];
 }
 
 #pragma ---

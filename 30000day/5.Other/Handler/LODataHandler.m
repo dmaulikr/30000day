@@ -1,6 +1,6 @@
 //
 //  LODataHandler.m
-//  LianjiaOnlineApp
+//  30000day
 //
 //  Created by GuoJia on 15/12/10.
 //  Copyright © 2015年 GuoJia. All rights reserved.
@@ -384,7 +384,7 @@
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters addParameter:phoneNumber forKey:@"userName"];
+    [parameters addParameter:phoneNumber forKey:@"mobile"];
     
     [parameters addParameter:mobileToken forKey:@"mobileToken"];
     
@@ -503,8 +503,6 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
-    
 }
 
 //***** 更新个人信息 *****/
@@ -567,189 +565,6 @@
                 });
             }
         }
-}
-
-//******* 设置健康因子  ************/
-- (void)postUpdateHealthDataWithPassword:(NSString *)password
-                               loginName:(NSString *)loginName
-                                cityName:(NSString *)cityName
-                                 success:(void (^)(BOOL))success
-                                 failure:(void (^)(NSError *))failure {
-    
-    if ([cityName isEqualToString:@""] || cityName == nil) {
-        
-        cityName = @"北京";
-        
-    } else {
-        
-        cityName = [cityName substringToIndex:cityName.length - 1];//去掉市
-    }
-    
-    NSString *ProvinceLifeExpectancyMan = [[NSBundle mainBundle] pathForResource:@"ProvinceLifeExpectancyMan" ofType:@"plist"];
-    
-    NSDictionary* citydic = [[NSDictionary alloc] initWithContentsOfFile:ProvinceLifeExpectancyMan];
-    
-    NSInteger yeardate = [citydic[cityName] integerValue];
-    
-    NSInteger AvearageLife = [self AverageLifeToDay:yeardate];//默认基数
-    
-    NSMutableArray *UserDayArr = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",
-                                  @"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",@"0",
-                                  @"0",@"0",@"0",@"0",@"0",@"0",@"0", nil];
-    
-    UserDayArr[0] = [NSString stringWithFormat:@"+%ld",(long)AvearageLife];
-    
-    NSArray *Elements = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",
-                         @"5",@"6",@"7",@"8",@"9",
-                         @"10",@"11",@"12",@"13",@"14",
-                         @"15",@"16",@"17",@"18",@"19",
-                         @"20",@"21",@"22",@"23",@"24",@"25",@"26",nil];
-    
-    //用户选项
-    NSString *SubResultsString = [NSString stringWithFormat:@"%@,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,",cityName];
-    
-    //因素
-    NSString *ElementsStr = [[NSString alloc] init];
-    
-    NSString *UserAlternative = [[NSString alloc] init];
-    
-    for (int i = 0; i< Elements.count; i++) {
-        
-        if (i == 0) {
-            
-            ElementsStr = [ElementsStr stringByAppendingString:[NSString stringWithFormat:@"%@",Elements[i]]];
-            
-            UserAlternative = [UserAlternative stringByAppendingString:[NSString stringWithFormat:@"%@",UserDayArr[i]]];
-            
-        } else {
-            
-            ElementsStr = [ElementsStr stringByAppendingString:[NSString stringWithFormat:@",%@",Elements[i]]];
-            
-            UserAlternative = [UserAlternative stringByAppendingString:[NSString stringWithFormat:@",%@",UserDayArr[i]]];
-        }
-    }
-    
-    ElementsStr = [ElementsStr stringByAppendingString:@",pm25,StepCount,FloorCount,ExerciseDistance,AvearageLife"];
-    
-    //用户选择因素
-    UserAlternative = [UserAlternative stringByAppendingString:[NSString stringWithFormat:@",0,0,0,0,%ld",(long)AvearageLife]];
-    
-    //AvearageLife 为初始的默认平均寿命基数
-    NSDate *senddate = [NSDate date];//当前时间
-    
-    NSDateFormatter  *dateformatter = [[NSDateFormatter alloc] init];
-    
-    [dateformatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSString *locationString = [dateformatter stringFromDate:senddate];//系统当前时间
-    
-    NSString *resultstring = [NSString stringWithFormat:@"%ld",(long)AvearageLife];
-    
-    NSString *URLString = @"http://116.254.206.7:12580/M/API/WriteUserLifeForEachDay?";
-    
-    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    
-    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&sumDay=%ld&result=%@&date=%@&subFators=%@&subResults=%@&SubResultsString=%@",loginName,password,(long)AvearageLife,resultstring,locationString,ElementsStr,UserAlternative,SubResultsString];
-    
-    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [request setHTTPMethod:@"post"];
-    
-    [request setURL:URL];
-    
-    [request setHTTPBody:postData];
-    
-    NSURLResponse *response;
-    
-    NSError *error;
-    
-    NSData *backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            failure(error);
-        });
-        
-    } else {
-        
-        NSLog(@"response : %@",response);
-        
-        NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-        
-        if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue] == 1) {
-            
-            [Common saveAppDataForKey:loginName withObject:KEY_SIGNIN_USER_NAME];
-            
-            [Common saveAppDataForKey:password withObject:KEY_SIGNIN_USER_PASSWORD];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                 success(YES);
-                
-            });
-            
-        } else {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
-                
-                failure(error);
-            });
-        }
-    }
-}
-
-//私有API,计算平均寿命的天数
-- (NSInteger)AverageLifeToDay:(NSInteger)today {
-    
-    NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    [gregorian setFirstWeekday:2];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate *fromDate;
-    
-    NSDate *toDate;
-    
-    [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:[self day:today]];
-    
-    [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:[NSDate date]];
-    
-    NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
-    
-    NSLog(@"%ld",(long)dayComponents.day);
-    
-    return dayComponents.day;
-}
-
-//私有API,现在时间减去平均寿命
-- (NSDate *)day:(NSInteger)today {
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-    
-    NSDateComponents *components = [calendar components:unitFlags fromDate:[NSDate date]];
-    
-    components.year = components.year - today;
-    
-    NSString *newdate = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)components.year,(long)components.month,(long)components.day];
-    
-    NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    
-    [date setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate *returndate = [date dateFromString:newdate];
-    
-    return returndate;
 }
 
 //************获取通讯录好友************/
@@ -1599,7 +1414,7 @@
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"获取个人健康因子失败"}];
             
             LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
             
@@ -1663,8 +1478,12 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                   
-                                                                    success(YES);
+                                                                    
+                                                                    //当用户成功保存健康因子的时候会发出通知
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                    
+                                                                      success(YES);
+                                                                    
                                                                 });
                                                                 
                                                             } else {

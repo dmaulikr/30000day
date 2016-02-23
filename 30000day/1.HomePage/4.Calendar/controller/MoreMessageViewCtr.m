@@ -7,7 +7,6 @@
 //
 
 #import "MoreMessageViewCtr.h"
-#import "PopoverView.h"
 
 @interface MoreMessageViewCtr () < UITextFieldDelegate,UIActionSheetDelegate,ZHPickViewDelegate>
 {
@@ -29,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    self.title = @"添加提醒";
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addCalendar)];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
