@@ -7,6 +7,7 @@
 //
 
 #import "InfomationTableViewController.h"
+#import "InfomationTableViewCell.h"
 
 @interface InfomationTableViewController ()
 
@@ -16,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //change
+    self.title=@"资讯";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,22 +28,31 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 10;
 }
 
-/*
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    static NSString *infomationCellIndentifier = @"InfomationTableViewCell";
+    
+    InfomationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:infomationCellIndentifier];
+    
+    if (cell == nil) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:infomationCellIndentifier owner:nil options:nil] lastObject];
+    }
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

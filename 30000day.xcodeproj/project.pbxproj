@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
+		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
+		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B808FB581C7718D20000449C /* UserLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB571C7718D20000449C /* UserLifeModel.m */; };
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
@@ -199,6 +201,9 @@
 
 /* Begin PBXFileReference section */
 		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewCell.h; sourceTree = "<group>"; };
+		B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewCell.m; sourceTree = "<group>"; };
+		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B808FB561C7718D20000449C /* UserLifeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLifeModel.h; sourceTree = "<group>"; };
@@ -557,6 +562,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B61B09921C7C529600FFA946 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */,
+				B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */,
+				B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		B6A5E7631C61AA6A00A4322D /* AddFriends */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,7 +774,6 @@
 			isa = PBXGroup;
 			children = (
 				B88C917B1C5A07DA0089BEAE /* controller */,
-				B88C917C1C5A07DA0089BEAE /* view */,
 			);
 			path = 2.Information;
 			sourceTree = "<group>";
@@ -878,15 +892,9 @@
 			children = (
 				B88C91881C5A08810089BEAE /* InfomationTableViewController.h */,
 				B88C91891C5A08810089BEAE /* InfomationTableViewController.m */,
+				B61B09921C7C529600FFA946 /* view */,
 			);
 			path = controller;
-			sourceTree = "<group>";
-		};
-		B88C917C1C5A07DA0089BEAE /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		B88C917D1C5A07E30089BEAE /* controller */ = {
@@ -1584,6 +1592,7 @@
 				B8F2DA621C5F3D8B002C7712 /* city.plist in Resources */,
 				B8F2DA641C5F3D8B002C7712 /* Element.plist in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
+				B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F2DA431C5F3D04002C7712 /* FindPasswordViewController.xib in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
@@ -1691,6 +1700,7 @@
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
+				B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
