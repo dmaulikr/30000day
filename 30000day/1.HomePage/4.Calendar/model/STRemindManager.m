@@ -71,7 +71,7 @@
         
         if ([self.managedObjectContext save:&error]) {
             
-            [self addLocaleNotification:model];
+            [self addLocaleNotification:model];//修改成功的时候会加修改本地提醒时间
         }
         return [self.managedObjectContext save:&error];
     }

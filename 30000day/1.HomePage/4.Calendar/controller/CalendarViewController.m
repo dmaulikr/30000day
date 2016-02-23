@@ -12,13 +12,10 @@
 #import "JBUnitView.h"
 #import "JBUnitGridView.h"
 #import "JBSXRCUnitTileView.h"
-//#import <EventKit/EventKit.h>
 #import "MoreTableViewCell.h"
 #import "AddRemindViewController.h"
 
 @interface CalendarViewController () < JBUnitGridViewDelegate, JBUnitGridViewDataSource, JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate > {
-    
-    FMDatabase *db;
     
     NSString *database_path;
     
