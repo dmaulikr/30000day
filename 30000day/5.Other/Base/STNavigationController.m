@@ -18,8 +18,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    //[self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bs.png"] forBarMetrics:UIBarMetricsDefault];
+        
+    [self.navigationBar setBackgroundImage:[Common imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
 }
 
 

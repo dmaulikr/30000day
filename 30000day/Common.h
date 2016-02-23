@@ -59,4 +59,8 @@
  */
 + (NSDateFormatter *)dateFormatterWithFormatterString:(NSString *)formatterString;
 
+
++ (UIImage *)imageWithColor:(UIColor *)color;
+
+
 @end

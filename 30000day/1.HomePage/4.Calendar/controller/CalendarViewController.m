@@ -89,12 +89,6 @@
 //添加提醒按钮点击事件
 - (IBAction)addRemindAction:(id)sender {
     
-//    _MessageViewUpd.time = self.time;
-//    
-//    _MessageViewUpd.into = @"add";
-//    
-//    [self.navigationController pushViewController:_MessageViewUpd animated:YES];
-    
     AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
     [controller setAddSuccessBlock:^{
