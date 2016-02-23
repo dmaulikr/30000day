@@ -55,6 +55,7 @@
 
 @property (nonatomic,strong) UIView *lineView;//日历下面的背景线条
 
+@property (nonatomic,strong) NSMutableArray *dataArray_new;
 
 @end
 
@@ -103,10 +104,24 @@
     
     AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
+    [controller setAddSuccessBlock:^{
+       
+        [self loadData];
+        
+        [self.tableView reloadData];
+        
+    }];
+    
     [self.navigationController pushViewController:controller animated:YES];
     
 }
 
+- (void)loadData {
+    
+    self.dataArray_new = [[STRemindManager shareRemindManager] allRemindModelWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
+    
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -126,7 +141,8 @@
     
     _array = [NSMutableArray array];
     
-    [self loadData:timeString];
+//    [self loadData:timeString];
+    [self loadData];
     
     self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
    
@@ -292,6 +308,7 @@
     }
     
 }
+
 
 /**
  *   theDate:用户生日
@@ -673,7 +690,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _array.count;
+    return  self.dataArray_new.count;
     
 }
 
@@ -687,13 +704,13 @@
         
     }
     
-    MoreInfo *info = [_array objectAtIndex:indexPath.row];
+    RemindModel *info = [ self.dataArray_new objectAtIndex:indexPath.row];
     
     cell.titleLab.text = info.title;
     
-    cell.timeLab.text = info.date;
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
     
-    cell.moreInfo = info;
+    cell.timeLab.text = [formatter stringFromDate:info.date];
     
     return cell;
 }

@@ -53,4 +53,10 @@
  */
 + (NSString *)addZeroWithString:(NSString *)numberString;
 
+/**
+ * 给定一个string,比如: @"yyyy-MM-dd HH:mm" ---->NSDateFormatter
+ *
+ */
++ (NSDateFormatter *)dateFormatterWithFormatterString:(NSString *)formatterString;
+
 @end

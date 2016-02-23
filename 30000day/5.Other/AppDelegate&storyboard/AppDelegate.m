@@ -63,15 +63,40 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
+//如果此时你的客户端 软件仍在打开，则会调用
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    UIApplicationState state = application.applicationState;
+    
+    if (state == UIApplicationStateActive) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[notification.userInfo objectForKey:@"alertTitle"]
+                                                        message:notification.alertBody
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
     BOOL result = [UMSocialSnsService handleOpenURL:url];
+    
     if (result == FALSE) {
+        
         //调用其他SDK，例如支付宝SDK等
     }
+    
     return result;
 }
 

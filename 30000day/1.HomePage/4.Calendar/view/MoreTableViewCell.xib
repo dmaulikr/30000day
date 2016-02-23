@@ -14,18 +14,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlU-fV-Mi4">
-                        <rect key="frame" x="11" y="11" width="210" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9Q-Sb-DbT">
+                        <rect key="frame" x="161" y="14" width="151" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="151" id="gVw-TX-liQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlU-fV-Mi4">
+                        <rect key="frame" x="8" y="11" width="109" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="109" id="gcx-od-shp"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9Q-Sb-DbT">
-                        <rect key="frame" x="237" y="11" width="71" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="j9Q-Sb-DbT" secondAttribute="trailing" constant="8" id="5nP-C4-Kws"/>
+                    <constraint firstItem="UlU-fV-Mi4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HkG-lo-bU3"/>
+                    <constraint firstItem="UlU-fV-Mi4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="YRe-Cs-Mk0"/>
+                    <constraint firstItem="j9Q-Sb-DbT" firstAttribute="leading" secondItem="UlU-fV-Mi4" secondAttribute="trailing" constant="44" id="Zr5-FG-WpS"/>
+                    <constraint firstItem="j9Q-Sb-DbT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qg9-Vz-U7Y"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="timeLab" destination="j9Q-Sb-DbT" id="EAb-RZ-KL8"/>
