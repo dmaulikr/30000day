@@ -9,6 +9,7 @@
 #import "SearchFriendsViewController.h"
 #import "SearchResultTableViewCell.h"
 #import "UserInformationModel.h"
+#import "NSString+URLEncoding.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -90,9 +91,9 @@
         
         //只要开始搜索先隐藏backgroundView
         self.backgroundView.hidden = YES;
-         
+        
         //开始搜索
-        [self.dataHandler sendSearchUserRequestWithNickName:self.textField.text
+        [self.dataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
                                               currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                     success:^(NSMutableArray *dataArray) {
             

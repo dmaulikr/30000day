@@ -88,7 +88,6 @@
             
         } else {
             
-            
             return self.calendarCell;
             
         }
@@ -97,7 +96,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
     if (indexPath.section == 0) {
         

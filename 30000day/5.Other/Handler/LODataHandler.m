@@ -716,6 +716,8 @@
     
     [parameters addParameter:curUserId forKey:@"curUserId"];
     
+    [Common urlStringWithDictionary:parameters withString:SEARCH_USER];
+    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SEARCH_USER
                                                  parameters:parameters

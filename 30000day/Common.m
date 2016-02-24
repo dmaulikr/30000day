@@ -181,4 +181,28 @@
     return image;
 }
 
++ (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi {
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@?",ST_API_SERVER,subApi];
+    
+    NSArray *array = [dictinary allKeys];
+    
+    NSString *keyValueString = @"";
+    
+    for (NSString *key in array) {
+        
+        NSString *newString = [NSString stringWithFormat:@"%@=%@&",key,[dictinary objectForKey:key]];
+        
+        keyValueString =  [keyValueString stringByAppendingString:newString];
+        
+    }
+    
+    keyValueString = [keyValueString substringToIndex:keyValueString.length - 1];
+    
+    url = [NSString stringWithFormat:@"%@%@",url,keyValueString];
+    
+    return url;
+    
+}
+
 @end

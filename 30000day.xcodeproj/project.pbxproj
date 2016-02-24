@@ -43,6 +43,7 @@
 		B886E85F1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E85D1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.xib */; };
 		B886E8631C7C51FE00E64BEC /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8611C7C51FE00E64BEC /* CalendarTableViewCell.m */; };
 		B886E8641C7C51FE00E64BEC /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E8621C7C51FE00E64BEC /* CalendarTableViewCell.xib */; };
+		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
@@ -258,6 +259,8 @@
 		B886E8601C7C51FE00E64BEC /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		B886E8611C7C51FE00E64BEC /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B886E8621C7C51FE00E64BEC /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
+		B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -585,6 +588,8 @@
 		B8365A491C7081FD00063269 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */,
+				B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */,
 				B8365A4A1C70820100063269 /* UIView+Extension.h */,
 				B8365A4B1C70820100063269 /* UIView+Extension.m */,
 				B8D67A091C7327D700805EE2 /* UIView+viewController.h */,
@@ -1771,6 +1776,7 @@
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B8F2D9D01C5F0507002C7712 /* SDTransparentPieProgressView.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
+				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
 				B8F2D9AC1C5C8D2B002C7712 /* MoreTableViewCell.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */,

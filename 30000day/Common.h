@@ -63,4 +63,7 @@
 + (UIImage *)imageWithColor:(UIColor *)color;
 
 
+//专门用来检查URL是否正确的
++ (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
+
 @end
