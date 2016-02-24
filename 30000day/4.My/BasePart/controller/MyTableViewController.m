@@ -252,6 +252,7 @@
         
         [self CancellationClick];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)CancellationClick {
