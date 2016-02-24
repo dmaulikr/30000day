@@ -25,9 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.calendarCellHeight = 1;
+    self.calendarCellHeight = 270;
 }
-
 
 - (CalendarHeadTableViewCell *)calendarHeadCell {
     
@@ -56,7 +55,11 @@
         
     }];
     
+    [_calendarCell.calendarView selectDate:[NSDate date]];
+    
     [_calendarCell.calendarView reloadEvents];
+    
+    [_calendarCell.calendarView updateUnitViewWithDate:[NSDate date]];
     
     return _calendarCell;
 }
@@ -84,6 +87,7 @@
             return self.calendarHeadCell;
             
         } else {
+            
             
             return self.calendarCell;
             

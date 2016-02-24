@@ -16,11 +16,9 @@
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
-@interface UserInfoViewController () <UINavigationControllerDelegate,ZHPickViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
+@interface UserInfoViewController () <UINavigationControllerDelegate,QGPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong)NSArray *titleArray;
-
-@property (nonatomic,strong)ZHPickView *zpk;
 
 @property (nonatomic,strong) UIImageView *portraitImageView;
 
@@ -30,7 +28,9 @@
 
 @property (nonatomic,copy) NSNumber *gender;
 
-@property (nonatomic,copy) NSString *Birthday;
+@property (nonatomic,copy) NSString *lastBirthdayString;//程序刚进来保存的上次生日用来对比的
+
+@property (nonatomic,copy) NSString *currentChooseBirthdayString;//每次点击生日选择该字符串都会被置空
 
 @property (nonatomic ,strong) UIBarButtonItem *saveButton;
 
@@ -51,17 +51,13 @@
     self.saveButton.enabled = NO;
     
     self.navigationItem.rightBarButtonItem = self.saveButton;
-    
-    [self.mainTable setDelegate:self];
-    
-    [self.mainTable setDataSource:self];
-    
+ 
     self.NickName = STUserAccountHandler.userProfile.nickName;
     
     self.gender = STUserAccountHandler.userProfile.gender;
     
-    self.Birthday = STUserAccountHandler.userProfile.birthday;
-
+    self.lastBirthdayString = STUserAccountHandler.userProfile.birthday;
+    
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
 }
@@ -71,30 +67,28 @@
     [self showHUDWithContent:@"正在保存" animated:YES];
     
     //上传服务器
-//    [self.dataHandler postUpdateProfileWithUserID:_userProfile.UserID Password:_userProfile.LoginPassword loginName:_userProfile.LoginName NickName:_userProfile.NickName Gender:_userProfile.Gender Birthday:_userProfile.Birthday success:^(BOOL responseObject) {
-//        
-//        if (responseObject) {
+    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
+        
+//        if (![self.editorImage isEqual:self.copareImage]) {
 //            
-//            if (![self.editorImage isEqual:self.copareImage]) {
+//            [self shangchuantupian:self.editorImage];
 //            
-//                [self shangchuantupian:self.editorImage];
-//                
-//            } else {
-//                
-//                [self hideHUD:YES];
-//                
-//                [self showToast:@"个人信息保存成功"];
-//                
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }
+//        } else {
+//
 //        }
-//        
-//    } failure:^(NSError *error) {
-//        
-//        [self hideHUD:YES];
-//        
-//        [self showToast:@"个人信息保存失败"];
-//    }];
+        
+        [self hideHUD:YES];
+        
+        [self showToast:@"个人信息保存成功"];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(LONetError *error) {
+        
+        [self hideHUD:YES];
+        
+        [self showToast:@"个人信息保存失败"];
+    }];
 
 }
 
@@ -265,7 +259,7 @@
         
         if (indexPath.row == 0) {
             
-            [self editPortrait];
+            [self chooseActionSheet];
             
         }else if(indexPath.row == 1){
             
@@ -287,27 +281,103 @@
             
         } else if(indexPath.row == 3) {
             
-            NSString *currentDate = [UserAccountHandler shareUserAccountHandler].userProfile.birthday;
-            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            
-            [formatter setDateFormat:@"yyyy/MM/dd"];
-            
-            _zpk = [[ZHPickView alloc] initDatePickWithDate:[formatter dateFromString:currentDate] datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
-            
-            _zpk.delegate = self;
-            
-            [_zpk setMaxMinYer];
-            
-            [_zpk show];
+            [self chooseBirthday];
         }
     }
     
 }
 
+
+//选择生日
+- (void)chooseBirthday {
+
+    [self.view endEditing:YES];
+
+    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+
+    picker.delegate = self;
+
+    picker.titleText = @"生日选择";
+
+    self.currentChooseBirthdayString = @"";
+
+    //3.赋值
+    [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
+
+        NSArray *dateArray = [[Common getCurrentDateString] componentsSeparatedByString:@"-"];
+
+        NSString *monthStr = dateArray[1];
+
+        NSString *dayStr = dateArray[2];
+
+        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
+
+            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
+
+        } else {
+
+            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
+        }
+
+        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
+
+            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
+
+        } else {
+
+            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
+        }
+
+        //显示QGPickerView
+        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
+
+    }];
+
+}
+
+#pragma mark -- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+
+    self.currentChooseBirthdayString = [self.currentChooseBirthdayString stringByAppendingString:value];
+
+    if (index == 3) {
+
+        NSArray *array  = [self.currentChooseBirthdayString componentsSeparatedByString:@"年"];
+
+        NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
+
+        NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
+
+        self.currentChooseBirthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[self addZeroWithString:array_second[0]],[self addZeroWithString:array_third[0]]];
+        
+        STUserAccountHandler.userProfile.birthday = self.currentChooseBirthdayString;
+        
+        [self.tableView reloadData];
+        
+        //判断保存按钮是否可用
+        [self judgeSaveButtonCanUse];
+
+    }
+}
+
+- (NSString *)addZeroWithString:(NSString *)string {
+
+    if ([string length] == 1) {
+
+        return string = [NSString stringWithFormat:@"0%@",string];
+
+    } else {
+
+        return string;
+    }
+}
+
+#pragma mark --- UIAlertViewDelegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    NSIndexPath *indexpath = self.mainTable.indexPathForSelectedRow;
+    NSIndexPath *indexpath = self.tableView.indexPathForSelectedRow;
 
     if ( indexpath.section == 0 && buttonIndex != 0 ) {
         
@@ -330,7 +400,7 @@
             }
         }
 
-        [self.mainTable reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
         
         //判断按钮是否可用
         [self judgeSaveButtonCanUse];
@@ -338,145 +408,7 @@
     
 }
 
-#pragma mark --- ZHPickViewDelegate
-
-- (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString{
-    
-    NSDateFormatter *datef = [[NSDateFormatter alloc] init];
-    
-    [datef setDateFormat:@"yyyy/MM/dd HH:mm"];
-    
-    NSDate *now = [datef dateFromString:resultString];
-    
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    
-    NSInteger interval = [zone secondsFromGMTForDate: now];
-    
-    NSDate *localeDate = [now  dateByAddingTimeInterval: interval];
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    
-    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:localeDate];
-    
-    NSString *Birthday = [NSString stringWithFormat:@"%d/%d/%d",(int)[dateComponent year],(int)[dateComponent month],(int)[dateComponent day]];
-    
-    STUserAccountHandler.userProfile.birthday = Birthday;
-    
-    [self.mainTable reloadData];
-    
-    //判断保存按钮是否可用
-    [self judgeSaveButtonCanUse];
-}
-
-
-//- (void)shangchuantupian:(UIImage*)image {
-//    
-//    //第一步，创建URL
-//    NSString *URLString = @"http://116.254.206.7:12580/M/API/UploadPortrait?";//不需要传递参数
-//    
-//    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//    //第二步，创建请求
-//    
-//    //    2.创建请求对象
-//    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-//    
-//    //设置请求体
-//    NSString *param = [NSString stringWithFormat:@"loginName=%@&loginPassword=%@&base64Photo=%@&photoExtName=%@",_userProfile.LoginName,_userProfile.LoginPassword,[self image2DataURL:image][1],[self image2DataURL:image][0]];
-//    
-//    //把拼接后的字符串转换为data，设置请求体
-//    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-//    
-//    [request setHTTPMethod:@"post"]; //指定请求方式
-//    
-//    [request setURL:URL]; //设置请求的地址
-//    
-//    [request setHTTPBody:postData];  //设置请求的参数
-//    
-//    NSURLResponse * response;
-//    
-//    NSError * error;
-//    
-//    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    
-//    if (error) {
-//        //访问服务器失败进此方法
-//        NSLog(@"error : %@",[error localizedDescription]);
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//
-//            [self hideHUD:YES];
-//            
-//            [self showToast:@"图片上传失败"];
-//
-//        });
-//        
-//    }else{
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //成功访问服务器，返回图片的URL
-//            NSLog(@"backData : %@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-//            
-//            _userProfile.HeadImg = [[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-//            
-//            [UserAccountHandler shareUserAccountHandler].userProfile = _userProfile;
-//            
-//            [self hideHUD:YES];
-//            
-//            [self showToast:@"个人信息保存成功"];
-//            
-//            self.copareImage = self.editorImage;
-//            
-//            [self.navigationController popViewControllerAnimated:YES];
-//            
-//        });
-//        
-//    }
-//}
-
-// 判断图片后缀名的方法
-- (BOOL)imageHasAlpha:(UIImage *)image {
-    
-    CGImageAlphaInfo alpha = CGImageGetAlphaInfo(image.CGImage);
-    
-    return (alpha == kCGImageAlphaFirst ||
-            alpha == kCGImageAlphaLast ||
-            alpha == kCGImageAlphaPremultipliedFirst ||
-            alpha == kCGImageAlphaPremultipliedLast);
-}
-
-// 把图片转换成base64位字符串，返回数组［0］：图片后缀名(.png/.jpeg)--［1］：base64位字符串
-- (NSArray *) image2DataURL: (UIImage *) image {
-    
-    NSData *imageData = nil;
-    
-    NSString *mimeType = nil;
-    
-    if ([self imageHasAlpha: image]) {
-        
-        imageData = UIImagePNGRepresentation(image);
-        
-        mimeType = @".png";
-        
-    } else {
-        
-        imageData = UIImageJPEGRepresentation(image, 1.0f);
-        
-        mimeType = @".jpeg";
-    }
-    
-    NSString *baseStr = [imageData base64Encoding];
-    
-    // 转成base64位字符串之后要进行下面这一步替换，不然传到后台之后，加号等于号等一些特殊字符会变成空格，导致图片出问题
-    NSString *baseString = (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)baseStr,NULL,CFSTR(":/?#[]@!$&’()*+,;="),kCFStringEncodingUTF8);
-    
-    NSArray *arr = [NSArray arrayWithObjects:mimeType,baseString, nil];
-    
-    return arr;
-}
-
-- (void)editPortrait {
+- (void)chooseActionSheet {
     
     UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
@@ -527,20 +459,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-//判断保存按钮是否可用
-- (void)judgeSaveButtonCanUse {
-    
-    if ([self.NickName isEqualToString:STUserAccountHandler.userProfile.nickName] &&
-        [self.gender isEqual:STUserAccountHandler.userProfile.gender] &&
-        [self.Birthday isEqualToString:STUserAccountHandler.userProfile.birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
-        
-        self.saveButton.enabled = NO;
-        
-    } else {
-        
-        self.saveButton.enabled = YES;
-    }
-}
 
 - (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
@@ -555,5 +473,21 @@
         message = [error description];
     }
 }
+
+//判断保存按钮是否可用
+- (void)judgeSaveButtonCanUse {
+    
+    if ([self.NickName isEqualToString:STUserAccountHandler.userProfile.nickName] &&
+        [self.gender isEqual:STUserAccountHandler.userProfile.gender] &&
+        [self.lastBirthdayString isEqualToString:STUserAccountHandler.userProfile.birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
+        
+        self.saveButton.enabled = NO;
+        
+    } else {
+        
+        self.saveButton.enabled = YES;
+    }
+}
+
 
 @end

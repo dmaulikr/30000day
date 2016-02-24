@@ -78,14 +78,14 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 
 //***** 更新个人信息 *****/
-- (void )postUpdateProfileWithUserID:(NSString *)userID
-                                 Password:(NSString *)password
-                                loginName:(NSString *)loginName
-                                 NickName:(NSString *)nickName
-                                   Gender:(NSString *)gender
-                                 Birthday:(NSString *)birthday
-                                 success:(void (^)(BOOL))success
-                                 failure:(void (^)(NSError *))failure;
+//提醒：保存成功后会发出通知
+- (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
+                                  nickName:(NSString *)nickName
+                                    gender:(NSNumber *)gender
+                                  birthday:(NSString *)birthday
+                        headImageUrlString:(NSString *)headImageUrlString
+                                  success:(void (^)(BOOL))success
+                                  failure:(void (^)(LONetError *))failure;
 
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;

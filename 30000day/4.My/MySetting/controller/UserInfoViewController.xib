@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserInfoViewController">
             <connections>
-                <outlet property="mainTable" destination="Q8v-qH-ydv" id="rgv-qg-Z5p"/>
+                <outlet property="tableView" destination="Q8v-qH-ydv" id="ddc-bN-k8K"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="e2F-gf-lLO"/>
             </connections>
         </placeholder>
@@ -21,8 +21,8 @@
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="sectionIndexBackgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="45L-mX-rzy"/>
-                        <outlet property="delegate" destination="-1" id="PGu-Mm-6uk"/>
+                        <outlet property="dataSource" destination="-1" id="ss8-aV-BIk"/>
+                        <outlet property="delegate" destination="-1" id="wZi-jR-tdJ"/>
                     </connections>
                 </tableView>
             </subviews>

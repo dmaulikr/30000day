@@ -16,16 +16,25 @@
 
 - (void)awakeFromNib {
    
-    JBUnitView *calendarView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
+    JBUnitView *calendarView = [[JBUnitView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 270) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
     
-    self.calendarView = calendarView;
+//    self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:calendarView];
+//    NSArray *v_constrains = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[calendarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(calendarView)];
+//    
+//    [self addConstraints:v_constrains];
+//    
+//    NSArray *h_constrains = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[calendarView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(calendarView)];
+//    
+//    [self addConstraints:h_constrains];
     
+    self.calendarView = calendarView;
 }
 
 #pragma mark -
 #pragma mark - JBUnitGridViewDataSource
+
 /**************************************************************
  *@Description:获得unitTileView
  *@Params:
@@ -103,8 +112,9 @@
     
     if (self.calendarNewFrameBlock) {
         
-        self.calendarNewFrameBlock(newFrame.size.height);
+        self.calendarView.height = newFrame.size.height;
         
+        self.calendarNewFrameBlock(newFrame.size.height);
     }
 }
 
@@ -119,8 +129,9 @@
 {
     if (self.calendarNewFrameBlock) {
         
-        self.calendarNewFrameBlock(newFrame.size.height);
+        self.calendarView.height = newFrame.size.height;
         
+        self.calendarNewFrameBlock(newFrame.size.height);
     }
 }
 
@@ -162,6 +173,20 @@
 {
     completedBlock(nil);
 }
+
+/**************************************************************
+ *@Description:选择某一天
+ *@Params:
+ *  unitView:当前unitView
+ *  date:选择的日期
+ *@Return:nil
+ **************************************************************/
+
+- (void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date {
+    
+   
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

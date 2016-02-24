@@ -10,7 +10,7 @@
 
 @interface UserInfoViewController : ShowBackItemViewController <UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *mainTable;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
 @end

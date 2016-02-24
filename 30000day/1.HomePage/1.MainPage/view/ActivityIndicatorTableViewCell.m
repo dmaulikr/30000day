@@ -83,7 +83,7 @@
     
     [date setDateFormat:@"yyyy-MM-dd"];
     
-    NSArray *dateArray = [theDate componentsSeparatedByString:@"/"];
+    NSArray *dateArray = [theDate componentsSeparatedByString:@"-"];
     
     theDate = [NSString stringWithFormat:@"%@-%@-%@",dateArray[0],dateArray[1],dateArray[2]];
     

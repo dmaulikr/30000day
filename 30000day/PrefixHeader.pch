@@ -120,6 +120,8 @@
 
 #define  SAVE_USER_FACTORS            @"/stapi/factor/setUserFactor"                 //保存某一个人的健康因子
 
+#define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
+
 #endif
 
 #endif /* PrefixHeader_pch */

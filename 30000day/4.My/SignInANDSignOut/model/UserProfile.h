@@ -69,6 +69,6 @@
 
 @property (nonatomic,copy)  NSString *headImg;//用户的头像
 
-@property (nonatomic,copy)  NSString *birthday;//用户的头像
+@property (nonatomic,copy)  NSString *birthday;
 
 @end

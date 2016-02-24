@@ -176,7 +176,6 @@
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure {
     
-//内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:phoneNumber forKey:@"mobile"];
@@ -506,65 +505,90 @@
 }
 
 //***** 更新个人信息 *****/
-- (void)postUpdateProfileWithUserID:(NSString *)userID
-                                 Password:(NSString *)password
-                                loginName:(NSString *)loginName
-                                 NickName:(NSString *)nickName
-                                   Gender:(NSString *)gender
-                                 Birthday:(NSString *)birthday
-                                  success:(void (^)(BOOL))success
-                                  failure:(void (^)(NSError *))failure {
+- (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
+                                   nickName:(NSString *)nickName
+                                     gender:(NSNumber *)gender
+                                   birthday:(NSString *)birthday
+                         headImageUrlString:(NSString *)headImageUrlString
+                                    success:(void (^)(BOOL))success
+                                    failure:(void (^)(LONetError *))failure {
     
-        NSString *URLString= @"http://116.254.206.7:12580/M/API/UpdateProfile?";
+    //内部测试接口
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-        NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [parameters addParameter:userId forKey:@"userId"];
     
-        NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+    [parameters addParameter:nickName forKey:@"nickName"];
     
-        NSString *param=[NSString stringWithFormat:@"UserID=%@&LoginName=%@&LoginPassword=%@&NickName=%@&Gender=%d&Birthday=%@",userID,loginName,password,nickName,[gender intValue],birthday];
+    [parameters addParameter:gender forKey:@"gender"];
     
-        NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    [parameters addParameter:birthday forKey:@"birthday"];
     
-        [request setHTTPMethod:@"post"];
+    [parameters addParameter:headImageUrlString forKey:@"headImg"];
     
-        [request setURL:URL];
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:SAVE_USER_INFORMATION
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                    //发出通知
+                                                                    [STNotificationCenter postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(error);
+                                                                    
+                                                                });
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
     
-        [request setHTTPBody:postData];
+    request.requestSerializerType = LORequestSerializerTypeJSON;
     
-        NSURLResponse * response;
+    [self startRequest:request];
     
-        NSError * error;
-    
-        NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-        if (error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                failure(error);
-                
-            });
-            
-        } else {
-            
-            if ([[[NSString alloc] initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-                
-               
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                     success(YES);
-                    
-                });
-                
-            } else {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    failure(error);
-                    
-                });
-            }
-        }
 }
 
 //************获取通讯录好友************/
