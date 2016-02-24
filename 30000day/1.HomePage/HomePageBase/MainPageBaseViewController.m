@@ -14,7 +14,6 @@
 #import "UserAccountHandler.h"
 #import "MainViewController.h"
 #import "SignInViewController.h"
-#import "STCalendarViewController.h"
 
 #define BUTTON_WIDTH 60
 #define BUTTON_HEIGHT 39

@@ -165,7 +165,7 @@
     
     cell.logName.text = @"暂无简介";
     
-    cell.progressView.progress = (double)([informationModel.lifed doubleValue]/[informationModel.totalLife doubleValue]);
+    cell.progressView.progress = (double)([informationModel.curLife doubleValue]/[informationModel.totalLife doubleValue]);
     
     return cell;
     

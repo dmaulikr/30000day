@@ -37,20 +37,50 @@
 
 @property(nonatomic,copy)NSString *resultString;
 
-@property (nonatomic,strong) UILabel* lab1;
-
-@property (nonatomic,strong) UILabel* lab2;
-
 @property (nonatomic,strong) UIButton *ageButton;
 
 @property (nonatomic,strong) UIView *lineView;//日历下面的背景线条
 
 @property (nonatomic,strong) NSMutableArray *dataArray_new;
 
+@property (nonatomic,strong) UITableViewCell *birthdayCell;
+
+@property (nonatomic,strong) UITableViewCell *lifeCell;
+
+
 @end
 
 // 选一个有意义的日期作倒计时（备注：可添加多个？）
 @implementation CalendarViewController
+
+- (UITableViewCell *)birthdayCell {
+    
+    if (!_birthdayCell) {
+        
+        _birthdayCell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        
+        _birthdayCell.textLabel.font = [UIFont systemFontOfSize:15];
+        
+        _birthdayCell.textLabel.textColor = [UIColor darkGrayColor];
+        
+    }
+    
+    return _birthdayCell;
+}
+
+- (UITableViewCell *)lifeCell {
+    
+    if (!_lifeCell) {
+        
+        _lifeCell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        
+        _lifeCell.textLabel.font = [UIFont systemFontOfSize:15];
+        
+        _lifeCell.textLabel.textColor = [UIColor darkGrayColor];
+        
+    }
+    return _lifeCell;
+}
 
 //选中日期按钮的点击事件
 - (IBAction)selectorDateAction:(id)sender {
@@ -123,16 +153,15 @@
     
     _array = [NSMutableArray array];
     
-//    [self loadData:timeString];
     [self loadData];
     
-    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
+    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120 + 12,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
    
     [self.view addSubview:self.unitView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,self.unitView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.unitView.bounds.size.height) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,self.unitView.bounds.size.height + 120 + 12, SCREEN_WIDTH, SCREEN_HEIGHT - self.unitView.bounds.size.height) style:UITableViewStyleGrouped];
     
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    self.tableView.backgroundColor = [UIColor redColor];
     
     [self.view addSubview:self.tableView];
 
@@ -163,20 +192,20 @@
     
     UIView *tabHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 66)];
     
-    _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 22)];
-    
-    [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self getNowDateFromatAnDate:[NSDate date]]]]];
-    
-    
-    _lab2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 300, 22)];
-    
-    [_lab2 setFont:[UIFont fontWithName:@"STHeiti-Medium" size:10]];
+//    _lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 22)];
+//    
+//    [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self getNowDateFromatAnDate:[NSDate date]]]]];
+//    
+//    
+//    _lab2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 300, 22)];
+//    
+//    [_lab2 setFont:[UIFont fontWithName:@"STHeiti-Medium" size:10]];
     
     NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
     
-    [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
-    
-    _ageButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_lab2.frame) -70, 30, 100, 22)];
+//    [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
+//    
+//    _ageButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_lab2.frame) -70, 30, 100, 22)];
     
     [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
     
@@ -186,9 +215,9 @@
     
     [tabHeader addSubview:_ageButton];
     
-    [tabHeader addSubview:_lab1];
-    
-    [tabHeader addSubview:_lab2];
+//    [tabHeader addSubview:_lab1];
+//    
+//    [tabHeader addSubview:_lab2];
     
     _tableView.tableHeaderView = tabHeader;
 
@@ -495,16 +524,16 @@
         
         if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]){
             
-            [_lab1 setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
+            [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
             
         } else {
             
-            [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
+            [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
         }
         
         NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
         
-        [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
+        [self.lifeCell.textLabel setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
         
         [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
         
@@ -551,16 +580,16 @@
     
     if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]) {
         
-        [_lab1 setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
+        [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
         
     } else {
         
-        [_lab1 setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
+        [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
     }
     
     NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
     
-    [_lab2 setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
+    [self.lifeCell.textLabel setText:[NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]]];
     
     [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
     
@@ -573,33 +602,71 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return  self.dataArray_new.count;
+    if (section == 0) {
+        
+        return  2;
+        
+    } else if ( section == 1 ){
+        
+        return self.dataArray_new.count;
+        
+    }
+    return 0;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 3;
     
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    if (cell == nil) {
+    if (indexPath.section == 0) {
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"MoreTableViewCell" owner:nil options:nil] lastObject];
+        if (indexPath.row == 0) {
+        
+            return self.birthdayCell;
+            
+        } else if (indexPath.row == 1) {
+            
+            return self.lifeCell;
+            
+        }
+        
+    } else if (indexPath.section == 1) {
+        
+        MoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MoreTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        RemindModel *info = [ self.dataArray_new objectAtIndex:indexPath.row];
+        
+        cell.titleLab.text = info.title;
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+        
+        cell.timeLab.text = [formatter stringFromDate:info.date];
+        
+        return cell;
         
     }
-    
-    RemindModel *info = [ self.dataArray_new objectAtIndex:indexPath.row];
-    
-    cell.titleLab.text = info.title;
-    
-    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-    
-    cell.timeLab.text = [formatter stringFromDate:info.date];
-    
-    return cell;
+
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 1;
 }
 
 - (void)didReceiveMemoryWarning {

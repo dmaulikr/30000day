@@ -708,7 +708,6 @@
                                    currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(LONetError *))failure {
-    
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
@@ -716,64 +715,65 @@
     
     [parameters addParameter:curUserId forKey:@"curUserId"];
     
-    [Common urlStringWithDictionary:parameters withString:SEARCH_USER];
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:SEARCH_USER
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                //字典数组创建一个模型数组
-                                                                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(array);
-                                                                
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                failure(error);
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                failure(error);
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(LONetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = LORequestSerializerTypeJSON;
-    
-    [self startRequest:request];
+    //异步执行
+    dispatch_async(dispatch_queue_create("searchUser", DISPATCH_QUEUE_SERIAL), ^{
+        
+        
+        NSError *error;
+        
+        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[Common urlStringWithDictionary:parameters withString:SEARCH_USER]] encoding:NSUTF8StringEncoding error:&error];
+        
+        if (error == nil  && ![Common isObjectNull:jsonStr]) {
+            
+            SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+            
+            NSError *firstError;
+            
+            NSDictionary * dictionary = [jsonParser objectWithString:jsonStr error:&firstError];
+            
+            if (firstError == nil && ![Common isObjectNull:dictionary]) {
+                
+               
+                if ([dictionary[@"code"] isEqualToNumber:@0]) {
+                    
+                    //字典数组创建一个模型数组
+                    NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:dictionary[@"value"]];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(array);
+                        
+                    });
+                    
+                }
+              
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
+                
+                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(error);
+                    
+                });
+            }
+            
+        } else {
+            
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
+            
+            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(error);
+                
+            });
+        }
+        
+    });;
  
 }
 
@@ -791,6 +791,8 @@
     [parameters addParameter:userId forKey:@"fUserId"];
     
     [parameters addParameter:nickName forKey:@"nickName"];
+    
+    [Common urlStringWithDictionary:parameters withString:ADD_USER];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:ADD_USER

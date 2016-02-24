@@ -37,8 +37,6 @@
 		B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
-		B886E8591C7C4DA100E64BEC /* STCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8571C7C4DA100E64BEC /* STCalendarViewController.m */; };
-		B886E85A1C7C4DA100E64BEC /* STCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E8581C7C4DA100E64BEC /* STCalendarViewController.xib */; };
 		B886E85E1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E85C1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.m */; };
 		B886E85F1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E85D1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.xib */; };
 		B886E8631C7C51FE00E64BEC /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8611C7C51FE00E64BEC /* CalendarTableViewCell.m */; };
@@ -250,9 +248,6 @@
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
-		B886E8561C7C4DA100E64BEC /* STCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCalendarViewController.h; sourceTree = "<group>"; };
-		B886E8571C7C4DA100E64BEC /* STCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCalendarViewController.m; sourceTree = "<group>"; };
-		B886E8581C7C4DA100E64BEC /* STCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STCalendarViewController.xib; sourceTree = "<group>"; };
 		B886E85B1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarHeadTableViewCell.h; sourceTree = "<group>"; };
 		B886E85C1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarHeadTableViewCell.m; sourceTree = "<group>"; };
 		B886E85D1C7C4ECC00E64BEC /* CalendarHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHeadTableViewCell.xib; sourceTree = "<group>"; };
@@ -861,9 +856,6 @@
 				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
 				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
 				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
-				B886E8561C7C4DA100E64BEC /* STCalendarViewController.h */,
-				B886E8571C7C4DA100E64BEC /* STCalendarViewController.m */,
-				B886E8581C7C4DA100E64BEC /* STCalendarViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1616,7 +1608,6 @@
 				B8F2DA4D1C5F3D04002C7712 /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
 				B8F2D91C1C5B5F3C002C7712 /* MessageViewController.xib in Resources */,
-				B886E85A1C7C4DA100E64BEC /* STCalendarViewController.xib in Resources */,
 				B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */,
 				B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */,
 				B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */,
@@ -1716,7 +1707,6 @@
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
 				B8F2DA541C5F3D04002C7712 /* UpdateLogPwd.m in Sources */,
-				B886E8591C7C4DA100E64BEC /* STCalendarViewController.m in Sources */,
 				B8F9317C1C7BF59A000FED7C /* RemindObject.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,

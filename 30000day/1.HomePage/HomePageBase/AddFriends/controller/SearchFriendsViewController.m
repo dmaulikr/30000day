@@ -162,15 +162,19 @@
     //点击添加按钮回调
     [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
         
+        [self showHUDWithContent:@"正在添加" animated:YES];
         //添加好友,接口
-        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] nickName:userInformationModel.nickName success:^(BOOL success) {
+        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] nickName:[userInformationModel.nickName urlEncodeUsingEncoding:NSUTF8StringEncoding] success:^(BOOL success) {
             
             [self showToast:@"添加成功"];
+            
+            [self hideHUD:YES];
             
         } failure:^(LONetError *error) {
             
             [self showToast:[error.error  userInfo][NSLocalizedDescriptionKey]];
             
+            [self hideHUD:YES];
         }];
         
     }];
@@ -187,5 +191,12 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
 
 @end

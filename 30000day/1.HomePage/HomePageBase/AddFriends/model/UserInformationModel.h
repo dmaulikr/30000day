@@ -16,7 +16,7 @@
 
 @property (nonatomic,strong) NSNumber *age;
 
-@property (nonatomic,strong) NSNumber *chglife;//今天改变的的 0:不改变 正数:增加的 负数:减少的
+@property (nonatomic,strong) NSNumber *chgLife;//今天改变的的 0:不改变 正数:增加的 负数:减少的
 
 @property (nonatomic,strong) NSNumber *totalLife;
 
@@ -24,8 +24,14 @@
 
 @property (nonatomic,copy) NSString *headImg;
 
-@property (nonatomic,strong) NSNumber *lifed;//已经过去的天龄
+@property (nonatomic,strong) NSNumber *curLife;//已经过去的天龄
 
 @property (nonatomic , strong) NSNumber *flag;//0 表示不是好友 1表示是好友 -1表示是自己
+
+@property (nonatomic,copy) NSString *mobile;
+
+@property (nonatomic,copy) NSString *birthday;//生日
+
+@property (nonatomic,copy) NSString *remark;//备注
 
 @end
