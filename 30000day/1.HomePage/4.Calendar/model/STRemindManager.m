@@ -53,9 +53,12 @@
         if ([self addObject:model]) {//添加成功的时候会加本地提醒
             
             [self addLocaleNotification:model];
+            
+            return YES;
+        } else {
+            
+            return NO;
         }
-        
-        return [self addObject:model];
         
     } else {
         
@@ -72,8 +75,14 @@
         if ([self.managedObjectContext save:&error]) {
             
             [self addLocaleNotification:model];//修改成功的时候会加修改本地提醒时间
+            
+            return YES;
+            
+        } else {
+            
+            return NO;
+            
         }
-        return [self.managedObjectContext save:&error];
     }
 }
 
