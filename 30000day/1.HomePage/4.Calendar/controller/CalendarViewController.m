@@ -11,9 +11,9 @@
 #import "JBUnitView.h"
 #import "JBUnitGridView.h"
 #import "JBSXRCUnitTileView.h"
-#import "MoreTableViewCell.h"
 #import "AddRemindViewController.h"
 #import "AgeTableViewCell.h"
+#import "RemindContentTableViewCell.h"
 
 @interface CalendarViewController () < JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate,QGPickerViewDelegate > {
     
@@ -55,7 +55,6 @@
 @property (nonatomic , strong) QGPickerView *chooseDatePickView;//点击日期button显示的QGPickView
 
 @property (nonatomic,copy) NSString *chooseDateString;//比如2015-05-12等等
-
 
 @end
 
@@ -182,7 +181,7 @@
         
         picker.delegate = weakSelf;
         
-        picker.titleText = @"年龄的选择";
+        picker.titleText = @"选择年龄";
         
         //显示QGPickerView
         [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:@[@"100岁",@"90岁",@"80岁",@"70岁",@"60岁"] withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
@@ -268,7 +267,7 @@
     
     self.chooseDatePickView.delegate = self;
     
-    self.chooseDatePickView.titleText = @"日期选择";
+    self.chooseDatePickView.titleText = @"选择日期";
     
     self.chooseDateString = @"";
     
@@ -616,24 +615,48 @@
         
     } else if (indexPath.section == 1) {
         
-        MoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        RemindContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RemindContentTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MoreTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"RemindContentTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
-        RemindModel *info = [ self.dataArray_new objectAtIndex:indexPath.row];
+        RemindModel *model = [self.dataArray_new objectAtIndex:indexPath.row];
         
-        cell.titleLab.text = info.title;
+        cell.contentLabel.text = model.content;
         
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+        cell.timeLabel.text = [self compareDateWithCurrentTodayWithDate:model.date];
         
-        cell.timeLab.text = [formatter stringFromDate:info.date];
+        cell.longPressIndexPath = indexPath;
+        
+        //长按出现删除界面
+        [cell setLongPressBlock:^(NSIndexPath *longPressIndexPath) {
+            
+            UIAlertController *alertControlller = [UIAlertController alertControllerWithTitle:@"删除提醒" message:model.content preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                //删除数据库里面的东西
+                [[STRemindManager shareRemindManager] deleteOjbectWithModel:[self.dataArray_new objectAtIndex:indexPath.row]];
+                
+                //重新下载数据
+                [self loadData];
+                
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertControlller addAction:sureAction];
+            
+            [alertControlller addAction:cancelAction];
+            
+            [self presentViewController:alertControlller animated:YES completion:nil];
+            
+        }];
         
         return cell;
-        
     }
 
     return nil;
@@ -652,6 +675,89 @@
         
     }
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 50;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 1) {
+        
+        if (UITableViewCellEditingStyleDelete == editingStyle) {
+            
+            
+        }
+        
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 1) {
+        
+        return UITableViewCellEditingStyleDelete;
+        
+    }
+    
+    return UITableViewCellEditingStyleNone;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 1 ) {
+        
+       return @"删除";
+    }
+    
+    return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 1) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+/**
+ * @pram date:创建提醒时候的date
+ *
+ * @return:比如：今天 12:12 昨天 12:12  2016-12-12 12:12
+ **/
+- (NSString *)compareDateWithCurrentTodayWithDate:(NSDate *)date {
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    
+    NSDateComponents *components =  [calendar components:unit fromDate:date toDate:[NSDate date] options:0];
+    
+    if (components.day == 1) {
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+
+        return [NSString stringWithFormat:@"昨天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
+        
+    } else if (components.day == 0) {
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+        
+        return [NSString stringWithFormat:@"今天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
+        
+    } else {
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+        
+        return [formatter stringFromDate:date];
+    }
+    
+    return @"";
 }
 
 - (void)dealloc {

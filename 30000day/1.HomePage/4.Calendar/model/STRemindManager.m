@@ -102,7 +102,11 @@
 
         notification.alertBody = model.content;
         
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObject:model.title forKey:@"alertTitle"];
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        
+        dictionary[@"alertTitle"] = model.title;
+        
+        dictionary[@"myNotification"] = @"myNotification";
         
         notification.userInfo = dictionary; //添加额外的信息
         
@@ -113,10 +117,12 @@
 //2.删除一条数据
 - (void)deleteOjbectWithModel:(RemindModel *)model {
     
+    //1.查询数据库数据并删除
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"RemindObject"];
     
     //设置过滤和排序
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"userId==%@",model.userId];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"userId==%@ AND content = %@ AND date = %@ AND title = %@",model.userId,model.content,model.date,model.title];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     
@@ -126,19 +132,7 @@
     
     NSArray *array  =[self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     
-    NSPredicate * filter_first = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"content = %@",model.content]];
-    
-    array = [array filteredArrayUsingPredicate:filter_first];  //从数组中进行过滤。
-    
-    NSPredicate * filter_second = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"title = %@",model.title]];
-    
-    array = [array filteredArrayUsingPredicate:filter_second];  //从数组中进行过滤。
-    
-    NSPredicate * filter_third = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"date = %@",model.date]];
-    
-    array = [array filteredArrayUsingPredicate:filter_third];  //从数组中进行过滤。
-    
-    [self.managedObjectContext deleteObject:[array firstObject]];
+   [self.managedObjectContext deleteObject:[array firstObject]];
     
     NSError *error;
     
@@ -147,6 +141,27 @@
         NSLog(@"Error is %@",error);
         
     }
+    
+    //2.删除注册在通知中心的通知
+    NSArray *notificationArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    
+    for (int i = 0; i < notificationArray.count; i++) {
+        
+        UILocalNotification *localNotification = [notificationArray objectAtIndex:i];
+        
+        NSDictionary *userInfo = localNotification.userInfo;
+        
+        if ([userInfo[@"myNotification"] isEqualToString:@"myNotification"]) {//表示这个通知是我们自己注册的
+            
+            if (localNotification.fireDate == model.date) {
+                
+                [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+                
+            }
+            
+        }
+    }
+    
 }
 
 //3.用userId获取所有的RemindModel
@@ -165,7 +180,26 @@
     
     NSArray *array  =[self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     
-    return [NSMutableArray arrayWithArray:array];
+    NSMutableArray *dataArray = [NSMutableArray array];
+    
+    for (int i = 0;  i < array.count ; i++) {
+        
+        RemindModel *model = [[RemindModel alloc] init];
+        
+        RemindObject *object = array[i];
+        
+        model.userId = object.userId;
+        
+        model.content = object.content;
+        
+        model.title = object.title;
+        
+        model.date = object.date;
+        
+        [dataArray addObject:model];
+    }
+    
+    return [NSMutableArray arrayWithArray:dataArray];
 }
 
 //查询特定某一个object
