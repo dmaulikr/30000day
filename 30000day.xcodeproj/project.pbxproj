@@ -42,6 +42,8 @@
 		B886E8631C7C51FE00E64BEC /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8611C7C51FE00E64BEC /* CalendarTableViewCell.m */; };
 		B886E8641C7C51FE00E64BEC /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E8621C7C51FE00E64BEC /* CalendarTableViewCell.xib */; };
 		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
+		B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */; };
+		B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
 		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
@@ -256,6 +258,9 @@
 		B886E8621C7C51FE00E64BEC /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
+		B886E8681C7DDF1400E64BEC /* AgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeTableViewCell.h; sourceTree = "<group>"; };
+		B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgeTableViewCell.m; sourceTree = "<group>"; };
+		B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgeTableViewCell.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -880,6 +885,9 @@
 				B886E8601C7C51FE00E64BEC /* CalendarTableViewCell.h */,
 				B886E8611C7C51FE00E64BEC /* CalendarTableViewCell.m */,
 				B886E8621C7C51FE00E64BEC /* CalendarTableViewCell.xib */,
+				B886E8681C7DDF1400E64BEC /* AgeTableViewCell.h */,
+				B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */,
+				B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1597,6 +1605,7 @@
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
+				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
@@ -1726,6 +1735,7 @@
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
 				B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */,
+				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
 				B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,

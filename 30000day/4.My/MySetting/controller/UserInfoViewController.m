@@ -185,7 +185,7 @@
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
                 
                 cell.detailTextLabel.textColor = RGBACOLOR(130, 130, 130, 1);
-                
+        
             }
             
             if ( indexPath.row == 1) {
@@ -289,7 +289,6 @@
     
 }
 
-
 //选择生日
 - (void)chooseBirthday {
 
@@ -304,9 +303,9 @@
     self.currentChooseBirthdayString = @"";
 
     //3.赋值
-    [Common getYearArrayMonthArrayDayArray:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
+    [Common getYearArrayMonthArrayDayArrayWithYearNumber:100 hander:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
 
-        NSArray *dateArray = [[Common getCurrentDateString] componentsSeparatedByString:@"-"];
+        NSArray *dateArray = [STUserAccountHandler.userProfile.birthday componentsSeparatedByString:@"-"];
 
         NSString *monthStr = dateArray[1];
 
@@ -351,7 +350,7 @@
 
         NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
 
-        self.currentChooseBirthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[self addZeroWithString:array_second[0]],[self addZeroWithString:array_third[0]]];
+        self.currentChooseBirthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
         
         STUserAccountHandler.userProfile.birthday = self.currentChooseBirthdayString;
         
@@ -360,18 +359,6 @@
         //判断保存按钮是否可用
         [self judgeSaveButtonCanUse];
 
-    }
-}
-
-- (NSString *)addZeroWithString:(NSString *)string {
-
-    if ([string length] == 1) {
-
-        return string = [NSString stringWithFormat:@"0%@",string];
-
-    } else {
-
-        return string;
     }
 }
 

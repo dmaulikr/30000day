@@ -72,11 +72,8 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 //************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
-                                   nickName:(NSString *)nickName
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(LONetError *error))failure;
-
-
 //***** 更新个人信息 *****/
 //提醒：保存成功后会发出通知
 - (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId

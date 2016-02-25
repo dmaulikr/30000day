@@ -48,7 +48,7 @@
     //*******************进行用户登录判断************************************************/
     if (![Common isUserLogin]) {//过去没有登录
         
-        [self jumpToSignInViewController];
+//        [self jumpToSignInViewController];
         
     } else {//过去有登录
         
@@ -62,7 +62,7 @@
                                             
                                             [self showToast:@"账户无效，请重新登录"];
                                             
-                                            [self jumpToSignInViewController];
+//                                            [self jumpToSignInViewController];
                                             
                                         }];
         

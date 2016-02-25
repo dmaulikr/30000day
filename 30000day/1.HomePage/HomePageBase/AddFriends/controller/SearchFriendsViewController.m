@@ -164,7 +164,7 @@
         
         [self showHUDWithContent:@"正在添加" animated:YES];
         //添加好友,接口
-        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] nickName:[userInformationModel.nickName urlEncodeUsingEncoding:NSUTF8StringEncoding] success:^(BOOL success) {
+        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] success:^(BOOL success) {
             
             [self showToast:@"添加成功"];
             

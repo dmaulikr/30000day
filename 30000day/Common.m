@@ -82,7 +82,8 @@
  * monthArray存储的是 @"1月",@"2月"等字符串(12个)
  * dayArray存储的是  @"1日"，@"2日"等字符串（31个）
  **/
-+ (void)getYearArrayMonthArrayDayArray:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler {
++ (void)getYearArrayMonthArrayDayArrayWithYearNumber:(int) yearNumber
+                                              hander:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler {
     
     dispatch_async(dispatch_queue_create("creatArrays", DISPATCH_QUEUE_SERIAL), ^{
         
@@ -92,7 +93,7 @@
         
         NSMutableArray *dayArray = [NSMutableArray array];
         
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < yearNumber; i++) {
             
             NSString *yearStr = [NSString stringWithFormat:@"%ld年",(long)(1917+i)];
             
@@ -123,9 +124,7 @@
     });
 }
 
-+ (NSString *)getCurrentDateString {
-    
-    NSDate *date = [NSDate date];
++ (NSString *)getDateStringWithDate:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
@@ -133,6 +132,14 @@
     
     return [formatter stringFromDate:date];
 }
+
++ (NSDate *)getDateWithFormatterString:(NSString *)formatterString dateString:(NSString *)dateString {
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:formatterString];
+    
+    return [formatter dateFromString:dateString];
+}
+
 
 + (NSString *)getDateStringWithTimeInterval:(long)timeNumber {
     

@@ -780,7 +780,6 @@
 //************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
-                                   nickName:(NSString *)nickName
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(LONetError *error))failure {
     //内部测试接口
@@ -789,8 +788,6 @@
     [parameters addParameter:currentUserId forKey:@"curUserId"];
     
     [parameters addParameter:userId forKey:@"fUserId"];
-    
-    [parameters addParameter:nickName forKey:@"nickName"];
     
     [Common urlStringWithDictionary:parameters withString:ADD_USER];
     
