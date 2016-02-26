@@ -14,13 +14,19 @@
 
 + (STRemindManager *)shareRemindManager;
 
-//1.修改或者增加
-- (BOOL)changeORAddObject:(RemindModel *)model;
+//1.增加一条数据
+- (BOOL)addObject:(RemindModel *)model;
 
-//2.删除一条数据
-- (void)deleteOjbectWithModel:(RemindModel *)model;
+//2.修改
+- (BOOL)changeObjectWithOldModel:(RemindModel *)oldModel willChangeModel:(RemindModel *)newModel;
 
-//3.用userId获取所有的RemindModel
+//3.删除一条数据
+- (BOOL)deleteOjbectWithModel:(RemindModel *)model;
+
+//4.用userId获取所有的RemindModel
 - (NSMutableArray *)allRemindModelWithUserId:(NSNumber *)userId;
+
+//5.用userI和特定的date来获取到所有的RemindModel
+- (NSMutableArray *)allRemindModelWithUserId:(NSNumber *)userId dateString:(NSString *)dateString;
 
 @end

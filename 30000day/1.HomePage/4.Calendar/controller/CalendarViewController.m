@@ -15,12 +15,7 @@
 #import "AgeTableViewCell.h"
 #import "RemindContentTableViewCell.h"
 
-@interface CalendarViewController () < JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,ZHPickViewDelegate,QGPickerViewDelegate > {
-    
-    int count;// 点击弹出时间或者plist数据的区分计数  1=时间   2=plist文件数据
-    
-    int selDay;// 点击plist文件数据的时候选择的整十年数
-}
+@interface CalendarViewController () < JBUnitViewDelegate, JBUnitViewDataSource,UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate >
 
 @property (nonatomic,strong) NSString *birthdayDate;
 
@@ -30,15 +25,11 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property(nonatomic,strong)ZHPickView *pickview;
-
-@property(nonatomic,copy)NSString *resultString;
-
 @property (nonatomic,strong) UIButton *ageButton;
 
 @property (nonatomic,strong) UIView *lineView;//日历下面的背景线条
 
-@property (nonatomic,strong) NSMutableArray *dataArray_new;
+@property (nonatomic,strong) NSMutableArray *remindDataArray;
 
 @property (nonatomic,strong) UITableViewCell *birthdayCell;
 
@@ -64,7 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //获取当前时间作为初始化显示需要推送的消息查询条件
+    //1.当前显示的天数
     NSDate *senddate = [NSDate date];
     
     NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
@@ -74,13 +65,13 @@
     NSString *timeString = [dateformatter stringFromDate:senddate];
     
     [self.dateTtitleButton setTitle:timeString forState:UIControlStateNormal];
-    
-    [self loadData];
-    
+
+    //2.主日历
     self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0,120.0f + 11.5f,SCREEN_WIDTH, 1) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
     
     [self.view addSubview:self.unitView];
     
+    //3.设置下面提醒事件显示的UITableView
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,self.unitView.bounds.size.height, SCREEN_WIDTH, SCREEN_HEIGHT - self.unitView.bounds.size.height) style:UITableViewStyleGrouped];
     
     self.tableView.contentInset = UIEdgeInsetsMake(-15, 0, 0, 0);
@@ -107,13 +98,6 @@
     
     [self.unitView selectDate:newdate];
     
-    selDay = [[[NSUserDefaults standardUserDefaults] objectForKey:@"selDay"] intValue];
-    
-    if(selDay == 0){
-        
-        selDay = 80;// 设置初始值，默认到80岁。
-    }
-    
     _tableView.delegate = self;
     
     _tableView.dataSource = self;
@@ -137,16 +121,30 @@
     
     self.chooseAgeString = @"80";
     
+    [self loadTableViewData];
+    
     //监听通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
     
 }
 
-//监听通知
+//监听通知,刷新数据
 - (void)reloadData {
     
     [self reloadShowCalendarDateWith:self.selectorDate];
     
+}
+
+//下载self.tableView的数据
+- (void)loadTableViewData {
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    
+    NSString *selectorDateString = [formatter stringFromDate:self.selectorDate];
+    
+    self.remindDataArray = [[STRemindManager shareRemindManager] allRemindModelWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dateString:selectorDateString];
+    
+    [self.tableView reloadData];
 }
 
 - (UITableViewCell *)birthdayCell {
@@ -234,25 +232,6 @@
 
 //选中日期按钮的点击事件
 - (IBAction)selectorDateAction:(id)sender {
-
-//    count = 1;
-//    
-//    [_pickview remove];
-//    
-//    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:1];
-//    
-//    //获取到当前时区
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    
-//    NSInteger interval = [zone secondsFromGMTForDate: date];
-//    
-//    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
-//    
-//    _pickview = [[ZHPickView alloc] initDatePickWithDate:localeDate datePickerMode:UIDatePickerModeDate isHaveNavControler:NO];
-//    
-//    _pickview.delegate = self;
-//    
-//    [_pickview show];
     
     [self chooseDate];
     
@@ -315,9 +294,13 @@
     
     AddRemindViewController *controller = [[AddRemindViewController alloc] init];
     
-    [controller setAddSuccessBlock:^{
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    controller.changeORAdd = NO;//表示是新增的
+    
+    [controller setSaveOrChangeSuccessBlock:^{
        
-        [self loadData];
+        [self loadTableViewData];
         
         [self.tableView reloadData];
         
@@ -327,120 +310,8 @@
     
 }
 
-- (void)loadData {
-    
-    self.dataArray_new = [[STRemindManager shareRemindManager] allRemindModelWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
-    
-    [self.tableView reloadData];
-}
-
-/**
- *   theDate:用户生日
- *   endDate:点击的时间
- **/
-- (int)getDays:(NSString*)theDate ToEnd:(NSDate*)endDate {
-    
-    NSDateFormatter *date=[[NSDateFormatter alloc] init];
-    
-    [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate *d = [date dateFromString:theDate];
-    
-    NSTimeInterval late = [d timeIntervalSince1970]*1;
-    
-    NSTimeInterval now = [endDate timeIntervalSince1970]*1;
-    
-    NSString *timeString=@"";
-    
-    NSTimeInterval cha=now-late;
-    
-    timeString = [NSString stringWithFormat:@"%f", cha/86400];
-    
-    timeString = [timeString substringToIndex:timeString.length-7];
-    
-    int iDays = [timeString intValue];
-    
-    return iDays;
-}
-
-- (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate {
-    //设置源日期时区
-    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];//或GMT
-    //设置转换后的目标日期时区
-    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
-    //得到源日期与世界标准时间的偏移量
-    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:anyDate];
-    //目标日期与本地时区的偏移量
-    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:anyDate];
-    //得到时间偏移量的差值
-    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-    //转为现在时间
-    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:anyDate];
-    return destinationDateNow;
-}
-
-// 输入一个生日的date跟要加的int年份，返回一个生日加上int年份之后的date   比如 1991  20 返回2011
-- (NSDate*)BirthdayAddYear:(NSDate*)birthday addYears:(int)addyear {
-    
-    NSString *string = [self DateToString:birthday];
-    
-    NSArray *arr = [string componentsSeparatedByString:@" "];
-    
-    NSArray *arr1 = [arr[0] componentsSeparatedByString:@"-"];
-    
-    NSString *newYear = [NSString stringWithFormat:@"%d-%@-%@ %@",[arr1[0] intValue]+addyear,arr1[1],arr1[2],arr[1]];
-
-    return [self StringToDate:newYear];
-}
-
-#pragma mark --- 互换时间类型跟字符串类型
-// date转string类型，不带秒数的
-- (NSString *)DateToString:(NSDate*)date {
-    
-    NSDateFormatter  *dateformatter = [[NSDateFormatter alloc] init];
-    
-    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    
-    NSString * timeString = [dateformatter stringFromDate:date];
-    
-    return timeString;
-}
-// date转string类型，带秒数的
-- (NSString *)DatessToString:(NSDate*)date {
-    
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    
-    [dateformatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSString * timeString=[dateformatter stringFromDate:date];
-    
-    return timeString;
-}
-// string转date类型，不带秒数的
-- (NSDate *)StringToDate:(NSString *)string {
-    
-    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-    
-    [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    
-    NSDate* tomorrow = [inputFormatter dateFromString:string];
-    
-    return tomorrow;
-}
-// string转date类型，带秒数的
-- (NSDate *)StringToDatess:(NSString *)string {
-    
-    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-    
-    [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate* tomorrow = [inputFormatter dateFromString:string];
-    
-    return tomorrow;
-}
-
 #pragma mark -
-#pragma mark - JBUnitViewDelegate
+#pragma mark - JBUnitViewDelegate / JBUnitViewDataSource
 
 - (CGFloat)heightOfUnitTileViewsInUnitView:(JBUnitView *)unitView {
     
@@ -462,9 +333,6 @@
     self.lineView.y = newFrame.size.height - 1;
 }
 
-#pragma mark -
-#pragma mark - JBUnitViewDataSource
-
 - (JBUnitTileView *)unitTileViewInUnitView:(JBUnitView *)unitView {
     
     return [[JBSXRCUnitTileView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH / 7, 46.0f)];
@@ -474,9 +342,12 @@
     
     self.selectorDate = date;
     
-    //刷新整个日历的天数显示,tableView,以及一些按钮的显示
+    //刷新整个日历的天数显示,tableView,判断今天的按钮到底显示不显示,以及一些按钮的显示
     [self reloadShowCalendarDateWith:self.selectorDate];
     
+    //刷新下面的tableView
+    [self loadTableViewData];
+
 }
 
 //刷新整个日历天数的显示
@@ -494,8 +365,20 @@
         
         NSString *selectorDateString = [formatter stringFromDate:selectorDate];
         
+        NSString *todayString = [formatter stringFromDate:[NSDate date]];
+        
+        if ([todayString isEqualToString:selectorDateString]) {//如果选中的日期是今天
+            
+            self.chooseTodayButton.hidden = YES;
+            
+        } else {
+            
+            self.chooseTodayButton.hidden = NO;
+        }
+        
+        
         NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
-
+        
         NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
         
         NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[self.chooseAgeString doubleValue]*365*24*60*60 sinceDate:birthdayDate];
@@ -526,55 +409,6 @@
     [self.tableView reloadData];
 }
 
-#pragma mark ZhpickVIewDelegate
-- (void)toobarDonBtnHaveClick:(ZHPickView *)pickView resultString:(NSString *)resultString {
-    
-    if ( count == 1 ) {
-        
-        //取到时间后跳转到对应日期，并且重新设置导航栏显示的日期
-        NSArray *arr = [resultString componentsSeparatedByString:@" "];
-        
-        _resultString = [NSString stringWithFormat:@"%@ %@",arr[0],arr[1]];
-        
-        NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-        
-        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        
-        NSDate* tomorrow = [inputFormatter dateFromString:_resultString];
-        
-        [self.unitView selectDate:tomorrow];
-        
-        [self.dateTtitleButton setTitle:arr[0] forState:UIControlStateNormal];
-        
-    } else if (count == 2) {
-        
-        selDay = [resultString intValue];
-        
-        // 保存生日到本地文件，用于其他地方提取计算数值
-        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i",selDay] forKey:@"selDay"];
-        
-        // 提交到文件中
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        if ([_birthdayDate isEqualToString:@" "] || [_birthdayDate isEqualToString:@" :00"]){
-            
-            [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您还没有设置您的生日"]];
-            
-        } else {
-            
-            [self.birthdayCell.textLabel setText:[NSString stringWithFormat:@"您出生到这天过去了%d天。",[self getDays:_birthdayDate ToEnd:[self StringToDatess:[NSString stringWithFormat:@"%@ 00:00:00",_time]]]]];
-        }
-        
-        NSDate *newBirthday = [self BirthdayAddYear:[self StringToDatess:_birthdayDate] addYears:selDay];
-        
-        self.ageCell.titleLabel.text =  [NSString stringWithFormat:@"从今天到所选岁数还有%d天。",[self getDays:[self DatessToString:[NSDate date]] ToEnd:newBirthday]];
-        
-        [_ageButton setTitle:[NSString stringWithFormat:@"%i岁",selDay] forState:UIControlStateNormal];
-        
-        [_tableView reloadData];
-    }
-}
-
 
 #pragma ---
 #pragma mark -- UITableViewDelegate/UITableViewDatasource
@@ -587,7 +421,7 @@
         
     } else if ( section == 1 ){
         
-        return self.dataArray_new.count;
+        return self.remindDataArray.count;
         
     }
     return 0;
@@ -623,9 +457,9 @@
             
         }
         
-        RemindModel *model = [self.dataArray_new objectAtIndex:indexPath.row];
+        RemindModel *model = [self.remindDataArray objectAtIndex:indexPath.row];
         
-        cell.contentLabel.text = model.content;
+        cell.contentLabel.text = model.title;
         
         cell.timeLabel.text = [self compareDateWithCurrentTodayWithDate:model.date];
         
@@ -639,10 +473,10 @@
             UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 //删除数据库里面的东西
-                [[STRemindManager shareRemindManager] deleteOjbectWithModel:[self.dataArray_new objectAtIndex:indexPath.row]];
+                [[STRemindManager shareRemindManager] deleteOjbectWithModel:[self.remindDataArray objectAtIndex:indexPath.row]];
                 
                 //重新下载数据
-                [self loadData];
+                [self loadTableViewData];
                 
             }];
             
@@ -664,6 +498,38 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
+    if (indexPath.section == 1) {
+        
+        AddRemindViewController *controller = [[AddRemindViewController alloc] init];
+        
+        controller.oldModel = [self.remindDataArray objectAtIndex:indexPath.row];
+        
+        controller.changeORAdd = YES;//表示修改的
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        //成功增加或者修改的一些回调
+        [controller setSaveOrChangeSuccessBlock:^{
+           
+            [self loadTableViewData];
+            
+            [self.tableView reloadData];
+            
+        }];
+        
+        //成功删除一条提醒的回调
+        [controller setDeleteSuccessBlock:^{
+           
+            [self loadTableViewData];
+            
+            [self.tableView reloadData];
+            
+        }];
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -680,49 +546,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 50;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
-        
-        if (UITableViewCellEditingStyleDelete == editingStyle) {
-            
-            
-        }
-        
-    }
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
-        
-        return UITableViewCellEditingStyleDelete;
-        
-    }
-    
-    return UITableViewCellEditingStyleNone;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1 ) {
-        
-       return @"删除";
-    }
-    
-    return nil;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
-        
-        return YES;
-    }
-    
-    return NO;
 }
 
 /**

@@ -63,28 +63,38 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-
     return YES;
 }
 
 //如果此时你的客户端 软件仍在打开，则会调用
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
-    UIApplicationState state = application.applicationState;
+    NSDictionary *userInfo = notification.userInfo;
     
-    if (state == UIApplicationStateActive) {
+    if ([userInfo[@"myNotification"] isEqualToString:@"myNotification"]) {//表示是我们添加的提醒
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[notification.userInfo objectForKey:@"alertTitle"]
-                                                        message:notification.alertBody
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIApplicationState state = application.applicationState;
         
-        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        if (state == UIApplicationStateActive) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[notification.userInfo objectForKey:@"alertTitle"]
+                                                            message:notification.alertBody
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+            
+            
+            
+            
+            [alert show];
+            
+        }
         
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    } else {//系统的通知，或者推送
+        
+        
+        
+        
     }
 }
 

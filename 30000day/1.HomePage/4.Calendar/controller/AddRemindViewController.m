@@ -9,12 +9,13 @@
 #import "AddRemindViewController.h"
 #import "AddRemindTextTableViewCell.h"
 #import "AddTimeTableViewCell.h"
+#import "DeleteRemindTableViewCell.h"
 
-@interface AddRemindViewController () <QGPickerViewDelegate>
+@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic , copy) NSString *timeString;
+@property (nonatomic , copy) NSString *timeString;//存储用户选择时间选择器后所选择的时间
 
-@property (nonatomic,strong)NSMutableArray *dataArray;
+@property (nonatomic,copy) NSString *addTimeCellShowString;//选择时间的这个cell显示的字符串
 
 @property (nonatomic,strong)UIBarButtonItem *saveButtonItem;
 
@@ -28,13 +29,45 @@
 
 @implementation AddRemindViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.title = @"添加提醒";
+    
+    //给添加时间的cell所需要的字符串进行赋值
+    [self setAddTimeCellShowString];
+    
+    UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction)];
+    
+    saveButtonItem.enabled = NO;
+    
+    self.saveButtonItem = saveButtonItem;
+    
+    self.navigationItem.rightBarButtonItem = saveButtonItem;
+    
+    [STNotificationCenter addObserver:self selector:@selector(textFieldDidChange) name:UITextFieldTextDidChangeNotification object:nil];
+    
+    //刚进来要进行一次判断
+    [self judgeSaveButtonCanUse];
+}
+
+- (void)setAddTimeCellShowString {
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+    
+    self.addTimeCellShowString = ![Common isObjectNull:[formatter stringFromDate:self.oldModel.date]] ? [[[formatter stringFromDate:self.oldModel.date] componentsSeparatedByString:@" "] lastObject]: @"";
+}
+
+
 - (AddRemindTextTableViewCell *)titleCell {
     
     if (!_titleCell) {
         
         _titleCell = [[[NSBundle mainBundle] loadNibNamed:@"AddRemindTextTableViewCell" owner:nil options:nil] lastObject];
         
-        _titleCell.contentTextField.placeholder = @"请输入标题";
+        _titleCell.textField.placeholder = @"请输入标题（标题不能为空）";
+        
+        _titleCell.textField.text = self.oldModel.title;
         
     }
     
@@ -46,45 +79,14 @@
     if (!_contentCell) {
         
         _contentCell = [[[NSBundle mainBundle] loadNibNamed:@"AddRemindTextTableViewCell" owner:nil options:nil] lastObject];
+        
+        _contentCell.textField.placeholder = @"请输入内容";
+        
+        _contentCell.textField.text = self.oldModel.content;
+        
     }
-    _contentCell.contentTextField.placeholder = @"请输入内容";
     
     return _contentCell;
-}
-
-- (AddTimeTableViewCell *)addTimeCell {
-    
-    if (!_addTimeCell) {
-        
-        _addTimeCell = [[[NSBundle mainBundle] loadNibNamed:@"AddTimeTableViewCell" owner:nil options:nil] lastObject];
-        
-        __weak __typeof(self)weakSelf = self;
-        
-        //点击时间回调
-        [_addTimeCell setAddTimeAction:^{
-            
-            [weakSelf chooseRemindTime];
-            
-        }];
-    }
-    
-    return _addTimeCell;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.title = @"添加提醒";
-    
-    UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction)];
-    
-    saveButtonItem.enabled = NO;
-    
-    self.saveButtonItem = saveButtonItem;
-    
-    self.navigationItem.rightBarButtonItem = saveButtonItem;
-    
-    [STNotificationCenter addObserver:self selector:@selector(textFieldDidChange) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 - (void)textFieldDidChange {
@@ -95,25 +97,59 @@
 //判断save按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
-    if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.contentCell.textField.text] && ![Common isObjectNull:self.timeString]) {
+    if (self.changeORAdd) {//他是来修改的
         
-        self.saveButtonItem.enabled = YES;
+        if ([Common isObjectNull:self.timeString]) {//表示没有成功使用QGPickView或者第一次进来
+            
+            NSComparisonResult result = [self.oldModel.date compare:[NSDate date]];
+            
+            if (result > 0 ) {
+                
+                self.saveButtonItem.enabled = YES;
+                
+            } else {
+                
+                self.saveButtonItem.enabled = NO;
+            }
+            
+        } else {//表示已经成功使用了下面的QGPickView
+            
+            if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.timeString]) {
+                
+                self.saveButtonItem.enabled = YES;
+                
+            } else {
+                
+                self.saveButtonItem.enabled = NO;
+            }
+        }
         
-    } else {
+    } else {//他是来新增的
         
-        self.saveButtonItem.enabled = NO;
+        if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.timeString]) {
+
+            self.saveButtonItem.enabled = YES;
+
+        } else {
+
+            self.saveButtonItem.enabled = NO;
+        }
+    
     }
 }
 
+//保存按钮
 - (void)saveAction {
     
-    RemindModel *model = [[RemindModel alloc] init];
+    //能到这一步说明已经成功修改或者成功保存了
     
-    model.title = self.titleCell.textField.text;
+    RemindModel *newModel = [[RemindModel alloc] init];
+
+    newModel.title = self.titleCell.textField.text;
     
-    model.content = self.contentCell.textField.text;
+    newModel.content = self.contentCell.textField.text;
     
-    model.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
+    newModel.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
     
     NSDate *currentDate = [NSDate date];
     
@@ -121,29 +157,55 @@
     
     NSString *dateString = [formatter stringFromDate:currentDate];
     
+    newModel.dateString = dateString;
+    
     dateString = [NSString stringWithFormat:@"%@ %@",dateString,self.timeString];
     
     NSDateFormatter *newFormatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
     
     NSDate *newDate = [newFormatter dateFromString:dateString];
     
-    model.date = newDate;
+    newModel.date = newDate;
     
-    if ([[STRemindManager shareRemindManager] changeORAddObject:model]) {
+    if (self.changeORAdd) {//他是来修改的
         
-        [self showToast:@"保存成功"];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        if (self.addSuccessBlock) {
-            self.addSuccessBlock();
+        if ([[STRemindManager shareRemindManager] changeObjectWithOldModel:self.oldModel willChangeModel:newModel]) {
+            
+            [self showToast:@"修改成功"];
+    
+            [self.navigationController popViewControllerAnimated:YES];
+    
+            if (self.saveOrChangeSuccessBlock) {
+    
+                self.saveOrChangeSuccessBlock();
+            }
+            
+        } else {
+            
+            [self showToast:@"修改失败"];
+            
         }
         
-    } else {
+    } else {//他是来新增加的
         
-        [self showToast:@"保存失败"];
+        if ([[STRemindManager shareRemindManager] addObject:newModel]) {
+            
+            [self showToast:@"保存成功"];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            if (self.saveOrChangeSuccessBlock) {
+                
+                self.saveOrChangeSuccessBlock();
+            }
+            
+        } else {
+            
+            [self showToast:@"保存失败"];
+            
+        }
+        
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -156,31 +218,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    if (self.changeORAdd) {//表示如果是来修改的话，那么就要显示删除这一个按钮
+        
+        return 4;
+    }
+    
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 0) {
-        
-        return 1;
-        
-    } else if (section == 1) {
-        
-        return 1;
-        
-    } else if (section == 2) {
-        
-        return 1;
-    }
-    
-    return self.dataArray.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (indexPath.section == 0) {
-        
+
         return self.titleCell;
         
     } else if ( indexPath.section == 1 ){
@@ -189,9 +243,35 @@
         
     } else if (indexPath.section == 2) {
         
-        [self.addTimeCell.addTimeButton setTitle:self.timeString forState:UIControlStateNormal];
+        AddTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddTimeTableViewCell"];
         
-        return self.addTimeCell;
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"AddTimeTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        [cell.addTimeButton setTitle:self.addTimeCellShowString forState:UIControlStateNormal];
+        
+        //点击时间回调
+        [cell setAddTimeAction:^{
+            
+            [self chooseRemindTime];
+            
+        }];
+        
+        return cell;
+    } else if (indexPath.section == 3) {
+        
+        DeleteRemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeleteRemindTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DeleteRemindTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        return cell;
     }
     
     return nil;
@@ -202,11 +282,52 @@
     return 50;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 3) {
+        
+        UIAlertController *alertControlller = [UIAlertController alertControllerWithTitle:@"删除提醒" message:self.oldModel.content preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            //删除数据库里面的东西
+            if ([[STRemindManager shareRemindManager] deleteOjbectWithModel:self.oldModel]) {//删除成功
+                
+                [self showToast:@"删除成功"];
+                
+                if (self.deleteSuccessBlock) {
+                    
+                    self.deleteSuccessBlock();
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            } else {//删除失败
+                
+                [self showToast:@"删除成功"];
+                
+            }
+            
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertControlller addAction:sureAction];
+        
+        [alertControlller addAction:cancelAction];
+        
+        [self presentViewController:alertControlller animated:YES completion:nil];
+        
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 //选择生日
 - (void)chooseRemindTime {
 
     [self.view endEditing:YES];
-
+    
     QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
 
     picker.delegate = self;
@@ -254,7 +375,6 @@
 
 - (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
 
-    
     if (index == 1 ) {
         
         self.timeString = value;
@@ -280,17 +400,33 @@
         
         int minute_1 = [[[dateString componentsSeparatedByString:@":"] lastObject] intValue];
         
-        if (hour == hour_1 && minute < minute_1) {
+        if (hour == hour_1 && minute < minute_1) {//选择的时间不合法
             
             [self showToast:@"请选择稍晚的时间"];
             
-            self.timeString = @"";
+            self.timeString = @"";//这个值只要选择不合法 都是要清空
             
+            if (self.changeORAdd) {//表示是进来修改，但是选择的时间又不合法，分两种情况
+                
+                [self setAddTimeCellShowString];
+                
+            } else {//进来新增加，但是选择的时间不合法
+                
+                //给timeCell需要显示的字符串进行赋值
+                self.addTimeCellShowString = @"";
+                
+            }
+            
+        } else {//选择的时间合法
+            
+            //给timeCell需要显示的字符串进行赋值
+            self.addTimeCellShowString = self.timeString;
         }
         
         [self.tableView reloadData];
         
         [self judgeSaveButtonCanUse];
+    
     }
 }
 
