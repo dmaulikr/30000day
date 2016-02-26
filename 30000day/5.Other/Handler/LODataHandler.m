@@ -1558,20 +1558,202 @@
    
 }
 
+
+
+
+- (NSMutableURLRequest *)PostImageRequest:(NSString *)URLString
+                                  UIImage:(UIImage*)image
+                               parameters:(NSDictionary *)parameters
+                                  success:(void (^)(id))success
+                                  failure:(void (^)(NSError *))failure
+{
+    //分界线的标识符
+    NSString *TWITTERFON_FORM_BOUNDARY = @"AaB03x";
+    //根据url初始化request
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString]
+                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                   timeoutInterval:10];
+    //分界线 --AaB03x
+    NSString *MPboundary=[[NSString alloc]initWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
+    //结束符 AaB03x--
+    NSString *endMPboundary=[[NSString alloc]initWithFormat:@"%@--",MPboundary];
+    //得到图片的data
+    NSData* data = UIImageJPEGRepresentation(image, 1);
+    //http body的字符串
+    NSMutableString *body=[[NSMutableString alloc]init];
+    //参数的集合的所有key的集合
+    NSArray *keys= [parameters allKeys];
+    
+    //遍历keys
+    for(int i=0;i<[keys count];i++)
+    {
+        //得到当前key
+        NSString *key=[keys objectAtIndex:i];
+        //如果key不是pic，说明value是字符类型，比如name：Boris
+        if(![key isEqualToString:@"pic"])
+        {
+            //添加分界线，换行
+            [body appendFormat:@"%@\r\n",MPboundary];
+            //添加字段名称，换2行
+            [body appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",key];
+            //添加字段的值
+            [body appendFormat:@"%@\r\n",[parameters objectForKey:key]];
+        }
+    }
+    
+    ////添加分界线，换行
+    [body appendFormat:@"%@\r\n",MPboundary];
+    //声明pic字段，文件名为boris.png
+    [body appendFormat:@"Content-Disposition: form-data; name=\"ImageField\"; filename=\"x1234.png\"\r\n"];
+    //声明上传文件的格式
+    [body appendFormat:@"Content-Type: image/jpeg\r\n\r\n"];
+    
+    //声明结束符：--AaB03x--
+    NSString *end=[[NSString alloc]initWithFormat:@"\r\n%@",endMPboundary];
+    //声明myRequestData，用来放入http body
+    NSMutableData *myRequestData=[NSMutableData data];
+    //将body字符串转化为UTF8格式的二进制
+    [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    //将image的data加入
+    [myRequestData appendData:data];
+    //加入结束符--AaB03x--
+    [myRequestData appendData:[end dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //设置HTTPHeader中Content-Type的值
+    NSString *content=[[NSString alloc] initWithFormat:@"multipart/form-data; boundary=%@",TWITTERFON_FORM_BOUNDARY];
+    //设置HTTPHeader
+    [request setValue:content forHTTPHeaderField:@"Content-Type"];
+    //设置Content-Length
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[myRequestData length]] forHTTPHeaderField:@"Content-Length"];
+    //设置http body
+    [request setHTTPBody:myRequestData];
+    //http method
+    [request setHTTPMethod:@"POST"];
+    
+    return request;
+}
+
+
 -(void)sendUpdateUserHeadPortrait:(NSString *)userId
                         headImage:(UIImage *)image
                           success:(void (^)(BOOL))success
                           failure:(void (^)(LONetError *))failure{
     
-    success(0);//赋值
+
+//    NSString *URLString=@"http://192.168.1.101:8081/stapi/upload/uploadFile";
+//    
+//    NSData *data = UIImageJPEGRepresentation(image,0.5);
+//    
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+//    [params setValue:userId forKey:@"UserId"];
+//    [params setValue:@(1) forKey:@"type"];
+//    [params setValue:data forKey:@"file"];
+//    
+//    AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
+//
+//
+//    [manager POST:URLString parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//
+//        //[formData appendPartWithFileData:data name:@"file" fileName:@"111.png" mimeType:@"image/png"];
+//    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"上传成功");
+//        NSLog(@"%@",operation.responseString);
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"失败");
+//        NSLog(@"%@",error.description);
+//    }];
     
-    NSString *URLString=@"http://192.168.1.112:8080/stapi/image/uploadImage";
+    
+    
+    
+//    NSData *data = UIImagePNGRepresentation(image);
+//    if (data.length <= 1024 * 1024) {
+//        data = UIImageJPEGRepresentation(image, 0.3);
+//    }else{
+//        data = UIImageJPEGRepresentation(image, 0.1);
+//    }
+//    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//    
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+//    [params setValue:userId forKey:@"UserId"];
+//    [params setValue:@(1) forKey:@"type"];
+//    [params setValue:encodedImageStr forKey:@"file"];
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    [manager POST:URLString parameters:params constructingBodyWithBlock:^(id _Nonnull formData) {
+//        
+//        //使用日期生成图片名称
+//        
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        
+//        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//        
+//        NSString *fileName = [NSString stringWithFormat:@"%@.png",[formatter stringFromDate:[NSDate date]]];
+//        
+//        [formData appendPartWithFileData:data name:@"uploadFile" fileName:fileName mimeType:@"image/png"];
+//        
+//    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        
+//        //上传图片成功执行回调
+//        NSLog(@"成功");
+//        //completion(responseObject,nil);
+//        
+//    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+//        
+//        //上传图片失败执行回调
+//        NSLog(@"%@",error);
+//        //completion(nil,error);
+//        
+//    }];
+    
+    
+//    
+//    NSString *URLString=@"http://192.168.1.101:8081/stapi/upload/uploadFile";
+//    
+//    NSData *data = UIImagePNGRepresentation(image);
+////    if (data.length <= 1024 * 1024) {
+////        data = UIImageJPEGRepresentation(image, 0.3);
+////    }else{
+////        data = UIImageJPEGRepresentation(image, 0.1);
+////    }
+//    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
+//    [params setValue:userId forKey:@"UserId"];
+//    [params setValue:@(1) forKey:@"type"];
+//    [params setValue:encodedImageStr forKey:@"file"];
+//
+//    AFNetworkReachabilityManager *netWorkManager=[AFNetworkReachabilityManager sharedManager];
+//    AFHTTPRequestOperationManager *manager=[[AFHTTPRequestOperationManager alloc]init];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/x-javascript",nil];
+//    
+//    [manager POST:URLString parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        [netWorkManager stopMonitoring];
+//        if (responseObject !=nil) {
+//            NSLog(@"成功");
+//        }
+//        NSLog(@"%@",operation.responseString);
+//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
+//    
+
+    
+    
+    
+    
+    
+//    success(0);//赋值
+//    
+    NSString *URLString=@"http://192.168.1.101:8081/stapi/upload/uploadFile";
     NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
 
-    NSData *data=UIImageJPEGRepresentation(image, 0.5);
+    NSData *data=UIImageJPEGRepresentation(image, 1);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    NSString *param=[NSString stringWithFormat:@"userId=%@&image=%@",userId,encodedImageStr];
+    NSString *param=[NSString stringWithFormat:@"userId=%@&type=%d&file=%@",userId,1,encodedImageStr];
 
     NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -1588,7 +1770,7 @@
         NSLog(@"error : %@",[error localizedDescription]);
     }else{
         if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle: @"提示信息" message:@"上传成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alert show];
         }else{
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
