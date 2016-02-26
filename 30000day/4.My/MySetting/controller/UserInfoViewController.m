@@ -69,13 +69,13 @@
     //上传服务器
     [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
         
-//        if (![self.editorImage isEqual:self.copareImage]) {
-//            
-//            [self shangchuantupian:self.editorImage];
-//            
-//        } else {
-//
-//        }
+        if (![self.editorImage isEqual:self.copareImage]) {
+            
+            [self updateImage:self.editorImage];
+            
+        } else {
+
+        }
         
         [self hideHUD:YES];
         
@@ -90,6 +90,17 @@
         [self showToast:@"个人信息保存失败"];
     }];
 
+}
+
+-(void)updateImage:(UIImage *)img{
+    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:img success:^(BOOL success) {
+        
+        
+    } failure:^(LONetError *error) {
+        
+        
+    }];
+    
 }
 
 #pragma ---

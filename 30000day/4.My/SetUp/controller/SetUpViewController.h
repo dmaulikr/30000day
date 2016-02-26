@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SetUpViewController : STBaseViewController
+@interface SetUpViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
