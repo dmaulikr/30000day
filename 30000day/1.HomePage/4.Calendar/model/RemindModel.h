@@ -14,8 +14,10 @@
 
 @property (nullable, nonatomic, copy) NSString *content;
 
-@property (nullable, nonatomic, copy) NSDate *date;
+@property (nullable, nonatomic, copy) NSDate *date;//这个提醒添加的具体时间
 
-@property (nullable, nonatomic, copy) NSNumber *userId;
+@property (nullable, nonatomic, copy) NSNumber *userId;//当前用户的userId
+
+@property (nullable, nonatomic, copy) NSString *dateString;//格式2016-01-12用来查询某一天的提醒
 
 @end

@@ -244,7 +244,7 @@
             cell.textLabel.font = [UIFont systemFontOfSize:15];
         }
         
-            cell.textLabel.text = @"账号";
+            cell.textLabel.text = @"手机";
     
             cell.detailTextLabel.text = STUserAccountHandler.userProfile.userName;
         

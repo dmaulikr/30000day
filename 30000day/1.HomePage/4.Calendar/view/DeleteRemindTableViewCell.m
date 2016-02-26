@@ -1,14 +1,14 @@
 //
-//  CalendarHeadTableViewCell.m
+//  DeleteRemindTableViewCell.m
 //  30000day
 //
-//  Created by GuoJia on 16/2/23.
+//  Created by GuoJia on 16/2/26.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "CalendarHeadTableViewCell.h"
+#import "DeleteRemindTableViewCell.h"
 
-@implementation CalendarHeadTableViewCell
+@implementation DeleteRemindTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

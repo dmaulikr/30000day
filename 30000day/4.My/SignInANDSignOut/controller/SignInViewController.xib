@@ -49,19 +49,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4G-W7-CNo">
                     <rect key="frame" x="0.0" y="40" width="320" height="89"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="账号（邮箱）" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4nf-rG-oTE">
-                            <rect key="frame" x="15" y="0.0" width="305" height="44"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="0D4-LA-maD"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="flb-5h-AAk"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="next"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="ExB-8t-U7f"/>
-                            </connections>
-                        </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xt8-L2-7si">
                             <rect key="frame" x="15" y="44" width="305" height="1"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -85,6 +72,19 @@
                             <rect key="frame" x="296" y="59" width="16" height="16"/>
                             <state key="normal" backgroundImage="hidePassword"/>
                         </button>
+                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机/账号(邮箱）" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4nf-rG-oTE">
+                            <rect key="frame" x="15" y="0.0" width="305" height="44"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="0D4-LA-maD"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="flb-5h-AAk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="next"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="ExB-8t-U7f"/>
+                            </connections>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>

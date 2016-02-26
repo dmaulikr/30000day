@@ -12,6 +12,13 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic,copy) void (^(addSuccessBlock))();
+//点击保存按钮回调
+@property (nonatomic,copy) void (^(saveOrChangeSuccessBlock))();
+
+@property (nonatomic,copy) void (^(deleteSuccessBlock))();
+
+@property (nonatomic,strong) RemindModel *oldModel;//这个如果是空表示用户点击的是上面增加提醒按钮,如果不为空表示用户点击的是cell进来的
+
+@property (nonatomic,assign) BOOL changeORAdd;//yes:是表示是来修改的,修改的需要把原来的RemindModel传过来  no:表示是来新增的,新增的不需要
 
 @end
