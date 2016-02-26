@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecurityViewController : STBaseViewController
+@interface SecurityViewController : ShowBackItemViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

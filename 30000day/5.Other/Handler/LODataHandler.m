@@ -20,6 +20,7 @@
 #import "UserLifeModel.h"
 #import "GetFactorModel.h"
 
+#import "AFNetworking.h"
 //电话簿
 #import <AddressBook/AddressBook.h>
 
@@ -1555,6 +1556,47 @@
     
     [self startRequest:request];
    
+}
+
+-(void)sendUpdateUserHeadPortrait:(NSString *)userId
+                        headImage:(UIImage *)image
+                          success:(void (^)(BOOL))success
+                          failure:(void (^)(LONetError *))failure{
+    
+    success(0);//赋值
+    
+    NSString *URLString=@"http://192.168.1.112:8080/stapi/image/uploadImage";
+    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
+
+    NSData *data=UIImageJPEGRepresentation(image, 0.5);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *param=[NSString stringWithFormat:@"userId=%@&image=%@",userId,encodedImageStr];
+
+    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setURL:URL];
+    [request setHTTPBody:postData];
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSLog(@"%@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
+    UIImage *ig=[UIImage imageWithData:backData];
+    if (error) {
+        NSLog(@"error : %@",[error localizedDescription]);
+    }else{
+        if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }else{
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+            NSLog(@"error:%@",error);
+        }
+    }
+
 }
 
 @end
