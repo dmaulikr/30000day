@@ -181,9 +181,48 @@
         
         picker.titleText = @"选择年龄";
         
-        //显示QGPickerView
-        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:@[@"100岁",@"90岁",@"80岁",@"70岁",@"60岁"] withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
+        //算出当前userId的年龄
         
+        if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {//user生日没设置
+            
+            NSMutableArray *dataArray = [NSMutableArray array];
+            
+            for (int i = 100 ; i >= 1; i--) {
+                
+                [dataArray addObject:[NSString stringWithFormat:@"%d岁",i]];
+                
+            }
+            
+            //显示QGPickerView
+            [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
+            
+        } else {//user生日设置了
+            
+            NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+            
+            NSDate *birthday = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
+            
+            NSDate *currentDay = [NSDate date];
+            
+            NSString *currentDayString = [formatter stringFromDate:currentDay];
+            
+            currentDay = [formatter dateFromString:currentDayString];
+            
+            NSTimeInterval interval = [currentDay timeIntervalSinceDate:birthday];
+            
+            int age = interval / (60*60*24*365);
+    
+            NSMutableArray *dataArray = [NSMutableArray array];
+            
+            for (int i = 100 ; i >= age ; i--) {
+                
+                [dataArray addObject:[NSString stringWithFormat:@"%d岁",i]];
+            }
+            
+            //显示QGPickerView
+            [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
+            
+        }
     }];
     
     return _ageCell;

@@ -10,6 +10,7 @@
 #import "AddRemindTextTableViewCell.h"
 #import "AddTimeTableViewCell.h"
 #import "DeleteRemindTableViewCell.h"
+#import "AddContentTableViewCell.h"
 
 @interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -21,7 +22,7 @@
 
 @property (nonatomic,strong) AddRemindTextTableViewCell *titleCell;
 
-@property (nonatomic,strong) AddRemindTextTableViewCell *contentCell;
+@property (nonatomic,strong) AddContentTableViewCell *contentCell;
 
 @property (nonatomic,strong) AddTimeTableViewCell *addTimeCell;
 
@@ -74,15 +75,13 @@
     return _titleCell;
 }
 
-- (AddRemindTextTableViewCell *)contentCell {
+- (AddContentTableViewCell *)contentCell {
     
     if (!_contentCell) {
         
-        _contentCell = [[[NSBundle mainBundle] loadNibNamed:@"AddRemindTextTableViewCell" owner:nil options:nil] lastObject];
+        _contentCell = [[[NSBundle mainBundle] loadNibNamed:@"AddContentTableViewCell" owner:nil options:nil] lastObject];
         
-        _contentCell.textField.placeholder = @"请输入内容";
-        
-        _contentCell.textField.text = self.oldModel.content;
+        _contentCell.remindModel = self.oldModel;
         
     }
     
@@ -147,7 +146,7 @@
 
     newModel.title = self.titleCell.textField.text;
     
-    newModel.content = self.contentCell.textField.text;
+    newModel.content = self.contentCell.contentTextView.text;
     
     newModel.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
     
@@ -279,6 +278,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (indexPath.section == 1) {
+        
+        return 100;
+    }
     return 50;
 }
 

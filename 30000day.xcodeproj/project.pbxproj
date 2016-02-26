@@ -196,6 +196,9 @@
 		B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA52131C7FE69100498E34 /* DeleteRemindTableViewCell.xib */; };
 		B8FA52261C7FFD5100498E34 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52231C7FFD5100498E34 /* RemindObject+CoreDataProperties.m */; };
 		B8FA52271C7FFD5100498E34 /* RemindObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52251C7FFD5100498E34 /* RemindObject.m */; };
+		B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */; };
+		B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */; };
+		B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -518,6 +521,11 @@
 		B8FA52231C7FFD5100498E34 /* RemindObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RemindObject+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B8FA52241C7FFD5100498E34 /* RemindObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindObject.h; sourceTree = "<group>"; };
 		B8FA52251C7FFD5100498E34 /* RemindObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindObject.m; sourceTree = "<group>"; };
+		B8FA52281C802CE100498E34 /* AddContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentTableViewCell.h; sourceTree = "<group>"; };
+		B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentTableViewCell.m; sourceTree = "<group>"; };
+		B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddContentTableViewCell.xib; sourceTree = "<group>"; };
+		B8FA522D1C804BAF00498E34 /* STTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTabBarViewController.h; sourceTree = "<group>"; };
+		B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTabBarViewController.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -695,6 +703,8 @@
 				B8F2DA141C5F3448002C7712 /* STBaseViewController.m */,
 				B89216B21C5F468C0023F8A8 /* ShowBackItemViewController.h */,
 				B89216B31C5F468C0023F8A8 /* ShowBackItemViewController.m */,
+				B8FA522D1C804BAF00498E34 /* STTabBarViewController.h */,
+				B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -880,6 +890,9 @@
 				B8FA52111C7FE69100498E34 /* DeleteRemindTableViewCell.h */,
 				B8FA52121C7FE69100498E34 /* DeleteRemindTableViewCell.m */,
 				B8FA52131C7FE69100498E34 /* DeleteRemindTableViewCell.xib */,
+				B8FA52281C802CE100498E34 /* AddContentTableViewCell.h */,
+				B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */,
+				B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1605,6 +1618,7 @@
 				B8F2DA651C5F3D8B002C7712 /* ElementAlternative.plist in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
+				B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */,
 				B886E8711C7EAE1200E64BEC /* RemindContentTableViewCell.xib in Resources */,
 				B8F2DA4D1C5F3D04002C7712 /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
@@ -1692,6 +1706,7 @@
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
+				B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */,
 				B8F2D9CE1C5F0507002C7712 /* SDBaseProgressView.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
@@ -1799,6 +1814,7 @@
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
+				B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
