@@ -22,22 +22,25 @@
         // Initialization code
         self.eventCountLabel.hidden = NO;
         
-        self.dayLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+        self.dayLabel.font = [UIFont boldSystemFontOfSize:18.0f];
         
-        CGRect lunarLabelFrame = self.lunarLabel.frame;
-        lunarLabelFrame.origin.y = self.bounds.size.height/5*4;
-        lunarLabelFrame.size.height = self.bounds.size.height/5;
-        self.lunarLabel.frame = lunarLabelFrame;
+        self.dayLabel.height = self.dayLabel.height - 5;
+        
+        self.lunarLabel.y = self.bounds.size.height/5*4 - 5;
+        
+        self.lunarLabel.height = self.bounds.size.height/5;
         
         self.lunarLabel.font = [UIFont systemFontOfSize:9.0f];
+        
         self.lunarLabel.textColor = [UIColor grayColor];
         
         self.backgroundColor = [UIColor whiteColor];
-        
+       
         self.dayLabel.backgroundColor = [UIColor whiteColor];
         
         self.lunarLabel.hidden = NO;
     }
+    
     return self;
 }
 
@@ -50,18 +53,32 @@
     [super updateUnitTileViewShowingWithOtherUnit:otherUnit Selected:selected Today:today eventsCount:eventsCount];
     
     if (otherUnit) {
+        
         self.dayLabel.textColor = [UIColor grayColor];
+        
         self.lunarLabel.textColor = [UIColor grayColor];
+        
     } else {
+        
         if (selected) {
+            
             self.dayLabel.textColor = [UIColor redColor];
+            
             self.lunarLabel.textColor = [UIColor redColor];
+            
         } else if (today) {
+            
             self.dayLabel.textColor = [UIColor blueColor];
+            
             self.lunarLabel.textColor = [UIColor blueColor];
+        
+            
         } else {
+            
             self.dayLabel.textColor = [UIColor blackColor];
+            
             self.lunarLabel.textColor = [UIColor blackColor];
+
         }
     }
     
