@@ -7,7 +7,6 @@
 //
 
 #import "SignInViewController.h"
-#import "FindPasswordViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
 #import "SMSVerificationViewController.h"
@@ -337,7 +336,7 @@
 }
 
 - (void)touchDown:(UIButton *)sender {
-    
+     
     [sender setBackgroundImage:[UIImage imageNamed:@"DisplayPassword.png"] forState:UIControlStateNormal];
     
     [self.userPwdTF setSecureTextEntry:NO];
@@ -353,9 +352,11 @@
 #pragma mark - 跳转注册
 - (IBAction)regitView:(UIButton *)sender {
     
-    SMSVerificationViewController *sms = [[SMSVerificationViewController alloc] init];
+    SMSVerificationViewController *controller = [[SMSVerificationViewController alloc] init];
     
-    [self.navigationController pushViewController:sms animated:YES];
+    controller.isSignOut = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 

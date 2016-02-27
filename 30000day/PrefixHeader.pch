@@ -89,11 +89,11 @@
 
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
-#define  STUserAccountHandler        [UserAccountHandler shareUserAccountHandler]  //用户的个人信息单例
+#define  STUserAccountHandler        [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
 
-#define  STNotificationCenter        [NSNotificationCenter defaultCenter]          //取得系统通知中心单例
+#define  STNotificationCenter        [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-#define  ST_API_SERVER                @"http://192.168.1.101:8081"                  //测试服务器地址
+#define  ST_API_SERVER                @"http://192.168.1.101:8081"                   //测试服务器地址
 
 #define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
 
@@ -103,15 +103,15 @@
 
 #define  ADD_USER                     @"/stapi/friend/addFriend"                     //添加好友
 
-#define  REGISTER                    @"/stapi/user/register"                         //注册
+#define  REGISTER                     @"/stapi/user/register"                        //注册
 
-#define  GET_SMS_CODE                @"/stapi/user/sendMobileCode"                  //获取短信验证码
+#define  GET_SMS_CODE                 @"/stapi/mobile/sendMobileCode"                //获取短信验证码
 
-#define  VALIDATE_SMS_CODE           @"/stapi/user/validateMobileCode"              //验证短信验证码
+#define  VALIDATE_SMS_CODE            @"/stapi/mobile/validateMobileCode"            //验证短信验证码
 
 #define  GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
 
-#define  GET_FACTORS                 @"/stapi/factor/getFactors"                    //获取健康因子
+#define  GET_FACTORS                  @"/stapi/factor/getFactors"                    //获取健康因子
 
 #define  GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
 
@@ -121,7 +121,9 @@
 
 #define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
 
-#define  UPDATE_USER_IMAGE            @"http://192.168.1.112:8080/stapi/image/uploadImage"                      //跟新用户头像
+#define  UPDATE_USER_IMAGE            @"http://192.168.1.112:8080/stapi/image/uploadImage"  //跟新用户头像
+
+#define UPDATE_USER_PASSWORD          @"/stapi/password/uptUserPwd"                    //修改密码
 
 #endif
 

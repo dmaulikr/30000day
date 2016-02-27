@@ -9,6 +9,7 @@
 #import "SMSVerificationViewController.h"
 #import "SignOutViewController.h"
 #import "AFNetworking.h"
+#import "NewPasswordViewController.h"
 
 #define IdentityCount 60
 
@@ -22,6 +23,18 @@
 @property (nonatomic,assign)CGRect selectedTextFieldRect;
 
 @property (nonatomic,copy) NSString *mobileToken;//校验后获取的验证码
+
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+
+@property (weak, nonatomic) IBOutlet UITextField *sms;
+
+@property (weak, nonatomic) IBOutlet UIButton *smsBtn;
+
+- (IBAction)nextBtn:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIView *textSubView;
+
+@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
 @end
 
@@ -73,13 +86,33 @@
     //调用验证接口
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
        
-        SignOutViewController *signOut = [[SignOutViewController alloc] init];
-        
-        signOut.PhoneNumber = self.phoneNumber.text;
-        
-        signOut.mobileToken = mobileToken;
-        
-        [self.navigationController pushViewController:signOut animated:YES];
+        if (self.isSignOut) {
+            
+            SignOutViewController *controller = [[SignOutViewController alloc] init];
+            
+            controller.PhoneNumber = self.phoneNumber.text;
+            
+            controller.mobileToken = mobileToken;
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        } else {
+            
+            NewPasswordViewController *controller = [[NewPasswordViewController alloc] init];
+            
+            controller.mobileToken = mobileToken;
+            
+            controller.mobile = self.phoneNumber.text;
+            
+            controller.userId = self.userId;
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        }
         
     } failure:^(NSError *error) {
 
@@ -98,9 +131,11 @@
         
         return;
     }
-    
+
     //调用短信验证接口
-    [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text success:^(id responseObject) {
+    [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
+                                          type:self.isSignOut ? @1 : @2
+                                       success:^(NSString *responseObject) {
         
         count = IdentityCount;
         
@@ -110,11 +145,12 @@
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
         
-    } failure:^(id error) {
+    } failure:^(NSString *error) {
         
-        [self showToast:@"手机已被注册"];
+        [self showToast:error];
         
     }];
+
 }
 
 - (void)CountDown {

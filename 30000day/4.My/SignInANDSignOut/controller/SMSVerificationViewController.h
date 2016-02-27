@@ -10,16 +10,8 @@
 
 @interface SMSVerificationViewController : ShowBackItemViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+@property (nonatomic,assign) BOOL isSignOut;//YES:表示是注册的，NO:表示是寻找密码的
 
-@property (weak, nonatomic) IBOutlet UITextField *sms;
-
-@property (weak, nonatomic) IBOutlet UIButton *smsBtn;
-
-- (IBAction)nextBtn:(UIButton *)sender;
-
-@property (weak, nonatomic) IBOutlet UIView *textSubView;
-
-@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
+@property (nonatomic,strong) NSNumber *userId;
 
 @end

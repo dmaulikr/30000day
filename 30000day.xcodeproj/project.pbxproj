@@ -159,8 +159,6 @@
 		B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA141C5F3448002C7712 /* STBaseViewController.m */; };
 		B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA1C1C5F3D04002C7712 /* ChooseVerifyWayViewController.m */; };
 		B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA1D1C5F3D04002C7712 /* ChooseVerifyWayViewController.xib */; };
-		B8F2DA421C5F3D04002C7712 /* FindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA1F1C5F3D04002C7712 /* FindPasswordViewController.m */; };
-		B8F2DA431C5F3D04002C7712 /* FindPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA201C5F3D04002C7712 /* FindPasswordViewController.xib */; };
 		B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA221C5F3D04002C7712 /* InputAccountViewController.m */; };
 		B8F2DA451C5F3D04002C7712 /* InputAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA231C5F3D04002C7712 /* InputAccountViewController.xib */; };
 		B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA251C5F3D04002C7712 /* SignOutViewController.m */; };
@@ -467,9 +465,6 @@
 		B8F2DA1B1C5F3D04002C7712 /* ChooseVerifyWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseVerifyWayViewController.h; sourceTree = "<group>"; };
 		B8F2DA1C1C5F3D04002C7712 /* ChooseVerifyWayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseVerifyWayViewController.m; sourceTree = "<group>"; };
 		B8F2DA1D1C5F3D04002C7712 /* ChooseVerifyWayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseVerifyWayViewController.xib; sourceTree = "<group>"; };
-		B8F2DA1E1C5F3D04002C7712 /* FindPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPasswordViewController.h; sourceTree = "<group>"; };
-		B8F2DA1F1C5F3D04002C7712 /* FindPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPasswordViewController.m; sourceTree = "<group>"; };
-		B8F2DA201C5F3D04002C7712 /* FindPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindPasswordViewController.xib; sourceTree = "<group>"; };
 		B8F2DA211C5F3D04002C7712 /* InputAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputAccountViewController.h; sourceTree = "<group>"; };
 		B8F2DA221C5F3D04002C7712 /* InputAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputAccountViewController.m; sourceTree = "<group>"; };
 		B8F2DA231C5F3D04002C7712 /* InputAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputAccountViewController.xib; sourceTree = "<group>"; };
@@ -1444,9 +1439,6 @@
 				B8F2DA1B1C5F3D04002C7712 /* ChooseVerifyWayViewController.h */,
 				B8F2DA1C1C5F3D04002C7712 /* ChooseVerifyWayViewController.m */,
 				B8F2DA1D1C5F3D04002C7712 /* ChooseVerifyWayViewController.xib */,
-				B8F2DA1E1C5F3D04002C7712 /* FindPasswordViewController.h */,
-				B8F2DA1F1C5F3D04002C7712 /* FindPasswordViewController.m */,
-				B8F2DA201C5F3D04002C7712 /* FindPasswordViewController.xib */,
 				B8F2DA211C5F3D04002C7712 /* InputAccountViewController.h */,
 				B8F2DA221C5F3D04002C7712 /* InputAccountViewController.m */,
 				B8F2DA231C5F3D04002C7712 /* InputAccountViewController.xib */,
@@ -1603,7 +1595,6 @@
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
 				B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
-				B8F2DA431C5F3D04002C7712 /* FindPasswordViewController.xib in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
@@ -1717,7 +1708,6 @@
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
 				B8695AA71C7479C9001B4B95 /* WeatherTableViewCell.m in Sources */,
-				B8F2DA421C5F3D04002C7712 /* FindPasswordViewController.m in Sources */,
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,

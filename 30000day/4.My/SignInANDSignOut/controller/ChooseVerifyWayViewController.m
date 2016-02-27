@@ -7,8 +7,8 @@
 //
 
 #import "ChooseVerifyWayViewController.h"
-#import "FindPasswordViewController.h"
 #import "PasswordVerifiedViewController.h"
+#import "SMSVerificationViewController.h"
 
 @interface ChooseVerifyWayViewController ()
 
@@ -84,10 +84,11 @@
     
     if (indexPath.row == 0) {
         
-        FindPasswordViewController *tm = [[FindPasswordViewController alloc]init];
+        SMSVerificationViewController *controller = [[SMSVerificationViewController alloc]init];
 
+        controller.isSignOut = NO;
         
-        [self.navigationController pushViewController:tm animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
         
     } if (indexPath.row == 1) {
         

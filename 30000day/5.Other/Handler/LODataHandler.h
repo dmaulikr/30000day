@@ -26,9 +26,9 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 //********* 发送验证请求 *************/
 - (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
+                            type:(NSNumber *)type
                           success:(void (^)(NSString *responseObject))success
                           failure:(void (^)(NSString *error))failure;
-
 
 
 //*********** 核对短信验证码是否正确 ********/
@@ -37,6 +37,14 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure;
 
+
+//************ 修改密码*****************//
+- (void)sendUpdateUserPasswordWithUserId:(NSNumber *)userId
+                                  mobile:(NSString *)mobile
+                             mobileToken:(NSString *)mobileToken
+                                password:(NSString *)password
+                                 success:(void (^)(BOOL success))success
+                                 failure:(void (^)(NSError *error))failure;
 
 //***** 普通登录 *****/
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知

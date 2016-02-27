@@ -109,12 +109,17 @@
 
 //***** 发送验证请求 *****/
 - (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
-                               success:(void (^)(NSString *responseObject))success
-                               failure:(void (^)(NSString *error))failure {
+                            type:(NSNumber *)type
+                         success:(void (^)(NSString *responseObject))success
+                         failure:(void (^)(NSString *error))failure {
     
         NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
         
         [parameters addParameter:phoneNumber forKey:@"mobile"];
+    
+        [parameters addParameter:type forKey:@"type"];
+    
+        [Common urlStringWithDictionary:parameters withString:GET_SMS_CODE];
     
         LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_SMS_CODE
@@ -228,6 +233,76 @@
     
     [self startRequest:request];
     
+}
+
+//************修改密码*****************//
+- (void)sendUpdateUserPasswordWithUserId:(NSNumber *)userId
+                                  mobile:(NSString *)mobile
+                             mobileToken:(NSString *)mobileToken
+                                password:(NSString *)password
+                                 success:(void (^)(BOOL success))success
+                                 failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:userId forKey:@"userId"];
+    
+    [parameters addParameter:mobile forKey:@"mobile"];
+    
+    [parameters addParameter:mobileToken forKey:@"mobileToken"];
+    
+    [parameters addParameter:password forKey:@"password"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:UPDATE_USER_PASSWORD
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                });
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+//                                                            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
+//                                                            
+//                                                            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+//                                                            
+//                                                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                
+//                                                                failure(error);
+//                                                                
+//                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+  
 }
 
 //***** 普通登录 *****/

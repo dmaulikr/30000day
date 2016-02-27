@@ -8,12 +8,12 @@
 
 #import "NewPasswordViewController.h"
 
-@interface NewPasswordViewController : ShowBackItemViewController
+@interface NewPasswordViewController : STBaseViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *oneNewPass;
+@property (nonatomic,copy) NSString *mobileToken;
 
-@property (weak, nonatomic) IBOutlet UITextField *twoNewPass;
+@property (nonatomic,copy) NSNumber *userId;
 
-@property (weak, nonatomic) IBOutlet UIButton *subimitBtn;
+@property (nonatomic,copy) NSString *mobile;
 
 @end
