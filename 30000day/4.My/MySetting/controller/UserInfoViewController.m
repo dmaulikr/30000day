@@ -50,8 +50,6 @@
     
     self.saveButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonClick)];
     
-    self.saveButton.enabled = NO;
-    
     self.navigationItem.rightBarButtonItem = self.saveButton;
  
     self.NickName = STUserAccountHandler.userProfile.nickName;

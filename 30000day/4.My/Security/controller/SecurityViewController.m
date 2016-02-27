@@ -28,9 +28,6 @@
     [self.tableView setTableFooterView:footerview];
     
     self.titleCellArray = [NSArray arrayWithObjects:@"修改密保",@"修改密码",@"修改手机号码",@"账号绑定", nil];
-    
-    self.tableView.scrollEnabled = NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {
