@@ -66,39 +66,45 @@
 
     [self showHUDWithContent:@"正在保存" animated:YES];
     
-    //上传服务器
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
+    
+    if (![self.editorImage isEqual:self.copareImage]) {
         
-        if (![self.editorImage isEqual:self.copareImage]) {
+        [self updateImage:self.editorImage];
+        
+    } else {
+        //上传服务器
+        [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
             
-            [self updateImage:self.editorImage];
+            [self hideHUD:YES];
             
-        } else {
-
-        }
-        
-        [self hideHUD:YES];
-        
-        [self showToast:@"个人信息保存成功"];
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    } failure:^(LONetError *error) {
-        
-        [self hideHUD:YES];
-        
-        [self showToast:@"个人信息保存失败"];
-    }];
-
+            [self showToast:@"个人信息保存成功"];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        } failure:^(LONetError *error) {
+            
+            [self hideHUD:YES];
+            
+            [self showToast:@"个人信息保存失败"];
+        }];
+    }
+    
 }
 
 -(void)updateImage:(UIImage *)img{
-    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:img success:^(BOOL success) {
+    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:img success:^(NSString *imageUrl) {
         
+        [self hideHUD:YES];
+        
+        [self showToast:@"头像保存成功"];
+        
+        //[self.portraitImageView  sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
         
     } failure:^(LONetError *error) {
         
+        [self hideHUD:YES];
         
+        [self showToast:@"头像保存失败"];
     }];
     
 }
