@@ -65,17 +65,9 @@
 - (void)saveButtonClick {
 
     [self showHUDWithContent:@"正在保存" animated:YES];
-    
+
     //上传服务器
     [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
-        
-        if (![self.editorImage isEqual:self.copareImage]) {
-            
-            [self updateImage:self.editorImage];
-            
-        } else {
-
-        }
         
         [self hideHUD:YES];
         
@@ -89,19 +81,23 @@
         
         [self showToast:@"个人信息保存失败"];
     }];
-
+    
 }
 
--(void)updateImage:(UIImage *)img{
-    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:img success:^(BOOL success) {
+- (void)updateImage:(UIImage *)image {
+    
+    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
+        STUserAccountHandler.userProfile.headImg = imageUrl;
         
-    } failure:^(LONetError *error) {
+    } failure:^(NSError *error) {
         
-        
+        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+
     }];
     
 }
+
 
 #pragma ---
 #pragma mark --- UITableViewDelegate/UITableViewDataSource
@@ -455,6 +451,10 @@
     
     //保存图片到本地相册
     UIImageWriteToSavedPhotosAlbum(originImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
+    
+    //保存headImage字段
+    
+    [self updateImage:image];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

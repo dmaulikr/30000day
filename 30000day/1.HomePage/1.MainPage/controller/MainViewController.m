@@ -104,6 +104,7 @@
 - (void)reloadData {
     
     //2.获取用户的天龄
+
     [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray lastObject];
@@ -114,7 +115,7 @@
         self.allDayArray = [NSMutableArray array];
         
         self.dayNumberArray = [NSMutableArray array];
-        
+
         for (int  i = 0; i < dataArray.count ; i++ ) {
             
             UserLifeModel *model = dataArray[i];
@@ -131,11 +132,12 @@
             
         }
         
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
         
     }];
+
 }
 
 #pragma ---
@@ -144,7 +146,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return 3;
-}
+   }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

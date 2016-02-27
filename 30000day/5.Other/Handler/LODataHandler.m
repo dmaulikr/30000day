@@ -30,6 +30,7 @@
 //聚合头文件
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
+#import "Photo.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -601,6 +602,8 @@
     [parameters addParameter:birthday forKey:@"birthday"];
     
     [parameters addParameter:headImageUrlString forKey:@"headImg"];
+    
+    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SAVE_USER_INFORMATION
@@ -1630,48 +1633,107 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-   
+    
 }
 
--(void)sendUpdateUserHeadPortrait:(NSString *)userId
+- (void)sendUpdateUserHeadPortrait:(NSString *)userId
                         headImage:(UIImage *)image
-                          success:(void (^)(BOOL))success
-                          failure:(void (^)(LONetError *))failure{
+                          success:(void (^)(NSString *imageUrl))success
+                          failure:(void (^)(NSError *))failure{
     
-    success(0);//赋值
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    NSString *URLString=@"http://192.168.1.112:8080/stapi/image/uploadImage";
-    NSURL *URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-
-    NSData *data=UIImageJPEGRepresentation(image, 0.5);
-    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    NSString *param=[NSString stringWithFormat:@"userId=%@&image=%@",userId,encodedImageStr];
-
-    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    
+    [request setHTTPShouldHandleCookies:NO];
+    
+    [request setTimeoutInterval:30];
     
     [request setHTTPMethod:@"POST"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
     
-    NSURLResponse *response;
-    NSError *error;
-    NSData *backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSLog(@"%@",[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding]);
-    UIImage *ig=[UIImage imageWithData:backData];
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-    }else{
-        if ([[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding] intValue]==1) {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
-        }else{
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"上传失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
-            NSLog(@"error:%@",error);
-        }
+    [request setURL:[NSURL URLWithString:@"http://192.168.1.101:8081/stapi/upload/uploadFile"]];
+    
+    NSString *BoundaryConstant = [NSString stringWithFormat:@"V2ymHFg03ehbqgZCaKO6jy"];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    [request setValue:@"IOS" forHTTPHeaderField:@"User-Agent"];
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"userId"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n",@"1000000007"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"type"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n",@1] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    
+    if (imageData) {
+        
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"image.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [body appendData:imageData];
+        
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
-
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request setHTTPBody:body];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        if (connectionError) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                failure(connectionError);
+                
+            });
+            
+        } else {
+            
+            
+            NSError *localError = nil;
+            
+            NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+            
+            if (localError != nil) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(localError);
+                    
+                });
+                
+            } else {
+                
+                if (![Common isObjectNull:parsedObject[@"value"]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(parsedObject[@"value"]);
+                        
+                    });
+                }
+            }
+            
+        }
+        
+    }];
 }
 
 @end
