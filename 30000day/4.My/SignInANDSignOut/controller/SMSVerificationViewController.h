@@ -12,6 +12,4 @@
 
 @property (nonatomic,assign) BOOL isSignOut;//YES:表示是注册的，NO:表示是寻找密码的
 
-@property (nonatomic,strong) NSNumber *userId;
-
 @end

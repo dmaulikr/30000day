@@ -46,6 +46,12 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                  success:(void (^)(BOOL success))success
                                  failure:(void (^)(NSError *error))failure;
 
+//**************通过用户名获取userId通过用户名获取userId**********/
+- (void)sendGetUserIdByUserName:(NSString *)userName
+                        success:(void (^)(NSNumber *userId))success
+                        failure:(void (^)(NSError *error))failure;
+
+
 //***** 普通登录 *****/
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
 - (NSString *)postSignInWithPassword:(NSString *)password
@@ -81,7 +87,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
                                     success:(void(^)(BOOL success))success
-                                    failure:(void (^)(LONetError *error))failure;
+                                    failure:(void (^)(NSError *error))failure;
 //***** 更新个人信息 *****/
 //提醒：保存成功后会发出通知
 - (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
@@ -118,7 +124,6 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
 - (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
                failure:(void (^)(LONetError *error))failure;
-
 
 
 //***********获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/

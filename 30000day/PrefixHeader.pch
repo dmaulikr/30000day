@@ -121,9 +121,9 @@
 
 #define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
 
-#define  UPDATE_USER_IMAGE            @"http://192.168.1.112:8080/stapi/image/uploadImage"  //跟新用户头像
-
 #define UPDATE_USER_PASSWORD          @"/stapi/password/uptUserPwd"                    //修改密码
+
+#define  GET_USERID_BY_NAME           @"/stapi/userInfo/getUserIdByName"              //通过用户名获取userId
 
 #endif
 

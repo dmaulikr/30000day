@@ -12,8 +12,6 @@
 
 @property (nonatomic,copy) NSString *mobileToken;
 
-@property (nonatomic,copy) NSNumber *userId;
-
 @property (nonatomic,copy) NSString *mobile;
 
 @end

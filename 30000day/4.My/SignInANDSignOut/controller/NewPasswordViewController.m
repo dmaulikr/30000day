@@ -48,8 +48,18 @@
         
     } else {
     
-     
+     //开始修改密码
+     [self.dataHandler sendUpdateUserPasswordWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] mobile:self.mobile mobileToken:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
         
+         [self showToast:@"密码修改成功"];
+         
+         [self.navigationController popToRootViewControllerAnimated:YES];
+         
+     } failure:^(NSError *error) {
+         
+         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+         
+     }];
         
     }
 }

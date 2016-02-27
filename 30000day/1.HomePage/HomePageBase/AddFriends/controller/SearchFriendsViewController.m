@@ -170,9 +170,9 @@
             
             [self hideHUD:YES];
             
-        } failure:^(LONetError *error) {
+        } failure:^(NSError *error) {
             
-            [self showToast:[error.error  userInfo][NSLocalizedDescriptionKey]];
+            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
             
             [self hideHUD:YES];
         }];

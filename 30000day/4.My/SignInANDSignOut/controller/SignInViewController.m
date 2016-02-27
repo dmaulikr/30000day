@@ -183,7 +183,7 @@
                                          
                                          [self hideHUD:YES];
                                          
-                                         [self showToast:@"登录失败，请重新登录"];
+                                         [self showToast:[error.error userInfo][NSLocalizedDescriptionKey]];
                                          
                                      }];
 }
