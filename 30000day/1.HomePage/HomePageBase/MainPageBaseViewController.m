@@ -58,7 +58,7 @@
                                            
                         
                                         }
-                                        failure:^(LONetError *error) {
+                                        failure:^(NSError *error) {
                                             
                                             [self showToast:@"账户无效，请重新登录"];
                                             

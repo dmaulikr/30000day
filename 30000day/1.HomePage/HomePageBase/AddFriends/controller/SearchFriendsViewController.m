@@ -103,7 +103,7 @@
             
             [self.tableView reloadData];
             
-        } failure:^(LONetError *error) {
+        } failure:^(NSError *error) {
             
             self.searchResultArray = [NSMutableArray array];
             
@@ -125,11 +125,6 @@
     [self.tableView reloadData];
     
     return YES;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma ---

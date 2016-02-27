@@ -57,7 +57,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                              success:(void (^)(BOOL success))success
-                             failure:(void (^)(LONetError *))failure;
+                             failure:(void (^)(NSError *))failure;
 
 
 //***** 用户注册 *****/
@@ -80,7 +80,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 - (void)sendSearchUserRequestWithNickName:(NSString *)nickName
                             currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
-                                  failure:(void (^)(LONetError *))failure;
+                                  failure:(void (^)(NSError *))failure;
 
 
 //************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/

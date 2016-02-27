@@ -384,7 +384,7 @@
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                              success:(void (^)(BOOL success))success
-                             failure:(void (^)(LONetError *))failure {
+                             failure:(void (^)(NSError *))failure {
     
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
@@ -420,7 +420,7 @@
                                                                 
                                                             } else {
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:[[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}]];
+                                                                NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -428,16 +428,12 @@
                                                                     
                                                                 });
                                                             }
-                                                            
-                                                           
-                                                            
+    
                                                         } else {
-                                                            
-                                                            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                               failure(error);
+                                                               failure(localError);
                                                                 
                                                             });
                                                             
@@ -447,7 +443,7 @@
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
-                                                            failure(error);
+                                                            failure(error.error);
                                                             
                                                         });
                                                         
@@ -861,7 +857,7 @@
 - (void)sendSearchUserRequestWithNickName:(NSString *)nickName
                                    currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
-                                  failure:(void (^)(LONetError *))failure {
+                                  failure:(void (^)(NSError *))failure {
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
@@ -871,7 +867,6 @@
     
     //异步执行
     dispatch_async(dispatch_queue_create("searchUser", DISPATCH_QUEUE_SERIAL), ^{
-        
         
         NSError *error;
         
@@ -903,22 +898,16 @@
               
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
-                
-                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:dictionary[@"msg"]}];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    failure(error);
+                    failure(failureError);
                     
                 });
             }
             
         } else {
-            
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
-            
-            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
