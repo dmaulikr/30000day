@@ -36,6 +36,8 @@
 
 @property (nonatomic ,strong) UIImage *copareImage;
 
+@property (nonatomic,copy) NSString *headImageURLString;
+
 @end
 
 @implementation UserInfoViewController
@@ -60,6 +62,14 @@
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+}
+
+- (void)reloadData {
+    
+    [self.tableView reloadData];
+    
 }
 
 - (void)saveButtonClick {
@@ -67,7 +77,7 @@
     [self showHUDWithContent:@"正在保存" animated:YES];
 
     //上传服务器
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:STUserAccountHandler.userProfile.headImg success:^(BOOL success) {
+    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:self.headImageURLString success:^(BOOL success) {
         
         [self hideHUD:YES];
         
@@ -88,7 +98,7 @@
     
     [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
-        STUserAccountHandler.userProfile.headImg = imageUrl;
+        self.headImageURLString = imageUrl;
         
     } failure:^(NSError *error) {
         
@@ -97,7 +107,6 @@
     }];
     
 }
-
 
 #pragma ---
 #pragma mark --- UITableViewDelegate/UITableViewDataSource
@@ -487,6 +496,11 @@
         
         self.saveButton.enabled = YES;
     }
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self];
 }
 
 

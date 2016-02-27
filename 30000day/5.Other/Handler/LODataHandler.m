@@ -30,7 +30,6 @@
 //聚合头文件
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
-#import "Photo.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -623,6 +622,9 @@
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
+                                                                    
+                                                                    STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                                                                    
                                                                     //发出通知
                                                                     [STNotificationCenter postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                 });
