@@ -138,6 +138,6 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 - (void)sendUpdateUserHeadPortrait:(NSString *)userId
                            headImage:(UIImage *)image
                            success:(void (^)(NSString *imageUrl))success
-                           failure:(void (^)(LONetError *error))failure;
+                           failure:(void (^)(NSError *error))failure;
 
 @end

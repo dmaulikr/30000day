@@ -528,6 +528,8 @@
     
     [parameters addParameter:headImageUrlString forKey:@"headImg"];
     
+    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
+    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SAVE_USER_INFORMATION
                                                  parameters:parameters
@@ -1562,7 +1564,7 @@
 - (void)sendUpdateUserHeadPortrait:(NSString *)userId
                         headImage:(UIImage *)image
                           success:(void (^)(NSString *imageUrl))success
-                          failure:(void (^)(LONetError *))failure{
+                          failure:(void (^)(NSError *))failure{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
@@ -1619,20 +1621,42 @@
     
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         
-        NSError *localError = nil;
-        
-        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
-        
-        success(parsedObject[@"value"]);
-
-        if (localError != nil) {
+        if (connectionError) {
             
-            NSLog(@"registration-form list  JSON data error: %@", [localError description]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                failure(connectionError);
+                
+            });
             
-            return;
+        } else {
+            
+            
+            NSError *localError = nil;
+            
+            NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+            
+            if (localError != nil) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(localError);
+                    
+                });
+                
+            } else {
+                
+                if (![Common isObjectNull:parsedObject[@"value"]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(parsedObject[@"value"]);
+                        
+                    });
+                }
+            }
+            
         }
-        
-        NSLog(@"-------%@",parsedObject);
         
     }];
 }
