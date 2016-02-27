@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChooseVerifyWayViewController">
             <connections>
+                <outlet property="tableView" destination="JcL-nL-b9z" id="MWp-dL-yJi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +15,23 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="JcL-nL-b9z">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="moo-3W-mzE"/>
+                        <outlet property="delegate" destination="-1" id="on1-TC-eeV"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="JcL-nL-b9z" secondAttribute="trailing" id="8LR-S4-bwq"/>
+                <constraint firstItem="JcL-nL-b9z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MaW-3H-k7G"/>
+                <constraint firstAttribute="bottom" secondItem="JcL-nL-b9z" secondAttribute="bottom" id="RoM-eF-zO3"/>
+                <constraint firstItem="JcL-nL-b9z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="a7t-PB-24W"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="245" y="218"/>
         </view>

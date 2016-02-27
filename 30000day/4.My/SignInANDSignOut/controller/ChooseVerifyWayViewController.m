@@ -10,11 +10,9 @@
 #import "PasswordVerifiedViewController.h"
 #import "SMSVerificationViewController.h"
 
-@interface ChooseVerifyWayViewController ()
+@interface ChooseVerifyWayViewController () <UITableViewDataSource,UITableViewDelegate>
 
-@property (strong, nonatomic)UITableView *CPTable;//选择找回密码方式
-
-@property (nonatomic, strong) UISwipeGestureRecognizer *RightSwipeGestureRecognizer;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -24,22 +22,7 @@
     [super viewDidLoad];
     
     self.title = @"验证方式";
-    
-    _CPTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 15, [UIScreen mainScreen].bounds.size.width, 88) style:UITableViewStylePlain];
-    
-    _CPTable.tableFooterView = [[UIView alloc] init];
-    
-    _CPTable.scrollEnabled = NO;
-    
-    _CPTable.layer.borderWidth = 1.0;
-    
-    _CPTable.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
-    
-    [self.CPTable setDelegate:self];
-    
-    [self.CPTable setDataSource:self];
-    
-    [self.view addSubview:_CPTable];
+
 }
 
 #pragma ---
