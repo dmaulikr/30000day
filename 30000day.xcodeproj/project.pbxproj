@@ -768,8 +768,8 @@
 		B88C91611C59F96D0089BEAE /* 4.Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9AE1C5C8D63002C7712 /* model */,
 				B88C91791C5A079C0089BEAE /* controller */,
+				B8F2D9AE1C5C8D63002C7712 /* model */,
 				B88C917A1C5A079C0089BEAE /* view */,
 			);
 			path = 4.Calendar;

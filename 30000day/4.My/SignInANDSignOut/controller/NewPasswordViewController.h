@@ -8,7 +8,7 @@
 
 #import "NewPasswordViewController.h"
 
-@interface NewPasswordViewController : STBaseViewController
+@interface NewPasswordViewController : ShowBackItemViewController
 
 @property (nonatomic,copy) NSString *mobileToken;
 

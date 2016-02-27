@@ -44,7 +44,7 @@
     
     [super viewDidLoad];
     
-    self.title = @"闪电注册";
+    self.title = @"手机验证";
     
     [self.phoneNumber setDelegate:self];
     
