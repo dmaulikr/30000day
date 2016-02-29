@@ -24,7 +24,7 @@
 
 @property (nonatomic,copy) NSString *headImg;
 
-@property (nonatomic,strong) NSNumber *curLife;//已经过去的天龄
+@property (nonatomic,strong) NSNumber *curLife;//当前的的天龄
 
 @property (nonatomic , strong) NSNumber *flag;//0 表示不是好友 1表示是好友 -1表示是自己
 

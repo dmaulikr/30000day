@@ -227,14 +227,11 @@
         
     } else if (indexPath.section == 1) {
         
-        
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
         
         if ( cell == nil ) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TableViewCell"];
-            
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             cell.textLabel.textColor = [UIColor blackColor];
             

@@ -41,7 +41,7 @@
             
             self.informationModel = informationModel;
             
-            [self calculateMoreAge:informationModel.pm25Quality];
+//            [self calculateMoreAge:informationModel.pm25Quality];
             
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
@@ -65,41 +65,41 @@
 }
 
 //将pm2.5数据计算加至天龄
-- (void)calculateMoreAge:(NSString *)pm25 {
-    
-    NSString *sumDay = @"0";//总加减天数
-    
-    if ([pm25 isEqualToString:@"优"]) {
-        
-        sumDay = @"+0.05";
-        
-    } else if ([pm25 isEqualToString:@"良"]) {
-        
-        sumDay = @"+0.03";
-        
-    } else if ([pm25 isEqualToString:@"轻度污染"]) {
-        
-        sumDay = @"+0.00";
-        
-    } else if ([pm25 isEqualToString:@"中度污染"]) {
-        
-        sumDay=@"-0.02";
-        
-    } else if ([pm25 isEqualToString:@"重度污染"]) {
-        
-        sumDay = @"-0.05";
-        
-    } else if ([pm25 isEqualToString:@"严重污染"]) {
-        
-        sumDay = @"-0.10";
-        
-    }
-    
-    jk *j = [[jk alloc] init];
-    
-    j.sumDay = sumDay;
-    
-}
+//- (void)calculateMoreAge:(NSString *)pm25 {
+//    
+//    NSString *sumDay = @"0";//总加减天数
+//    
+//    if ([pm25 isEqualToString:@"优"]) {
+//        
+//        sumDay = @"+0.05";
+//        
+//    } else if ([pm25 isEqualToString:@"良"]) {
+//        
+//        sumDay = @"+0.03";
+//        
+//    } else if ([pm25 isEqualToString:@"轻度污染"]) {
+//        
+//        sumDay = @"+0.00";
+//        
+//    } else if ([pm25 isEqualToString:@"中度污染"]) {
+//        
+//        sumDay=@"-0.02";
+//        
+//    } else if ([pm25 isEqualToString:@"重度污染"]) {
+//        
+//        sumDay = @"-0.05";
+//        
+//    } else if ([pm25 isEqualToString:@"严重污染"]) {
+//        
+//        sumDay = @"-0.10";
+//        
+//    }
+//    
+//    jk *j = [[jk alloc] init];
+//    
+//    j.sumDay = sumDay;
+//    
+//}
 
 - (void)reloadData {
     
@@ -180,7 +180,7 @@
         }
         
         //刷新数据
-        [cell reloadData:self.totalLifeDayNumber];
+        [cell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday];
         
         return cell;
         

@@ -8,6 +8,17 @@
 
 #import "ActivityIndicatorTableViewCell.h"
 
+@interface ActivityIndicatorTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *label_1;
+
+@property (weak, nonatomic) IBOutlet UILabel *label_2;
+
+@property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
+
+@end
+
+
 @implementation ActivityIndicatorTableViewCell
 
 - (void)awakeFromNib {
@@ -24,22 +35,22 @@
     // Configure the view for the selected state
 }
 
-- (void)reloadData:(float)totalLifeDayNumber {
+- (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString {
     
     int hasbeen;
     
     int count = 0;
     
-    if ([[UserAccountHandler shareUserAccountHandler].userProfile.birthday isEqualToString:@""] || [UserAccountHandler shareUserAccountHandler].userProfile.birthday == nil) {
+    if ([Common isObjectNull:birthdayString]) {
         
         hasbeen = 0;
         
     } else {
         
-        hasbeen = [self getDays:[UserAccountHandler shareUserAccountHandler].userProfile.birthday];
+        hasbeen = [self getDays:birthdayString];
     }
     
-    NSArray *array = [[UserAccountHandler shareUserAccountHandler].userProfile.birthday componentsSeparatedByString:@"/"];
+    NSArray *array = [birthdayString componentsSeparatedByString:@"-"];
     
     int year = [array[0] intValue];
     
@@ -69,9 +80,12 @@
     
     self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
     
-    if (hasbeen==0) {
+    if (hasbeen == 0) {
+        
         self.indicatiorView.theme.completedColor = RGBACOLOR(230, 230, 230, 1);
-    }else{
+        
+    } else {
+        
         self.indicatiorView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
     }
     

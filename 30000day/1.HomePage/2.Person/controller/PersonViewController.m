@@ -10,6 +10,7 @@
 #import "PersonHeadView.h"
 #import "myFriendsTableViewCell.h"
 #import "UserInformationModel.h"
+#import "PersonDetailViewController.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -163,21 +164,35 @@
     
     cell.nameLab.text = informationModel.nickName;
     
-    cell.logName.text = @"暂无简介";
+    cell.logName.text = [Common isObjectNull:informationModel.remark] ? @"暂无简介" :informationModel.remark;
     
-    cell.progressView.progress = (double)([informationModel.curLife doubleValue]/[informationModel.totalLife doubleValue]);
+    cell.informationModel = informationModel;
     
     return cell;
     
 }
 
-- (int)pastDay:(NSString *)theDate {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    controller.informationModel = _dataArray[indexPath.row];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+}
+
+- (int)pastDay:(NSString *)birthdayString {
     
     NSDateFormatter *date = [[NSDateFormatter alloc] init];
     
     [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSDate *d = [date dateFromString:theDate];
+    NSDate *d = [date dateFromString:birthdayString];
     
     NSTimeInterval late = [d timeIntervalSince1970]*1;
     
