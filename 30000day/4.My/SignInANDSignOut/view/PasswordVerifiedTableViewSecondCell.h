@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PasswordVerifiedTableViewCellTwo : UITableViewCell
+@interface PasswordVerifiedTableViewSecondCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *problem;
 

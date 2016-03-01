@@ -6,9 +6,9 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "PasswordVerifiedTableViewCellTwo.h"
+#import "PasswordVerifiedTableViewSecondCell.h"
 
-@implementation PasswordVerifiedTableViewCellTwo
+@implementation PasswordVerifiedTableViewSecondCell
 
 - (void)awakeFromNib {
     // Initialization code
