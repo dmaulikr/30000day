@@ -14,6 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
-@property (nonatomic,copy) NSDictionary *PasswordVerifiedDic;
+@property (nonatomic,copy) NSDictionary *passwordVerifiedDic;
 
 @end
