@@ -80,7 +80,7 @@
             
             PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
             
-            sp.PasswordVerifiedDic=success;
+            sp.passwordVerifiedDic=success;
             
             [self.navigationController pushViewController:sp animated:YES];
             
