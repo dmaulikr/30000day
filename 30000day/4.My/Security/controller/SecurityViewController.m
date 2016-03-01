@@ -8,9 +8,10 @@
 
 #import "SecurityViewController.h"
 #import "securityTableViewCell.h"
+#import "ChangePasswordViewController.h"
+#import "ChangePasswordProtectViewController.h"
 
-
-@interface SecurityViewController ()
+@interface SecurityViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSArray *titleCellArray;
 
@@ -28,9 +29,6 @@
     [self.tableView setTableFooterView:footerview];
     
     self.titleCellArray = [NSArray arrayWithObjects:@"修改密保",@"修改密码",@"修改手机号码",@"账号绑定", nil];
-    
-    self.tableView.scrollEnabled = NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,9 +68,34 @@
         cell = [objs lastObject];
     }
     
-    cell.textLabel.text=self.titleCellArray[indexPath.row];
+    cell.textLabel.text = self.titleCellArray[indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row == 0) {
+        
+        ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+        
+    } else if (indexPath.row == 1) {
+        
+        ChangePasswordViewController *controller = [[ChangePasswordViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }
+    
 }
 
 /*

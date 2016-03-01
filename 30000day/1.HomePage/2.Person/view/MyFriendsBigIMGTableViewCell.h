@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDPieLoopProgressView.h"
+#import "MDRadialProgressView.h"
+#import "MDRadialProgressTheme.h"
+#import "UserInformationModel.h"
 
 @interface MyFriendsBigIMGTableViewCell : UITableViewCell
 
@@ -19,6 +21,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *logName;
 
-@property (weak, nonatomic) IBOutlet SDPieLoopProgressView *progressView;
+@property (weak, nonatomic) IBOutlet MDRadialProgressView *progressView;
+
+@property (nonatomic,strong)UserInformationModel *informationModel;
 
 @end

@@ -237,9 +237,7 @@
     
     [_userlognamepwd removeObjectAtIndex:sender.tag];
     
-    [[NSUserDefaults standardUserDefaults] setObject:_userlognamepwd forKey:@"userlognamepwd"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:_userlognamepwd];
     
     [_tableview reloadData];
     

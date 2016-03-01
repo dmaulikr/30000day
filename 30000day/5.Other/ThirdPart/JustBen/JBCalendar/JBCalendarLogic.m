@@ -254,13 +254,15 @@ static BOOL MonthDataForInit, WeekDataForInit;
     }
 }
 
-- (void)setSelectedDate:(NSDate *)selectedDate
-{
+- (void)setSelectedDate:(NSDate *)selectedDate {
+    
     if (selectedDate && [selectedDate isKindOfClass:[NSDate class]]) {
+        
         if (_selectedDate && selectedDate.year == _selectedDate.year && selectedDate.month == _selectedDate.month && selectedDate.day == _selectedDate.day) {
-        } else {
-            _selectedDate = selectedDate;
             
+        } else {
+            
+            _selectedDate = selectedDate;
             
             [[NSNotificationCenter defaultCenter] postNotificationName:UpdateSelectedDateNotification object:_selectedDate];
         }

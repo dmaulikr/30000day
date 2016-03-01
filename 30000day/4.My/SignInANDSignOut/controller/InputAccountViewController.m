@@ -25,7 +25,7 @@
     
     self.submitBtn.layer.cornerRadius = 6;
     
-    self.submitBtn.layer.masksToBounds=YES;
+    self.submitBtn.layer.masksToBounds = YES;
     
 }
 

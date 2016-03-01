@@ -20,15 +20,15 @@
                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-4A-whl">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-4A-whl">
                         <rect key="frame" x="363" y="377" width="22" height="22"/>
                     </imageView>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-4N-lzk" customClass="SDPieLoopProgressView">
-                        <rect key="frame" x="336" y="377" width="22" height="22"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-4N-lzk" customClass="MDRadialProgressView">
+                        <rect key="frame" x="328" y="369" width="30" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="22" id="3SL-Uu-bl1"/>
-                            <constraint firstAttribute="width" constant="22" id="6NG-HG-WYd"/>
+                            <constraint firstAttribute="height" constant="30" id="3SL-Uu-bl1"/>
+                            <constraint firstAttribute="width" constant="30" id="6NG-HG-WYd"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qvm-z8-I65">

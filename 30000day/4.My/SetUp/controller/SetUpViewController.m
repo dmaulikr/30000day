@@ -27,9 +27,6 @@
     [self.tableView setTableFooterView:footerview];
     
     self.titleCellArray = [NSArray arrayWithObjects:@"pm2.5预警",@"天龄下降预警",nil];
-    
-    self.tableView.scrollEnabled = NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {

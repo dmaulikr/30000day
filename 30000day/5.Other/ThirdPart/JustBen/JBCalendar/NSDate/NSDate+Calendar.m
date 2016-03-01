@@ -36,6 +36,7 @@
 - (NSDateComponents *)componentsOfDay
 {
     static NSDateComponents *dateComponents = nil;
+    
     static NSDate *previousDate = nil;
     
     if (!previousDate || ![previousDate isEqualToDate:self]) {

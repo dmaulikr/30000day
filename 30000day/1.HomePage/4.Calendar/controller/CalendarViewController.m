@@ -415,7 +415,6 @@
             self.chooseTodayButton.hidden = NO;
         }
         
-        
         NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
         
         NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];

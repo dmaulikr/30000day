@@ -114,7 +114,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 
 //**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
-- (void)sendUserLifeListWithCurrentUserId:(NSString *)currentUserId
+- (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                 success:(void (^)(NSMutableArray *dataArray))success

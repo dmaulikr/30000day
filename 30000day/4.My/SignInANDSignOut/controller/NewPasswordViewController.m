@@ -36,8 +36,7 @@
     self.subimitBtn.layer.cornerRadius = 6;
     
     self.subimitBtn.layer.masksToBounds = YES;
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
+
 }
 
 - (IBAction)updateBtn:(UIButton *)sender {
@@ -81,10 +80,10 @@
     }
 }
 
-- (void)cancelAction {
+- (void)backClick {
     
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    
 }
-
 
 @end

@@ -61,16 +61,19 @@
 //下载健康因素
 - (void)loadFactor {
     
+    [self showHUDWithContent:@"正在加载" animated:YES];
     //获取所有的健康因子
     [self.dataHandler sendGetFactors:^(NSMutableArray *dataArray) {
        
+        [self hideHUD:YES];
+        
         self.getFactorArray = dataArray;
         
         [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
         
-        [self showToast:error.error.userInfo[NSLocalizedDescriptionKey]];
+        [self hideHUD:YES];
         
     }];
 }

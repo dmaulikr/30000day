@@ -12,12 +12,6 @@
 
 @interface ActivityIndicatorTableViewCell : UITableViewCell
 
-@property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
-
-- (void)reloadData:(float)totalLifeDayNumber;
-
-@property (weak, nonatomic) IBOutlet UILabel *label_1;
-
-@property (weak, nonatomic) IBOutlet UILabel *label_2;
+- (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString;
 
 @end
