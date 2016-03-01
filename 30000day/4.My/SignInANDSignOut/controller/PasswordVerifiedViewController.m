@@ -16,10 +16,14 @@
 
 @interface PasswordVerifiedViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *problemIsNullLable;
+@property (weak, nonatomic) IBOutlet UIImageView *problemIsNullImage;
+
 @property (nonatomic,strong) PasswordVerifiedTableViewCell *PasswordVerifiedCell;
 @property (nonatomic,strong) PasswordVerifiedTableViewCellOne *PasswordVerifiedCellOne;
 @property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *PasswordVerifiedCellTwo;
 @property (nonatomic,strong) PasswordVerifiedTableViewCellThree *PasswordVerifiedCellThree;
+
 @property (nonatomic,strong) NSMutableDictionary *problemDic;
 @property (nonatomic,strong) NSMutableDictionary *problemIdentification;
 @end
@@ -30,6 +34,8 @@
     [super viewDidLoad];
     
     self.title = @"密保验证";
+    
+    
     
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步"
                                                                     style:UIBarButtonItemStylePlain
@@ -48,16 +54,21 @@
         }
         
     }
-
-    if (self.problemIdentification.count>=1) {
-        
-    }else{
-        return;
-    }
-    
     
     [self.mainTableView setDataSource:self];
     [self.mainTableView setDelegate:self];
+    
+    if (self.problemIdentification.count>=1) {
+        self.problemIsNullLable.hidden=YES;
+        self.problemIsNullImage.hidden=YES;
+    }else{
+        self.problemIsNullLable.text=@"您未设置过密保问题\n请通过其他途径找回密码！";
+        self.problemIsNullLable.hidden=NO;
+        self.problemIsNullImage.hidden=NO;
+        [self.mainTableView removeFromSuperview];
+        return;
+    }
+    
     
     [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *arr) {
     
