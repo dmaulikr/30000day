@@ -20,23 +20,28 @@
 
 @property (nonatomic,strong)NSArray *titleArray;
 
-@property (nonatomic,strong) UIImageView *portraitImageView;
+@property (nonatomic,strong) UIImageView *portraitImageView;//cell上面的imageView的指针
+@property (nonatomic,strong) UIImage * editorImage;//经过用户编辑后的图片
+@property (nonatomic ,strong) UIImage *copareImage;//用来比较用户是否修改了图片
+@property (nonatomic,copy) NSString *headImageURLString;
 
-@property (nonatomic,strong) UIImage * editorImage;
 
-@property (nonatomic,copy) NSString *NickName;
+@property (nonatomic,copy) NSString *nickName;//用来比较用户是否修改了昵称
+@property (nonatomic,copy) NSString *currentChooseNickName;//当前用户修改的昵称,如果没有修改那么，其值称为原来的昵称
 
-@property (nonatomic,copy) NSNumber *gender;
 
-@property (nonatomic,copy) NSString *lastBirthdayString;//程序刚进来保存的上次生日用来对比的
+@property (nonatomic,copy) NSNumber *gender;//用来比较用户是否修改了性别
+@property (nonatomic,copy) NSNumber *currentChooseGender;//当前选择的性别
 
-@property (nonatomic,copy) NSString *currentChooseBirthdayString;//每次点击生日选择该字符串都会被置空
+
+@property (nonatomic,copy) NSString *lastBirthdayString;//用来比较用户是否修改了生日
+@property (nonatomic,copy) NSString *currentChooseBirthdayString;//当前选择的生日
+@property (nonatomic,copy) NSString *currentChooseBirthdayString_QGPickView;//每次点击生日选择该字符串都会被置空
+
 
 @property (nonatomic ,strong) UIBarButtonItem *saveButton;
 
-@property (nonatomic ,strong) UIImage *copareImage;
-
-@property (nonatomic,copy) NSString *headImageURLString;
+@property (nonatomic,strong) NSIndexPath *selectorIndexPath;
 
 @end
 
@@ -54,11 +59,21 @@
     
     self.saveButton.enabled = NO;
     
-    self.NickName = STUserAccountHandler.userProfile.nickName;
+    
+    self.nickName = STUserAccountHandler.userProfile.nickName;
+    self.currentChooseNickName = STUserAccountHandler.userProfile.nickName;
+    
     
     self.gender = STUserAccountHandler.userProfile.gender;
+    self.currentChooseGender = STUserAccountHandler.userProfile.gender;
+    
     
     self.lastBirthdayString = STUserAccountHandler.userProfile.birthday;
+    self.currentChooseBirthdayString = STUserAccountHandler.userProfile.birthday;
+    
+    
+    self.headImageURLString = STUserAccountHandler.userProfile.headImg;
+    
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
@@ -73,10 +88,24 @@
 
 - (void)saveButtonClick {
 
+    if ([Common isObjectNull:self.currentChooseNickName]) {
+        
+        [self showToast:@"昵称不能为空"];
+        
+        return;
+    }
+    
+    if ([Common isObjectNull:self.currentChooseBirthdayString]) {
+        
+        [self showToast:@"生日不能为空"];
+        
+        return;
+    }
+    
     [self showHUDWithContent:@"正在保存" animated:YES];
-
+    
     //上传服务器
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:self.currentChooseBirthdayString headImageUrlString:self.headImageURLString success:^(BOOL success) {
+    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:self.currentChooseNickName gender:self.currentChooseGender birthday:self.currentChooseBirthdayString headImageUrlString:self.headImageURLString success:^(BOOL success) {
         
         [self hideHUD:YES];
         
@@ -205,19 +234,19 @@
             
             if ( indexPath.row == 1) {
                 
-                cell.detailTextLabel.text = STUserAccountHandler.userProfile.nickName;
+                cell.detailTextLabel.text = self.currentChooseNickName;
                 
                 cell.textLabel.text = @"昵称";
             
             } else if ( indexPath.row == 2) {
                 
-                cell.detailTextLabel.text = [STUserAccountHandler.userProfile.gender isEqual:@1] ? @"男" : @"女";
+                cell.detailTextLabel.text = [self.currentChooseGender isEqual:@1] ? @"男" : @"女";
                 
                 cell.textLabel.text = @"性别";
                 
             } else if ( indexPath.row == 3) {
                 
-                cell.detailTextLabel.text = [Common isObjectNull:self.currentChooseBirthdayString]? STUserAccountHandler.userProfile.birthday : self.currentChooseBirthdayString;
+                cell.detailTextLabel.text = self.currentChooseBirthdayString;
                 
                 cell.textLabel.text = @"生日";
             }
@@ -265,6 +294,7 @@
     
 }
 
+//nickName birthday
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
@@ -275,13 +305,13 @@
             
         }else if(indexPath.row == 1){
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STUserAccountHandler.userProfile.nickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.currentChooseNickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
             
             UITextField *textfile = [alert textFieldAtIndex:0];
             
-            [textfile setText:STUserAccountHandler.userProfile.nickName];
+            [textfile setText:self.currentChooseNickName];
             
             [alert show];
             
@@ -299,6 +329,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self.selectorIndexPath = indexPath;//保存选中的indexPath
 }
 
 //选择生日
@@ -312,19 +343,25 @@
 
     picker.titleText = @"生日选择";
 
-    self.currentChooseBirthdayString = @"";
+    self.currentChooseBirthdayString_QGPickView = @"";
 
     //3.赋值
     [Common getYearArrayMonthArrayDayArrayWithYearNumber:100 hander:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
 
         NSArray *dateArray = [STUserAccountHandler.userProfile.birthday componentsSeparatedByString:@"-"];
         
-        NSString *yearString = (dateArray.count == 3) ? dateArray[0] : @"";
+        NSString *yearString =  (dateArray.count == 3) ? dateArray[0] : @"";
         
         NSString *monthString = (dateArray.count == 3) ? dateArray[1] : @"";
 
-        NSString *dayString = (dateArray.count == 3) ? dateArray[2] : @"";;
+        NSString *dayString =   (dateArray.count == 3) ? dateArray[2] : @"";;
 
+        if (![Common isObjectNull:yearString]) {
+            
+            yearString = [NSString stringWithFormat:@"%@年",yearString];
+            
+        }
+        
         if (monthString.length == 2 && [[monthString substringToIndex:1] isEqualToString:@"0"]) {
 
             monthString = [NSString stringWithFormat:@"%@月",[monthString substringFromIndex:1]];
@@ -347,25 +384,26 @@
         [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:yearString selectedTitle:monthString selectedTitle:dayString];
 
     }];
-
 }
 
 #pragma mark -- QGPickerViewDelegate
 
 - (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
 
-    self.currentChooseBirthdayString = [self.currentChooseBirthdayString stringByAppendingString:value];
+    self.currentChooseBirthdayString_QGPickView = [self.currentChooseBirthdayString_QGPickView stringByAppendingString:value];
 
     if (index == 3) {
 
-        NSArray *array  = [self.currentChooseBirthdayString componentsSeparatedByString:@"年"];
+        NSArray *array  = [self.currentChooseBirthdayString_QGPickView componentsSeparatedByString:@"年"];
 
         NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
 
         NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
 
-        self.currentChooseBirthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
-
+        self.currentChooseBirthdayString_QGPickView = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
+        
+        self.currentChooseBirthdayString = self.currentChooseBirthdayString_QGPickView;
+        
         [self.tableView reloadData];
         
         //判断保存按钮是否可用
@@ -378,25 +416,23 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    NSIndexPath *indexpath = self.tableView.indexPathForSelectedRow;
-
-    if ( indexpath.section == 0 && buttonIndex != 0 ) {
+    if ( self.selectorIndexPath.section == 0 && buttonIndex != 0 ) {
         
-        if (indexpath.row == 1 ) {
+        if (self.selectorIndexPath.row == 1 ) {
             
-            UITextField *textfile = [alertView textFieldAtIndex:0];
+            UITextField *textfield = [alertView textFieldAtIndex:0];
             
-            STUserAccountHandler.userProfile.nickName = textfile.text;
+            self.currentChooseNickName = textfield.text;
         }
-        if (indexpath.row == 2 ) {
+        if (self.selectorIndexPath.row == 2 ) {
             
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
                 
-                STUserAccountHandler.userProfile.gender = @1;
+                self.currentChooseGender = @1;
                 
             } else {
                 
-                STUserAccountHandler.userProfile.gender = @0;
+                self.currentChooseGender = @0;
                 
             }
         }
@@ -458,15 +494,13 @@
     UIImageWriteToSavedPhotosAlbum(originImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
     
     //保存headImage字段
-    
     [self updateImage:image];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
+- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     NSString *message = @"呵呵";
     
     if (!error) {
@@ -482,8 +516,8 @@
 //判断保存按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
-    if ([self.NickName isEqualToString:STUserAccountHandler.userProfile.nickName] &&
-        [self.gender isEqual:STUserAccountHandler.userProfile.gender] &&
+    if ([self.nickName isEqualToString:self.currentChooseNickName] &&
+        [self.gender isEqual:self.currentChooseGender] &&
         [self.lastBirthdayString isEqualToString:self.currentChooseBirthdayString] && [self.editorImage isEqual:self.portraitImageView.image]) {
         
         self.saveButton.enabled = NO;
