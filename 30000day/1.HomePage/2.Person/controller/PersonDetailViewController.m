@@ -39,7 +39,7 @@
 - (void)reloadData {
     
     //1.获取用户的天龄
-    [self.dataHandler sendUserLifeListWithCurrentUserId:self.informationModel.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
+    [self.dataHandler sendUserLifeListWithCurrentUserId:self.informationModel.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray lastObject];
         

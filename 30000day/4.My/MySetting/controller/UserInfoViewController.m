@@ -51,7 +51,9 @@
     self.saveButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonClick)];
     
     self.navigationItem.rightBarButtonItem = self.saveButton;
- 
+    
+    self.saveButton.enabled = NO;
+    
     self.NickName = STUserAccountHandler.userProfile.nickName;
     
     self.gender = STUserAccountHandler.userProfile.gender;
@@ -61,7 +63,6 @@
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
-    
 }
 
 - (void)reloadData {
@@ -400,7 +401,7 @@
             }
         }
 
-        [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
         
         //判断按钮是否可用
         [self judgeSaveButtonCanUse];

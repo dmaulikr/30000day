@@ -41,8 +41,6 @@
             
             self.informationModel = informationModel;
             
-//            [self calculateMoreAge:informationModel.pm25Quality];
-            
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
         } failure:^(NSError *error) {
@@ -64,48 +62,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
-//将pm2.5数据计算加至天龄
-//- (void)calculateMoreAge:(NSString *)pm25 {
-//    
-//    NSString *sumDay = @"0";//总加减天数
-//    
-//    if ([pm25 isEqualToString:@"优"]) {
-//        
-//        sumDay = @"+0.05";
-//        
-//    } else if ([pm25 isEqualToString:@"良"]) {
-//        
-//        sumDay = @"+0.03";
-//        
-//    } else if ([pm25 isEqualToString:@"轻度污染"]) {
-//        
-//        sumDay = @"+0.00";
-//        
-//    } else if ([pm25 isEqualToString:@"中度污染"]) {
-//        
-//        sumDay=@"-0.02";
-//        
-//    } else if ([pm25 isEqualToString:@"重度污染"]) {
-//        
-//        sumDay = @"-0.05";
-//        
-//    } else if ([pm25 isEqualToString:@"严重污染"]) {
-//        
-//        sumDay = @"-0.10";
-//        
-//    }
-//    
-//    jk *j = [[jk alloc] init];
-//    
-//    j.sumDay = sumDay;
-//    
-//}
-
 - (void)reloadData {
     
     //2.获取用户的天龄
 
-    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"8" success:^(NSMutableArray *dataArray) {
+    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray lastObject];
         
