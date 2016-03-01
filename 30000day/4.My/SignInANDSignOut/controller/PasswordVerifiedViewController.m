@@ -7,12 +7,21 @@
 //
 
 #import "PasswordVerifiedViewController.h"
-#import "UpdateLogPwd.h"
-#import "security.h"
+#import "PasswordVerifiedTableViewCell.h"
+#import "PasswordVerifiedTableViewCellOne.h"
+#import "PasswordVerifiedTableViewCellTwo.h"
+#import "PasswordVerifiedTableViewCellThree.h"
+#import "PasswordVerifiedTableViewCell.h"
+#import "NewPasswordViewController.h"
 
-@interface PasswordVerifiedViewController ()
-@property (nonatomic, strong) UISwipeGestureRecognizer *RightSwipeGestureRecognizer;
-@property (nonatomic, strong) security* s;
+@interface PasswordVerifiedViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,strong) PasswordVerifiedTableViewCell *PasswordVerifiedCell;
+@property (nonatomic,strong) PasswordVerifiedTableViewCellOne *PasswordVerifiedCellOne;
+@property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *PasswordVerifiedCellTwo;
+@property (nonatomic,strong) PasswordVerifiedTableViewCellThree *PasswordVerifiedCellThree;
+@property (nonatomic,strong) NSMutableDictionary *problemDic;
+@property (nonatomic,strong) NSMutableDictionary *problemIdentification;
 @end
 
 @implementation PasswordVerifiedViewController
@@ -22,176 +31,142 @@
     
     self.title = @"密保验证";
     
-    self.s = [security shareControl];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步"
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(verification)];
     
-    [self loadbtntitle];
+    self.navigationItem.rightBarButtonItem=rightBarItem;
     
-}
-
-- (void)loadbtntitle {
-
-    for (int i = 1; i <= 3; i++) {
+    self.problemIdentification=[NSMutableDictionary dictionary];
+    
+    for (int i=0; i<3; i++) {
         
-        NSString *str = [NSString stringWithFormat:@"Q%d",i];
-        
-        NSString *str1 = [NSString stringWithFormat:@"-w%d",i];
-        
-        if ([self.s.securityDic[str] isEqualToString:str1]) {
+        if (self.PasswordVerifiedDic[[NSString stringWithFormat:@"q%d",i+1]] != nil) {
             
-            continue;
-            
-        } else {
-            
-            NSString* str=[NSString stringWithFormat:@"Q%d",i];
-            
-            if (i==1) {
-                
-                [self.PBbtn1 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
-                
-            } if(i==2) {
-                
-                [self.PBbtn2 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
-                
-            } if(i==3) {
-                
-                [self.PBbtn3 setTitle:self.s.securityDic[str] forState:UIControlStateNormal];
-            }
+            [self.problemIdentification setObject:self.PasswordVerifiedDic[[NSString stringWithFormat:@"q%d",i+1]] forKey:[NSString stringWithFormat:@"q%d",i+1]];
         }
-    }
-    if (self.PBbtn1.titleLabel.text==nil) {
         
-        self.PBbtn1.hidden = YES;
-        
-        self.ASText1.hidden = YES;
-        
-    }
-    if (self.PBbtn2.titleLabel.text == nil) {
-        
-        self.PBbtn2.hidden = YES;
-        
-        self.ASText2.hidden = YES;
-    }
-    if (self.PBbtn3.titleLabel.text == nil) {
-        
-        self.PBbtn3.hidden = YES;
-        
-        self.ASText3.hidden = YES;
-    }
-}
-
-- (IBAction)submitbtn:(UIButton *)sender {
- 
-    NSString *URLString=@"http://116.254.206.7:12580/M/API/ValidateQuestion?";
-    
-    NSURL * URL = [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:URL];
-    
-    NSString *p1 = [[NSString alloc] init];
-    
-    NSString *p2 = [[NSString alloc] init];
-    NSString *p3 = [[NSString alloc]init];
-    
-    NSString* s1=[[NSString alloc]init];
-    NSString* s2=[[NSString alloc]init];
-    NSString* s3=[[NSString alloc]init];
-    
-    if (_PBbtn1.titleLabel.text==nil) {
-        p1=@"-w1";
-    }else{
-        p1=_PBbtn1.titleLabel.text;
-    }
-    if (_PBbtn2.titleLabel.text==nil) {
-        p2=@"-w2";
-    }else{
-        p2=_PBbtn2.titleLabel.text;
-    }
-    if (_PBbtn3.titleLabel.text==nil) {
-        p3=@"-w3";
-    }else{
-        p3=_PBbtn3.titleLabel.text;
     }
 
-    if (_ASText1.text==nil ||[_ASText1.text isEqualToString:@""]) {
-        s1=@"-m1";
+    if (self.problemIdentification.count>=1) {
+        
     }else{
-        s1=_ASText1.text;
-    }
-    if (_ASText2.text==nil ||[_ASText2.text isEqualToString:@""]) {
-        s2=@"-m2";
-    }else{
-        s2=_ASText2.text;
-    }
-    if (_ASText3.text==nil ||[_ASText3.text isEqualToString:@""]) {
-        s3=@"-m3";
-    }else{
-        s3=_ASText3.text;
+        return;
     }
     
     
-    NSString *param=[NSString stringWithFormat:@"LoginName=%@&q1=%@&a1=%@&q2=%@&a2=%@&q3=%@&a3=%@",self.s.loginName,
-                     p1,s1,
-                     p2,s2,
-                     p3,s3];
-    NSLog(@"%@",param);
+    [self.mainTableView setDataSource:self];
+    [self.mainTableView setDelegate:self];
     
-    NSData * postData = [param dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPMethod:@"post"];
-    [request setURL:URL];
-    [request setHTTPBody:postData];
+    [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *arr) {
     
-    NSURLResponse * response;
-    NSError * error;
-    NSData * backData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"error : %@",[error localizedDescription]);
-        UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:@"验证失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [alert show];
-    }else{
-        NSString* str=[[NSString alloc]initWithData:backData encoding:NSUTF8StringEncoding];
-        if ([str isEqualToString:@"-1"]) {
-            UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"错误提示" message:@"验证错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
-            [alert show];
-        }else{
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:backData options:NSJSONReadingAllowFragments error:nil];
+        self.problemDic=[NSMutableDictionary dictionary];
+        for (int i=0; i<arr.count; i++) {
             
-            if ([dic[@"loginName"] isEqualToString:self.s.loginName]) {
-                
-                UpdateLogPwd *uplog = [UpdateLogPwd sharedLogPwd];
-                
-                [uplog setLog:dic[@"loginName"]];
-                
-                [uplog setPwd:dic[@"loginPassword"]];
-                
-                [uplog setUserID:dic[@"UserID"]];
-                
-                NewPasswordViewController *uppwd = [[NewPasswordViewController alloc]init];
-                
-                uppwd.navigationItem.title=@"新密码";
-
-                [self.navigationController pushViewController:uppwd animated:YES];
-                
-                NSLog(@"%@",dic);
-            }
+            NSDictionary *dic=arr[i];
+            [self.problemDic setObject:dic[@"question"] forKey:dic[@"qid"]];
         }
-    }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    return [textField resignFirstResponder];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.ASText1 resignFirstResponder];
-    [self.ASText2 resignFirstResponder];
-    [self.ASText3 resignFirstResponder];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+        [self.mainTableView reloadData];
+        
+    } failure:^(LONetError *error) {
+        NSLog(@"获取所有密保问题失败");
+    }];
     
+
 }
+
+-(void)verification{
+    
+    NSMutableArray *answerMutableArray=[NSMutableArray array];
+    
+    if (self.PasswordVerifiedCell.answer.text != nil && ![self.PasswordVerifiedCell.answer.text isEqualToString:@""]) {
+        [answerMutableArray addObject:self.PasswordVerifiedCell.answer.text];
+    }
+    
+    if (self.PasswordVerifiedCellOne.answer.text != nil && ![self.PasswordVerifiedCellOne.answer.text isEqualToString:@""]) {
+        [answerMutableArray addObject:self.PasswordVerifiedCellOne.answer.text];
+    }
+    
+    if (self.PasswordVerifiedCellTwo.answer.text != nil && ![self.PasswordVerifiedCellTwo.answer.text isEqualToString:@""]) {
+        [answerMutableArray addObject:self.PasswordVerifiedCellTwo.answer.text];
+    }
+    
+    [self.dataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] answer:answerMutableArray success:^(NSString *successToken) {
+        
+        [self showToast:@"验证成功"];
+        
+        NewPasswordViewController *newPassword=[[NewPasswordViewController alloc]init];
+        newPassword.mobileToken=successToken;
+        newPassword.type=YES;
+        [self.navigationController pushViewController:newPassword animated:YES];
+        
+    } failure:^(LONetError *error) {
+        
+        [self showToast:@"验证失败"];
+        
+    }];
+    
+    NSLog(@"%@",answerMutableArray);
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    return 1;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.problemIdentification.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 89;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (indexPath.section==0) {
+        
+        self.PasswordVerifiedCell=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCell"];
+        
+        if (self.PasswordVerifiedCell==nil) {
+            self.PasswordVerifiedCell=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        self.PasswordVerifiedCell.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q1"] integerValue])]];
+        
+        return self.PasswordVerifiedCell;
+    }
+    
+    if (indexPath.section==1) {
+        
+        self.PasswordVerifiedCellOne=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellOne"];
+        
+        if (self.PasswordVerifiedCellOne==nil) {
+            self.PasswordVerifiedCellOne=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellOne" owner:nil options:nil] lastObject];
+        }
+        self.PasswordVerifiedCellOne.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q2"] integerValue])]];
+        
+        return self.PasswordVerifiedCellOne;
+    }
+    
+    if (indexPath.section==2) {
+        
+        self.PasswordVerifiedCellTwo=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellTwo"];
+        
+        if (self.PasswordVerifiedCellTwo==nil) {
+            self.PasswordVerifiedCellTwo=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellTwo" owner:nil options:nil] lastObject];
+        }
+        self.PasswordVerifiedCellTwo.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q3"] integerValue])]];
+        
+        return self.PasswordVerifiedCellTwo;
+    }
+    
+    return nil;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 @end

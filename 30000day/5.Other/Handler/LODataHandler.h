@@ -153,4 +153,25 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                            success:(void (^)(NSString *imageUrl))success
                            failure:(void (^)(NSError *error))failure;
 
+//***********************************获取个人密保问题*********************/
+- (void)sendGetSecurityQuestion:(NSString *)userId
+                       success:(void (^)(NSDictionary *dic))success
+                       failure:(void (^)(LONetError *error))failure;
+
+//***********************************获取所有密保问题*********************/
+- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *arr))sucess
+                           failure:(void (^)(LONetError *error))failure;
+
+//***********************************验证个人密保问题*********************/
+- (void)sendSecurityQuestionvalidate:(NSString *)userId
+                        answer:(NSArray *)answerArr
+                        success:(void (^)(NSString *successToken))success
+                        failure:(void (^)(LONetError *error))failure;
+
+//***********************************密保修改密码*********************/
+- (void)sendSecurityQuestionUptUserPwdBySecu:(NSString *)userId
+                               token:(NSString *)token
+                            password:(NSString *)password
+                             success:(void (^)(BOOL success))success
+                             failure:(void (^)(LONetError *error))failure;
 @end

@@ -125,6 +125,14 @@
 
 #define  GET_USERID_BY_NAME           @"/stapi/userInfo/getUserIdByName"              //通过用户名获取userId
 
+#define  GET_SECURITY_QUESTION        @"/stapi/security/getUserSecurity"              //获取个人密保问题
+
+#define  GET_SECURITY_QUESTION_SUM    @"/stapi/security/getSecurityData"              //获取所有密保问题
+
+#define  GET_SECURITY_QUESTION_VERIFICATION    @"/stapi/security/valUserSecurity"              //验证个人密保问题
+
+#define  GET_SECURITY_QUESTION_UPTUSERPWDBYSECU   @"/stapi/password/uptUserPwdBySecu"              //验证个人密保问题
+
 #endif
 
 #endif /* PrefixHeader_pch */

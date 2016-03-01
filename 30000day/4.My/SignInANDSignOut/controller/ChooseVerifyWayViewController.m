@@ -92,9 +92,21 @@
         
     } if (indexPath.row == 1) {
         
-        PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
+        [self.dataHandler sendGetSecurityQuestion:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                          success:^(NSDictionary *success) {
+            
+            PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
+            
+            sp.PasswordVerifiedDic=success;
+            
+            [self.navigationController pushViewController:sp animated:YES];
+            
+        } failure:^(LONetError *error) {
+            
+        }];
         
-        [self.navigationController pushViewController:sp animated:YES];
+        
+
     }
 }
 
