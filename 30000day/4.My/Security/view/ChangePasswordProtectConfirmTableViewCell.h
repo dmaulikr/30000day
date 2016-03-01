@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PasswordVerifiedTableViewCellThree : UITableViewCell
+@interface ChangePasswordProtectConfirmTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIButton *ConfirmButton;
+
 
 @end

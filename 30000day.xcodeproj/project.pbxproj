@@ -14,12 +14,18 @@
 		B60D85891C81B0DA0091F4EE /* PasswordVerifiedTableViewCellOne.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85871C81B0DA0091F4EE /* PasswordVerifiedTableViewCellOne.xib */; };
 		B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D858B1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.m */; };
 		B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.xib */; };
-		B60D85921C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85901C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.m */; };
-		B60D85931C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85911C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.xib */; };
 		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
 		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B6EE42EB1C8577E000CC713C /* SKDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EE42EA1C8577E000CC713C /* SKDropDown.m */; };
+		B6EE42EF1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EE42ED1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.m */; };
+		B6EE42F01C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EE42EE1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.xib */; };
+		B6EE42F41C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EE42F21C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.m */; };
+		B6EE42F51C8581FD00CC713C /* ChangePasswordProtectTwoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EE42F31C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.xib */; };
+		B6EE42F91C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EE42F71C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.m */; };
+		B6EE42FA1C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EE42F81C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.xib */; };
+		B6EE42FE1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EE42FC1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.m */; };
+		B6EE42FF1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EE42FD1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.xib */; };
 		B808FB581C7718D20000449C /* UserLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB571C7718D20000449C /* UserLifeModel.m */; };
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
 		B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A4B1C70820100063269 /* UIView+Extension.m */; };
@@ -221,9 +227,6 @@
 		B60D858A1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCellTwo.h; sourceTree = "<group>"; };
 		B60D858B1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCellTwo.m; sourceTree = "<group>"; };
 		B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCellTwo.xib; sourceTree = "<group>"; };
-		B60D858F1C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCellThree.h; sourceTree = "<group>"; };
-		B60D85901C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCellThree.m; sourceTree = "<group>"; };
-		B60D85911C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCellThree.xib; sourceTree = "<group>"; };
 		B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewCell.h; sourceTree = "<group>"; };
 		B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewCell.m; sourceTree = "<group>"; };
 		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
@@ -231,6 +234,18 @@
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B6EE42E91C8577E000CC713C /* SKDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKDropDown.h; sourceTree = "<group>"; };
 		B6EE42EA1C8577E000CC713C /* SKDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDropDown.m; sourceTree = "<group>"; };
+		B6EE42EC1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordProtectFirstTableViewCell.h; sourceTree = "<group>"; };
+		B6EE42ED1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordProtectFirstTableViewCell.m; sourceTree = "<group>"; };
+		B6EE42EE1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordProtectFirstTableViewCell.xib; sourceTree = "<group>"; };
+		B6EE42F11C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordProtectTwoTableViewCell.h; sourceTree = "<group>"; };
+		B6EE42F21C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordProtectTwoTableViewCell.m; sourceTree = "<group>"; };
+		B6EE42F31C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordProtectTwoTableViewCell.xib; sourceTree = "<group>"; };
+		B6EE42F61C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordProtectThreeTableViewCell.h; sourceTree = "<group>"; };
+		B6EE42F71C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordProtectThreeTableViewCell.m; sourceTree = "<group>"; };
+		B6EE42F81C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordProtectThreeTableViewCell.xib; sourceTree = "<group>"; };
+		B6EE42FB1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordProtectConfirmTableViewCell.h; sourceTree = "<group>"; };
+		B6EE42FC1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordProtectConfirmTableViewCell.m; sourceTree = "<group>"; };
+		B6EE42FD1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordProtectConfirmTableViewCell.xib; sourceTree = "<group>"; };
 		B808FB561C7718D20000449C /* UserLifeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLifeModel.h; sourceTree = "<group>"; };
 		B808FB571C7718D20000449C /* UserLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLifeModel.m; sourceTree = "<group>"; };
 		B808FB5A1C780D250000449C /* GetFactorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFactorModel.h; sourceTree = "<group>"; };
@@ -1173,6 +1188,18 @@
 				B8F2D8C71C5B390E002C7712 /* securityTableViewCell.h */,
 				B8F2D8C81C5B390E002C7712 /* securityTableViewCell.m */,
 				B8F2D8C91C5B390E002C7712 /* securityTableViewCell.xib */,
+				B6EE42EC1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.h */,
+				B6EE42ED1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.m */,
+				B6EE42EE1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.xib */,
+				B6EE42F11C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.h */,
+				B6EE42F21C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.m */,
+				B6EE42F31C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.xib */,
+				B6EE42F61C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.h */,
+				B6EE42F71C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.m */,
+				B6EE42F81C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.xib */,
+				B6EE42FB1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.h */,
+				B6EE42FC1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.m */,
+				B6EE42FD1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1510,9 +1537,6 @@
 				B60D858A1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.h */,
 				B60D858B1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.m */,
 				B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.xib */,
-				B60D858F1C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.h */,
-				B60D85901C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.m */,
-				B60D85911C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1624,9 +1648,9 @@
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
-				B60D85931C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.xib in Resources */,
 				B8F2DA621C5F3D8B002C7712 /* city.plist in Resources */,
 				B8F2DA641C5F3D8B002C7712 /* Element.plist in Resources */,
+				B6EE42F51C8581FD00CC713C /* ChangePasswordProtectTwoTableViewCell.xib in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
 				B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
@@ -1634,10 +1658,12 @@
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewCellTwo.xib in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
+				B6EE42F01C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.xib in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */,
+				B6EE42FA1C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
@@ -1660,6 +1686,7 @@
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */,
 				B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */,
+				B6EE42FF1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.xib in Resources */,
 				B8F2DA691C5F3D8B002C7712 /* UserPassWordProblem.plist in Resources */,
 				B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */,
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
@@ -1736,6 +1763,7 @@
 				B8F2D9A31C5C8B1A002C7712 /* JBBasicFileManager.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
+				B6EE42F91C85822A00CC713C /* ChangePasswordProtectThreeTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewCellOne.m in Sources */,
 				B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */,
@@ -1784,10 +1812,12 @@
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
+				B6EE42FE1C85A57100CC713C /* ChangePasswordProtectConfirmTableViewCell.m in Sources */,
 				B6EE42EB1C8577E000CC713C /* SKDropDown.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,
 				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
+				B6EE42EF1C857CFB00CC713C /* ChangePasswordProtectFirstTableViewCell.m in Sources */,
 				B8FD3AD71C852BE3007BCA6B /* ChangePasswordViewController.m in Sources */,
 				B89216B41C5F468C0023F8A8 /* ShowBackItemViewController.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
@@ -1812,6 +1842,7 @@
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B886E8701C7EAE1200E64BEC /* RemindContentTableViewCell.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
+				B6EE42F41C8581FC00CC713C /* ChangePasswordProtectTwoTableViewCell.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
@@ -1837,7 +1868,6 @@
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
-				B60D85921C81B11A0091F4EE /* PasswordVerifiedTableViewCellThree.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,

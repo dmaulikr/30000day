@@ -79,12 +79,36 @@
     
     if (indexPath.row == 0) {
         
-        ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
+        [self showHUD:YES];
         
-        controller.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        
+        [self.dataHandler sendGetUserIdByUserName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSNumber *userId) {
+            [self.dataHandler sendGetSecurityQuestion:userId
+                                              success:^(NSDictionary *success) {
+                                                  
+                                                  [self hideHUD:YES];
+                                                  
+                                                  ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
+                                                  
+                                                  controller.hidesBottomBarWhenPushed = YES;
+
+                                                  if ([Common isObjectNull:success]) {
+                                                      controller.isSet=NO;
+                                                  }else{
+                                                      controller.isSet=YES;
+                                                  }
+                                                  
+                                                  [self.navigationController pushViewController:controller animated:YES];
+                                                  
+                                              } failure:^(LONetError *error) {
+                                                  
+                                              }];
+            
+            
+        } failure:^(NSError *error) {
+            
+            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            
+        }];
         
     } else if (indexPath.row == 1) {
         

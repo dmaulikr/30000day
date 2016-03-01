@@ -10,4 +10,6 @@
 
 @interface ChangePasswordProtectViewController : ShowBackItemViewController
 
+@property (nonatomic,assign) BOOL isSet;
+
 @end

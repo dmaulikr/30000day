@@ -10,7 +10,6 @@
 #import "PasswordVerifiedTableViewCell.h"
 #import "PasswordVerifiedTableViewCellOne.h"
 #import "PasswordVerifiedTableViewCellTwo.h"
-#import "PasswordVerifiedTableViewCellThree.h"
 #import "PasswordVerifiedTableViewCell.h"
 #import "NewPasswordViewController.h"
 
@@ -25,8 +24,6 @@
 @property (nonatomic,strong) PasswordVerifiedTableViewCellOne *passwordVerifiedFirstCell;
 
 @property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *passwordVerifiedSecondCell;
-
-@property (nonatomic,strong) PasswordVerifiedTableViewCellThree *passwordVerifiedThirhdCell;
 
 @property (nonatomic,strong) NSMutableDictionary *problemDic;
 
