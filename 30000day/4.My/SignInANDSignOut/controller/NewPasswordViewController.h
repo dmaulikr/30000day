@@ -14,5 +14,6 @@
 
 @property (nonatomic,copy) NSString *mobile;
 
-@property (nonatomic,assign) BOOL type;//0表示手机验证 1表示密保验证
+@property (nonatomic,assign) BOOL type;//YES表示密保验证 NO表示手机验证
+
 @end

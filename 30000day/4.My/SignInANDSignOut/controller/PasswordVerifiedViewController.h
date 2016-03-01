@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "NewPasswordViewController.h"
 
-
 @interface PasswordVerifiedViewController: ShowBackItemViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *mainTableView;
-
-@property (nonatomic,copy) NSDictionary *passwordVerifiedDic;
+@property (nonatomic,copy) NSDictionary *passwordVerifiedDictionary;
 
 @end

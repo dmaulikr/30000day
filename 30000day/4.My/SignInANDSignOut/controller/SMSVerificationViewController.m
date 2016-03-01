@@ -106,6 +106,8 @@
             
             controller.mobile = self.phoneNumber.text;
             
+            controller.type = NO;
+            
             controller.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:controller animated:YES];

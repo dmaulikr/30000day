@@ -76,7 +76,7 @@
     [self showHUDWithContent:@"正在保存" animated:YES];
 
     //上传服务器
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:STUserAccountHandler.userProfile.birthday headImageUrlString:self.headImageURLString success:^(BOOL success) {
+    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:STUserAccountHandler.userProfile.nickName gender:STUserAccountHandler.userProfile.gender birthday:self.currentChooseBirthdayString headImageUrlString:self.headImageURLString success:^(BOOL success) {
         
         [self hideHUD:YES];
         
@@ -217,7 +217,7 @@
                 
             } else if ( indexPath.row == 3) {
                 
-                cell.detailTextLabel.text= STUserAccountHandler.userProfile.birthday;
+                cell.detailTextLabel.text = [Common isObjectNull:self.currentChooseBirthdayString]? STUserAccountHandler.userProfile.birthday : self.currentChooseBirthdayString;
                 
                 cell.textLabel.text = @"生日";
             }
@@ -318,31 +318,33 @@
     [Common getYearArrayMonthArrayDayArrayWithYearNumber:100 hander:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
 
         NSArray *dateArray = [STUserAccountHandler.userProfile.birthday componentsSeparatedByString:@"-"];
+        
+        NSString *yearString = (dateArray.count == 3) ? dateArray[0] : @"";
+        
+        NSString *monthString = (dateArray.count == 3) ? dateArray[1] : @"";
 
-        NSString *monthStr = dateArray[1];
+        NSString *dayString = (dateArray.count == 3) ? dateArray[2] : @"";;
 
-        NSString *dayStr = dateArray[2];
+        if (monthString.length == 2 && [[monthString substringToIndex:1] isEqualToString:@"0"]) {
 
-        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
-
-            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
+            monthString = [NSString stringWithFormat:@"%@月",[monthString substringFromIndex:1]];
 
         } else {
 
-            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
+            monthString = [NSString stringWithFormat:@"%@月",monthString];
         }
 
-        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
+        if (dayString.length == 2 && [[dayString substringToIndex:1] isEqualToString:@"0"]) {
 
-            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
+            dayString = [NSString stringWithFormat:@"%@日",[dayString substringFromIndex:1]];
 
         } else {
 
-            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
+            dayString = [NSString stringWithFormat:@"%@日",dayString];
         }
 
         //显示QGPickerView
-        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
+        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:yearString selectedTitle:monthString selectedTitle:dayString];
 
     }];
 
@@ -363,9 +365,7 @@
         NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
 
         self.currentChooseBirthdayString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
-        
-        STUserAccountHandler.userProfile.birthday = self.currentChooseBirthdayString;
-        
+
         [self.tableView reloadData];
         
         //判断保存按钮是否可用
@@ -484,7 +484,7 @@
     
     if ([self.NickName isEqualToString:STUserAccountHandler.userProfile.nickName] &&
         [self.gender isEqual:STUserAccountHandler.userProfile.gender] &&
-        [self.lastBirthdayString isEqualToString:STUserAccountHandler.userProfile.birthday] && [self.editorImage isEqual:self.portraitImageView.image]) {
+        [self.lastBirthdayString isEqualToString:self.currentChooseBirthdayString] && [self.editorImage isEqual:self.portraitImageView.image]) {
         
         self.saveButton.enabled = NO;
         

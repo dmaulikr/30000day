@@ -234,16 +234,13 @@
 }
 
 //************修改密码*****************//
-- (void)sendUpdateUserPasswordWithUserId:(NSNumber *)userId
-                                  mobile:(NSString *)mobile
+- (void)sendUpdateUserPasswordWithMobile:(NSString *)mobile
                              mobileToken:(NSString *)mobileToken
                                 password:(NSString *)password
                                  success:(void (^)(BOOL success))success
                                  failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
-    [parameters addParameter:userId forKey:@"userId"];
     
     [parameters addParameter:mobile forKey:@"mobile"];
     
@@ -252,7 +249,7 @@
     [parameters addParameter:password forKey:@"password"];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:UPDATE_USER_PASSWORD
+                                                        url:UPDATE_USER_PASSWORD_BYMOBILE
                                                  parameters:parameters
                                                     success:^(id responseObject) {
                                                         
@@ -1469,7 +1466,7 @@
 }
 
 //***********获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetUserFactorsWithUserId:(NSString *)userId
+- (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(LONetError *error))failure {
@@ -1588,7 +1585,7 @@
 }
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
-- (void)sendSaveUserFactorsWithUserId:(NSString *)userId
+- (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
                               success:(void (^)(BOOL success))success
                               failure:(void (^)(LONetError *error))failure {
@@ -1690,7 +1687,7 @@
     
 }
 
-- (void)sendUpdateUserHeadPortrait:(NSString *)userId
+- (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
                         headImage:(UIImage *)image
                           success:(void (^)(NSString *imageUrl))success
                           failure:(void (^)(NSError *))failure{
@@ -1721,7 +1718,7 @@
     
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"userId"] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [body appendData:[[NSString stringWithFormat:@"%@\r\n",@"1000000007"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n",userId] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -1791,8 +1788,7 @@
 }
 
 
-//***********私有API:获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
--(void)sendGetSecurityQuestion:(NSString *)userId
+-(void)sendGetSecurityQuestion:(NSNumber *)userId
                        success:(void (^)(NSDictionary *dic))success
                        failure:(void (^)(LONetError *error))failure{
     
@@ -1870,7 +1866,7 @@
 }
 
 
-- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *arr))sucess
+- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
                            failure:(void (^)(LONetError *error))failure{
 
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
@@ -1942,7 +1938,7 @@
 }
 
 
--(void)sendSecurityQuestionvalidate:(NSString *)userId
+-(void)sendSecurityQuestionvalidate:(NSNumber *)userId
                             answer:(NSArray *)answerArr
                             success:(void (^)(NSString *successToken))success
                             failure:(void (^)(LONetError *error))failure{
@@ -2023,7 +2019,7 @@
 
 }
 
--(void)sendSecurityQuestionUptUserPwdBySecu:(NSString *)userId
+-(void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
                                       token:(NSString *)token
                                    password:(NSString *)password
                                     success:(void (^)(BOOL success))success

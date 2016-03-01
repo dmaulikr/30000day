@@ -121,7 +121,7 @@
 
 #define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
 
-#define UPDATE_USER_PASSWORD          @"/stapi/password/uptUserPwd"                    //修改密码
+#define  UPDATE_USER_PASSWORD_BYMOBILE         @"/stapi/password/uptUserPwdByMobile"                    //修改密码
 
 #define  GET_USERID_BY_NAME           @"/stapi/userInfo/getUserIdByName"              //通过用户名获取userId
 

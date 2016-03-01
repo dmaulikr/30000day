@@ -9,6 +9,7 @@
 #import "ChooseVerifyWayViewController.h"
 #import "PasswordVerifiedViewController.h"
 #import "SMSVerificationViewController.h"
+#import "InputAccountViewController.h"
 
 @interface ChooseVerifyWayViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -75,21 +76,11 @@
         
     } if (indexPath.row == 1) {
         
-        [self.dataHandler sendGetSecurityQuestion:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
-                                          success:^(NSDictionary *success) {
-            
-            PasswordVerifiedViewController *sp = [[PasswordVerifiedViewController alloc]init];
-            
-            sp.passwordVerifiedDic=success;
-            
-            [self.navigationController pushViewController:sp animated:YES];
-            
-        } failure:^(LONetError *error) {
-            
-        }];
+        InputAccountViewController *controller = [[InputAccountViewController alloc] init];
         
+        controller.hidesBottomBarWhenPushed = YES;
         
-
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 

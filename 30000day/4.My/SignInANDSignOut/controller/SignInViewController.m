@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
 #import "SMSVerificationViewController.h"
-#import "InputAccountViewController.h"
+#import "ChooseVerifyWayViewController.h"
 #import "UserProfile.h"
 
 @interface SignInViewController () {
@@ -139,9 +139,9 @@
 #pragma mark - 找回密码
 - (IBAction)findPwd:(UIButton *)sender {
     
-    InputAccountViewController *logvf = [[InputAccountViewController alloc] init];
+    ChooseVerifyWayViewController *controller = [[ChooseVerifyWayViewController alloc] init];
 
-    [self.navigationController pushViewController:logvf animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - 登录

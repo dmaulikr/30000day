@@ -10,8 +10,5 @@
 
 @interface InputAccountViewController : ShowBackItemViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *submitBtn;
-
-@property (weak, nonatomic) IBOutlet UITextField *loginNameText;
 
 @end

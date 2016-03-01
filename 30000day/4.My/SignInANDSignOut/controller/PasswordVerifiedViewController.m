@@ -17,15 +17,23 @@
 @interface PasswordVerifiedViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *problemIsNullLable;
+
 @property (weak, nonatomic) IBOutlet UIImageView *problemIsNullImage;
 
 @property (nonatomic,strong) PasswordVerifiedTableViewCell *passwordVerifiedCell;
-@property (nonatomic,strong) PasswordVerifiedTableViewCellOne *passwordVerifiedCellOne;
-@property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *passwordVerifiedCellTwo;
-@property (nonatomic,strong) PasswordVerifiedTableViewCellThree *passwordVerifiedCellThree;
+
+@property (nonatomic,strong) PasswordVerifiedTableViewCellOne *passwordVerifiedFirstCell;
+
+@property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *passwordVerifiedSecondCell;
+
+@property (nonatomic,strong) PasswordVerifiedTableViewCellThree *passwordVerifiedThirhdCell;
 
 @property (nonatomic,strong) NSMutableDictionary *problemDic;
+
 @property (nonatomic,strong) NSMutableDictionary *problemIdentification;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation PasswordVerifiedViewController
@@ -40,74 +48,82 @@
                                                                    target:self
                                                                    action:@selector(verification)];
     
-    self.navigationItem.rightBarButtonItem=rightBarItem;
+    self.navigationItem.rightBarButtonItem = rightBarItem;
     
-    self.problemIdentification=[NSMutableDictionary dictionary];
-    
-    for (int i=0; i<3; i++) {
+    if ([Common isObjectNull:self.passwordVerifiedDictionary]) {
         
-        if (self.passwordVerifiedDic[[NSString stringWithFormat:@"q%d",i+1]] != nil) {
-            
-            [self.problemIdentification setObject:self.passwordVerifiedDic[[NSString stringWithFormat:@"q%d",i+1]] forKey:[NSString stringWithFormat:@"q%d",i+1]];
-        }
+        self.problemIsNullLable.text = @"您未设置过密保问题\n请通过其他途径找回密码！";
         
-    }
-    
-    [self.mainTableView setDataSource:self];
-    [self.mainTableView setDelegate:self];
-    
-    if (self.problemIdentification.count>=1) {
-        self.problemIsNullLable.hidden=YES;
-        self.problemIsNullImage.hidden=YES;
-    }else{
-        self.problemIsNullLable.text=@"您未设置过密保问题\n请通过其他途径找回密码！";
-        self.problemIsNullLable.hidden=NO;
-        self.problemIsNullImage.hidden=NO;
-        [self.mainTableView removeFromSuperview];
+        self.problemIsNullLable.hidden = NO;
+        
+        self.problemIsNullImage.hidden = NO;
+        
+        [self.tableView removeFromSuperview];
+        
+        rightBarItem.enabled = NO;
+        
         return;
+        
+    } else {
+        
+        self.problemIsNullLable.hidden = YES;
+        
+        self.problemIsNullImage.hidden = YES;
     }
     
+    self.problemIdentification = [NSMutableDictionary dictionary];
     
-    [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *arr) {
-    
-        self.problemDic=[NSMutableDictionary dictionary];
-        for (int i=0; i<arr.count; i++) {
+    for (int i = 0; i < 3; i++) {
+        
+        if (self.passwordVerifiedDictionary[[NSString stringWithFormat:@"q%d",i+1]] != nil) {
             
-            NSDictionary *dic=arr[i];
-            [self.problemDic setObject:dic[@"question"] forKey:dic[@"qid"]];
+            [self.problemIdentification setObject:self.passwordVerifiedDictionary[[NSString stringWithFormat:@"q%d",i+1]] forKey:[NSString stringWithFormat:@"q%d",i+1]];
         }
-        [self.mainTableView reloadData];
+    }
+    
+    [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *array) {
+    
+        self.problemDic = [NSMutableDictionary dictionary];
+        
+        for (int i = 0; i < array.count; i++) {
+            
+            NSDictionary *dictionary = array[i];
+            
+            [self.problemDic setObject:dictionary[@"question"] forKey:dictionary[@"qid"]];
+        }
+        
+        [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
+        
         NSLog(@"获取所有密保问题失败");
+        
     }];
-    
-
 }
 
--(void)verification{
+- (void)verification {
     
-    NSMutableArray *answerMutableArray=[NSMutableArray array];
+    NSMutableArray *answerMutableArray = [NSMutableArray array];
     
     if (![Common isObjectNull:self.passwordVerifiedCell.answer.text]) {
         [answerMutableArray addObject:self.passwordVerifiedCell.answer.text];
     }
     
-    if (![Common isObjectNull:self.passwordVerifiedCellOne.answer.text]) {
-        [answerMutableArray addObject:self.passwordVerifiedCellOne.answer.text];
+    if (![Common isObjectNull:self.passwordVerifiedFirstCell.answer.text]) {
+        [answerMutableArray addObject:self.passwordVerifiedFirstCell.answer.text];
     }
     
-    if (![Common isObjectNull:self.passwordVerifiedCellTwo.answer.text]) {
-        [answerMutableArray addObject:self.passwordVerifiedCellTwo.answer.text];
+    if (![Common isObjectNull:self.passwordVerifiedSecondCell.answer.text]) {
+        [answerMutableArray addObject:self.passwordVerifiedSecondCell.answer.text];
     }
     
     [self.dataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] answer:answerMutableArray success:^(NSString *successToken) {
         
         [self showToast:@"验证成功"];
         
-        NewPasswordViewController *newPassword=[[NewPasswordViewController alloc]init];
-        newPassword.mobileToken=successToken;
-        newPassword.type=YES;
+        NewPasswordViewController *newPassword = [[NewPasswordViewController alloc] init];
+        newPassword.mobileToken = successToken;
+        newPassword.type = YES;
         [self.navigationController pushViewController:newPassword animated:YES];
         
     } failure:^(LONetError *error) {
@@ -117,62 +133,65 @@
     }];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+#pragma --
+#pragma mark -- UITableViewDelegate/UITableViewDataSouce
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     return 1;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.problemIdentification.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 89;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section==0) {
+    if (indexPath.section == 0) {
         
-        self.passwordVerifiedCell=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCell"];
+        self.passwordVerifiedCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCell"];
         
-        if (self.passwordVerifiedCell==nil) {
-            self.passwordVerifiedCell=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCell" owner:nil options:nil] lastObject];
+        if (self.passwordVerifiedCell == nil) {
+            self.passwordVerifiedCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        self.passwordVerifiedCell.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q1"] integerValue])]];
+        self.passwordVerifiedCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q1"] integerValue])]];
         
         return self.passwordVerifiedCell;
     }
     
-    if (indexPath.section==1) {
+    if (indexPath.section == 1) {
         
-        self.passwordVerifiedCellOne=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellOne"];
+        self.passwordVerifiedFirstCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellOne"];
         
-        if (self.passwordVerifiedCellOne==nil) {
-            self.passwordVerifiedCellOne=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellOne" owner:nil options:nil] lastObject];
+        if (self.passwordVerifiedFirstCell == nil) {
+            self.passwordVerifiedFirstCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellOne" owner:nil options:nil] lastObject];
         }
-        self.passwordVerifiedCellOne.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q2"] integerValue])]];
+        self.passwordVerifiedFirstCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q2"] integerValue])]];
         
-        return self.passwordVerifiedCellOne;
+        return self.passwordVerifiedFirstCell;
     }
     
-    if (indexPath.section==2) {
+    if (indexPath.section == 2) {
         
-        self.passwordVerifiedCellTwo=[tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellTwo"];
+        self.passwordVerifiedSecondCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellTwo"];
         
-        if (self.passwordVerifiedCellTwo==nil) {
-            self.passwordVerifiedCellTwo=[[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellTwo" owner:nil options:nil] lastObject];
+        if (self.passwordVerifiedSecondCell == nil) {
+            self.passwordVerifiedSecondCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellTwo" owner:nil options:nil] lastObject];
         }
-        self.passwordVerifiedCellTwo.problem.text=[NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q3"] integerValue])]];
+        self.passwordVerifiedSecondCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q3"] integerValue])]];
         
-        return self.passwordVerifiedCellTwo;
+        return self.passwordVerifiedSecondCell;
     }
     
     return nil;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

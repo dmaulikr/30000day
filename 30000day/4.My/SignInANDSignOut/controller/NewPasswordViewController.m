@@ -7,7 +7,6 @@
 //
 
 #import "NewPasswordViewController.h"
-#import "UpdateLogPwd.h"
 #import "SignInViewController.h"
 
 @interface NewPasswordViewController ()
@@ -64,7 +63,7 @@
             
         }else{
             
-            [self.dataHandler sendUpdateUserPasswordWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] mobile:self.mobile mobileToken:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
+            [self.dataHandler sendUpdateUserPasswordWithMobile:self.mobile mobileToken:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
                 
                 [self showToast:@"密码修改成功"];
                 
