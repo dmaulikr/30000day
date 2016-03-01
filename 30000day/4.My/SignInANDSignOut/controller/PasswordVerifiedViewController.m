@@ -8,8 +8,8 @@
 
 #import "PasswordVerifiedViewController.h"
 #import "PasswordVerifiedTableViewCell.h"
-#import "PasswordVerifiedTableViewCellOne.h"
-#import "PasswordVerifiedTableViewCellTwo.h"
+#import "PasswordVerifiedTableViewFirstCell.h"
+#import "PasswordVerifiedTableViewSecondCell.h"
 #import "PasswordVerifiedTableViewCell.h"
 #import "NewPasswordViewController.h"
 
@@ -21,9 +21,9 @@
 
 @property (nonatomic,strong) PasswordVerifiedTableViewCell *passwordVerifiedCell;
 
-@property (nonatomic,strong) PasswordVerifiedTableViewCellOne *passwordVerifiedFirstCell;
+@property (nonatomic,strong) PasswordVerifiedTableViewFirstCell *passwordVerifiedFirstCell;
 
-@property (nonatomic,strong) PasswordVerifiedTableViewCellTwo *passwordVerifiedSecondCell;
+@property (nonatomic,strong) PasswordVerifiedTableViewSecondCell *passwordVerifiedSecondCell;
 
 @property (nonatomic,strong) NSMutableDictionary *problemDic;
 
@@ -163,10 +163,10 @@
     
     if (indexPath.section == 1) {
         
-        self.passwordVerifiedFirstCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellOne"];
+        self.passwordVerifiedFirstCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewFirstCell"];
         
         if (self.passwordVerifiedFirstCell == nil) {
-            self.passwordVerifiedFirstCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellOne" owner:nil options:nil] lastObject];
+            self.passwordVerifiedFirstCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewFirstCell" owner:nil options:nil] lastObject];
         }
         self.passwordVerifiedFirstCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q2"] integerValue])]];
         
@@ -175,10 +175,10 @@
     
     if (indexPath.section == 2) {
         
-        self.passwordVerifiedSecondCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewCellTwo"];
+        self.passwordVerifiedSecondCell = [tableView dequeueReusableCellWithIdentifier:@"PasswordVerifiedTableViewSecondCell"];
         
         if (self.passwordVerifiedSecondCell == nil) {
-            self.passwordVerifiedSecondCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewCellTwo" owner:nil options:nil] lastObject];
+            self.passwordVerifiedSecondCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewSecondCell" owner:nil options:nil] lastObject];
         }
         self.passwordVerifiedSecondCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q3"] integerValue])]];
         

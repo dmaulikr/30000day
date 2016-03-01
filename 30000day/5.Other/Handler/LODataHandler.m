@@ -459,9 +459,7 @@
     UserProfile *userProfile = [[UserProfile alloc] init];
     
     [userProfile setValuesForKeysWithDictionary:jsonDictionary];
-    
-    STUserAccountHandler.userProfile = userProfile;
-    
+
     //保存用户的UID
     [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userProfile.userId];
     
@@ -490,12 +488,24 @@
         
         for (NSInteger i = 0; i < userAccountArray.count; i++) {
             
-            userAccountDictionary = userAccountArray[i];
+            NSDictionary *oldDictionary = userAccountArray[i];
             
-            if ([[userAccountDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:userName] && [[userAccountDictionary objectForKey:KEY_SIGNIN_USER_PASSWORD] isEqualToString:password]) {
+            if ([[oldDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:userName]) {
                 
                 isExist = YES;
                 
+                //进行覆盖操作
+                [userAccountArray removeObjectAtIndex:i];
+                
+                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                
+                [dictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
+                
+                [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                
+                [userAccountArray insertObject:dictionary atIndex:i];
+                
+                [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
             }
         }
         if (isExist == NO) {//如果不存在，就要保存
@@ -509,11 +519,12 @@
             [userAccountArray insertObject:dictionary atIndex:0];
             
             [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
+            
         }
     }
     
-    //登录的时候进行发送通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:STUserAccountHandler.userProfile];
+  //设置用户信息并发送通知
+   STUserAccountHandler.userProfile = userProfile;
     
 }
 
@@ -663,12 +674,12 @@
     [parameters addParameter:userId forKey:@"userId"];
     
     [parameters addParameter:nickName forKey:@"nickName"];
-    
-    [parameters addParameter:gender forKey:@"gender"];
-    
+
     [parameters addParameter:birthday forKey:@"birthday"];
     
     [parameters addParameter:headImageUrlString forKey:@"headImg"];
+    
+    [parameters addParameter:gender forKey:@"gender"];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SAVE_USER_INFORMATION
@@ -690,6 +701,12 @@
                                                                     success(YES);
                                                                     
                                                                     STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                                                                    
+                                                                    STUserAccountHandler.userProfile.gender = gender;
+                                                                    
+                                                                    STUserAccountHandler.userProfile.birthday = birthday;
+                                                                    
+                                                                    STUserAccountHandler.userProfile.nickName = nickName;
                                                                     
                                                                     //发出通知
                                                                     [STNotificationCenter postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];

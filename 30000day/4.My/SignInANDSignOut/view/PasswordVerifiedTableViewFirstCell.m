@@ -6,9 +6,9 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "PasswordVerifiedTableViewCellOne.h"
+#import "PasswordVerifiedTableViewFirstCell.h"
 
-@implementation PasswordVerifiedTableViewCellOne
+@implementation PasswordVerifiedTableViewFirstCell
 
 - (void)awakeFromNib {
     // Initialization code
