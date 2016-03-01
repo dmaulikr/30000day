@@ -174,4 +174,13 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                             password:(NSString *)password
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(LONetError *error))failure;
+
+//***********************************修改密码*********************/
+- (void)sendChangePasswordWithUserId:(NSNumber *)userId
+                            oldPassword:(NSString *)oldPassword
+                            newPassword:(NSString *)newPassword
+                                success:(void (^)(BOOL success))success
+                                failure:(void (^)(NSError *error))failure;
+
+
 @end

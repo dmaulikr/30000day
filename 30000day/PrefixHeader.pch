@@ -132,6 +132,7 @@
 #define  GET_SECURITY_QUESTION_VERIFICATION    @"/stapi/security/valUserSecurity"              //验证个人密保问题
 
 #define  GET_SECURITY_QUESTION_UPTUSERPWDBYSECU   @"/stapi/password/uptUserPwdBySecu"              //验证个人密保问题
+#define  CHANGE_PASSWORD                @"/stapi/password/uptUserPwdById"                      //修改密码
 
 #endif
 

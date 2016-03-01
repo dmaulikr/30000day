@@ -8,7 +8,15 @@
 
 #import "ChangePasswordViewController.h"
 
-@interface ChangePasswordViewController ()
+@interface ChangePasswordViewController () <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UIButton *commitButton;
+
+@property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;//旧密码
+
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextFiled;//新密码
+
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextFiled;//确认密码
 
 @end
 
@@ -16,8 +24,101 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.commitButton.layer.cornerRadius = 5;
+    
+    self.commitButton.layer.masksToBounds = YES;
+    
+    [self.oldPasswordTextField becomeFirstResponder];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    
+    [self.view addGestureRecognizer:tap];
 }
+
+- (void)tapAction {
+    
+    [self.view endEditing:YES];
+}
+
+//确实提交
+- (IBAction)confirmCommitAction:(id)sender {
+    
+    [self beginChangePassword];
+}
+
+- (void)beginChangePassword {
+    
+    if ([Common isObjectNull:self.oldPasswordTextField.text]) {
+        
+        [self showToast:@"旧密码不能为空"];
+        
+        return;
+    }
+    
+    if ([Common isObjectNull:self.passwordTextFiled.text] || [Common isObjectNull:self.confirmPasswordTextFiled.text]) {
+        
+        [self showToast:@"新的密码不能为空"];
+        
+        return;
+        
+    }
+    
+    if (![self.passwordTextFiled.text isEqualToString:self.confirmPasswordTextFiled.text]) {
+        
+        [self showToast:@"新密码输入不一致"];
+        
+        return;
+    }
+    
+    [self.view endEditing:YES];
+    
+    //提交修改密码
+    [self.dataHandler sendChangePasswordWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                       oldPassword:self.oldPasswordTextField.text
+                                       newPassword:self.passwordTextFiled.text
+                                           success:^(BOOL success) {
+                                               
+                                               [self showToast:@"密码修改成功"];
+                                               
+                                               [self.navigationController popViewControllerAnimated:YES];
+                                           }
+                                           failure:^(NSError *error) {
+                                               
+                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                               
+                                           }];
+}
+
+
+#pragma ---
+#pragma mark ---- UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+    if (textField == self.oldPasswordTextField) {
+        
+        [self.passwordTextFiled becomeFirstResponder];
+    }
+    
+    if (textField == self.passwordTextFiled) {
+        
+        [self.confirmPasswordTextFiled becomeFirstResponder];
+        
+    }
+    
+    if (textField == self.confirmPasswordTextFiled) {
+        
+        [self beginChangePassword];
+        
+    }
+    
+    return YES;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
