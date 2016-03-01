@@ -39,8 +39,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 
 //************ 修改密码*****************//
-- (void)sendUpdateUserPasswordWithUserId:(NSNumber *)userId
-                                  mobile:(NSString *)mobile
+- (void)sendUpdateUserPasswordWithMobile:(NSString *)mobile
                              mobileToken:(NSString *)mobileToken
                                 password:(NSString *)password
                                  success:(void (^)(BOOL success))success
@@ -133,43 +132,43 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 
 //***********获获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetUserFactorsWithUserId:(NSString *)userId
+- (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(LONetError *error))failure;
 
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
-//提醒:如果保存成功前面的首界面天龄应该改变,所以保存成功会发出一个通知
-- (void)sendSaveUserFactorsWithUserId:(NSString *)userId
+//提醒:如果保存成功,首界面天龄应该改变,保存成功会发出一个通知
+- (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
                               success:(void (^)(BOOL success))success
                               failure:(void (^)(LONetError *error))failure;
 
 
 //***********************************跟新用户头像*********************/
-- (void)sendUpdateUserHeadPortrait:(NSString *)userId
+- (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
                            headImage:(UIImage *)image
                            success:(void (^)(NSString *imageUrl))success
                            failure:(void (^)(NSError *error))failure;
 
 //***********************************获取个人密保问题*********************/
-- (void)sendGetSecurityQuestion:(NSString *)userId
+- (void)sendGetSecurityQuestion:(NSNumber *)userId
                        success:(void (^)(NSDictionary *dic))success
                        failure:(void (^)(LONetError *error))failure;
 
 //***********************************获取所有密保问题*********************/
-- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *arr))sucess
+- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
                            failure:(void (^)(LONetError *error))failure;
 
 //***********************************验证个人密保问题*********************/
-- (void)sendSecurityQuestionvalidate:(NSString *)userId
+- (void)sendSecurityQuestionvalidate:(NSNumber *)userId
                         answer:(NSArray *)answerArr
                         success:(void (^)(NSString *successToken))success
                         failure:(void (^)(LONetError *error))failure;
 
 //***********************************密保修改密码*********************/
-- (void)sendSecurityQuestionUptUserPwdBySecu:(NSString *)userId
+- (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
                                token:(NSString *)token
                             password:(NSString *)password
                              success:(void (^)(BOOL success))success

@@ -177,7 +177,6 @@
 		B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */; };
 		B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */; };
 		B8F2DA531C5F3D04002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3A1C5F3D04002C7712 /* security.m */; };
-		B8F2DA541C5F3D04002C7712 /* UpdateLogPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3C1C5F3D04002C7712 /* UpdateLogPwd.m */; };
 		B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA581C5F3D8B002C7712 /* area.plist */; };
 		B8F2DA621C5F3D8B002C7712 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA591C5F3D8B002C7712 /* city.plist */; };
 		B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5A1C5F3D8B002C7712 /* Day.plist */; };
@@ -504,8 +503,6 @@
 		B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
 		B8F2DA391C5F3D04002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		B8F2DA3A1C5F3D04002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
-		B8F2DA3B1C5F3D04002C7712 /* UpdateLogPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateLogPwd.h; sourceTree = "<group>"; };
-		B8F2DA3C1C5F3D04002C7712 /* UpdateLogPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateLogPwd.m; sourceTree = "<group>"; };
 		B8F2DA581C5F3D8B002C7712 /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		B8F2DA591C5F3D8B002C7712 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		B8F2DA5A1C5F3D8B002C7712 /* Day.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Day.plist; sourceTree = "<group>"; };
@@ -1492,8 +1489,6 @@
 			children = (
 				B8F2DA391C5F3D04002C7712 /* security.h */,
 				B8F2DA3A1C5F3D04002C7712 /* security.m */,
-				B8F2DA3B1C5F3D04002C7712 /* UpdateLogPwd.h */,
-				B8F2DA3C1C5F3D04002C7712 /* UpdateLogPwd.m */,
 				B89216BB1C6045070023F8A8 /* UserProfile.h */,
 				B89216BC1C6045070023F8A8 /* UserProfile.m */,
 			);
@@ -1756,7 +1751,6 @@
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
-				B8F2DA541C5F3D04002C7712 /* UpdateLogPwd.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,

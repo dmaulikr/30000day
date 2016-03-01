@@ -12,6 +12,10 @@
 
 @interface InputAccountViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *submitBtn;
+
+@property (weak, nonatomic) IBOutlet UITextField *loginNameText;
+
 @end
 
 @implementation InputAccountViewController
@@ -42,13 +46,26 @@
         
         [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userId];//获取到该账号的userId会存储起来
         
-        ChooseVerifyWayViewController *controller = [[ChooseVerifyWayViewController alloc] init];
+        [self.dataHandler sendGetSecurityQuestion:userId
+                                          success:^(NSDictionary *success) {
+                                              
+                                              PasswordVerifiedViewController *controller = [[PasswordVerifiedViewController alloc]init];
+                                              
+                                              controller.passwordVerifiedDictionary = success;
+                                              
+                                              controller.hidesBottomBarWhenPushed = YES;
+                                              
+                                              [self.navigationController pushViewController:controller animated:YES];
+                                              
+                                          } failure:^(LONetError *error) {
+                                              
+                                          }];
         
-        [self.navigationController pushViewController:controller animated:YES];
         
     } failure:^(NSError *error) {
         
         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+        
     }];
     
 }
