@@ -173,7 +173,10 @@
         NSLog(@"%lf",sliceAngle * self.progressCounter);
         
         CGFloat speedProgress=sliceAngle * self.progressCounter;
-        if (speedProgress < 0.01) {
+        
+        if (speedProgress < 0.001) {
+            speedProgress = speedProgress * 100;
+        }else if (speedProgress < 0.01) {
             speedProgress = speedProgress * 10;
         }
         
