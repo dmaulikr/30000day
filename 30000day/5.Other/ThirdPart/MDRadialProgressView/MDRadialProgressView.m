@@ -170,7 +170,14 @@
         CGFloat originAngle, endAngle;
 		CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
 		CGFloat startingAngle = sliceAngle * startingSlice;
-		CGFloat progressAngle = sliceAngle * self.progressCounter;
+        NSLog(@"%lf",sliceAngle * self.progressCounter);
+        
+        CGFloat speedProgress=sliceAngle * self.progressCounter;
+        if (speedProgress < 0.01) {
+            speedProgress = speedProgress * 10;
+        }
+        
+		CGFloat progressAngle = speedProgress;
 		
 		if (self.progressCounter == 0) {
 			originAngle = -M_PI_2;
