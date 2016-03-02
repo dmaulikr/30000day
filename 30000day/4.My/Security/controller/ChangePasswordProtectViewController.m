@@ -11,9 +11,7 @@
 
 @interface ChangePasswordProtectViewController ()<DOPDropDownMenuDelegate,DOPDropDownMenuDataSource>
 
-@property (nonatomic,strong) NSArray *questionArraySum;
-
-@property (nonatomic,strong) NSMutableArray *questionStringArray;
+@property (nonatomic,strong) NSArray *questionStringArray;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -40,49 +38,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.isSet) {
-        
-        self.backgroudView.hidden = NO;
-        
-        return;
-        
-    } else {
-        
-        self.backgroudView.hidden = YES;
-        
-    }
+    self.title = @"密保设置";
     
-    self.questionStringArray = [NSMutableArray arrayWithArray:@[@"请选择问题",@"您配偶的生日是?",@"您的学号或工号?",@"您母亲的生日是?",@"您目前的姓名是?",@"您高中班主任的名字是?",@"您父亲的姓名是?",@"您小学班主任的姓名是?",@"您父亲的生日是?",@"您初中班主任的名字是?",@"您最熟悉的童年好友名字是?",@"您最熟悉的学校宿舍舍友名字是?",@"对您影响最大的人名字是?"]];
-
+//    if (self.isSet) {
+//        
+//        self.backgroudView.hidden = NO;
+//        
+//        return;
+//        
+//    } else {
+//        
+//        self.backgroudView.hidden = YES;
+//        
+//    }
     
+    self.questionStringArray = @[@"请选择问题 ",@"您配偶的生日是? ",@"您的学号或工号? ",@"您母亲的生日是? ",@"您目前的姓名是? ",@"您高中班主任的名字是? ",@"您父亲的姓名是? ",@"您小学班主任的姓名是? ",@"您父亲的生日是? ",@"您初中班主任的名字是? ",@"您最熟悉的童年好友名字是? ",@"您最熟悉的学校宿舍舍友名字是? ",@"对您影响最大的人名字是? "];
     
-//    [self showHUDWithContent:@"正在获取密保问题" animated:YES];
-//    
-//    [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *array) {
-//        
-//        self.questionArraySum = [NSArray arrayWithArray:array];
-//        
-//        for (int i = 0; i < array.count; i++) {
-//            
-//            NSDictionary *dictionary = array[i];
-//            
-//            [self.questionArray addObject:dictionary[@"question"]];
-//        }
-//        
-//        [self.questionArray insertObject:@"请选择问题" atIndex:0];
-//        
-//       
-//        
-//        [self hideHUD:YES];
-//        
-//    } failure:^(LONetError *error) {
-//        
-//        [self showToast:@"获取所有密保问题失败"];
-//        
-//        [self hideHUD:YES];
-//    }];
-    
-    self.firstMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 74) andHeight:40];
+    self.firstMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 74) andHeight:39];
     
     self.firstMenu.delegate = self;
     
@@ -91,7 +63,7 @@
     [self.view addSubview:self.firstMenu];
     
     
-    self.secondMenu  = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 164) andHeight:40];
+    self.secondMenu  = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 164) andHeight:39];
     
     self.secondMenu.delegate = self;
     
@@ -99,7 +71,8 @@
     
     [self.view addSubview:self.secondMenu];
     
-    self.thirdMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 254) andHeight:40];
+    
+    self.thirdMenu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 254) andHeight:39];
     
     self.thirdMenu.delegate = self;
     
@@ -113,37 +86,23 @@
     
     [self.nextButton setBackgroundImage:[Common imageWithColor:RGBACOLOR(200, 200, 200, 1)] forState:UIControlStateDisabled];
     
+    [STNotificationCenter addObserver:self selector:@selector(textFieldChange) name:UITextFieldTextDidChangeNotification object:nil];
+    
+}
+
+- (void)textFieldChange {
+    
+    [self judgeSaveButtonCanUse];
+    
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self];
 }
 
 - (IBAction)nextAction:(id)sender {
     
-    if ((![Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.firstAnswerTextField.text]) || ([Common isObjectNull:self.firstQuestingSting] && ![Common isObjectNull:self.firstAnswerTextField.text])) {
-        
-        [self showToast:@"请完善第一个问题"];
-        
-        return;
-    }
-    
-    if ((![Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.secondAnswerTextField.text]) || ([Common isObjectNull:self.secondQuestingSting] && ![Common isObjectNull:self.secondAnswerTextField.text])) {
-        
-        [self showToast:@"请完善第二个问题"];
-        
-        return;
-    }
-    
-    if ((![Common isObjectNull:self.thirdQuestingSting] && [Common isObjectNull:self.thirdAnswerTextField.text]) || ([Common isObjectNull:self.thirdQuestingSting] && ![Common isObjectNull:self.thirdAnswerTextField.text])) {
-        
-        [self showToast:@"请完善第三个问题"];
-        
-        return;
-    }
-    
-    if ([Common isObjectNull:self.firstAnswerTextField.text] && [Common isObjectNull:self.secondAnswerTextField.text] && [Common isObjectNull:self.thirdAnswerTextField.text] && [Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.thirdQuestingSting]) {
-        
-        [self showToast:@"请选择问题并输入答案"];
-        
-        return;
-    }
 
     NSMutableArray *mutableQidArray = [NSMutableArray array];
     
@@ -151,16 +110,14 @@
     
     for (int i = 1; i < self.questionStringArray.count; i++) {
         
-        NSDictionary *dictionary = self.questionArraySum[i];
-        
-        if ([self.firstQuestingSting isEqualToString:dictionary[@"question"]]) {
+        if ([self.firstQuestingSting isEqualToString:self.questionStringArray[i]]) {
             
             [mutableQidArray addObject:[NSNumber numberWithInt:i]];
             
             [mutableAnswerArray addObject:self.firstAnswerTextField.text];
         }
         
-        if ([self.secondQuestingSting isEqualToString:dictionary[@"question"]]) {
+        if ([self.secondQuestingSting isEqualToString:self.questionStringArray[i]]) {
             
             [mutableQidArray addObject:[NSNumber numberWithInt:i]];
             
@@ -168,7 +125,7 @@
             
         }
         
-        if ([self.thirdQuestingSting isEqualToString:dictionary[@"question"]]) {
+        if ([self.thirdQuestingSting isEqualToString:self.questionStringArray[i]]) {
             
             [mutableQidArray addObject:[NSNumber numberWithInt:i]];
             
@@ -198,6 +155,32 @@
         [self showToast:@"添加密保失败"];
         
     }];
+    
+}
+
+//判断保存按钮是否可用
+- (void)judgeSaveButtonCanUse {
+    
+    if ([Common isObjectNull:self.firstAnswerTextField.text] && [Common isObjectNull:self.secondAnswerTextField.text] && [Common isObjectNull:self.thirdAnswerTextField.text] && [Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.thirdQuestingSting]) {
+        
+        self.nextButton.enabled = NO;
+        
+    } else if ((![Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.firstAnswerTextField.text]) || ([Common isObjectNull:self.firstQuestingSting] && ![Common isObjectNull:self.firstAnswerTextField.text]) || ([Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.firstAnswerTextField.text])) {
+        
+        self.nextButton.enabled = NO;
+        
+    } else if ((![Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.secondAnswerTextField.text]) || ([Common isObjectNull:self.secondQuestingSting] && ![Common isObjectNull:self.secondAnswerTextField.text]) || ([Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.secondAnswerTextField.text])) {
+        
+        self.nextButton.enabled = NO;
+        
+    } else if ((![Common isObjectNull:self.thirdQuestingSting] && [Common isObjectNull:self.thirdAnswerTextField.text]) || ([Common isObjectNull:self.thirdQuestingSting] && ![Common isObjectNull:self.thirdAnswerTextField.text]) || ([Common isObjectNull:self.thirdQuestingSting] && [Common isObjectNull:self.thirdAnswerTextField.text])) {
+        
+         self.nextButton.enabled = NO;
+        
+    } else {
+        
+        self.nextButton.enabled = YES;
+    }
 }
 
 #pragma mark - menu data source
@@ -243,7 +226,6 @@
             
            self.firstQuestingSting = self.questionStringArray[indexPath.row];
             
-            
         }
         
     } else if (menu == self.secondMenu) {
@@ -268,84 +250,15 @@
             self.thirdQuestingSting = self.questionStringArray[indexPath.row];
         }
     }
+    
+    //判断保存按钮是否可用
+    [self judgeSaveButtonCanUse];
 }
 
-//- (void)showOrHideDropDownList:(UIButton *)sender {
-//    if(_dropDown == nil) {
-//        CGFloat dropDownListHeight = 300; //Set height of drop down list
-//        NSString *direction = @"down"; //Set drop down direction animation
-//        
-//        _dropDown = [[SKDropDown alloc]showDropDown:sender withHeight:&dropDownListHeight withData:self.questionArray animationDirection:direction];
-//        _dropDown.delegate = self;
-//    }
-//    else {
-//        [_dropDown hideDropDown:sender];
-//        [self closeDropDown];
-//    }
-//}
-//- (void) skDropDownDelegateMethod: (SKDropDown *) sender {
-//    [self closeDropDown];
-//    NSLog(@"%@",sender.btnSender.titleLabel.text);
-//}
-//
-//-(void)closeDropDown{
-//    _dropDown = nil;
-//}
-
-//-(void)submitButtonClick{
-//    
-//    NSString *oneCellText = self.changePasswordProtectFirstTableViewCell.selectProblemButton.titleLabel.text;
-//    NSString *twoCellText = self.changePasswordProtectTwoTableViewCell.selectProblemButton.titleLabel.text;
-//    NSString *threeCellText = self.changePasswordProtectThreeTableViewCell.selectProblemButton.titleLabel.text;
-//    
-//    NSMutableArray *mutableQidArray = [NSMutableArray array];
-//    
-//    for (int i = 0; i < self.questionArraySum.count; i++) {
-//        
-//        NSDictionary *dictionary=self.questionArraySum[i];
-//        
-//        if ([oneCellText isEqualToString:dictionary[@"question"]]) {
-//            
-//            [mutableQidArray addObject:dictionary[@"qid"]];
-//        }
-//        
-//        if ([twoCellText isEqualToString:dictionary[@"question"]]) {
-//            
-//            [mutableQidArray addObject:dictionary[@"qid"]];
-//        }
-//        
-//        if ([threeCellText isEqualToString:dictionary[@"question"]]) {
-//            
-//            [mutableQidArray addObject:dictionary[@"qid"]];
-//        }
-//        
-//    }
-//    
-//    NSMutableArray *mutableAnswerArray=[NSMutableArray array];
-//    
-//    [mutableAnswerArray addObject:self.changePasswordProtectFirstTableViewCell.problemTextField.text];
-//    [mutableAnswerArray addObject:self.changePasswordProtectTwoTableViewCell.problemTextField.text];
-//    [mutableAnswerArray addObject:self.changePasswordProtectThreeTableViewCell.problemTextField.text];
-//    
-//    [self.dataHandler sendChangeSecurityWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] qidArray:mutableQidArray answerArray:mutableAnswerArray success:^(BOOL success) {
-//        
-//        if (success) {
-//            
-//            [self showToast:@"添加密保成功"];
-//            
-//            [self.navigationController popViewControllerAnimated:YES];
-//            
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        
-//        [self showToast:@"添加密保失败"];
-//        
-//    }];
-//    
-//}
-
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self.view endEditing:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {
