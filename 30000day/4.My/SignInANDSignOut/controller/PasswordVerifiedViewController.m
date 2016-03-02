@@ -190,6 +190,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self hideKeyboard];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self hideKeyboard];
+}
+
+-(void)hideKeyboard{
+    [self.passwordVerifiedCell.answer resignFirstResponder];
+    [self.passwordVerifiedFirstCell.answer resignFirstResponder];
+    [self.passwordVerifiedSecondCell.answer resignFirstResponder];
 }
 
 @end
