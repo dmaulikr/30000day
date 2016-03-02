@@ -35,24 +35,24 @@
     [super viewDidLoad];
     
     
-    if (self.isSet) {
-        
-        self.problemIsNullLable.text = @"您已经设置过密保问题\n不能再重复设置！";
-        
-        self.problemIsNullLable.hidden = NO;
-        
-        self.problemIsNullImage.hidden = NO;
-        
-        [self.tableView removeFromSuperview];
-        
-        return;
-        
-    } else {
-        
-        self.problemIsNullLable.hidden = YES;
-        
-        self.problemIsNullImage.hidden = YES;
-    }
+//    if (self.isSet) {
+//        
+//        self.problemIsNullLable.text = @"您已经设置过密保问题\n不能再重复设置！";
+//        
+//        self.problemIsNullLable.hidden = NO;
+//        
+//        self.problemIsNullImage.hidden = NO;
+//        
+//        [self.tableView removeFromSuperview];
+//        
+//        return;
+//        
+//    } else {
+//        
+//        self.problemIsNullLable.hidden = YES;
+//        
+//        self.problemIsNullImage.hidden = YES;
+//    }
     
     
     self.questionArray=[NSMutableArray array];
