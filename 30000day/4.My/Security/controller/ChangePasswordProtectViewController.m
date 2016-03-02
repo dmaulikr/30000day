@@ -19,6 +19,9 @@
 @property (nonatomic,strong) ChangePasswordProtectThreeTableViewCell *changePasswordProtectThreeTableViewCell;
 @property (nonatomic,strong) ChangePasswordProtectConfirmTableViewCell *changePasswordProtectConfirmTableViewCell;
 
+@property (weak, nonatomic) IBOutlet UILabel *problemIsNullLable;
+@property (weak, nonatomic) IBOutlet UIImageView *problemIsNullImage;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) NSArray *questionArraySum;
 @property (nonatomic,strong) NSMutableArray *questionArray;
@@ -30,6 +33,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    if (self.isSet) {
+        
+        self.problemIsNullLable.text = @"您已经设置过密保问题\n不能再重复设置！";
+        
+        self.problemIsNullLable.hidden = NO;
+        
+        self.problemIsNullImage.hidden = NO;
+        
+        [self.tableView removeFromSuperview];
+        
+        return;
+        
+    } else {
+        
+        self.problemIsNullLable.hidden = YES;
+        
+        self.problemIsNullImage.hidden = YES;
+    }
+    
     
     self.questionArray=[NSMutableArray array];
     
@@ -165,25 +189,59 @@
 }
 
 -(void)submitButtonClick{
-    NSString* oneCellText=self.changePasswordProtectFirstTableViewCell.selectProblemButton.titleLabel.text;
-    NSString* twoCellText=self.changePasswordProtectFirstTableViewCell.selectProblemButton.titleLabel.text;
-    NSString* threeCellText=self.changePasswordProtectFirstTableViewCell.selectProblemButton.titleLabel.text;
     
-    for (int i=0; i<self.questionArraySum.count; i++) {
+    NSString *oneCellText = self.changePasswordProtectFirstTableViewCell.selectProblemButton.titleLabel.text;
+    NSString *twoCellText = self.changePasswordProtectTwoTableViewCell.selectProblemButton.titleLabel.text;
+    NSString *threeCellText = self.changePasswordProtectThreeTableViewCell.selectProblemButton.titleLabel.text;
+    
+    NSMutableArray *mutableQidArray = [NSMutableArray array];
+    
+    for (int i = 0; i < self.questionArraySum.count; i++) {
+        
         NSDictionary *dictionary=self.questionArraySum[i];
+        
         if ([oneCellText isEqualToString:dictionary[@"question"]]) {
             
+            [mutableQidArray addObject:dictionary[@"qid"]];
         }
         
         if ([twoCellText isEqualToString:dictionary[@"question"]]) {
             
+            [mutableQidArray addObject:dictionary[@"qid"]];
         }
         
         if ([threeCellText isEqualToString:dictionary[@"question"]]) {
             
+            [mutableQidArray addObject:dictionary[@"qid"]];
         }
+        
     }
+    
+    NSMutableArray *mutableAnswerArray=[NSMutableArray array];
+    
+    [mutableAnswerArray addObject:self.changePasswordProtectFirstTableViewCell.problemTextField.text];
+    [mutableAnswerArray addObject:self.changePasswordProtectTwoTableViewCell.problemTextField.text];
+    [mutableAnswerArray addObject:self.changePasswordProtectThreeTableViewCell.problemTextField.text];
+    
+    [self.dataHandler sendChangeSecurityWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] qidArray:mutableQidArray answerArray:mutableAnswerArray success:^(BOOL success) {
+        
+        if (success) {
+            
+            [self showToast:@"添加密保成功"];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        [self showToast:@"添加密保失败"];
+        
+    }];
+    
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
