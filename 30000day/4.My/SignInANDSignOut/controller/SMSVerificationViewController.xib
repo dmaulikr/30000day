@@ -58,13 +58,13 @@
                                 <action selector="smsVerificationBtn:" destination="-1" eventType="touchUpInside" id="1WA-gU-qXD"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hes-2S-O0L">
+                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hes-2S-O0L">
                             <rect key="frame" x="15" y="0.0" width="218" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="7Nj-c9-LP2"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="7Nj-c9-LP2"/>
@@ -76,13 +76,13 @@
                                 </mask>
                             </variation>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6E2-DN-Kf7">
+                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6E2-DN-Kf7">
                             <rect key="frame" x="15" y="45" width="305" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="gm9-QS-oSc"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="gm9-QS-oSc"/>

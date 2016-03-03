@@ -137,6 +137,8 @@
 
 #define  UPDATE_USER_SECURITY           @"/stapi/security/setUserSecurity"                      //修改密码
 
+#define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"                      //统计环境因素
+
 #endif
 
 #endif /* PrefixHeader_pch */

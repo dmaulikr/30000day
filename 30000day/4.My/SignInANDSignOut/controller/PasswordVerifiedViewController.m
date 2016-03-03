@@ -13,7 +13,9 @@
 #import "PasswordVerifiedTableViewCell.h"
 #import "NewPasswordViewController.h"
 
-@interface PasswordVerifiedViewController ()<UITableViewDataSource,UITableViewDelegate>
+#define INTERVAL_KEYBOARD 100
+
+@interface PasswordVerifiedViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *problemIsNullLable;
 
@@ -46,6 +48,12 @@
                                                                    action:@selector(verification)];
     
     self.navigationItem.rightBarButtonItem = rightBarItem;
+    
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+    
+    [self.tableView addGestureRecognizer:tapGestureRecognizer];
+
     
     if ([Common isObjectNull:self.passwordVerifiedDictionary]) {
         
@@ -96,6 +104,7 @@
         NSLog(@"获取所有密保问题失败");
         
     }];
+    
 }
 
 - (void)verification {
@@ -158,6 +167,17 @@
         
         self.passwordVerifiedCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q1"] integerValue])]];
         
+        if (self.problemIdentification.count > 1) {
+            self.passwordVerifiedCell.answer.returnKeyType=UIReturnKeyNext;
+        }
+        
+        if (self.problemIdentification.count == 1){
+            self.passwordVerifiedCell.answer.returnKeyType=UIReturnKeyDone;
+        }
+        
+        self.passwordVerifiedCell.answer.tag=1;
+        [self.passwordVerifiedCell.answer setDelegate:self];
+        
         return self.passwordVerifiedCell;
     }
     
@@ -169,6 +189,18 @@
             self.passwordVerifiedFirstCell = [[[NSBundle mainBundle] loadNibNamed:@"PasswordVerifiedTableViewFirstCell" owner:nil options:nil] lastObject];
         }
         self.passwordVerifiedFirstCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q2"] integerValue])]];
+        
+        if (self.problemIdentification.count > 2) {
+            self.passwordVerifiedFirstCell.answer.returnKeyType=UIReturnKeyNext;
+        }
+        
+        if (self.problemIdentification.count == 2) {
+            self.passwordVerifiedFirstCell.answer.returnKeyType=UIReturnKeyDone;
+        }
+        
+        
+        self.passwordVerifiedFirstCell.answer.tag=2;
+        [self.passwordVerifiedFirstCell.answer setDelegate:self];
         
         return self.passwordVerifiedFirstCell;
     }
@@ -182,6 +214,10 @@
         }
         self.passwordVerifiedSecondCell.problem.text = [NSString stringWithFormat:@"%@",self.problemDic[@([self.problemIdentification[@"q3"] integerValue])]];
         
+        self.passwordVerifiedSecondCell.answer.tag=3;
+        self.passwordVerifiedSecondCell.answer.returnKeyType=UIReturnKeyDone;
+        [self.passwordVerifiedSecondCell.answer setDelegate:self];
+        
         return self.passwordVerifiedSecondCell;
     }
     
@@ -193,6 +229,33 @@
     [self hideKeyboard];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField.tag == 1) {
+        [self.passwordVerifiedCell.answer resignFirstResponder];
+        [self.passwordVerifiedFirstCell.answer becomeFirstResponder];
+    }else if (textField.tag == 2){
+        [self.passwordVerifiedCell.answer resignFirstResponder];
+        [self.passwordVerifiedFirstCell.answer resignFirstResponder];
+        [self.passwordVerifiedSecondCell.answer becomeFirstResponder];
+    }else if (textField.tag == 3){
+        [self verification];
+    }
+    return YES;
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (textField.tag == 3) {
+        
+        [self.tableView setContentOffset:CGPointMake(0, 80) animated:YES];
+        [self.passwordVerifiedSecondCell.answer becomeFirstResponder];
+    }
+}
+
+-(void)tapped{
+    [self hideKeyboard];
+}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self hideKeyboard];
 }
@@ -201,6 +264,7 @@
     [self.passwordVerifiedCell.answer resignFirstResponder];
     [self.passwordVerifiedFirstCell.answer resignFirstResponder];
     [self.passwordVerifiedSecondCell.answer resignFirstResponder];
+    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 @end

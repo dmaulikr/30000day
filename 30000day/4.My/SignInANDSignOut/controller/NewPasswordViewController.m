@@ -9,7 +9,7 @@
 #import "NewPasswordViewController.h"
 #import "SignInViewController.h"
 
-@interface NewPasswordViewController ()
+@interface NewPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic,strong) NSString *logname;
 
@@ -35,6 +35,9 @@
     self.subimitBtn.layer.cornerRadius = 6;
     
     self.subimitBtn.layer.masksToBounds = YES;
+    
+    [self.oneNewPass setDelegate:self];
+    [self.twoNewPass setDelegate:self];
 
 }
 
@@ -83,6 +86,27 @@
     
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    if (textField.tag == 1) {
+        
+        [self.oneNewPass resignFirstResponder];
+        [self.twoNewPass becomeFirstResponder];
+        
+    }else{
+        
+        [self.twoNewPass resignFirstResponder];
+        [self updateBtn:nil];
+    }
+    
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.oneNewPass resignFirstResponder];
+    [self.twoNewPass resignFirstResponder];
 }
 
 @end

@@ -43,6 +43,20 @@
             
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
+            NSString *data=@"[]";
+            [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] data:data success:^(BOOL success) {
+                
+                if (success) {
+                    NSLog(@"统计环境因素成功");
+                }
+                
+            } failure:^(NSError *error) {
+                
+                NSLog(@"统计环境因素失败");
+                
+            }];
+
+            
         } failure:^(NSError *error) {
             
             [self showToast:@"获取天气失败"];
