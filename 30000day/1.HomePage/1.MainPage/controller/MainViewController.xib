@@ -33,7 +33,7 @@
                 <constraint firstAttribute="bottom" secondItem="QTP-tL-zT7" secondAttribute="bottom" id="xKN-aG-LQs"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="242" y="225"/>
+            <point key="canvasLocation" x="222" y="163"/>
         </view>
     </objects>
 </document>

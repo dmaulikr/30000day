@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FriendListInfo.h"
 #import "UserInformationModel.h"
 
 @interface SearchResultTableViewCell : UITableViewCell

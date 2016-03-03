@@ -11,7 +11,6 @@
 #import "LOApiRequest.h"
 #import "LONetworkAgent.h"
 #import "STBaseViewController.h"
-#import "FriendListInfo.h"
 
 #import "AddressBookModel.h"
 #import "ChineseString.h"

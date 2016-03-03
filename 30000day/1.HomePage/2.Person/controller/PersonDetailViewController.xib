@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonDetailViewController">
             <connections>
+                <outlet property="backgoudView" destination="B6O-HS-VdK" id="rcG-aJ-0No"/>
+                <outlet property="leftButton" destination="4lW-Dp-Sb9" id="HJR-Rp-THF"/>
+                <outlet property="rightButton" destination="cdo-zI-Bxn" id="w5y-ew-Gv3"/>
                 <outlet property="tableView" destination="UyG-xd-7zU" id="wRf-XH-jdV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,20 +20,58 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UyG-xd-7zU">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="P62-bb-QPs"/>
                         <outlet property="delegate" destination="-1" id="bDz-SY-nUz"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6O-HS-VdK">
+                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lW-Dp-Sb9">
+                            <rect key="frame" x="10" y="5" width="145" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="QQ电话">
+                                <color key="titleColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="buttonClickAction:" destination="-1" eventType="touchUpInside" id="pPo-iR-Px0"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdo-zI-Bxn">
+                            <rect key="frame" x="165" y="5" width="145" height="34"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="发消息"/>
+                            <connections>
+                                <action selector="buttonClickAction:" destination="-1" eventType="touchUpInside" id="ZKC-A7-eBT"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="4lW-Dp-Sb9" firstAttribute="leading" secondItem="B6O-HS-VdK" secondAttribute="leading" constant="10" id="6D1-Ai-zPV"/>
+                        <constraint firstItem="cdo-zI-Bxn" firstAttribute="top" secondItem="B6O-HS-VdK" secondAttribute="top" constant="5" id="HTs-H2-FSp"/>
+                        <constraint firstAttribute="trailing" secondItem="cdo-zI-Bxn" secondAttribute="trailing" constant="10" id="Of2-nu-jOA"/>
+                        <constraint firstItem="cdo-zI-Bxn" firstAttribute="width" secondItem="4lW-Dp-Sb9" secondAttribute="width" id="QTb-WC-8P5"/>
+                        <constraint firstAttribute="bottom" secondItem="4lW-Dp-Sb9" secondAttribute="bottom" constant="5" id="T17-mF-ROi"/>
+                        <constraint firstItem="cdo-zI-Bxn" firstAttribute="leading" secondItem="4lW-Dp-Sb9" secondAttribute="trailing" constant="10" id="Z05-CD-u6X"/>
+                        <constraint firstAttribute="height" constant="44" id="b13-cT-QjH"/>
+                        <constraint firstAttribute="bottom" secondItem="cdo-zI-Bxn" secondAttribute="bottom" constant="5" id="ctU-sy-EIz"/>
+                        <constraint firstItem="4lW-Dp-Sb9" firstAttribute="top" secondItem="B6O-HS-VdK" secondAttribute="top" constant="5" id="ndD-Ye-gYq"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="UyG-xd-7zU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4GM-dr-oRG"/>
-                <constraint firstAttribute="bottom" secondItem="UyG-xd-7zU" secondAttribute="bottom" id="7dw-kU-AJf"/>
+                <constraint firstAttribute="bottom" secondItem="UyG-xd-7zU" secondAttribute="bottom" constant="44" id="7dw-kU-AJf"/>
+                <constraint firstAttribute="trailing" secondItem="B6O-HS-VdK" secondAttribute="trailing" id="Rtz-Em-4Ib"/>
+                <constraint firstItem="B6O-HS-VdK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TA9-XT-DPX"/>
                 <constraint firstItem="UyG-xd-7zU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Tcq-Ev-h5l"/>
                 <constraint firstAttribute="trailing" secondItem="UyG-xd-7zU" secondAttribute="trailing" id="czc-16-xkG"/>
+                <constraint firstAttribute="bottom" secondItem="B6O-HS-VdK" secondAttribute="bottom" id="hh5-3m-Vfs"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="456" y="65"/>

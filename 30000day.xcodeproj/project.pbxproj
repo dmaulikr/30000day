@@ -79,7 +79,6 @@
 		B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216CB1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib */; };
 		B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216CF1C61F6960023F8A8 /* LogoutTableViewCell.m */; };
 		B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216D01C61F6960023F8A8 /* LogoutTableViewCell.xib */; };
-		B89216D51C6243830023F8A8 /* FriendListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216D41C6243830023F8A8 /* FriendListInfo.m */; };
 		B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216D81C634E650023F8A8 /* AddFriendsViewController.m */; };
 		B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */; };
 		B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DB1C634E650023F8A8 /* MailListViewController.m */; };
@@ -174,15 +173,6 @@
 		B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */; };
 		B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */; };
 		B8F2DA531C5F3D04002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3A1C5F3D04002C7712 /* security.m */; };
-		B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA581C5F3D8B002C7712 /* area.plist */; };
-		B8F2DA621C5F3D8B002C7712 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA591C5F3D8B002C7712 /* city.plist */; };
-		B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5A1C5F3D8B002C7712 /* Day.plist */; };
-		B8F2DA641C5F3D8B002C7712 /* Element.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5B1C5F3D8B002C7712 /* Element.plist */; };
-		B8F2DA651C5F3D8B002C7712 /* ElementAlternative.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5C1C5F3D8B002C7712 /* ElementAlternative.plist */; };
-		B8F2DA661C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5D1C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist */; };
-		B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */; };
-		B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */; };
-		B8F2DA691C5F3D8B002C7712 /* UserPassWordProblem.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */; };
 		B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */; };
 		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
 		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
@@ -209,6 +199,16 @@
 		B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3AE11C868A83007BCA6B /* icon_chose_arrow_nor@2x.png */; };
 		B8FD3AE61C868A83007BCA6B /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3AE21C868A83007BCA6B /* icon_chose_arrow_sel@2x.png */; };
 		B8FD3AE71C868A83007BCA6B /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3AE31C868A83007BCA6B /* icon_chose_bottom@2x.png */; };
+		B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3AF41C86FAB4007BCA6B /* QuestionAnswerModel.m */; };
+		B8FD3AFE1C87DAC8007BCA6B /* STMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3AFD1C87DAC8007BCA6B /* STMessageManager.m */; };
+		B8FD3B051C87DD07007BCA6B /* LOMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B001C87DD07007BCA6B /* LOMessageCell.m */; };
+		B8FD3B061C87DD07007BCA6B /* LOMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3B011C87DD07007BCA6B /* LOMessageCell.xib */; };
+		B8FD3B071C87DD07007BCA6B /* WCInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B031C87DD07007BCA6B /* WCInputView.m */; };
+		B8FD3B081C87DD07007BCA6B /* WCInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3B041C87DD07007BCA6B /* WCInputView.xib */; };
+		B8FD3B0B1C87DD34007BCA6B /* WeMessageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B0A1C87DD34007BCA6B /* WeMessageBaseViewController.m */; };
+		B8FD3B0E1C87DDA2007BCA6B /* LOChatViewMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B0D1C87DDA2007BCA6B /* LOChatViewMessageModel.m */; };
+		B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */; };
+		B8FD3B181C882DDD007BCA6B /* SJAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B171C882DDD007BCA6B /* SJAvatarBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -337,8 +337,6 @@
 		B89216CE1C61F6960023F8A8 /* LogoutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutTableViewCell.h; sourceTree = "<group>"; };
 		B89216CF1C61F6960023F8A8 /* LogoutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutTableViewCell.m; sourceTree = "<group>"; };
 		B89216D01C61F6960023F8A8 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
-		B89216D31C6243830023F8A8 /* FriendListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListInfo.h; sourceTree = "<group>"; };
-		B89216D41C6243830023F8A8 /* FriendListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListInfo.m; sourceTree = "<group>"; };
 		B89216D71C634E650023F8A8 /* AddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsViewController.h; sourceTree = "<group>"; };
 		B89216D81C634E650023F8A8 /* AddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsViewController.m; sourceTree = "<group>"; };
 		B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsViewController.xib; sourceTree = "<group>"; };
@@ -499,15 +497,6 @@
 		B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
 		B8F2DA391C5F3D04002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		B8F2DA3A1C5F3D04002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
-		B8F2DA581C5F3D8B002C7712 /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
-		B8F2DA591C5F3D8B002C7712 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
-		B8F2DA5A1C5F3D8B002C7712 /* Day.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Day.plist; sourceTree = "<group>"; };
-		B8F2DA5B1C5F3D8B002C7712 /* Element.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Element.plist; sourceTree = "<group>"; };
-		B8F2DA5C1C5F3D8B002C7712 /* ElementAlternative.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ElementAlternative.plist; sourceTree = "<group>"; };
-		B8F2DA5D1C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvinceLifeExpectancyMan.plist; sourceTree = "<group>"; };
-		B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvinceLifeExpectancyWoman.plist; sourceTree = "<group>"; };
-		B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = theWholeTen.plist; sourceTree = "<group>"; };
-		B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserPassWordProblem.plist; sourceTree = "<group>"; };
 		B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
 		B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
 		B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindViewController.xib; sourceTree = "<group>"; };
@@ -548,6 +537,24 @@
 		B8FD3AE11C868A83007BCA6B /* icon_chose_arrow_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_nor@2x.png"; sourceTree = "<group>"; };
 		B8FD3AE21C868A83007BCA6B /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		B8FD3AE31C868A83007BCA6B /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
+		B8FD3AF31C86FAB4007BCA6B /* QuestionAnswerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionAnswerModel.h; sourceTree = "<group>"; };
+		B8FD3AF41C86FAB4007BCA6B /* QuestionAnswerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionAnswerModel.m; sourceTree = "<group>"; };
+		B8FD3AFC1C87DAC8007BCA6B /* STMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMessageManager.h; sourceTree = "<group>"; };
+		B8FD3AFD1C87DAC8007BCA6B /* STMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMessageManager.m; sourceTree = "<group>"; };
+		B8FD3AFF1C87DD07007BCA6B /* LOMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOMessageCell.h; sourceTree = "<group>"; };
+		B8FD3B001C87DD07007BCA6B /* LOMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOMessageCell.m; sourceTree = "<group>"; };
+		B8FD3B011C87DD07007BCA6B /* LOMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LOMessageCell.xib; sourceTree = "<group>"; };
+		B8FD3B021C87DD07007BCA6B /* WCInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCInputView.h; sourceTree = "<group>"; };
+		B8FD3B031C87DD07007BCA6B /* WCInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCInputView.m; sourceTree = "<group>"; };
+		B8FD3B041C87DD07007BCA6B /* WCInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCInputView.xib; sourceTree = "<group>"; };
+		B8FD3B091C87DD34007BCA6B /* WeMessageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeMessageBaseViewController.h; sourceTree = "<group>"; };
+		B8FD3B0A1C87DD34007BCA6B /* WeMessageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeMessageBaseViewController.m; sourceTree = "<group>"; };
+		B8FD3B0C1C87DDA2007BCA6B /* LOChatViewMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOChatViewMessageModel.h; sourceTree = "<group>"; };
+		B8FD3B0D1C87DDA2007BCA6B /* LOChatViewMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOChatViewMessageModel.m; sourceTree = "<group>"; };
+		B8FD3B0F1C87DDD1007BCA6B /* UIImage+WF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WF.h"; sourceTree = "<group>"; };
+		B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WF.m"; sourceTree = "<group>"; };
+		B8FD3B161C882DDD007BCA6B /* SJAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAvatarBrowser.h; sourceTree = "<group>"; };
+		B8FD3B171C882DDD007BCA6B /* SJAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAvatarBrowser.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -613,6 +620,8 @@
 		B8365A491C7081FD00063269 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B8FD3B0F1C87DDD1007BCA6B /* UIImage+WF.h */,
+				B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */,
 				B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */,
 				B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */,
 				B8365A4A1C70820100063269 /* UIView+Extension.h */,
@@ -678,7 +687,6 @@
 		B88C912E1C59F2260089BEAE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2DA571C5F3D8B002C7712 /* Plist */,
 				B88C91941C5A09790089BEAE /* InfoPlist.strings */,
 				B88C913F1C59F2260089BEAE /* Info.plist */,
 				B88C912F1C59F2260089BEAE /* main.m */,
@@ -786,6 +794,8 @@
 		B88C91601C59F96D0089BEAE /* 3.Message */ = {
 			isa = PBXGroup;
 			children = (
+				B8FD3AF81C87D9DA007BCA6B /* model */,
+				B8FD3AF71C87D9BF007BCA6B /* manager */,
 				B88C91771C5A07940089BEAE /* controller */,
 				B88C91781C5A07940089BEAE /* view */,
 			);
@@ -868,6 +878,8 @@
 		B88C91771C5A07940089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8FD3B091C87DD34007BCA6B /* WeMessageBaseViewController.h */,
+				B8FD3B0A1C87DD34007BCA6B /* WeMessageBaseViewController.m */,
 				B8F2D9181C5B5F3C002C7712 /* MessageViewController.h */,
 				B8F2D9191C5B5F3C002C7712 /* MessageViewController.m */,
 				B8F2D91A1C5B5F3C002C7712 /* MessageViewController.xib */,
@@ -878,6 +890,14 @@
 		B88C91781C5A07940089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8FD3B161C882DDD007BCA6B /* SJAvatarBrowser.h */,
+				B8FD3B171C882DDD007BCA6B /* SJAvatarBrowser.m */,
+				B8FD3AFF1C87DD07007BCA6B /* LOMessageCell.h */,
+				B8FD3B001C87DD07007BCA6B /* LOMessageCell.m */,
+				B8FD3B011C87DD07007BCA6B /* LOMessageCell.xib */,
+				B8FD3B021C87DD07007BCA6B /* WCInputView.h */,
+				B8FD3B031C87DD07007BCA6B /* WCInputView.m */,
+				B8FD3B041C87DD07007BCA6B /* WCInputView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1144,6 +1164,7 @@
 		B8F2D8BF1C5B38FA002C7712 /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				B8FD3AF21C86FA6F007BCA6B /* model */,
 				B8F2D8C01C5B38FA002C7712 /* controller */,
 				B8F2D8C11C5B38FA002C7712 /* view */,
 			);
@@ -1440,8 +1461,6 @@
 		B8F2D9C11C5EFE8A002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B89216D31C6243830023F8A8 /* FriendListInfo.h */,
-				B89216D41C6243830023F8A8 /* FriendListInfo.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1525,22 +1544,6 @@
 			path = Handler;
 			sourceTree = "<group>";
 		};
-		B8F2DA571C5F3D8B002C7712 /* Plist */ = {
-			isa = PBXGroup;
-			children = (
-				B8F2DA581C5F3D8B002C7712 /* area.plist */,
-				B8F2DA591C5F3D8B002C7712 /* city.plist */,
-				B8F2DA5A1C5F3D8B002C7712 /* Day.plist */,
-				B8F2DA5B1C5F3D8B002C7712 /* Element.plist */,
-				B8F2DA5C1C5F3D8B002C7712 /* ElementAlternative.plist */,
-				B8F2DA5D1C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist */,
-				B8F2DA5E1C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist */,
-				B8F2DA5F1C5F3D8B002C7712 /* theWholeTen.plist */,
-				B8F2DA601C5F3D8B002C7712 /* UserPassWordProblem.plist */,
-			);
-			path = Plist;
-			sourceTree = "<group>";
-		};
 		B8FD3ADE1C868A83007BCA6B /* 14.DOPDropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1551,6 +1554,33 @@
 				B8FD3AE31C868A83007BCA6B /* icon_chose_bottom@2x.png */,
 			);
 			path = 14.DOPDropDownMenu;
+			sourceTree = "<group>";
+		};
+		B8FD3AF21C86FA6F007BCA6B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B8FD3AF31C86FAB4007BCA6B /* QuestionAnswerModel.h */,
+				B8FD3AF41C86FAB4007BCA6B /* QuestionAnswerModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B8FD3AF71C87D9BF007BCA6B /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				B8FD3AFC1C87DAC8007BCA6B /* STMessageManager.h */,
+				B8FD3AFD1C87DAC8007BCA6B /* STMessageManager.m */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
+		B8FD3AF81C87D9DA007BCA6B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B8FD3B0C1C87DDA2007BCA6B /* LOChatViewMessageModel.h */,
+				B8FD3B0D1C87DDA2007BCA6B /* LOChatViewMessageModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1616,26 +1646,19 @@
 			files = (
 				B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */,
 				B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */,
-				B8F2DA681C5F3D8B002C7712 /* theWholeTen.plist in Resources */,
-				B8F2DA671C5F3D8B002C7712 /* ProvinceLifeExpectancyWoman.plist in Resources */,
 				B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */,
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
-				B8F2DA611C5F3D8B002C7712 /* area.plist in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
 				B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */,
 				B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */,
-				B8F2DA631C5F3D8B002C7712 /* Day.plist in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
-				B8F2DA661C5F3D8B002C7712 /* ProvinceLifeExpectancyMan.plist in Resources */,
 				B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
-				B8F2DA621C5F3D8B002C7712 /* city.plist in Resources */,
-				B8F2DA641C5F3D8B002C7712 /* Element.plist in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
 				B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
@@ -1654,12 +1677,12 @@
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B8FD3AE71C868A83007BCA6B /* icon_chose_bottom@2x.png in Resources */,
 				B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */,
-				B8F2DA651C5F3D8B002C7712 /* ElementAlternative.plist in Resources */,
 				B8FD3AD81C852BE3007BCA6B /* ChangePasswordViewController.xib in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
 				B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */,
 				B60D85891C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.xib in Resources */,
+				B8FD3B061C87DD07007BCA6B /* LOMessageCell.xib in Resources */,
 				B886E8711C7EAE1200E64BEC /* RemindContentTableViewCell.xib in Resources */,
 				B8F2DA4D1C5F3D04002C7712 /* SMSVerificationViewController.xib in Resources */,
 				B8F2D9211C5B5F4D002C7712 /* CalendarViewController.xib in Resources */,
@@ -1671,8 +1694,8 @@
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */,
 				B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */,
-				B8F2DA691C5F3D8B002C7712 /* UserPassWordProblem.plist in Resources */,
 				B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */,
+				B8FD3B081C87DD07007BCA6B /* WCInputView.xib in Resources */,
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
 				B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
@@ -1748,6 +1771,7 @@
 				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
+				B8FD3B071C87DD07007BCA6B /* WCInputView.m in Sources */,
 				B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */,
 				B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -1762,6 +1786,7 @@
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
+				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
@@ -1774,6 +1799,7 @@
 				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
+				B8FD3B181C882DDD007BCA6B /* SJAvatarBrowser.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
@@ -1781,6 +1807,7 @@
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
 				B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */,
+				B8FD3B051C87DD07007BCA6B /* LOMessageCell.m in Sources */,
 				B8FD3AE41C868A83007BCA6B /* DOPDropDownMenu.m in Sources */,
 				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
 				B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */,
@@ -1842,13 +1869,16 @@
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */,
 				B89216B11C5F3EEA0023F8A8 /* LODataHandler.m in Sources */,
+				B8FD3B0E1C87DDA2007BCA6B /* LOChatViewMessageModel.m in Sources */,
 				B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
+				B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
+				B8FD3B0B1C87DD34007BCA6B /* WeMessageBaseViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
@@ -1862,8 +1892,8 @@
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
+				B8FD3AFE1C87DAC8007BCA6B /* STMessageManager.m in Sources */,
 				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,
-				B89216D51C6243830023F8A8 /* FriendListInfo.m in Sources */,
 				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
 				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* PasswordVerifiedViewController.m in Sources */,

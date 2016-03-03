@@ -8,6 +8,7 @@
 
 #import "ChangePasswordProtectViewController.h"
 #import "DOPDropDownMenu.h"
+#import "QuestionAnswerModel.h"
 
 @interface ChangePasswordProtectViewController ()<DOPDropDownMenuDelegate,DOPDropDownMenuDataSource>
 
@@ -30,6 +31,9 @@
 @property (nonatomic,copy) NSString *thirdQuestingSting;
 
 @property (weak, nonatomic) IBOutlet UIView *backgroudView;
+
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
 
@@ -86,11 +90,44 @@
     
     [self.nextButton setBackgroundImage:[Common imageWithColor:RGBACOLOR(200, 200, 200, 1)] forState:UIControlStateDisabled];
     
-    [STNotificationCenter addObserver:self selector:@selector(textFieldChange) name:UITextFieldTextDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(textFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    
+    //保存数据源
+    self.dataArray = [NSMutableArray array];
+    
+    for (int i = 1; i <= 3; i++) {
+        
+        QuestionAnswerModel *model = [[QuestionAnswerModel alloc] init];
+        
+        [self.dataArray addObject:model];
+        
+    }
     
 }
 
-- (void)textFieldChange {
+- (void)textFieldChange:(NSNotification *)notification {
+    
+    UITextField *textField = notification.object;
+    
+    if (textField == self.firstAnswerTextField) {
+        
+        QuestionAnswerModel *model = self.dataArray[0];
+
+        model.answerString = textField.text;
+        
+    } else if (textField == self.secondAnswerTextField) {
+        
+        QuestionAnswerModel *model = self.dataArray[1];
+        
+        model.answerString = textField.text;
+        
+        
+    } else if (textField == self.thirdAnswerTextField) {
+        
+        QuestionAnswerModel *model = self.dataArray[2];
+        
+        model.answerString = textField.text;
+    }
     
     [self judgeSaveButtonCanUse];
     
@@ -161,26 +198,9 @@
 //判断保存按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
-    if ([Common isObjectNull:self.firstAnswerTextField.text] && [Common isObjectNull:self.secondAnswerTextField.text] && [Common isObjectNull:self.thirdAnswerTextField.text] && [Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.thirdQuestingSting]) {
-        
-        self.nextButton.enabled = NO;
-        
-    } else if ((![Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.firstAnswerTextField.text]) || ([Common isObjectNull:self.firstQuestingSting] && ![Common isObjectNull:self.firstAnswerTextField.text]) || ([Common isObjectNull:self.firstQuestingSting] && [Common isObjectNull:self.firstAnswerTextField.text])) {
-        
-        self.nextButton.enabled = NO;
-        
-    } else if ((![Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.secondAnswerTextField.text]) || ([Common isObjectNull:self.secondQuestingSting] && ![Common isObjectNull:self.secondAnswerTextField.text]) || ([Common isObjectNull:self.secondQuestingSting] && [Common isObjectNull:self.secondAnswerTextField.text])) {
-        
-        self.nextButton.enabled = NO;
-        
-    } else if ((![Common isObjectNull:self.thirdQuestingSting] && [Common isObjectNull:self.thirdAnswerTextField.text]) || ([Common isObjectNull:self.thirdQuestingSting] && ![Common isObjectNull:self.thirdAnswerTextField.text]) || ([Common isObjectNull:self.thirdQuestingSting] && [Common isObjectNull:self.thirdAnswerTextField.text])) {
-        
-         self.nextButton.enabled = NO;
-        
-    } else {
-        
-        self.nextButton.enabled = YES;
-    }
+    
+    
+    
 }
 
 #pragma mark - menu data source
@@ -224,8 +244,9 @@
             
         } else {
             
-           self.firstQuestingSting = self.questionStringArray[indexPath.row];
+            QuestionAnswerModel *model = self.dataArray[0];
             
+            model.questionId = [NSNumber numberWithInteger:indexPath.row];
         }
         
     } else if (menu == self.secondMenu) {
@@ -236,7 +257,9 @@
             
         } else {
             
-            self.secondQuestingSting = self.questionStringArray[indexPath.row];
+            QuestionAnswerModel *model = self.dataArray[1];
+            
+            model.questionId = [NSNumber numberWithInteger:indexPath.row];
         }
         
     } else if (menu == self.thirdMenu) {
@@ -247,7 +270,9 @@
             
         } else {
             
-            self.thirdQuestingSting = self.questionStringArray[indexPath.row];
+            QuestionAnswerModel *model = self.dataArray[2];
+            
+            model.questionId = [NSNumber numberWithInteger:indexPath.row];
         }
     }
     
@@ -259,7 +284,6 @@
     
     [self.view endEditing:YES];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

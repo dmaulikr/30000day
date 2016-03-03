@@ -20,9 +20,11 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - FMDB (2.6):
-    - FMDB/standard (= 2.6)
-  - FMDB/standard (2.6)
+  - AVOSCloud (3.2.6)
+  - AVOSCloudCrashReporting (3.2.6):
+    - AVOSCloud
+  - AVOSCloudIM (3.2.6):
+    - AVOSCloud
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.10)
   - MJRefresh (3.1.0)
@@ -35,7 +37,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
-  - FMDB
+  - AVOSCloud
+  - AVOSCloudCrashReporting
+  - AVOSCloudIM
   - MBProgressHUD
   - MJExtension
   - MJRefresh
@@ -46,7 +50,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
+  AVOSCloud: 08ba88573fca8559dfc658942b391c4568fabfc0
+  AVOSCloudCrashReporting: e5adfdfbfe683cb9097daa1723732b269e8b8d08
+  AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4

@@ -11,6 +11,7 @@
 #import "ActivityIndicatorTableViewCell.h"
 #import "ChartTableViewCell.h"
 #import "UserLifeModel.h"
+#import "WeMessageBaseViewController.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -21,6 +22,9 @@
 @property (nonatomic,strong) NSMutableArray *allDayArray;
 
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
+@property (weak, nonatomic) IBOutlet UIView *backgoudView;
+@property (weak, nonatomic) IBOutlet UIButton *leftButton;
+@property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @end
 
@@ -32,6 +36,18 @@
     self.title = @"详细资料";
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
+    
+    self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    self.backgoudView.layer.borderWidth = 0.5f;
+    
+    self.leftButton.layer.cornerRadius = 5;
+    self.leftButton.layer.masksToBounds = YES;
+    
+    self.leftButton.layer.borderWidth = 0.5f;
+    self.leftButton.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    
+    self.rightButton.layer.cornerRadius = 5;
+    self.rightButton.layer.masksToBounds = YES;
     
     [self reloadData];
 }
@@ -71,6 +87,28 @@
     } failure:^(LONetError *error) {
         
     }];
+}
+
+
+- (IBAction)buttonClickAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (button.tag == 1) {//右按钮
+        
+        WeMessageBaseViewController *controller = [[WeMessageBaseViewController alloc] init];
+        
+        controller.infomationModel = self.informationModel;
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else {//左按钮
+        
+        
+        
+    }
 }
 
 #pragma --

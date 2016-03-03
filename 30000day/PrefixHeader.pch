@@ -28,6 +28,9 @@
 #import "MJExtension.h"
 #import "STRemindManager.h"
 
+#import <AVOSCloud/AVOSCloud.h>
+#import <AVOSCloudIM.h>
+
 #define DBNAME        @"calendarinfo.sqlite"
 
 #define DB_ID         @"id"
@@ -136,6 +139,12 @@
 #define  CHANGE_PASSWORD                @"/stapi/password/uptUserPwdById"                      //修改密码
 
 #define  UPDATE_USER_SECURITY           @"/stapi/security/setUserSecurity"                      //修改密码
+
+//发送消息的标记
+#define MESSAGE_STRING       @"[1]"
+#define MESSAGE_VOICE        @"[2]"
+#define MESSAGE_IMAGE        @"[9]"
+#define MESSAGE_VIDEO        @"[4]"
 
 #endif
 
