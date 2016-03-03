@@ -10,7 +10,7 @@
 #import "ChooseVerifyWayViewController.h"
 #import "PasswordVerifiedViewController.h"
 
-@interface InputAccountViewController ()
+@interface InputAccountViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 
@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.title = @"输入账号";
     
     [self.submitBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
@@ -30,6 +30,8 @@
     self.submitBtn.layer.cornerRadius = 6;
     
     self.submitBtn.layer.masksToBounds = YES;
+    
+    [self.loginNameText setDelegate:self];
     
 }
 
@@ -72,7 +74,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    return [textField resignFirstResponder];
+    [self nextAction];
+    
+    return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -11,7 +11,7 @@
 @implementation PasswordVerifiedTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+   //self.answer.returnKeyType=UIReturnKeyJoin;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -145,6 +145,7 @@
 #define MESSAGE_VOICE        @"[2]"
 #define MESSAGE_IMAGE        @"[9]"
 #define MESSAGE_VIDEO        @"[4]"
+#define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"                      //统计环境因素
 
 #endif
 

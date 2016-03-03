@@ -61,7 +61,16 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    [textField resignFirstResponder];
+    if (textField.tag == 1) {
+        
+        [self.phoneNumber resignFirstResponder];
+        [self.sms becomeFirstResponder];
+        
+    }else{
+        
+        [self.sms resignFirstResponder];
+        [self nextBtn:nil];
+    }
     
     return YES;
 }
