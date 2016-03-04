@@ -20,9 +20,9 @@
 
 @property (nonatomic,assign) float totalLifeDayNumber;
 
-@property (nonatomic,strong) NSMutableArray *allDayArray;
+@property (nonatomic,strong) NSArray *allDayArray;
 
-@property (nonatomic,strong) NSMutableArray *dayNumberArray;
+@property (nonatomic,strong) NSArray *dayNumberArray;
 
 @end
 
@@ -87,15 +87,15 @@
         self.totalLifeDayNumber = [lastModel.curLife floatValue];
         
         //算出数组
-        self.allDayArray = [NSMutableArray array];
+        NSMutableArray *allDayArray = [NSMutableArray array];
         
-        self.dayNumberArray = [NSMutableArray array];
+        NSMutableArray *dayNumberArray = [NSMutableArray array];
 
         for (int  i = 0; i < dataArray.count ; i++ ) {
             
             UserLifeModel *model = dataArray[i];
             
-            [self.allDayArray addObject:model.curLife];
+            [allDayArray addObject:model.curLife];
             
             NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
             
@@ -103,9 +103,11 @@
             
             NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
             
-            [self.dayNumberArray addObject:newString];
+            [dayNumberArray addObject:newString];
             
         }
+        self.allDayArray = [[allDayArray reverseObjectEnumerator] allObjects];
+        self.dayNumberArray = [[dayNumberArray reverseObjectEnumerator] allObjects];
         
         [self.tableView reloadData];
         
