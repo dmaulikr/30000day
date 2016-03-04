@@ -191,9 +191,9 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 //***********************************统计环境因素*********************/
 - (void)sendStatUserLifeWithUserId:(NSNumber *)userId
-                            data:(NSString *)data
-                             success:(void (^)(BOOL success))success
-                             failure:(void (^)(NSError *error))failure;
+                        dataString:(NSString *)data
+                           success:(void (^)(BOOL success))success
+                           failure:(void (^)(NSError *error))failure;
 
 
 @end

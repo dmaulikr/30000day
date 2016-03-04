@@ -11,8 +11,8 @@
 #import "ActivityIndicatorTableViewCell.h"
 #import "ChartTableViewCell.h"
 #import "WeatherInformationModel.h"
-#import "jk.h"
 #import "UserLifeModel.h"
+#import "MotionData.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -20,9 +20,9 @@
 
 @property (nonatomic,assign) float totalLifeDayNumber;
 
-@property (nonatomic,strong) NSArray *allDayArray;
+@property (nonatomic,strong) NSMutableArray *allDayArray;
 
-@property (nonatomic,strong) NSArray *dayNumberArray;
+@property (nonatomic,strong) NSMutableArray *dayNumberArray;
 
 @end
 
@@ -33,6 +33,8 @@
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
+    [self uploadMotionData];
+    
     //1.开始定位
     [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
        
@@ -42,20 +44,6 @@
             self.informationModel = informationModel;
             
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            
-            NSString *stringData = @"[]";
-            [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] data:stringData success:^(BOOL success) {
-                
-                if (success) {
-                    NSLog(@"统计环境因素成功");
-                }
-                
-            } failure:^(NSError *error) {
-                
-                NSLog(@"统计环境因素失败");
-                
-            }];
-
             
         } failure:^(NSError *error) {
             
@@ -106,8 +94,8 @@
             [dayNumberArray addObject:newString];
             
         }
-        self.allDayArray = [[allDayArray reverseObjectEnumerator] allObjects];
-        self.dayNumberArray = [[dayNumberArray reverseObjectEnumerator] allObjects];
+        self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+        self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
         
         [self.tableView reloadData];
         
@@ -208,6 +196,79 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)uploadMotionData{
+
+    MotionData *mdata=[[MotionData alloc]init];
+    
+    //获取步数
+    [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+        
+        if (birthString != nil) {
+            NSLog(@"获取步数  %@",birthString);
+            //获取爬楼数
+            [mdata getClimbStairsCount:^(NSString *climbStairsString) {
+                
+                if (climbStairsString != nil) {
+                    NSLog(@"获取爬楼数  %@",climbStairsString);
+                    //获取运动距离
+                    [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
+                        
+                        if (movingDistanceString != nil) {
+                            NSLog(@"获取运动距离  %@",movingDistanceString);
+                            
+                            NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
+                            [dataDictionary setObject:birthString forKey:@"stepNum"];
+                            [dataDictionary setObject:climbStairsString forKey:@"stairs"];
+                            [dataDictionary setObject:movingDistanceString forKey:@"distance"];
+                            
+                            NSString *dataString=[self DataTOjsonString:dataDictionary];
+                            
+                            [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dataString:dataString success:^(BOOL success) {
+                                
+                                if (success) {
+                                    NSLog(@"运动信息上传成功");
+                                }
+                                
+                            } failure:^(NSError *error) {
+                                
+                                NSLog(@"运动信息上传失败");
+                                
+                            }];
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        NSLog(@"获取运动距离失败");
+                    }];
+                }
+                
+            } failure:^(NSError *error) {
+                NSLog(@"获取爬楼数失败");
+            }];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"获取步数失败");
+    }];
+    
+}
+
+
+- (NSString*)DataTOjsonString:(id)object{
+    
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
 }
 
 - (void)didReceiveMemoryWarning {
