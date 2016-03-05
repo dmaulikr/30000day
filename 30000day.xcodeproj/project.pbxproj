@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
+		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
 		B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85861C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m */; };
@@ -128,7 +129,6 @@
 		B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9321C5B6E40002C7712 /* BEMLine.m */; };
 		B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9341C5B6E40002C7712 /* BEMAverageLine.m */; };
 		B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9361C5B6E40002C7712 /* BEMPermanentPopupView.m */; };
-		B8F2D9451C5B7267002C7712 /* jk.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9431C5B7267002C7712 /* jk.m */; };
 		B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9441C5B7267002C7712 /* HealthKit.entitlements */; };
 		B8F2D94A1C5C4599002C7712 /* JuheApisSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D9491C5C4599002C7712 /* JuheApisSDK.a */; };
 		B8F2D94C1C5C466D002C7712 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D94B1C5C466D002C7712 /* CoreTelephony.framework */; };
@@ -216,6 +216,8 @@
 
 /* Begin PBXFileReference section */
 		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
+		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
 		B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCell.m; sourceTree = "<group>"; };
 		B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCell.xib; sourceTree = "<group>"; };
@@ -420,8 +422,6 @@
 		B8F2D9341C5B6E40002C7712 /* BEMAverageLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMAverageLine.m; sourceTree = "<group>"; };
 		B8F2D9351C5B6E40002C7712 /* BEMPermanentPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPermanentPopupView.h; sourceTree = "<group>"; };
 		B8F2D9361C5B6E40002C7712 /* BEMPermanentPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPermanentPopupView.m; sourceTree = "<group>"; };
-		B8F2D9421C5B7267002C7712 /* jk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jk.h; sourceTree = "<group>"; };
-		B8F2D9431C5B7267002C7712 /* jk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jk.m; sourceTree = "<group>"; };
 		B8F2D9441C5B7267002C7712 /* HealthKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HealthKit.entitlements; sourceTree = "<group>"; };
 		B8F2D9471C5C458D002C7712 /* JHAPISDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHAPISDK.h; sourceTree = "<group>"; };
 		B8F2D9481C5C458D002C7712 /* JHOpenidSupplier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHOpenidSupplier.h; sourceTree = "<group>"; };
@@ -1350,8 +1350,8 @@
 		B8F2D9411C5B7260002C7712 /* HealthKit */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9421C5B7267002C7712 /* jk.h */,
-				B8F2D9431C5B7267002C7712 /* jk.m */,
+				B604C47C1C8930D000F21107 /* MotionData.h */,
+				B604C47D1C8930D000F21107 /* MotionData.m */,
 				B8F2D9441C5B7267002C7712 /* HealthKit.entitlements */,
 			);
 			path = HealthKit;
@@ -1787,6 +1787,7 @@
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B8FD3B071C87DD07007BCA6B /* WCInputView.m in Sources */,
+				B604C47E1C8930D000F21107 /* MotionData.m in Sources */,
 				B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */,
 				B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -1911,7 +1912,6 @@
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B8FD3AFE1C87DAC8007BCA6B /* STMessageManager.m in Sources */,
 				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,
-				B8F2D9451C5B7267002C7712 /* jk.m in Sources */,
 				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* PasswordVerifiedViewController.m in Sources */,
 				B8FA52261C7FFD5100498E34 /* RemindObject+CoreDataProperties.m in Sources */,

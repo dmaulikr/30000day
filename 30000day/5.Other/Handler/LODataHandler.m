@@ -2275,7 +2275,7 @@
 }
 
 - (void)sendStatUserLifeWithUserId:(NSNumber *)userId
-                              data:(NSString *)data
+                        dataString:(NSString *)data
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure{
     
