@@ -29,6 +29,8 @@
         
         tool.client = [[AVIMClient alloc] initWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]];
         
+        tool.client.messageQueryCacheEnabled = YES;
+        
         tool.client.delegate = tool;
     });
     
@@ -53,7 +55,7 @@
             [query whereKey:@"m" sizeEqualTo:2];
             
             //[query whereKey:AVIMAttr(@"customConversationType")  equalTo:@(1)];
-            query.cachePolicy = kAVCachePolicyNetworkOnly;
+            query.cachePolicy = kAVCachePolicyCacheElseNetwork;
             
             [AVOSCloud setAllLogsEnabled:YES];
             
@@ -121,11 +123,10 @@
     [query whereKey:@"m" containsAllObjectsInArray:@[self.client.clientId]];
     [query whereKey:@"m" sizeEqualTo:2];
     //[query whereKey:AVIMAttr(@"customConversationType")  equalTo:@(1)];
-    query.cachePolicy = kAVCachePolicyNetworkOnly;
+    query.cachePolicy = kAVCachePolicyCacheElseNetwork;
     [AVOSCloud setAllLogsEnabled:YES];
     // 执行查询
     [query findConversationsWithCallback:^(NSArray *objects, NSError *error) {
-        
         
     }];
 }

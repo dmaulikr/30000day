@@ -12,6 +12,9 @@
 #import "LOChatViewMessageModel.h"
 #import "STMessageManager.h"
 #import "SJAvatarBrowser.h"
+#import "STInputView.h"
+
+//http://static.zqgame.com/html/playvideo.html?name=http://lom.zqgame.com/v1/video/LOM_Promo~2.flv
 
 @interface WeMessageBaseViewController () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -31,6 +34,10 @@
 
 @property(nonatomic,assign)int isFirstAnimating;
 
+@property (nonatomic,strong) UIImagePickerController *imagePicker;
+
+@property (assign,nonatomic) int isSeytemKeyBord;//是否是系统的键盘
+
 @end
 
 @implementation WeMessageBaseViewController
@@ -38,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirstAnimating = 0;
+    self.isSeytemKeyBord = YES;
     [self setUPView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHideFrame:) name:UIKeyboardWillHideNotification object:nil];
@@ -50,8 +58,6 @@
     [[STMessageManager sharedManager] configManagerWitUserId:[self.infomationModel.userId stringValue] success:^(BOOL success) {
         
         if (success) {
-            
-            NSLog(@"配置成功");
             //下载数据
             [[STMessageManager sharedManager] queryMessagesWithLimit:10 callback:^(NSArray *objects, NSError *error) {
                 // 刷新 Tabel 控件，为其添加数据源
@@ -78,34 +84,54 @@
 }
 
 //键盘出现 -- 搜狗和百度键盘有调用三次的bug
-- (void)keyBoardChangeFrame:(NSNotification *)not{
-    if (self.isAnimatingKeyBoard) {
-        return;
+- (void)keyBoardChangeFrame:(NSNotification *)not {
+    
+    if (self.isSeytemKeyBord) {//是系统键盘
+        
+        if (self.isAnimatingKeyBoard) {
+            return;
+        }
+        self.inputViewBottomConstraint.constant = 280;
+        [UIView animateWithDuration:0.05 delay:0.1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.isAnimatingKeyBoard = YES;
+            [self.view layoutIfNeeded];//做动画的关键
+        } completion:^(BOOL finished) {
+            self.isAnimatingKeyBoard = NO;
+            [self setTableViewCell];
+        }];
+        
+    } else {//是自定义键盘
+        
+        
+        
+        
+        
     }
-    self.inputViewBottomConstraint.constant = 280;
-    [UIView animateWithDuration:0.05 delay:0.1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.isAnimatingKeyBoard = YES;
-        [self.view layoutIfNeeded];//做动画的关键
-    } completion:^(BOOL finished) {
-        self.isAnimatingKeyBoard = NO;
-        [self setTableViewCell];
-    }];
 }
 
 - (void)keyBoardWillHideFrame:(NSNotification *)not {
     
-    NSDictionary *userInfo = not.userInfo;
-    //动画的持续时间
-    double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    self.inputViewBottomConstraint.constant = 0;
-    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [self setTableViewCell];
-    }];
+    if (self.isSeytemKeyBord) {
+        
+        NSDictionary *userInfo = not.userInfo;
+        //动画的持续时间
+        double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+        self.inputViewBottomConstraint.constant = 0;
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self setTableViewCell];
+        }];
+        
+    } else {
+        
+        
+        
+    }
+    
 }
 
-- (void)setTableViewCell{
+- (void)setTableViewCell {
     if (_dataArray.count >= 1) {
         [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:_dataArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
@@ -133,12 +159,76 @@
     inputView.textView.delegate = self;
     self.inputView = inputView;
     
-    //添加按钮的事件
-    [inputView.sendBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    STInputView *view = [STInputView inputView];
+    
+#pragma mark ----- 点击自定义键盘的按钮回调
+    [view setButtonClickBlock:^(STInputViewType type) {
+        
+        if (type == STShowInputViewPhotosAlbum) {
+            
+            
+            [self showPhotoLibrary];
+            
+        } else if (type == STInputViewTypeCamera) {
+            
+            
+            [self showCameraAction];
+            
+        } else if (type == STInputViewTypeVideo) {
+            
+            [self showVideoAction];
+        }
+        
+    }];
+    
+    view.width = SCREEN_WIDTH;
+    view.height = 280;
+    view.y = SCREEN_HEIGHT;
+    view.backgroundColor = RGBACOLOR(200, 200, 200, 1);
+    [self.view addSubview:view];
+    
+    
+    __weak typeof(inputView) weakInputView = inputView;
+    
+#pragma mark ----- 切换键盘的按钮回调
+    [inputView setAddButonBlock:^(WCShowKeybordType type) {
+        
+        if (type == WCShowInputView) {//弹出inputView
+            
+            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                
+                view.y = SCREEN_HEIGHT - 280;
+                
+            } completion:nil];
+            
+            self.inputViewBottomConstraint.constant = 280;
+            self.isSeytemKeyBord = NO;
+            [weakInputView.textView resignFirstResponder];
+            
+        } else {
+            
+            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                
+                view.y = SCREEN_HEIGHT;
+                
+            } completion:nil];
+            
+            
+            self.isSeytemKeyBord = YES;
+            
+            [weakInputView.textView becomeFirstResponder];
+            
+        }
+        
+    }];
+    
     [self.view addSubview:inputView];
     
+    [inputView.videoButton addTarget:self action:@selector(showVideoAction) forControlEvents:UIControlEventTouchUpInside];
+    
     //1.tableView水平方向约束
-    NSDictionary *views =@{@"tableView":tableView,@"inputView":inputView};
+    NSDictionary *views = @{@"tableView":tableView,@"inputView":inputView};
     NSArray *tableHConstrains =  [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tableView]-0-|" options:0 metrics:nil views:views];
     [self.view addConstraints:tableHConstrains];
     
@@ -164,31 +254,90 @@
     [self.view endEditing:YES];
 }
 
-- (void)addBtnClick {
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    //设置代理
-    pickerController.delegate = self;
-    //设置允许编辑
-    pickerController.allowsEditing = YES;
-    //从相册里面去取
-    pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    //显示图片选择器
-    [self presentViewController:pickerController animated:YES completion:nil];
+
+//显示录制视频
+- (void)showVideoAction {
+    
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeMovie];
+    
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeIFrame1280x720;
+    
+    self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;//设置摄像头模式（拍照，录制视频）
+    
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+//显示照相
+- (void)showCameraAction {
+    
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    self.imagePicker.allowsEditing = YES;//允许编辑
+    
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    
+}
+
+//显示照片库
+- (void)showPhotoLibrary {
+    
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    
+     self.imagePicker.allowsEditing = YES;//允许编辑
+    
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+
+}
+
+#pragma mark - 私有方法
+- (UIImagePickerController *)imagePicker {
+    if (!_imagePicker) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+    
+        _imagePicker.delegate = self;//设置代理，检测操作
+    }
+    return _imagePicker;
 }
 
 #pragma mark ---- 图片选择器的代理
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    //1.获取图片 设置图片
-    UIImage *image = info[UIImagePickerControllerEditedImage];
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
-    //2.发送图片
-    [self updateImage:image];
-
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {//如果是拍照
+        //1.获取图片 设置图片
+        UIImage *image = info[UIImagePickerControllerEditedImage];
+        
+        //2.发送图片
+        [self sendImage:image];//发送图片
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);//保存到相簿
+        
+    } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {//如果是录制视频
+        
+        NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];//视频路径
+        
+        NSData *videoData = [NSData dataWithContentsOfURL:url];
+        
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([url path])) {
+            
+            //保存视频到相簿，注意也可以使用ALAssetsLibrary来保存
+            UISaveVideoAtPathToSavedPhotosAlbum([url path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);//保存视频到相簿
+        }
+        
+        [self sendVideo:videoData];//发送视频
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)updateImage:(UIImage *)image {
+- (void)sendImage:(UIImage *)image {
     
     [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
        
@@ -216,6 +365,43 @@
     }];
     
 }
+
+- (void)sendVideo:(NSData *)videoData {
+    
+    AVIMVideoMessage *videoMessage = [AVIMVideoMessage messageWithText:@"http://static.zqgame.com/html/playvideo.html?name=http://lom.zqgame.com/v1/video/LOM_Promo~2.flv" file:[AVFile fileWithData:videoData] attributes:nil];
+
+    [[STMessageManager sharedManager] sendMessageMessage:videoMessage sendSuccess:^(BOOL success, AVIMTypedMessage *typeMessage) {
+        
+        [self.messages addObject:typeMessage];
+        
+        [self reloadTableViewWithMessagesArray:self.messages sorollToLastRow:YES];
+        
+    } callback:^(AVIMConversation *conversation, AVIMTypedMessage *typeMessage) {
+        
+        [self.messages addObject:typeMessage];
+        
+        [self reloadTableViewWithMessagesArray:self.messages sorollToLastRow:YES];
+    }];
+}
+
+////视频保存后的回调
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    if (error) {
+        NSLog(@"保存视频过程中发生错误，错误信息:%@",error.localizedDescription);
+    } else {
+        NSLog(@"视频保存成功.");
+        //录制完之后自动播放
+        NSURL *url = [NSURL fileURLWithPath:videoPath];
+//        _player=[AVPlayer playerWithURL:url];
+//        AVPlayerLayer *playerLayer=[AVPlayerLayer playerLayerWithPlayer:_player];
+//        playerLayer.frame=self.photo.frame;
+//        [self.photo.layer addSublayer:playerLayer];
+//        [_player play];
+        
+    }
+}
+
 
 
 #pragma set Refresh Control
@@ -250,7 +436,7 @@
                 
                 label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
                 
-                label.width = [UIScreen mainScreen].bounds.size.width;
+                label.width = SCREEN_WIDTH;
                 
                 label.height = 35;
                 
@@ -358,12 +544,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     GJChatViewMessageDetailModel *detailModel = self.dataArray[indexPath.row];
+    
     if ([detailModel.symbolStr isEqualToString:MESSAGE_IMAGE]) {
+        
         return detailModel.imageViewCellHeight;
-    }else{
+        
+    } else if ([detailModel.symbolStr isEqualToString:MESSAGE_VIDEO]){
+        
+        return detailModel.videoViewCellHeight;
+        
+    } else {
+        
         return detailModel.messageCellHeight;
     }
+    
     return 44.0f;
 }
 

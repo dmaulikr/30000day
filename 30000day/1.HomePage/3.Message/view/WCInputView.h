@@ -8,12 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    
+    WCShowSystemKeybord,
+    
+    WCShowInputView
+    
+}WCShowKeybordType;
+
 @interface WCInputView : UIView
 
 + (instancetype)inputView;
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+
+@property (nonatomic,copy) void (^addButonBlock)(WCShowKeybordType type);
 
 @end
 

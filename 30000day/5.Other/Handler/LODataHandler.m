@@ -1706,7 +1706,7 @@
 - (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
                         headImage:(UIImage *)image
                           success:(void (^)(NSString *imageUrl))success
-                          failure:(void (^)(NSError *))failure{
+                          failure:(void (^)(NSError *))failure {
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     

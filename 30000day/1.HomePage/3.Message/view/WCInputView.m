@@ -8,16 +8,45 @@
 
 #import "WCInputView.h"
 @implementation WCInputView
-+ (instancetype)inputView
-{
+
++ (instancetype)inputView {
+    
     return [[[NSBundle mainBundle] loadNibNamed:@"WCInputView" owner:nil options:nil] lastObject];
 }
-- (void)layoutSubviews
-{
+
+- (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.textView.layer.cornerRadius = 5;
+    
     self.textView.layer.masksToBounds = YES;
+    
     self.textView.enablesReturnKeyAutomatically = NO;
+}
+
+- (IBAction)addAction:(id)sender {
+    
+    UIButton *button = sender;
+
+    if (self.addButonBlock) {
+        
+        if (button.selected) {
+            
+            self.addButonBlock(WCShowInputView);
+            
+            [self.sendBtn setImage:[UIImage imageNamed:@"icon_add_more"] forState:UIControlStateNormal];
+            
+        } else {
+            
+            self.addButonBlock(WCShowSystemKeybord);
+            
+            
+            [self.sendBtn setImage:[UIImage imageNamed:@"keyborad"] forState:UIControlStateNormal];
+        }
+    }
+
+     button.selected = !button.isSelected;
+    
 }
 
 @end

@@ -28,9 +28,14 @@
 @property(nonatomic,assign)CGFloat messageCellHeight;//显示文字的cell高度
 
 //2.图片
-@property(nonatomic,assign)CGFloat imageViewConstrains;//将要显示的图片的约束
-@property(nonatomic,assign)CGFloat imageViewCellHeight;//将要显示的图片cell高度
-@property(nonatomic,copy)NSString *willShowImageURL;//将要被显示的图片
+@property(nonatomic,assign) CGFloat imageViewConstrains;//将要显示的图片的约束
+@property(nonatomic,assign) CGFloat imageViewCellHeight;//将要显示的图片cell高度
+@property(nonatomic,copy) NSString *willShowImageURL;//将要被显示的图片
 //3.语言
+
 //4.视频
+@property(nonatomic,copy) NSString *willShowVideoURL;//将要被显示的图片
+@property(nonatomic,assign) CGFloat videoViewConstrains;//将要显示的视频的约束
+@property(nonatomic,assign) CGFloat videoViewCellHeight;//将要显示的视频cell高度
+
 @end
