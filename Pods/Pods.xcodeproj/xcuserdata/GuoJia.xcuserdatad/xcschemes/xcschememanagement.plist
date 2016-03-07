@@ -2,52 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MJExtension.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MJRefresh.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SDWebImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>pop.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>3F0FC86A01655A7ABBF27B6141C31DDD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>742CE7D50CCEBAD343730283A1C4A611</key>
+		<key>4789FD4DE592ED7DD01BE4853E09ECC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>66F4267D0FA823D4F32E319860C41C9B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>757D2F67B9A4883EA54DB5845853D0A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8B090755233C44E8E118A8DA48015C08</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,17 +39,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>976AECB83EC1A9EA7CB30F410E65FACB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ACC9B408B44416FAF6EEE34D088E8D9B</key>
+		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BCCC0F4081C473B2448DD2FB829E748C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E63EA3FC3E0A88A11341641DBAC04F9F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

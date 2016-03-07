@@ -8,8 +8,9 @@
 
 #import "ShowBackItemViewController.h"
 #import "UserInformationModel.h"
+#import "CDBaseVC.h"
 
-@interface PersonDetailViewController : ShowBackItemViewController
+@interface PersonDetailViewController : CDBaseVC
 
 @property (nonatomic,strong) UserInformationModel *informationModel;
 

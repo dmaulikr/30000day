@@ -111,14 +111,14 @@
     
         GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
         
-        if (![factorModel.userSubFactorModel.title isEqualToString:value] && ![factorModel.userSubFactorModel.data isEqualToNumber:[GetFactorModel dataNumberWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
+        if (![factorModel.userSubFactorModel.title isEqualToString:value] && ![factorModel.userSubFactorModel.subFactorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
             
             self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
         }
         
         factorModel.userSubFactorModel.title = value;
         
-        factorModel.userSubFactorModel.data  = [GetFactorModel dataNumberWithTitleString:value subFactorArray:factorModel.subFactorArray];
+        factorModel.userSubFactorModel.subFactorId  = [GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray];
         
         [self.tableView reloadData];
     }
