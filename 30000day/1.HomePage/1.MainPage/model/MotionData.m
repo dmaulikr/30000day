@@ -18,19 +18,27 @@
 
 - (id) init {
     if (self = [super init]) {
-        healthStore = [[HKHealthStore alloc] init];
-        NSSet *readDataTypes = [self dataTypesToRead];
-        [healthStore requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
-            if (success) {
-                NSLog(@"设备支持");
-            }else{
-                NSLog(@"设备不支持 :%@", error);
-            }
-        }];
-        
+
     }
     
     return self;
+}
+
+-(void)getHealtHequipmentWhetherSupport:(void (^)(BOOL))scs
+                                failure:(void (^)(NSError *))failure{
+    healthStore = [[HKHealthStore alloc] init];
+    NSSet *readDataTypes = [self dataTypesToRead];
+    [healthStore requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            scs(success);
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(error);
+        });
+
+    }];
 }
 
 //2、读取数据的权限

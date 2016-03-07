@@ -128,8 +128,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
         
-        [self lifeToYear:cell];
-        
+        [cell.lifeImage setImage:[self lifeToYear]];
         cell.informationModel = self.informationModel;
         
         //下载头像
@@ -204,58 +203,73 @@
 
 - (void)uploadMotionData{
 
-    MotionData *mdata=[[MotionData alloc]init];
+    if ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil) {
     
-    //获取步数
-    [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+        MotionData *mdata=[[MotionData alloc]init];
         
-        if (birthString != nil) {
-            NSLog(@"获取步数  %@",birthString);
-            //获取爬楼数
-            [mdata getClimbStairsCount:^(NSString *climbStairsString) {
-                
-                if (climbStairsString != nil) {
-                    NSLog(@"获取爬楼数  %@",climbStairsString);
-                    //获取运动距离
-                    [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
-                        
-                        if (movingDistanceString != nil) {
-                            NSLog(@"获取运动距离  %@",movingDistanceString);
-                            
-                            NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
-                            [dataDictionary setObject:birthString forKey:@"stepNum"];
-                            [dataDictionary setObject:climbStairsString forKey:@"stairs"];
-                            [dataDictionary setObject:movingDistanceString forKey:@"distance"];
-                            
-                            NSString *dataString=[self DataTOjsonString:dataDictionary];
-                            
-                            [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dataString:dataString success:^(BOOL success) {
-                                
-                                if (success) {
-                                    NSLog(@"运动信息上传成功");
-                                }
-                                
-                            } failure:^(NSError *error) {
-                                
-                                NSLog(@"运动信息上传失败");
-                                
-                            }];
-                        }
-                        
-                    } failure:^(NSError *error) {
-                        NSLog(@"获取运动距离失败");
-                    }];
-                }
-                
-            } failure:^(NSError *error) {
-                NSLog(@"获取爬楼数失败");
-            }];
+        [mdata getHealtHequipmentWhetherSupport:^(BOOL scs) {
             
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"获取步数失败");
-    }];
+            if (scs) {
+                
+                //获取步数
+                [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                    
+                    if (birthString != nil) {
+                        NSLog(@"获取步数  %@",birthString);
+                        //获取爬楼数
+                        [mdata getClimbStairsCount:^(NSString *climbStairsString) {
+                            
+                            if (climbStairsString != nil) {
+                                NSLog(@"获取爬楼数  %@",climbStairsString);
+                                //获取运动距离
+                                [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
+                                    
+                                    if (movingDistanceString != nil) {
+                                        NSLog(@"获取运动距离  %@",movingDistanceString);
+                                        
+                                        NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
+                                        [dataDictionary setObject:birthString forKey:@"stepNum"];
+                                        [dataDictionary setObject:climbStairsString forKey:@"stairs"];
+                                        [dataDictionary setObject:movingDistanceString forKey:@"distance"];
+                                        
+                                        NSString *dataString=[self DataTOjsonString:dataDictionary];
+                                        
+                                        [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dataString:dataString success:^(BOOL success) {
+                                            
+                                            if (success) {
+                                                NSLog(@"运动信息上传成功");
+                                            }
+                                            
+                                        } failure:^(NSError *error) {
+                                            
+                                            NSLog(@"运动信息上传失败");
+                                            
+                                        }];
+                                    }
+                                    
+                                } failure:^(NSError *error) {
+                                    NSLog(@"获取运动距离失败");
+                                }];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            NSLog(@"获取爬楼数失败");
+                        }];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    NSLog(@"获取步数失败");
+                }];
+                
+            }else{
+                return;
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }
     
 }
 
@@ -285,26 +299,28 @@
     return yearInt;
 }
 
-- (void)lifeToYear:(WeatherTableViewCell *)cell{
+- (UIImage *)lifeToYear{
     
     if ([self daysToYear] <= 20) {
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_1"]];
+        return [UIImage imageNamed:@"age_1"];
     }else if ([self daysToYear] <= 30){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_2"]];
+        return [UIImage imageNamed:@"age_2"];
     }else if ([self daysToYear] <= 40){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_3"]];
+        return [UIImage imageNamed:@"age_3"];
     }else if ([self daysToYear] <= 50){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_4"]];
+        return [UIImage imageNamed:@"age_4"];
     }else if ([self daysToYear] <= 60){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_5"]];
+        return [UIImage imageNamed:@"age_5"];
     }else if ([self daysToYear] <= 70){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_6"]];
+        return [UIImage imageNamed:@"age_6"];
     }else if ([self daysToYear] <= 80){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_7"]];
+        return [UIImage imageNamed:@"age_7"];
     }else if ([self daysToYear] <= 90){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_8"]];
+        return [UIImage imageNamed:@"age_8"];
     }else if ([self daysToYear] <= 100){
-        [cell.lifeImage setImage:[UIImage imageNamed:@"age_9"]];
+        return [UIImage imageNamed:@"age_9"];
+    }else{
+        return nil;
     }
 }
 

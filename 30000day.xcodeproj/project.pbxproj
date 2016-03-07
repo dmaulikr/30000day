@@ -15,6 +15,8 @@
 		B60D85891C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85871C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.xib */; };
 		B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D858B1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m */; };
 		B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib */; };
+		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
+		B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */; };
 		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
 		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
@@ -29,8 +31,6 @@
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
-		B8695AA71C7479C9001B4B95 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */; };
-		B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */; };
 		B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */; };
 		B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */; };
 		B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAF1C748150001B4B95 /* ChartTableViewCell.m */; };
@@ -227,6 +227,9 @@
 		B60D858A1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewSecondCell.h; sourceTree = "<group>"; };
 		B60D858B1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewSecondCell.m; sourceTree = "<group>"; };
 		B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewSecondCell.xib; sourceTree = "<group>"; };
+		B6171DBC1C8D208600116B13 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
+		B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
+		B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 		B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewCell.h; sourceTree = "<group>"; };
 		B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewCell.m; sourceTree = "<group>"; };
 		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
@@ -251,9 +254,6 @@
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
-		B8695AA41C7479C9001B4B95 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
-		B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
-		B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 		B8695AA91C747DAC001B4B95 /* ActivityIndicatorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorTableViewCell.h; sourceTree = "<group>"; };
 		B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorTableViewCell.m; sourceTree = "<group>"; };
 		B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorTableViewCell.xib; sourceTree = "<group>"; };
@@ -841,9 +841,9 @@
 		B88C91731C5A07320089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8695AA41C7479C9001B4B95 /* WeatherTableViewCell.h */,
-				B8695AA51C7479C9001B4B95 /* WeatherTableViewCell.m */,
-				B8695AA61C7479C9001B4B95 /* WeatherTableViewCell.xib */,
+				B6171DBC1C8D208600116B13 /* WeatherTableViewCell.h */,
+				B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */,
+				B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */,
 				B8695AA91C747DAC001B4B95 /* ActivityIndicatorTableViewCell.h */,
 				B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */,
 				B8695AAB1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib */,
@@ -1666,7 +1666,6 @@
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
-				B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */,
 				B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */,
@@ -1693,6 +1692,7 @@
 				B8FD3AE71C868A83007BCA6B /* icon_chose_bottom@2x.png in Resources */,
 				B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */,
 				B8FD3AD81C852BE3007BCA6B /* ChangePasswordViewController.xib in Resources */,
+				B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
 				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
 				B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */,
@@ -1799,7 +1799,6 @@
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
-				B8695AA71C7479C9001B4B95 /* WeatherTableViewCell.m in Sources */,
 				B8F2D99D1C5C8B1A002C7712 /* JBUnitTileView.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
@@ -1808,6 +1807,7 @@
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
 				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
+				B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */,
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */,
