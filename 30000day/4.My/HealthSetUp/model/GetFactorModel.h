@@ -12,8 +12,6 @@
 
 @interface GetFactorModel : NSObject
 
-@property (nonatomic , strong) NSNumber *data;
-
 @property (nonatomic , strong) NSNumber *factorId;
 
 @property (nonatomic , copy) NSString *title;
@@ -24,30 +22,28 @@
 
 /**
   *
-  * 用一个data 来取得subFactorArray里面模型里面的一个string
+  * 用一个subFactorId 来取得subFactorArray里面SubFactorModel的一个string
   *
-  * 例子: @0.5 @[SubFactorModel,SubFactorModel,SubFactorModel]   -->  SubFactorModel.title
   **/
 
-+ (NSString *)titleStringWithDataNumber:(NSNumber *)data subFactorArray:(NSMutableArray *)subFactorArray;
++ (NSString *)titleStringWithDataNumber:(NSNumber *)subFactorId subFactorArray:(NSMutableArray *)subFactorArray;
 
 /**
  *
- * 用一个string 来取得subFactorArray里面模型里面的一个data
+ * 用一个string 来取得subFactorArray里面SubFactorModel模型里面的一个subFactorId
  *
- * 例子: @0.5 @[SubFactorModel,SubFactorModel,SubFactorModel]   -->  SubFactorModel.data
  **/
 
-+ (NSNumber *)dataNumberWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray;
++ (NSNumber *)subFactorIdWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray;
 
 @end
 
 @interface SubFactorModel : NSObject
 
-@property (nonatomic , strong) NSNumber *data;
+@property (nonatomic,strong)   NSNumber *subFactorId;
 
 @property (nonatomic , strong) NSNumber *factorId;
 
-@property (nonatomic , copy) NSString *title;
+@property (nonatomic , copy)  NSString *title;
 
 @end

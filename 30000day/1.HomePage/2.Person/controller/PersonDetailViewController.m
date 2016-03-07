@@ -11,7 +11,8 @@
 #import "ActivityIndicatorTableViewCell.h"
 #import "ChartTableViewCell.h"
 #import "UserLifeModel.h"
-#import "WeMessageBaseViewController.h"
+#import "CDChatVC.h"
+#import "CDIMService.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -96,16 +97,13 @@
     
     if (button.tag == 1) {//右按钮
         
-        WeMessageBaseViewController *controller = [[WeMessageBaseViewController alloc] init];
-        
-        controller.infomationModel = self.informationModel;
-        
-        controller.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:controller animated:YES];
+        [[CDIMService service] createChatRoomByUserId:[NSString stringWithFormat:@"%@",self.informationModel.userId] fromViewController:self completion:^(BOOL successed, NSError *error) {
+            if (error) {
+                DLog(@"%@",error.userInfo);
+            }
+        }];
         
     } else {//左按钮
-        
         
         
     }
