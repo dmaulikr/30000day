@@ -1291,8 +1291,6 @@
                                                                     
                                                                     model.factorId = dictionary[@"id"];
                                                                     
-                                                                    model.data = dictionary[@"data"];
-                                                                    
                                                                     [newArray addObject:model];
                                                                 }
                                                                 
@@ -1411,7 +1409,7 @@
                                                                     
                                                                     NSDictionary *dictionary = oldArray[i];
                                                                     
-                                                                    int j = [dictionary[@"id"] intValue] - 1;
+                                                                    int j = [dictionary[@"fid"] intValue] - 1;
                                                                     
                                                                     if ( j >= 0 ) {
                                                                         
@@ -1421,9 +1419,9 @@
                                                                         
                                                                         subModel.title = dictionary[@"title"];
                                                                         
-                                                                        subModel.factorId = dictionary[@"id"];
+                                                                        subModel.subFactorId = dictionary[@"id"];
                                                                         
-                                                                        subModel.data = dictionary[@"data"];
+                                                                        subModel.factorId = dictionary[@"fid"];
                                                                         
                                                                         [factorModel.subFactorArray addObject:subModel];
                                                                         
@@ -1489,7 +1487,7 @@
     //异步执行
     dispatch_async(dispatch_queue_create("saveUserFactores", DISPATCH_QUEUE_SERIAL), ^{
         
-        NSString *url = [NSString stringWithFormat:@"http://192.168.1.112:8080/stapi/factor/getUserFactor?userId=%@",userId];
+        NSString *url = [NSString stringWithFormat:@"http://192.168.1.101:8081/stapi/factor/getUserFactor?userId=%@",userId];
         
         NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url] ;
         
@@ -1523,17 +1521,17 @@
                             
                             NSDictionary *dictionary = oldArray[i];
                             
-                            NSNumber *dataNumber = dictionary[@"v"];
+                            NSNumber *subFactorId = dictionary[@"id"];
                             
                             NSNumber *keyNumber = dictionary[@"k"];
                             
                             GetFactorModel *factorModel = factorsModelArray[[keyNumber intValue] - 1];
                             
-                            factorModel.userSubFactorModel.data = dataNumber;
+                            factorModel.userSubFactorModel.subFactorId = subFactorId;
                             
                             factorModel.userSubFactorModel.factorId = [NSNumber numberWithInt:i + 1];
                             
-                            factorModel.userSubFactorModel.title = [GetFactorModel titleStringWithDataNumber:dataNumber subFactorArray:factorModel.subFactorArray];
+                            factorModel.userSubFactorModel.title = [GetFactorModel titleStringWithDataNumber:subFactorId subFactorArray:factorModel.subFactorArray];
                             
                         }
                         
@@ -1616,11 +1614,11 @@
         
         GetFactorModel *factorModel = factorsModelArray[i];
         
-        if (factorModel.userSubFactorModel.data) {
+        if (factorModel.userSubFactorModel.subFactorId) {
             
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
             
-            dictionary[@"v"] = factorModel.userSubFactorModel.data;
+            dictionary[@"id"] = factorModel.userSubFactorModel.subFactorId;
             
             dictionary[@"k"] = [NSNumber numberWithInt:i + 1];
             

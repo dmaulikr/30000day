@@ -23,13 +23,13 @@
 }
 
 //用一个data 来取得subFactorArray里面模型里面的一个string
-+ (NSString *)titleStringWithDataNumber:(NSNumber *)data subFactorArray:(NSMutableArray *)subFactorArray {
++ (NSString *)titleStringWithDataNumber:(NSNumber *)subFactorId subFactorArray:(NSMutableArray *)subFactorArray {
     
     for (int i = 0; i < subFactorArray.count ; i++) {
         
         SubFactorModel *subFactorModel = subFactorArray[i];
         
-        if ([subFactorModel.data isEqual:data]) {
+        if ([subFactorModel.subFactorId isEqual:subFactorId]) {
             
             return subFactorModel.title;
             
@@ -39,7 +39,7 @@
     return @"";
 }
 
-+ (NSNumber *)dataNumberWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray {
++ (NSNumber *)subFactorIdWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray {
     
     for (int i = 0; i < subFactorArray.count ; i++) {
         
@@ -47,7 +47,7 @@
         
         if ([subFactorModel.title isEqualToString:string]) {
             
-            return subFactorModel.data;
+            return subFactorModel.subFactorId;
             
         }
     }
