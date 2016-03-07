@@ -1320,19 +1320,27 @@
                                                                         
                                                                     } failure:^(LONetError *error) {
                                                                         
+                                                                        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载个人健康因失败"}];
+                                                                        
+                                                                        LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                        
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                                             
-                                                                            failure(error);
+                                                                            failure(newError);
                                                                             
-                                                                        });
+                                                                        });;
                                                                         
                                                                     }];
                                                                     
                                                                 } failure:^(LONetError *error) {
                                                                     
+                                                                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子选项失败"}];
+                                                                    
+                                                                    LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                    
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
-                                                                        failure(error);
+                                                                        failure(newError);
                                                                         
                                                                     });
                                                                     
@@ -1340,7 +1348,7 @@
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
                                                                 
                                                                 LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
@@ -1354,15 +1362,13 @@
                                                             
                                                         } else {
                                                             
+                                                            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
+                                                            
+                                                            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(error);
                                                                 
                                                             });
                                                             
@@ -1370,9 +1376,14 @@
                                                         
                                                     } failure:^(LONetError *error) {
                                                         
+                                                        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
+                                                        
+                                                        LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                        
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
-                                                            failure(error);
+                                                            failure(newError);
+                                                            
                                                         });
                                                         
                                                     }];
