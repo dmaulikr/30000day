@@ -45,13 +45,19 @@
 //保存健康因素
 - (void)saveFactor {
     
+    [self showHUDWithContent:@"正在保存" animated:YES];
+    
     [self.dataHandler sendSaveUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:self.getFactorArray success:^(BOOL success) {
+        
+        [self hideHUD:YES];
         
         [self showToast:@"保存成功"];
         
         self.barButton.enabled = NO;
         
     } failure:^(LONetError *error) {
+        
+        [self hideHUD:YES];
         
         [self showToast:@"保存失败"];
         
@@ -74,6 +80,8 @@
     } failure:^(LONetError *error) {
         
         [self hideHUD:YES];
+        
+        [self showToast:[error.error userInfo][NSLocalizedDescriptionKey]];
         
     }];
 }
