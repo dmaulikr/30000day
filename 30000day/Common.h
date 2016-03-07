@@ -73,4 +73,8 @@
 //专门用来检查URL是否正确的
 + (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
 
+
+//取得指定时间点的截图
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+
 @end

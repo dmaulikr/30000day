@@ -195,5 +195,9 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure;
 
+//*********上传视频到服务器*****//
+
+
+
 
 @end

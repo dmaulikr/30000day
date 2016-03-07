@@ -45,6 +45,8 @@
             
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
+
+
         } failure:^(NSError *error) {
             
             [self showToast:@"获取天气失败"];

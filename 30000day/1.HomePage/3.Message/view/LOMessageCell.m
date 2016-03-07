@@ -8,22 +8,31 @@
 
 #import "LOMessageCell.h"
 #import "UIImage+WF.h"
+#import "PlayerView.h"
 
 @interface LOMessageCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *bg_imageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_top;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_leading;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_trailing;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_bottom;
-@end
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_top;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_leading;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_trailing;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bg_imageView_bottom;
+
+@end
 
 @implementation LOMessageCell {
     
     UILabel *_label;
+    
     UIImageView *_imageView;
+    
+    PlayerView *_videoView;
 }
+
 - (void)awakeFromNib {
     
     self.myHeaderView.layer.cornerRadius = 20;
@@ -33,6 +42,8 @@
     self.myHeaderView.contentMode = UIViewContentModeScaleAspectFill;
     self.friendsHeaderView.contentMode = UIViewContentModeScaleAspectFill;
     
+    
+    //设置显示文字label
     UILabel *label = [[UILabel alloc] init];
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.text = nil;
@@ -42,6 +53,8 @@
     [self.bg_imageView addSubview:label];
     _label = label;
     
+    
+    //设置显示image视图
     _imageView = [[UIImageView alloc] init];
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
     _imageView.layer.cornerRadius = 8;
@@ -51,12 +64,32 @@
     [_imageView addGestureRecognizer:tap];
     [self.bg_imageView addSubview:_imageView];
     
+    //设置video视图
+    _videoView =  [[PlayerView alloc] init];
+    
+    _videoView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _videoView.layer.cornerRadius = 8;
+    
+    _videoView.layer.masksToBounds = YES;
+    
+    _videoView.userInteractionEnabled = YES;
+
+    _videoView.backgroundColor = [UIColor redColor];
+    
+    NSURL *videoUrl = [NSURL URLWithString:@"http://f01.v1.cn/group2/M00/01/62/ChQB0FWBQ3SAU8dNJsBOwWrZwRc350-m.mp4"];
+    
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
+    
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    _videoView.player = player;
+    
+    [_videoView.player play];
+    
+    [self.bg_imageView addSubview:_videoView];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
 
 - (void)setMessageDetailModel:(GJChatViewMessageDetailModel *)messageDetailModel {
     
@@ -81,6 +114,12 @@
     if ([_messageDetailModel.symbolStr isEqualToString:MESSAGE_STRING]) {//文字
         
         _label.text = _messageDetailModel.willShowMessage;
+        
+        _videoView.hidden = YES;
+        
+        _label.hidden = NO;
+        
+        _imageView.hidden = YES;
         
         if ( _messageDetailModel.isSend ) {//自己发的消息
             
@@ -122,6 +161,8 @@
         
         _imageView.hidden = NO;
         
+        _videoView.hidden = YES;
+        
         if (_messageDetailModel.isSend) {//自己发的
             
             NSArray *imageView_constrainsX = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-7-[_imageView]-12-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_imageView)];
@@ -162,10 +203,46 @@
         }
     } else if ([_messageDetailModel.symbolStr isEqualToString:MESSAGE_VIDEO]){//视频
         
+        _label.hidden = YES;
         
+        _imageView.hidden = YES;
         
+        _videoView.hidden = NO;
+        
+        if (_messageDetailModel.isSend) {//自己发的
+            
+            NSArray *videoView_constrainsX = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-7-[_videoView]-12-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_videoView)];
+            
+            NSArray *videoView_constrainsY = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-3-[_videoView]-12-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_videoView)];
+            
+            [self.bg_imageView addConstraints:videoView_constrainsX];
+            
+            [self.bg_imageView addConstraints:videoView_constrainsY];
+            
+            self.friendsHeaderView.hidden = YES;
+            
+            self.myHeaderView.hidden = NO;
+            
+            self.bg_imageView_leading.constant = _messageDetailModel.videoViewConstrains;
+    
+        } else {//别人发的
+            
+            NSArray *videoView_constrainsX = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-12-[_videoView]-7-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_videoView)];
+            
+            NSArray *videoView_constrainsY = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-3-[_videoView]-12-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_videoView)];
+            
+            [self.bg_imageView addConstraints:videoView_constrainsX];
+            
+            [self.bg_imageView addConstraints:videoView_constrainsY];
+            
+            self.friendsHeaderView.hidden = NO;
+            
+            self.myHeaderView.hidden = YES;
+            
+            self.bg_imageView_trailing.constant = _messageDetailModel.videoViewConstrains;
+        }
+    
     } else if ([_messageDetailModel.symbolStr isEqualToString:MESSAGE_VOICE]){//语音
-        
         
         
     }

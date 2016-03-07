@@ -56,9 +56,31 @@
                 [newMessageArray addObject:detailModel];
             } else if ([object isKindOfClass:[AVIMAudioMessage class]]){//语音
                 
+                
+                
+                
             
             } else if ([object isKindOfClass:[AVIMVideoMessage class]]){//视频
                 
+                GJChatViewMessageDetailModel *detailModel = [[GJChatViewMessageDetailModel alloc] init];
+                
+                if ([object.clientId isEqualToString:myClientID]) {
+                    
+                    detailModel.isSend = YES;
+                    
+                } else if ([object.clientId isEqualToString:friendClientId]) {
+                    
+                    detailModel.isSend = NO;
+                }
+                
+                detailModel.symbolStr = MESSAGE_VIDEO;
+                
+                detailModel.willShowVideoURL = object.text;//给URL赋值
+
+                detailModel.videoViewConstrains = SCREEN_WIDTH/2 - 120;
+                
+                detailModel.videoViewCellHeight = (SCREEN_WIDTH/2)*((float)9.0f/(float)16.0f) - 4;
+                [newMessageArray addObject:detailModel];
                 
             }
         }

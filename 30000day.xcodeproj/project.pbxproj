@@ -209,6 +209,9 @@
 		B8FD3B0E1C87DDA2007BCA6B /* LOChatViewMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B0D1C87DDA2007BCA6B /* LOChatViewMessageModel.m */; };
 		B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */; };
 		B8FD3B181C882DDD007BCA6B /* SJAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3B171C882DDD007BCA6B /* SJAvatarBrowser.m */; };
+		B8FD3C621C896881007BCA6B /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3C611C896881007BCA6B /* STInputView.m */; };
+		B8FD3C641C89688A007BCA6B /* STInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3C631C89688A007BCA6B /* STInputView.xib */; };
+		B8FD3CA11C89974D007BCA6B /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3CA01C89974D007BCA6B /* PlayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -555,6 +558,11 @@
 		B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WF.m"; sourceTree = "<group>"; };
 		B8FD3B161C882DDD007BCA6B /* SJAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAvatarBrowser.h; sourceTree = "<group>"; };
 		B8FD3B171C882DDD007BCA6B /* SJAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAvatarBrowser.m; sourceTree = "<group>"; };
+		B8FD3C601C896881007BCA6B /* STInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputView.h; sourceTree = "<group>"; };
+		B8FD3C611C896881007BCA6B /* STInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STInputView.m; sourceTree = "<group>"; };
+		B8FD3C631C89688A007BCA6B /* STInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STInputView.xib; sourceTree = "<group>"; };
+		B8FD3C9F1C89974D007BCA6B /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		B8FD3CA01C89974D007BCA6B /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -898,6 +906,11 @@
 				B8FD3B021C87DD07007BCA6B /* WCInputView.h */,
 				B8FD3B031C87DD07007BCA6B /* WCInputView.m */,
 				B8FD3B041C87DD07007BCA6B /* WCInputView.xib */,
+				B8FD3C601C896881007BCA6B /* STInputView.h */,
+				B8FD3C611C896881007BCA6B /* STInputView.m */,
+				B8FD3C631C89688A007BCA6B /* STInputView.xib */,
+				B8FD3C9F1C89974D007BCA6B /* PlayerView.h */,
+				B8FD3CA01C89974D007BCA6B /* PlayerView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1628,6 +1641,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = B88C91221C59F2260089BEAE;
 			productRefGroup = B88C912C1C59F2260089BEAE /* Products */;
@@ -1667,6 +1681,7 @@
 				B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
 				B8FD3AE61C868A83007BCA6B /* icon_chose_arrow_sel@2x.png in Resources */,
+				B8FD3C641C89688A007BCA6B /* STInputView.xib in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
@@ -1780,6 +1795,7 @@
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
+				B8FD3CA11C89974D007BCA6B /* PlayerView.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */,
@@ -1836,6 +1852,7 @@
 				B8F2D9A01C5C8B1A002C7712 /* LunarCalendar.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,
+				B8FD3C621C896881007BCA6B /* STInputView.m in Sources */,
 				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
