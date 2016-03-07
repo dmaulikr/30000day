@@ -111,7 +111,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return 3;
-   }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -125,6 +125,8 @@
             
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
+        
+        [self lifeToYear:cell];
         
         cell.informationModel = self.informationModel;
         
@@ -261,7 +263,7 @@
     NSString *jsonString = nil;
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                       options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     if (! jsonData) {
         NSLog(@"Got an error: %@", error);
@@ -269,6 +271,39 @@
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
     return jsonString;
+}
+
+
+- (NSInteger)daysToYear{
+    
+    NSInteger day = [[self.allDayArray lastObject] integerValue];
+    NSNumber *year = [NSNumber numberWithFloat:day/365];
+    NSInteger yearInt = [year integerValue];
+    
+    return yearInt;
+}
+
+- (void)lifeToYear:(WeatherTableViewCell *)cell{
+    
+    if ([self daysToYear] <= 20) {
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_1"]];
+    }else if ([self daysToYear] <= 30){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_2"]];
+    }else if ([self daysToYear] <= 40){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_3"]];
+    }else if ([self daysToYear] <= 50){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_4"]];
+    }else if ([self daysToYear] <= 60){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_5"]];
+    }else if ([self daysToYear] <= 70){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_6"]];
+    }else if ([self daysToYear] <= 80){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_7"]];
+    }else if ([self daysToYear] <= 90){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_8"]];
+    }else if ([self daysToYear] <= 100){
+        [cell.lifeImage setImage:[UIImage imageNamed:@"age_9"]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
