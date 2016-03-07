@@ -8,7 +8,7 @@
 
 #import "MainPageBaseViewController.h"
 #import "PersonViewController.h"
-#import "MessageViewController.h"
+#import "CDConvsVC.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"
@@ -96,7 +96,7 @@
     //设置子控制器
     MainViewController *mainPageController = [[MainViewController alloc] init];
     PersonViewController *personViewController = [[PersonViewController alloc] init];
-    MessageViewController *messageViewController = [[MessageViewController alloc] init];
+    CDConvsVC *messageViewController = [[CDConvsVC alloc] init];
     CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     [self addChildViewController:mainPageController];
     [self addChildViewController:personViewController];
