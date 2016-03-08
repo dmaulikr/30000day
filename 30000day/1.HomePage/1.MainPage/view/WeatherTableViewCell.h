@@ -21,6 +21,8 @@
 
 @property (weak,nonatomic) IBOutlet UILabel *airLabel;//空气质量label
 
+@property (weak,nonatomic) IBOutlet UIImageView *lifeImage;
+
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 
 @end

@@ -10,16 +10,20 @@
 @import HealthKit;
 @interface MotionData : NSObject
 
+
+//判断设备是否支持
+- (void)getHealtHequipmentWhetherSupport:(void (^)(BOOL scs))scs
+                                 failure:(void (^)(NSError *error))failure;
 //获取今天步数
 - (void)getHealthUserDateOfBirthCount:(void (^)(NSString *birthString))success
-                         failure:(void (^)(NSError *error))failure;
+                              failure:(void (^)(NSError *error))failure;
 
 //获取爬楼梯数
 - (void)getClimbStairsCount:(void (^)(NSString *climbStairsString))success
-         failure:(void (^)(NSError *error))failure;
+                    failure:(void (^)(NSError *error))failure;
 
 //获取今天运动距离
 - (void)getMovingDistanceCount:(void (^)(NSString *movingDistanceString))success
-               failure:(void (^)(NSError *error))failure;
+                       failure:(void (^)(NSError *error))failure;
 
 @end
