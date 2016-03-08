@@ -70,7 +70,7 @@
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
                                   sender:(NSString *)sender
-                               timestamp:(NSDate *)timestamp{
+                               timestamp:(NSDate *)timestamp {
     self = [super init];
     if (self) {
         self.videoConverPhoto = videoConverPhoto;

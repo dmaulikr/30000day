@@ -162,7 +162,7 @@
 }
 
 + (NSString *)emotionOfIndex:(NSInteger)index prefix:(NSString *)prefix {
-    return [NSString stringWithFormat:@"%@_%ld", prefix, index];
+    return [NSString stringWithFormat:@"%@_%ld", prefix, (long)index];
 }
 
 + (NSString *)coverPathOfIndex:(NSInteger)index prefix:(NSString *)prefix {
@@ -170,17 +170,18 @@
     NSString *basicPath = [NSString stringWithFormat:@"%@_%ld_cover", prefix, (long)index];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:basicPath ofType:@"png"];
     if (bundlePath == nil) {
-        return [NSString stringWithFormat:@"emoticons/%@", basicPath];
+        return [NSString stringWithFormat:@"%@", basicPath];
     } else {
         return basicPath;
     }
 }
 
+// 如果是源代码引入的话，可能不需要 emoticons/
 + (NSString *)gifPathOfIndex:(NSInteger)index prefix:(NSString *)prefix {
     NSString *basicPath = [NSString stringWithFormat:@"%@_%ld", prefix, (long)index];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:basicPath ofType:@"gif"];
     if (bundlePath == nil) {
-        return [NSString stringWithFormat:@"emoticons/%@", basicPath];
+        return [NSString stringWithFormat:@"%@", basicPath];
     } else {
         return basicPath;
     }
@@ -240,6 +241,12 @@
     }];
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     return result;
+}
+
++ (void)saveEmotions {
+    
+    
+    
 }
 
 @end
