@@ -301,27 +301,64 @@
 
 - (UIImage *)lifeToYear{
     
-    if ([self daysToYear] <= 20) {
-        return [UIImage imageNamed:@"age_1"];
-    }else if ([self daysToYear] <= 30){
-        return [UIImage imageNamed:@"age_2"];
-    }else if ([self daysToYear] <= 40){
-        return [UIImage imageNamed:@"age_3"];
-    }else if ([self daysToYear] <= 50){
-        return [UIImage imageNamed:@"age_4"];
-    }else if ([self daysToYear] <= 60){
-        return [UIImage imageNamed:@"age_5"];
-    }else if ([self daysToYear] <= 70){
-        return [UIImage imageNamed:@"age_6"];
-    }else if ([self daysToYear] <= 80){
-        return [UIImage imageNamed:@"age_7"];
-    }else if ([self daysToYear] <= 90){
-        return [UIImage imageNamed:@"age_8"];
-    }else if ([self daysToYear] <= 100){
-        return [UIImage imageNamed:@"age_9"];
-    }else{
-        return nil;
+    NSInteger life=[self daysToYear];
+    
+    if ([[STUserAccountHandler userProfile].gender intValue] == 0) {
+        
+        if (life <= 20) {
+            return [UIImage imageNamed:@"age_1_f"];
+        }else if (life <= 30){
+            return [UIImage imageNamed:@"age_2_f"];
+        }else if (life <= 40){
+            return [UIImage imageNamed:@"age_3_f"];
+        }else if (life <= 50){
+            return [UIImage imageNamed:@"age_4_f"];
+        }else if (life <= 60){
+            return [UIImage imageNamed:@"age_5_f"];
+        }else if (life <= 70){
+            return [UIImage imageNamed:@"age_6_f"];
+        }else if (life <= 80){
+            return [UIImage imageNamed:@"age_7_f"];
+        }else if (life <= 90){
+            return [UIImage imageNamed:@"age_8_f"];
+        }else if (life <= 100 || life > 100){
+            return [UIImage imageNamed:@"age_9_f"];
+        }else{
+            return nil;
+        }
+
+        
     }
+    
+    if ([[STUserAccountHandler userProfile].gender intValue] == 1) {
+        
+        if (life <= 20) {
+            return [UIImage imageNamed:@"age_1"];
+        }else if (life <= 30){
+            return [UIImage imageNamed:@"age_2"];
+        }else if (life <= 40){
+            return [UIImage imageNamed:@"age_3"];
+        }else if (life <= 50){
+            return [UIImage imageNamed:@"age_4"];
+        }else if (life <= 60){
+            return [UIImage imageNamed:@"age_5"];
+        }else if (life <= 70){
+            return [UIImage imageNamed:@"age_6"];
+        }else if (life <= 80){
+            return [UIImage imageNamed:@"age_7"];
+        }else if (life <= 90){
+            return [UIImage imageNamed:@"age_8"];
+        }else if (life <= 100 || life > 100){
+            return [UIImage imageNamed:@"age_9"];
+        }else{
+            return nil;
+        }
+
+        
+    }
+    
+    return nil;
+    
 }
 
 - (void)didReceiveMemoryWarning {
