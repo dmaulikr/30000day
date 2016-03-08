@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+//开启聊天之旅的信息
+- (void)openChatCompletion:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *))failure;
 
 @end
 

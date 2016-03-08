@@ -88,11 +88,11 @@
 #define VIEWBORDERLINECOLOR     [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
 
 
-#define HEALTHSETINDICATE            @"HEALTHSETINDICATE"   //健康界面的indicate
+#define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
 
-#define KEY_SIGNIN_USER_NAME         @"SignInUserName"      //登录用户名
+#define KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
 
-#define KEY_SIGNIN_USER_PASSWORD     @"SignINPassword"      //用户密码
+#define KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
 
 #define  KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
 
@@ -100,9 +100,11 @@
 
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
-#define  STUserAccountHandler        [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
+#define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
 
-#define  STNotificationCenter        [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
+#define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
+
+#define STAppDelegate                (AppDelegate *)[UIApplication sharedApplication].delegate
 
 #define  ST_API_SERVER                @"http://192.168.1.101:8081"                   //测试服务器地址
 

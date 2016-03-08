@@ -341,6 +341,7 @@
 		B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */; };
 		B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */; };
 		B8F2DA531C5F3D04002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3A1C5F3D04002C7712 /* security.m */; };
+		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */; };
 		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
 		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
@@ -976,6 +977,8 @@
 		B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
 		B8F2DA391C5F3D04002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
 		B8F2DA3A1C5F3D04002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
+		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
+		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
 		B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
 		B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindViewController.xib; sourceTree = "<group>"; };
@@ -1848,6 +1851,7 @@
 		B88C91771C5A07940089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8F880041C8EDC6500B5DA18 /* profile */,
 				B8FD3E9C1C8A8440007BCA6B /* views */,
 				B8FD3E8B1C8A8408007BCA6B /* manager */,
 				B8FD3E871C8A83D1007BCA6B /* LZPushManager */,
@@ -2508,6 +2512,15 @@
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
 			);
 			path = Handler;
+			sourceTree = "<group>";
+		};
+		B8F880041C8EDC6500B5DA18 /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */,
+				B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */,
+			);
+			path = profile;
 			sourceTree = "<group>";
 		};
 		B8FD3ADE1C868A83007BCA6B /* 14.DOPDropDownMenu */ = {
@@ -3691,6 +3704,7 @@
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
+				B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,

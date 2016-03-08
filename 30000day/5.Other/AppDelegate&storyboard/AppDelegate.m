@@ -20,12 +20,14 @@
 #import "CDCacheManager.h"
 #import "CDUtils.h"
 #import "CDAddRequest.h"
-#import "CDIMService.h"
 #import "LZPushManager.h"
 #import <iRate/iRate.h>
 #import <iVersion/iVersion.h>
+#import "CDChatManager.h"
+#import "CDIMService.h"
 #import <AVOSCloudCrashReporting/AVOSCloudCrashReporting.h>
 #import "CDUserManager.h"
+#import "CDSoundManager.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -78,102 +80,29 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
-    
     //**************初始化 LeanCloud******//
-//    [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
-//#ifdef DEBUG
-//    [AVAnalytics setAnalyticsEnabled:NO];
-//    [AVOSCloud setVerbosePolicy:kAVVerboseShow];
-//    [AVLogger addLoggerDomain:AVLoggerDomainIM];
-//    [AVLogger addLoggerDomain:AVLoggerDomainCURL];
-//    [AVLogger setLoggerLevelMask:AVLoggerLevelAll];
-//#endif
-    
-    //*****************后添加的***************/
     [CDAddRequest registerSubclass];
     [CDAbuseReport registerSubclass];
+    
 #if USE_US
     [AVOSCloud useAVCloudUS];
 #endif
-    
+
     // Enable Crash Reporting
     [AVOSCloudCrashReporting enable];
-    
     [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
-    //    [AVOSCloud setApplicationId:CloudAppId clientKey:CloudAppKey];
-    //    [AVOSCloud setApplicationId:PublicAppId clientKey:PublicAppKey];
-    
     [AVOSCloud setLastModifyEnabled:YES];
-    
-    [self toMain];
-    
     [[LZPushManager manager] registerForRemoteNotification];
-    
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [self initAnalytics];
     
 #ifdef DEBUG
     [AVPush setProductionMode:NO];  // 如果要测试申请好友是否有推送，请设置为 YES
-    //    [AVOSCloud setAllLogsEnabled:YES];
+//    [AVOSCloud setAllLogsEnabled:YES];
 #endif
+    
+    [self initAnalytics];
     
     return YES;
-}
-
-
-- (void)toMain {
-    
-    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-    
-    [iRate sharedInstance].previewMode = NO;
-    
-    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iVersion sharedInstance].previewMode = NO;
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    
-    [CDChatManager manager].userDelegate = [CDIMService service];
-    
-#ifdef DEBUG
-//使用开发证书来推送，方便调试，具体可看这个变量的定义处
-    [CDChatManager manager].useDevPushCerticate = YES;
-#endif
-    
-    //提示正在登陆
-    [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback: ^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            
-            
-        } else {
-            
-            [self toLogin];
-            DLog(@"%@", error);
-        }
-        
-    }];
-}
-
-- (void)toLogin {
-    
-//    [[CDUserManager manager] loginWithInput:@"wangGang" password:@"123456" block:^(AVUser *user, NSError *error) {
-//        if (error) {
-//            
-//        }
-//        else {
-//            
-//           [self toMain];
-//            
-//        }
-//    }];
-    
-//    [[CDUserManager manager] registerWithUsername:@"wangGang" phone:@"18121241905" password:@"123456" block:^(BOOL succeeded, NSError *error) {
-//       
-//        
-//        
-//    }];
 }
 
 - (void)initAnalytics {
@@ -188,6 +117,46 @@
     DLog(@"configParams: %@", configParams);
 }
 
+- (void)openChatCompletion:(void (^)(BOOL success))success
+                   failure:(void (^)(NSError *))failure {
+    
+    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
+    
+    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    
+    [iRate sharedInstance].previewMode = NO;
+    
+    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+    
+    [iVersion sharedInstance].previewMode = NO;
+    
+    [CDChatManager manager].userDelegate = [CDIMService service];
+
+#ifdef DEBUG
+    //使用开发证书来推送，方便调试，具体可看这个变量的定义处
+    [CDChatManager manager].useDevPushCerticate = YES;
+#endif
+    
+    [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback: ^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                success(YES);
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+               failure(error);
+                
+            });
+        }
+        
+    }];
+}
 
 //如果此时你的客户端 软件仍在打开，则会调用
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -208,7 +177,7 @@
             
             
             
-            
+        
             [alert show];
             
         }
@@ -245,13 +214,15 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    
     [[LZPushManager manager] syncBadge];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    
     [[LZPushManager manager] syncBadge];
 }
-
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [[LZPushManager manager] saveInstallationWithDeviceToken:deviceToken userId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
@@ -268,7 +239,6 @@
     
     return [NSSet setWithObjects: stepCountType,stairsCountType,movingDistanceCountType, nil];
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

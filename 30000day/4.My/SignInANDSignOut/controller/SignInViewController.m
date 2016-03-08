@@ -12,6 +12,7 @@
 #import "SMSVerificationViewController.h"
 #import "ChooseVerifyWayViewController.h"
 #import "UserProfile.h"
+#import "AppDelegate.h"
 
 @interface SignInViewController () {
     
@@ -175,7 +176,16 @@
                                    loginName:_userNameTF.text
                                      success:^(BOOL success) {
                                          
-                                         [self dismissViewControllerAnimated:YES completion:nil];
+                                         [STAppDelegate openChatCompletion:^(BOOL success) {
+                                             
+                                             
+                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                             
+                                         } failure:^(NSError *error) {
+                                             
+                                             [self showToast:@"链接聊天服务器失败"];
+                                             
+                                         }];
                                          
                                          [self hideHUD:YES];
                                          
