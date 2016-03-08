@@ -26,6 +26,10 @@
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
 		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
+		B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D521C8EAAAC0082BCAC /* JinSuoDetailsViewController.m */; };
+		B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */; };
+		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
+		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
 		B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */; };
 		B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC781C8AC9A900DFD1CF /* avator@2x.png */; };
@@ -543,6 +547,12 @@
 		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
 		B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionMethodViewController.m; sourceTree = "<group>"; };
 		B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionMethodViewController.xib; sourceTree = "<group>"; };
+		B6D59D511C8EAAAC0082BCAC /* JinSuoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsViewController.h; sourceTree = "<group>"; };
+		B6D59D521C8EAAAC0082BCAC /* JinSuoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsViewController.m; sourceTree = "<group>"; };
+		B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsViewController.xib; sourceTree = "<group>"; };
+		B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsTableViewCell.h; sourceTree = "<group>"; };
+		B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsTableViewCell.m; sourceTree = "<group>"; };
+		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtn@2x.png"; sourceTree = "<group>"; };
 		B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtnHL@2x.png"; sourceTree = "<group>"; };
 		B804FC781C8AC9A900DFD1CF /* avator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avator@2x.png"; sourceTree = "<group>"; };
@@ -1780,6 +1790,9 @@
 				B8695AB61C74949A001B4B95 /* MainViewController.h */,
 				B8695AB71C74949A001B4B95 /* MainViewController.m */,
 				B8695AB81C74949A001B4B95 /* MainViewController.xib */,
+				B6D59D511C8EAAAC0082BCAC /* JinSuoDetailsViewController.h */,
+				B6D59D521C8EAAAC0082BCAC /* JinSuoDetailsViewController.m */,
+				B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1796,6 +1809,9 @@
 				B8695AAE1C748150001B4B95 /* ChartTableViewCell.h */,
 				B8695AAF1C748150001B4B95 /* ChartTableViewCell.m */,
 				B8695AB01C748150001B4B95 /* ChartTableViewCell.xib */,
+				B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */,
+				B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */,
+				B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3280,6 +3296,7 @@
 				B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */,
 				B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */,
 				B804FD7F1C8AC9A900DFD1CF /* input-field-cover@2x.png in Resources */,
+				B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */,
 				B804FD811C8AC9A900DFD1CF /* keyborad_HL@2x.png in Resources */,
 				B804FD3D1C8AC9A900DFD1CF /* rabbit_19_cover@2x.png in Resources */,
 				B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */,
@@ -3435,6 +3452,7 @@
 				B804FDA21C8AC9A900DFD1CF /* SenderVoiceNodePlaying002@2x.png in Resources */,
 				B804FD511C8AC9A900DFD1CF /* rabbit_8.gif in Resources */,
 				B804FD871C8AC9A900DFD1CF /* msg_chat_voice_unread@2x.png in Resources */,
+				B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */,
 				B804FDB21C8AC9A900DFD1CF /* VoiceBtn_BlackHL@2x.png in Resources */,
 				B886E8711C7EAE1200E64BEC /* RemindContentTableViewCell.xib in Resources */,
 				B804FDAE1C8AC9A900DFD1CF /* sharemore_wxtalk@2x.png in Resources */,
@@ -3628,6 +3646,7 @@
 				B8FD3E021C8A7903007BCA6B /* LKBadgeView.m in Sources */,
 				B8FD3E091C8A7903007BCA6B /* SETextEditingCaret.m in Sources */,
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
+				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
@@ -3789,6 +3808,7 @@
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
+				B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */,
 				B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */,
 				B8FD3DE91C8A7903007BCA6B /* XHBaseViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
