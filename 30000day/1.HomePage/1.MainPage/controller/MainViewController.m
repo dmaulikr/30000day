@@ -13,6 +13,7 @@
 #import "WeatherInformationModel.h"
 #import "UserLifeModel.h"
 #import "MotionData.h"
+#import "JinSuoDetailsViewController.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -129,7 +130,13 @@
         }
         
         [cell.lifeImage setImage:[self lifeToYear]];
+        cell.lifeImage.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lifeImagePush)];
+        [cell.lifeImage addGestureRecognizer:portraitTap];
+        
         cell.informationModel = self.informationModel;
+        
         
         //下载头像
         [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:STUserAccountHandler.userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -358,6 +365,18 @@
     }
     
     return nil;
+    
+}
+
+-(void)lifeImagePush{
+    
+    JinSuoDetailsViewController *controller = [[JinSuoDetailsViewController alloc]init];
+    
+    controller.averageAge = [self daysToYear];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 
