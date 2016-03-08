@@ -145,9 +145,10 @@
  *  @param _type 文件类型
  *  @return 文件路径
  */
-+ (NSString*)getPathByFileName:(NSString *)_fileName
-{
-    NSString* fileDirectory = [[XHVoiceCommonHelper getCacheDirectory]stringByAppendingPathComponent:_fileName];
++ (NSString*)getPathByFileName:(NSString *)_fileName {
+    
+    NSString *fileDirectory = [[XHVoiceCommonHelper getCacheDirectory]stringByAppendingPathComponent:_fileName];
+    
     return fileDirectory;
 }
 
@@ -156,8 +157,8 @@
  *
  *  @return 录音设置
  */
-+ (NSDictionary*)getAudioRecorderSettingDict
-{
++ (NSDictionary*)getAudioRecorderSettingDict {
+    
     NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
                                    [NSNumber numberWithFloat: 8000.0], AVSampleRateKey, //采样率
                                    [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
@@ -169,7 +170,6 @@
                                    nil];
     return recordSetting;
 }
-
 
 #pragma mark - private
 /**
