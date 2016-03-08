@@ -148,6 +148,10 @@
 
 #define  UPDATE_USER_SECURITY           @"/stapi/security/setUserSecurity"                      //修改密码
 
+#define  UPDATE_USER_SENDEMAIL           @"/stapi/bind/sendEmail"                               //绑定邮箱
+
+#define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

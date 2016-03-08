@@ -197,7 +197,17 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
 
 //*********上传视频到服务器*****//
 
+//***********************************绑定邮箱*********************/
+- (void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId
+                              emailString:(NSString *)email
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
 
+
+//***********************************绑定邮箱*********************/
+- (void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
+                                  success:(void (^)(NSDictionary *verificationDictionary))success
+                                  failure:(void (^)(NSError *error))failure;
 
 
 @end
