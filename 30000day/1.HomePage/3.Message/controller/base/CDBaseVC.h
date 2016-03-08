@@ -14,7 +14,7 @@ typedef enum : NSInteger {
     CDViewControllerStylePresenting
 }CDViewControllerStyle;
 
-@interface CDBaseVC : STBaseViewController
+@interface CDBaseVC : ShowBackItemViewController
 
 @property (nonatomic, assign) CDViewControllerStyle viewControllerStyle;
 

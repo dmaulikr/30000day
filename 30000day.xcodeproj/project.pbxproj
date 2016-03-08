@@ -216,7 +216,7 @@
 		B886E8701C7EAE1200E64BEC /* RemindContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E86E1C7EAE1200E64BEC /* RemindContentTableViewCell.m */; };
 		B886E8711C7EAE1200E64BEC /* RemindContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E86F1C7EAE1200E64BEC /* RemindContentTableViewCell.xib */; };
 		B88C91301C59F2260089BEAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C912F1C59F2260089BEAE /* main.m */; };
-		B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Assets.xcassets */; };
+		B88C913B1C59F2260089BEAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88C913A1C59F2260089BEAE /* Images.xcassets */; };
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
 		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
 		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
@@ -754,7 +754,7 @@
 		B886E86F1C7EAE1200E64BEC /* RemindContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindContentTableViewCell.xib; sourceTree = "<group>"; };
 		B88C912B1C59F2260089BEAE /* 30000day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 30000day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88C912F1C59F2260089BEAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B88C913A1C59F2260089BEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B88C913A1C59F2260089BEAE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B88C913F1C59F2260089BEAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B88C91571C59F9010089BEAE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1631,7 +1631,7 @@
 				B88C915B1C59F9270089BEAE /* 3.Shop */,
 				B88C918E1C5A08D00089BEAE /* 4.My */,
 				B88C914D1C59F4900089BEAE /* 5.Other */,
-				B88C913A1C59F2260089BEAE /* Assets.xcassets */,
+				B88C913A1C59F2260089BEAE /* Images.xcassets */,
 				B88C912E1C59F2260089BEAE /* Supporting Files */,
 			);
 			path = 30000day;
@@ -3424,7 +3424,7 @@
 				B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
 				B804FD661C8AC9A900DFD1CF /* tusiji_2_cover@2x.png in Resources */,
-				B88C913B1C59F2260089BEAE /* Assets.xcassets in Resources */,
+				B88C913B1C59F2260089BEAE /* Images.xcassets in Resources */,
 				B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */,
 				B60D85891C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.xib in Resources */,
 				B804FD281C8AC9A900DFD1CF /* rabbit_0_cover@2x.png in Resources */,

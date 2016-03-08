@@ -51,15 +51,21 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
+    
     [LZConversationCell registerCellToTableView:self.tableView];
+    
     self.refreshControl = [self getRefreshControl];
+    
     // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationMessageReceived object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationUnreadsUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
+    
     [self updateStatusView];
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    self.tableView.contentInset =  UIEdgeInsetsMake(64, 0, 0, 0);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,8 +75,11 @@ static NSString *cellIdentifier = @"ContactCell";
 }
 
 - (void)dealloc {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
 }
 
@@ -104,35 +113,58 @@ static NSString *cellIdentifier = @"ContactCell";
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
+    
     if (self.isRefreshing) {
+        
         return;
     }
+    
     self.isRefreshing = YES;
+    
     [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
+        
         dispatch_block_t finishBlock = ^{
+            
             [self stopRefreshControl:refreshControl];
+            
             if ([self filterError:error]) {
+                
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
+                
                 [self.tableView reloadData];
+                
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
+                    
                     [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
+                    
                 }
+                
                 [self selectConversationIfHasRemoteNotificatoinConvid];
             }
+            
             self.isRefreshing = NO;
         };
         
         if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
+            
             [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
+                
                 if ([self filterError:error]) {
+                    
                     finishBlock();
+                    
                 } else {
+                    
                     [self stopRefreshControl:refreshControl];
+                    
                     self.isRefreshing = NO;
                 }
             }];
+            
         } else {
+            
             finishBlock();
+            
         }
     }];
 }

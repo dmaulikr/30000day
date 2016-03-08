@@ -727,17 +727,17 @@ static NSInteger const kOnePageSize = 10;
                 }
             }
         }
-        if ([[CDChatManager manager].userDelegate respondsToSelector:@selector(cacheUserByIds:block:)]) {
-            [[CDChatManager manager].userDelegate cacheUserByIds:userIds block:^(BOOL succeeded, NSError *error) {
-                [self runInMainQueue:^{
-                    callback(succeeded, error);
-                }];
-            }];
-        } else {
-            [self runInMainQueue:^{
-                callback(YES, nil);
-            }];
-        }
+//        if ([[CDChatManager manager].userDelegate respondsToSelector:@selector(cacheUserByIds:block:)]) {
+//            [[CDChatManager manager].userDelegate cacheUserByIds:userIds block:^(BOOL succeeded, NSError *error) {
+//                [self runInMainQueue:^{
+//                    callback(succeeded, error);
+//                }];
+//            }];
+//        } else {
+//            [self runInMainQueue:^{
+//                callback(YES, nil);
+//            }];
+//        }
         [self runInMainQueue:^{
             callback(YES, nil);
         }];
