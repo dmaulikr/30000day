@@ -73,7 +73,7 @@
 
     [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
-        UserLifeModel *lastModel = [dataArray lastObject];
+        UserLifeModel *lastModel = [dataArray firstObject];
         
         self.totalLifeDayNumber = [lastModel.curLife floatValue];
         
