@@ -17,9 +17,15 @@
 		B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D858C1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib */; };
 		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
 		B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */; };
+		B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DCB1C8D70DC00116B13 /* SelectionMethodTableViewCell.m */; };
+		B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */; };
+		B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */; };
+		B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */; };
 		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
 		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
+		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
+		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
 		B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */; };
 		B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC781C8AC9A900DFD1CF /* avator@2x.png */; };
@@ -470,7 +476,6 @@
 		B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E341C8A7BBA007BCA6B /* DTError.m */; };
 		B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E361C8A7BBA007BCA6B /* DTTimePeriod.m */; };
 		B8FD3E441C8A7BBA007BCA6B /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E381C8A7BBA007BCA6B /* DTTimePeriodChain.m */; };
-		B8FD3E451C8A7BBA007BCA6B /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E3A1C8A7BBA007BCA6B /* DTTimePeriodCollection.m */; };
 		B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E3C1C8A7BBA007BCA6B /* DTTimePeriodGroup.m */; };
 		B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E3E1C8A7BBA007BCA6B /* NSDate+DateTools.m */; };
 		B8FD3E481C8A7BBA007BCA6B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3E3F1C8A7BBA007BCA6B /* LICENSE */; };
@@ -524,11 +529,20 @@
 		B6171DBC1C8D208600116B13 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
 		B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
 		B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
+		B6171DCA1C8D70DC00116B13 /* SelectionMethodTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodTableViewCell.h; sourceTree = "<group>"; };
+		B6171DCB1C8D70DC00116B13 /* SelectionMethodTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionMethodTableViewCell.m; sourceTree = "<group>"; };
+		B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionMethodTableViewCell.xib; sourceTree = "<group>"; };
+		B6171DCF1C8D7ADF00116B13 /* EmailBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewController.h; sourceTree = "<group>"; };
+		B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewController.m; sourceTree = "<group>"; };
+		B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewController.xib; sourceTree = "<group>"; };
 		B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewCell.h; sourceTree = "<group>"; };
 		B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewCell.m; sourceTree = "<group>"; };
 		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
+		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
+		B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionMethodViewController.m; sourceTree = "<group>"; };
+		B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionMethodViewController.xib; sourceTree = "<group>"; };
 		B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtn@2x.png"; sourceTree = "<group>"; };
 		B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtnHL@2x.png"; sourceTree = "<group>"; };
 		B804FC781C8AC9A900DFD1CF /* avator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avator@2x.png"; sourceTree = "<group>"; };
@@ -1338,6 +1352,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B6171DC21C8D69AA00116B13 /* BindOnAccount */ = {
+			isa = PBXGroup;
+			children = (
+				B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */,
+				B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */,
+				B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */,
+				B6171DCF1C8D7ADF00116B13 /* EmailBindViewController.h */,
+				B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */,
+				B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */,
+			);
+			path = BindOnAccount;
+			sourceTree = "<group>";
+		};
+		B6171DC91C8D708C00116B13 /* BindOnAccountCell */ = {
+			isa = PBXGroup;
+			children = (
+				B6171DCA1C8D70DC00116B13 /* SelectionMethodTableViewCell.h */,
+				B6171DCB1C8D70DC00116B13 /* SelectionMethodTableViewCell.m */,
+				B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */,
+			);
+			path = BindOnAccountCell;
+			sourceTree = "<group>";
+		};
 		B61B09921C7C529600FFA946 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -2095,6 +2132,7 @@
 				B8FD3AD91C852C79007BCA6B /* ChangePasswordProtectViewController.h */,
 				B8FD3ADA1C852C79007BCA6B /* ChangePasswordProtectViewController.m */,
 				B8FD3ADB1C852C79007BCA6B /* ChangePasswordProtectViewController.xib */,
+				B6171DC21C8D69AA00116B13 /* BindOnAccount */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2105,6 +2143,7 @@
 				B8F2D8C71C5B390E002C7712 /* securityTableViewCell.h */,
 				B8F2D8C81C5B390E002C7712 /* securityTableViewCell.m */,
 				B8F2D8C91C5B390E002C7712 /* securityTableViewCell.xib */,
+				B6171DC91C8D708C00116B13 /* BindOnAccountCell */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3277,6 +3316,7 @@
 				B804FD2C1C8AC9A900DFD1CF /* rabbit_11.gif in Resources */,
 				B804FD611C8AC9A900DFD1CF /* tusiji_14_cover@2x.png in Resources */,
 				B804FD381C8AC9A900DFD1CF /* rabbit_17.gif in Resources */,
+				B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */,
 				B804FD671C8AC9A900DFD1CF /* tusiji_3.gif in Resources */,
 				B804FD2A1C8AC9A900DFD1CF /* rabbit_10.gif in Resources */,
 				B804FD481C8AC9A900DFD1CF /* rabbit_3_cover@2x.png in Resources */,
@@ -3288,7 +3328,6 @@
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B804FD461C8AC9A900DFD1CF /* rabbit_2_cover@2x.png in Resources */,
 				B804FD351C8AC9A900DFD1CF /* rabbit_15_cover@2x.png in Resources */,
-				B8695AA81C7479C9001B4B95 /* WeatherTableViewCell.xib in Resources */,
 				B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
@@ -3300,6 +3339,7 @@
 				B804FD7C1C8AC9A900DFD1CF /* input-bar-flat.png in Resources */,
 				B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
+				B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */,
 				B804FD201C8AC9A900DFD1CF /* contacts_add_friend@2x.png in Resources */,
 				B804FD6A1C8AC9A900DFD1CF /* tusiji_4_cover@2x.png in Resources */,
 				B804FD311C8AC9A900DFD1CF /* rabbit_13_cover@2x.png in Resources */,
@@ -3421,6 +3461,7 @@
 				B804FD6C1C8AC9A900DFD1CF /* tusiji_5_cover@2x.png in Resources */,
 				B804FD3F1C8AC9A900DFD1CF /* rabbit_2.gif in Resources */,
 				B804FD821C8AC9A900DFD1CF /* loudReceive.caf in Resources */,
+				B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */,
 				B804FD771C8AC9A900DFD1CF /* face_HL@2x.png in Resources */,
 				B804FD531C8AC9A900DFD1CF /* rabbit_9.gif in Resources */,
 				B804FD6F1C8AC9A900DFD1CF /* tusiji_7.gif in Resources */,
@@ -3671,6 +3712,7 @@
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
+				B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */,
 				B8FD3E761C8A8353007BCA6B /* CDWebViewVC.m in Sources */,
 				B8FD3E161C8A7903007BCA6B /* XHSoundManager.m in Sources */,
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,
@@ -3704,8 +3746,10 @@
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
+				B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */,
 				B8FD3DED1C8A7903007BCA6B /* XHDisplayTextViewController.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
+				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
 				B8F2D99B1C5C8B1A002C7712 /* JBEventModel.m in Sources */,
 				B8FD3E1E1C8A7903007BCA6B /* XHMessageTableView.m in Sources */,

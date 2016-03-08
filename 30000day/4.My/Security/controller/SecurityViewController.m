@@ -10,6 +10,7 @@
 #import "securityTableViewCell.h"
 #import "ChangePasswordViewController.h"
 #import "ChangePasswordProtectViewController.h"
+#import "SelectionMethodViewController.h"
 
 @interface SecurityViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -48,7 +49,7 @@
     return 4;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     return 12;
 }
@@ -113,6 +114,14 @@
     } else if (indexPath.row == 1) {
         
         ChangePasswordViewController *controller = [[ChangePasswordViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else if (indexPath.row == 3){
+        
+        SelectionMethodViewController *controller = [[SelectionMethodViewController alloc]init];
         
         controller.hidesBottomBarWhenPushed = YES;
         

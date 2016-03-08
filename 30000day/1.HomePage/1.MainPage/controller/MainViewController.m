@@ -202,7 +202,7 @@
 }
 
 - (void)uploadMotionData{
-
+    
     if ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil) {
     
         MotionData *mdata=[[MotionData alloc]init];
