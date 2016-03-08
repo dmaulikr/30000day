@@ -677,7 +677,9 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)loadOldMessages{
+    
     if (self.messages.count == 0 || self.isLoadingMsg) {
+        
         return;
     } else {
         self.isLoadingMsg = YES;
