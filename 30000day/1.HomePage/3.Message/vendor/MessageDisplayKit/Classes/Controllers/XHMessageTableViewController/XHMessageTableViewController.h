@@ -141,7 +141,7 @@
 
 @end
 
-@interface XHMessageTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, XHMessageTableViewControllerDelegate, XHMessageTableViewControllerDataSource, XHMessageInputViewDelegate, XHMessageTableViewCellDelegate, XHShareMenuViewDelegate, XHEmotionManagerViewDelegate, XHEmotionManagerViewDataSource>
+@interface XHMessageTableViewController : ShowBackItemViewController <UITableViewDataSource, UITableViewDelegate, XHMessageTableViewControllerDelegate, XHMessageTableViewControllerDataSource, XHMessageInputViewDelegate, XHMessageTableViewCellDelegate, XHShareMenuViewDelegate, XHEmotionManagerViewDelegate, XHEmotionManagerViewDataSource>
 
 @property (nonatomic, weak) id <XHMessageTableViewControllerDelegate> delegate;
 
