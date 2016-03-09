@@ -81,10 +81,34 @@
         NSMutableArray *allDayArray = [NSMutableArray array];
         
         NSMutableArray *dayNumberArray = [NSMutableArray array];
-
-        for (int  i = 0; i < dataArray.count ; i++ ) {
+        
+        if (dataArray.count > 1 ) {
             
-            UserLifeModel *model = dataArray[i];
+            for (int  i = 0; i < dataArray.count ; i++ ) {
+                
+                UserLifeModel *model = dataArray[i];
+                
+                [allDayArray addObject:model.curLife];
+                
+                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                
+                NSString *string = array[2];
+                
+                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                
+                [dayNumberArray addObject:newString];
+                
+            }
+            
+            self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+            
+            self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+            
+        } else {
+            
+            UserLifeModel *model = [dataArray firstObject];
+            
+            [allDayArray addObject:model.curLife];
             
             [allDayArray addObject:model.curLife];
             
@@ -96,10 +120,13 @@
             
             [dayNumberArray addObject:newString];
             
+            [dayNumberArray addObject:newString];
+            
+            self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+            
+            self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
         }
-        self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
-        self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
-        
+
         [self.tableView reloadData];
         
     } failure:^(LONetError *error) {

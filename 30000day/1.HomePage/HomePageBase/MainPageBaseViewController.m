@@ -46,7 +46,7 @@
     
     [self configUI];
     
-    //*******************进行用户登录判断************************************************/
+    //*******************进行用户登录判断************************************************//
     if (![Common isUserLogin]) {//过去没有登录
         
         [self jumpToSignInViewController];
@@ -68,9 +68,13 @@
                                         }
                                         failure:^(NSError *error) {
                                             
-                                            [self showToast:@"账户无效，请重新登录"];
-                                            
-                                            [self jumpToSignInViewController];
+                                            if ([[error userInfo][NSLocalizedDescriptionKey] isEqualToString:@"账户无效，请重新登录"]) {
+                                                
+                                                [self showToast:@"账户无效"];
+                                                
+                                                [self jumpToSignInViewController];
+                                                
+                                            }
                                             
                                         }];
         

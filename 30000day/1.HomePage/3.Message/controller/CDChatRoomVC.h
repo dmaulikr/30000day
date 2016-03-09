@@ -8,7 +8,7 @@
 
 #import "XHMessageTableViewController.h"
 #import "CDChatManager.h"
-
+#import "UserInformationModel.h"
 /**
  *  聊天页面
  */
@@ -30,5 +30,7 @@
  *  @return
  */
 - (instancetype)initWithConversation:(AVIMConversation *)conversation;
+
+@property (nonatomic,strong)UserInformationModel *otherModel;
 
 @end

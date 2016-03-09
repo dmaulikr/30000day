@@ -106,6 +106,8 @@
                     
                     CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
                     
+                    controller.otherModel = self.informationModel;
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                     
                 }
