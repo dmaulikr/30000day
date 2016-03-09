@@ -204,7 +204,7 @@ static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"Use
                                   failure:(void (^)(NSError *error))failure;
 
 
-//***********************************绑定邮箱*********************/
+//***********************************验证邮箱*********************/
 - (void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
                                   success:(void (^)(NSDictionary *verificationDictionary))success
                                   failure:(void (^)(NSError *error))failure;

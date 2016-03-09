@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmailBindViewSuccessAndFailController">
+            <connections>
+                <outlet property="successAndFailureImage" destination="FNe-lI-6vq" id="dmo-fU-yIo"/>
+                <outlet property="successAndFailureLable" destination="75w-LW-rjC" id="sPT-XG-dQU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FNe-lI-6vq">
+                    <rect key="frame" x="133" y="171" width="110" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="O6f-kY-PFe"/>
+                        <constraint firstAttribute="height" constant="110" id="k79-Zn-AGF"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证失败" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75w-LW-rjC">
+                    <rect key="frame" x="154" y="323" width="68" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.25882352941176473" green="0.25882352941176473" blue="0.25882352941176473" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="75w-LW-rjC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8XH-0P-j0D"/>
+                <constraint firstItem="75w-LW-rjC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Mf7-0T-Xhx"/>
+                <constraint firstItem="FNe-lI-6vq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Re8-Fd-3n9"/>
+                <constraint firstItem="75w-LW-rjC" firstAttribute="top" secondItem="FNe-lI-6vq" secondAttribute="bottom" constant="42" id="ZV6-Ur-yY3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

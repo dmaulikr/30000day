@@ -165,7 +165,15 @@
         return;
     }
     
-    [self registerUser];
+    BOOL ok= [self isIncludeSpecialCharact:self.userNickNameTxt.text];
+    
+    if (ok == YES) {
+        [self showToast:@"昵称不允许包含特殊字符，请重新输入！"];
+    } else {
+        [self registerUser];
+    }
+    
+    
 }
 
 #pragma mark - 注册
@@ -182,6 +190,20 @@
                                             
                                            [self showToast:@"注册成功"];
                                             
+                                            //获取用户绑定的邮箱
+                                            [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+                                                
+                                                if ([Common isObjectNull:verificationDictionary]){
+                                                    [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+                                                } else {
+                                                    [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+                                                }
+                                                
+                                            } failure:^(NSError *error) {
+                                                NSLog(@"获取绑定邮箱出错");
+                                            }];
+
+                                            
                                             UIStoryboard *mainStroyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                                             
                                             UIViewController *controller = mainStroyboard.instantiateInitialViewController;
@@ -197,6 +219,15 @@
                                             
                                         }];
     
+}
+
+
+- (BOOL) isIncludeSpecialCharact: (NSString *)str {
+    NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: @"~￥#&*<>《》()[]{}【】^@/￡¤￥|§¨「」『』￠￢￣~@#￥&*（）——+|《》$_€"]];
+    if (urgentRange.location == NSNotFound){
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - 键盘return

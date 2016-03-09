@@ -31,6 +31,7 @@
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+
 }
 
 - (void)reloadData:(NSNotification *)notification {

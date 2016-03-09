@@ -13,6 +13,8 @@
 #import "ZYQAssetPickerController.h"
 #import "ZHPickView.h"
 #import "HeadViewTableViewCell.h"
+#import "AccountNumberTableViewCell.h"
+
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -58,7 +60,6 @@
     self.navigationItem.rightBarButtonItem = self.saveButton;
     
     self.saveButton.enabled = NO;
-    
     
     self.nickName = STUserAccountHandler.userProfile.nickName;
     self.currentChooseNickName = STUserAccountHandler.userProfile.nickName;
@@ -180,8 +181,7 @@
         }
         
     } else {
-        
-        return 43;
+        return 64;
     }
 }
 
@@ -195,7 +195,7 @@
             
             if (cell == nil) {
                 
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:self options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
             
@@ -257,26 +257,16 @@
         
     } else if (indexPath.section == 1) {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
+        AccountNumberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountNumberTableViewCell"];
         
         if ( cell == nil ) {
             
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TableViewCell"];
-            
-            cell.textLabel.textColor = [UIColor blackColor];
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
-            
-            cell.detailTextLabel.textColor = RGBACOLOR(130, 130, 130, 1);
-            
-            cell.textLabel.font = [UIFont systemFontOfSize:15];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"AccountNumberTableViewCell" owner:nil options:nil] lastObject];
+
         }
-        
-            cell.textLabel.text = @"手机";
     
-            cell.detailTextLabel.text = STUserAccountHandler.userProfile.userName;
+        cell.phoneNumberLable.text = STUserAccountHandler.userProfile.userName;
+        cell.mailLable.text = [STUserAccountHandler userProfile].email;
         
         return cell;
     }

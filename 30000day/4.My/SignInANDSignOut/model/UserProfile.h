@@ -71,4 +71,6 @@
 
 @property (nonatomic,copy)  NSString *birthday;
 
+@property (nonatomic,copy) NSString *email;
+
 @end

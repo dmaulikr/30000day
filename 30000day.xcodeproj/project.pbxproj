@@ -24,6 +24,10 @@
 		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
 		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
+		B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */; };
+		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
+		B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */; };
+		B6C73B1A1C9000D20041ED65 /* AccountNumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */; };
 		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
 		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
 		B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D521C8EAAAC0082BCAC /* JinSuoDetailsViewController.m */; };
@@ -545,6 +549,12 @@
 		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
+		B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewSuccessAndFailController.h; sourceTree = "<group>"; };
+		B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewSuccessAndFailController.m; sourceTree = "<group>"; };
+		B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewSuccessAndFailController.xib; sourceTree = "<group>"; };
+		B6C73B161C9000D20041ED65 /* AccountNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNumberTableViewCell.h; sourceTree = "<group>"; };
+		B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNumberTableViewCell.m; sourceTree = "<group>"; };
+		B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountNumberTableViewCell.xib; sourceTree = "<group>"; };
 		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
 		B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionMethodViewController.m; sourceTree = "<group>"; };
 		B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionMethodViewController.xib; sourceTree = "<group>"; };
@@ -1374,6 +1384,9 @@
 				B6171DCF1C8D7ADF00116B13 /* EmailBindViewController.h */,
 				B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */,
 				B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */,
+				B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */,
+				B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */,
+				B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */,
 			);
 			path = BindOnAccount;
 			sourceTree = "<group>";
@@ -2046,6 +2059,9 @@
 				B8365A541C71A53500063269 /* HeadViewTableViewCell.h */,
 				B8365A551C71A53500063269 /* HeadViewTableViewCell.m */,
 				B8365A561C71A53500063269 /* HeadViewTableViewCell.xib */,
+				B6C73B161C9000D20041ED65 /* AccountNumberTableViewCell.h */,
+				B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */,
+				B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3369,6 +3385,7 @@
 				B804FD7C1C8AC9A900DFD1CF /* input-bar-flat.png in Resources */,
 				B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
+				B6C73B1A1C9000D20041ED65 /* AccountNumberTableViewCell.xib in Resources */,
 				B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */,
 				B804FD201C8AC9A900DFD1CF /* contacts_add_friend@2x.png in Resources */,
 				B804FD6A1C8AC9A900DFD1CF /* tusiji_4_cover@2x.png in Resources */,
@@ -3433,6 +3450,7 @@
 				B804FD3B1C8AC9A900DFD1CF /* rabbit_18_cover@2x.png in Resources */,
 				B804FD231C8AC9A900DFD1CF /* contacts_add_scan@2x.png in Resources */,
 				B804FD801C8AC9A900DFD1CF /* keyborad@2x.png in Resources */,
+				B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */,
 				B804FD431C8AC9A900DFD1CF /* rabbit_21_cover@2x.png in Resources */,
 				B804FD421C8AC9A900DFD1CF /* rabbit_21.gif in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
@@ -3705,6 +3723,7 @@
 				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
 				B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */,
+				B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8F2D99E1C5C8B1A002C7712 /* JBUnitView.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
@@ -3828,6 +3847,7 @@
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
+				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,

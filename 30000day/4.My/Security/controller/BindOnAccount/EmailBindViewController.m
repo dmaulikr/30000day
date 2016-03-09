@@ -7,8 +7,9 @@
 //
 
 #import "EmailBindViewController.h"
+#import "EmailBindViewSuccessAndFailController.h"
 
-@interface EmailBindViewController ()
+@interface EmailBindViewController ()<UITextFieldDelegate>
 
 @end
 
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,13 +33,17 @@
         
         [self.dataHandler sendUploadUserSendEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] emailString:self.emailTextFiled.text success:^(BOOL success) {
             
-            if (success) {
-                [self showToast:@"绑定成功"];
-            }
+            EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            controller.success=success;
+            [self.navigationController pushViewController:controller animated:YES];
             
         } failure:^(NSError *error) {
             
-            [self showToast:@"绑定失败"];
+            EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            controller.success=NO;
+            [self.navigationController pushViewController:controller animated:YES];
             
         }];
         
@@ -45,6 +51,16 @@
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [self submit:nil];
+    
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.emailTextFiled resignFirstResponder];
+}
 
 /*
 #pragma mark - Navigation
