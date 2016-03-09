@@ -19,6 +19,8 @@
 #import "CDChatManager_Internal.h"
 #import "CDMacros.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UserInformationManager.h"
+#import "CDChatRoomVC.h"
 
 @interface CDChatListVC ()
 
@@ -48,6 +50,7 @@ static NSString *cellIdentifier = @"ContactCell";
     }
     return _conversations;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -86,24 +89,37 @@ static NSString *cellIdentifier = @"ContactCell";
 #pragma mark - client status view
 
 - (LZStatusView *)clientStatusView {
+    
     if (_clientStatusView == nil) {
+        
         _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), kLZStatusViewHight)];
+        
     }
+    
     return _clientStatusView;
 }
 
 - (void)updateStatusView {
+    
     if ([CDChatManager manager].connect) {
+        
         self.tableView.tableHeaderView = nil ;
-    }else {
+        
+    } else {
+        
         self.tableView.tableHeaderView = self.clientStatusView;
     }
 }
 
 - (UIRefreshControl *)getRefreshControl {
-    UIRefreshControl *refreshConrol = [[UIRefreshControl alloc] init];
-    [refreshConrol addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    return refreshConrol;
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    
+    refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
+    
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    
+    return refreshControl;
 }
 
 #pragma mark - refresh
@@ -170,20 +186,29 @@ static NSString *cellIdentifier = @"ContactCell";
 }
 
 - (void)selectConversationIfHasRemoteNotificatoinConvid {
+    
     if ([CDChatManager manager].remoteNotificationConvid) {
+        
         // 进入之前推送弹框点击的对话
         BOOL found = NO;
+        
         for (AVIMConversation *conversation in self.conversations) {
+            
             if ([conversation.conversationId isEqualToString:[CDChatManager manager].remoteNotificationConvid]) {
+                
                 if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
+                    
                     [self.chatListDelegate viewController:self didSelectConv:conversation];
+                    
                     found = YES;
                 }
             }
         }
+        
         if (!found) {
             DLog(@"not found remoteNofitciaonID");
         }
+        
         [CDChatManager manager].remoteNotificationConvid = nil;
     }
 }
@@ -206,68 +231,120 @@ static NSString *cellIdentifier = @"ContactCell";
     return YES;
 }
 
+
 #pragma mark - table view
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return [self.conversations count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     LZConversationCell *cell = [LZConversationCell dequeueOrCreateCellByTableView:tableView];
+    
     AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+    
     if (conversation.type == CDConversationTypeSingle) {
+        
 //        id <CDUserModelDelegate> user = [[CDChatManager manager].userDelegate getUserById:conversation.otherId];
-        cell.nameLabel.text = self.model.nickName;
-        if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)] && self.model.headImg) {
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.model.headImg] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
+        
+        UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+        
+        cell.nameLabel.text = model.nickName;
+        
+        if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)] && model.headImg) {
+            
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
+            
         } else {
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.model.headImg] placeholderImage:[UIImage imageNamed:@"avator"]];
+            
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[UIImage imageNamed:@"avator"]];
+            
         }
+        
     } else {
+        
         [cell.avatarImageView setImage:conversation.icon];
+        
         cell.nameLabel.text = conversation.displayName;
     }
+    
     if (conversation.lastMessage) {
+        
         cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
+        
         cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
     }
+    
     if (conversation.unreadCount > 0) {
+        
         if (conversation.muted) {
+            
             cell.litteBadgeView.hidden = NO;
+            
         } else {
+            
             cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
         }
     }
+    
     if ([self.chatListDelegate respondsToSelector:@selector(configureCell:atIndexPath:withConversation:)]) {
+        
         [self.chatListDelegate configureCell:cell atIndexPath:indexPath withConversation:conversation];
+        
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
         AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+        
         [[CDConversationStore store] deleteConversation:conversation];
+        
         [self refresh];
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return true;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+    
     [conversation markAsReadInBackground];
+    
     [self refresh];
-    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
-        [self.chatListDelegate viewController:self didSelectConv:conversation];
-    }
+    
+//    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
+//        
+//        [self.chatListDelegate viewController:self didSelectConv:conversation];
+//        
+//    }
+    
+    CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
+    
+    controller.otherModel = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return [LZConversationCell heightOfCell];
+    
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "UserAccountHandler.h"
+#import "UserProfile.h"
 
 @interface UserAccountHandler () {
 

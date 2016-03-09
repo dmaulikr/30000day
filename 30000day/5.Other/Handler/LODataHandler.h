@@ -6,13 +6,13 @@
 //  Copyright © 2015年 GuoJia. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 //当前用户成功添加好友发出的通知
 static NSString *const UserAddFriendsSuccessPostNotification = @"UserAddFriendsSuccessPostNotification";
 
 //当前用户个人信息改变发出通知
 static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
-
-#import <Foundation/Foundation.h>
 
 @class LONetError;
 

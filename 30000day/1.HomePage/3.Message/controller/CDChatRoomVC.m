@@ -71,6 +71,8 @@ static NSInteger const kOnePageSize = 10;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.title = self.otherModel.nickName;
+    
     [self initBarButton];
     
     [self initBottomMenuAndEmotionView];
@@ -84,11 +86,11 @@ static NSInteger const kOnePageSize = 10;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
     
-    [self refreshConv];
+//    [self refreshConv];
     [self loadMessagesWhenInit];
     [self updateStatusView];
 }

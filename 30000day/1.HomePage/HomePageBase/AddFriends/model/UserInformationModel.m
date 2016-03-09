@@ -12,4 +12,69 @@
 
 @implementation UserInformationModel
 
+//- (id)initWithCoder:(NSCoder *)aDecoder {
+//    
+//    if (self = [super init]) {
+//        
+//        _gender = [aDecoder decodeObjectForKey:@"gender"];
+//        
+//        _userId = [aDecoder decodeObjectForKey:@"userId"];
+//        
+//        _age = [aDecoder decodeObjectForKey:@"age"];
+//        
+//        _chgLife = [aDecoder decodeObjectForKey:@"chgLife"];
+//        
+//        _totalLife = [aDecoder decodeObjectForKey:@"totalLife"];
+//        
+//        _nickName = [aDecoder decodeObjectForKey:@"nickName"];
+//        
+//        _headImg = [aDecoder decodeObjectForKey:@"headImg"];
+//        
+//        _curLife = [aDecoder decodeObjectForKey:@"curLife"];
+//        
+//        _flag = [aDecoder decodeObjectForKey:@"flag"];
+//        
+//        _mobile = [aDecoder decodeObjectForKey:@"mobile"];
+//        
+//        _birthday = [aDecoder decodeObjectForKey:@"birthday"];
+//        
+//        _remark = [aDecoder decodeObjectForKey:@"remark"];
+//        
+//    }
+//    
+//    return self;
+//}
+//
+////归档时调用此方法
+//- (void)encodeWithCoder:(NSCoder *)aCoder {
+//    
+//    NSLog(@"encodeWithCoder");
+//
+//    [aCoder encodeObject:_gender forKey:@"gender"];//一般key和属性名是取一样的
+//
+//    [aCoder encodeObject:_userId forKey:@"userId"];
+//
+//    [aCoder encodeObject:_age forKey:@"age"];
+//
+//    [aCoder encodeObject:_chgLife forKey:@"chgLife"];
+//
+//    [aCoder encodeObject:_totalLife forKey:@"totalLife"];
+//
+//    [aCoder encodeObject:_nickName forKey:@"nickName"];
+//
+//    [aCoder encodeObject:_headImg forKey:@"headImg"];
+//
+//    [aCoder encodeObject:_curLife forKey:@"curLife"];
+//
+//    [aCoder encodeObject:_flag forKey:@"flag"];
+//    
+//    [aCoder encodeObject:_mobile forKey:@"mobile"];
+//    
+//    [aCoder encodeObject:_birthday forKey:@"birthday"];
+//    
+//    [aCoder encodeObject:_remark forKey:@"remark"];
+//    
+//}
+
+
 @end

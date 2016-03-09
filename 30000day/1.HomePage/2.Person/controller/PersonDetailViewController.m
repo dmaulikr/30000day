@@ -13,6 +13,7 @@
 #import "UserLifeModel.h"
 #import "CDChatVC.h"
 #import "CDIMService.h"
+#import "UIImageView+WebCache.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 

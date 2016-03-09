@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserProfile.h"
+
+@class UserProfile;
 
 @interface UserAccountHandler : NSObject
 

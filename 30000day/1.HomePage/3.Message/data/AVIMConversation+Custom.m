@@ -52,7 +52,7 @@
 
 - (NSString *)displayName {
     if ([self type] == CDConversationTypeSingle) {
-        NSString *otherId = [self otherId];
+//        NSString *otherId = [self otherId];
 //        id<CDUserModelDelegate> other = [[CDChatManager manager].userDelegate getUserById:otherId];
 #warning 标记一下
         return @"wangGang";

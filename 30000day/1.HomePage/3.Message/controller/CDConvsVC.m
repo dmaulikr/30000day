@@ -9,6 +9,7 @@
 #import "CDConvsVC.h"
 #import "CDUtils.h"
 #import "CDIMService.h"
+#import "CDChatVC.h"
 
 @interface CDConvsVC ()<CDChatListVCDelegate>
 
@@ -32,6 +33,7 @@
 #pragma mark - CDChatListVCDelegate
 
 - (void)viewController:(UIViewController *)viewController didSelectConv:(AVIMConversation *)conv {
+        
     [[CDIMService service] pushToChatRoomByConversation:conv fromNavigation:viewController.navigationController completion:nil];
 }
 

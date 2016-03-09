@@ -68,7 +68,7 @@
         title = [NSString stringWithFormat:@"%@: %@", STUserAccountHandler.userProfile.nickName, title];
     }
     if (conversation.muted && conversation.unreadCount > 0) {
-        title = [NSString stringWithFormat:@"[%ld条] %@", conversation.unreadCount, title];
+        title = [NSString stringWithFormat:@"[%d条] %@", (int)conversation.unreadCount, title];
     }
     NSString *mentionText = @"[有人@你] ";
     NSString *finalText;

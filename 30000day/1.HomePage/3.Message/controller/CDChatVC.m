@@ -22,10 +22,14 @@
 @implementation CDChatVC
 
 - (instancetype)initWithConversation:(AVIMConversation *)conv {
+    
     self = [super initWithConversation:conv];
+    
     if (self) {
+        
         [[CDCacheManager manager] setCurrentConversation:conv];
     }
+    
     return self;
 }
 
@@ -37,12 +41,6 @@
 //    [self testSendCustomeMessage];
 }
 
-- (void)testSendCustomeMessage {
-    AVIMCustomMessage *userInfoMessage = [AVIMCustomMessage messageWithAttributes:@{ @"nickname" : @"lzw" }];
-    [self.conversation sendMessage:userInfoMessage callback: ^(BOOL succeeded, NSError *error) {
-        DLog(@"%@", error);
-    }];
-}
 
 //- (void)goChatGroupDetail:(id)sender {
 //    [self.navigationController pushViewController:[[CDConvDetailVC alloc] init] animated:YES];

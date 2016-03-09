@@ -14,8 +14,9 @@
 #import "UserLifeModel.h"
 #import "MotionData.h"
 #import "JinSuoDetailsViewController.h"
+#import "UIImageView+WebCache.h"
 
-@interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface MainViewController () 
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 
@@ -24,6 +25,8 @@
 @property (nonatomic,strong) NSMutableArray *allDayArray;
 
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
+
+@property (nonatomic,strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -35,7 +38,7 @@
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
     [self uploadMotionData];
-    
+
     //1.开始定位
     [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
        
@@ -45,8 +48,6 @@
             self.informationModel = informationModel;
             
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            
-
 
         } failure:^(NSError *error) {
             
@@ -65,6 +66,8 @@
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+
+    [self.tableView addSubview:self.refreshControl];
 }
 
 - (void)reloadData {
@@ -108,30 +111,58 @@
             
             UserLifeModel *model = [dataArray firstObject];
             
-            [allDayArray addObject:model.curLife];
+            if (model) {
+                
+                [allDayArray addObject:model.curLife];
+                
+                [allDayArray addObject:model.curLife];
+                
+                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                
+                NSString *string = array[2];
+                
+                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                
+                [dayNumberArray addObject:newString];
+                
+                [dayNumberArray addObject:newString];
+                
+                self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+                
+                self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+            }
             
-            [allDayArray addObject:model.curLife];
-            
-            NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-            
-            NSString *string = array[2];
-            
-            NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-            
-            [dayNumberArray addObject:newString];
-            
-            [dayNumberArray addObject:newString];
-            
-            self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
-            
-            self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
         }
 
         [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
         
+        [self showToast:@"加载失败"];
+
     }];
+
+}
+
+- (UIRefreshControl *)refreshControl {
+    
+    if (!_refreshControl) {
+        
+        _refreshControl = [[UIRefreshControl alloc] init];
+        
+        _refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
+        
+        [_refreshControl addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    return _refreshControl;
+}
+
+- (void)refreshAction:(UIRefreshControl *)control {
+    
+    [self reloadData];
+    
+    [control endRefreshing];
 
 }
 

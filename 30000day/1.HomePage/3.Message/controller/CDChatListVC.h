@@ -56,6 +56,4 @@
  */
 @property (nonatomic, strong) id<CDChatListVCDelegate> chatListDelegate;
 
-@property (nonatomic,strong) UserInformationModel *model;
-
 @end
