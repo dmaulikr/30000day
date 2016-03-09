@@ -38,5 +38,15 @@
     
 }
 
+- (IBAction)lifeButtonClick:(UIButton *)sender {
+    
+    if (self.changeStateBlock) {
+        self.changeStateBlock(sender);
+    }
+    
+}
+
+
+
 
 @end

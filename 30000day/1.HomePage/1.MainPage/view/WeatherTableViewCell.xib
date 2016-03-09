@@ -21,13 +21,6 @@
                             <constraint firstAttribute="width" constant="50" id="KJx-Gc-gpl"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AC3-re-qgl">
-                        <rect key="frame" x="75" y="20" width="40" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="7nf-Yu-SJk"/>
-                            <constraint firstAttribute="width" constant="40" id="cWw-gV-K09"/>
-                        </constraints>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Et-LE-mJ2">
                         <rect key="frame" x="242" y="20" width="40" height="40"/>
                         <constraints>
@@ -53,17 +46,28 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fiL-Nx-XhM">
+                        <rect key="frame" x="73" y="20" width="40" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="crN-qW-beB"/>
+                            <constraint firstAttribute="height" constant="30" id="riX-jv-aNd"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="age_9"/>
+                        <connections>
+                            <action selector="lifeButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OsU-Rl-gT1"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="AC3-re-qgl" firstAttribute="leading" secondItem="FOA-Qx-Hft" secondAttribute="trailing" constant="10" id="2Gp-vY-1Pe"/>
                     <constraint firstItem="FOA-Qx-Hft" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="C71-D7-62W"/>
                     <constraint firstItem="UZy-KZ-007" firstAttribute="bottom" secondItem="lix-Uf-QFw" secondAttribute="bottom" id="Ico-Tj-pPA"/>
                     <constraint firstAttribute="trailing" secondItem="UZy-KZ-007" secondAttribute="trailing" constant="10" id="L3v-FB-e8K"/>
+                    <constraint firstItem="fiL-Nx-XhM" firstAttribute="top" secondItem="FOA-Qx-Hft" secondAttribute="top" id="Lpv-ny-ZOq"/>
                     <constraint firstItem="lix-Uf-QFw" firstAttribute="bottom" secondItem="FOA-Qx-Hft" secondAttribute="bottom" id="ML3-HN-dkE"/>
                     <constraint firstItem="UZy-KZ-007" firstAttribute="leading" secondItem="lix-Uf-QFw" secondAttribute="trailing" constant="15" id="QMC-Eu-gX9"/>
+                    <constraint firstItem="fiL-Nx-XhM" firstAttribute="leading" secondItem="FOA-Qx-Hft" secondAttribute="trailing" constant="8" id="RUT-e9-8WB"/>
                     <constraint firstItem="xBN-1Y-H19" firstAttribute="leading" secondItem="2Et-LE-mJ2" secondAttribute="trailing" constant="15" id="ZzT-s3-jdA"/>
                     <constraint firstItem="2Et-LE-mJ2" firstAttribute="top" secondItem="FOA-Qx-Hft" secondAttribute="top" id="aIn-nL-sr4"/>
-                    <constraint firstItem="AC3-re-qgl" firstAttribute="top" secondItem="FOA-Qx-Hft" secondAttribute="top" id="iDs-mf-Mcq"/>
                     <constraint firstItem="xBN-1Y-H19" firstAttribute="top" secondItem="2Et-LE-mJ2" secondAttribute="top" id="mwR-8L-YNV"/>
                     <constraint firstItem="FOA-Qx-Hft" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pLE-v7-ZCa"/>
                     <constraint firstItem="lix-Uf-QFw" firstAttribute="leading" secondItem="2Et-LE-mJ2" secondAttribute="trailing" constant="15" id="yds-q3-ioD"/>
@@ -74,7 +78,7 @@
                 <outlet property="airLabel" destination="UZy-KZ-007" id="qPW-pz-X9y"/>
                 <outlet property="cityLabel" destination="xBN-1Y-H19" id="HUc-85-Yl9"/>
                 <outlet property="headImageView" destination="FOA-Qx-Hft" id="oVU-9j-N6v"/>
-                <outlet property="lifeImage" destination="AC3-re-qgl" id="uCg-0v-O38"/>
+                <outlet property="lifeButton" destination="fiL-Nx-XhM" id="Eb1-lR-tbd"/>
                 <outlet property="temperatureLabel" destination="lix-Uf-QFw" id="sfK-Da-Xvm"/>
                 <outlet property="weatherImageView" destination="2Et-LE-mJ2" id="1aQ-nJ-YLj"/>
             </connections>
@@ -82,6 +86,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="age_9" width="22" height="17"/>
         <image name="placeholder" width="50" height="50"/>
     </resources>
 </document>

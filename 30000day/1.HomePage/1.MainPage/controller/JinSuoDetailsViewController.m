@@ -76,9 +76,9 @@
     
     NSString *titleString;
     if (section == 0) {
-        titleString = @"男";
-    } else {
         titleString = @"女";
+    } else {
+        titleString = @"男";
     }
     return titleString;
 }

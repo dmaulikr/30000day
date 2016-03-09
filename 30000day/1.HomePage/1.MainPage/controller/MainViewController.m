@@ -156,14 +156,13 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
         
-        [cell.lifeImage setImage:[self lifeToYear]];
-        cell.lifeImage.userInteractionEnabled = YES;
+        [cell.lifeButton setBackgroundImage:[self lifeToYear] forState:UIControlStateNormal];
         
-        UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lifeImagePush)];
-        [cell.lifeImage addGestureRecognizer:portraitTap];
+        [cell setChangeStateBlock:^(UIButton *changeStatusButton) {
+            [self lifeImagePush];
+        }];
         
         cell.informationModel = self.informationModel;
-        
         
         //下载头像
         [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:STUserAccountHandler.userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -235,7 +234,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)uploadMotionData{
+- (void)uploadMotionData {
     
     if ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil) {
     
@@ -266,7 +265,7 @@
                                         [dataDictionary setObject:climbStairsString forKey:@"stairs"];
                                         [dataDictionary setObject:movingDistanceString forKey:@"distance"];
                                         
-                                        NSString *dataString=[self DataTOjsonString:dataDictionary];
+                                        NSString *dataString=[self dataToJsonString:dataDictionary];
                                         
                                         [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dataString:dataString success:^(BOOL success) {
                                             
@@ -308,7 +307,7 @@
 }
 
 
-- (NSString*)DataTOjsonString:(id)object{
+- (NSString *)dataToJsonString:(id)object {
     
     NSString *jsonString = nil;
     NSError *error;
@@ -324,7 +323,7 @@
 }
 
 
-- (NSInteger)daysToYear{
+- (NSInteger)daysToYear {
     
     NSInteger day = [[self.allDayArray lastObject] integerValue];
     NSNumber *year = [NSNumber numberWithFloat:day/365];
@@ -333,9 +332,9 @@
     return yearInt;
 }
 
-- (UIImage *)lifeToYear{
+- (UIImage *)lifeToYear {
     
-    NSInteger life=[self daysToYear];
+    NSInteger life = [self daysToYear];
     
     if ([[STUserAccountHandler userProfile].gender intValue] == 0) {
         
@@ -395,9 +394,9 @@
     
 }
 
--(void)lifeImagePush{
+- (void)lifeImagePush {
     
-    JinSuoDetailsViewController *controller = [[JinSuoDetailsViewController alloc]init];
+    JinSuoDetailsViewController *controller = [[JinSuoDetailsViewController alloc] init];
     
     controller.averageAge = [self daysToYear];
     
