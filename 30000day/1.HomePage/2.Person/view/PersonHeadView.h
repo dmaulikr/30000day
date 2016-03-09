@@ -10,7 +10,6 @@
 
 @interface PersonHeadView : UIView
 
-
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusButton;
 
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);

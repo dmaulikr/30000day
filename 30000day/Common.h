@@ -74,7 +74,4 @@
 + (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
 
 
-//取得指定时间点的截图
-+ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
-
 @end

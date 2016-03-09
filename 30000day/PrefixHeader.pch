@@ -11,10 +11,7 @@
 
 #ifdef __OBJC__
 
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
 #import "UserProfile.h"
-#import "SBJson.h"
 #import "STNavigationController.h"
 #import "ZHPickView.h"
 #import "STBaseViewController.h"
@@ -23,9 +20,9 @@
 #import "Common.h"
 #import "UserAccountHandler.h"
 #import "UIView+Extension.h"
-#import "UIImageView+WebCache.h"
+
 #import "QGPickerView.h"
-#import "MJExtension.h"
+
 #import "STRemindManager.h"
 
 #import <AVOSCloud/AVOSCloud.h>

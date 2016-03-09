@@ -71,6 +71,8 @@ static NSInteger const kOnePageSize = 10;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.title = self.otherModel.nickName;
+    
     [self initBarButton];
     
     [self initBottomMenuAndEmotionView];
@@ -84,11 +86,11 @@ static NSInteger const kOnePageSize = 10;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
     
-    [self refreshConv];
+//    [self refreshConv];
     [self loadMessagesWhenInit];
     [self updateStatusView];
 }
@@ -344,8 +346,7 @@ static NSInteger const kOnePageSize = 10;
 - (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return YES;
-    }
-    else {
+    } else {
         XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
         XHMessage *lastMsg = [self.messages objectAtIndex:indexPath.row - 1];
         int interval = [msg.timestamp timeIntervalSinceDate:lastMsg.timestamp];
@@ -418,7 +419,6 @@ static NSInteger const kOnePageSize = 10;
 - (BOOL)filterError:(NSError *)error {
     return [self alertError:error] == NO;
 }
-
 
 - (void)runInMainQueue:(void (^)())queue {
     dispatch_async(dispatch_get_main_queue(), queue);
@@ -528,7 +528,7 @@ static NSInteger const kOnePageSize = 10;
                 break;
             }
         }
-        if (foundMessage !=nil) {
+        if (foundMessage != nil) {
             XHMessage *xhMsg = [self getXHMessageByMsg:foundMessage];
             [self.messages setObject:xhMsg atIndexedSubscript:pos];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:pos inSection:0];
@@ -541,62 +541,120 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - modal convert
 
 - (NSDate *)getTimestampDate:(int64_t)timestamp {
+    
     return [NSDate dateWithTimeIntervalSince1970:timestamp / 1000];
+}
+
+- (NSString *)userNameByClientId:(NSString *)clientId {
+    
+    if ([[CDChatManager manager].clientId isEqualToString:clientId]) {
+        
+        return STUserAccountHandler.userProfile.nickName;
+        
+    } else {
+        
+       return self.otherModel.nickName;
+        
+    }
+}
+
+- (NSString *)avatorUrlByClientId:(NSString *)clientId {
+    
+    if ([[CDChatManager manager].clientId isEqualToString:clientId]) {
+        
+        return STUserAccountHandler.userProfile.headImg;
+        
+    } else {
+        
+        return self.otherModel.headImg;
+        
+    }
 }
 
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
 //    id<CDUserModelDelegate> fromUser = [[CDChatManager manager].userDelegate getUserById:msg.clientId];
+    
+    NSString *nickName = [self userNameByClientId:msg.clientId];
+    
     XHMessage *xhMessage;
+    
     NSDate *time = [self getTimestampDate:msg.sendTimestamp];
+    
     if (msg.mediaType == kAVIMMessageMediaTypeText) {
+        
         AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
-        xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:STUserAccountHandler.userProfile.nickName timestamp:time];
-    }
-    else if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
+        
+        xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
+        
+    } else if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
+        
         AVIMAudioMessage *audioMsg = (AVIMAudioMessage *)msg;
+        
         NSString *duration = [NSString stringWithFormat:@"%.0f", audioMsg.duration];
-        xhMessage = [[XHMessage alloc] initWithVoicePath:audioMsg.file.localPath voiceUrl:nil voiceDuration:duration sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
-    }
-    else if (msg.mediaType == kAVIMMessageMediaTypeLocation) {
+        
+        xhMessage = [[XHMessage alloc] initWithVoicePath:audioMsg.file.localPath voiceUrl:nil voiceDuration:duration sender:nickName  timestamp:time];
+        
+    } else if (msg.mediaType == kAVIMMessageMediaTypeLocation) {
+        
         AVIMLocationMessage *locationMsg = (AVIMLocationMessage *)msg;
-        xhMessage = [[XHMessage alloc] initWithLocalPositionPhoto:[UIImage imageNamed:@"Fav_Cell_Loc"] geolocations:locationMsg.text location:[[CLLocation alloc] initWithLatitude:locationMsg.latitude longitude:locationMsg.longitude] sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
-    }
-    else if (msg.mediaType == kAVIMMessageMediaTypeImage) {
+        
+        xhMessage = [[XHMessage alloc] initWithLocalPositionPhoto:[UIImage imageNamed:@"Fav_Cell_Loc"] geolocations:locationMsg.text location:[[CLLocation alloc] initWithLatitude:locationMsg.latitude longitude:locationMsg.longitude] sender:nickName  timestamp:time];
+        
+    } else if (msg.mediaType == kAVIMMessageMediaTypeImage) {
+        
         AVIMImageMessage *imageMsg = (AVIMImageMessage *)msg;
+        
         UIImage *image;
+        
         NSError *error;
+        
         NSData *data = [imageMsg.file getData:&error];
+        
         if (error) {
+            
             DLog(@"get Data error: %@", error);
+            
         } else {
+            
             image = [UIImage imageWithData:data];
         }
-        xhMessage = [[XHMessage alloc] initWithPhoto:image thumbnailUrl:nil originPhotoUrl:nil sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
-    }
-    else if (msg.mediaType == kAVIMMessageMediaTypeEmotion) {
+        
+        xhMessage = [[XHMessage alloc] initWithPhoto:image thumbnailUrl:nil originPhotoUrl:nil sender:nickName  timestamp:time];
+        
+    } else if (msg.mediaType == kAVIMMessageMediaTypeEmotion) {
+        
         AVIMEmotionMessage *emotionMsg = (AVIMEmotionMessage *)msg;
+        
         NSString *path = [[NSBundle mainBundle] pathForResource:emotionMsg.emotionPath ofType:@"gif"];
-        xhMessage = [[XHMessage alloc] initWithEmotionPath:path sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
-    }
-    else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
+        
+        xhMessage = [[XHMessage alloc] initWithEmotionPath:path sender:nickName  timestamp:time];
+        
+    } else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
+        
         AVIMVideoMessage *videoMsg = (AVIMVideoMessage *)msg;
+        
         NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
-        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
+        
+        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:nickName  timestamp:time];
+        
     } else {
-        xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:STUserAccountHandler.userProfile.nickName  timestamp:time];
+        xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
         DLog("unkonwMessage");
     }
     
     xhMessage.avator = nil;
     
-    xhMessage.avatorUrl = STUserAccountHandler.userProfile.headImg;
+    xhMessage.avatorUrl = [self avatorUrlByClientId:msg.clientId];
     
     if ([[CDChatManager manager].clientId isEqualToString:msg.clientId]) {
+        
         xhMessage.bubbleMessageType = XHBubbleMessageTypeSending;
-    }
-    else {
+        
+    } else {
+        
         xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
     }
+    
     NSInteger msgStatuses[4] = { AVIMMessageStatusSending, AVIMMessageStatusSent, AVIMMessageStatusDelivered, AVIMMessageStatusFailed };
     NSInteger xhMessageStatuses[4] = { XHMessageStatusSending, XHMessageStatusSent, XHMessageStatusReceived, XHMessageStatusFailed };
     
@@ -610,8 +668,9 @@ static NSInteger const kOnePageSize = 10;
             }
         }
         xhMessage.status = status;
-    }
-    else {
+        
+    } else {
+        
         xhMessage.status = XHMessageStatusReceived;
     }
     return xhMessage;
@@ -681,8 +740,11 @@ static NSInteger const kOnePageSize = 10;
     if (self.messages.count == 0 || self.isLoadingMsg) {
         
         return;
+        
     } else {
+        
         self.isLoadingMsg = YES;
+        
         AVIMTypedMessage *msg = [self.msgs objectAtIndex:0];
         int64_t timestamp = msg.sendTimestamp;
         [self queryAndCacheMessagesWithTimestamp:timestamp block:^(NSArray *msgs, NSError *error) {

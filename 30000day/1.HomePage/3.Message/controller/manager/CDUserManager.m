@@ -12,6 +12,8 @@
 #import "CDAbuseReport.h"
 #import "UIImage+Icon.h"
 //#import <AVUser+SNS.h>
+#import <AVOSCloud/AVOSCloud.h>
+#import <AVOSCloudIM.h>
 
 static UIImage *defaultAvatar;
 

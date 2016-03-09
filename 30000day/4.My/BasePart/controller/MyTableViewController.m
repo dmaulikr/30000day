@@ -289,14 +289,14 @@
         [Common removeAppDataForKey:KEY_SIGNIN_USER_NAME];
         
         [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
+    
+        SignInViewController *logview = [[SignInViewController alloc] init];
+        
+        STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+        
+        [self presentViewController:navigationController animated:YES completion:nil];
         
         [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
-            
-            SignInViewController *logview = [[SignInViewController alloc] init];
-            
-            STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-            
-            [self presentViewController:navigationController animated:YES completion:nil];
             
         }];
         

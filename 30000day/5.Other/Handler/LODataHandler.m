@@ -18,8 +18,12 @@
 #import "UserInformationModel.h"
 #import "UserLifeModel.h"
 #import "GetFactorModel.h"
+#import "UserInformationManager.h"
+#import "MJExtension.h"
 
+#import "SBJson.h"
 #import "AFNetworking.h"
+
 //电话簿
 #import <AddressBook/AddressBook.h>
 
@@ -416,7 +420,7 @@
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"账户无效"}];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -625,7 +629,13 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
+                                                                //更新当前用户好友的数据库
+
+                                                                
                                                                 NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                                                                
+                                                                //赋值
+                                                                [UserInformationManager shareUserInformationManager].userInformationArray = array;
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     

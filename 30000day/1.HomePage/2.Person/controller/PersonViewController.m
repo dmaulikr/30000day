@@ -11,6 +11,7 @@
 #import "myFriendsTableViewCell.h"
 #import "UserInformationModel.h"
 #import "PersonDetailViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     

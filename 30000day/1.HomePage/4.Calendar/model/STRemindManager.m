@@ -8,11 +8,7 @@
 
 #import "STRemindManager.h"
 
-@interface STRemindManager () <NSFetchedResultsControllerDelegate> {
-    
-    NSFetchedResultsController *fetchCtrl;
-    
-}
+@interface STRemindManager ()
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -172,18 +168,25 @@
         return [NSMutableArray array];
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"RemindObject"];
-    
     //设置过滤和排序
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"userId == %@ AND dateString == %@",userId,dateString];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RemindObject" inManagedObjectContext:self.managedObjectContext];
     
-    fetchRequest.sortDescriptors = @[sort];
+    [fetchRequest setEntity:entity];
     
-    fetchRequest.predicate = pre;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND dateString == %@",userId,dateString];
     
-    NSArray *array  =[self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                   ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    
+    NSArray *array = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
     NSMutableArray *dataArray = [NSMutableArray array];
     
@@ -352,7 +355,7 @@
         
     }
     
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RemindModel" withExtension:@"momd"];
     
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     
@@ -369,7 +372,7 @@
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"RemindModel.sqlite"];
     
     NSError *error = nil;
     

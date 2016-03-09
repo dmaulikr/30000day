@@ -2,7 +2,7 @@
 //  RemindObject+CoreDataProperties.m
 //  30000day
 //
-//  Created by GuoJia on 16/2/26.
+//  Created by GuoJia on 16/3/9.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,8 +15,8 @@
 
 @dynamic content;
 @dynamic date;
+@dynamic dateString;
 @dynamic title;
 @dynamic userId;
-@dynamic dateString;
 
 @end

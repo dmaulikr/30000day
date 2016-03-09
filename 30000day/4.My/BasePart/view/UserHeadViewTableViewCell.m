@@ -7,6 +7,7 @@
 //
 
 #import "UserHeadViewTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation UserHeadViewTableViewCell
 

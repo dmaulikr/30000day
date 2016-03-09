@@ -13,6 +13,7 @@
 #import "UserLifeModel.h"
 #import "CDChatVC.h"
 #import "CDIMService.h"
+#import "UIImageView+WebCache.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -105,6 +106,8 @@
                 if ([self filterError:error]) {
                     
                     CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                    
+                    controller.otherModel = self.informationModel;
                     
                     [self.navigationController pushViewController:controller animated:YES];
                     

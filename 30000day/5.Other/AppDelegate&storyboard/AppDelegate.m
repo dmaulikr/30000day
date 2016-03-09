@@ -80,7 +80,7 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
-    //**************初始化 LeanCloud******//
+    //**************初始化 LeanCloud*********************************//
     [CDAddRequest registerSubclass];
     [CDAbuseReport registerSubclass];
     
