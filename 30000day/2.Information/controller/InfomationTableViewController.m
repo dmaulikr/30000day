@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"资讯";
+    self.title = @"资讯";
 }
 
 - (void)didReceiveMemoryWarning {

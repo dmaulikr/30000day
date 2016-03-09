@@ -14,8 +14,9 @@
 #import "UserAccountHandler.h"
 #import "MainViewController.h"
 #import "SignInViewController.h"
+#import "AppDelegate.h"
 
-#define BUTTON_WIDTH 60
+#define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
@@ -56,7 +57,14 @@
                                       loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                                         success:^(BOOL success) {
                                            
-                        
+                                            [STAppDelegate openChatCompletion:^(BOOL success) {
+                                                
+                                                
+                                            } failure:^(NSError *error) {
+                                                
+                                                [self showToast:@"链接聊天服务器失败"];
+                                                
+                                            }];
                                         }
                                         failure:^(NSError *error) {
                                             
@@ -99,25 +107,23 @@
     CDConvsVC *messageViewController = [[CDConvsVC alloc] init];
     CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     [self addChildViewController:mainPageController];
-    [self addChildViewController:personViewController];
     [self addChildViewController:messageViewController];
+    [self addChildViewController:personViewController];
     [self addChildViewController:calendarViewController];
    
-
     [mainPageController.view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:mainPageController.view];
     
-    [personViewController.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_scrollView addSubview:personViewController.view];
-    
-    [messageViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [messageViewController.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:messageViewController.view];
+    
+    [personViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_scrollView addSubview:personViewController.view];
     
     [calendarViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 3, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:calendarViewController.view];
     
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 4, 0)];
-    
     
     //创建顶部按钮
     [self createButton];
@@ -134,23 +140,22 @@
     [self.buttonParentView addSubview:_mainPageButton];
     
     
-    _personButton = [self buttonWithTitle:@"自己人" numberAndTag:1];
-    [_personButton setFrame:CGRectMake(BUTTON_WIDTH, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
-    [self.buttonParentView addSubview:_personButton];
+    _newsButton = [self buttonWithTitle:@"消息" numberAndTag:1];
+    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [self.buttonParentView addSubview:_newsButton];
 
     
-     _newsButton = [self buttonWithTitle:@"消息" numberAndTag:2];
-    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
-    [self.buttonParentView addSubview:_newsButton];
+     _personButton = [self buttonWithTitle:@"自己人" numberAndTag:2];
+    [_personButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [self.buttonParentView addSubview:_personButton];
     
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:3];
     [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
-
     
-    _bottomScrollView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, 60, 2)];
+    _bottomScrollView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, 65, 2)];
     [_bottomScrollView setBackgroundColor:BLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
@@ -204,7 +209,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [_bottomScrollView setFrame:CGRectMake(button.frame.origin.x, 42, 60 , 2)];
+        [_bottomScrollView setFrame:CGRectMake(button.frame.origin.x, 42, 65 , 2)];
         
     }];
     
@@ -220,13 +225,13 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [_bottomScrollView setFrame:CGRectMake(curPageNo*60, 42, 60, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo*65, 42, 65, 2)];
     }];
     
     [self buttonTitleChange:curPageNo];
 }
 
--(void)buttonTitleChange:(NSInteger)page{
+- (void)buttonTitleChange:(NSInteger)page {
     
     switch (page) {
             
@@ -238,15 +243,15 @@
             
             break;
         case 1:
-            [_personButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
-            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_newsButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 2:
-            [_newsButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
-            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_personButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
@@ -264,7 +269,7 @@
     }
 }
 
-- (void)addFriendsClick{
+- (void)addFriendsClick {
     
     AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
     

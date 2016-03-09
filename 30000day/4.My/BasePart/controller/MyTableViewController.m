@@ -16,6 +16,8 @@
 #import "HealthySetUpViewController.h"
 #import "UserHeadViewTableViewCell.h"
 #import "LogoutTableViewCell.h"
+#import "CDChatManager.h"
+#import "CDSettingVC.h"
 
 @interface MyTableViewController ()
 
@@ -61,7 +63,7 @@
         
     } else if (section == 2) {
         
-        return 2;
+        return 3;
         
     } else if (section == 3) {
         
@@ -124,7 +126,7 @@
       
     }
     
-    if (indexPath.section==0) {
+    if (indexPath.section == 0) {
         
         UserHeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserHeadViewTableViewCell"];
         
@@ -161,7 +163,7 @@
         
     } else if (indexPath.section == 2) {
         
-        if (indexPath.row==0) {
+        if (indexPath.row == 0) {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"securityCenter.png"]];
             
@@ -169,18 +171,26 @@
             
             cell.seperatorLineView.hidden = NO;
             
-        } else {
+        } else if (indexPath.row == 1) {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
             
             [cell.titleLabel setText:@"设置"];
             
             cell.seperatorLineView.hidden = YES;
+            
+        } else {
+            
+            [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
+            
+            [cell.titleLabel setText:@"消息设置"];
+            
+            cell.seperatorLineView.hidden = YES;
         }
         
         return cell;
         
-    } else if (indexPath.section==3) {
+    } else if (indexPath.section == 3) {
         
         [cell.leftImage setImage:[UIImage imageNamed:@"about.png"]];
         
@@ -190,7 +200,7 @@
         
         return cell;
         
-    } else if (indexPath.section==4) {
+    } else if (indexPath.section == 4 ) {
         
         LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
         
@@ -239,13 +249,22 @@
             
             [self.navigationController pushViewController:stc animated:YES];
             
-        } else {
-            
+        } else if (indexPath.row == 1) {
+          
             SetUpViewController *suc = [[SetUpViewController alloc] init];
             
             suc.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:suc animated:YES];
+        
+        } else if (indexPath.row == 2 ){
+            
+            CDSettingVC *controller = [[CDSettingVC alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+
         }
         
     } else if (indexPath.section == 4) {
@@ -257,7 +276,7 @@
 
 - (void)CancellationClick {
     
-    UIAlertController* alert=[UIAlertController alertControllerWithTitle:@"确定注销？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定注销？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     
@@ -269,12 +288,16 @@
         [Common removeAppDataForKey:KEY_SIGNIN_USER_NAME];
         
         [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
-
-         SignInViewController *logview = [[SignInViewController alloc] init];
         
-         STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-        
-        [self presentViewController:navigationController animated:YES completion:nil];
+        [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
+            
+            SignInViewController *logview = [[SignInViewController alloc] init];
+            
+            STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+            
+            [self presentViewController:navigationController animated:YES completion:nil];
+            
+        }];
         
     }]];
     

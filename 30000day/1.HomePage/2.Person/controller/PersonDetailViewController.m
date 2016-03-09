@@ -97,13 +97,31 @@
     
     if (button.tag == 1) {//右按钮
         
-        [[CDIMService service] createChatRoomByUserId:[NSString stringWithFormat:@"%@",self.informationModel.userId] fromViewController:self completion:^(BOOL successed, NSError *error) {
-            if (error) {
-                DLog(@"%@",error.userInfo);
-            }
-        }];
-        
+        if (self.informationModel.userId) {//这个userId存在的时候才进行push
+            
+            //查询conversation
+            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] callback: ^(AVIMConversation *conversation, NSError *error) {
+                
+                if ([self filterError:error]) {
+                    
+                    CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                }
+            }];
+            
+        } else {
+            
+            [self showToast:@"对方的id为空"];
+            
+        }
+    
     } else {//左按钮
+
+        
+        
+        
         
         
     }
