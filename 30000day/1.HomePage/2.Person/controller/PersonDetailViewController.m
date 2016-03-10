@@ -14,6 +14,7 @@
 #import "CDChatVC.h"
 #import "CDIMService.h"
 #import "UIImageView+WebCache.h"
+#import "UserInformationModel.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -24,8 +25,11 @@
 @property (nonatomic,strong) NSMutableArray *allDayArray;
 
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
+
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
+
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @end

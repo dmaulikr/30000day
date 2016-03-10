@@ -7,8 +7,9 @@
 //
 
 #import "ShowBackItemViewController.h"
-#import "UserInformationModel.h"
 #import "CDBaseVC.h"
+
+@class UserInformationModel;
 
 @interface PersonDetailViewController : CDBaseVC
 
