@@ -98,7 +98,7 @@
         //加点击取消的手势
         CGRect screenFrame = [[UIScreen mainScreen] bounds];
         
-        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenFrame.size.width, screenFrame.size.height - frame.size.height)];
+        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenFrame.size.width, screenFrame.size.height)];
         
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doCancel)];
         
@@ -106,7 +106,7 @@
         
         self.maskView = maskView;
         
-        self.maskView.backgroundColor = RGBACOLOR(240,240,240, 0.3);
+        self.maskView.backgroundColor = RGBACOLOR(200,200,200, 0.3);
 
     }
     
@@ -274,9 +274,9 @@
     
     datePicker.date = willShowDate;
     
-    [superView addSubview:self];
-    
     [superView addSubview:self.maskView];
+    
+    [superView addSubview:self];
     
     [self addSubview:datePicker];
     
