@@ -55,7 +55,7 @@
     
     _privateUserProfile = userProfile;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 

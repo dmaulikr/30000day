@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 //当前用户成功添加好友发出的通知
-static NSString *const UserAddFriendsSuccessPostNotification = @"UserAddFriendsSuccessPostNotification";
+static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
 
 //当前用户个人信息改变发出通知
-static NSString *const UserAccountHandlerUseProfileDidChangeNotification = @"UserAccountHandlerUseProfileDidChangeNotification";
+static NSString *const STUserAccountHandlerUseProfileDidChangeNotification = @"STUserAccountHandlerUseProfileDidChangeNotification";
+
+//成功获取好友的时候发送的通知
+static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuccessGetFriendsSendNotification";
+
 
 @class LONetError;
 

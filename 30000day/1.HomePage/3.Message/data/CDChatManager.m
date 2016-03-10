@@ -578,49 +578,80 @@ static CDChatManager *instance;
 }
 
 - (void)selectOrRefreshConversationsWithBlock:(AVIMArrayResultBlock)block {
+    
     static BOOL refreshedFromServer = NO;
+    
     NSArray *conversations = [[CDConversationStore store] selectAllConversations];
+    
     if (refreshedFromServer == NO && self.connect) {
+        
         NSMutableSet *conversationIds = [NSMutableSet set];
+        
         for (AVIMConversation *conversation in conversations) {
+            
             [conversationIds addObject:conversation.conversationId];
         }
+        
         [self fetchConversationsWithConversationIds:conversationIds callback:^(NSArray *objects, NSError *error) {
             if (error) {
+                
                 block(conversations, nil);
+                
             } else {
+                
                 refreshedFromServer = YES;
+                
                 [[CDConversationStore store] updateConversations:objects];
+                
                 block([[CDConversationStore store] selectAllConversations], nil);
             }
         }];
+        
     } else {
+        
         block(conversations, nil);
     }
 }
 
 - (void)findRecentConversationsWithBlock:(CDRecentConversationsCallback)block {
+    
     [self selectOrRefreshConversationsWithBlock:^(NSArray *conversations, NSError *error) {
+        
         NSMutableSet *userIds = [NSMutableSet set];
+        
         NSUInteger totalUnreadCount = 0;
+        
         for (AVIMConversation *conversation in conversations) {
+            
             NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:1];
+            
             if (lastestMessages.count > 0) {
+                
                 conversation.lastMessage = lastestMessages[0];
             }
+            
             if (conversation.type == CDConversationTypeSingle) {
+                
                 [userIds addObject:conversation.otherId];
+                
             } else {
+                
                 if (conversation.lastMessage) {
+                    
                     [userIds addObject:conversation.lastMessage.clientId];
                 }
             }
+            
             if (conversation.muted == NO) {
+                
                 totalUnreadCount += conversation.unreadCount;
             }
         }
+        
         NSArray *sortedRooms = [conversations sortedArrayUsingComparator:^NSComparisonResult(AVIMConversation *conv1, AVIMConversation *conv2) {
+            
             return (NSComparisonResult)(conv2.lastMessage.sendTimestamp - conv1.lastMessage.sendTimestamp);
+            
         }];
 //        if ([self.userDelegate respondsToSelector:@selector(cacheUserByIds:block:)]) {
 //            [self.userDelegate cacheUserByIds:userIds block: ^(BOOL succeeded, NSError *error) {
