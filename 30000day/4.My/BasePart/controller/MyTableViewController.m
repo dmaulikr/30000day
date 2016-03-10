@@ -31,7 +31,28 @@
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [self creatRefreshing];
 
+}
+
+- (void)creatRefreshing {
+    
+    if (!self.refreshControl) {
+        
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        
+        self.refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
+        
+        [self.refreshControl addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventValueChanged];
+    }
+}
+
+- (void)refreshAction{
+    
+    [self reloadData:nil];
+    [self.refreshControl endRefreshing];
+    
 }
 
 - (void)reloadData:(NSNotification *)notification {

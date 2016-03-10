@@ -39,6 +39,8 @@
 
 @property (nonatomic,strong) NSIndexPath *selectorIndexPath;
 
+@property (nonatomic,strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation UserInfoViewController
@@ -48,6 +50,8 @@
     [super viewDidLoad];
     
     self.title = @"个人信息";
+    
+    self.tableView.showsVerticalScrollIndicator = NO;
     
     self.saveButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonClick)];
     
@@ -73,7 +77,34 @@
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [self.tableView addSubview:self.refreshControl];
 }
+
+- (UIRefreshControl *)refreshControl {
+    
+    if (!_refreshControl) {
+        
+        _refreshControl = [[UIRefreshControl alloc] init];
+        
+        _refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
+        
+        [_refreshControl addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    return _refreshControl;
+}
+
+- (void)refreshAction:(UIRefreshControl *)control {
+    
+    [control beginRefreshing];
+    
+    [self reloadData];
+    
+    [control endRefreshing];
+    
+}
+
 
 - (void)reloadData {
     
