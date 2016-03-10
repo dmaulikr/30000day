@@ -140,8 +140,6 @@
     
     NSString *timeString = @"";
     
-    NSLog(@"mainViewCtr:%@", localeDate);
-    
     NSTimeInterval cha = now-late;
     
     timeString = [NSString stringWithFormat:@"%f", cha/86400];

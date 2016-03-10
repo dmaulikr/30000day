@@ -81,6 +81,8 @@
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
     //***********************************初始化LeanCloud*********************************//
+    [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
+    
     [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
     
     [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
@@ -139,7 +141,6 @@
         if (succeeded) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 
                 success(YES);
                 
