@@ -12,4 +12,5 @@
 
 @property (nonatomic,assign) BOOL success;
 
+@property (nonatomic,copy) NSString *errorString;
 @end
