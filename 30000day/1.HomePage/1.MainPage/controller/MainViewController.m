@@ -65,7 +65,7 @@
     [self reloadData];
     
     //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 
     [self.tableView addSubview:self.refreshControl];
 }

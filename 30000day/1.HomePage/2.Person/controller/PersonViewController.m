@@ -35,10 +35,10 @@
     [self getMyFriends];
     
     //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     //监听成功添加好友发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UserAddFriendsSuccessPostNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
 }
 
 - (void)reloadData {

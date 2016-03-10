@@ -271,8 +271,6 @@
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
 		B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8B11C5B378F002C7712 /* UserInfoViewController.m */; };
 		B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8B21C5B378F002C7712 /* UserInfoViewController.xib */; };
-		B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8BB1C5B37FF002C7712 /* HZAreaPickerView.m */; };
-		B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8BC1C5B37FF002C7712 /* HZAreaPickerView.xib */; };
 		B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8C31C5B3906002C7712 /* SecurityViewController.m */; };
 		B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8C41C5B3906002C7712 /* SecurityViewController.xib */; };
 		B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8C81C5B390E002C7712 /* securityTableViewCell.m */; };
@@ -281,14 +279,10 @@
 		B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8D41C5B3996002C7712 /* SetUpViewController.xib */; };
 		B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8D81C5B399D002C7712 /* setUpTableViewCell.m */; };
 		B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8D91C5B399D002C7712 /* setUpTableViewCell.xib */; };
-		B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8DE1C5B39D7002C7712 /* HZLocation.m */; };
 		B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8E51C5B3A5D002C7712 /* HealthySetUpViewController.m */; };
 		B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8E61C5B3A5D002C7712 /* HealthySetUpViewController.xib */; };
 		B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8EA1C5B3A67002C7712 /* HealthyTableViewCell.m */; };
 		B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8EB1C5B3A67002C7712 /* HealthyTableViewCell.xib */; };
-		B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8F31C5B3C9F002C7712 /* ZHPickView.m */; };
-		B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8F61C5B3D30002C7712 /* ZYQAssetPicker.Bundle */; };
-		B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8F81C5B3D30002C7712 /* ZYQAssetPickerController.m */; };
 		B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */; };
 		B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */; };
 		B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D91E1C5B5F4D002C7712 /* CalendarViewController.m */; };
@@ -860,9 +854,6 @@
 		B8F2D8B01C5B378F002C7712 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		B8F2D8B11C5B378F002C7712 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		B8F2D8B21C5B378F002C7712 /* UserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
-		B8F2D8BA1C5B37FF002C7712 /* HZAreaPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZAreaPickerView.h; sourceTree = "<group>"; };
-		B8F2D8BB1C5B37FF002C7712 /* HZAreaPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZAreaPickerView.m; sourceTree = "<group>"; };
-		B8F2D8BC1C5B37FF002C7712 /* HZAreaPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZAreaPickerView.xib; sourceTree = "<group>"; };
 		B8F2D8C21C5B3906002C7712 /* SecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityViewController.h; sourceTree = "<group>"; };
 		B8F2D8C31C5B3906002C7712 /* SecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityViewController.m; sourceTree = "<group>"; };
 		B8F2D8C41C5B3906002C7712 /* SecurityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityViewController.xib; sourceTree = "<group>"; };
@@ -875,19 +866,12 @@
 		B8F2D8D71C5B399D002C7712 /* setUpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setUpTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D8D81C5B399D002C7712 /* setUpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setUpTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D8D91C5B399D002C7712 /* setUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = setUpTableViewCell.xib; sourceTree = "<group>"; };
-		B8F2D8DD1C5B39D7002C7712 /* HZLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZLocation.h; sourceTree = "<group>"; };
-		B8F2D8DE1C5B39D7002C7712 /* HZLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZLocation.m; sourceTree = "<group>"; };
 		B8F2D8E41C5B3A5D002C7712 /* HealthySetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthySetUpViewController.h; sourceTree = "<group>"; };
 		B8F2D8E51C5B3A5D002C7712 /* HealthySetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthySetUpViewController.m; sourceTree = "<group>"; };
 		B8F2D8E61C5B3A5D002C7712 /* HealthySetUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HealthySetUpViewController.xib; sourceTree = "<group>"; };
 		B8F2D8E91C5B3A67002C7712 /* HealthyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthyTableViewCell.h; sourceTree = "<group>"; };
 		B8F2D8EA1C5B3A67002C7712 /* HealthyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthyTableViewCell.m; sourceTree = "<group>"; };
 		B8F2D8EB1C5B3A67002C7712 /* HealthyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HealthyTableViewCell.xib; sourceTree = "<group>"; };
-		B8F2D8F21C5B3C9F002C7712 /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
-		B8F2D8F31C5B3C9F002C7712 /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
-		B8F2D8F61C5B3D30002C7712 /* ZYQAssetPicker.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYQAssetPicker.Bundle; sourceTree = "<group>"; };
-		B8F2D8F71C5B3D30002C7712 /* ZYQAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYQAssetPickerController.h; sourceTree = "<group>"; };
-		B8F2D8F81C5B3D30002C7712 /* ZYQAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYQAssetPickerController.m; sourceTree = "<group>"; };
 		B8F2D9131C5B5DA1002C7712 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
 		B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
 		B8F2D9151C5B5DA1002C7712 /* PersonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonViewController.xib; sourceTree = "<group>"; };
@@ -1992,8 +1976,6 @@
 				B8F2D93C1C5B70E2002C7712 /* JHAPISDK */,
 				B8F2D92C1C5B6E36002C7712 /* BEMSimpleLineGraphView */,
 				B8F2D9221C5B6DDD002C7712 /* MDRadialProgressView */,
-				B8F2D8F51C5B3D28002C7712 /* ZYQAssetPickerController */,
-				B8F2D8F11C5B3C9B002C7712 /* ZHPickView */,
 				B88C91D11C5B05FC0089BEAE /* SBJson */,
 			);
 			path = ThirdPart;
@@ -2056,9 +2038,6 @@
 		B88C91B81C5B00500089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D8BA1C5B37FF002C7712 /* HZAreaPickerView.h */,
-				B8F2D8BB1C5B37FF002C7712 /* HZAreaPickerView.m */,
-				B8F2D8BC1C5B37FF002C7712 /* HZAreaPickerView.xib */,
 				B8365A541C71A53500063269 /* HeadViewTableViewCell.h */,
 				B8365A551C71A53500063269 /* HeadViewTableViewCell.m */,
 				B8365A561C71A53500063269 /* HeadViewTableViewCell.xib */,
@@ -2219,8 +2198,6 @@
 		B8F2D8DC1C5B39D3002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D8DD1C5B39D7002C7712 /* HZLocation.h */,
-				B8F2D8DE1C5B39D7002C7712 /* HZLocation.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2262,25 +2239,6 @@
 				B8F2D8EB1C5B3A67002C7712 /* HealthyTableViewCell.xib */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		B8F2D8F11C5B3C9B002C7712 /* ZHPickView */ = {
-			isa = PBXGroup;
-			children = (
-				B8F2D8F21C5B3C9F002C7712 /* ZHPickView.h */,
-				B8F2D8F31C5B3C9F002C7712 /* ZHPickView.m */,
-			);
-			path = ZHPickView;
-			sourceTree = "<group>";
-		};
-		B8F2D8F51C5B3D28002C7712 /* ZYQAssetPickerController */ = {
-			isa = PBXGroup;
-			children = (
-				B8F2D8F61C5B3D30002C7712 /* ZYQAssetPicker.Bundle */,
-				B8F2D8F71C5B3D30002C7712 /* ZYQAssetPickerController.h */,
-				B8F2D8F81C5B3D30002C7712 /* ZYQAssetPickerController.m */,
-			);
-			path = ZYQAssetPickerController;
 			sourceTree = "<group>";
 		};
 		B8F2D9221C5B6DDD002C7712 /* MDRadialProgressView */ = {
@@ -2434,6 +2392,7 @@
 		B8F2D9AE1C5C8D63002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */,
 				B8F931591C7BF101000FED7C /* STRemindManager.h */,
 				B8F9315A1C7BF101000FED7C /* STRemindManager.m */,
 				B8F931731C7BF420000FED7C /* RemindModel.h */,
@@ -2442,7 +2401,6 @@
 				B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */,
 				B8F8802D1C901A0700B5DA18 /* RemindObject.h */,
 				B8F8802E1C901A0700B5DA18 /* RemindObject.m */,
-				B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3536,11 +3494,9 @@
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
-				B8F2D8BE1C5B37FF002C7712 /* HZAreaPickerView.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
-				B8F2D8F91C5B3D30002C7712 /* ZYQAssetPicker.Bundle in Resources */,
 				B804FD3C1C8AC9A900DFD1CF /* rabbit_19.gif in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
 				B804FD371C8AC9A900DFD1CF /* rabbit_16_cover@2x.png in Resources */,
@@ -3615,7 +3571,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8FD3EBD1C8A8440007BCA6B /* CDLabelButtonTableCell.m in Sources */,
-				B8F2D8BD1C5B37FF002C7712 /* HZAreaPickerView.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8FD3EBA1C8A8440007BCA6B /* CDEntryBottomButton.m in Sources */,
 				B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */,
@@ -3630,7 +3585,6 @@
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
 				B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */,
-				B8F2D8F41C5B3C9F002C7712 /* ZHPickView.m in Sources */,
 				B604C47E1C8930D000F21107 /* MotionData.m in Sources */,
 				B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */,
 				B8FD3E2D1C8A7903007BCA6B /* UIImage+Icon.m in Sources */,
@@ -3726,7 +3680,6 @@
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
-				B8F2D8DF1C5B39D7002C7712 /* HZLocation.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
 				B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */,
@@ -3831,7 +3784,6 @@
 				B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */,
 				B8F2D9A41C5C8B1A002C7712 /* JBImageFileManager.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
-				B8F2D8FA1C5B3D30002C7712 /* ZYQAssetPickerController.m in Sources */,
 				B8FD3E961C8A8408007BCA6B /* CDCacheManager.m in Sources */,
 				B8FD3E1F1C8A7903007BCA6B /* XHMessageTableViewCell.m in Sources */,
 				B8FD3EBF1C8A8440007BCA6B /* CDPopMenu.m in Sources */,

@@ -105,7 +105,7 @@
     }
     
     //显示QGPickerView
-    [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.title selectedTitle:nil selectedTitle:nil];
+    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.title selectedTitle:nil selectedTitle:nil];
     
     [Common saveAppIntegerDataForKey:HEALTHSETINDICATE withObject:indexPath.row];
 }

@@ -28,6 +28,13 @@
 
 @property (nonatomic,assign) NSInteger num;//pickerView
 
+
+@property (nonatomic,assign) BOOL isDatePicker;//YES表示是datePicker NO表示是pickView
+
+
+@property (nonatomic,strong) UIDatePicker *datePicker;
+
+
 @end
 
 @implementation QGPickerView
@@ -42,16 +49,18 @@
         
         [self addSubview:topView];
         
+        self.backgroundColor = [UIColor whiteColor];
+        
         //右边确定按钮
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        [btn setTitle:@"确定" forState:UIControlStateNormal];
+        [button setTitle:@"确定" forState:UIControlStateNormal];
         
-        [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
         
-        btn.translatesAutoresizingMaskIntoConstraints = NO;
+        button.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [topView addSubview:btn];
+        [topView addSubview:button];
         
         //中间标题Label
         UILabel *titelLabel = [[UILabel alloc] init];
@@ -73,46 +82,40 @@
         
         [topView addConstraint:labelContraint_y];
         
-        //btn添加约束
-        NSLayoutConstraint *btnContraint_y = [NSLayoutConstraint constraintWithItem:topView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:btn attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
+        //button添加约束
+        NSLayoutConstraint *buttonContraint_y = [NSLayoutConstraint constraintWithItem:topView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
         
-        [topView addConstraint:btnContraint_y];
+        [topView addConstraint:buttonContraint_y];
         
-        NSArray *btnContraint_h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[btn(40)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)];
+        NSArray *buttonClickContraint_h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(40)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(button)];
         
-        NSArray *btnContraint_v = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[btn(44)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(btn)];
+        NSArray *buttonClickContraint_v = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button(44)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(button)];
         
-        [topView addConstraints:btnContraint_h];
+        [topView addConstraints:buttonClickContraint_h];
         
-        [topView addConstraints:btnContraint_v];
+        [topView addConstraints:buttonClickContraint_v];
         
         //加点击取消的手势
-        CGRect screenFrame = [[UIScreen mainScreen]bounds];
+        CGRect screenFrame = [[UIScreen mainScreen] bounds];
         
-        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenFrame.size.width, screenFrame.size.height - frame.size.height)];
+        UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenFrame.size.width, screenFrame.size.height)];
         
-        UITapGestureRecognizer *g = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doCancel)];
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doCancel)];
         
-        [maskView addGestureRecognizer:g];
+        [maskView addGestureRecognizer:gesture];
         
         self.maskView = maskView;
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.maskView.backgroundColor = RGBACOLOR(200,200,200, 0.3);
+
     }
+    
     return self;
 }
 
 - (void)doCancel {
     
-    if (self.delegate) {
-        
-        if ([self.delegate respondsToSelector:@selector(didCancelWithQGPickerView:)]) {
-            
-            [self.delegate didCancelWithQGPickerView:self];
-        }
-        
-        [self hide];
-    }
+    [self hide];
 }
 
 //隐藏动画效果
@@ -139,23 +142,58 @@
 }
 
 //确定按钮点击事件
-- (void)btnClick {
+- (void)buttonClick {
     
-    if (self.num == 1) {
+    if (self.isDatePicker == NO ) {//不是专门的日期选择器
         
-        NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
-        
-        if (row_1 >= 0 ) {
+        if (self.num == 1) {
             
-            if (self.dataArray_1.count >= 1) {
+            NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
+            
+            if (row_1 >= 0 ) {
                 
-                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-                
-                if (self.delegate) {
+                if (self.dataArray_1.count >= 1) {
                     
-                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                    NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
+                    
+                    if (self.delegate) {
                         
-                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                        if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                            
+                            [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                [self hide];
+                
+            }
+        } else if (self.num == 2) {
+            
+            NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
+            
+            NSInteger row_2 = [self.pickerView_2 selectedRowInComponent:0];
+            
+            if (row_1 >= 0 && (row_2 >= 0) ) {
+                
+                if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1)) {
+                    
+                    NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
+                    
+                    NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
+                    
+                    if (self.delegate) {
+                        
+                        if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                            
+                            [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                            
+                            [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
+                        }
+                        
                         
                     }
                     
@@ -165,79 +203,109 @@
             
             [self hide];
             
-        }
-    } else if (self.num == 2) {
-        
-        NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
-        
-        NSInteger row_2 = [self.pickerView_2 selectedRowInComponent:0];
-        
-        if (row_1 >= 0 && (row_2 >= 0) ) {
+        } else if (self.num == 3) {
             
-            if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1)) {
+            NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
+            
+            NSInteger row_2 = [self.pickerView_2 selectedRowInComponent:0];
+            
+            NSInteger row_3 = [self.pickerView_3 selectedRowInComponent:0];
+            
+            if ((row_1 >= 0) && (row_2 >= 0) &&  (row_3 >= 0)) {
                 
-                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-                
-                NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
-                
-                if (self.delegate) {
+                if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1) && (self.dataArray_3.count >= 1)) {
                     
-                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                    NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
+                    
+                    NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
+                    
+                    NSString *title_3 = [self.dataArray_3 objectAtIndex:row_3];
+                    
+                    if (self.delegate) {
                         
-                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                        if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
+                            
+                            [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
+                            
+                            [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
+                            
+                            [self.delegate didSelectPickView:self value:title_3 indexOfPickerView:3 indexOfValue:row_3];
+                        }
                         
-                        [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
+                        
                     }
-                    
-                    
                 }
                 
+                [self hide];
+                
             }
- 
         }
         
-        [self hide];
+    } else {//是专门的日期选择器
         
-    } else if (self.num == 3) {
+         [self hide];
         
-        NSInteger row_1 = [self.pickerView_1 selectedRowInComponent:0];
-        
-        NSInteger row_2 = [self.pickerView_2 selectedRowInComponent:0];
-        
-        NSInteger row_3 = [self.pickerView_3 selectedRowInComponent:0];
-        
-        if ((row_1 >= 0) && (row_2 >= 0) &&  (row_3 >= 0)) {
+        if ([self.delegate respondsToSelector:@selector(didSelectPickView:selectDate:)]) {
             
-            if ((self.dataArray_1.count >= 1) && (self.dataArray_2.count >= 1) && (self.dataArray_3.count >= 1)) {
-                
-                NSString *title_1 = [self.dataArray_1 objectAtIndex:row_1];
-                
-                NSString *title_2 = [self.dataArray_2 objectAtIndex:row_2];
-                
-                NSString *title_3 = [self.dataArray_3 objectAtIndex:row_3];
-                
-                if (self.delegate) {
-                    
-                    if ([self.delegate respondsToSelector:@selector(didSelectPickView:value:indexOfPickerView:indexOfValue:)]) {
-                        
-                        [self.delegate didSelectPickView:self value:title_1 indexOfPickerView:1 indexOfValue:row_1];
-                        
-                        [self.delegate didSelectPickView:self value:title_2 indexOfPickerView:2 indexOfValue:row_2];
-                        
-                        [self.delegate didSelectPickView:self value:title_3 indexOfPickerView:3 indexOfValue:row_3];
-                    }
-                    
-                    
-                }
-            }
-            
-            [self hide];
+            [self.delegate didSelectPickView:self selectDate:self.datePicker.date];
             
         }
+        
     }
 }
 
-- (void)showOnView:(UIView *)superView withPickerViewNum:(NSInteger)num withArray:(NSArray *)dataArray_1 withArray:(NSArray *)dataArray_2 withArray:(NSArray *)dataArray_3 selectedTitle:(NSString *)selectedTitle_1 selectedTitle:(NSString *)selectedTitle_2 selectedTitle:(NSString *)selectedTitle_3 {
+- (void)showDataPickView:(UIView *)superView WithDate:(NSDate *)willShowDate datePickerMode:(UIDatePickerMode)datePickerMode minimumDate:(NSDate *)minimumDate maximumDate:(NSDate *)maximumDate {
+    
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    
+    datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    
+    datePicker.datePickerMode = datePickerMode;
+    
+    datePicker.minimumDate = minimumDate;
+    
+    datePicker.maximumDate = maximumDate;
+    
+//  [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
+    
+    datePicker.backgroundColor = [UIColor whiteColor];
+    
+    datePicker.frame = CGRectMake(0, 44, (float)self.bounds.size.width, self.bounds.size.height-44);
+    
+    datePicker.date = willShowDate;
+    
+    [superView addSubview:self.maskView];
+    
+    [superView addSubview:self];
+    
+    [self addSubview:datePicker];
+    
+    self.isDatePicker = YES;
+    
+    self.datePicker = datePicker;
+    
+    __block CGRect frame = self.frame;
+    
+    frame.origin.y = superView.bounds.size.height;
+    
+    self.frame = frame;
+    
+    [UIView animateWithDuration:0.35f
+                          delay:0
+                        options:UIViewAnimationOptionTransitionFlipFromBottom
+                     animations:^{
+                         
+                         frame.origin.y -= frame.size.height;
+                         
+                         self.frame = frame;
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+}
+
+
+- (void)showPickView:(UIView *)superView withPickerViewNum:(NSInteger)num withArray:(NSArray *)dataArray_1 withArray:(NSArray *)dataArray_2 withArray:(NSArray *)dataArray_3 selectedTitle:(NSString *)selectedTitle_1 selectedTitle:(NSString *)selectedTitle_2 selectedTitle:(NSString *)selectedTitle_3 {
     
     self.dataArray_1 = dataArray_1 ? dataArray_1 : [NSMutableArray array];
     
@@ -250,6 +318,9 @@
     [superView addSubview:self.maskView];
     
     [superView addSubview:self];
+    
+    self.isDatePicker = NO;
+
     
     //循环创建pickerView
     for (int i = 0; i < num; i++) {
@@ -398,5 +469,6 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
 }
+
 
 @end

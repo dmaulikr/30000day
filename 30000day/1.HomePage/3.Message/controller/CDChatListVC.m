@@ -46,6 +46,7 @@ static NSString *cellIdentifier = @"ContactCell";
 - (NSMutableArray *)conversations
 {
     if (_conversations == nil) {
+        
         _conversations = [[NSMutableArray alloc] init];
     }
     return _conversations;
@@ -61,8 +62,13 @@ static NSString *cellIdentifier = @"ContactCell";
     
     // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationMessageReceived object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationUnreadsUpdated object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
+    
+    //当成功的从数天服务器获取到好友的时候发送的通知
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:STUseDidSuccessGetFriendsSendNotification object:nil];
     
     [self updateStatusView];
     
@@ -84,6 +90,8 @@ static NSString *cellIdentifier = @"ContactCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:STUseDidSuccessGetFriendsSendNotification object:nil];
 }
 
 #pragma mark - client status view
@@ -146,6 +154,19 @@ static NSString *cellIdentifier = @"ContactCell";
             if ([self filterError:error]) {
                 
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
+                
+                for (int i = 0; i < self.conversations.count; i++) {
+                    
+                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
+                    
+                     UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+                    
+                    if (!model) {
+                        
+                        [[CDConversationStore store] deleteConversation:conversation];
+                    }
+                    
+                }
                 
                 [self.tableView reloadData];
                 
@@ -216,16 +237,20 @@ static NSString *cellIdentifier = @"ContactCell";
 #pragma mark - utils
 
 - (void)stopRefreshControl:(UIRefreshControl *)refreshControl {
+    
     if (refreshControl != nil && [[refreshControl class] isSubclassOfClass:[UIRefreshControl class]]) {
+        
         [refreshControl endRefreshing];
     }
 }
 
 - (BOOL)filterError:(NSError *)error {
     if (error) {
+        
         [[[UIAlertView alloc]
           initWithTitle:nil message:[NSString stringWithFormat:@"%@", error] delegate:nil
           cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+        
         return NO;
     }
     return YES;
@@ -331,6 +356,7 @@ static NSString *cellIdentifier = @"ContactCell";
 //        
 //    }
     
+    //push到聊天界面
     CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
     
     controller.otherModel = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];

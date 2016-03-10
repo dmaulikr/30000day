@@ -64,23 +64,56 @@
         self.totalLifeDayNumber = [lastModel.curLife floatValue];
         
         //算出数组
-        self.allDayArray = [NSMutableArray array];
+        NSMutableArray *allDayArray = [NSMutableArray array];
         
-        self.dayNumberArray = [NSMutableArray array];
+        NSMutableArray *dayNumberArray = [NSMutableArray array];
         
-        for (int  i = 0; i < dataArray.count ; i++ ) {
+        if (dataArray.count > 1 ) {
             
-            UserLifeModel *model = dataArray[i];
+            for (int  i = 0; i < dataArray.count ; i++ ) {
+                
+                UserLifeModel *model = dataArray[i];
+                
+                [allDayArray addObject:model.curLife];
+                
+                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                
+                NSString *string = array[2];
+                
+                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                
+                [dayNumberArray addObject:newString];
+                
+            }
             
-            [self.allDayArray addObject:model.curLife];
+            self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
             
-            NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+            self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
             
-            NSString *string = array[2];
+        } else {
             
-            NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+            UserLifeModel *model = [dataArray firstObject];
             
-            [self.dayNumberArray addObject:newString];
+            if (model) {
+                
+                [allDayArray addObject:model.curLife];
+                
+                [allDayArray addObject:model.curLife];
+                
+                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                
+                NSString *string = array[2];
+                
+                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                
+                [dayNumberArray addObject:newString];
+                
+                [dayNumberArray addObject:newString];
+                
+                self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+                
+                self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+            }
             
         }
         
@@ -122,11 +155,7 @@
     
     } else {//左按钮
 
-        
-        
-        
-        
-        
+
     }
 }
 

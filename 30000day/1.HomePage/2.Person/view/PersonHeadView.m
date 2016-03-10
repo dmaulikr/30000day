@@ -18,7 +18,6 @@
     
 }
 
-
 - (IBAction)buttonClick:(id)sender {
     
     if (self.changeStateBlock) {
@@ -26,7 +25,6 @@
         self.changeStateBlock((UIButton *)sender);
         
     }
-    
 }
 
 @end

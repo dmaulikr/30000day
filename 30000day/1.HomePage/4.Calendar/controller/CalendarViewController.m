@@ -43,8 +43,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *dateTtitleButton;//显示当前选择的日期button
 
-@property (nonatomic , strong) QGPickerView *chooseDatePickView;//点击日期button显示的QGPickView
-
 @property (nonatomic,copy) NSString *chooseDateString;//比如2015-05-12等等
 
 @end
@@ -124,7 +122,7 @@
     [self loadTableViewData];
     
     //监听通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
 }
 
@@ -194,7 +192,7 @@
             }
             
             //显示QGPickerView
-            [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
             
         } else {//user生日设置了
             
@@ -220,7 +218,7 @@
             }
             
             //显示QGPickerView
-            [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
             
         }
     }];
@@ -233,41 +231,26 @@
 
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
     
-    if (self.chooseDatePickView == pickView) {
-        
-        self.chooseDateString = [self.chooseDateString stringByAppendingString:value];
-        
-        if (index == 3) {
-            
-            NSArray *array  = [self.chooseDateString componentsSeparatedByString:@"年"];
-            
-            NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
-            
-            NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
-            
-            self.chooseDateString = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
-            
-            NSDate *date = [Common getDateWithFormatterString:@"yyyy-MM-dd" dateString:self.chooseDateString];
-        
-           self.selectorDate = date;
-            
-           [self.unitView selectDate:date];
-            
-           [self.unitView reloadEvents];//刷新日历
-            
-           self.chooseDateString = @"";
-            
-        }
-        
-    } else {
-        
-        [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
-        
-        self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
-        
-        [self reloadShowCalendarDateWith:self.selectorDate];
-    }
+    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
+    
+    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
+    
+    [self reloadShowCalendarDateWith:self.selectorDate];
 }
+
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    self.selectorDate = selectorDate;
+
+    self.chooseDateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:selectorDate];
+    
+    self.selectorDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:self.chooseDateString];
+    
+    [self.unitView selectDate:self.selectorDate];
+    
+    [self.unitView reloadEvents];//刷新日历
+}
+
 
 //选中日期按钮的点击事件
 - (IBAction)selectorDateAction:(id)sender {
@@ -276,49 +259,21 @@
     
 }
 
-//选择生日
+//选择日期
 - (void)chooseDate {
     
     [self.view endEditing:YES];
     
-    self.chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+    QGPickerView *chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
     
-    self.chooseDatePickView.delegate = self;
+    chooseDatePickView.delegate = self;
     
-    self.chooseDatePickView.titleText = @"选择日期";
+    chooseDatePickView.titleText = @"选择日期";
     
     self.chooseDateString = @"";
     
-    //3.赋值
-    [Common getYearArrayMonthArrayDayArrayWithYearNumber:200 hander:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
-      
-        NSArray *dateArray = [[Common getDateStringWithDate:self.selectorDate] componentsSeparatedByString:@"-"];//选中的日期
-        
-        NSString *monthStr = dateArray[1];
-        
-        NSString *dayStr = dateArray[2];
-        
-        if (monthStr.length == 2 && [[monthStr substringToIndex:1] isEqualToString:@"0"]) {
-            
-            monthStr = [NSString stringWithFormat:@"%@月",[monthStr substringFromIndex:1]];
-            
-        } else {
-            
-            monthStr = [NSString stringWithFormat:@"%@月",monthStr];
-        }
-        
-        if (dayStr.length == 2 && [[dayStr substringToIndex:1] isEqualToString:@"0"]) {
-            
-            dayStr = [NSString stringWithFormat:@"%@日",[dayStr substringFromIndex:1]];
-            
-        } else {
-            
-            dayStr = [NSString stringWithFormat:@"%@日",dayStr];
-        }
-        
-        //显示QGPickerView
-        [self.chooseDatePickView showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:[NSString stringWithFormat:@"%@年",dateArray[0]] selectedTitle:monthStr selectedTitle:dayStr];
-    }];
+    //显示QGPickerView
+    [chooseDatePickView showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(100.00000*365.00000*24.000000*60.00000*60.00000)]];
 }
 
 //返回今天按钮点击事件

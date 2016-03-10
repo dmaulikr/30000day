@@ -49,4 +49,13 @@
     return nil;
 }
 
+
+- (void)setUserInformationArray:(NSMutableArray *)userInformationArray {
+    
+    _userInformationArray = userInformationArray;
+    
+    [STNotificationCenter postNotificationName:STUseDidSuccessGetFriendsSendNotification object:nil];
+}
+
+
 @end

@@ -8,10 +8,6 @@
 
 #import "UserInfoViewController.h"
 #import "UIImageView+WebCache.h"
-#import "HZAreaPickerView.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "ZYQAssetPickerController.h"
-#import "ZHPickView.h"
 #import "HeadViewTableViewCell.h"
 #import "AccountNumberTableViewCell.h"
 
@@ -38,8 +34,6 @@
 
 @property (nonatomic,copy) NSString *lastBirthdayString;//用来比较用户是否修改了生日
 @property (nonatomic,copy) NSString *currentChooseBirthdayString;//当前选择的生日
-@property (nonatomic,copy) NSString *currentChooseBirthdayString_QGPickView;//每次点击生日选择该字符串都会被置空
-
 
 @property (nonatomic ,strong) UIBarButtonItem *saveButton;
 
@@ -78,7 +72,7 @@
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)reloadData {
@@ -333,73 +327,25 @@
 
     picker.titleText = @"生日选择";
 
-    self.currentChooseBirthdayString_QGPickView = @"";
-
-    //3.赋值
-    [Common getYearArrayMonthArrayDayArrayWithYearNumber:100 hander:^(NSMutableArray *yearArray, NSMutableArray *monthArray, NSMutableArray *dayArray) {
-
-        NSArray *dateArray = [STUserAccountHandler.userProfile.birthday componentsSeparatedByString:@"-"];
-        
-        NSString *yearString =  (dateArray.count == 3) ? dateArray[0] : @"";
-        
-        NSString *monthString = (dateArray.count == 3) ? dateArray[1] : @"";
-
-        NSString *dayString =   (dateArray.count == 3) ? dateArray[2] : @"";;
-
-        if (![Common isObjectNull:yearString]) {
-            
-            yearString = [NSString stringWithFormat:@"%@年",yearString];
-            
-        }
-        
-        if (monthString.length == 2 && [[monthString substringToIndex:1] isEqualToString:@"0"]) {
-
-            monthString = [NSString stringWithFormat:@"%@月",[monthString substringFromIndex:1]];
-
-        } else {
-
-            monthString = [NSString stringWithFormat:@"%@月",monthString];
-        }
-
-        if (dayString.length == 2 && [[dayString substringToIndex:1] isEqualToString:@"0"]) {
-
-            dayString = [NSString stringWithFormat:@"%@日",[dayString substringFromIndex:1]];
-
-        } else {
-
-            dayString = [NSString stringWithFormat:@"%@日",dayString];
-        }
-
-        //显示QGPickerView
-        [picker showOnView:[UIApplication sharedApplication].keyWindow withPickerViewNum:3 withArray:yearArray withArray:monthArray withArray:dayArray selectedTitle:yearString selectedTitle:monthString selectedTitle:dayString];
-
-    }];
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    
+    NSDate *bithdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
+    
+    [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:bithdayDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate date]];
 }
 
 #pragma mark -- QGPickerViewDelegate
 
-- (void)didSelectPickView:(QGPickerView *)pickView value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
-
-    self.currentChooseBirthdayString_QGPickView = [self.currentChooseBirthdayString_QGPickView stringByAppendingString:value];
-
-    if (index == 3) {
-
-        NSArray *array  = [self.currentChooseBirthdayString_QGPickView componentsSeparatedByString:@"年"];
-
-        NSArray *array_second = [(NSString *)array[1] componentsSeparatedByString:@"月"];
-
-        NSArray *array_third = [(NSString *)array_second[1] componentsSeparatedByString:@"日"];
-
-        self.currentChooseBirthdayString_QGPickView = [NSString stringWithFormat:@"%@-%@-%@",array[0],[Common addZeroWithString:array_second[0]],[Common addZeroWithString:array_third[0]]];
-        
-        self.currentChooseBirthdayString = self.currentChooseBirthdayString_QGPickView;
-        
-        [self.tableView reloadData];
-        
-        //判断保存按钮是否可用
-        [self judgeSaveButtonCanUse];
-
-    }
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    
+    self.currentChooseBirthdayString = [formatter stringFromDate:selectorDate];
+    
+    //判断保存按钮是否可用
+    [self judgeSaveButtonCanUse];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark --- UIAlertViewDelegate

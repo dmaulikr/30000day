@@ -631,11 +631,14 @@
                                                                 
                                                                 //更新当前用户好友的数据库
 
+                                                                NSLog(@"%@",recvDic[@"value"]);
                                                                 
                                                                 NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
                                                                 
                                                                 //赋值
                                                                 [UserInformationManager shareUserInformationManager].userInformationArray = array;
+                                                                
+                                                                
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -718,7 +721,7 @@
                                                                     STUserAccountHandler.userProfile.nickName = nickName;
                                                                     
                                                                     //发出通知
-                                                                    [STNotificationCenter postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                 });
                                                                 
                                                             } else {
@@ -977,7 +980,7 @@
                                                                          success(YES);
                                                                         
                                                                         //发出通知
-                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:UserAddFriendsSuccessPostNotification object:nil];
+                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
                                                                         
                                                                     }
                                                                     
@@ -1670,7 +1673,8 @@
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     //当用户成功保存健康因子的时候会发出通知
-                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:UserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
+                                                                                                                        object:nil];
                                                                     
                                                                       success(YES);
                                                                     

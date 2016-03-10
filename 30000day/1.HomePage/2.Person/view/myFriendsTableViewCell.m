@@ -71,7 +71,17 @@
         
         self.progressView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
     }
-
+    
+    //设置升降image
+    if ([_informationModel.chgLife floatValue] > 0 ) {
+        
+        self.upDownImg.image = [UIImage imageNamed:@"up"];
+        
+    } else {
+        
+        self.upDownImg.image = [UIImage imageNamed:@"lower"];
+        
+    }
 }
 
 - (int)getDays:(NSString *)dateString {
