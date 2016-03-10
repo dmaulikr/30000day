@@ -26,11 +26,24 @@ static CGFloat kLZLittleBadgeSize = 10;
 @implementation LZConversationCell
 
 + (LZConversationCell *)dequeueOrCreateCellByTableView :(UITableView *)tableView {
+    
     LZConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:[LZConversationCell identifier]];
+    
     if (cell == nil) {
+        
         cell = [[LZConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[[self class] identifier]];
+        
     }
+    
     return cell;
+}
+
+- (void)longPressGesture:(UILongPressGestureRecognizer *)gesture {
+    
+    if (self.longPressBlock) {
+        
+        self.longPressBlock();
+    }
 }
 
 + (void)registerCellToTableView: (UITableView *)tableView {
@@ -49,6 +62,9 @@ static CGFloat kLZLittleBadgeSize = 10;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setup];
+        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
+        
+        [self addGestureRecognizer:gesture];
     }
     return self;
 }

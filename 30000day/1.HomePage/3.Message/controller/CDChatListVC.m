@@ -278,6 +278,28 @@ static NSString *cellIdentifier = @"ContactCell";
         
         cell.nameLabel.text = model.nickName;
         
+        //长按手势，长按后删除该cell
+        [cell setLongPressBlock:^{
+    
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [[CDConversationStore store] deleteConversation:conversation];
+                
+                [self refresh];
+                
+            }];
+
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [controller addAction:cancelAction];
+            
+            [controller addAction:action];
+            
+            [self presentViewController:controller animated:YES completion:nil];
+        }];
+        
         if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)] && model.headImg) {
             
             [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
