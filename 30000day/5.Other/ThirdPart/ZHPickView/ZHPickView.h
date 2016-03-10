@@ -30,7 +30,7 @@
  *
  *  @return 带有toolbar的pickview
  */
--(instancetype)initPickviewWithPlistName:(NSString *)plistName isHaveNavControler:(BOOL)isHaveNavControler;
+- (instancetype)initPickviewWithPlistName:(NSString *)plistName isHaveNavControler:(BOOL)isHaveNavControler;
 /**
  *  通过plistName添加一个pickView
  *
@@ -39,7 +39,7 @@
  *
  *  @return 带有toolbar的pickview
  */
--(instancetype)initPickviewWithArray:(NSArray *)array isHaveNavControler:(BOOL)isHaveNavControler;
+- (instancetype)initPickviewWithArray:(NSArray *)array isHaveNavControler:(BOOL)isHaveNavControler;
 
 /**
  *  通过时间创建一个DatePicker
@@ -49,28 +49,28 @@
  *
  *  @return 带有toolbar的datePicker
  */
--(instancetype)initDatePickWithDate:(NSDate *)defaulDate datePickerMode:(UIDatePickerMode)datePickerMode isHaveNavControler:(BOOL)isHaveNavControler;
+- (instancetype)initDatePickWithDate:(NSDate *)defaulDate datePickerMode:(UIDatePickerMode)datePickerMode isHaveNavControler:(BOOL)isHaveNavControler;
 
 
--(void)setMaxMinYer;
+- (void)setMaxMinYer;
 /**
  *   移除本控件
  */
--(void)remove;
+- (void)remove;
 /**
  *  显示本控件
  */
--(void)show;
+- (void)show;
 /**
  *  设置PickView的颜色
  */
--(void)setPickViewColer:(UIColor *)color;
+- (void)setPickViewColer:(UIColor *)color;
 /**
  *  设置toobar的文字颜色
  */
--(void)setTintColor:(UIColor *)color;
+- (void)setTintColor:(UIColor *)color;
 /**
  *  设置toobar的背景颜色
  */
--(void)setToolbarTintColor:(UIColor *)color;
+- (void)setToolbarTintColor:(UIColor *)color;
 @end

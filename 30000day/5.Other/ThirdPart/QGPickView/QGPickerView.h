@@ -13,6 +13,7 @@
 @interface QGPickerView : UIView
 
 @property(nonatomic,copy)NSString *titleText;
+
 @property (nonatomic,weak)id <QGPickerViewDelegate> delegate;
 
 /**
@@ -25,7 +26,9 @@
  * selectedTitle_2    第二pickerView初始化选中的title
  * selectedTitle_3    第三pickerView初始化选中的title
  */
-- (void)showOnView:(UIView *)superView withPickerViewNum:(NSInteger)num withArray:(NSArray *)dataArray_1 withArray:(NSArray *)dataArray_2 withArray:(NSArray *)dataArray_3 selectedTitle:(NSString *)selectedTitle_1 selectedTitle:(NSString *)selectedTitle_2 selectedTitle:(NSString *)selectedTitle_3;
+- (void)showPickView:(UIView *)superView withPickerViewNum:(NSInteger)num withArray:(NSArray *)dataArray_1 withArray:(NSArray *)dataArray_2 withArray:(NSArray *)dataArray_3 selectedTitle:(NSString *)selectedTitle_1 selectedTitle:(NSString *)selectedTitle_2 selectedTitle:(NSString *)selectedTitle_3;
+
+- (void)showDataPickView:(UIView *)superView WithDate:(NSDate *)willShowDate datePickerMode:(UIDatePickerMode)datePickerMode minimumDate:(NSDate *)minimumDate maximumDate:(NSDate *)maximumDate;
 
 @end
 
@@ -42,6 +45,6 @@
  */
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex;
 
-- (void)didCancelWithQGPickerView:(QGPickerView *)pickView;
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate;
 
 @end

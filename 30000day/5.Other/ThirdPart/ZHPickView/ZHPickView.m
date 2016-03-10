@@ -49,22 +49,22 @@
 
 @implementation ZHPickView
 
--(NSArray *)plistArray{
+- (NSArray *)plistArray{
     if (_plistArray==nil) {
         _plistArray=[[NSArray alloc] init];
     }
     return _plistArray;
 }
 
--(NSArray *)componentArray{
+- (NSArray *)componentArray{
     
     if (_componentArray==nil) {
         _componentArray=[[NSMutableArray alloc] init];
     }
     return _componentArray;
 }
-- (id)initWithFrame:(CGRect)frame
-{
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setUpToolBar];
@@ -74,7 +74,7 @@
 }
 
 
--(instancetype)initPickviewWithPlistName:(NSString *)plistName isHaveNavControler:(BOOL)isHaveNavControler{
+- (instancetype)initPickviewWithPlistName:(NSString *)plistName isHaveNavControler:(BOOL)isHaveNavControler{
     
     self=[super init];
     if (self) {
@@ -86,7 +86,8 @@
     }
     return self;
 }
--(instancetype)initPickviewWithArray:(NSArray *)array isHaveNavControler:(BOOL)isHaveNavControler{
+
+- (instancetype)initPickviewWithArray:(NSArray *)array isHaveNavControler:(BOOL)isHaveNavControler{
     self=[super init];
     if (self) {
         self.plistArray=array;
@@ -123,7 +124,7 @@
     return array;
 }
 
--(void)setArrayClass:(NSArray *)array{
+- (void)setArrayClass:(NSArray *)array{
     _dicKeyArray=[[NSMutableArray alloc] init];
     for (id levelTwo in array) {
         
