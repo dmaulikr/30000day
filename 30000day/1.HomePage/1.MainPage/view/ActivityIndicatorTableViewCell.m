@@ -8,6 +8,8 @@
 
 #import "ActivityIndicatorTableViewCell.h"
 
+#import "sys/utsname.h"
+
 @interface ActivityIndicatorTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *label_1;
@@ -16,6 +18,11 @@
 
 @property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *circleWidth;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableCenterY;
+
+
 @end
 
 
@@ -23,10 +30,25 @@
 
 - (void)awakeFromNib {
     
-   self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
-    
-   self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
-    
+    if ([[self getDeviceType] isEqualToString:@"iPhone4"] ||
+        [[self getDeviceType] isEqualToString:@"iPhone4S"]) {
+        
+        self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+        
+        self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+        
+        self.circleWidth.constant = - ([UIScreen mainScreen].bounds.size.width * 0.43 - [UIScreen mainScreen].bounds.size.width * 0.36);
+        
+        self.lableCenterY.constant = - 8;
+        
+    } else {
+        
+        self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
+        
+        self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
+        
+    }
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -130,6 +152,37 @@
     
     return iDays;
 }
+
+//获取当前设备
+-(NSString*)getDeviceType{
+
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    //get the device model and the system version
+    NSString *deviceString=[NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    //iPhone
+    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
+    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
+    
+    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5c";
+    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5c";
+    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5s";
+    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5s";
+    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6Plus";
+    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
+    
+    
+    return deviceString;
+}
+
 
 
 @end
