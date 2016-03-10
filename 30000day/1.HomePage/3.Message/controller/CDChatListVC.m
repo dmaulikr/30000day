@@ -155,6 +155,19 @@ static NSString *cellIdentifier = @"ContactCell";
                 
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
                 
+                for (int i = 0; i < self.conversations.count; i++) {
+                    
+                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
+                    
+                     UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+                    
+                    if (!model) {
+                        
+                        [[CDConversationStore store] deleteConversation:conversation];
+                    }
+                    
+                }
+                
                 [self.tableView reloadData];
                 
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
