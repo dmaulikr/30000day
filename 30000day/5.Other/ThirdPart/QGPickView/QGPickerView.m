@@ -82,7 +82,7 @@
         
         [topView addConstraint:labelContraint_y];
         
-        //btn添加约束
+        //button添加约束
         NSLayoutConstraint *buttonContraint_y = [NSLayoutConstraint constraintWithItem:topView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:button attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
         
         [topView addConstraint:buttonContraint_y];
@@ -105,8 +105,11 @@
         [maskView addGestureRecognizer:gesture];
         
         self.maskView = maskView;
+        
+        self.maskView.backgroundColor = RGBACOLOR(240,240,240, 0.3);
 
     }
+    
     return self;
 }
 

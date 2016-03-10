@@ -45,6 +45,11 @@
  */
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex;
 
+
+/**
+ *   这是代理只有使用第二个方法创建pickView才会被调用
+ *
+ **/
 - (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate;
 
 @end

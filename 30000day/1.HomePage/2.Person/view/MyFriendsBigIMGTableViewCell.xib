@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -20,10 +20,7 @@
                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-4A-whl">
-                        <rect key="frame" x="363" y="377" width="22" height="22"/>
-                    </imageView>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-4N-lzk" customClass="MDRadialProgressView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-4N-lzk" customClass="MDRadialProgressView">
                         <rect key="frame" x="328" y="369" width="30" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -43,19 +40,26 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-4A-whl">
+                        <rect key="frame" x="366" y="373" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="A10-Re-Rr2"/>
+                            <constraint firstAttribute="height" constant="22" id="UQm-1V-G8O"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="BXm-OR-g2f" secondAttribute="bottom" constant="15" id="3HN-Wt-3kd"/>
                     <constraint firstItem="W4s-rH-fDp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="6U2-9v-2T4"/>
                     <constraint firstAttribute="bottom" secondItem="Odj-4N-lzk" secondAttribute="bottom" constant="25" id="8Xl-52-aEO"/>
-                    <constraint firstAttribute="trailing" secondItem="Ekb-4A-whl" secondAttribute="trailing" constant="15" id="Pes-6R-gz4"/>
+                    <constraint firstAttribute="trailing" secondItem="Ekb-4A-whl" secondAttribute="trailing" constant="12" id="Pes-6R-gz4"/>
                     <constraint firstAttribute="trailing" secondItem="Qvm-z8-I65" secondAttribute="trailing" id="RNR-rj-qEE"/>
                     <constraint firstItem="BXm-OR-g2f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="YSG-9h-Di4"/>
                     <constraint firstItem="Qvm-z8-I65" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ebu-DA-zaA"/>
                     <constraint firstItem="BXm-OR-g2f" firstAttribute="top" secondItem="W4s-rH-fDp" secondAttribute="bottom" constant="10" id="gLh-HI-SNS"/>
                     <constraint firstItem="Qvm-z8-I65" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="iZD-CA-g6Y"/>
-                    <constraint firstAttribute="bottom" secondItem="Ekb-4A-whl" secondAttribute="bottom" constant="25" id="r2b-RD-KSk"/>
-                    <constraint firstItem="Ekb-4A-whl" firstAttribute="leading" secondItem="Odj-4N-lzk" secondAttribute="trailing" constant="5" id="zOA-O4-c5D"/>
+                    <constraint firstAttribute="bottom" secondItem="Ekb-4A-whl" secondAttribute="bottom" constant="29" id="r2b-RD-KSk"/>
+                    <constraint firstItem="Ekb-4A-whl" firstAttribute="leading" secondItem="Odj-4N-lzk" secondAttribute="trailing" constant="8" id="zOA-O4-c5D"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -65,7 +69,7 @@
                 <outlet property="progressView" destination="Odj-4N-lzk" id="rcG-ll-OS9"/>
                 <outlet property="upDownImg" destination="Ekb-4A-whl" id="2ad-55-x4k"/>
             </connections>
-            <point key="canvasLocation" x="209" y="244"/>
+            <point key="canvasLocation" x="180" y="236.5"/>
         </tableViewCell>
     </objects>
     <resources>
