@@ -390,8 +390,6 @@
         }else{
             return nil;
         }
-
-        
     }
     
     if ([[STUserAccountHandler userProfile].gender intValue] == 1) {
@@ -418,7 +416,6 @@
             return nil;
         }
 
-        
     }
     
     return nil;
