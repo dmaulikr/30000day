@@ -630,8 +630,6 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 //更新当前用户好友的数据库
-
-                                                                NSLog(@"%@",recvDic[@"value"]);
                                                                 
                                                                 NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
                                                                 

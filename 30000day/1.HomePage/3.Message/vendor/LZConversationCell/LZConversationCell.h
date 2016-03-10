@@ -24,5 +24,7 @@
 @property (nonatomic, strong) UIView *litteBadgeView;
 @property (nonatomic, strong) UILabel *timestampLabel;
 
+//新增加的长按手势
+@property (nonatomic,copy) void (^longPressBlock)();
 
 @end

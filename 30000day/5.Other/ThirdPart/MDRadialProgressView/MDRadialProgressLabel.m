@@ -71,9 +71,9 @@
 	if (self.adjustFontSizeToFitBounds) {
 		// adjustsFontSizeToFitWidth works but the text look too big when the progress view is small.
 		// This scale down the font until its point size is less than pointSizeToWidthFactor of the bounds' width.
-        NSLog(@"%lf",self.pointSizeToWidthFactor);
-        NSLog(@"%lf",rect.size.width);
-        NSLog(@"%lf",self.font.pointSize);
+//        NSLog(@"%lf",self.pointSizeToWidthFactor);
+//        NSLog(@"%lf",rect.size.width);
+//        NSLog(@"%lf",self.font.pointSize);
 		CGFloat maxWidth = rect.size.width * self.pointSizeToWidthFactor;
         self.font = [self.font fontWithSize:maxWidth/2.8];
 		

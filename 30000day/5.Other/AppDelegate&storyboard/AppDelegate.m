@@ -80,27 +80,37 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
-    //**************初始化 LeanCloud*********************************//
-    [CDAddRequest registerSubclass];
-    [CDAbuseReport registerSubclass];
+    //***********************************初始化LeanCloud*********************************//
+    [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
     
-#if USE_US
-    [AVOSCloud useAVCloudUS];
-#endif
-
-    // Enable Crash Reporting
-    [AVOSCloudCrashReporting enable];
     [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
-    [AVOSCloud setLastModifyEnabled:YES];
-    [[LZPushManager manager] registerForRemoteNotification];
-    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
+    
+    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    
+    [iRate sharedInstance].previewMode = NO;
+    
+    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+    
+    [iVersion sharedInstance].previewMode = NO;
+    
+    [AVOSCloud setLastModifyEnabled:YES];
+    
+    [[LZPushManager manager] registerForRemoteNotification];//配置推送
+    
+    [CDAddRequest registerSubclass];
+    
+    [CDAbuseReport registerSubclass];
+
 #ifdef DEBUG
-    [AVPush setProductionMode:NO];  // 如果要测试申请好友是否有推送，请设置为 YES
+    [AVPush setProductionMode:NO];  //如果要测试申请好友是否有推送，请设置为 YES
 //    [AVOSCloud setAllLogsEnabled:YES];
 #endif
     
     [self initAnalytics];
+    
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     return YES;
 }
@@ -120,16 +130,6 @@
 - (void)openChatCompletion:(void (^)(BOOL success))success
                    failure:(void (^)(NSError *))failure {
     
-    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-    
-    [iRate sharedInstance].previewMode = NO;
-    
-    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iVersion sharedInstance].previewMode = NO;
-    
     [CDChatManager manager].userDelegate = [CDIMService service];
 
 #ifdef DEBUG
@@ -141,7 +141,7 @@
         if (succeeded) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-            
+                
                 success(YES);
                 
             });

@@ -107,7 +107,7 @@
 #pragma mark ----初始化UI界面
 - (void)configUI {
     
-    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
     _scrollView.delegate = self;

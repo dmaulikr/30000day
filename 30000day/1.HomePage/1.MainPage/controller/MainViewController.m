@@ -346,7 +346,7 @@
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
+       
     } else {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
@@ -390,8 +390,6 @@
         }else{
             return nil;
         }
-
-        
     }
     
     if ([[STUserAccountHandler userProfile].gender intValue] == 1) {
@@ -418,7 +416,6 @@
             return nil;
         }
 
-        
     }
     
     return nil;

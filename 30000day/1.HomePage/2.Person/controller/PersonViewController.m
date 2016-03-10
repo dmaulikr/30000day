@@ -187,39 +187,6 @@
     
 }
 
-- (int)pastDay:(NSString *)birthdayString {
-    
-    NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    
-    [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate *d = [date dateFromString:birthdayString];
-    
-    NSTimeInterval late = [d timeIntervalSince1970]*1;
-    
-    NSDate *adate = [NSDate date];
-    
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    
-    NSInteger interval = [zone secondsFromGMTForDate: adate];
-    
-    NSDate *localeDate = [adate  dateByAddingTimeInterval: interval];
-    
-    NSTimeInterval now = [localeDate timeIntervalSince1970]*1;
-    
-    NSString *timeString = @"";
-    
-    NSTimeInterval cha = now-late;
-    
-    timeString = [NSString stringWithFormat:@"%f", cha/86400];
-    
-    timeString = [timeString substringToIndex:timeString.length-7];
-    
-    int iDays = [timeString intValue];
-    
-    return iDays;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
