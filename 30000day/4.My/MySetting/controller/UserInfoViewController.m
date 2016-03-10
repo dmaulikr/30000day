@@ -8,10 +8,6 @@
 
 #import "UserInfoViewController.h"
 #import "UIImageView+WebCache.h"
-#import "HZAreaPickerView.h"
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "ZYQAssetPickerController.h"
-#import "ZHPickView.h"
 #import "HeadViewTableViewCell.h"
 #import "AccountNumberTableViewCell.h"
 
