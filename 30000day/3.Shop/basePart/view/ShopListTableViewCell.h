@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ShopListTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *willShowImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

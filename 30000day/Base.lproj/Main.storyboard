@@ -140,7 +140,7 @@
                                 <action selector="leftBarButtonAcion:" destination="lnE-H1-1lk" id="foV-LF-Yf8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="M1j-x6-TUa">
+                        <barButtonItem key="rightBarButtonItem" title="地图" style="plain" id="M1j-x6-TUa">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="rightBarButtonAcion:" destination="lnE-H1-1lk" id="xEU-EQ-zky"/>

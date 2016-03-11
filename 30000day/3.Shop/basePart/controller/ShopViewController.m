@@ -11,9 +11,12 @@
 #import "DOPDropDownMenu.h"
 #import "ShopListTableViewCell.h"
 
+
 @interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
+
+@property (nonatomic,assign) BOOL isShowMapView;
 
 @end
 
@@ -29,6 +32,8 @@
     
     self.tableView.delegate = self;
     
+    self.isShowMapView = NO;
+    
     [self configUI];
 }
 
@@ -43,7 +48,21 @@
 
 - (IBAction)rightBarButtonAcion:(id)sender {
     
+    self.isShowMapView = !self.isShowMapView;
     
+    if (self.isShowMapView ) {
+        
+        _mapView.hidden = NO;
+        
+        self.tableView.hidden = YES;
+        
+    } else {
+        
+        _mapView.hidden = YES;
+        
+        self.tableView.hidden = NO;
+        
+    }
 }
 
 -  (void)configUI {
@@ -66,7 +85,16 @@
     menuView.delegate = self;
     
     [self.view addSubview:menuView];
-
+    
+    //3.初始化百度地图
+    _mapView = [[BMKMapView alloc] init];
+    
+    _mapView.frame = CGRectMake(0, 64 + 44, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44 - 44);
+    
+    _mapView.hidden = YES;
+    
+    [self.view addSubview:_mapView];
+    
 }
 
 #pragma ---
@@ -319,7 +347,6 @@
     return 10;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *shopListIdentifier = @"ShopListTableViewCell";
@@ -332,7 +359,6 @@
     
     return cell;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     

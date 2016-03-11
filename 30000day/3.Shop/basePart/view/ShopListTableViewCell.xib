@@ -80,6 +80,12 @@
                     <constraint firstItem="CD1-ND-KS5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="78" id="yfa-Ik-Vmj"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="addressLabel" destination="5BZ-I6-6CD" id="3w5-in-ycG"/>
+                <outlet property="priceLabel" destination="sUz-I0-2KP" id="KuS-HO-W1Y"/>
+                <outlet property="titleLabel" destination="hnY-S0-C7L" id="rq7-yL-gQa"/>
+                <outlet property="willShowImageView" destination="hU0-YR-Lug" id="ZD8-O1-tUy"/>
+            </connections>
             <point key="canvasLocation" x="229" y="187.5"/>
         </tableViewCell>
     </objects>
