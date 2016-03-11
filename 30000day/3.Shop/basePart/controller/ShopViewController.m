@@ -10,6 +10,7 @@
 #import "STDropdownMenu.h"
 #import "DOPDropDownMenu.h"
 #import "ShopListTableViewCell.h"
+#import "ShopDetailTableViewController.h"
 
 
 @interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -372,6 +373,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ShopDetailTableViewController *controller = [[ShopDetailTableViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 

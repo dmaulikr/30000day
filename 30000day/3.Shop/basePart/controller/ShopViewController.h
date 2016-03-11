@@ -12,8 +12,8 @@
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>
 
 @interface ShopViewController : STRefreshViewController <BMKMapViewDelegate,BMKPoiSearchDelegate> {
-    BMKMapView *_mapView;
-    BMKPoiSearch* _poisearch;
+    BMKMapView  *_mapView;
+    BMKPoiSearch *_poisearch;
 }
 
 @end
