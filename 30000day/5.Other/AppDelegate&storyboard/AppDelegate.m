@@ -14,7 +14,7 @@
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
-
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
 
 #import "CDAbuseReport.h"
 #import "CDCacheManager.h"
@@ -34,8 +34,10 @@
 
 @import HealthKit;
 
-@interface AppDelegate ()
-
+@interface AppDelegate () {
+    
+    BMKMapManager* _mapManager;
+}
 @property (nonatomic) HKHealthStore *healthStore1;
 
 @end
@@ -112,6 +114,13 @@
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    
+    //********要使用百度地图，请先启动BaiduMapManager ********/、
+    _mapManager = [[BMKMapManager alloc]init];
+    BOOL ret = [_mapManager start:@"7PhQHTFYyMujUKHN9Bi9Y374" generalDelegate:self];//
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
     return YES;
 }
 

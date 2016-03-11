@@ -1,10 +1,9 @@
 //
 //  DOPDropDownMenu.m
-//  DOPDropDownMenuDemo
 //
-//  Created by weizhou on 9/26/14.
+//  Created by guojia on 9/26/14.
 //  Modify by tanyang on 20/3/15.
-//  Copyright (c) 2014 fengweizhou. All rights reserved.
+//  Copyright (c) 2014 guojia. All rights reserved.
 //
 
 #import "DOPDropDownMenu.h"

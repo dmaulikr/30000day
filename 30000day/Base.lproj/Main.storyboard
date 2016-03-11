@@ -100,38 +100,6 @@
             </objects>
             <point key="canvasLocation" x="-326" y="1614"/>
         </scene>
-        <!--商城-->
-        <scene sceneID="FaU-tY-f7B">
-            <objects>
-                <tableViewController id="WZm-WU-3LG" userLabel="商城" customClass="ShopTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kmW-d7-6XU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="vcU-Im-Uay">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vcU-Im-Uay" id="jwr-HS-7GX">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="WZm-WU-3LG" id="EiK-TI-hVG"/>
-                            <outlet property="delegate" destination="WZm-WU-3LG" id="iza-ec-9kB"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="商城" image="mall" selectedImage="selectMall" id="Zn4-2w-eXI"/>
-                    <navigationItem key="navigationItem" id="Uui-FK-RKJ"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zki-yH-6CN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="98" y="958"/>
-        </scene>
         <!--Item-->
         <scene sceneID="Fd0-Pj-3oB">
             <objects>
@@ -144,12 +112,50 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="WZm-WU-3LG" kind="relationship" relationship="rootViewController" id="Zvf-yL-5wM"/>
+                        <segue destination="lnE-H1-1lk" kind="relationship" relationship="rootViewController" id="vOM-B1-ie4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G8o-sh-T9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-340" y="950"/>
+        </scene>
+        <!--商城-->
+        <scene sceneID="CFB-JI-aAs">
+            <objects>
+                <viewController id="lnE-H1-1lk" customClass="ShopViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hxW-Q2-gNO"/>
+                        <viewControllerLayoutGuide type="bottom" id="PVk-vr-CH6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sc3-4P-Z9W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="商城" image="mall" id="6xW-dd-PhV"/>
+                    <navigationItem key="navigationItem" id="fwf-QA-afC">
+                        <barButtonItem key="leftBarButtonItem" title="上海" style="plain" id="nzT-aj-7BJ">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="leftBarButtonAcion:" destination="lnE-H1-1lk" id="foV-LF-Yf8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="地图" style="plain" id="M1j-x6-TUa">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="rightBarButtonAcion:" destination="lnE-H1-1lk" id="xEU-EQ-zky"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="leftBarButton" destination="nzT-aj-7BJ" id="r2v-3q-4qW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mt7-OT-VNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="98" y="950"/>
         </scene>
         <!--Item-->
         <scene sceneID="ldC-a1-6yG">
@@ -219,7 +225,6 @@
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
         <image name="selectInformation" width="25" height="25"/>
-        <image name="selectMall" width="25" height="25"/>
         <image name="selectMy" width="25" height="25"/>
     </resources>
 </document>

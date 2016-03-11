@@ -25,6 +25,7 @@ PODS:
     - AVOSCloud
   - AVOSCloudIM (3.2.6):
     - AVOSCloud
+  - BaiduMapKit (2.10.0)
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - AVOSCloud
   - AVOSCloudCrashReporting
   - AVOSCloudIM
+  - BaiduMapKit
   - FMDB
   - iRate (= 1.11.4)
   - iVersion (= 1.11.4)
@@ -63,6 +65,7 @@ SPEC CHECKSUMS:
   AVOSCloud: 08ba88573fca8559dfc658942b391c4568fabfc0
   AVOSCloudCrashReporting: e5adfdfbfe683cb9097daa1723732b269e8b8d08
   AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
+  BaiduMapKit: 5df028c6b455d29e68e89694adbcf9d37a4bcc99
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81

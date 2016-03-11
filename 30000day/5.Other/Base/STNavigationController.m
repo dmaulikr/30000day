@@ -21,9 +21,12 @@
     
     [self.navigationBar setBackgroundImage:[Common imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
     
+    [self.navigationBar setBackgroundColor:[UIColor whiteColor]];
     
-    
+    [self.navigationBar setTintColor:[UIColor whiteColor]];
+
 }
+
 
 
 - (void)didReceiveMemoryWarning {
