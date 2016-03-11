@@ -12,11 +12,13 @@
 #import "ShopListTableViewCell.h"
 
 
-@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 
 @property (nonatomic,assign) BOOL isShowMapView;
+
+@property (nonatomic,strong) UISearchBar *searchBar;
 
 @end
 
@@ -73,6 +75,8 @@
     searchBar.searchBarStyle = UISearchBarStyleMinimal;
     
     searchBar.placeholder = @"搜索";
+    
+    self.searchBar = searchBar;
     
     self.navigationItem.titleView = searchBar;
     
@@ -369,6 +373,14 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+}
+
+#pragma ---
+#pragma mark --- UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self.searchBar resignFirstResponder];
 }
 
 /*
