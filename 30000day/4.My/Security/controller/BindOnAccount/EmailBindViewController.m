@@ -29,25 +29,70 @@
 
 - (IBAction)submit:(UIButton *)sender {
     
-    if (self.emailTextFiled.text != nil) {
+        if ( ! [Common isObjectNull:self.emailTextFiled.text] ) {
+            
+            if ([[STUserAccountHandler userProfile].email isEqualToString:@"未绑定邮箱"] || [STUserAccountHandler userProfile].email == nil ) {
+            
+                [self showHUD:YES];
+                [self.dataHandler sendUploadUserSendEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] emailString:self.emailTextFiled.text success:^(BOOL success) {
+                    
+                    if (success) {
+                        
+                        //获取用户绑定邮箱
+                        [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+                            
+                            EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
+                            controller.hidesBottomBarWhenPushed = YES;
+                            
+                            if ([Common isObjectNull:verificationDictionary]){
+                                
+                                [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+                                
+                                controller.success=success;
+                                
+                            } else {
+                                
+                                [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+                                
+                                controller.errorString = @"您已经绑定了邮箱，无需再次绑定";
+                            }
+                            
+                            [self hideHUD:YES];
+                            [self.navigationController pushViewController:controller animated:YES];
+
+                            
+                        } failure:^(NSError *error) {
+                            NSLog(@"获取绑定邮箱失败");
+                        }];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
+                    controller.hidesBottomBarWhenPushed = YES;
+                    controller.success=NO;
+                    controller.errorString = error.userInfo[@"NSLocalizedDescription"];
+            
+                    [self hideHUD:YES];
+            
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                }];
+                
+            } else {
+            
+                [self showToast:@"您已经绑定了邮箱，无需再次绑定"];
+                
+            }
+
         
-        [self.dataHandler sendUploadUserSendEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] emailString:self.emailTextFiled.text success:^(BOOL success) {
+        } else {
             
-            EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            controller.success=success;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self showToast:@"邮箱不能为空"];
             
-        } failure:^(NSError *error) {
-            
-            EmailBindViewSuccessAndFailController *controller = [[EmailBindViewSuccessAndFailController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            controller.success=NO;
-            [self.navigationController pushViewController:controller animated:YES];
-            
-        }];
-        
-    }
+        }
+    
     
 }
 

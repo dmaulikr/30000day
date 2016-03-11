@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.selectionFactorArray = [NSArray arrayWithObjects:@"邮箱绑定",@"QQ绑定",@"微信绑定",@"微博绑定", nil];
+    self.selectionFactorArray = [NSArray arrayWithObjects:@"绑定邮箱",@"绑定QQ",@"绑定微信",@"绑定微博", nil];
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
 
@@ -51,7 +51,19 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"SelectionMethodTableViewCell" owner:nil options:nil] lastObject];
     }
     
-    cell.textLabel.text=self.selectionFactorArray[indexPath.row];
+    cell.textLabel.text = self.selectionFactorArray[indexPath.row];
+    
+    if (indexPath.row == 0) {
+        
+        if (![[STUserAccountHandler userProfile].email isEqualToString:@"未绑定邮箱"]) {
+            cell.detailTextLabel.text = @"已绑定";
+        } else {
+            cell.detailTextLabel.text = nil;
+        }
+        
+    } else {
+        cell.detailTextLabel.text = nil;
+    }
     
     return cell;
 }
@@ -60,32 +72,19 @@
     
     if (indexPath.row == 0) {
         
-        [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+        if ([[STUserAccountHandler userProfile].email isEqualToString:@"未绑定邮箱"]) {
             
+            EmailBindViewController *controller =[[EmailBindViewController alloc]init];
             
-            if ([Common isObjectNull:verificationDictionary]) {
-                
-                EmailBindViewController *controller =[[EmailBindViewController alloc]init];
-                
-                controller.hidesBottomBarWhenPushed = YES;
-                
-                [self.navigationController pushViewController:controller animated:YES];
-                
-            }else {
-                
-                [self showToast:@"您已经绑定过邮箱！"];
-                
-            }
+            controller.hidesBottomBarWhenPushed = YES;
             
+            [self.navigationController pushViewController:controller animated:YES];
             
-        }failure:^(NSError *error) {
-            
-            [self showToast:@"验证出错，请稍后再试。"];
-            
-        }];
+        } else {
         
-        
-        
+            [self showToast:@"您已经绑定过邮箱！"];
+            
+        }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

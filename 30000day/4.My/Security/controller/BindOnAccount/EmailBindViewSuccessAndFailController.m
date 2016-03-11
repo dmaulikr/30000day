@@ -21,8 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    
     if (self.success) {
         
         [self.successAndFailureImage setImage:[UIImage imageNamed:@"securityCenter"]];
@@ -31,16 +29,17 @@
     } else {
       
         [self.successAndFailureImage setImage:[UIImage imageNamed:@"fail"]];
-        [self.successAndFailureLable setText:@"邮件发送失败！\n请仔细检查邮箱是否填写正确。"];
+        
+        if (![Common isObjectNull:self.errorString]) {
+            [self.successAndFailureLable setText:[NSString stringWithFormat:@"邮件发送失败！\n%@",self.errorString]];
+        } else {
+            [self.successAndFailureLable setText:@"邮件发送失败！\n请仔细检查邮箱是否填写正确。"];
+        }
+        
+        
+        
         
     }
-}
-
-
-
-- (void)backClick{
-    
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
