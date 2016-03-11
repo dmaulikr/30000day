@@ -130,19 +130,7 @@
                     <view key="view" contentMode="scaleToFill" id="Sc3-4P-Z9W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ldu-gp-cqc">
-                                <rect key="frame" x="0.0" y="108" width="320" height="411"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="PVk-vr-CH6" firstAttribute="top" secondItem="ldu-gp-cqc" secondAttribute="bottom" id="3nX-gM-a4B"/>
-                            <constraint firstItem="ldu-gp-cqc" firstAttribute="leading" secondItem="Sc3-4P-Z9W" secondAttribute="leading" id="Iyg-aB-JK4"/>
-                            <constraint firstItem="ldu-gp-cqc" firstAttribute="top" secondItem="hxW-Q2-gNO" secondAttribute="bottom" constant="44" id="L9W-04-6jt"/>
-                            <constraint firstAttribute="trailing" secondItem="ldu-gp-cqc" secondAttribute="trailing" id="l2D-RR-o1W"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="商城" image="mall" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" id="fwf-QA-afC">
@@ -163,12 +151,11 @@
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="leftBarButton" destination="nzT-aj-7BJ" id="r2v-3q-4qW"/>
-                        <outlet property="tableView" destination="ldu-gp-cqc" id="axQ-nC-fxw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mt7-OT-VNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="83" y="938"/>
+            <point key="canvasLocation" x="98" y="950"/>
         </scene>
         <!--Item-->
         <scene sceneID="ldC-a1-6yG">

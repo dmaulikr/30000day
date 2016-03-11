@@ -7,6 +7,7 @@
 //
 
 #import "STRefreshViewController.h"
+
 @interface STRefreshViewController ()
 
 @end
@@ -20,11 +21,15 @@
     
     [self.view addSubview:self.tableView];
     
+    [self setupRefresh];
+    
 }
 
 - (void)setTableViewStyle:(STRefreshTableViewStyle)tableViewStyle {
     
     _tableViewStyle = tableViewStyle;
+    
+    self.tableView = nil;
     
     if (_tableViewStyle == STRefreshTableViewPlain) {
         
@@ -38,6 +43,33 @@
         
         [self.view addSubview:self.tableView];
     }
+    
+    [self setupRefresh];
+}
+
+#pragma mark - 集成刷新控件
+/**
+ *  集成刷新控件
+ */
+- (void)setupRefresh {
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+    
+    [footer setAutomaticallyHidden:YES];
+    
+    self.tableView.mj_footer = footer;
+}
+
+- (void)headerRefreshing {
+
+    
+}
+
+- (void)footerRereshing {
+    
+    
 }
 
 

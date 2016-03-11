@@ -170,7 +170,6 @@
     [self.HUD hide:animated];
 }
 
-
 - (void)dealloc {
     
     [[LONetworkAgent sharedAgent] cancelRequestsWithHashArray:_requestRecord];
@@ -180,6 +179,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

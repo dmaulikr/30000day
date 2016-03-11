@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopViewController : STBaseViewController
-
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@interface ShopViewController : STRefreshViewController
 
 @end

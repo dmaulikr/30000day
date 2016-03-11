@@ -9,8 +9,9 @@
 #import "ShopViewController.h"
 #import "STDropdownMenu.h"
 #import "DOPDropDownMenu.h"
+#import "ShopListTableViewCell.h"
 
-@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate>
+@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 
@@ -21,7 +22,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
+    
+    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
     [self configUI];
 }
 
@@ -59,6 +66,20 @@
     menuView.delegate = self;
     
     [self.view addSubview:menuView];
+
+}
+
+#pragma ---
+#pragma mark --- 上啦刷新和下拉刷新
+
+- (void)headerRefreshing {
+    
+    [self.tableView.mj_header endRefreshing];
+}
+
+- (void)footerRereshing {
+    
+    [self.tableView.mj_footer endRefreshing];
     
 }
 
@@ -67,16 +88,13 @@
 
 - (void)dropdownMenuDidDismiss:(STDropdownMenu *)dropdownMenu {
     
-    
 }
 
 - (void)dropdownMenuDidShow:(STDropdownMenu *)dropdownMenu {
     
-    
 }
 
 - (void)dropdownMenu:(STDropdownMenu *)dropdownMenu didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
 }
 
@@ -86,7 +104,6 @@
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
     
     return 4;
-    
 }
 
 /**
@@ -289,61 +306,44 @@
     return @"";
 }
 
-#pragma mark - Table view data source
+#pragma ---
+#pragma mark -- UITableViewDataSource/UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    return 10;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    static NSString *shopListIdentifier = @"ShopListTableViewCell";
+    
+    ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:shopListIdentifier];
+    
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:shopListIdentifier owner:nil options:nil] lastObject];
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 113;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation

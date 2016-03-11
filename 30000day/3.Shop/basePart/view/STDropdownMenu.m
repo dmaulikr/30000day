@@ -95,7 +95,7 @@
 - (void)configUI {
     //背景图片
     UIImageView *imageView = [[UIImageView alloc] init];
-    UIImage *image = [UIImage imageNamed:@"Rectangle"];
+    UIImage *image = [UIImage imageNamed:@"Rectangle_l"];
     CGFloat top = 40; // 顶端盖高度
     CGFloat bottom = 40 ; // 底端盖高度
     CGFloat left = 40; // 左端盖宽度
@@ -260,7 +260,20 @@
 - (void)setDataArray:(NSMutableArray *)dataArray {
     
     _dataArray = dataArray;
-    self.imageViewHeightConstraint.constant = _dataArray.count * 44 + 12;
+    
+    int i = 0;
+    
+    if (_dataArray.count > 5) {
+        
+        i = 5;
+        
+    } else {
+      
+        i = _dataArray.count;
+    }
+    
+    self.imageViewHeightConstraint.constant = i * 44 + 12;
+    
     [self.tableView reloadData];
 }
 

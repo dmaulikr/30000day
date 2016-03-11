@@ -7,6 +7,7 @@
 //
 
 #import "STBaseViewController.h"
+#import "MJRefresh.h"
 
 typedef enum {
     
@@ -20,5 +21,10 @@ typedef enum {
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic,assign) STRefreshTableViewStyle tableViewStyle;
+
+- (void)headerRefreshing;
+
+- (void)footerRereshing;
+
 
 @end
