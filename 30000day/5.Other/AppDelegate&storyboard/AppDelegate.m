@@ -225,6 +225,7 @@
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
     [[LZPushManager manager] saveInstallationWithDeviceToken:deviceToken userId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
 }
 
