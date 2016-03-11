@@ -41,6 +41,8 @@
 
 @implementation MainPageBaseViewController
 
+
+//金锁详情页面 男  女 上下距离
 - (void)viewDidLoad {
     [super viewDidLoad];
     
