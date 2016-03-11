@@ -8,27 +8,76 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopDetailHeadTableViewCell" rowHeight="347" id="KGk-i7-Jjw" customClass="ShopDetailHeadTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="416" height="347"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="355"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="416" height="346"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="354"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopDetail-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="baQ-Mu-P8I">
-                        <rect key="frame" x="0.0" y="0.0" width="416" height="346"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-1" translatesAutoresizingMaskIntoConstraints="NO" id="LhB-AK-FsV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="260" id="3G8-aN-VhB"/>
+                        </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每天9:00-22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmM-Hd-SjW">
+                        <rect key="frame" x="75" y="324" width="103" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小伟羽毛球馆(张扬店)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRS-mN-yhJ">
+                        <rect key="frame" x="14" y="273" width="165" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关键字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-yz-Irg">
+                        <rect key="frame" x="63" y="300" width="42" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="营业时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-cL-xY0">
+                        <rect key="frame" x="14" y="324" width="61" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打浦桥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nv6-Oi-LSM">
+                        <rect key="frame" x="14" y="300" width="42" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="baQ-Mu-P8I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6en-Rw-ufR"/>
-                    <constraint firstAttribute="bottom" secondItem="baQ-Mu-P8I" secondAttribute="bottom" id="Ghc-Hs-Apr"/>
-                    <constraint firstItem="baQ-Mu-P8I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="wWw-4y-Ulv"/>
-                    <constraint firstAttribute="trailing" secondItem="baQ-Mu-P8I" secondAttribute="trailing" id="z17-4E-94c"/>
+                    <constraint firstItem="LhB-AK-FsV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3dK-z1-tqf"/>
+                    <constraint firstItem="NRS-mN-yhJ" firstAttribute="top" secondItem="LhB-AK-FsV" secondAttribute="bottom" constant="13" id="HtM-hW-8nb"/>
+                    <constraint firstItem="DHa-cL-xY0" firstAttribute="top" secondItem="Nv6-Oi-LSM" secondAttribute="bottom" constant="7" id="KtC-Pp-HYq"/>
+                    <constraint firstItem="DHa-cL-xY0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="R5r-vY-Unn"/>
+                    <constraint firstItem="nmM-Hd-SjW" firstAttribute="top" secondItem="Ak2-yz-Irg" secondAttribute="bottom" constant="7" id="Rwg-ay-71y"/>
+                    <constraint firstItem="Ak2-yz-Irg" firstAttribute="leading" secondItem="Nv6-Oi-LSM" secondAttribute="trailing" constant="7" id="TKP-YS-cK1"/>
+                    <constraint firstItem="nmM-Hd-SjW" firstAttribute="leading" secondItem="DHa-cL-xY0" secondAttribute="trailing" id="ZKM-SF-yfq"/>
+                    <constraint firstItem="Ak2-yz-Irg" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="bpL-jc-jb6"/>
+                    <constraint firstAttribute="trailing" secondItem="LhB-AK-FsV" secondAttribute="trailing" id="ghl-WD-quM"/>
+                    <constraint firstItem="NRS-mN-yhJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="inE-WZ-UQ0"/>
+                    <constraint firstItem="Nv6-Oi-LSM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="jMP-tB-fIJ"/>
+                    <constraint firstItem="Nv6-Oi-LSM" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="uSA-gz-MlT"/>
+                    <constraint firstItem="LhB-AK-FsV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vYl-Te-3B3"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="336" y="233.5"/>
+            <connections>
+                <outlet property="businessHoursKeyLable" destination="DHa-cL-xY0" id="WSk-hW-tzb"/>
+                <outlet property="businessHoursLable" destination="nmM-Hd-SjW" id="RBb-xR-mvz"/>
+                <outlet property="keywordLable" destination="Ak2-yz-Irg" id="eh2-gm-oQR"/>
+                <outlet property="positionLable" destination="Nv6-Oi-LSM" id="v27-j8-LEa"/>
+                <outlet property="rollImageView" destination="LhB-AK-FsV" id="k0I-l5-Thn"/>
+                <outlet property="storeLable" destination="NRS-mN-yhJ" id="nTg-S5-8OO"/>
+            </connections>
+            <point key="canvasLocation" x="335.5" y="233.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="shopDetail-1.png" width="561" height="533"/>
+        <image name="sd-1" width="281" height="194"/>
     </resources>
 </document>

@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopDetail-9.png" translatesAutoresizingMaskIntoConstraints="NO" id="djv-yi-mW8">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopDetail-9" translatesAutoresizingMaskIntoConstraints="NO" id="djv-yi-mW8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                     </imageView>
                 </subviews>
@@ -29,6 +29,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="shopDetail-9.png" width="562" height="189"/>
+        <image name="shopDetail-9" width="281" height="94"/>
     </resources>
 </document>

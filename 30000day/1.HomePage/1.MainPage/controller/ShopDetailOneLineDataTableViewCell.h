@@ -10,4 +10,8 @@
 
 @interface ShopDetailOneLineDataTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTitleLable;
+
+
 @end

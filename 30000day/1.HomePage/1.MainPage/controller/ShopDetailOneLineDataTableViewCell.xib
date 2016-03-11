@@ -13,8 +13,32 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-2" translatesAutoresizingMaskIntoConstraints="NO" id="cjb-tB-DiN">
+                        <rect key="frame" x="14" y="15" width="10" height="13"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9e-NZ-zmN">
+                        <rect key="frame" x="29" y="11" width="68" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="S9e-NZ-zmN" firstAttribute="leading" secondItem="cjb-tB-DiN" secondAttribute="trailing" constant="5" id="2hJ-uy-53e"/>
+                    <constraint firstItem="cjb-tB-DiN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="HBR-x1-UMb"/>
+                    <constraint firstItem="cjb-tB-DiN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eP8-dg-ykk"/>
+                    <constraint firstItem="S9e-NZ-zmN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="x2H-hu-gYe"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="389" y="150"/>
+            <connections>
+                <outlet property="leftImageView" destination="cjb-tB-DiN" id="z3f-9g-6TR"/>
+                <outlet property="leftTitleLable" destination="S9e-NZ-zmN" id="FTv-Xm-vcX"/>
+            </connections>
+            <point key="canvasLocation" x="57" y="311"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="sd-2" width="10" height="13"/>
+    </resources>
 </document>

@@ -9,5 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface ShopDetailHeadTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *rollImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *storeLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *keywordLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *positionLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *businessHoursLable;
+@property (weak, nonatomic) IBOutlet UILabel *businessHoursKeyLable;
 
 @end
