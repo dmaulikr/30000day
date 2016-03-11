@@ -45,9 +45,6 @@
     self.ageArray = [NSArray arrayWithObjects:@"(0-20岁)",@"(≥30岁)",@"(≥40岁)",
                             @"(≥50岁)",@"(≥60岁)",@"(≥70岁)",
                             @"(≥80岁)",@"(≥90岁)",@"(≥100岁)",nil];
-    
-    self.tableView.tableFooterView = [[UIView alloc] init];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,15 +52,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+#pragma --
+#pragma mark -- UITableViewDataSource/UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.manImageArray.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
 
@@ -73,16 +73,25 @@
         
         return 30;
         
-    } else if(section == 1){
+    } else if(section == 1) {
         
         return 15;
     } else {
         
-        return 0;
+        return 0.001;
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if (section == 1) {
+        return 0.001;
+    }
+    
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     NSString *titleString;
     if (section == 0) {
@@ -93,7 +102,7 @@
     return titleString;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JinSuoDetailsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JinSuoDetailsTableViewCell" ];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"JinSuoDetailsTableViewCell" owner:nil options:nil] lastObject];
@@ -126,25 +135,25 @@
     return cell;
 }
 
-- (NSInteger)myLocation{
+- (NSInteger)myLocation {
     
     if (self.averageAge <= 20) {
         return 1;
-    }else if (self.averageAge <= 30){
+    } else if (self.averageAge <= 30) {
         return 2;
-    }else if (self.averageAge <= 40){
+    } else if (self.averageAge <= 40) {
         return 3;
-    }else if (self.averageAge <= 50){
+    } else if (self.averageAge <= 50) {
         return 4;
-    }else if (self.averageAge <= 60){
+    } else if (self.averageAge <= 60) {
         return 5;
-    }else if (self.averageAge <= 70){
+    } else if (self.averageAge <= 70) {
         return 6;
-    }else if (self.averageAge <= 80){
+    } else if (self.averageAge <= 80) {
         return 7;
-    }else if (self.averageAge <= 90){
+    } else if (self.averageAge <= 90) {
         return 8;
-    }else if (self.averageAge <= 100 || self.averageAge > 100){
+    } else if (self.averageAge <= 100 || self.averageAge > 100) {
         return 9;
     }
     
