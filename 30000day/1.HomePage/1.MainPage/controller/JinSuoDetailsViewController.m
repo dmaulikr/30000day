@@ -27,26 +27,26 @@
     [super viewDidLoad];
     
     self.manImageArray = [NSArray arrayWithObjects:@"age_1_big",@"age_2_big",@"age_3_big",
-                       @"age_4_big",@"age_5_big",@"age_6_big",
-                       @"age_7_big",@"age_8_big",@"age_9_big", nil];
+                            @"age_4_big",@"age_5_big",@"age_6_big",
+                            @"age_7_big",@"age_8_big",@"age_9_big", nil];
     
     self.womanImageArray = [NSArray arrayWithObjects:@"age_1_big",@"age_2_f_big",@"age_3_f_big",
-                          @"age_4_f_big",@"age_5_f_big",@"age_6_f_big",
-                          @"age_7_f_big",@"age_8_f_big",@"age_9_big", nil];
+                            @"age_4_f_big",@"age_5_f_big",@"age_6_f_big",
+                            @"age_7_f_big",@"age_8_f_big",@"age_9_big", nil];
     
     self.manlableArray = [NSArray arrayWithObjects:@"夭折",@"短寿",@"强寿",
-                       @"艾寿",@"周寿",@"稀寿",
-                       @"耋寿",@"耄寿",@"期颐", nil];
+                            @"艾寿",@"周寿",@"稀寿",
+                            @"耋寿",@"耄寿",@"期颐", nil];
     
     self.womanlableArray = [NSArray arrayWithObjects:@"夭折",@"短福",@"强福",
-                          @"艾福",@"周福",@"稀福",
-                          @"耋福",@"耄福",@"期颐", nil];
+                            @"艾福",@"周福",@"稀福",
+                            @"耋福",@"耄福",@"期颐", nil];
     
     self.ageArray = [NSArray arrayWithObjects:@"(0-20岁)",@"(≥30岁)",@"(≥40岁)",
-                     @"(≥50岁)",@"(≥60岁)",@"(≥70岁)",
-                     @"(≥80岁)",@"(≥90岁)",@"(≥100岁)",nil];
+                            @"(≥50岁)",@"(≥60岁)",@"(≥70岁)",
+                            @"(≥80岁)",@"(≥90岁)",@"(≥100岁)",nil];
     
-
+    self.tableView.tableFooterView = [[UIView alloc] init];
     
 }
 
@@ -69,7 +69,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 25;
+    if (section == 0) {
+        
+        return 30;
+        
+    } else if(section == 1){
+        
+        return 15;
+    } else {
+        
+        return 0;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
