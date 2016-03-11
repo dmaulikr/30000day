@@ -7,6 +7,15 @@
 //
 
 #import "ShopDetailTableViewController.h"
+#import "ShopDetailHeadTableViewCell.h"
+#import "ShopDetailOneLineDataTableViewCell.h"
+#import "ShopDetailRecommendTableViewCell.h"
+#import "ShopDetailCommentHeadTableViewCell.h"
+#import "ShopDetailCommentTableViewCell.h"
+
+
+#define SECTIONSCOUNT 5
+
 
 @interface ShopDetailTableViewController ()
 
@@ -32,24 +41,245 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return SECTIONSCOUNT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+    
+    if (section == 0) {
+        
+        return 1;
+        
+    } else if (section == 1) {
+        
+        return 2;
+    
+    } else if (section == 2) {
+        
+        return 4;
+    
+    } else if (section == 3) {
+        
+        return 4;
+    
+    } else if (section == 4) {
+        
+        return 4;
+    
+    }
+    
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Configure the cell...
+    if (indexPath.section == 0) {
+        
+        return 330;
+        
+    } else if (indexPath.section == 1) {
+        
+        return 44;
+        
+    } else if (indexPath.section == 2) {
+        
+       if (indexPath.row == 1 || indexPath.row == 2){
+           
+            return 110;
+           
+        }
+        
+    } else if (indexPath.section == 3) {
+        
+        if (indexPath.row == 0) {
+            
+            return 100;
+            
+        } else if (indexPath.row == 1 || indexPath.row == 2) {
+            
+            return 250;
+            
+        }
+        
+    } else if (indexPath.section == 4) {
+        
+        if (indexPath.row == 1 || indexPath.row == 2) {
+            return 110;
+        }
+        
+    }
+
+    return 44;
     
-    return cell;
 }
-*/
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if (section == 4) {
+        
+        return 0;
+        
+    } else {
+    
+        return 20;
+    }
+
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+            ShopDetailHeadTableViewCell *shopDetailHeadTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailHeadTableViewCell"];
+            
+            if (shopDetailHeadTableViewCell == nil) {
+                
+                shopDetailHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
+            }
+            
+            return shopDetailHeadTableViewCell;
+        
+        
+    } else if (indexPath.section == 1) {
+        
+            ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+            
+            if (shopDetailOneLineDataTableViewCell == nil) {
+                
+                shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+                
+            }
+            
+            if (indexPath.row == 0) {
+                
+                shopDetailOneLineDataTableViewCell.textLabel.text = @"浦东小道888号科技大楼12楼";
+                
+            } else if (indexPath.row == 1){
+            
+                shopDetailOneLineDataTableViewCell.textLabel.text = @"1280-333444";
+            }
+            
+            return shopDetailOneLineDataTableViewCell;
+        
+        
+    } else if (indexPath.section == 2) {
+            
+            ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+            
+            if (shopDetailOneLineDataTableViewCell == nil) {
+                
+                shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+                
+            }
+
+            if (indexPath.row == 0) {
+                
+                shopDetailOneLineDataTableViewCell.textLabel.text = @"店长推存（321）";
+                
+            } else if (indexPath.row == 1 || indexPath.row == 2){
+                
+                ShopDetailRecommendTableViewCell *shopDetailRecommendTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailRecommendTableViewCell"];
+                
+                if (shopDetailRecommendTableViewCell == nil) {
+                    
+                    shopDetailRecommendTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailRecommendTableViewCell" owner:nil options:nil] lastObject];
+                }
+                
+                return shopDetailRecommendTableViewCell;
+                
+            } else {
+            
+                shopDetailOneLineDataTableViewCell.textLabel.text = @"查看全部推存";
+                
+            }
+            
+            return shopDetailOneLineDataTableViewCell;
+        
+        
+    } else if (indexPath.section == 3) {
+        
+            if (indexPath.row == 0) {
+                
+                ShopDetailCommentHeadTableViewCell *shopDetailCommentHeadTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentHeadTableViewCell"];
+                
+                if (shopDetailCommentHeadTableViewCell == nil) {
+                    
+                    shopDetailCommentHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentHeadTableViewCell" owner:nil options:nil] lastObject];
+                    
+                }
+                
+                return shopDetailCommentHeadTableViewCell;
+                
+            } else if (indexPath.row == 1 || indexPath.row == 2){
+                
+                ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
+                
+                if (shopDetailCommentTableViewCell == nil) {
+                    
+                    shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
+                    
+                }
+                
+                return shopDetailCommentTableViewCell;
+            
+            } else {
+                
+                ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+                
+                if (shopDetailOneLineDataTableViewCell == nil) {
+                    
+                    shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+                    
+                }
+                
+                shopDetailOneLineDataTableViewCell.textLabel.text = @"查看全部评论";
+                
+                return shopDetailOneLineDataTableViewCell;
+            
+            }
+        
+        
+    } else if (indexPath.section == 4) {
+        
+        ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        
+        if (shopDetailOneLineDataTableViewCell == nil) {
+            
+            shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        if (indexPath.row == 0) {
+            
+            shopDetailOneLineDataTableViewCell.textLabel.text = @"推存列表（321）";
+            
+        } else if (indexPath.row == 1 || indexPath.row == 2){
+            
+            ShopDetailRecommendTableViewCell *shopDetailRecommendTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailRecommendTableViewCell"];
+            
+            if (shopDetailRecommendTableViewCell == nil) {
+                
+                shopDetailRecommendTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailRecommendTableViewCell" owner:nil options:nil] lastObject];
+            }
+            
+            return shopDetailRecommendTableViewCell;
+            
+        } else {
+            
+            shopDetailOneLineDataTableViewCell.textLabel.text = @"查看全部推存";
+            
+        }
+        
+        return shopDetailOneLineDataTableViewCell;
+        
+    }
+    
+    
+    return nil;
+}
+
 
 /*
 // Override to support conditional editing of the table view.
