@@ -35,6 +35,7 @@
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
+    self.isShowFootRefresh = NO;
 }
 
 - (void)didReceiveMemoryWarning {

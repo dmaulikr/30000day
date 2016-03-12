@@ -22,6 +22,12 @@ typedef enum {
 
 @property (nonatomic,assign) STRefreshTableViewStyle tableViewStyle;
 
+//是否显示下拉刷新，默认是Yes
+@property (nonatomic,assign) BOOL isShowHeadRefresh;
+
+//是否显示上拉刷新，默认是YES
+@property (nonatomic,assign) BOOL isShowFootRefresh;
+
 - (void)headerRefreshing;
 
 - (void)footerRereshing;

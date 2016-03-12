@@ -21,7 +21,7 @@
     
     [self.view addSubview:self.tableView];
     
-    [self setupRefresh];
+    [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
     
 }
 
@@ -41,23 +41,39 @@
         
         [self.view addSubview:self.tableView];
     }
-    
-    [self setupRefresh];
 }
 
 #pragma mark - 集成刷新控件
 /**
  *  集成刷新控件
  */
-- (void)setupRefresh {
+- (void)setupRefreshIsShowHeadRefresh:(BOOL)isShowHeadRefresh isShowFootRefresh:(BOOL)isShowFootRefresh {
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    _isShowFootRefresh = isShowFootRefresh;
     
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+    _isShowHeadRefresh = isShowHeadRefresh;
     
-    [footer setAutomaticallyHidden:YES];
+    if (_isShowHeadRefresh) {
+        
+            self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    } else {
+        
+        [self.tableView.mj_header removeFromSuperview];
+        
+    }
     
-    self.tableView.mj_footer = footer;
+    if (_isShowFootRefresh) {
+        
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+
+        
+        [self.tableView.mj_footer setAutomaticallyHidden:YES];
+        
+    } else {
+        
+        [self.tableView.mj_footer removeFromSuperview];
+    }
+    
 }
 
 - (void)headerRefreshing {
@@ -70,6 +86,21 @@
     
 }
 
+- (void)setIsShowFootRefresh:(BOOL)isShowFootRefresh {
+    
+    _isShowFootRefresh = isShowFootRefresh;
+    
+    [self setupRefreshIsShowHeadRefresh:_isShowHeadRefresh isShowFootRefresh:_isShowFootRefresh];
+    
+}
+
+- (void)setIsShowHeadRefresh:(BOOL)isShowHeadRefresh {
+    
+    _isShowHeadRefresh = isShowHeadRefresh;
+    
+    [self setupRefreshIsShowHeadRefresh:_isShowHeadRefresh isShowFootRefresh:_isShowFootRefresh];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
