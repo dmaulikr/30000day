@@ -8,9 +8,6 @@
 
 #import "AppointmentConfirmViewController.h"
 #import "PersonInformationTableViewCell.h"
-#import "MTGooderOrderInvoiceCommentsCell.h"
-#import "AppointmentTableViewCell.h"
-#import "MoneyTableViewCell.h"
 
 @interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -43,53 +40,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    PersonInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonInformationTableViewCell"];
+    
     if (indexPath.section == 0) {
-        
-        PersonInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonInformationTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil] firstObject];
             
         }
-        return cell;
         
     } else if (indexPath.section == 1) {
         
-        MTGooderOrderInvoiceCommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MTGooderOrderInvoiceCommentsCell"];
-        
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MTGooderOrderInvoiceCommentsCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][1];
             
         }
-        
-        return cell;
         
     } else if (indexPath.section == 2) {
         
-        AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
-        
+
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
         }
-        
-        return cell;
         
     } else if (indexPath.section == 3) {
-        
-        MoneyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoneyTableViewCell"];
+ 
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MoneyTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
         }
-        
-        return cell;
     }
     
-    return nil;
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

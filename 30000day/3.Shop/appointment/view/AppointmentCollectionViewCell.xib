@@ -5,16 +5,16 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppointmentCollectionViewCell"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AppointmentCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AppointmentCollectionViewCell" id="gTV-IL-0wX" customClass="AppointmentCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="52"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="50" height="52"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axI-ii-Vav">
-                        <rect key="frame" x="16" y="16" width="19" height="18"/>
+                        <rect key="frame" x="16" y="17" width="19" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -27,6 +27,8 @@
                 <constraint firstItem="axI-ii-Vav" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="HSu-ko-Llv"/>
                 <constraint firstItem="axI-ii-Vav" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="e2a-3y-ePw"/>
             </constraints>
+            <size key="customSize" width="50" height="52"/>
+            <point key="canvasLocation" x="211" y="65"/>
         </collectionViewCell>
     </objects>
 </document>

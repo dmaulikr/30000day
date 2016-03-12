@@ -77,9 +77,7 @@
     
     collectionView.delegate = self;
     
-    UINib *nib = [UINib nibWithNibName:@"AppointmentCollectionViewCell" bundle:[NSBundle mainBundle]];
-    
-    [collectionView registerNib:nib forCellWithReuseIdentifier:@"AppointmentCollectionViewCell"];
+    [collectionView registerNib:[UINib nibWithNibName:@"AppointmentCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"AppointmentCollectionViewCell"];
     
     [collectionView registerNib:[UINib nibWithNibName:@"TitleCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"TitleCollectionViewCell"];
     
@@ -89,7 +87,7 @@
     
     collectionView.backgroundColor = [UIColor whiteColor];
     
-    collectionView.alwaysBounceHorizontal = YES;
+    collectionView.showsHorizontalScrollIndicator = YES;
     
     [self addSubview:collectionView];
     
@@ -128,21 +126,22 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section <= self.dataArray.count && indexPath.row == 0) {
-        
+
         static NSString *titleIdentifier = @"TitleCollectionViewCell";
         
         TitleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:titleIdentifier forIndexPath:indexPath];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:titleIdentifier owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:titleIdentifier owner:nil options:nil] firstObject];
         }
+        
         cell.titleLabel.text = self.dataArray[indexPath.section];
         
         return cell;
-        
+    
     } else {
-        
+    
         static NSString *appoinitmentIdentifier = @"AppointmentCollectionViewCell";
         
         AppointmentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:appoinitmentIdentifier forIndexPath:indexPath];
@@ -153,8 +152,9 @@
         }
         
         return cell;
-       
     }
+    
+    return nil;
 }
 
 - (void)setTime_dataArray:(NSMutableArray *)time_dataArray {
