@@ -89,6 +89,8 @@
     
     collectionView.backgroundColor = [UIColor whiteColor];
     
+    collectionView.alwaysBounceHorizontal = YES;
+    
     [self addSubview:collectionView];
     
     //3.循环创建时间label

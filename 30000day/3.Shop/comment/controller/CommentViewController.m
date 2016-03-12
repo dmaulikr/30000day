@@ -9,7 +9,7 @@
 #import "CommentViewController.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentOptionsTableViewCell.h"
-#import "AppointmentSMSVerificationViewController.h"
+#import "AppointmentConfirmViewController.h"
 
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -157,7 +157,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    AppointmentSMSVerificationViewController *controller = [[AppointmentSMSVerificationViewController alloc] init];
+    AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
     

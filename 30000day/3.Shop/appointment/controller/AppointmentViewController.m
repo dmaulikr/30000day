@@ -9,7 +9,7 @@
 #import "AppointmentViewController.h"
 #import "QGPickerView.h"
 #import "AppointmentCollectionView.h"
-#import "AppointmentSMSVerificationViewController.h"
+#import "AppointmentConfirmViewController.h"
 
 @interface AppointmentViewController () <QGPickerViewDelegate,AppointmentCollectionViewDelegate>
 
@@ -61,7 +61,7 @@
 
 - (IBAction)submitAppoinmentAction:(id)sender {
     
-    AppointmentSMSVerificationViewController *controller = [[AppointmentSMSVerificationViewController alloc] init];
+    AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
