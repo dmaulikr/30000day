@@ -12,6 +12,7 @@
 #import "ShopListTableViewCell.h"
 #import "ShopDetailViewController.h"
 #import "SearchViewController.h"
+#import "AppointmentViewController.h"
 
 @interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -210,39 +211,39 @@
             
         } else if (indexPath.row == 1) {
             
-            return @"1号线";
+            return @"1号线 ";
             
         } else if (indexPath.row == 2) {
             
-            return @"2号线";
+            return @"2号线 ";
             
         } else if (indexPath.row == 3 ) {
             
-            return @"3号线";
+            return @"3号线 ";
             
         } else if (indexPath.row == 4) {
             
-            return @"4号线";
+            return @"4号线 ";
             
         } else if (indexPath.row == 5) {
             
-            return @"7号线";
+            return @"7号线 ";
             
         } else if (indexPath.row == 6) {
             
-            return @"8号线";
+            return @"8号线 ";
             
         } else if (indexPath.row == 7) {
             
-            return @"9号线";
+            return @"9号线 ";
             
         } else if (indexPath.row == 8) {
             
-            return @"10号线";
+            return @"10号线 ";
             
         } else if (indexPath.row == 9) {
             
-            return @"11号线";
+            return @"11号线 ";
             
         }
 
@@ -399,7 +400,7 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
-    SearchViewController *controller = [[SearchViewController alloc] init];
+    AppointmentViewController *controller = [[AppointmentViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
