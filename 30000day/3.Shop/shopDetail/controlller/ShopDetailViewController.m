@@ -12,6 +12,7 @@
 #import "ShopListTableViewCell.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
+#import "CommentViewController.h"
 
 
 #define SECTIONSCOUNT 5
@@ -304,6 +305,19 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 3) {
+        
+        if (indexPath.row == 0 || indexPath.row == 3) {
+            
+            CommentViewController *controller = [[CommentViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        }
+        
+    }
+    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
