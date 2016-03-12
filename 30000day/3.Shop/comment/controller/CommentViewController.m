@@ -9,6 +9,8 @@
 #import "CommentViewController.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentOptionsTableViewCell.h"
+#import "AppointmentSMSVerificationViewController.h"
+
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -101,6 +103,28 @@
             
         }
         
+        [commentOptionsTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
+           
+            if (changeStatusButton.tag == 1) {
+                
+                [self showToast:@"1"];
+                
+            } else if (changeStatusButton.tag == 2){
+                
+                [self showToast:@"2"];
+            
+            } else if (changeStatusButton.tag ==3){
+                
+                [self showToast:@"3"];
+            
+            } else {
+                
+                [self showToast:@"4"];
+            
+            }
+            
+        }];
+        
         return commentOptionsTableViewCell;
 
         
@@ -125,7 +149,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (indexPath.section == 0) {
+        
+        return;
+        
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AppointmentSMSVerificationViewController *controller = [[AppointmentSMSVerificationViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 

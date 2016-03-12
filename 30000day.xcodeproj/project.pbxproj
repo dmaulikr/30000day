@@ -12,6 +12,8 @@
 		B601197A1C9404BC0061AD89 /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119741C9404BC0061AD89 /* CommentViewController.xib */; };
 		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
 		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
+		B60119831C94066C0061AD89 /* AppointmentSMSVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */; };
+		B60119841C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
@@ -546,6 +548,9 @@
 		B60119761C9404BC0061AD89 /* CommentOptionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOptionsTableViewCell.h; sourceTree = "<group>"; };
 		B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOptionsTableViewCell.m; sourceTree = "<group>"; };
 		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
+		B60119801C94066C0061AD89 /* AppointmentSMSVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentSMSVerificationViewController.h; sourceTree = "<group>"; };
+		B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentSMSVerificationViewController.m; sourceTree = "<group>"; };
+		B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentSMSVerificationViewController.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
@@ -1457,6 +1462,9 @@
 		B601197E1C94059C0061AD89 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B60119801C94066C0061AD89 /* AppointmentSMSVerificationViewController.h */,
+				B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */,
+				B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3531,6 +3539,7 @@
 				B804FDB61C8AC9A900DFD1CF /* weChatBubble_Sending_Cavern@2x.png in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
 				B804FDAA1C8AC9A900DFD1CF /* sharemore_video@2x.png in Resources */,
+				B60119841C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib in Resources */,
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
@@ -4017,6 +4026,7 @@
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B8FD3DCF1C8A7903007BCA6B /* LZConversationCell.m in Sources */,
+				B60119831C94066C0061AD89 /* AppointmentSMSVerificationViewController.m in Sources */,
 				B8FD3CBC1C8A77EB007BCA6B /* AVIMConversation+Custom.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8FD3E751C8A8353007BCA6B /* CDBaseVC.m in Sources */,

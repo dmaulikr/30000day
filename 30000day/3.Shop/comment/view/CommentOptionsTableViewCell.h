@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *badButton;
 
-
+@property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
 
 @end
