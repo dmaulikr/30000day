@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D65565201EC540E39F38219E /* libPods.a */; };
+		B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119731C9404BC0061AD89 /* CommentViewController.m */; };
+		B601197A1C9404BC0061AD89 /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119741C9404BC0061AD89 /* CommentViewController.xib */; };
+		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
+		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
+		B60119831C94066C0061AD89 /* AppointmentSMSVerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */; };
+		B60119841C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */; };
+		B60119881C94184F0061AD89 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119861C94184F0061AD89 /* PaymentViewController.m */; };
+		B60119891C94184F0061AD89 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119871C94184F0061AD89 /* PaymentViewController.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
@@ -19,12 +27,8 @@
 		B6118D571C92998B000581B1 /* ShopDetailHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D551C92998B000581B1 /* ShopDetailHeadTableViewCell.xib */; };
 		B6118D5B1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D591C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m */; };
 		B6118D5C1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D5A1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib */; };
-		B6118D6A1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */; };
-		B6118D6B1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */; };
 		B6118D881C92AABD000581B1 /* ShopDetailCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */; };
 		B6118D891C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */; };
-		B6118D8D1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */; };
-		B6118D8E1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */; };
 		B6118DBA1C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */; };
 		B6118DBB1C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */; };
 		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
@@ -547,6 +551,18 @@
 
 /* Begin PBXFileReference section */
 		0DC533304EB964BB41F806FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B60119721C9404BC0061AD89 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		B60119731C9404BC0061AD89 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		B60119741C9404BC0061AD89 /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewController.xib; sourceTree = "<group>"; };
+		B60119761C9404BC0061AD89 /* CommentOptionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOptionsTableViewCell.h; sourceTree = "<group>"; };
+		B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOptionsTableViewCell.m; sourceTree = "<group>"; };
+		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
+		B60119801C94066C0061AD89 /* AppointmentSMSVerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentSMSVerificationViewController.h; sourceTree = "<group>"; };
+		B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentSMSVerificationViewController.m; sourceTree = "<group>"; };
+		B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentSMSVerificationViewController.xib; sourceTree = "<group>"; };
+		B60119851C94184F0061AD89 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentViewController.h; path = ../../../comment/controller/PaymentViewController.h; sourceTree = "<group>"; };
+		B60119861C94184F0061AD89 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentViewController.m; path = ../../../comment/controller/PaymentViewController.m; sourceTree = "<group>"; };
+		B60119871C94184F0061AD89 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PaymentViewController.xib; path = ../../../comment/controller/PaymentViewController.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
@@ -564,15 +580,9 @@
 		B6118D581C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailOneLineDataTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118D591C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailOneLineDataTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118D5A1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailOneLineDataTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B6118D671C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailCommentHeadTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailCommentHeadTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailCommentHeadTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B6118D851C92AABD000581B1 /* ShopDetailCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailCommentTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailCommentTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailCommentTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B6118D8A1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailRecommendTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailRecommendTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailRecommendTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B6118DB71C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailOneLineDataNoImageViewTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailOneLineDataNoImageViewTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailOneLineDataNoImageViewTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -1433,6 +1443,65 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B60119701C9404BC0061AD89 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				B60119711C9404BC0061AD89 /* controller */,
+				B60119751C9404BC0061AD89 /* view */,
+			);
+			path = comment;
+			sourceTree = "<group>";
+		};
+		B60119711C9404BC0061AD89 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B60119721C9404BC0061AD89 /* CommentViewController.h */,
+				B60119731C9404BC0061AD89 /* CommentViewController.m */,
+				B60119741C9404BC0061AD89 /* CommentViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B60119751C9404BC0061AD89 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B60119761C9404BC0061AD89 /* CommentOptionsTableViewCell.h */,
+				B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */,
+				B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B601197D1C94059C0061AD89 /* appointment */ = {
+			isa = PBXGroup;
+			children = (
+				B601197E1C94059C0061AD89 /* controller */,
+				B601197F1C94059C0061AD89 /* view */,
+			);
+			name = appointment;
+			path = shopDetail/appointment;
+			sourceTree = "<group>";
+		};
+		B601197E1C94059C0061AD89 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B60119801C94066C0061AD89 /* AppointmentSMSVerificationViewController.h */,
+				B60119811C94066C0061AD89 /* AppointmentSMSVerificationViewController.m */,
+				B60119821C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib */,
+				B60119851C94184F0061AD89 /* PaymentViewController.h */,
+				B60119861C94184F0061AD89 /* PaymentViewController.m */,
+				B60119871C94184F0061AD89 /* PaymentViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B601197F1C94059C0061AD89 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		B6171DC21C8D69AA00116B13 /* BindOnAccount */ = {
 			isa = PBXGroup;
 			children = (
@@ -1795,9 +1864,10 @@
 			children = (
 				B8F648461C9422AE001A3119 /* controlller */,
 				B8F6484A1C9422AE001A3119 /* view */,
+				B601197D1C94059C0061AD89 /* appointment */,
+				B60119701C9404BC0061AD89 /* comment */,
 				B8F648251C92DA4C001A3119 /* search */,
 				B8F8803C1C92634100B5DA18 /* basePart */,
-				B8F880411C92634100B5DA18 /* comment */,
 				B8F880441C92634100B5DA18 /* shopDetail */,
 			);
 			path = 3.Shop;
@@ -2629,29 +2699,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		B8F880411C92634100B5DA18 /* comment */ = {
-			isa = PBXGroup;
-			children = (
-				B8F880421C92634100B5DA18 /* controller */,
-				B8F880431C92634100B5DA18 /* view */,
-			);
-			path = comment;
-			sourceTree = "<group>";
-		};
-		B8F880421C92634100B5DA18 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		B8F880431C92634100B5DA18 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		B8F880441C92634100B5DA18 /* shopDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -2683,15 +2730,9 @@
 				B6118DB71C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.h */,
 				B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */,
 				B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */,
-				B6118D671C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.h */,
-				B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */,
-				B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */,
 				B6118D851C92AABD000581B1 /* ShopDetailCommentTableViewCell.h */,
 				B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */,
 				B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */,
-				B6118D8A1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.h */,
-				B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */,
-				B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3491,7 +3532,6 @@
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
 				B804FDAC1C8AC9A900DFD1CF /* sharemore_voiceinput@2x.png in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
-				B6118D6B1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib in Resources */,
 				B804FD951C8AC9A900DFD1CF /* RecordingSignal001@2x.png in Resources */,
 				B804FD271C8AC9A900DFD1CF /* rabbit_0.gif in Resources */,
 				B804FD911C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
@@ -3503,6 +3543,7 @@
 				B804FD761C8AC9A900DFD1CF /* face@2x.png in Resources */,
 				B804FD891C8AC9A900DFD1CF /* multiMedia_HL@2x.png in Resources */,
 				B804FDA91C8AC9A900DFD1CF /* sharemore_pic@2x.png in Resources */,
+				B60119891C94184F0061AD89 /* PaymentViewController.xib in Resources */,
 				B8FD3EBE1C8A8440007BCA6B /* CDLabelButtonTableCell.xib in Resources */,
 				B804FDA71C8AC9A900DFD1CF /* sharemore_myfav@2x.png in Resources */,
 				B804FD4E1C8AC9A900DFD1CF /* rabbit_6_cover@2x.png in Resources */,
@@ -3554,6 +3595,7 @@
 				B804FDB61C8AC9A900DFD1CF /* weChatBubble_Sending_Cavern@2x.png in Resources */,
 				B8F2D9171C5B5DA1002C7712 /* PersonViewController.xib in Resources */,
 				B804FDAA1C8AC9A900DFD1CF /* sharemore_video@2x.png in Resources */,
+				B60119841C94066C0061AD89 /* AppointmentSMSVerificationViewController.xib in Resources */,
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
@@ -3631,11 +3673,11 @@
 				B804FD3A1C8AC9A900DFD1CF /* rabbit_18.gif in Resources */,
 				B804FD941C8AC9A900DFD1CF /* RecordingBkg@2x.png in Resources */,
 				B804FD7A1C8AC9A900DFD1CF /* input-bar-background.png in Resources */,
-				B6118D8E1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib in Resources */,
 				B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */,
 				B8FD3AD81C852BE3007BCA6B /* ChangePasswordViewController.xib in Resources */,
 				B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
+				B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */,
 				B804FD661C8AC9A900DFD1CF /* tusiji_2_cover@2x.png in Resources */,
 				B88C913B1C59F2260089BEAE /* Images.xcassets in Resources */,
 				B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */,
@@ -3675,6 +3717,7 @@
 				B804FD8B1C8AC9A900DFD1CF /* MultiSelectedPanelConfirmBtnbKG@2x.png in Resources */,
 				B804FDA01C8AC9A900DFD1CF /* SenderVoiceNodePlaying000@2x.png in Resources */,
 				B804FD6C1C8AC9A900DFD1CF /* tusiji_5_cover@2x.png in Resources */,
+				B601197A1C9404BC0061AD89 /* CommentViewController.xib in Resources */,
 				B804FD3F1C8AC9A900DFD1CF /* rabbit_2.gif in Resources */,
 				B804FD821C8AC9A900DFD1CF /* loudReceive.caf in Resources */,
 				B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */,
@@ -3873,6 +3916,7 @@
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
 				B8FD3E291C8A7903007BCA6B /* XHRefreshCircleView.m in Sources */,
 				B8FD3CBD1C8A77EB007BCA6B /* AVIMEmotionMessage.m in Sources */,
+				B60119881C94184F0061AD89 /* PaymentViewController.m in Sources */,
 				B8FD3E851C8A83A6007BCA6B /* CDAddRequest.m in Sources */,
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
@@ -3885,10 +3929,10 @@
 				B8FD3DF21C8A7903007BCA6B /* XHOperationNetworkKit.m in Sources */,
 				B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
+				B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
-				B6118D6A1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m in Sources */,
 				B6118D5B1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
@@ -3938,6 +3982,7 @@
 				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
 				B8FD3E191C8A7903007BCA6B /* XHBaseTableViewCell.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
+				B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */,
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
@@ -3962,7 +4007,6 @@
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
-				B6118D8D1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
@@ -4043,6 +4087,7 @@
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B8FD3DCF1C8A7903007BCA6B /* LZConversationCell.m in Sources */,
+				B60119831C94066C0061AD89 /* AppointmentSMSVerificationViewController.m in Sources */,
 				B8FD3CBC1C8A77EB007BCA6B /* AVIMConversation+Custom.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8FD3E751C8A8353007BCA6B /* CDBaseVC.m in Sources */,

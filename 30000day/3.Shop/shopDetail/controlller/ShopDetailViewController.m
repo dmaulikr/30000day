@@ -9,10 +9,10 @@
 #import "ShopDetailViewController.h"
 #import "ShopDetailHeadTableViewCell.h"
 #import "ShopDetailOneLineDataTableViewCell.h"
-#import "ShopDetailRecommendTableViewCell.h"
-#import "ShopDetailCommentHeadTableViewCell.h"
+#import "ShopListTableViewCell.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
+#import "CommentViewController.h"
 
 
 #define SECTIONSCOUNT 5
@@ -110,11 +110,7 @@
         
     } else if (indexPath.section == 3) {
         
-        if (indexPath.row == 0) {
-            
-            return 100;
-            
-        } else if (indexPath.row == 1 || indexPath.row == 2) {
+        if (indexPath.row == 1 || indexPath.row == 2) {
             
             return 250;
             
@@ -190,51 +186,53 @@
         
     } else if (indexPath.section == 2) {
         
-        ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
         
-        if (shopDetailOneLineDataTableViewCell == nil) {
+        if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
             
-            shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+            shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataTableViewCell.textLabel.text = @"店长推存（321）";
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"店长推存（321）";
             
         } else if (indexPath.row == 1 || indexPath.row == 2){
             
-            ShopDetailRecommendTableViewCell *shopDetailRecommendTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailRecommendTableViewCell"];
+            ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
-            if (shopDetailRecommendTableViewCell == nil) {
+            if (shopListTableViewCell == nil) {
                 
-                shopDetailRecommendTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailRecommendTableViewCell" owner:nil options:nil] lastObject];
+                shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            return shopDetailRecommendTableViewCell;
+            return shopListTableViewCell;
             
         } else {
             
-            shopDetailOneLineDataTableViewCell.textLabel.text = @"查看全部推存";
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看全部推存";
             
         }
         
-        return shopDetailOneLineDataTableViewCell;
+        return shopDetailOneLineDataNoImageViewTableViewCell;
         
         
     } else if (indexPath.section == 3) {
         
         if (indexPath.row == 0) {
             
-            ShopDetailCommentHeadTableViewCell *shopDetailCommentHeadTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentHeadTableViewCell"];
+            ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
             
-            if (shopDetailCommentHeadTableViewCell == nil) {
+            if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
                 
-                shopDetailCommentHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentHeadTableViewCell" owner:nil options:nil] lastObject];
+                shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
             
-            return shopDetailCommentHeadTableViewCell;
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"网友点评（321）";
+            
+            return shopDetailOneLineDataNoImageViewTableViewCell;
             
         } else if (indexPath.row == 1 || indexPath.row == 2){
             
@@ -281,14 +279,14 @@
             
         } else if (indexPath.row == 1 || indexPath.row == 2){
             
-            ShopDetailRecommendTableViewCell *shopDetailRecommendTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailRecommendTableViewCell"];
+            ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
-            if (shopDetailRecommendTableViewCell == nil) {
+            if (shopListTableViewCell == nil) {
                 
-                shopDetailRecommendTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailRecommendTableViewCell" owner:nil options:nil] lastObject];
+                shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            return shopDetailRecommendTableViewCell;
+            return shopListTableViewCell;
             
         } else {
             
@@ -307,6 +305,19 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 3) {
+        
+        if (indexPath.row == 0 || indexPath.row == 3) {
+            
+            CommentViewController *controller = [[CommentViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        }
+        
+    }
+    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
