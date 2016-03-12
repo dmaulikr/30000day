@@ -13,7 +13,7 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
 #import "CommentViewController.h"
-
+#import "AppointmentViewController.h"
 
 #define SECTIONSCOUNT 5
 
@@ -36,6 +36,20 @@
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
     self.isShowFootRefresh = NO;
+    
+    UIBarButtonItem *barButton =  [[UIBarButtonItem alloc] initWithTitle:@"预约" style:UIBarButtonItemStylePlain target:self action:@selector(appointmentAction)];
+    
+    self.navigationItem.rightBarButtonItem = barButton;
+    
+ }
+
+- (void)appointmentAction {
+    
+    AppointmentViewController *controller = [[AppointmentViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

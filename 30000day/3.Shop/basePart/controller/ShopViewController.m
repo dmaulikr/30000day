@@ -12,7 +12,7 @@
 #import "ShopListTableViewCell.h"
 #import "ShopDetailViewController.h"
 #import "SearchViewController.h"
-#import "AppointmentViewController.h"
+#import "SearchViewController.h"
 
 @interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -400,7 +400,7 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
-    AppointmentViewController *controller = [[AppointmentViewController alloc] init];
+    SearchViewController *controller = [[SearchViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
