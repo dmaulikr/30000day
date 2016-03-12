@@ -354,13 +354,13 @@
 		B8F6482A1C92DA63001A3119 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648281C92DA63001A3119 /* SearchViewController.xib */; };
 		B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6482C1C93A9C3001A3119 /* ShopDetailViewController.m */; };
 		B8F6482F1C93A9C3001A3119 /* ShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6482D1C93A9C3001A3119 /* ShopDetailViewController.xib */; };
-		B8F648361C93B7E4001A3119 /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648341C93B7E4001A3119 /* AppointmentViewController.m */; };
-		B8F648371C93B7E4001A3119 /* AppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648351C93B7E4001A3119 /* AppointmentViewController.xib */; };
-		B8F6483B1C93C2B4001A3119 /* AppointmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6483A1C93C2B4001A3119 /* AppointmentCollectionView.m */; };
-		B8F6483F1C93E584001A3119 /* AppointmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6483D1C93E584001A3119 /* AppointmentCollectionViewCell.m */; };
-		B8F648401C93E584001A3119 /* AppointmentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6483E1C93E584001A3119 /* AppointmentCollectionViewCell.xib */; };
-		B8F648441C93F5F5001A3119 /* TitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648421C93F5F5001A3119 /* TitleCollectionViewCell.m */; };
-		B8F648451C93F5F5001A3119 /* TitleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648431C93F5F5001A3119 /* TitleCollectionViewCell.xib */; };
+		B8F648531C9422AE001A3119 /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648481C9422AE001A3119 /* AppointmentViewController.m */; };
+		B8F648541C9422AE001A3119 /* AppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648491C9422AE001A3119 /* AppointmentViewController.xib */; };
+		B8F648551C9422AE001A3119 /* AppointmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6484C1C9422AE001A3119 /* AppointmentCollectionView.m */; };
+		B8F648561C9422AE001A3119 /* AppointmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6484E1C9422AE001A3119 /* AppointmentCollectionViewCell.m */; };
+		B8F648571C9422AE001A3119 /* AppointmentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6484F1C9422AE001A3119 /* AppointmentCollectionViewCell.xib */; };
+		B8F648581C9422AE001A3119 /* TitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648511C9422AE001A3119 /* TitleCollectionViewCell.m */; };
+		B8F648591C9422AE001A3119 /* TitleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648521C9422AE001A3119 /* TitleCollectionViewCell.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
@@ -1022,17 +1022,17 @@
 		B8F6482B1C93A9C3001A3119 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
 		B8F6482C1C93A9C3001A3119 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
 		B8F6482D1C93A9C3001A3119 /* ShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailViewController.xib; sourceTree = "<group>"; };
-		B8F648331C93B7E4001A3119 /* AppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentViewController.h; sourceTree = "<group>"; };
-		B8F648341C93B7E4001A3119 /* AppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentViewController.m; sourceTree = "<group>"; };
-		B8F648351C93B7E4001A3119 /* AppointmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentViewController.xib; sourceTree = "<group>"; };
-		B8F648391C93C2B4001A3119 /* AppointmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentCollectionView.h; sourceTree = "<group>"; };
-		B8F6483A1C93C2B4001A3119 /* AppointmentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentCollectionView.m; sourceTree = "<group>"; };
-		B8F6483C1C93E584001A3119 /* AppointmentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentCollectionViewCell.h; sourceTree = "<group>"; };
-		B8F6483D1C93E584001A3119 /* AppointmentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentCollectionViewCell.m; sourceTree = "<group>"; };
-		B8F6483E1C93E584001A3119 /* AppointmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentCollectionViewCell.xib; sourceTree = "<group>"; };
-		B8F648411C93F5F5001A3119 /* TitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewCell.h; sourceTree = "<group>"; };
-		B8F648421C93F5F5001A3119 /* TitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewCell.m; sourceTree = "<group>"; };
-		B8F648431C93F5F5001A3119 /* TitleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionViewCell.xib; sourceTree = "<group>"; };
+		B8F648471C9422AE001A3119 /* AppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentViewController.h; sourceTree = "<group>"; };
+		B8F648481C9422AE001A3119 /* AppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentViewController.m; sourceTree = "<group>"; };
+		B8F648491C9422AE001A3119 /* AppointmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentViewController.xib; sourceTree = "<group>"; };
+		B8F6484B1C9422AE001A3119 /* AppointmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentCollectionView.h; sourceTree = "<group>"; };
+		B8F6484C1C9422AE001A3119 /* AppointmentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentCollectionView.m; sourceTree = "<group>"; };
+		B8F6484D1C9422AE001A3119 /* AppointmentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentCollectionViewCell.h; sourceTree = "<group>"; };
+		B8F6484E1C9422AE001A3119 /* AppointmentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentCollectionViewCell.m; sourceTree = "<group>"; };
+		B8F6484F1C9422AE001A3119 /* AppointmentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentCollectionViewCell.xib; sourceTree = "<group>"; };
+		B8F648501C9422AE001A3119 /* TitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewCell.h; sourceTree = "<group>"; };
+		B8F648511C9422AE001A3119 /* TitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewCell.m; sourceTree = "<group>"; };
+		B8F648521C9422AE001A3119 /* TitleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCollectionViewCell.xib; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
@@ -1793,7 +1793,8 @@
 		B88C915B1C59F9270089BEAE /* 3.Shop */ = {
 			isa = PBXGroup;
 			children = (
-				B8F648311C93B77C001A3119 /* apointment */,
+				B8F648461C9422AE001A3119 /* controlller */,
+				B8F6484A1C9422AE001A3119 /* view */,
 				B8F648251C92DA4C001A3119 /* search */,
 				B8F8803C1C92634100B5DA18 /* basePart */,
 				B8F880411C92634100B5DA18 /* comment */,
@@ -2563,36 +2564,27 @@
 			path = search;
 			sourceTree = "<group>";
 		};
-		B8F648311C93B77C001A3119 /* apointment */ = {
+		B8F648461C9422AE001A3119 /* controlller */ = {
 			isa = PBXGroup;
 			children = (
-				B8F648381C93BBDF001A3119 /* view */,
-				B8F648321C93B799001A3119 /* controlller */,
-			);
-			path = apointment;
-			sourceTree = "<group>";
-		};
-		B8F648321C93B799001A3119 /* controlller */ = {
-			isa = PBXGroup;
-			children = (
-				B8F648331C93B7E4001A3119 /* AppointmentViewController.h */,
-				B8F648341C93B7E4001A3119 /* AppointmentViewController.m */,
-				B8F648351C93B7E4001A3119 /* AppointmentViewController.xib */,
+				B8F648471C9422AE001A3119 /* AppointmentViewController.h */,
+				B8F648481C9422AE001A3119 /* AppointmentViewController.m */,
+				B8F648491C9422AE001A3119 /* AppointmentViewController.xib */,
 			);
 			path = controlller;
 			sourceTree = "<group>";
 		};
-		B8F648381C93BBDF001A3119 /* view */ = {
+		B8F6484A1C9422AE001A3119 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F648391C93C2B4001A3119 /* AppointmentCollectionView.h */,
-				B8F6483A1C93C2B4001A3119 /* AppointmentCollectionView.m */,
-				B8F6483C1C93E584001A3119 /* AppointmentCollectionViewCell.h */,
-				B8F6483D1C93E584001A3119 /* AppointmentCollectionViewCell.m */,
-				B8F6483E1C93E584001A3119 /* AppointmentCollectionViewCell.xib */,
-				B8F648411C93F5F5001A3119 /* TitleCollectionViewCell.h */,
-				B8F648421C93F5F5001A3119 /* TitleCollectionViewCell.m */,
-				B8F648431C93F5F5001A3119 /* TitleCollectionViewCell.xib */,
+				B8F6484B1C9422AE001A3119 /* AppointmentCollectionView.h */,
+				B8F6484C1C9422AE001A3119 /* AppointmentCollectionView.m */,
+				B8F6484D1C9422AE001A3119 /* AppointmentCollectionViewCell.h */,
+				B8F6484E1C9422AE001A3119 /* AppointmentCollectionViewCell.m */,
+				B8F6484F1C9422AE001A3119 /* AppointmentCollectionViewCell.xib */,
+				B8F648501C9422AE001A3119 /* TitleCollectionViewCell.h */,
+				B8F648511C9422AE001A3119 /* TitleCollectionViewCell.m */,
+				B8F648521C9422AE001A3119 /* TitleCollectionViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3507,7 +3499,7 @@
 				B804FD5C1C8AC9A900DFD1CF /* tusiji_12.gif in Resources */,
 				B8F2D9A21C5C8B1A002C7712 /* README in Resources */,
 				B804FDAF1C8AC9A900DFD1CF /* voice@2x.png in Resources */,
-				B8F648371C93B7E4001A3119 /* AppointmentViewController.xib in Resources */,
+				B8F648541C9422AE001A3119 /* AppointmentViewController.xib in Resources */,
 				B804FD761C8AC9A900DFD1CF /* face@2x.png in Resources */,
 				B804FD891C8AC9A900DFD1CF /* multiMedia_HL@2x.png in Resources */,
 				B804FDA91C8AC9A900DFD1CF /* sharemore_pic@2x.png in Resources */,
@@ -3541,7 +3533,7 @@
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B804FD461C8AC9A900DFD1CF /* rabbit_2_cover@2x.png in Resources */,
 				B804FD351C8AC9A900DFD1CF /* rabbit_15_cover@2x.png in Resources */,
-				B8F648451C93F5F5001A3119 /* TitleCollectionViewCell.xib in Resources */,
+				B8F648591C9422AE001A3119 /* TitleCollectionViewCell.xib in Resources */,
 				B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
@@ -3671,7 +3663,7 @@
 				B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */,
 				B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */,
 				B804FD2F1C8AC9A900DFD1CF /* rabbit_12_cover@2x.png in Resources */,
-				B8F648401C93E584001A3119 /* AppointmentCollectionViewCell.xib in Resources */,
+				B8F648571C9422AE001A3119 /* AppointmentCollectionViewCell.xib in Resources */,
 				B804FD391C8AC9A900DFD1CF /* rabbit_17_cover@2x.png in Resources */,
 				B804FD541C8AC9A900DFD1CF /* rabbit_9_cover@2x.png in Resources */,
 				B804FD6B1C8AC9A900DFD1CF /* tusiji_5.gif in Resources */,
@@ -3929,7 +3921,7 @@
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
 				B8F2D9A81C5C8D13002C7712 /* JBSXRCUnitTileView.m in Sources */,
-				B8F648361C93B7E4001A3119 /* AppointmentViewController.m in Sources */,
+				B8F648531C9422AE001A3119 /* AppointmentViewController.m in Sources */,
 				B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */,
 				B6118D881C92AABD000581B1 /* ShopDetailCommentTableViewCell.m in Sources */,
 				B8F8804A1C92634100B5DA18 /* ShopViewController.m in Sources */,
@@ -3961,8 +3953,8 @@
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
-				B8F6483F1C93E584001A3119 /* AppointmentCollectionViewCell.m in Sources */,
-				B8F648441C93F5F5001A3119 /* TitleCollectionViewCell.m in Sources */,
+				B8F648561C9422AE001A3119 /* AppointmentCollectionViewCell.m in Sources */,
+				B8F648581C9422AE001A3119 /* TitleCollectionViewCell.m in Sources */,
 				B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */,
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
@@ -4068,7 +4060,7 @@
 				B8FD3E271C8A7903007BCA6B /* XHShareMenuView.m in Sources */,
 				B8FD3DF71C8A7903007BCA6B /* XHVideoOutputSampleBufferFactory.m in Sources */,
 				B8F2D9A11C5C8B1A002C7712 /* NSDate+Calendar.m in Sources */,
-				B8F6483B1C93C2B4001A3119 /* AppointmentCollectionView.m in Sources */,
+				B8F648551C9422AE001A3119 /* AppointmentCollectionView.m in Sources */,
 				B8FD3E1D1C8A7903007BCA6B /* XHMessageStatusView.m in Sources */,
 				B8FD3CBE1C8A77EB007BCA6B /* CDChatManager.m in Sources */,
 				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
