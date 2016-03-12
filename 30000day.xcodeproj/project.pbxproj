@@ -19,12 +19,8 @@
 		B6118D571C92998B000581B1 /* ShopDetailHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D551C92998B000581B1 /* ShopDetailHeadTableViewCell.xib */; };
 		B6118D5B1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D591C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m */; };
 		B6118D5C1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D5A1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib */; };
-		B6118D6A1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */; };
-		B6118D6B1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */; };
 		B6118D881C92AABD000581B1 /* ShopDetailCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */; };
 		B6118D891C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */; };
-		B6118D8D1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */; };
-		B6118D8E1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */; };
 		B6118DBA1C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */; };
 		B6118DBB1C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */; };
 		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
@@ -557,15 +553,9 @@
 		B6118D581C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailOneLineDataTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118D591C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailOneLineDataTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118D5A1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailOneLineDataTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B6118D671C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailCommentHeadTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailCommentHeadTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailCommentHeadTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentHeadTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B6118D851C92AABD000581B1 /* ShopDetailCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailCommentTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailCommentTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailCommentTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailCommentTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		B6118D8A1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailRecommendTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailRecommendTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailRecommendTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailRecommendTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B6118DB71C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopDetailOneLineDataNoImageViewTableViewCell.h; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopDetailOneLineDataNoImageViewTableViewCell.m; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopDetailOneLineDataNoImageViewTableViewCell.xib; path = 30000day/1.HomePage/1.MainPage/controller/ShopDetailOneLineDataNoImageViewTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2638,15 +2628,9 @@
 				B6118DB71C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.h */,
 				B6118DB81C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m */,
 				B6118DB91C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */,
-				B6118D671C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.h */,
-				B6118D681C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m */,
-				B6118D691C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib */,
 				B6118D851C92AABD000581B1 /* ShopDetailCommentTableViewCell.h */,
 				B6118D861C92AABD000581B1 /* ShopDetailCommentTableViewCell.m */,
 				B6118D871C92AABD000581B1 /* ShopDetailCommentTableViewCell.xib */,
-				B6118D8A1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.h */,
-				B6118D8B1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m */,
-				B6118D8C1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3446,7 +3430,6 @@
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
 				B804FDAC1C8AC9A900DFD1CF /* sharemore_voiceinput@2x.png in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
-				B6118D6B1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.xib in Resources */,
 				B804FD951C8AC9A900DFD1CF /* RecordingSignal001@2x.png in Resources */,
 				B804FD271C8AC9A900DFD1CF /* rabbit_0.gif in Resources */,
 				B804FD911C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
@@ -3584,7 +3567,6 @@
 				B804FD3A1C8AC9A900DFD1CF /* rabbit_18.gif in Resources */,
 				B804FD941C8AC9A900DFD1CF /* RecordingBkg@2x.png in Resources */,
 				B804FD7A1C8AC9A900DFD1CF /* input-bar-background.png in Resources */,
-				B6118D8E1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.xib in Resources */,
 				B89216CD1C61E6A90023F8A8 /* UserHeadViewTableViewCell.xib in Resources */,
 				B8FD3AD81C852BE3007BCA6B /* ChangePasswordViewController.xib in Resources */,
 				B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */,
@@ -3840,7 +3822,6 @@
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
-				B6118D6A1C929BCD000581B1 /* ShopDetailCommentHeadTableViewCell.m in Sources */,
 				B6118D5B1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
@@ -3911,7 +3892,6 @@
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
-				B6118D8D1C92AB20000581B1 /* ShopDetailRecommendTableViewCell.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
