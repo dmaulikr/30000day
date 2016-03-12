@@ -91,6 +91,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="77p-Aj-sWu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="FZy-7O-0lJ" kind="relationship" relationship="rootViewController" id="LER-3C-dvj"/>
@@ -186,6 +187,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L6G-Q8-Itj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Z1b-FS-tzv" kind="relationship" relationship="rootViewController" id="Mk1-Kl-xEa"/>

@@ -10,10 +10,10 @@
 #import "STDropdownMenu.h"
 #import "DOPDropDownMenu.h"
 #import "ShopListTableViewCell.h"
-#import "ShopDetailTableViewController.h"
+#import "ShopDetailViewController.h"
+#import "SearchViewController.h"
 
-
-@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 
@@ -76,6 +76,10 @@
     searchBar.searchBarStyle = UISearchBarStyleMinimal;
     
     searchBar.placeholder = @"搜索";
+    
+    searchBar.delegate = self;
+    
+    searchBar.translucent = YES;
     
     self.searchBar = searchBar;
     
@@ -374,7 +378,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ShopDetailTableViewController *controller = [[ShopDetailTableViewController alloc] init];
+    ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
@@ -388,6 +392,20 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [self.searchBar resignFirstResponder];
+}
+
+#pragma ---
+#pragma mark -- UISearchBarDelegate
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    
+    SearchViewController *controller = [[SearchViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    return NO;
 }
 
 /*

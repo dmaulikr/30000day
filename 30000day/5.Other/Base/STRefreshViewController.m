@@ -29,8 +29,6 @@
     
     _tableViewStyle = tableViewStyle;
     
-    self.tableView = nil;
-    
     if (_tableViewStyle == STRefreshTableViewPlain) {
         
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];

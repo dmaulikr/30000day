@@ -138,7 +138,7 @@
     
     self.imageViewHeightConstraint = [imageViewConstraint_V lastObject];
     
-    self.backgroundColor = RGBACOLOR(230, 230, 230, 0.3);
+    self.backgroundColor = RGBACOLOR(200, 200, 200, 0.3);
     
 }
 
