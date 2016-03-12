@@ -8,7 +8,7 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController () <UITextFieldDelegate>
+@interface SearchViewController () <UISearchBarDelegate>
 
 @property (nonatomic,strong) UISearchBar *searchBar;
 
@@ -22,17 +22,13 @@
     [self configUI];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
-//    [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
-    
     [self.searchBar setValue:[UIColor whiteColor] forKeyPath:@"_searchField.textColor"];
-    
 }
 
--  (void)configUI {
+- (void)configUI {
     
     //1.初始化searchBar
     UISearchBar *searchBar = [[UISearchBar alloc] init];
@@ -50,12 +46,6 @@
     self.navigationItem.titleView = searchBar;
 
     self.searchBar = searchBar;
-    
-//    searchBar.textColor = [UIColor darkGrayColor];
-    
-//    searchBar.backgroundColor = RGBACOLOR(230, 230, 230, 230);
-    
-//    searchBar.frame = CGRectMake(0, 0, 250, 44);
     
     //设置搜索
     UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
