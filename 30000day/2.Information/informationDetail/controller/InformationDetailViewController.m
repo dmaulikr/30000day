@@ -21,8 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"详情";
-    
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"举报" style:UIBarButtonItemStylePlain target:self action:@selector(barButtonAction)];
+
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonAction)];
     
     self.navigationItem.rightBarButtonItem = barButton;
 }
