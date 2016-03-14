@@ -388,6 +388,7 @@
 		B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */; };
 		B8F73C641C96959A0063CC60 /* InformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */; };
 		B8F73C661C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C651C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png */; };
+		B8F73C6E1C96A75E0063CC60 /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C6D1C96A75E0063CC60 /* STInputView.m */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
@@ -1094,6 +1095,8 @@
 		B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationTableViewCell.xib; sourceTree = "<group>"; };
 		B8F73C651C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "547A57CD-AD5C-4599-A54B-D3C1A6D07615.png"; sourceTree = "<group>"; };
+		B8F73C6C1C96A75E0063CC60 /* STInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputView.h; sourceTree = "<group>"; };
+		B8F73C6D1C96A75E0063CC60 /* STInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STInputView.m; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
@@ -1847,6 +1850,8 @@
 				B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */,
 				B8F880501C92A75600B5DA18 /* STRefreshViewController.h */,
 				B8F880511C92A75700B5DA18 /* STRefreshViewController.m */,
+				B8F73C6C1C96A75E0063CC60 /* STInputView.h */,
+				B8F73C6D1C96A75E0063CC60 /* STInputView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -4139,6 +4144,7 @@
 				B8FD3E971C8A8408007BCA6B /* CDIMService.m in Sources */,
 				B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
+				B8F73C6E1C96A75E0063CC60 /* STInputView.m in Sources */,
 				B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
