@@ -22,9 +22,35 @@
     [super viewDidLoad];
     self.title = @"详情";
 
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    self.isShowBackItem = YES;
+    
+    self.isShowFootRefresh = NO;
+    
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonAction)];
     
     self.navigationItem.rightBarButtonItem = barButton;
+}
+
+#pragma ---
+#pragma mark --- 上啦刷新和下拉刷新
+
+- (void)headerRefreshing {
+    
+    [self.tableView.mj_header endRefreshing];
+}
+
+- (void)footerRereshing {
+    
+    [self.tableView.mj_footer endRefreshing];
+    
 }
 
 - (void)barButtonAction {
