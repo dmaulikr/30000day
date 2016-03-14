@@ -16,7 +16,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    if (self.success) {
+        
+        [self.ReportImageView setImage:[UIImage imageNamed:@"reportSuccess"]];
+        [self.ReportLable setText:@"举报成功！\n感谢您的帮助，客服人员将尽快处理。"];
+        
+    } else {
+    
+        [self.ReportImageView setImage:[UIImage imageNamed:@"fail"]];
+        [self.ReportLable setText:@"举报失败！\n未知原因请稍后再试。"];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
