@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InformationDetailViewController">
             <connections>
+                <outlet property="tableView" destination="9F4-7n-Ulk" id="iQQ-yO-278"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,9 +15,25 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="9F4-7n-Ulk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="jSr-jd-I6o"/>
+                        <outlet property="delegate" destination="-1" id="r7a-uh-Lvk"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9F4-7n-Ulk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1fy-8g-ff8"/>
+                <constraint firstAttribute="bottom" secondItem="9F4-7n-Ulk" secondAttribute="bottom" constant="50" id="Hdj-se-s5w"/>
+                <constraint firstAttribute="trailing" secondItem="9F4-7n-Ulk" secondAttribute="trailing" id="Qfd-65-Wf7"/>
+                <constraint firstItem="9F4-7n-Ulk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zUH-76-RPs"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="219" y="-78"/>
+            <point key="canvasLocation" x="230" y="-157"/>
         </view>
     </objects>
 </document>

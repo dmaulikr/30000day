@@ -9,5 +9,6 @@
 #import "ShowBackItemViewController.h"
 
 @interface InformationDetailViewController : ShowBackItemViewController
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
