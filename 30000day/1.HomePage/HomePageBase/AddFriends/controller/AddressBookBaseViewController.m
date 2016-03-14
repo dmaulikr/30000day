@@ -166,6 +166,11 @@
      self.backgroundView.hidden = [searchText isEqualToString:@""] ? NO:YES;
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    
+}
+
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

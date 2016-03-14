@@ -1,17 +1,19 @@
 //
-//  InfomationTableViewCell.m
+//  SubscribeListTableViewCell.m
 //  30000day
 //
-//  Created by wei on 16/2/23.
+//  Created by GuoJia on 16/3/14.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "InfomationTableViewCell.h"
+#import "SubscribeListTableViewCell.h"
 
-@implementation InfomationTableViewCell
+@implementation SubscribeListTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.willShowImageView.layer.cornerRadius = 3;
+    
+    self.willShowImageView.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

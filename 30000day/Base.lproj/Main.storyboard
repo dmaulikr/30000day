@@ -27,38 +27,6 @@
             </objects>
             <point key="canvasLocation" x="-884" y="-10"/>
         </scene>
-        <!--资讯-->
-        <scene sceneID="gDt-XC-b9s">
-            <objects>
-                <tableViewController id="Bf6-G7-G8W" userLabel="资讯" customClass="InfomationTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="XOl-vK-RC7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aWj-MF-y6h">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aWj-MF-y6h" id="AWn-cS-RAI">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Bf6-G7-G8W" id="Hsl-GY-Opl"/>
-                            <outlet property="delegate" destination="Bf6-G7-G8W" id="4fK-4d-uxa"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="资讯" image="information" selectedImage="selectInformation" id="tEV-ZO-hmL"/>
-                    <navigationItem key="navigationItem" id="Ym8-J3-tza"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L7i-w1-6Wu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="98" y="294"/>
-        </scene>
         <!--我的-->
         <scene sceneID="NHt-ow-qou">
             <objects>
@@ -91,7 +59,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="77p-Aj-sWu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="FZy-7O-0lJ" kind="relationship" relationship="rootViewController" id="LER-3C-dvj"/>
@@ -170,12 +137,43 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Bf6-G7-G8W" kind="relationship" relationship="rootViewController" id="3pb-uc-hsq"/>
+                        <segue destination="QJm-Xh-jgR" kind="relationship" relationship="rootViewController" id="AEA-cn-pJd"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9g-61-0Wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-340" y="294"/>
+        </scene>
+        <!--资讯-->
+        <scene sceneID="oVM-q3-9WT">
+            <objects>
+                <viewController id="QJm-Xh-jgR" customClass="InformationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yMI-ng-iiS"/>
+                        <viewControllerLayoutGuide type="bottom" id="FIg-gT-d1M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TLp-6S-55c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="资讯" image="information" id="z1L-MA-CDe"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="a9b-r1-c8g">
+                        <barButtonItem key="rightBarButtonItem" title="订阅中心" style="plain" id="2mb-AW-pB1">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="swithToSubscribe:" destination="QJm-Xh-jgR" id="wCD-v6-9xb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zyM-BF-s0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="108" y="285"/>
         </scene>
         <!--Item-->
         <scene sceneID="UBb-NB-YJw">
@@ -187,7 +185,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L6G-Q8-Itj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Z1b-FS-tzv" kind="relationship" relationship="rootViewController" id="Mk1-Kl-xEa"/>
@@ -226,7 +223,6 @@
         <image name="mall" width="25" height="25"/>
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
-        <image name="selectInformation" width="25" height="25"/>
         <image name="selectMy" width="25" height="25"/>
     </resources>
 </document>

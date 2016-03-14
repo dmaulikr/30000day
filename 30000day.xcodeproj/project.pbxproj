@@ -33,8 +33,6 @@
 		B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */; };
 		B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */; };
 		B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */; };
-		B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */; };
-		B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */; };
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
@@ -240,7 +238,6 @@
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
 		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
 		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
-		B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91891C5A08810089BEAE /* InfomationTableViewController.m */; };
 		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
 		B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91B21C5B00500089BEAE /* MyTableViewController.m */; };
 		B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */; };
@@ -372,6 +369,22 @@
 		B8F648AC1C9498F0001A3119 /* ShopListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648A61C9498F0001A3119 /* ShopListTableViewCell.m */; };
 		B8F648AD1C9498F0001A3119 /* ShopListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648A71C9498F0001A3119 /* ShopListTableViewCell.xib */; };
 		B8F648AE1C9498F0001A3119 /* STDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648A91C9498F0001A3119 /* STDropdownMenu.m */; };
+		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
+		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
+		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
+		B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3E1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png */; };
+		B8F73C411C9658940063CC60 /* 903ED829-0909-47D9-9E70-0AEDA7AF1E88.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C401C9658940063CC60 /* 903ED829-0909-47D9-9E70-0AEDA7AF1E88.png */; };
+		B8F73C441C965D440063CC60 /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C431C965D440063CC60 /* SubscribeViewController.m */; };
+		B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */; };
+		B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */; };
+		B8F73C4B1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */; };
+		B8F73C4D1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */; };
+		B8F73C511C9689640063CC60 /* MySubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */; };
+		B8F73C521C9689640063CC60 /* MySubscribeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */; };
+		B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C571C968CC20063CC60 /* ReportViewController.m */; };
+		B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C581C968CC20063CC60 /* ReportViewController.xib */; };
+		B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */; };
+		B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
@@ -591,9 +604,6 @@
 		B6171DCF1C8D7ADF00116B13 /* EmailBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewController.h; sourceTree = "<group>"; };
 		B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewController.m; sourceTree = "<group>"; };
 		B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewController.xib; sourceTree = "<group>"; };
-		B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewCell.h; sourceTree = "<group>"; };
-		B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewCell.m; sourceTree = "<group>"; };
-		B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewSuccessAndFailController.h; sourceTree = "<group>"; };
@@ -828,8 +838,6 @@
 		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B88C91671C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B88C91691C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		B88C91881C5A08810089BEAE /* InfomationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationTableViewController.h; sourceTree = "<group>"; };
-		B88C91891C5A08810089BEAE /* InfomationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationTableViewController.m; sourceTree = "<group>"; };
 		B88C91941C5A09790089BEAE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B88C91991C5A0B620089BEAE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B88C91B11C5B00500089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
@@ -1056,6 +1064,29 @@
 		B8F648A71C9498F0001A3119 /* ShopListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopListTableViewCell.xib; sourceTree = "<group>"; };
 		B8F648A81C9498F0001A3119 /* STDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDropdownMenu.h; sourceTree = "<group>"; };
 		B8F648A91C9498F0001A3119 /* STDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDropdownMenu.m; sourceTree = "<group>"; };
+		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
+		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
+		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
+		B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationListTableViewCell.m; sourceTree = "<group>"; };
+		B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationListTableViewCell.xib; sourceTree = "<group>"; };
+		B8F73C3E1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png"; sourceTree = "<group>"; };
+		B8F73C401C9658940063CC60 /* 903ED829-0909-47D9-9E70-0AEDA7AF1E88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "903ED829-0909-47D9-9E70-0AEDA7AF1E88.png"; sourceTree = "<group>"; };
+		B8F73C421C965D440063CC60 /* SubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeViewController.h; sourceTree = "<group>"; };
+		B8F73C431C965D440063CC60 /* SubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
+		B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeListTableViewCell.h; sourceTree = "<group>"; };
+		B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeListTableViewCell.m; sourceTree = "<group>"; };
+		B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeListTableViewCell.xib; sourceTree = "<group>"; };
+		B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "947AA1C0-26DB-4962-A185-0D23C505D417.png"; sourceTree = "<group>"; };
+		B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png"; sourceTree = "<group>"; };
+		B8F73C4E1C9689640063CC60 /* MySubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySubscribeViewController.h; sourceTree = "<group>"; };
+		B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySubscribeViewController.m; sourceTree = "<group>"; };
+		B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySubscribeViewController.xib; sourceTree = "<group>"; };
+		B8F73C561C968CC20063CC60 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		B8F73C571C968CC20063CC60 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		B8F73C581C968CC20063CC60 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
+		B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailViewController.h; sourceTree = "<group>"; };
+		B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailViewController.m; sourceTree = "<group>"; };
+		B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailViewController.xib; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
@@ -1503,16 +1534,6 @@
 			path = BindOnAccountCell;
 			sourceTree = "<group>";
 		};
-		B61B09921C7C529600FFA946 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				B61B09931C7C529600FFA946 /* InfomationTableViewCell.h */,
-				B61B09941C7C529600FFA946 /* InfomationTableViewCell.m */,
-				B61B09951C7C529600FFA946 /* InfomationTableViewCell.xib */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		B6A5E7631C61AA6A00A4322D /* AddFriends */ = {
 			isa = PBXGroup;
 			children = (
@@ -1902,7 +1923,10 @@
 		B88C916C1C59FF490089BEAE /* 2.Information */ = {
 			isa = PBXGroup;
 			children = (
-				B88C917B1C5A07DA0089BEAE /* controller */,
+				B8F73C2D1C9651760063CC60 /* base */,
+				B8F73C301C9651760063CC60 /* informationDetail */,
+				B8F73C331C9651760063CC60 /* subscribe */,
+				B8F73C531C968CAF0063CC60 /* report */,
 			);
 			path = 2.Information;
 			sourceTree = "<group>";
@@ -2027,16 +2051,6 @@
 				B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		B88C917B1C5A07DA0089BEAE /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				B88C91881C5A08810089BEAE /* InfomationTableViewController.h */,
-				B88C91891C5A08810089BEAE /* InfomationTableViewController.m */,
-				B61B09921C7C529600FFA946 /* view */,
-			);
-			path = controller;
 			sourceTree = "<group>";
 		};
 		B88C91841C5A084F0089BEAE /* HomePageBase */ = {
@@ -2677,6 +2691,121 @@
 				B8F648A71C9498F0001A3119 /* ShopListTableViewCell.xib */,
 				B8F648A81C9498F0001A3119 /* STDropdownMenu.h */,
 				B8F648A91C9498F0001A3119 /* STDropdownMenu.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B8F73C2D1C9651760063CC60 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C2E1C9651760063CC60 /* controller */,
+				B8F73C2F1C9651760063CC60 /* view */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		B8F73C2E1C9651760063CC60 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C361C96519F0063CC60 /* InformationViewController.h */,
+				B8F73C371C96519F0063CC60 /* InformationViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8F73C2F1C9651760063CC60 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */,
+				B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */,
+				B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */,
+				B8F73C3E1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png */,
+				B8F73C401C9658940063CC60 /* 903ED829-0909-47D9-9E70-0AEDA7AF1E88.png */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B8F73C301C9651760063CC60 /* informationDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C311C9651760063CC60 /* controller */,
+				B8F73C321C9651760063CC60 /* view */,
+			);
+			path = informationDetail;
+			sourceTree = "<group>";
+		};
+		B8F73C311C9651760063CC60 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */,
+				B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */,
+				B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8F73C321C9651760063CC60 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B8F73C331C9651760063CC60 /* subscribe */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C341C9651760063CC60 /* controller */,
+				B8F73C351C9651760063CC60 /* view */,
+			);
+			path = subscribe;
+			sourceTree = "<group>";
+		};
+		B8F73C341C9651760063CC60 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C421C965D440063CC60 /* SubscribeViewController.h */,
+				B8F73C431C965D440063CC60 /* SubscribeViewController.m */,
+				B8F73C4E1C9689640063CC60 /* MySubscribeViewController.h */,
+				B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */,
+				B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8F73C351C9651760063CC60 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */,
+				B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */,
+				B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */,
+				B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */,
+				B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B8F73C531C968CAF0063CC60 /* report */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C541C968CAF0063CC60 /* controller */,
+				B8F73C551C968CAF0063CC60 /* view */,
+			);
+			path = report;
+			sourceTree = "<group>";
+		};
+		B8F73C541C968CAF0063CC60 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8F73C561C968CC20063CC60 /* ReportViewController.h */,
+				B8F73C571C968CC20063CC60 /* ReportViewController.m */,
+				B8F73C581C968CC20063CC60 /* ReportViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8F73C551C968CAF0063CC60 /* view */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3535,6 +3664,7 @@
 				B804FD891C8AC9A900DFD1CF /* multiMedia_HL@2x.png in Resources */,
 				B804FDA91C8AC9A900DFD1CF /* sharemore_pic@2x.png in Resources */,
 				B8FD3EBE1C8A8440007BCA6B /* CDLabelButtonTableCell.xib in Resources */,
+				B8F73C4B1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png in Resources */,
 				B804FDA71C8AC9A900DFD1CF /* sharemore_myfav@2x.png in Resources */,
 				B804FD4E1C8AC9A900DFD1CF /* rabbit_6_cover@2x.png in Resources */,
 				B804FDB71C8AC9A900DFD1CF /* weChatBubble_Sending_LeanChat@2x.png in Resources */,
@@ -3558,6 +3688,7 @@
 				B804FD481C8AC9A900DFD1CF /* rabbit_3_cover@2x.png in Resources */,
 				B804FD831C8AC9A900DFD1CF /* messageSendFail@2x.png in Resources */,
 				B804FD9A1C8AC9A900DFD1CF /* RecordingSignal006@2x.png in Resources */,
+				B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */,
 				B804FD2B1C8AC9A900DFD1CF /* rabbit_10_cover@2x.png in Resources */,
 				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
 				B804FD4D1C8AC9A900DFD1CF /* rabbit_6.gif in Resources */,
@@ -3591,11 +3722,11 @@
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B8F648AB1C9498F0001A3119 /* EFAC60DE-6228-43CE-9587-F1BD129C9FF6.png in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
-				B61B09971C7C529600FFA946 /* InfomationTableViewCell.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B804FD931C8AC9A900DFD1CF /* RecordCancel@2x.png in Resources */,
 				B8F648871C942C9F001A3119 /* PersonInformationTableViewCell.xib in Resources */,
 				B804FD401C8AC9A900DFD1CF /* rabbit_20.gif in Resources */,
+				B8F73C411C9658940063CC60 /* 903ED829-0909-47D9-9E70-0AEDA7AF1E88.png in Resources */,
 				B804FD2E1C8AC9A900DFD1CF /* rabbit_12.gif in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
 				B804FD781C8AC9A900DFD1CF /* Fav_Cell_Loc@2x.png in Resources */,
@@ -3608,10 +3739,12 @@
 				B8F6482F1C93A9C3001A3119 /* ShopDetailViewController.xib in Resources */,
 				B804FD8A1C8AC9A900DFD1CF /* MultiSelectedPanelBkg@2x.png in Resources */,
 				B804FD9B1C8AC9A900DFD1CF /* RecordingSignal007@2x.png in Resources */,
+				B8F73C4D1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png in Resources */,
 				B804FD4B1C8AC9A900DFD1CF /* rabbit_5.gif in Resources */,
 				B6118D571C92998B000581B1 /* ShopDetailHeadTableViewCell.xib in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
+				B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
 				B804FD331C8AC9A900DFD1CF /* rabbit_14_cover@2x.png in Resources */,
 				B804FD741C8AC9A900DFD1CF /* tusiji_9_cover@2x.png in Resources */,
@@ -3630,6 +3763,7 @@
 				B804FD321C8AC9A900DFD1CF /* rabbit_14.gif in Resources */,
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B804FD881C8AC9A900DFD1CF /* multiMedia@2x.png in Resources */,
+				B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */,
 				B6118D5C1C929A46000581B1 /* ShopDetailOneLineDataTableViewCell.xib in Resources */,
 				B804FD641C8AC9A900DFD1CF /* tusiji_1_cover@2x.png in Resources */,
 				B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */,
@@ -3644,6 +3778,7 @@
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B804FD3B1C8AC9A900DFD1CF /* rabbit_18_cover@2x.png in Resources */,
 				B804FD231C8AC9A900DFD1CF /* contacts_add_scan@2x.png in Resources */,
+				B8F73C521C9689640063CC60 /* MySubscribeViewController.xib in Resources */,
 				B804FD801C8AC9A900DFD1CF /* keyborad@2x.png in Resources */,
 				B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */,
 				B804FD431C8AC9A900DFD1CF /* rabbit_21_cover@2x.png in Resources */,
@@ -3651,6 +3786,7 @@
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B804FD841C8AC9A900DFD1CF /* MessageVideoPlay@2x.png in Resources */,
 				B804FD2D1C8AC9A900DFD1CF /* rabbit_11_cover@2x.png in Resources */,
+				B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */,
 				B8F648821C942B0A001A3119 /* AppointmentConfirmViewController.xib in Resources */,
 				B804FD591C8AC9A900DFD1CF /* tusiji_10_cover@2x.png in Resources */,
 				B804FD241C8AC9A900DFD1CF /* contacts_add_voip@2x.png in Resources */,
@@ -3739,6 +3875,7 @@
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B804FD3C1C8AC9A900DFD1CF /* rabbit_19.gif in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
+				B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */,
 				B804FD371C8AC9A900DFD1CF /* rabbit_16_cover@2x.png in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
 				B804FDB41C8AC9A900DFD1CF /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
@@ -3845,7 +3982,6 @@
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
-				B61B09961C7C529600FFA946 /* InfomationTableViewCell.m in Sources */,
 				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
 				B8FD3DEA1C8A7903007BCA6B /* XHDisplayEmotionViewController.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
@@ -3869,7 +4005,6 @@
 				B8FD3E741C8A8353007BCA6B /* CDBaseTableVC.m in Sources */,
 				B8FD3DE41C8A7903007BCA6B /* XHVoiceCommonHelper.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
-				B88C918A1C5A08810089BEAE /* InfomationTableViewController.m in Sources */,
 				B8FD3DF91C8A7903007BCA6B /* XHAnnotation.m in Sources */,
 				B8FD3DFE1C8A7903007BCA6B /* XHShareMenuItem.m in Sources */,
 				B8F648AE1C9498F0001A3119 /* STDropdownMenu.m in Sources */,
@@ -3925,6 +4060,7 @@
 				B8F6489D1C949721001A3119 /* TitleCollectionViewCell.m in Sources */,
 				B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
+				B8F73C511C9689640063CC60 /* MySubscribeViewController.m in Sources */,
 				B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */,
 				B8F2D99F1C5C8B1A002C7712 /* JBWeekdaysBarView.m in Sources */,
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
@@ -3989,6 +4125,7 @@
 				B8FD3E971C8A8408007BCA6B /* CDIMService.m in Sources */,
 				B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
+				B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
 				B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */,
@@ -4008,6 +4145,7 @@
 				B8F648AC1C9498F0001A3119 /* ShopListTableViewCell.m in Sources */,
 				B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
+				B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */,
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
@@ -4016,6 +4154,7 @@
 				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
 				B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */,
 				B8FD3DED1C8A7903007BCA6B /* XHDisplayTextViewController.m in Sources */,
+				B8F73C441C965D440063CC60 /* SubscribeViewController.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
@@ -4042,6 +4181,7 @@
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B8FD3E961C8A8408007BCA6B /* CDCacheManager.m in Sources */,
 				B8FD3E1F1C8A7903007BCA6B /* XHMessageTableViewCell.m in Sources */,
+				B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */,
 				B8FD3EBF1C8A8440007BCA6B /* CDPopMenu.m in Sources */,
 				B8FD3E171C8A7903007BCA6B /* XHWaterDropRefresh.m in Sources */,
 				B8FD3E0D1C8A7903007BCA6B /* SETextMagnifierCaret.m in Sources */,
@@ -4054,6 +4194,7 @@
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
+				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
@@ -4067,6 +4208,7 @@
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,
+				B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */,
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
@@ -4228,7 +4370,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4249,7 +4391,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

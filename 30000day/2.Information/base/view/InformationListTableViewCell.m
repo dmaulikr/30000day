@@ -1,14 +1,14 @@
 //
-//  InfomationTableViewCell.m
+//  InformationListTableViewCell.m
 //  30000day
 //
-//  Created by wei on 16/2/23.
+//  Created by GuoJia on 16/3/14.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "InfomationTableViewCell.h"
+#import "InformationListTableViewCell.h"
 
-@implementation InfomationTableViewCell
+@implementation InformationListTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

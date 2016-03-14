@@ -22,7 +22,6 @@
     [self.view addSubview:self.tableView];
     
     [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
-    
 }
 
 - (void)setTableViewStyle:(STRefreshTableViewStyle)tableViewStyle {
@@ -34,6 +33,7 @@
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
         
         [self.view addSubview:self.tableView];
+    
         
     } else {
         
@@ -41,6 +41,8 @@
         
         [self.view addSubview:self.tableView];
     }
+    
+    [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
 }
 
 #pragma mark - 集成刷新控件

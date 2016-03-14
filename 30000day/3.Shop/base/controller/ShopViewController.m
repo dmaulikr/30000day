@@ -36,7 +36,7 @@
     
     self.tableView.delegate = self;
     
-    self.isShowMapView = NO;
+    self.isShowMapView = NO; 
     
     [self configUI];
 }

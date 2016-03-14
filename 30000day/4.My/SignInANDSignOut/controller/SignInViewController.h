@@ -6,15 +6,12 @@
 //  Copyright (c) 2014年 30000天_001. All rights reserved.
 //
 
-@class CLLocationManager;
 
 @interface SignInViewController : STBaseViewController <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *userPwdTF;
-
-@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UIView *textSubView;
 

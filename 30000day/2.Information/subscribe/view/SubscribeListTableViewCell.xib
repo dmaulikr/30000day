@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="97" id="KGk-i7-Jjw" customClass="SubscribeListTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png" translatesAutoresizingMaskIntoConstraints="NO" id="7YZ-lN-tYP">
+                        <rect key="frame" x="11" y="13" width="55" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="Agh-BK-7QE"/>
+                            <constraint firstAttribute="width" constant="55" id="OEQ-vJ-9X0"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="萌宠岛岛" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIZ-qN-K0F">
+                        <rect key="frame" x="73" y="11" width="157" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天出门有点忙，大事小事一" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lG-uU-SdX">
+                        <rect key="frame" x="73" y="34" width="168" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小李子已订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEH-z8-FHH">
+                        <rect key="frame" x="74" y="54" width="146" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取消订阅" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nm2-6m-p0A">
+                        <rect key="frame" x="254" y="50" width="60" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Uny-Pm-2ua"/>
+                            <constraint firstAttribute="width" constant="60" id="l8K-QK-2o3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oX-j3-r3I">
+                        <rect key="frame" x="268" y="16" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="MtT-F5-cgx"/>
+                            <constraint firstAttribute="height" constant="32" id="yXZ-vO-QMv"/>
+                        </constraints>
+                        <state key="normal" image="icon_unsubscribe"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6lG-uU-SdX" secondAttribute="trailing" constant="79" id="5kp-aj-hZ2"/>
+                    <constraint firstItem="dIZ-qN-K0F" firstAttribute="leading" secondItem="7YZ-lN-tYP" secondAttribute="trailing" constant="7" id="Bgu-u1-u8F"/>
+                    <constraint firstAttribute="trailing" secondItem="9oX-j3-r3I" secondAttribute="trailing" constant="20" id="Cct-kJ-h0V"/>
+                    <constraint firstItem="7YZ-lN-tYP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="JYo-56-Bps"/>
+                    <constraint firstItem="sEH-z8-FHH" firstAttribute="leading" secondItem="7YZ-lN-tYP" secondAttribute="trailing" constant="8" id="LnU-6W-901"/>
+                    <constraint firstAttribute="trailing" secondItem="sEH-z8-FHH" secondAttribute="trailing" constant="100" id="Pwf-fW-iYR"/>
+                    <constraint firstItem="6lG-uU-SdX" firstAttribute="leading" secondItem="7YZ-lN-tYP" secondAttribute="trailing" constant="7" id="WOq-Cn-61G"/>
+                    <constraint firstItem="9oX-j3-r3I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Z9V-c9-ElH"/>
+                    <constraint firstItem="6lG-uU-SdX" firstAttribute="top" secondItem="dIZ-qN-K0F" secondAttribute="bottom" constant="5" id="ZBg-An-b19"/>
+                    <constraint firstItem="7YZ-lN-tYP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="fzl-Rp-MyN"/>
+                    <constraint firstAttribute="trailing" secondItem="Nm2-6m-p0A" secondAttribute="trailing" constant="6" id="iGP-wZ-AZj"/>
+                    <constraint firstAttribute="trailing" secondItem="dIZ-qN-K0F" secondAttribute="trailing" constant="90" id="pM8-Ax-ITM"/>
+                    <constraint firstAttribute="bottom" secondItem="Nm2-6m-p0A" secondAttribute="bottom" constant="9" id="qqE-Bc-g6T"/>
+                    <constraint firstItem="sEH-z8-FHH" firstAttribute="top" secondItem="6lG-uU-SdX" secondAttribute="bottom" constant="2" id="th9-aV-Buj"/>
+                    <constraint firstItem="dIZ-qN-K0F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="xHZ-LW-HYm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="actionButton" destination="9oX-j3-r3I" id="r2d-sh-azT"/>
+                <outlet property="willShowImageView" destination="7YZ-lN-tYP" id="wWP-ag-gKE"/>
+            </connections>
+            <point key="canvasLocation" x="304" y="217.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png" width="61" height="59"/>
+        <image name="icon_unsubscribe" width="32" height="32"/>
+    </resources>
+</document>

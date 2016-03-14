@@ -25,4 +25,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 
+//键盘搜索按钮点击
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+
 @end
