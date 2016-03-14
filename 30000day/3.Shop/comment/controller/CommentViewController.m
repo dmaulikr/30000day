@@ -33,6 +33,9 @@
     
     self.isShowFootRefresh = YES;
     
+    self.isShowBackItem = YES;
+    
+    self.title = @"全部评论";
 }
 
 #pragma mark --- 上啦刷新和下拉刷新
