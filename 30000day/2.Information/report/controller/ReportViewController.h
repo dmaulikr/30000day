@@ -10,4 +10,10 @@
 
 @interface ReportViewController : ShowBackItemViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *ReportImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *ReportLable;
+
+@property (nonatomic,assign) BOOL success;
+
 @end

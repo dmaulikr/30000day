@@ -11,6 +11,7 @@
 #import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentViewController.h"
+#import "ReportViewController.h"
 
 @interface InformationDetailViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -58,6 +59,11 @@
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *first_action = [UIAlertAction actionWithTitle:@"举报" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        ReportViewController *controller = [[ReportViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        controller.success = YES;
+        [self.navigationController pushViewController:controller animated:YES];
         
     }];
                                      
