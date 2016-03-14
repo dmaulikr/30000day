@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PaymentViewController : STRefreshViewController
+@interface PaymentViewController : ShowBackItemViewController
 
 @end

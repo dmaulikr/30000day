@@ -44,6 +44,16 @@
 		B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */; };
 		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
 		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
+		B6F888231C96B4B4003A65FE /* AlipayPaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F888151C96B4B4003A65FE /* AlipayPaymentTableViewCell.m */; };
+		B6F888241C96B4B4003A65FE /* AlipayPaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F888161C96B4B4003A65FE /* AlipayPaymentTableViewCell.xib */; };
+		B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */; };
+		B6F888261C96B4B4003A65FE /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */; };
+		B6F888271C96B4B4003A65FE /* OrderContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */; };
+		B6F888281C96B4B4003A65FE /* OrderContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */; };
+		B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */; };
+		B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */; };
+		B6F8882B1C96B4B4003A65FE /* WeChatPaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F888211C96B4B4003A65FE /* WeChatPaymentTableViewCell.m */; };
+		B6F8882C1C96B4B4003A65FE /* WeChatPaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F888221C96B4B4003A65FE /* WeChatPaymentTableViewCell.xib */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
 		B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */; };
 		B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC781C8AC9A900DFD1CF /* avator@2x.png */; };
@@ -625,6 +635,21 @@
 		B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsTableViewCell.h; sourceTree = "<group>"; };
 		B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsTableViewCell.m; sourceTree = "<group>"; };
 		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		B6F888141C96B4B4003A65FE /* AlipayPaymentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipayPaymentTableViewCell.h; sourceTree = "<group>"; };
+		B6F888151C96B4B4003A65FE /* AlipayPaymentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlipayPaymentTableViewCell.m; sourceTree = "<group>"; };
+		B6F888161C96B4B4003A65FE /* AlipayPaymentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlipayPaymentTableViewCell.xib; sourceTree = "<group>"; };
+		B6F888171C96B4B4003A65FE /* CommodityNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityNameTableViewCell.h; sourceTree = "<group>"; };
+		B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityNameTableViewCell.m; sourceTree = "<group>"; };
+		B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityNameTableViewCell.xib; sourceTree = "<group>"; };
+		B6F8881A1C96B4B4003A65FE /* OrderContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContentTableViewCell.h; sourceTree = "<group>"; };
+		B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContentTableViewCell.m; sourceTree = "<group>"; };
+		B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderContentTableViewCell.xib; sourceTree = "<group>"; };
+		B6F8881D1C96B4B4003A65FE /* PaymentAmountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentAmountTableViewCell.h; sourceTree = "<group>"; };
+		B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentAmountTableViewCell.m; sourceTree = "<group>"; };
+		B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAmountTableViewCell.xib; sourceTree = "<group>"; };
+		B6F888201C96B4B4003A65FE /* WeChatPaymentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatPaymentTableViewCell.h; sourceTree = "<group>"; };
+		B6F888211C96B4B4003A65FE /* WeChatPaymentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatPaymentTableViewCell.m; sourceTree = "<group>"; };
+		B6F888221C96B4B4003A65FE /* WeChatPaymentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeChatPaymentTableViewCell.xib; sourceTree = "<group>"; };
 		B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtn@2x.png"; sourceTree = "<group>"; };
 		B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtnHL@2x.png"; sourceTree = "<group>"; };
 		B804FC781C8AC9A900DFD1CF /* avator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avator@2x.png"; sourceTree = "<group>"; };
@@ -2661,6 +2686,21 @@
 		B8F648701C9424BF001A3119 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B6F888141C96B4B4003A65FE /* AlipayPaymentTableViewCell.h */,
+				B6F888151C96B4B4003A65FE /* AlipayPaymentTableViewCell.m */,
+				B6F888161C96B4B4003A65FE /* AlipayPaymentTableViewCell.xib */,
+				B6F888171C96B4B4003A65FE /* CommodityNameTableViewCell.h */,
+				B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */,
+				B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */,
+				B6F8881A1C96B4B4003A65FE /* OrderContentTableViewCell.h */,
+				B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */,
+				B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */,
+				B6F8881D1C96B4B4003A65FE /* PaymentAmountTableViewCell.h */,
+				B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */,
+				B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */,
+				B6F888201C96B4B4003A65FE /* WeChatPaymentTableViewCell.h */,
+				B6F888211C96B4B4003A65FE /* WeChatPaymentTableViewCell.m */,
+				B6F888221C96B4B4003A65FE /* WeChatPaymentTableViewCell.xib */,
 				B8F648711C9424BF001A3119 /* AppointmentCollectionView.h */,
 				B8F648721C9424BF001A3119 /* AppointmentCollectionView.m */,
 				B8F648731C9424BF001A3119 /* AppointmentCollectionViewCell.h */,
@@ -3761,6 +3801,7 @@
 				B6118D571C92998B000581B1 /* ShopDetailHeadTableViewCell.xib in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
+				B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */,
 				B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
 				B804FD331C8AC9A900DFD1CF /* rabbit_14_cover@2x.png in Resources */,
@@ -3810,6 +3851,7 @@
 				B804FD241C8AC9A900DFD1CF /* contacts_add_voip@2x.png in Resources */,
 				B804FD721C8AC9A900DFD1CF /* tusiji_8_cover@2x.png in Resources */,
 				B804FD221C8AC9A900DFD1CF /* contacts_add_photo@2x.png in Resources */,
+				B6F888281C96B4B4003A65FE /* OrderContentTableViewCell.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B8FD3AE71C868A83007BCA6B /* icon_chose_bottom@2x.png in Resources */,
@@ -3855,9 +3897,11 @@
 				B804FD6B1C8AC9A900DFD1CF /* tusiji_5.gif in Resources */,
 				B804FD491C8AC9A900DFD1CF /* rabbit_4.gif in Resources */,
 				B804FD1D1C8AC9A900DFD1CF /* CellGraySelected@2x.png in Resources */,
+				B6F888261C96B4B4003A65FE /* CommodityNameTableViewCell.xib in Resources */,
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */,
 				B804FD8B1C8AC9A900DFD1CF /* MultiSelectedPanelConfirmBtnbKG@2x.png in Resources */,
+				B6F888241C96B4B4003A65FE /* AlipayPaymentTableViewCell.xib in Resources */,
 				B804FDA01C8AC9A900DFD1CF /* SenderVoiceNodePlaying000@2x.png in Resources */,
 				B804FD6C1C8AC9A900DFD1CF /* tusiji_5_cover@2x.png in Resources */,
 				B8F6489E1C949721001A3119 /* TitleCollectionViewCell.xib in Resources */,
@@ -3898,6 +3942,7 @@
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
 				B804FDB41C8AC9A900DFD1CF /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
 				B804FDA11C8AC9A900DFD1CF /* SenderVoiceNodePlaying001@2x.png in Resources */,
+				B6F8882C1C96B4B4003A65FE /* WeChatPaymentTableViewCell.xib in Resources */,
 				B8365A581C71A53500063269 /* HeadViewTableViewCell.xib in Resources */,
 				B804FD691C8AC9A900DFD1CF /* tusiji_4.gif in Resources */,
 				B8F2DA451C5F3D04002C7712 /* InputAccountViewController.xib in Resources */,
@@ -4003,10 +4048,12 @@
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
 				B8FD3DEA1C8A7903007BCA6B /* XHDisplayEmotionViewController.m in Sources */,
+				B6F8882B1C96B4B4003A65FE /* WeChatPaymentTableViewCell.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B6118DBA1C92D198000581B1 /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
+				B6F888231C96B4B4003A65FE /* AlipayPaymentTableViewCell.m in Sources */,
 				B8FD3E861C8A83A6007BCA6B /* CDUser.m in Sources */,
 				B8FD3DF11C8A7903007BCA6B /* XHHTTPClient.m in Sources */,
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
@@ -4018,6 +4065,7 @@
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
 				B8FD3E1C1C8A7903007BCA6B /* XHMessageDisplayTextView.m in Sources */,
 				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
+				B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
 				B8FD3CC21C8A77EB007BCA6B /* CDMessageHelper.m in Sources */,
 				B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */,
@@ -4128,6 +4176,7 @@
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,
 				B8FD3E8A1C8A83D1007BCA6B /* LZPushManager.m in Sources */,
 				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
+				B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */,
 				B8FD3E191C8A7903007BCA6B /* XHBaseTableViewCell.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */,
@@ -4225,6 +4274,7 @@
 				B8F2D99C1C5C8B1A002C7712 /* JBUnitGridView.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
 				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
+				B6F888271C96B4B4003A65FE /* OrderContentTableViewCell.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,

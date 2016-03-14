@@ -8,6 +8,7 @@
 
 #import "AppointmentConfirmViewController.h"
 #import "PersonInformationTableViewCell.h"
+#import "PaymentViewController.h"
 
 @interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -18,6 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"支付" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
+    
+    rightButton.tintColor = [UIColor darkGrayColor];
+    
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+- (void)rightButtonAction {
+    
+    PaymentViewController *controller = [[PaymentViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
