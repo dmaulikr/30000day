@@ -28,6 +28,9 @@ typedef enum {
 //是否显示上拉刷新，默认是YES
 @property (nonatomic,assign) BOOL isShowFootRefresh;
 
+//是否显示 " <-返回 "这种类型的返回按钮,默认是不显示
+@property (nonatomic,assign) BOOL isShowBackItem;
+
 - (void)headerRefreshing;
 
 - (void)footerRereshing;
