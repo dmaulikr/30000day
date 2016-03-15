@@ -190,20 +190,6 @@
                                             
                                            [self showToast:@"注册成功"];
                                             
-                                            //获取用户绑定的邮箱
-                                            [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
-                                                
-                                                if ([Common isObjectNull:verificationDictionary]){
-                                                    [STUserAccountHandler userProfile].email = @"未绑定邮箱";
-                                                } else {
-                                                    [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
-                                                }
-                                                
-                                            } failure:^(NSError *error) {
-                                                NSLog(@"获取绑定邮箱出错");
-                                            }];
-
-                                            
                                             UIStoryboard *mainStroyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                                             
                                             UIViewController *controller = mainStroyboard.instantiateInitialViewController;
