@@ -27,4 +27,6 @@
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 
+@property (weak, nonatomic) IBOutlet UIView *jinSuoView;
+
 @end
