@@ -55,6 +55,8 @@
     
     _privateUserProfile = userProfile;
 
+    NSLog(@"------%@",_privateUserProfile.headImg);
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 

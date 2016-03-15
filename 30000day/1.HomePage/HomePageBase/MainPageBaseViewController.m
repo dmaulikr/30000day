@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configUI];
+     [self configUI];
     
     //*******************进行用户登录判断************************************************//
     if (![Common isUserLogin]) {//过去没有登录
@@ -55,45 +55,51 @@
         
     } else {//过去有登录
         
-       [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
-                                      loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
-                                        success:^(BOOL success) {
-                                           
-                                            [STAppDelegate openChatCompletion:^(BOOL success) {
-                                                
-                                                //获取用户绑定邮箱
-                                                [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
-                                                    
-                                                    if ([Common isObjectNull:verificationDictionary]){
-                                                        [STUserAccountHandler userProfile].email = @"未绑定邮箱";
-                                                    } else {
-                                                        [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
-                                                    }
-                                                    
-                                                } failure:^(NSError *error) {
-                                                    NSLog(@"获取绑定邮箱失败");
-                                                }];
-                                                
-                                                
-                                            } failure:^(NSError *error) {
-                                                
-                                                [self showToast:@"链接聊天服务器失败"];
-                                                
-                                            }];
-                                        }
-                                        failure:^(NSError *error) {
-                                            
-                                            if ([[error userInfo][NSLocalizedDescriptionKey] isEqualToString:@"账户无效，请重新登录"]) {
-                                                
-                                                [self showToast:@"账户无效"];
-                                                
-                                                [self jumpToSignInViewController];
-                                                
-                                            }
-                                            
-                                        }];
+        [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
+                                       loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                                         success:^(BOOL success) {
+                                             
+                                             [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
+                                                          completion:^(BOOL success) {
+                                                 
+                                                 //获取用户绑定邮箱
+                                                 [self.dataHandler sendVerificationUserEmailWithUserId:STUserAccountHandler.userProfile.userId success:^(NSDictionary *verificationDictionary) {
+                                                     
+                                                     if ([Common isObjectNull:verificationDictionary]){
+                                                         [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+                                                     } else {
+                                                         [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+                                                     }
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     NSLog(@"获取绑定邮箱失败");
+                                                 }];
+                                                              
+                                             } failure:^(NSError *error) {
+                                                 
+                                                 [self showToast:@"链接聊天服务器失败"];
+                                                 
+                                             }];
+                                         }
+                                         failure:^(NSError *error) {
+                                             
+                                             NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
+                                             
+                                             if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
+                                                 
+                                                 [self showToast:@"账户无效"];
+                                                 
+                                                 [self jumpToSignInViewController];
+                                                 
+                                             } else {
+                                                 
+                                                 [self ShowAlert:@"网络繁忙，请下拉刷新"];
+                                             }
+                                             
+                                         }];
         
     }
+
 }
 
 //跳到登录控制器

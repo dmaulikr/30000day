@@ -52,31 +52,19 @@
         return 4 + self.orderContentArray.count;
     }
     
-    return 1;
+    return 1.0f;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
-        
-        if (indexPath.row == 0) {
-            return 44;
-        } else if (indexPath.row == self.orderContentArray.count + 3){
-            return 44;
-        } else {
-            return 30;
-        }
-        
-    } else {
-        return 44;
-    }
+    return 44.0f;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 10;
+    return 10.0f;
     
 }
 

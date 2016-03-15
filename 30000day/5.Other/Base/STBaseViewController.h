@@ -35,4 +35,6 @@
 
 - (void)showToast:(NSString *)content complition:(MBProgressHUDCompletionBlock)complitionBlock;
 
+- (void)ShowAlert:(NSString *)message;
+
 @end

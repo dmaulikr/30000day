@@ -49,7 +49,7 @@
 //获取我的好友
 - (void)getMyFriends {
     
-    [self.dataHandler getMyFriendsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSMutableArray *dataArray) {
+    [self.dataHandler getMyFriendsWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
         
         _dataArray = dataArray;
         

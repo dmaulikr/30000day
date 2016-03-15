@@ -145,8 +145,9 @@
     DLog(@"configParams: %@", configParams);
 }
 
-- (void)openChatCompletion:(void (^)(BOOL success))success
-                   failure:(void (^)(NSError *))failure {
+- (void)openChat:(NSNumber *)userId
+      completion:(void (^)(BOOL success))success
+         failure:(void (^)(NSError *))failure {
     
     [CDChatManager manager].userDelegate = [CDIMService service];
 
@@ -155,7 +156,7 @@
     [CDChatManager manager].useDevPushCerticate = YES;
 #endif
     
-    [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback: ^(BOOL succeeded, NSError *error) {
+    [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",userId] callback: ^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -15,6 +15,8 @@
 #import "MotionData.h"
 #import "JinSuoDetailsViewController.h"
 #import "UIImageView+WebCache.h"
+#import "SignInViewController.h"
+#import "AppDelegate.h"
 
 @interface MainViewController () 
 
@@ -37,44 +39,75 @@
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
-    [self uploadMotionData];
-
-    //1.开始定位
-    [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
-       
-        //获取天气情况
-        [self.dataHandler getWeatherInformation:cityName sucess:^(WeatherInformationModel *informationModel) {
-            
-            self.informationModel = informationModel;
-            
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-
-        } failure:^(NSError *error) {
-            
-            [self showToast:@"获取天气失败"];
-            
-        }];
-        
-    } failure:^(NSError *error) {
-        
-        [self showToast:@"定位失败"];
-        
-    }];
-    
-    //刷新页面信息
-    [self reloadData];
+    [self.tableView addSubview:self.refreshControl];
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 
-    [self.tableView addSubview:self.refreshControl];
+    //更新个人运动信息
+    [self uploadMotionData];
+    
+    //定位并获取天气
+    [self startFindLocationSucess];
+    
+    //获取用户天龄
+    [self getUserLifeList];
+}
+
+
+//跳到登录控制器
+- (void)jumpToSignInViewController {
+    
+    SignInViewController *logview = [[SignInViewController alloc] init];
+    
+    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)reloadData {
     
-    //2.获取用户的天龄
+    //1.获取用户的天龄
+    [self getUserLifeList];
+    
+    //2.上传用户信息
+    [self uploadMotionData];
+}
 
-    [self.dataHandler sendUserLifeListWithCurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
+//登录获取个人信息
+- (void)getUserInformation {
+    
+    [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
+                                   loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                                     success:^(BOOL success) {
+                                         
+                                         //2.获取用户的天龄
+                                         [self getUserLifeList];
+                                         
+                                     }
+                                     failure:^(NSError *error) {
+                                         
+                                         NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
+                                         
+                                         if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
+                                             
+                                             [self showToast:@"账户无效"];
+                                             
+                                             [self jumpToSignInViewController];
+                                             
+                                         } else  {
+                                             
+                                             [self ShowAlert:@"网络繁忙，请zaici刷新"];
+                                         }
+                                         
+                                     }];
+    
+}
+
+//获取用户的天龄
+- (void)getUserLifeList {
+    
+    [self.dataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray firstObject];
         
@@ -133,15 +166,114 @@
             }
             
         }
-
+        
         [self.tableView reloadData];
         
     } failure:^(LONetError *error) {
         
-        [self showToast:@"加载失败"];
-
+        [self ShowAlert:@"获取天龄失败，可能是网络繁忙"];
+        
     }];
+}
 
+//上传用户信息
+- (void)uploadMotionData {
+    
+    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+        
+        MotionData *mdata = [[MotionData alloc]init];
+        
+        [mdata getHealtHequipmentWhetherSupport:^(BOOL scs) {
+            
+            if (scs) {
+                
+                //获取步数
+                [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                    
+                    if (birthString != nil) {
+                        NSLog(@"获取步数  %@",birthString);
+                        //获取爬楼数
+                        [mdata getClimbStairsCount:^(NSString *climbStairsString) {
+                            
+                            if (climbStairsString != nil) {
+                                NSLog(@"获取爬楼数  %@",climbStairsString);
+                                //获取运动距离
+                                [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
+                                    
+                                    if (movingDistanceString != nil) {
+                                        NSLog(@"获取运动距离  %@",movingDistanceString);
+                                        
+                                        NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
+                                        [dataDictionary setObject:birthString forKey:@"stepNum"];
+                                        [dataDictionary setObject:climbStairsString forKey:@"stairs"];
+                                        [dataDictionary setObject:movingDistanceString forKey:@"distance"];
+                                        
+                                        NSString *dataString=[self dataToJsonString:dataDictionary];
+                                        
+                                        [self.dataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
+                                            
+                                            if (success) {
+                                                NSLog(@"运动信息上传成功");
+                                            }
+                                            
+                                        } failure:^(NSError *error) {
+                                            
+                                            NSLog(@"运动信息上传失败");
+                                            
+                                        }];
+                                    }
+                                    
+                                } failure:^(NSError *error) {
+                                    NSLog(@"获取运动距离失败");
+                                }];
+                            }
+                            
+                        } failure:^(NSError *error) {
+                            NSLog(@"获取爬楼数失败");
+                        }];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    NSLog(@"获取步数失败");
+                }];
+                
+            }else{
+                return;
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }
+    
+}
+
+//定位并获取天气情况
+- (void)startFindLocationSucess {
+    
+    //1.开始定位
+    [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
+        
+        //获取天气情况
+        [self.dataHandler getWeatherInformation:cityName sucess:^(WeatherInformationModel *informationModel) {
+            
+            self.informationModel = informationModel;
+            
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            
+        } failure:^(NSError *error) {
+            
+            [self showToast:@"获取天气失败"];
+            
+        }];
+        
+    } failure:^(NSError *error) {
+        
+        [self showToast:@"定位失败"];
+        
+    }];
+    
 }
 
 - (UIRefreshControl *)refreshControl {
@@ -160,7 +292,11 @@
 
 - (void)refreshAction:(UIRefreshControl *)control {
     
-    [self reloadData];
+    //1.获取个人信息
+    [self getUserInformation];
+    
+    //定位并获取天气
+    [self startFindLocationSucess];
     
     [control endRefreshing];
 
@@ -263,78 +399,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)uploadMotionData {
-    
-    if ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil) {
-    
-        MotionData *mdata=[[MotionData alloc]init];
-        
-        [mdata getHealtHequipmentWhetherSupport:^(BOOL scs) {
-            
-            if (scs) {
-                
-                //获取步数
-                [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
-                    
-                    if (birthString != nil) {
-                        NSLog(@"获取步数  %@",birthString);
-                        //获取爬楼数
-                        [mdata getClimbStairsCount:^(NSString *climbStairsString) {
-                            
-                            if (climbStairsString != nil) {
-                                NSLog(@"获取爬楼数  %@",climbStairsString);
-                                //获取运动距离
-                                [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
-                                    
-                                    if (movingDistanceString != nil) {
-                                        NSLog(@"获取运动距离  %@",movingDistanceString);
-                                        
-                                        NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
-                                        [dataDictionary setObject:birthString forKey:@"stepNum"];
-                                        [dataDictionary setObject:climbStairsString forKey:@"stairs"];
-                                        [dataDictionary setObject:movingDistanceString forKey:@"distance"];
-                                        
-                                        NSString *dataString=[self dataToJsonString:dataDictionary];
-                                        
-                                        [self.dataHandler sendStatUserLifeWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dataString:dataString success:^(BOOL success) {
-                                            
-                                            if (success) {
-                                                NSLog(@"运动信息上传成功");
-                                            }
-                                            
-                                        } failure:^(NSError *error) {
-                                            
-                                            NSLog(@"运动信息上传失败");
-                                            
-                                        }];
-                                    }
-                                    
-                                } failure:^(NSError *error) {
-                                    NSLog(@"获取运动距离失败");
-                                }];
-                            }
-                            
-                        } failure:^(NSError *error) {
-                            NSLog(@"获取爬楼数失败");
-                        }];
-                        
-                    }
-                    
-                } failure:^(NSError *error) {
-                    NSLog(@"获取步数失败");
-                }];
-                
-            }else{
-                return;
-            }
-            
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
-    }
-    
 }
 
 

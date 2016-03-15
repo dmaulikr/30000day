@@ -34,8 +34,8 @@
 
 #pragma mark - util
 
-- (void)alert:(NSString*)msg {
-    UIAlertView *alertView=[[UIAlertView alloc]
+- (void)alert:(NSString *)msg {
+    UIAlertView *alertView = [[UIAlertView alloc]
                             initWithTitle:nil message:msg delegate:nil
                             cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alertView show];
