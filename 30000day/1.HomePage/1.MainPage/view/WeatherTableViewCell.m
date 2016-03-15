@@ -18,15 +18,13 @@
     
     self.jinSuoView.layer.cornerRadius = 20;
     
-    self.jinSuoView.layer.borderWidth = 1;
+    self.jinSuoView.layer.borderWidth = 1.0;
     
     self.jinSuoView.layer.borderColor = [UIColor colorWithRed:207.0/255.0 green:208.0/255.0 blue:209.0/255.0 alpha:1.0].CGColor;
     
-    self.jinSuoView.layer.shadowOffset = CGSizeMake(0, 3);  // 设置阴影的偏移量
-    self.jinSuoView.layer.shadowRadius = 5.0;  // 设置阴影的半径
-    self.jinSuoView.layer.shadowColor = [UIColor blackColor].CGColor; // 设置阴影的颜色为黑色
-    self.jinSuoView.layer.shadowOpacity = 0.9; // 设置阴影的不透明度
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jinSuoViewClick)];
     
+    [self.jinSuoView addGestureRecognizer:tapGesture];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -49,13 +47,13 @@
     
 }
 
-- (IBAction)lifeButtonClick:(UIButton *)sender {
+- (void)jinSuoViewClick {
     
     if (self.changeStateBlock) {
-        self.changeStateBlock(sender);
+        self.changeStateBlock();
     }
-    
 }
+
 
 
 

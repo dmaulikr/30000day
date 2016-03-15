@@ -323,9 +323,10 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
         
-        [cell.lifeButton setBackgroundImage:[self lifeToYear] forState:UIControlStateNormal];
+        [cell.ageLable setText:[NSString stringWithFormat:@"%ld岁",[self daysToYear]]];
+        [cell.jinSuoImageView setImage:[self lifeToYear]];
         
-        [cell setChangeStateBlock:^(UIButton *changeStatusButton) {
+        [cell setChangeStateBlock:^() {
             [self lifeImagePush];
         }];
         

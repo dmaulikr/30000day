@@ -91,9 +91,11 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="ageLable" destination="XUN-rN-1yo" id="sVC-fb-y0N"/>
                 <outlet property="airLabel" destination="UZy-KZ-007" id="qPW-pz-X9y"/>
                 <outlet property="cityLabel" destination="xBN-1Y-H19" id="HUc-85-Yl9"/>
                 <outlet property="headImageView" destination="FOA-Qx-Hft" id="oVU-9j-N6v"/>
+                <outlet property="jinSuoImageView" destination="ZdA-wJ-QVP" id="Nde-JP-BOw"/>
                 <outlet property="jinSuoView" destination="CWf-Xq-rZm" id="3QF-Um-76T"/>
                 <outlet property="temperatureLabel" destination="lix-Uf-QFw" id="sfK-Da-Xvm"/>
                 <outlet property="weatherImageView" destination="2Et-LE-mJ2" id="1aQ-nJ-YLj"/>
