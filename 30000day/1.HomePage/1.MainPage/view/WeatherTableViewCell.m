@@ -16,6 +16,15 @@
     
     self.headImageView.layer.masksToBounds = YES;
     
+    self.jinSuoView.layer.cornerRadius = 20;
+    
+    self.jinSuoView.layer.borderWidth = 1.0;
+    
+    self.jinSuoView.layer.borderColor = [UIColor colorWithRed:207.0/255.0 green:208.0/255.0 blue:209.0/255.0 alpha:1.0].CGColor;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jinSuoViewClick)];
+    
+    [self.jinSuoView addGestureRecognizer:tapGesture];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,13 +47,13 @@
     
 }
 
-- (IBAction)lifeButtonClick:(UIButton *)sender {
+- (void)jinSuoViewClick {
     
     if (self.changeStateBlock) {
-        self.changeStateBlock(sender);
+        self.changeStateBlock();
     }
-    
 }
+
 
 
 

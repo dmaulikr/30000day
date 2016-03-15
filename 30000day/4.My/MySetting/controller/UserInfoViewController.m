@@ -55,6 +55,8 @@
     
     self.saveButton.enabled = NO;
     
+    [self loadEmail];
+    
     self.nickName = STUserAccountHandler.userProfile.nickName;
     self.currentChooseNickName = STUserAccountHandler.userProfile.nickName;
     
@@ -78,6 +80,26 @@
 - (void)reloadData {
     
     [self.tableView reloadData];
+    
+}
+
+- (void)loadEmail {
+    
+    //获取用户绑定的邮箱
+    [self showHUD:YES];
+    [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+        
+        if ([Common isObjectNull:verificationDictionary]){
+            [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+        } else {
+            [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+        }
+        
+        [self hideHUD:YES];
+    } failure:^(NSError *error) {
+        [self hideHUD:YES];
+        NSLog(@"获取绑定邮箱出错");
+    }];
     
 }
 

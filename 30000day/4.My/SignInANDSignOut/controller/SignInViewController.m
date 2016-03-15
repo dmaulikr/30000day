@@ -179,19 +179,6 @@
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
                                              
-                                             //获取用户绑定的邮箱
-                                             [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
-                                                 
-                                                 if ([Common isObjectNull:verificationDictionary]){
-                                                     [STUserAccountHandler userProfile].email = @"未绑定邮箱";
-                                                 } else {
-                                                     [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
-                                                 }
-                                                 
-                                             } failure:^(NSError *error) {
-                                                 NSLog(@"获取绑定邮箱出错");
-                                             }];
-                                             
                                              [self dismissViewControllerAnimated:YES completion:nil];
                                              
                                          } failure:^(NSError *error) {
