@@ -77,7 +77,7 @@
 
 - (void)reloadData {
     
-    //1.获取用户的天龄
+    //获取用户的天龄
     [self getUserLifeList];
 
 }
@@ -90,7 +90,7 @@
                           isPostNotification:NO
                                      success:^(BOOL success) {
                                          
-                                         //2.获取用户的天龄
+                                         //获取用户的天龄
                                          [self getUserLifeList];
                                          
                                          [self.tableView.mj_header endRefreshing];
@@ -119,7 +119,7 @@
 //获取用户的天龄
 - (void)getUserLifeList {
     
-    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {//表示如果账户的userId为空的话，那么就不获取用户的天龄
     
         [self.dataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
             

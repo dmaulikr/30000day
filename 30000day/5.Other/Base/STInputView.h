@@ -10,4 +10,6 @@
 
 @interface STInputView : UIView
 
+@property (nonatomic,strong) UITextView *textView;
+
 @end

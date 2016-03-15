@@ -8,7 +8,11 @@
 
 #import "STRefreshViewController.h"
 
-@interface STRefreshViewController ()
+@interface STRefreshViewController () <UITextViewDelegate>
+
+@property (nonatomic,strong) STInputView *inputView;
+
+@property(nonatomic,assign)BOOL isAnimatingKeyBoard;
 
 @end
 
@@ -24,6 +28,7 @@
     [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
     
     self.isShowBackItem = NO;
+
 }
 
 - (void)setTableViewStyle:(STRefreshTableViewStyle)tableViewStyle {
@@ -78,6 +83,18 @@
         [self.tableView.mj_footer removeFromSuperview];
     }
     
+    //键盘inputView
+    _inputView = [[STInputView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 47)];
+    
+    _inputView.textView.delegate = self;
+    
+    [self.view addSubview:_inputView];
+    
+    [STNotificationCenter addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+
+
 }
 
 - (void)headerRefreshing {
@@ -112,6 +129,70 @@
         
         [self backBarButtonItem];
     }
+}
+
+
+//键盘出现发出的通知
+- (void)keyboardShow:(NSNotification *)notification {
+    
+    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    if (self.isAnimatingKeyBoard) {
+        
+        return;
+    }
+    
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    if (keyboardFrame.size.height < 280 ) {
+        
+        return;
+    }
+    
+    [UIView animateWithDuration:animateDuration delay:0.1f options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.isAnimatingKeyBoard = YES;
+        
+        _inputView.y = SCREEN_HEIGHT - 280 - _inputView.height;
+        
+    } completion:^(BOOL finished) {
+        
+        self.isAnimatingKeyBoard = NO;
+        
+    }];
+}
+
+- (void)inputViewMakeVisible {
+    
+    [_inputView.textView becomeFirstResponder];
+    
+}
+
+- (void)keyboardHide:(NSNotification *)notification {
+    
+    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    if (self.isAnimatingKeyBoard) {
+        
+        return;
+    }
+    
+    [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.isAnimatingKeyBoard = YES;
+        
+        _inputView.y = SCREEN_HEIGHT;
+        
+    } completion:^(BOOL finished) {
+        
+        self.isAnimatingKeyBoard = NO;
+        
+    }];
+}
+
+- (void)inputViewHide {
+    
+    [_inputView.textView resignFirstResponder];
 }
 
 #pragma mark - 导航栏返回按钮封装
@@ -155,13 +236,78 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
         
     }
-    
 }
 
 - (void)backClick {
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma ----
+#pragma mark ---- UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     
+    
+}
+
+#pragma mark --- UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    CGSize size = textView.contentSize;
+    
+    if (size.height == 37.0f) {
+        
+        _inputView.height = 47;
+        
+        _inputView.y = SCREEN_HEIGHT - 280 - 47;
+        
+    } else if (size.height == 57.0f ) {
+        
+        _inputView.height =  47 + 20;
+        
+        _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20;
+        
+    } else if ( size.height == 77.0f ) {
+        
+        _inputView.height  = 47.0f + 20*2;
+        
+       _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*2;
+        
+    } else if (size.height == 98.0f) {
+        
+        _inputView.height  = 47 + 20*3;
+        
+        _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*3;
+        
+    } else if (size.height == 118.0f ) {
+        
+         _inputView.height  = 47 + 20*4;
+        
+        _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*4;
+        
+    } else if (size.height == 138.0f ) {
+        
+        _inputView.height = 47 + 20*5;
+        
+       _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*5;
+    }
+    //这地方不能加上 layoutIfneed不然会出现了莫名的错误
+}
+
+//设置UITextView光标自适应高度
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    
+    CGRect r = [textView caretRectForPosition:textView.selectedTextRange.end];
+    
+    CGFloat caretY = MAX(r.origin.y - textView.frame.size.height+r.size.height,0);
+    
+    if (textView.contentOffset.y < caretY && r.origin.y != INFINITY) {
+        
+        textView.contentOffset = CGPointMake(0, caretY);
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
