@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QH4-us-paE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QH4-us-paE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -27,28 +27,6 @@
             </objects>
             <point key="canvasLocation" x="-884" y="-10"/>
         </scene>
-        <!--我的-->
-        <scene sceneID="NHt-ow-qou">
-            <objects>
-                <tableViewController id="FZy-7O-0lJ" userLabel="我的" customClass="MyTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="63u-54-qut">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="FZy-7O-0lJ" id="fpI-sv-Qb6"/>
-                            <outlet property="delegate" destination="FZy-7O-0lJ" id="ImW-hj-7xy"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="我的" image="my" selectedImage="selectMy" id="fT8-J5-pgh"/>
-                    <navigationItem key="navigationItem" title="我的" id="0rb-RZ-t9H"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qDS-CA-LZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="114" y="1614"/>
-        </scene>
         <!--Item-->
         <scene sceneID="7v7-at-6Eq">
             <objects>
@@ -61,12 +39,34 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="FZy-7O-0lJ" kind="relationship" relationship="rootViewController" id="LER-3C-dvj"/>
+                        <segue destination="LCC-i7-qhh" kind="relationship" relationship="rootViewController" id="x8s-bW-uLI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXR-cC-Qfy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-326" y="1614"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="eU4-my-7og">
+            <objects>
+                <viewController id="LCC-i7-qhh" customClass="MyTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="he2-DC-idc"/>
+                        <viewControllerLayoutGuide type="bottom" id="xbj-FW-hft"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hM5-SQ-Sya">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="我的" image="my" id="v2q-RI-Bf9"/>
+                    <navigationItem key="navigationItem" id="T93-2v-DeJ"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="568"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kH6-hK-a1O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="98" y="1627"/>
         </scene>
         <!--Item-->
         <scene sceneID="Fd0-Pj-3oB">
@@ -223,6 +223,5 @@
         <image name="mall" width="25" height="25"/>
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
-        <image name="selectMy" width="25" height="25"/>
     </resources>
 </document>

@@ -19,7 +19,7 @@
 #import "CDChatManager.h"
 #import "CDSettingVC.h"
 
-@interface MyTableViewController ()
+@interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -29,6 +29,22 @@
     
     [super viewDidLoad];
     
+    [self loadEmail];
+    
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    [self.tableView setDataSource:self];
+    
+    [self.tableView setDelegate:self];
+    
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    
+    self.isShowHeadRefresh = NO;
+    
+    self.isShowFootRefresh = NO;
+    
+    self.isShowBackItem = NO;
+    
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 
@@ -37,6 +53,26 @@
 - (void)reloadData:(NSNotification *)notification {
     
     [self.tableView reloadData];
+}
+
+- (void)loadEmail {
+    
+    //获取用户绑定的邮箱
+    [self showHUD:YES];
+    [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+        
+        if ([Common isObjectNull:verificationDictionary]){
+            [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+        } else {
+            [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+        }
+        
+        [self hideHUD:YES];
+    } failure:^(NSError *error) {
+        [self hideHUD:YES];
+        NSLog(@"获取绑定邮箱出错");
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,7 +129,7 @@
     
     if (section == 3 ) {
         
-        return 100;
+        return 85;
         
     } else {
         
@@ -270,12 +306,12 @@
         
     } else if (indexPath.section == 4) {
         
-        [self CancellationClick];
+        [self cancelAction];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)CancellationClick {
+- (void)cancelAction {
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定注销？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
