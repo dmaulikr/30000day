@@ -383,6 +383,7 @@
 //***** 普通登录 *****/
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
+                  isPostNotification:(BOOL)isPostNotification
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
     
@@ -410,7 +411,7 @@
                                                                 NSDictionary *jsonDictionary = recvDictionary[@"value"];
                                                                 
                                                                 //设置个人信息
-                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password];
+                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password postNotification:isPostNotification];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -459,7 +460,7 @@
 
 
 //私有api设置个人信息
-- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password {
+- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password postNotification:(BOOL)isPostNotification {
     
     UserProfile *userProfile = [[UserProfile alloc] init];
     
@@ -528,9 +529,15 @@
         }
     }
     
-  //设置用户信息并发送通知
+  //设置用户信息
    STUserAccountHandler.userProfile = userProfile;
     
+    if (isPostNotification) {
+        
+        //并发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        
+    }
 }
 
 //********** 用户注册 ************/
@@ -569,7 +576,7 @@
                                                                 NSDictionary *jsonDictionary = recvDictionary[@"value"];
                                                                 
                                                                 //设置个人信息
-                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password];
+                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password postNotification:YES];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     

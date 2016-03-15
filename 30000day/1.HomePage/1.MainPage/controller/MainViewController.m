@@ -87,6 +87,7 @@
     
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                          isPostNotification:NO
                                      success:^(BOOL success) {
                                          
                                          //2.获取用户的天龄

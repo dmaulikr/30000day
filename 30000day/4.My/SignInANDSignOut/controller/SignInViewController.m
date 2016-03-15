@@ -174,6 +174,7 @@
     
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
                                    loginName:_userNameTF.text
+                          isPostNotification:YES
                                      success:^(BOOL success) {
                                          
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId

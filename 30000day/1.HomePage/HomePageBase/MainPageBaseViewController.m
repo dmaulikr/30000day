@@ -57,6 +57,7 @@
         
         [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                        loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                              isPostNotification:YES
                                          success:^(BOOL success) {
                                              
                                              [STAppDelegate openChat:STUserAccountHandler.userProfile.userId

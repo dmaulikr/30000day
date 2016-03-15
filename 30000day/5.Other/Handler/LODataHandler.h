@@ -59,6 +59,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
+                  isPostNotification:(BOOL)isPostNotification
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;
 
