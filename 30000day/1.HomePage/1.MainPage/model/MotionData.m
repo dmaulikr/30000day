@@ -24,7 +24,7 @@
     return self;
 }
 
--(void)getHealtHequipmentWhetherSupport:(void (^)(BOOL))scs
+- (void)getHealtHequipmentWhetherSupport:(void (^)(BOOL))scs
                                 failure:(void (^)(NSError *))failure{
     healthStore = [[HKHealthStore alloc] init];
     NSSet *readDataTypes = [self dataTypesToRead];

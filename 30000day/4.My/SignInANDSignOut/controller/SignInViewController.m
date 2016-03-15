@@ -176,7 +176,8 @@
                                    loginName:_userNameTF.text
                                      success:^(BOOL success) {
                                          
-                                         [STAppDelegate openChatCompletion:^(BOOL success) {
+                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
+                                                      completion:^(BOOL success) {
                                              
                                              //获取用户绑定的邮箱
                                              [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {

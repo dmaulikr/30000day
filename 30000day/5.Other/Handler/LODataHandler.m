@@ -431,12 +431,14 @@
     
                                                         } else {
                                                             
+                                                            NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"账户无效"}];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                               failure(localError);
+                                                                failure(error);
                                                                 
                                                             });
-                                                            
+ 
                                                         }
                                                         
                                                     } failure:^(LONetError *error) {

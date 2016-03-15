@@ -33,6 +33,9 @@
     
     self.isShowFootRefresh = YES;
     
+    self.isShowBackItem = YES;
+    
+    self.title = @"全部评论";
 }
 
 #pragma mark --- 上啦刷新和下拉刷新
@@ -155,12 +158,7 @@
         
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];    
 }
 
 
