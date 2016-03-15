@@ -29,6 +29,8 @@
     
     [super viewDidLoad];
     
+    self.title = @"我的";
+    
     [self loadEmail];
     
     self.tableViewStyle = STRefreshTableViewGroup;
