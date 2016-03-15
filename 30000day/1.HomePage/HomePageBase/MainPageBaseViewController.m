@@ -93,7 +93,7 @@
                                                  
                                              } else {
                                                  
-                                                 [self ShowAlert:@"网络繁忙，请下拉刷新"];
+                                                 [self showToast:@"网络繁忙，请下拉刷新"];
                                              }
                                              
                                          }];

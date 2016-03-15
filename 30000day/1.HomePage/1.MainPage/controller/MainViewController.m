@@ -18,7 +18,7 @@
 #import "SignInViewController.h"
 #import "AppDelegate.h"
 
-@interface MainViewController () 
+@interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 
@@ -28,8 +28,6 @@
 
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
 
-@property (nonatomic,strong) UIRefreshControl *refreshControl;
-
 @end
 
 @implementation MainViewController
@@ -37,9 +35,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
-    [self.tableView addSubview:self.refreshControl];
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
+    
+    self.isShowFootRefresh = NO;
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
@@ -54,6 +58,12 @@
     [self getUserLifeList];
 }
 
+- (void)headerRefreshing {
+    
+    //1.获取个人信息
+    [self getUserInformation];
+    
+}
 
 //跳到登录控制器
 - (void)jumpToSignInViewController {
@@ -69,9 +79,7 @@
     
     //1.获取用户的天龄
     [self getUserLifeList];
-    
-    //2.上传用户信息
-    [self uploadMotionData];
+
 }
 
 //登录获取个人信息
@@ -83,6 +91,8 @@
                                          
                                          //2.获取用户的天龄
                                          [self getUserLifeList];
+                                         
+                                         [self.tableView.mj_header endRefreshing];
                                          
                                      }
                                      failure:^(NSError *error) {
@@ -97,9 +107,10 @@
                                              
                                          } else  {
                                              
-                                             [self ShowAlert:@"网络繁忙，请zaici刷新"];
+                                             [self showToast:@"网络繁忙，请再次刷新"];
                                          }
                                          
+                                         [self.tableView.mj_header endRefreshing];
                                      }];
     
 }
@@ -107,73 +118,80 @@
 //获取用户的天龄
 - (void)getUserLifeList {
     
-    [self.dataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
-        
-        UserLifeModel *lastModel = [dataArray firstObject];
-        
-        self.totalLifeDayNumber = [lastModel.curLife floatValue];
-        
-        //算出数组
-        NSMutableArray *allDayArray = [NSMutableArray array];
-        
-        NSMutableArray *dayNumberArray = [NSMutableArray array];
-        
-        if (dataArray.count > 1 ) {
+    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+    
+        [self.dataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
             
-            for (int  i = 0; i < dataArray.count ; i++ ) {
-                
-                UserLifeModel *model = dataArray[i];
-                
-                [allDayArray addObject:model.curLife];
-                
-                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                
-                NSString *string = array[2];
-                
-                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                
-                [dayNumberArray addObject:newString];
-                
-            }
+            UserLifeModel *lastModel = [dataArray firstObject];
             
-            self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+            self.totalLifeDayNumber = [lastModel.curLife floatValue];
             
-            self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+            //算出数组
+            NSMutableArray *allDayArray = [NSMutableArray array];
             
-        } else {
+            NSMutableArray *dayNumberArray = [NSMutableArray array];
             
-            UserLifeModel *model = [dataArray firstObject];
-            
-            if (model) {
+            if (dataArray.count > 1 ) {
                 
-                [allDayArray addObject:model.curLife];
-                
-                [allDayArray addObject:model.curLife];
-                
-                NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                
-                NSString *string = array[2];
-                
-                NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                
-                [dayNumberArray addObject:newString];
-                
-                [dayNumberArray addObject:newString];
+                for (int  i = 0; i < dataArray.count ; i++ ) {
+                    
+                    UserLifeModel *model = dataArray[i];
+                    
+                    [allDayArray addObject:model.curLife];
+                    
+                    NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                    
+                    NSString *string = array[2];
+                    
+                    NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                    
+                    [dayNumberArray addObject:newString];
+                    
+                }
                 
                 self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
                 
                 self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+                
+            } else {
+                
+                UserLifeModel *model = [dataArray firstObject];
+                
+                if (model) {
+                    
+                    [allDayArray addObject:model.curLife];
+                    
+                    [allDayArray addObject:model.curLife];
+                    
+                    NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                    
+                    NSString *string = array[2];
+                    
+                    NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                    
+                    [dayNumberArray addObject:newString];
+                    
+                    [dayNumberArray addObject:newString];
+                    
+                    self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+                    
+                    self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+                }
+                
             }
             
-        }
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
+
+        } failure:^(LONetError *error) {
+            
+            [self showToast:@"获取天龄失败，可能是网络繁忙"];
+            
+            [self.tableView.mj_header endRefreshing];
+        }];
         
-        [self.tableView reloadData];
-        
-    } failure:^(LONetError *error) {
-        
-        [self ShowAlert:@"获取天龄失败，可能是网络繁忙"];
-        
-    }];
+    }
 }
 
 //上传用户信息
@@ -276,31 +294,6 @@
     
 }
 
-- (UIRefreshControl *)refreshControl {
-    
-    if (!_refreshControl) {
-        
-        _refreshControl = [[UIRefreshControl alloc] init];
-        
-        _refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
-        
-        [_refreshControl addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventValueChanged];
-    }
-    
-    return _refreshControl;
-}
-
-- (void)refreshAction:(UIRefreshControl *)control {
-    
-    //1.获取个人信息
-    [self getUserInformation];
-    
-    //定位并获取天气
-    [self startFindLocationSucess];
-    
-    [control endRefreshing];
-
-}
 
 #pragma ---
 #pragma mark --- UITableViewDataSource / UITableViewDelegate

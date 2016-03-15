@@ -8,8 +8,6 @@
 
 #import "STBaseViewController.h"
 
-@interface MainViewController : STBaseViewController
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface MainViewController : STRefreshViewController
 
 @end
