@@ -397,6 +397,7 @@
 		B8F73C6E1C96A75E0063CC60 /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C6D1C96A75E0063CC60 /* STInputView.m */; };
 		B8F73C721C96C6CE0063CC60 /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */; };
 		B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */; };
+		B8F73C7B1C98404A0063CC60 /* STChoosePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C7A1C9840490063CC60 /* STChoosePictureView.m */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
@@ -1117,6 +1118,8 @@
 		B8F73C6F1C96C6CE0063CC60 /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayTableViewCell.xib; sourceTree = "<group>"; };
+		B8F73C791C9840490063CC60 /* STChoosePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChoosePictureView.h; sourceTree = "<group>"; };
+		B8F73C7A1C9840490063CC60 /* STChoosePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureView.m; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
@@ -1872,6 +1875,8 @@
 				B8F880511C92A75700B5DA18 /* STRefreshViewController.m */,
 				B8F73C6C1C96A75E0063CC60 /* STInputView.h */,
 				B8F73C6D1C96A75E0063CC60 /* STInputView.m */,
+				B8F73C791C9840490063CC60 /* STChoosePictureView.h */,
+				B8F73C7A1C9840490063CC60 /* STChoosePictureView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -4034,6 +4039,7 @@
 				B8FD3E051C8A7903007BCA6B /* SELineLayout.m in Sources */,
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
 				B8FD3E831C8A83A6007BCA6B /* AVIMCustomMessage.m in Sources */,
+				B8F73C7B1C98404A0063CC60 /* STChoosePictureView.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,

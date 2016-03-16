@@ -7,10 +7,13 @@
 //
 
 #import "STRefreshViewController.h"
+#import "STChoosePictureView.h"
 
 @interface STRefreshViewController () <UITextViewDelegate>
 
 @property (nonatomic,strong) STInputView *inputView;
+
+@property (nonatomic,strong) STChoosePictureView *choosePictureView;
 
 @property(nonatomic,assign)BOOL isAnimatingKeyBoard;
 
@@ -90,15 +93,30 @@
     
     [self.view addSubview:_inputView];
     
+    //设置STChoosePictureView
+    [self addChoosePictureView];
+
     [STNotificationCenter addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [STNotificationCenter addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+}
 
-
+- (void)addChoosePictureView {
+    
+    STChoosePictureView *view = [[STChoosePictureView alloc] initWithFrame:CGRectMake(20,_inputView.y - 10 - 43 , 200, 43)];
+    
+    view.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+    
+    view.imageArray = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3",@"4"]];
+    
+    self.choosePictureView = view;
+    
+    [self.view addSubview:view];
 }
 
 - (void)headerRefreshing {
-
+    
+    
 }
 
 - (void)footerRereshing {
@@ -131,7 +149,6 @@
     }
 }
 
-
 //键盘出现发出的通知
 - (void)keyboardShow:(NSNotification *)notification {
     
@@ -154,6 +171,8 @@
         self.isAnimatingKeyBoard = YES;
         
         _inputView.y = SCREEN_HEIGHT - 280 - _inputView.height;
+        
+        _choosePictureView.y = _inputView.y - 10 - 43;
         
     } completion:^(BOOL finished) {
         
@@ -182,6 +201,8 @@
         self.isAnimatingKeyBoard = YES;
         
         _inputView.y = SCREEN_HEIGHT;
+        
+        _choosePictureView.y = _inputView.y - 10 - 43;
         
     } completion:^(BOOL finished) {
         
@@ -262,11 +283,15 @@
         
         _inputView.y = SCREEN_HEIGHT - 280 - 47;
         
+        _choosePictureView.y = _inputView.y - 10 - 43;
+        
     } else if (size.height == 57.0f ) {
         
         _inputView.height =  47 + 20;
         
         _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20;
+        
+        _choosePictureView.y = _inputView.y - 10 - 43;
         
     } else if ( size.height == 77.0f ) {
         
@@ -274,23 +299,31 @@
         
        _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*2;
         
+        _choosePictureView.y = _inputView.y - 10 - 43;
+        
     } else if (size.height == 98.0f) {
         
         _inputView.height  = 47 + 20*3;
         
         _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*3;
         
+        _choosePictureView.y = _inputView.y - 10 - 43;
+        
     } else if (size.height == 118.0f ) {
         
-         _inputView.height  = 47 + 20*4;
+        _inputView.height  = 47 + 20*4;
         
         _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*4;
+        
+        _choosePictureView.y = _inputView.y - 10 - 43;
         
     } else if (size.height == 138.0f ) {
         
         _inputView.height = 47 + 20*5;
         
-       _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*5;
+        _inputView.y = SCREEN_HEIGHT - 280 - 47 - 20*5;
+        
+        _choosePictureView.y = _inputView.y - 10 - 43;
     }
     //这地方不能加上 layoutIfneed不然会出现了莫名的错误
 }

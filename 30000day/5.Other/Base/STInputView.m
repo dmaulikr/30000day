@@ -10,8 +10,6 @@
 
 @interface STInputView ()
 
-
-
 @end
 
 @implementation STInputView
@@ -89,7 +87,6 @@
     [self addConstraints:constraint_H_button];
     
     [self addConstraints:constraint_V_button];
-     
 }
 
 - (void)layoutSubviews {
