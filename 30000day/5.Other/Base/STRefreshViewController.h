@@ -8,6 +8,7 @@
 
 #import "STBaseViewController.h"
 #import "MJRefresh.h"
+#import "STInputView.h"
 
 typedef enum {
     
@@ -35,5 +36,8 @@ typedef enum {
 
 - (void)footerRereshing;
 
+- (void)inputViewMakeVisible;
+
+- (void)inputViewHide;
 
 @end
