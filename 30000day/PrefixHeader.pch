@@ -66,6 +66,13 @@
 #define jhMethod @"GET"
 
 
+#define HfKey @"d59235dcc0cdba44315057783faa0c18"
+
+#define HfPath @"http://apis.baidu.com/heweather/weather/free"
+
+#define HfMethod @"GET"
+
+
 //好友进度条圈圈的厚度
 #define FriendProgressHeight 3
 

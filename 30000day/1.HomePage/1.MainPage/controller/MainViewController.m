@@ -274,8 +274,28 @@
     //1.开始定位
     [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
         
+        NSMutableString *string = [NSMutableString stringWithString:cityName];
+        
+        NSRange locatin;
+        if ([string containsString:@"市"]) {
+            
+             locatin = [string rangeOfString:@"市"];
+            
+        } else if ([string containsString:@"自治区"]) {
+            
+            locatin = [string rangeOfString:@"自治区"];
+            
+        }
+        
+        
+        if (locatin.length != 0) {
+            
+            [string deleteCharactersInRange:locatin];
+            
+        }
+        
         //获取天气情况
-        [self.dataHandler getWeatherInformation:cityName sucess:^(WeatherInformationModel *informationModel) {
+        [self.dataHandler getWeatherInformation:string sucess:^(WeatherInformationModel *informationModel) {
             
             self.informationModel = informationModel;
             
