@@ -33,6 +33,8 @@
 //聚合头文件
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
+#import "APIStoreSDK.h"
+
 
 @interface NSMutableDictionary (Parameter)
 
@@ -1135,64 +1137,70 @@
     
     if (cityName != nil) {
         
-        NSDictionary *param = @{ @"cityname" : cityName};
+        NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+        [parameter setObject:cityName forKey:@"city"];
         
-        JHAPISDK *jhapi = [JHAPISDK shareJHAPISDK];
+        NSString *method = @"post";
         
-        [jhapi executeWorkWithAPI:jhPath
-                            APIID:jhAppID
-                       Parameters:param
-                           Method:jhMethod
-                          Success:^(id responseObject) {
-                              
-                              if ([[responseObject valueForKey:@"result"] isKindOfClass:[NSNull class]]) return;
-                              
-                              NSString *getCityName = [[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"realtime"] valueForKey:@"city_name"];
-                              
-                              NSString *img = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"realtime"] valueForKey:@"weather"] valueForKey:@"img"];
-                              
-                              if (![img isKindOfClass:[NSNull class]]) {
-                                  
-                                  if ([img intValue] < 10) {
-                                      
-                                      img = [NSString stringWithFormat:@"0%@",img];
-                                  }
-                              }
-                              
-                              NSString *maxTem = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"weather"][0] valueForKey:@"info"] valueForKey:@"day"][2];
-                              
-                              NSString *minTem = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"weather"][0] valueForKey:@"info"] valueForKey:@"night"][2];
-                              
-//                              NSString *pm25 = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"pm25"] valueForKey:@"pm25"] valueForKey:@"curPm"];
-                              
-                              NSString *pm25Index = [[[[[responseObject valueForKey:@"result"] valueForKey:@"data"] valueForKey:@"pm25"] valueForKey:@"pm25"] valueForKey:@"quality"];
-                              
-                              WeatherInformationModel *informationModel = [[WeatherInformationModel alloc] init];
-                              
-                              informationModel.cityName = getCityName;
-                              
-                              informationModel.temperatureString = [NSString stringWithFormat:@"%@ ~ %@ ℃",maxTem,minTem];
-                              
-                              informationModel.pm25Quality = pm25Index;
-                              
-                              informationModel.weatherShowImageString = [NSString stringWithFormat:@"%@.png",img];
+        APISCallBack* callBack = [APISCallBack alloc];
+        
+        callBack.onSuccess = ^(long status, NSString* responseString) {
+            NSLog(@"onSuccess");
+            if(responseString != nil) {
+                
+                NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                    options:NSJSONReadingMutableContainers
+                                                                      error:nil];
+                
+                NSArray *sumArray = dictionary[@"HeWeather data service 3.0"];
+                NSDictionary *sumDictionary = sumArray[0];
+                
+                NSDictionary *now = sumDictionary[@"now"];
+                NSDictionary *aqi = sumDictionary[@"aqi"][@"city"];
+                
+//              NSDictionary *basic = sumDictionary[@"basic"];
+//              NSDictionary *suggestion = sumDictionary[@"suggestion"];
+//              NSDictionary *hourly_forecast = sumDictionary[@"hourly_forecast"];
+//              NSDictionary *status = sumDictionary[@"status"];
+//              NSDictionary *daily_forecast = sumDictionary[@"daily_forecast"];
+                
+//              NSString *pm25 = aqi[@"pm25"];
+                NSString *code = now[@"cond"][@"code"];
+                NSString *tmp = now[@"tmp"];
+                NSString *qlty = aqi[@"qlty"];
+                
+                WeatherInformationModel *informationModel = [[WeatherInformationModel alloc] init];
 
-                              dispatch_async(dispatch_get_main_queue(), ^{
-                                 
-                                  sucess(informationModel);
-                                  
-                              });
-                          }
-         
-                          Failure:^(NSError *error) {
-                              
-                              dispatch_async(dispatch_get_main_queue(), ^{
-                                  
-                                  failure(error);
-                                  
-                              });
-                              
-                          }];
+                informationModel.cityName = cityName;
+
+                informationModel.temperatureString = [NSString stringWithFormat:@"%@℃",tmp];
+
+                informationModel.pm25Quality = qlty;
+
+                informationModel.weatherShowImageString = [NSString stringWithFormat:@"%@.png",code];
+                        
+                dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            sucess(informationModel);
+                            
+                        });
+                
+                    }
+                };
+
+        callBack.onError = ^(long status, NSString* responseString) {
+            NSLog(@"onError");
+            NSLog(@"%@",responseString);
+        };
+    
+        callBack.onComplete = ^() {
+            NSLog(@"onComplete");
+        };
+        
+        //请求API
+        [ApiStoreSDK executeWithURL:HfPath method:method apikey:HfKey parameter:parameter callBack:callBack];
+        
     }
 }
 

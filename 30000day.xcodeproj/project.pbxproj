@@ -50,6 +50,7 @@
 		B6F888281C96B4B4003A65FE /* OrderContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */; };
 		B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */; };
 		B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */; };
+		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
 		B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */; };
 		B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC781C8AC9A900DFD1CF /* avator@2x.png */; };
@@ -643,6 +644,8 @@
 		B6F8881D1C96B4B4003A65FE /* PaymentAmountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentAmountTableViewCell.h; sourceTree = "<group>"; };
 		B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentAmountTableViewCell.m; sourceTree = "<group>"; };
 		B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAmountTableViewCell.xib; sourceTree = "<group>"; };
+		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
+		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
 		B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtn@2x.png"; sourceTree = "<group>"; };
 		B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtnHL@2x.png"; sourceTree = "<group>"; };
 		B804FC781C8AC9A900DFD1CF /* avator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avator@2x.png"; sourceTree = "<group>"; };
@@ -1480,6 +1483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8F2D9521C5C46BA002C7712 /* libc++.tbd in Frameworks */,
+				B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */,
 				B8F2D9501C5C4685002C7712 /* CoreLocation.framework in Frameworks */,
 				B8F2D94E1C5C467D002C7712 /* AdSupport.framework in Frameworks */,
 				B8F2D94C1C5C466D002C7712 /* CoreTelephony.framework in Frameworks */,
@@ -2429,6 +2433,8 @@
 		B8F2D93C1C5B70E2002C7712 /* JHAPISDK */ = {
 			isa = PBXGroup;
 			children = (
+				B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */,
+				B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */,
 				B8F2D9471C5C458D002C7712 /* JHAPISDK.h */,
 				B8F2D9481C5C458D002C7712 /* JHOpenidSupplier.h */,
 				B8F2D9491C5C4599002C7712 /* JuheApisSDK.a */,
