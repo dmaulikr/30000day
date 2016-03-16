@@ -39,9 +39,7 @@
             
             controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"selectMy"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         }
-        
     }
-    
 }
 
 

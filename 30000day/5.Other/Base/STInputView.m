@@ -74,11 +74,11 @@
     
     button.translatesAutoresizingMaskIntoConstraints = NO;
     
+    [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:button];
     
     [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    
-    [self addSubview:button];
     
     NSArray *constraint_H_button = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(40)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(button)];
     
@@ -87,6 +87,68 @@
     [self addConstraints:constraint_H_button];
     
     [self addConstraints:constraint_V_button];
+    
+    //3.设置发送图片
+    UIButton *picture_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [picture_button setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
+    
+    picture_button.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [picture_button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+    [picture_button addTarget:self action:@selector(pictureButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:picture_button];
+    
+    //4.设置拍照
+    UIButton *photo_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [photo_button setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+    
+    photo_button.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [photo_button addTarget:self action:@selector(photoButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:photo_button];
+
+    NSArray *constraint_H_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[picture_button(29)]-4-[photo_button(29)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button,photo_button)];
+    
+    NSArray *constraint_V_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[picture_button(20)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button)];
+    
+    NSArray *constraint_V_picture_photo_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo_button(20)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(photo_button)];
+    
+    [self addConstraints:constraint_H_picture_button];
+    
+    [self addConstraints:constraint_V_picture_button];
+
+    [self addConstraints:constraint_V_picture_photo_button];
+}
+
+- (void)buttonAction {
+    
+    if (self.buttonClickBlock) {
+        
+        self.buttonClickBlock(STInputViewButtonSendType);
+    }
+    
+}
+
+- (void)pictureButtonAction {
+    
+    if (self.buttonClickBlock) {
+        
+        self.buttonClickBlock(STInputViewButtonPictureType);
+    }
+    
+}
+
+- (void)photoButtonAction {
+    
+    if (self.buttonClickBlock) {
+        
+        self.buttonClickBlock(STInputViewButtonPhotoType);
+    }
 }
 
 - (void)layoutSubviews {

@@ -63,6 +63,8 @@
     //1.获取个人信息
     [self getUserInformation];
     
+    //2.获取天气
+    [self startFindLocationSucess];
 }
 
 //跳到登录控制器
@@ -287,7 +289,6 @@
             
         }
         
-        
         if (locatin.length != 0) {
             
             [string deleteCharactersInRange:locatin];
@@ -312,7 +313,6 @@
         [self showToast:@"定位失败"];
         
     }];
-    
 }
 
 

@@ -38,6 +38,8 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonAction)];
     
     self.navigationItem.rightBarButtonItem = barButton;
+    
+    self.isShowInputView = YES;
 }
 
 #pragma ---
@@ -51,7 +53,6 @@
 - (void)footerRereshing {
     
     [self.tableView.mj_footer endRefreshing];
-    
 }
 
 - (void)barButtonAction {

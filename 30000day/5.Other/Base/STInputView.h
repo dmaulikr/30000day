@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    
+    STInputViewButtonPictureType,
+    STInputViewButtonPhotoType,
+    STInputViewButtonSendType
+    
+}STInputViewButtonClickType;
+
 @interface STInputView : UIView
 
 @property (nonatomic,strong) UITextView *textView;
 
+@property (nonatomic,copy) void (^buttonClickBlock)(STInputViewButtonClickType type);
 
 @end

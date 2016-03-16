@@ -40,4 +40,7 @@ typedef enum {
 
 - (void)inputViewHide;
 
+//是否有键盘 默认是没键盘的
+@property (nonatomic,assign) BOOL isShowInputView;
+
 @end
