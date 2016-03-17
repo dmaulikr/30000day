@@ -40,9 +40,9 @@
     
     self.isShowFootRefresh = NO;
     
-    [self.dataHandler sendCompanyDetailsWithCompanyId:@"2" Success:^(ShopDetailModel *model) {
+    [self.dataHandler sendCompanyDetailsWithCompanyId:@"8" Success:^(ShopDetailModel *model) {
         
-        NSLog(@"%@",model.companyName);
+        NSLog(@"%@",model.productTypePName);
         
     } failure:^(NSError *error) {
         

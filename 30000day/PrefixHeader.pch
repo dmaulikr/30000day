@@ -161,7 +161,7 @@
 
 #define  GET_COMPANY_LIST          @"/stapi/market/findProductList"   //获取所有的公司列表
 
-#define  GET_COMPANYDETAILS        @"/stapi/market/findCompanyInfo"   //获取商店详情
+#define  GET_COMPANYDETAILS        @"/stapi/market/findProductInfo"   //获取商店详情
 
 
 //发送消息的标记

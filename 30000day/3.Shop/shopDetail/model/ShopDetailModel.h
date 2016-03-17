@@ -10,16 +10,18 @@
 
 @interface ShopDetailModel : NSObject
 
-@property (nonatomic,copy) NSString *addrCity;          //城市地址
-@property (nonatomic,copy) NSString *addrNear;          //地址附近
-@property (nonatomic,copy) NSString *addrProvince;      //地址省
-@property (nonatomic,copy) NSString *address;           //地址
-@property (nonatomic,copy) NSString *alias;             //别名
-@property (nonatomic,copy) NSString *busInfo;           //公交信息
-@property (nonatomic,copy) NSString *businessTime;      //业务时间
-@property (nonatomic,copy) NSString *companyName;       //公司名
-@property (nonatomic,copy) NSString *shopDetailId;      //公司ID
-@property (nonatomic,copy) NSString *telephone;         //公司电话
-@property (nonatomic,copy) NSString *type1;             //类型
-
+@property (nonatomic,copy) NSString *graphicDetails;
+@property (nonatomic,copy) NSString *shopDetailId;
+@property (nonatomic,copy) NSString *originalPrice;
+@property (nonatomic,copy) NSString *presentPrice;
+@property (nonatomic,copy) NSString *productCode;
+@property (nonatomic,copy) NSString *productKeyword;
+@property (nonatomic,copy) NSString *productName;
+@property (nonatomic,copy) NSString *productPhoto;
+@property (nonatomic,copy) NSString *productRebateID;
+@property (nonatomic,copy) NSString *productTypeId;
+@property (nonatomic,copy) NSString *productTypePName;
+@property (nonatomic,copy) NSString *productTypePid;
+@property (nonatomic,copy) NSString *purchaseNotice;
+@property (nonatomic,copy) NSString *remark;
 @end
