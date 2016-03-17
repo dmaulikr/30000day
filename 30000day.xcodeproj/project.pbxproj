@@ -33,6 +33,7 @@
 		B62C381C1C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B62C38131C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.xib */; };
 		B62C381D1C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C38151C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.m */; };
 		B62C381E1C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B62C38161C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.xib */; };
+		B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C38211C9AA819002208CD /* ShopDetailModel.m */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
 		B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */; };
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
@@ -631,6 +632,8 @@
 		B62C38141C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailOneLineDataTableViewCell.h; sourceTree = "<group>"; };
 		B62C38151C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailOneLineDataTableViewCell.m; sourceTree = "<group>"; };
 		B62C38161C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailOneLineDataTableViewCell.xib; sourceTree = "<group>"; };
+		B62C38201C9AA819002208CD /* ShopDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailModel.h; sourceTree = "<group>"; };
+		B62C38211C9AA819002208CD /* ShopDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailModel.m; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
 		B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewSuccessAndFailController.h; sourceTree = "<group>"; };
@@ -1628,6 +1631,8 @@
 		B62C381F1C9AA71E002208CD /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B62C38201C9AA819002208CD /* ShopDetailModel.h */,
+				B62C38211C9AA819002208CD /* ShopDetailModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4320,6 +4325,7 @@
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
+				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,

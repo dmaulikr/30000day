@@ -14,6 +14,7 @@
 #import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
 #import "CommentViewController.h"
 #import "AppointmentViewController.h"
+#import "ShopDetailModel.h"
 
 #define SECTIONSCOUNT 5
 
@@ -38,6 +39,14 @@
     self.isShowBackItem = YES;
     
     self.isShowFootRefresh = NO;
+    
+    [self.dataHandler sendCompanyDetailsWithCompanyId:@"8" Success:^(ShopDetailModel *model) {
+        
+        NSLog(@"%@",model.productTypePName);
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
     UIBarButtonItem *barButton =  [[UIBarButtonItem alloc] initWithTitle:@"预约" style:UIBarButtonItemStylePlain target:self action:@selector(appointmentAction)];
     
