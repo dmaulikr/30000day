@@ -158,6 +158,10 @@
 
 #define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
 
+#define SEND_PROVINCE_CITY         @"/stapi/market/findCompanyList" //获取省和城市
+
+
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

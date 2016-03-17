@@ -7,6 +7,8 @@
 //
 
 #import "CityViewController.h"
+#import "CityHeadView.h"
+#import "CityTableViewCell.h"
 
 @interface CityViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -18,14 +20,70 @@
     [super viewDidLoad];
     
     self.title = @"城市的选择";
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108) style:UITableViewStyleGrouped];
+
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
+    
     self.searchBar.placeholder = @"输入城市名";
 }
 
 #pragma ---
 #pragma mark --- UITableViewDataSource / UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 1;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityTableViewCell"];
+    
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"CityTableViewCell" owner:nil options:nil] lastObject];
+    }
+    
+    return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        CityHeadView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"CityHeadView"];
+        
+        if (!view) {
+            
+            view = [[CityHeadView alloc] init];
+        }
+        view.cityArray = [NSMutableArray arrayWithArray:@[@"上海",@"北京",@"广州",@"深圳",@"天津",@"南京",@"杭州",@"合肥",@"水电费",@"发广告",@"东方闪"]];
+        
+        [view setButtonActionBlock:^(NSUInteger index) {
+           
+            NSLog(@"----%d",(int)index);
+            
+        }];
+
+        return view;
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return [CityHeadView cityHeadViewHeightWithButtonCount:10];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

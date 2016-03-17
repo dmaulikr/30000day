@@ -20,6 +20,9 @@
 #import "GetFactorModel.h"
 #import "UserInformationManager.h"
 #import "MJExtension.h"
+#import "DataModel.h"
+
+
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -2531,7 +2534,88 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
+}
+
+//*********************************获取省和城市*******************/
+- (void)sendProvinceCitySuccess:(void (^)(NSMutableArray *provinceArray))success
+                        failure:(void (^)(NSError *error))failure {
     
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:SEND_PROVINCE_CITY
+                                                 parameters:nil
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSArray * dataArray = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < dataArray.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = dataArray[i];
+                                                                    
+                                                                    if ([dictionary[@"level"] isEqual:@2]) {//省
+                                                                        
+                                                                        
+                                                                        
+                                                                    }
+                                                                }
+                                                                
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
 }
 
 @end

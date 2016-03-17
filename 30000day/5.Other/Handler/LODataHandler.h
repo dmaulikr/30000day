@@ -213,5 +213,8 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   success:(void (^)(NSDictionary *verificationDictionary))success
                                   failure:(void (^)(NSError *error))failure;
 
+//*********************************获取省和城市*******************/
+- (void)sendProvinceCitySuccess:(void (^)(NSMutableArray *provinceArray))success
+                    failure:(void (^)(NSError *error))failure;
 
 @end
