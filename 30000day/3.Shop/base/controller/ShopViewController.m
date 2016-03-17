@@ -39,6 +39,16 @@
     self.isShowMapView = NO; 
     
     [self configUI];
+    
+    [self.dataHandler sendCompanyListSuccess:^(NSMutableArray *companyListArray) {
+       
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
 }
 
 - (IBAction)leftBarButtonAcion:(id)sender {
@@ -120,7 +130,6 @@
     [self.tableView.mj_footer endRefreshing];
     
 }
-
 
 #pragma ---
 #pragma mark --- DOPDropDownMenuDataSource/DOPDropDownMenuDelegate

@@ -158,7 +158,11 @@
 
 #define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
 
-#define SEND_PROVINCE_CITY         @"/stapi/market/findCompanyList" //获取省和城市
+
+#define  GET_PROVINCE_CITY         @"/stapi/market/findCompanyList" //获取省和城市
+
+#define  GET_COMPANY_LIST          @"/stapi/market/findCompanyList"  //获取所有的公司列表
+
 
 
 

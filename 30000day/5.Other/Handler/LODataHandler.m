@@ -21,8 +21,7 @@
 #import "UserInformationManager.h"
 #import "MJExtension.h"
 #import "DataModel.h"
-
-
+#import "ShopModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -2536,12 +2535,12 @@
     [self startRequest:request];
 }
 
-//*********************************获取省和城市*******************/
-- (void)sendProvinceCitySuccess:(void (^)(NSMutableArray *provinceArray))success
-                        failure:(void (^)(NSError *error))failure {
+//*********************************获取商家所有的数据*******************/
+- (void)sendCompanyListSuccess:(void (^)(NSMutableArray *companyListArray))success
+                           failure:(void (^)(NSError *error))failure {
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:SEND_PROVINCE_CITY
+                                                        url:GET_COMPANY_LIST
                                                  parameters:nil
                                                     success:^(id responseObject) {
                                                         
@@ -2557,24 +2556,22 @@
                                                                 
                                                                 NSArray * dataArray = recvDic[@"value"];
                                                                 
+                                                                NSMutableArray *newDataArray = [NSMutableArray array];
+                                                                
                                                                 for (int i = 0; i < dataArray.count; i++) {
                                                                     
                                                                     NSDictionary *dictionary = dataArray[i];
                                                                     
-                                                                    if ([dictionary[@"level"] isEqual:@2]) {//省
-                                                                        
-                                                                        
-                                                                        
-                                                                    }
+                                                                    ShopModel *model = [[ShopModel alloc] init];
+                                                                    
+                                                                    [model setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [newDataArray addObject:model];
                                                                 }
-                                                                
-                                                                
+
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    
-                                                                    
-                                                                    
-                                                                    
+                                                                    success(newDataArray);
                                                                 });
                                                                 
                                                             } else {
@@ -2586,7 +2583,6 @@
                                                                     failure(failureError);
                                                                     
                                                                 });
-                                                                
                                                             }
                                                             
                                                         } else {
@@ -2600,7 +2596,6 @@
                                                                 });
                                                                 
                                                             });
-                                                            
                                                         }
                                                         
                                                     } failure:^(LONetError *error) {
