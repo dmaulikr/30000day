@@ -285,6 +285,7 @@
 		B8B3F51D1C9A97FB00834533 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F51C1C9A97FB00834533 /* DataModel.m */; };
 		B8B3F5201C9AA01700834533 /* PlaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F51F1C9AA01700834533 /* PlaceManager.m */; };
 		B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */; };
+		B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5261C9AAAA400834533 /* ShopModel.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A0B1C7327D700805EE2 /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */; };
@@ -947,6 +948,8 @@
 		B8B3F51E1C9AA01700834533 /* PlaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceManager.h; sourceTree = "<group>"; };
 		B8B3F51F1C9AA01700834533 /* PlaceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceManager.m; sourceTree = "<group>"; };
 		B8B3F5221C9AA09300834533 /* PlaceModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaceModel.xcdatamodel; sourceTree = "<group>"; };
+		B8B3F5251C9AAAA400834533 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
+		B8B3F5261C9AAAA400834533 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -2391,6 +2394,15 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		B8B3F5241C9AAA8800834533 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B8B3F5251C9AAAA400834533 /* ShopModel.h */,
+				B8B3F5261C9AAAA400834533 /* ShopModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		B8F2D8BF1C5B38FA002C7712 /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -2827,6 +2839,7 @@
 		B8F6489F1C9498F0001A3119 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				B8B3F5241C9AAA8800834533 /* model */,
 				B8F648A01C9498F0001A3119 /* controller */,
 				B8F648A31C9498F0001A3119 /* view */,
 			);
@@ -4179,6 +4192,7 @@
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
+				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m in Sources */,
 				B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */,
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
