@@ -7,14 +7,14 @@
 //
 
 #import "ShopViewController.h"
-#import "STDropdownMenu.h"
 #import "DOPDropDownMenu.h"
 #import "ShopListTableViewCell.h"
 #import "ShopDetailViewController.h"
 #import "SearchViewController.h"
 #import "SearchViewController.h"
+#import "CityViewController.h"
 
-@interface ShopViewController () <STDropdownMenuDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
+@interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarButton;
 
@@ -43,11 +43,11 @@
 
 - (IBAction)leftBarButtonAcion:(id)sender {
     
-    STDropdownMenu *menu = [STDropdownMenu menu];
+    CityViewController *controller = [[CityViewController alloc] init];
     
-    menu.dataArray = [NSMutableArray arrayWithArray:@[@"北京",@"上海",@"广州",@"深圳",@"天津",@"南京",@"合肥",@"杭州"]];
+    controller.hidesBottomBarWhenPushed = YES;
     
-    [menu showView];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)rightBarButtonAcion:(id)sender {
@@ -121,20 +121,6 @@
     
 }
 
-#pragma ---
-#pragma mark --STDropdownMenuDelegate
-
-- (void)dropdownMenuDidDismiss:(STDropdownMenu *)dropdownMenu {
-    
-}
-
-- (void)dropdownMenuDidShow:(STDropdownMenu *)dropdownMenu {
-    
-}
-
-- (void)dropdownMenu:(STDropdownMenu *)dropdownMenu didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
 
 #pragma ---
 #pragma mark --- DOPDropDownMenuDataSource/DOPDropDownMenuDelegate

@@ -38,7 +38,7 @@
 
 - (void)configUI {
     
-    self.backgroundColor = RGBACOLOR(242, 242, 242, 1);
+    self.backgroundColor = RGBACOLOR(200, 200, 200, 1);
     
     //1.设置textView
     UITextView *textView = [[UITextView alloc] init];

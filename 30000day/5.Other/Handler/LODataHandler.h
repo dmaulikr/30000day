@@ -200,7 +200,6 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure;
 
-//*********上传视频到服务器*****//
 
 //***********************************绑定邮箱*********************/
 - (void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId

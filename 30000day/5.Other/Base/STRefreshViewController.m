@@ -8,14 +8,13 @@
 
 #import "STRefreshViewController.h"
 #import "STChoosePictureView.h"
+#import "STAvatarBrowser.h"
 
 @interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) STInputView *inputView;
 
 @property (nonatomic,strong) STChoosePictureView *choosePictureView;
-
-@property(nonatomic,assign)BOOL isAnimatingKeyBoard;
 
 @property (nonatomic,assign) float keyBoardHeight;
 
@@ -183,6 +182,7 @@
         
         [STNotificationCenter addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
         
+        [STNotificationCenter addObserver:self selector:@selector(keyBoardShouldShow) name:STAvatarBrowserDidHideAvatarImage object:nil];
         
         self.choosePictureView = [[STChoosePictureView alloc] initWithFrame:CGRectMake(20,_inputView.y - 10 - 60 , 61 * self.imageArray.count + 10, 60)];
         
@@ -231,42 +231,35 @@
     }
 }
 
+
+//键盘显示
+- (void)inputViewMakeVisible {
+    
+    [_inputView.textView becomeFirstResponder];
+}
+
+- (void)inputViewHide {
+    
+    [_inputView.textView resignFirstResponder];
+}
+
 //键盘出现发出的通知
 - (void)keyboardShow:(NSNotification *)notification {
     
     CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-//    if (self.isAnimatingKeyBoard) {
-//        
-//        return;
-//    }
-    
-    
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     self.keyBoardHeight = keyboardFrame.size.height;
     
-    [UIView animateWithDuration:animateDuration delay:0.1f options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.isAnimatingKeyBoard = YES;
+    [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - _inputView.height;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
-    } completion:^(BOOL finished) {
-        
-//        self.isAnimatingKeyBoard = NO;
-        
-    }];
+    } completion:nil];
 }
-
-- (void)inputViewMakeVisible {
-    
-    [_inputView.textView becomeFirstResponder];
-    
-}
-
 - (void)keyboardHide:(NSNotification *)notification {
     
     CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -280,9 +273,10 @@
     } completion:nil];
 }
 
-- (void)inputViewHide {
+//隐藏avatarImage发出的通知
+- (void)keyBoardShouldShow {
     
-    [_inputView.textView resignFirstResponder];
+    [self inputViewMakeVisible];
 }
 
 #pragma mark - 导航栏返回按钮封装
@@ -432,13 +426,26 @@
     if (self.imageArray.count == 0) {
         
         choosePictureView.hidden = YES;
-        
     }
+}
+
+- (void)choosePictureView:(STChoosePictureView *)choosePictureView didClickCellAtIndex:(NSInteger)index {
+    
+    [self inputViewHide];
+    
+    [STAvatarBrowser showImage:self.imageArray[index]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [STNotificationCenter removeObserver:self name:STAvatarBrowserDidHideAvatarImage object:nil];
 }
 
 /*

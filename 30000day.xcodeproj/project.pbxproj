@@ -274,6 +274,11 @@
 		B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DB1C634E650023F8A8 /* MailListViewController.m */; };
 		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
 		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
+		B8B3F4D51C995CD900834533 /* STChoosePictureCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4D31C995CD900834533 /* STChoosePictureCollectionCell.m */; };
+		B8B3F4D61C995CD900834533 /* STChoosePictureCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F4D41C995CD900834533 /* STChoosePictureCollectionCell.xib */; };
+		B8B3F4D91C99641D00834533 /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4D81C99641D00834533 /* STAvatarBrowser.m */; };
+		B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4DE1C9A4C1A00834533 /* CityViewController.m */; };
+		B8B3F4E11C9A4C1A00834533 /* CityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F4DF1C9A4C1A00834533 /* CityViewController.xib */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A0B1C7327D700805EE2 /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */; };
@@ -918,6 +923,14 @@
 		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
+		B8B3F4D21C995CD900834533 /* STChoosePictureCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChoosePictureCollectionCell.h; sourceTree = "<group>"; };
+		B8B3F4D31C995CD900834533 /* STChoosePictureCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureCollectionCell.m; sourceTree = "<group>"; };
+		B8B3F4D41C995CD900834533 /* STChoosePictureCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STChoosePictureCollectionCell.xib; sourceTree = "<group>"; };
+		B8B3F4D71C99641D00834533 /* STAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAvatarBrowser.h; sourceTree = "<group>"; };
+		B8B3F4D81C99641D00834533 /* STAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAvatarBrowser.m; sourceTree = "<group>"; };
+		B8B3F4DD1C9A4C1A00834533 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
+		B8B3F4DE1C9A4C1A00834533 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
+		B8B3F4DF1C9A4C1A00834533 /* CityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityViewController.xib; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -1881,6 +1894,11 @@
 				B8F73C6D1C96A75E0063CC60 /* STInputView.m */,
 				B8F73C791C9840490063CC60 /* STChoosePictureView.h */,
 				B8F73C7A1C9840490063CC60 /* STChoosePictureView.m */,
+				B8B3F4D21C995CD900834533 /* STChoosePictureCollectionCell.h */,
+				B8B3F4D31C995CD900834533 /* STChoosePictureCollectionCell.m */,
+				B8B3F4D41C995CD900834533 /* STChoosePictureCollectionCell.xib */,
+				B8B3F4D71C99641D00834533 /* STAvatarBrowser.h */,
+				B8B3F4D81C99641D00834533 /* STAvatarBrowser.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1900,6 +1918,7 @@
 			isa = PBXGroup;
 			children = (
 				B8F6489F1C9498F0001A3119 /* base */,
+				B8B3F4DA1C9A49A100834533 /* city */,
 				B8F6485F1C942466001A3119 /* appointment */,
 				B60119701C9404BC0061AD89 /* comment */,
 				B8F648251C92DA4C001A3119 /* search */,
@@ -2284,6 +2303,40 @@
 				B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		B8B3F4DA1C9A49A100834533 /* city */ = {
+			isa = PBXGroup;
+			children = (
+				B8B3F4DB1C9A49A100834533 /* controller */,
+				B8B3F4DC1C9A49A100834533 /* view */,
+				B8B3F4E21C9A4E3100834533 /* model */,
+			);
+			path = city;
+			sourceTree = "<group>";
+		};
+		B8B3F4DB1C9A49A100834533 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8B3F4DD1C9A4C1A00834533 /* CityViewController.h */,
+				B8B3F4DE1C9A4C1A00834533 /* CityViewController.m */,
+				B8B3F4DF1C9A4C1A00834533 /* CityViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B8B3F4DC1C9A49A100834533 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B8B3F4E21C9A4E3100834533 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		B8F2D8BF1C5B38FA002C7712 /* Security */ = {
@@ -3705,6 +3758,7 @@
 				B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */,
 				B8F6486A1C942466001A3119 /* PaymentViewController.xib in Resources */,
 				B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */,
+				B8B3F4E11C9A4C1A00834533 /* CityViewController.xib in Resources */,
 				B804FD811C8AC9A900DFD1CF /* keyborad_HL@2x.png in Resources */,
 				B804FD3D1C8AC9A900DFD1CF /* rabbit_19_cover@2x.png in Resources */,
 				B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */,
@@ -3755,6 +3809,7 @@
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B804FD461C8AC9A900DFD1CF /* rabbit_2_cover@2x.png in Resources */,
 				B804FD351C8AC9A900DFD1CF /* rabbit_15_cover@2x.png in Resources */,
+				B8B3F4D61C995CD900834533 /* STChoosePictureCollectionCell.xib in Resources */,
 				B8FD3AE51C868A83007BCA6B /* icon_chose_arrow_nor@2x.png in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
@@ -4068,6 +4123,7 @@
 				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
 				B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
+				B8B3F4D91C99641D00834533 /* STAvatarBrowser.m in Sources */,
 				B8FD3CC21C8A77EB007BCA6B /* CDMessageHelper.m in Sources */,
 				B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */,
 				B8FD3E741C8A8353007BCA6B /* CDBaseTableVC.m in Sources */,
@@ -4118,6 +4174,7 @@
 				B8F2D8C51C5B3906002C7712 /* SecurityViewController.m in Sources */,
 				B8F2D9A51C5C8B1A002C7712 /* JBPlistFileManager.m in Sources */,
 				B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */,
+				B8B3F4D51C995CD900834533 /* STChoosePictureCollectionCell.m in Sources */,
 				B8F648791C9424BF001A3119 /* AppointmentCollectionView.m in Sources */,
 				B8FD3AE41C868A83007BCA6B /* DOPDropDownMenu.m in Sources */,
 				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
@@ -4291,6 +4348,7 @@
 				B8FD3DF01C8A7903007BCA6B /* XHFileAttribute.m in Sources */,
 				B8FD3DD21C8A7903007BCA6B /* NSString+XHDiskSizeTransfrom.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
+				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,

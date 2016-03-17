@@ -7,92 +7,8 @@
 //
 
 #import "STChoosePictureView.h"
-#import "AppointmentCollectionViewCell.h"
+#import "STChoosePictureCollectionCell.h"
 
-@interface STChoosePictureCollectionCell : UICollectionViewCell
-
-@property (nonatomic,strong)NSIndexPath *indexPath;
-
-@property (nonatomic,copy) void (^buttonClickBlock)(NSIndexPath *indexPath);
-
-@property (nonatomic,strong) UIImageView *imageView;
-
-@property (nonatomic,strong) UIButton *button;
-
-@end
-
-@implementation STChoosePictureCollectionCell
-
-- (void)drawRect:(CGRect)rect {
-    
-    [self configUI];
-}
-
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    
-}
-
-- (void)configUI {
-    
-    for (UIView *view in self.subviews) {
-        
-        if ([view isKindOfClass:[UIImageView class]] || [view isKindOfClass:[UIButton class]] ) {
-            
-            [view removeFromSuperview];
-        }
-    }
-    //1.设置imageView
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
-    
-    self.imageView.backgroundColor = [UIColor orangeColor];
-    
-    self.imageView = imageView;
-    
-    [self addSubview:imageView];
-    
-    //2.button
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    button.frame = CGRectMake(self.width - 21, 5 , 20, 20);
-    
-    button.layer.cornerRadius = 10;
-    
-    button.layer.masksToBounds = YES;
-    
-    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
-    button.layer.borderWidth = 1.0f;
-    
-    [button setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-    
-    [button addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.button = button;
-    
-    [self addSubview:button];
-}
-
-- (void)cancelButtonAction {
-    
-    if (self.buttonClickBlock) {
-        
-        self.buttonClickBlock(self.indexPath);
-    }
-}
-
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
-    
-    self.imageView.backgroundColor = [UIColor whiteColor];
-    
-    self.layer.cornerRadius = 5;
-    
-    self.layer.masksToBounds = YES;
-}
-
-@end
 
 @interface STChoosePictureView () <UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -158,7 +74,7 @@
     
     collectionView.backgroundColor = [UIColor redColor];
     
-    [collectionView registerClass:[STChoosePictureCollectionCell class] forCellWithReuseIdentifier:@"STChoosePictureCollectionCell"];
+    [collectionView registerNib:[UINib nibWithNibName:@"STChoosePictureCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"STChoosePictureCollectionCell"];
     
     collectionView.delegate = self;
     
@@ -192,7 +108,7 @@
     
     if (cell == nil) {
         
-        cell = [[STChoosePictureCollectionCell alloc] init];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"STChoosePictureCollectionCell" owner:nil options:nil] lastObject];
     }
     
     cell.imageView.image = self.imageArray[indexPath.section];
@@ -207,7 +123,6 @@
             if ([self.delegate respondsToSelector:@selector(choosePictureView:cancelButtonDidClickAtIndex:)]) {
                 
                 [self.delegate choosePictureView:self cancelButtonDidClickAtIndex:indexPath.section];
-
             }
         }
     }];
@@ -215,20 +130,20 @@
     return cell;
 }
 
-- (void)setImageArray:(NSMutableArray *)imageArray {
-    
-    _imageArray = imageArray;
-    
-    [self.collectionView reloadData];
-}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     if ([self.delegate respondsToSelector:@selector(choosePictureView:didClickCellAtIndex:)]) {
         
         [self.delegate choosePictureView:self didClickCellAtIndex:indexPath.section];
         
     }
+}
+
+- (void)setImageArray:(NSMutableArray *)imageArray {
+    
+    _imageArray = imageArray;
+    
+    [self.collectionView reloadData];
 }
 
 @end
