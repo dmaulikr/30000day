@@ -28,6 +28,7 @@
 #import <AVOSCloudCrashReporting/AVOSCloudCrashReporting.h>
 #import "CDUserManager.h"
 #import "CDSoundManager.h"
+#import "STCoreDataHandler.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -238,9 +239,22 @@
     
 }
 
+//点击了home键,程序进入后台了
 - (void)applicationWillTerminate:(UIApplication *)application {
     
     [[LZPushManager manager] syncBadge];
+    
+    [self saveContext];//保存还未保存的变化
+}
+
+- (void)saveContext {
+    
+    NSError *error = nil;
+    
+    if ([[STCoreDataHandler shareCoreDataHandler].bgObjectContext hasChanges]) {
+        
+        [[STCoreDataHandler shareCoreDataHandler].bgObjectContext save:&error];
+    }
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {

@@ -20,4 +20,11 @@
     // Configure the view for the selected state
 }
 
+- (void)setShopModel:(ShopModel *)shopModel {
+    
+    _shopModel = shopModel;
+    
+}
+
+
 @end

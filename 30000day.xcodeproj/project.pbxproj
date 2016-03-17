@@ -286,9 +286,10 @@
 		B8B3F5201C9AA01700834533 /* PlaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F51F1C9AA01700834533 /* PlaceManager.m */; };
 		B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */; };
 		B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5261C9AAAA400834533 /* ShopModel.m */; };
+		B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */; };
+		B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
-		B8D67A0B1C7327D700805EE2 /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */; };
 		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
 		B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A1B1C7420B000805EE2 /* SearchFriendsTableViewCell.m */; };
 		B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A1C1C7420B000805EE2 /* SearchFriendsTableViewCell.xib */; };
@@ -950,11 +951,13 @@
 		B8B3F5221C9AA09300834533 /* PlaceModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaceModel.xcdatamodel; sourceTree = "<group>"; };
 		B8B3F5251C9AAAA400834533 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		B8B3F5261C9AAAA400834533 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
+		B8B3F5281C9AB73800834533 /* STCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataHandler.h; sourceTree = "<group>"; };
+		B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataHandler.m; sourceTree = "<group>"; };
+		B8B3F52B1C9ABA5200834533 /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
+		B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
-		B8D67A091C7327D700805EE2 /* UIView+viewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+viewController.h"; sourceTree = "<group>"; };
-		B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+viewController.m"; sourceTree = "<group>"; };
 		B8D67A0F1C73356400805EE2 /* AddressBookBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookBaseViewController.h; sourceTree = "<group>"; };
 		B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookBaseViewController.m; sourceTree = "<group>"; };
 		B8D67A1A1C7420B000805EE2 /* SearchFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendsTableViewCell.h; sourceTree = "<group>"; };
@@ -1823,8 +1826,6 @@
 				B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */,
 				B8365A4A1C70820100063269 /* UIView+Extension.h */,
 				B8365A4B1C70820100063269 /* UIView+Extension.m */,
-				B8D67A091C7327D700805EE2 /* UIView+viewController.h */,
-				B8D67A0A1C7327D700805EE2 /* UIView+viewController.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2767,6 +2768,10 @@
 				B89216B01C5F3EEA0023F8A8 /* LODataHandler.m */,
 				B89216C11C6075150023F8A8 /* UserAccountHandler.h */,
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
+				B8B3F5281C9AB73800834533 /* STCoreDataHandler.h */,
+				B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */,
+				B8B3F52B1C9ABA5200834533 /* NSManagedObject+handler.h */,
+				B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -4311,6 +4316,7 @@
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
 				B8FD3DD11C8A7903007BCA6B /* NSString+MessageInputView.m in Sources */,
+				B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
@@ -4344,7 +4350,6 @@
 				B8FD3E0B1C8A7903007BCA6B /* SETextInput.m in Sources */,
 				B8FD3E061C8A7903007BCA6B /* SELinkText.m in Sources */,
 				B8365A5F1C71E08200063269 /* pinyin.c in Sources */,
-				B8D67A0B1C7327D700805EE2 /* UIView+viewController.m in Sources */,
 				B8FD3DE01C8A7903007BCA6B /* XHFoundationCommon.m in Sources */,
 				B8FD3E1B1C8A7903007BCA6B /* XHMessageBubbleView.m in Sources */,
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
@@ -4353,6 +4358,7 @@
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
+				B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
 				B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */,

@@ -13,6 +13,8 @@
 #import "SearchViewController.h"
 #import "SearchViewController.h"
 #import "CityViewController.h"
+#import "ShopModel.h"
+#import "STCoreDataHandler.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -21,6 +23,8 @@
 @property (nonatomic,assign) BOOL isShowMapView;
 
 @property (nonatomic,strong) UISearchBar *searchBar;
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
 
@@ -38,15 +42,18 @@
     
     self.isShowMapView = NO; 
     
+    //1.初始化UI
     [self configUI];
     
     [self.dataHandler sendCompanyListSuccess:^(NSMutableArray *companyListArray) {
        
+        self.dataArray = companyListArray;
         
+        [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         
-        
+        [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
         
     }];
 }
@@ -349,7 +356,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 10;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -361,6 +368,8 @@
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:shopListIdentifier owner:nil options:nil] lastObject];
     }
+    
+    cell.shopModel = self.dataArray[indexPath.row];
     
     return cell;
 }
