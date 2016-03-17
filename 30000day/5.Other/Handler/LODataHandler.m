@@ -2621,7 +2621,7 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:companyId forKey:@"companyId"];
+    [params setObject:companyId forKey:@"productId"];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_COMPANYDETAILS
