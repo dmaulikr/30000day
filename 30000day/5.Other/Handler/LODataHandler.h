@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ShopDetailModel.h"
+
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -217,5 +219,10 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 - (void)sendCompanyListSuccess:(void (^)(NSMutableArray *companyListArray))success
                            failure:(void (^)(NSError *error))failure;
 
+
+//*********************************获取商家详细的数据*******************/
+- (void)sendCompanyDetailsWithCompanyId:(NSString *)companyId
+                                    Success:(void (^)(ShopDetailModel *model))success
+                                    failure:(void (^)(NSError *error))failure;
 
 @end

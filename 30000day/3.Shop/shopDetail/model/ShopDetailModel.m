@@ -12,7 +12,7 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
 
-    if ([key isEqualToString:@"shopDetailId"]) {
+    if ([key isEqualToString:@"id"]) {
     
         self.shopDetailId = value;
         
