@@ -21,6 +21,9 @@
 
 @interface ShopDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,strong)ShopDetailModel *shopDetailModel;
+@property (nonatomic,strong)NSArray *sourceArray;
+
 @end
 
 @implementation ShopDetailViewController
@@ -29,22 +32,33 @@
     [super viewDidLoad];
 
     self.tableViewStyle = STRefreshTableViewGroup;
-    
-    self.tableView.delegate = self;
-    
-    self.tableView.dataSource  = self;
-    
+
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
     self.isShowBackItem = YES;
     
     self.isShowFootRefresh = NO;
     
-    [self.dataHandler sendCompanyDetailsWithCompanyId:@"8" Success:^(ShopDetailModel *model) {
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource  = self;
+    
+    self.sourceArray = [NSArray arrayWithObjects:@"http://b.hiphotos.baidu.com/album/pic/item/caef76094b36acafe72d0e667cd98d1000e99c5f.jpg?psign=e72d0e667cd98d1001e93901213fb80e7aec54e737d1b867",@"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg",@"http://atth.eduu.com/album/201203/12/1475134_1331559643qMzc.jpg",@"http://pic51.nipic.com/file/20141022/19779658_171157758000_2.jpg",@"http://h.hiphotos.baidu.com/image/pic/item/4034970a304e251f8ad847e7a586c9177f3e5385.jpg", nil];
+    
+    [self showHUD:YES];
+    [self.dataHandler sendCompanyDetailsWithCompanyId:@"9" Success:^(ShopDetailModel *model) {
+        
+        [self hideHUD:YES];
+        
+        self.shopDetailModel = model;
         
         NSLog(@"%@",model.productTypePName);
         
+        [self.tableView reloadData];
+        
     } failure:^(NSError *error) {
+        
+        [self hideHUD:YES];
         
     }];
     
@@ -181,6 +195,11 @@
             
             shopDetailHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
         }
+        
+        //[shopDetailHeadTableViewCell.rollImageView setMTImagePlayerViewDelegate:self];
+        shopDetailHeadTableViewCell.rollImageView.sourceArray = self.sourceArray;
+        shopDetailHeadTableViewCell.storeLable.text = self.shopDetailModel.productName;
+        shopDetailHeadTableViewCell.positionLable.text = self.shopDetailModel.productKeyword;
         
         return shopDetailHeadTableViewCell;
         

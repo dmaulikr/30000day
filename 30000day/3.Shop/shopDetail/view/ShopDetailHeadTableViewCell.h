@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTImagePlayView.h"
 
 @interface ShopDetailHeadTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *rollImageView;
+
+@property (weak, nonatomic) IBOutlet MTImagePlayView *rollImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *storeLable;
 
@@ -19,5 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *businessHoursLable;
 @property (weak, nonatomic) IBOutlet UILabel *businessHoursKeyLable;
+
+
 
 @end
