@@ -15,6 +15,7 @@
 #import "CityViewController.h"
 #import "ShopModel.h"
 #import "STCoreDataHandler.h"
+#import "SubwayModel.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -33,31 +34,41 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
-    
-    self.tableView.dataSource = self;
-    
-    self.tableView.delegate = self;
-    
-    self.isShowMapView = NO; 
-    
+
     //1.初始化UI
     [self configUI];
     
-    [self.dataHandler sendCompanyListSuccess:^(NSMutableArray *companyListArray) {
-       
-        self.dataArray = companyListArray;
+    [self.dataHandler sendCitySubWayWithCityId:@"112" Success:^(NSMutableArray *dataArray) {
         
-        [self.tableView reloadData];
+        //保存数据
+        self.dataArray = dataArray;
+        
+        //配置界面
+        self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+        
+        self.tableView.dataSource = self;
+        
+        self.tableView.delegate = self;
+        
+        self.isShowMapView = NO;
+        
+        //初始化搜索界面
+        DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+        
+        menuView.dataSource = self;
+        
+        menuView.delegate = self;
+        
+        menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
+        
+        [self.view addSubview:menuView];
         
     } failure:^(NSError *error) {
-        
+       
         [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-        
     }];
+    
 }
-
 - (IBAction)leftBarButtonAcion:(id)sender {
     
     CityViewController *controller = [[CityViewController alloc] init];
@@ -102,18 +113,8 @@
     self.searchBar = searchBar;
     
     self.navigationItem.titleView = searchBar;
-    
-    //2.初始化搜索界面
-    
-    DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
-    
-    menuView.dataSource = self;
-    
-    menuView.delegate = self;
-    
-    [self.view addSubview:menuView];
-    
-    //3.初始化百度地图
+
+    //2.初始化百度地图
     _mapView = [[BMKMapView alloc] init];
     
     _mapView.frame = CGRectMake(0, 64 + 44, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44 - 50);
@@ -143,7 +144,7 @@
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
     
-    return 4;
+    return 3;
 }
 
 /**
@@ -170,86 +171,45 @@
     
     if (indexPath.column == 0) {
         
-        if (indexPath.row == 0) {
-            
-            return @"全部商区";
-            
-        } else if (indexPath.row == 1) {
-            
-            return @"浦东新区";
-            
-        } else if (indexPath.row == 2) {
-            
-            return @"徐汇区";
-            
-        }  else if (indexPath.row == 3) {
-            
-            return @"黄浦区";
-            
-        } else if (indexPath.row == 4) {
-            
-            return @"卢湾区";
-            
-        } else if (indexPath.row == 5) {
-            
-            return @"静安区";
-            
-        } else if (indexPath.row == 6) {
-            
-            return @"长宁区";
-            
-        } else if (indexPath.row == 7) {
-            
-            return @"闵行区";
-            
-        }
+//        if (indexPath.row == 0) {
+//            
+//            return @"全部商区";
+//            
+//        } else if (indexPath.row == 1) {
+//            
+//            return @"浦东新区";
+//            
+//        } else if (indexPath.row == 2) {
+//            
+//            return @"徐汇区";
+//            
+//        }  else if (indexPath.row == 3) {
+//            
+//            return @"黄浦区";
+//            
+//        } else if (indexPath.row == 4) {
+//            
+//            return @"卢湾区";
+//            
+//        } else if (indexPath.row == 5) {
+//            
+//            return @"静安区";
+//            
+//        } else if (indexPath.row == 6) {
+//            
+//            return @"长宁区";
+//            
+//        } else if (indexPath.row == 7) {
+//            
+//            return @"闵行区";
+//            
+//        }
+
+        SubwayModel *subwayModel = self.dataArray[indexPath.row];
+        
+        return subwayModel.lineName;
         
     } else if (indexPath.column == 1) {
-        
-        
-        if (indexPath.row == 0) {
-            
-            return @"地铁";
-            
-        } else if (indexPath.row == 1) {
-            
-            return @"1号线 ";
-            
-        } else if (indexPath.row == 2) {
-            
-            return @"2号线 ";
-            
-        } else if (indexPath.row == 3 ) {
-            
-            return @"3号线 ";
-            
-        } else if (indexPath.row == 4) {
-            
-            return @"4号线 ";
-            
-        } else if (indexPath.row == 5) {
-            
-            return @"7号线 ";
-            
-        } else if (indexPath.row == 6) {
-            
-            return @"8号线 ";
-            
-        } else if (indexPath.row == 7) {
-            
-            return @"9号线 ";
-            
-        } else if (indexPath.row == 8) {
-            
-            return @"10号线 ";
-            
-        } else if (indexPath.row == 9) {
-            
-            return @"11号线 ";
-            
-        }
-
-    } else if (indexPath.column == 2) {
         
         if (indexPath.row == 0) {
             
@@ -260,7 +220,7 @@
             return @"等待赋值";
         }
         
-    } else if (indexPath.column == 3) {
+    } else if (indexPath.column == 2) {
         
         if (indexPath.row == 0) {
             
@@ -271,7 +231,7 @@
             return @"等待赋值";
         }
         
-    } else if (indexPath.column == 4) {
+    } else if (indexPath.column == 3) {
         
         if (indexPath.row == 0) {
             
@@ -340,9 +300,48 @@
             
             return @"淮海路";
         }
+    }
+    
+    return @"";
+}
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
+    
+    if (column == 0 ) {
+    
+        SubwayModel *subWay = self.dataArray[row];
+        
+        return subWay.list.count;
+        
+    }
+    return 0;
+}
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
+    
+    if (column == 0) {
+        
+        return self.dataArray.count;
+        
+    } else if (column == 1) {
+        
+        return 10;
         
     }
     
+    return 5;
+}
+
+- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    if (indexPath.column == 0 ) {
+        
+        SubwayModel *subWay = self.dataArray[indexPath.row];
+        
+        platformModel *model = subWay.list[indexPath.item];
+        
+        return model.name;
+    }
     return @"";
 }
 
@@ -369,7 +368,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:shopListIdentifier owner:nil options:nil] lastObject];
     }
     
-    cell.shopModel = self.dataArray[indexPath.row];
+//    cell.shopModel = self.dataArray[indexPath.row];
     
     return cell;
 }

@@ -22,7 +22,7 @@
 #import "MJExtension.h"
 #import "DataModel.h"
 #import "ShopModel.h"
-
+#import "SubwayModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -2688,5 +2688,112 @@
     
     [self startRequest:request];
 }
+
+//*********************************获取城市地铁数据*******************/
+- (void)sendCitySubWayWithCityId:(NSString *)cityId
+                         Success:(void (^)(NSMutableArray *))success
+                         failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:cityId forKey:@"citySign"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_LINE_LIST
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    NSArray *subArray = dictionary[@"list"];
+                                                                    
+                                                                    SubwayModel *subwayModel = [[SubwayModel alloc] init];
+                                                                    
+                                                                    subwayModel.subWayId = dictionary[@"id"];
+                                                                    
+                                                                    subwayModel.lineCode = dictionary[@"lineCode"];
+                                                                    
+                                                                    subwayModel.lineName = dictionary[@"lineName"];
+                                                                    
+                                                                    subwayModel.list = [[NSMutableArray alloc] init];
+                                                                    
+                                                                    for (int i = 0; i < subArray.count; i++) {
+                                                                        
+                                                                        platformModel *model = [[platformModel alloc] init];
+                                                                        
+                                                                        NSDictionary *dictionary = subArray[i];
+                                                                        
+                                                                        [model setValuesForKeysWithDictionary:dictionary];
+                                                                        
+                                                                        [subwayModel.list addObject:model];
+                                                                    }
+                                                                    
+                                                                    [dataArray addObject:subwayModel];
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+}
+
 
 @end

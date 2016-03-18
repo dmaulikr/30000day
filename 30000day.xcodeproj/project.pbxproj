@@ -289,6 +289,9 @@
 		B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5261C9AAAA400834533 /* ShopModel.m */; };
 		B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */; };
 		B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */; };
+		B8B3F5371C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */; };
+		B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */; };
+		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
@@ -958,6 +961,11 @@
 		B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataHandler.m; sourceTree = "<group>"; };
 		B8B3F52B1C9ABA5200834533 /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
 		B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
+		B8B3F5341C9BB1A200834533 /* QGRecordDetailSwitchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QGRecordDetailSwitchHeadView.h; sourceTree = "<group>"; };
+		B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
+		B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QGRecordDetailSwitchHeadView.xib; sourceTree = "<group>"; };
+		B8B3F5391C9BEB3E00834533 /* SubwayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayModel.h; sourceTree = "<group>"; };
+		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -2405,6 +2413,8 @@
 			children = (
 				B8B3F5251C9AAAA400834533 /* ShopModel.h */,
 				B8B3F5261C9AAAA400834533 /* ShopModel.m */,
+				B8B3F5391C9BEB3E00834533 /* SubwayModel.h */,
+				B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3029,6 +3039,9 @@
 		B8FD3ADE1C868A83007BCA6B /* 14.DOPDropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
+				B8B3F5341C9BB1A200834533 /* QGRecordDetailSwitchHeadView.h */,
+				B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */,
+				B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */,
 				B8FD3ADF1C868A83007BCA6B /* DOPDropDownMenu.h */,
 				B8FD3AE01C868A83007BCA6B /* DOPDropDownMenu.m */,
 				B8FD3AE11C868A83007BCA6B /* icon_chose_arrow_nor@2x.png */,
@@ -3928,6 +3941,7 @@
 				B804FDB81C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png in Resources */,
 				B8FD3AE61C868A83007BCA6B /* icon_chose_arrow_sel@2x.png in Resources */,
 				B804FD961C8AC9A900DFD1CF /* RecordingSignal002@2x.png in Resources */,
+				B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */,
 				B804FDAD1C8AC9A900DFD1CF /* sharemore_voipvoice@2x.png in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
 				B804FD361C8AC9A900DFD1CF /* rabbit_16.gif in Resources */,
@@ -4204,6 +4218,7 @@
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
 				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m in Sources */,
+				B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */,
 				B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */,
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
 				B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */,
@@ -4213,6 +4228,7 @@
 				B8FD3DF81C8A7903007BCA6B /* XHAlbum.m in Sources */,
 				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B8F2D99A1C5C8B1A002C7712 /* JBCalendarLogic.m in Sources */,
+				B8B3F5371C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m in Sources */,
 				B8F6487A1C9424BF001A3119 /* AppointmentCollectionViewCell.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,

@@ -58,6 +58,15 @@
  *  如果都没有可以不实现该协议
  */
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath;
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column;
+
+- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath;
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column;
+
+- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath;
+
 @end
 
 #pragma mark - delegate
@@ -67,18 +76,26 @@
  *  点击代理，点击了第column 第row 或者item项，如果 item >=0
  */
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath;
+
+- (void)guoJiaMenu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath;
+
 @end
 
 #pragma mark - interface
 @interface DOPDropDownMenu : UIView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) id <DOPDropDownMenuDataSource> dataSource;
+
 @property (nonatomic, weak) id <DOPDropDownMenuDelegate> delegate;
 
 @property (nonatomic, strong) UIColor *indicatorColor;      // 三角指示器颜色
+
 @property (nonatomic, strong) UIColor *textColor;           // 文字title颜色
+
 @property (nonatomic, strong) UIColor *textSelectedColor;   // 文字title选中颜色
+
 @property (nonatomic, strong) UIColor *separatorColor;      // 分割线颜色
+
 @property (nonatomic, assign) NSInteger fontSize;           // 字体大小
 // 当有二级列表item时，点击row 是否调用点击代理方法
 @property (nonatomic, assign) BOOL isClickHaveItemValid;

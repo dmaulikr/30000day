@@ -23,6 +23,6 @@
 /**
  * 改变图片的颜色
  */
-- (UIImage *)imageWithColor:(UIColor *)color;
+- (UIImage *)imageWithTintColor:(UIColor *)color;
 
 @end

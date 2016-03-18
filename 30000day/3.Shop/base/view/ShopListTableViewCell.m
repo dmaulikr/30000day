@@ -24,6 +24,8 @@
     
     _shopModel = shopModel;
     
+    self.titleLabel.text = _shopModel.productName;
+
 }
 
 

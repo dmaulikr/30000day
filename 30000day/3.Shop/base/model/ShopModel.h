@@ -20,22 +20,17 @@
 
 @property (nonatomic,strong) NSNumber *presentPrice;//现价
 
-@property (nonatomic,copy) NSString *addrProvince;
+@property (nonatomic,copy) NSString *productKeyword;//产品关键词
 
-@property (nonatomic,copy) NSString *address;
+@property (nonatomic,copy) NSString *productPhoto;//产品图片url
 
-@property (nonatomic,copy) NSString *alias;
+@property (nonatomic,copy) NSString *remark;//备注
 
-@property (nonatomic,copy) NSString *busInfo;
+@property (nonatomic,copy) NSString *graphicDetails;//图文详情
 
-@property (nonatomic,copy) NSString *businessTime;
+@property (nonatomic,copy) NSString *purchaseNotice;//购买须知
 
-@property (nonatomic,copy) NSString *companyName;
+@property (nonatomic,strong) NSNumber *productRebateID;
 
-@property (nonatomic,strong) NSNumber *shopId;
-
-@property (nonatomic,copy) NSString *telephone;
-
-@property (nonatomic,copy) NSString *type1;
 
 @end

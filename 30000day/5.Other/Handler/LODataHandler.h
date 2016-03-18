@@ -225,4 +225,10 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure;
 
+//*********************************获取城市地铁数据*******************/
+- (void)sendCitySubWayWithCityId:(NSString *)cityId
+                                Success:(void (^)(NSMutableArray *))success
+                                failure:(void (^)(NSError *error))failure;
+
+
 @end
