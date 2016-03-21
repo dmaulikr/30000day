@@ -13,6 +13,7 @@
 		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
 		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
+		B605DD201C9C093700BE1D3E /* MTImagePlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B605DD1F1C9C093700BE1D3E /* MTImagePlayView.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
 		B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85861C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m */; };
@@ -607,6 +608,8 @@
 		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
+		B605DD1E1C9C093700BE1D3E /* MTImagePlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTImagePlayView.h; sourceTree = "<group>"; };
+		B605DD1F1C9C093700BE1D3E /* MTImagePlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTImagePlayView.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
 		B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCell.m; sourceTree = "<group>"; };
 		B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCell.xib; sourceTree = "<group>"; };
@@ -1597,6 +1600,15 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		B605DD1D1C9C093700BE1D3E /* 2.MTImagePlayView */ = {
+			isa = PBXGroup;
+			children = (
+				B605DD1E1C9C093700BE1D3E /* MTImagePlayView.h */,
+				B605DD1F1C9C093700BE1D3E /* MTImagePlayView.m */,
+			);
+			path = 2.MTImagePlayView;
+			sourceTree = "<group>";
+		};
 		B6171DC21C8D69AA00116B13 /* BindOnAccount */ = {
 			isa = PBXGroup;
 			children = (
@@ -1638,6 +1650,7 @@
 				B62C38141C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.h */,
 				B62C38151C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.m */,
 				B62C38161C9AA6B6002208CD /* ShopDetailOneLineDataTableViewCell.xib */,
+				B605DD1D1C9C093700BE1D3E /* 2.MTImagePlayView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4439,6 +4452,7 @@
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
+				B605DD201C9C093700BE1D3E /* MTImagePlayView.m in Sources */,
 				B8FD3DF01C8A7903007BCA6B /* XHFileAttribute.m in Sources */,
 				B8FD3DD21C8A7903007BCA6B /* NSString+XHDiskSizeTransfrom.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,

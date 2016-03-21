@@ -14,12 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="354"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-1" translatesAutoresizingMaskIntoConstraints="NO" id="LhB-AK-FsV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="260" id="3G8-aN-VhB"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每天9:00-22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmM-Hd-SjW">
                         <rect key="frame" x="75" y="324" width="103" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -49,21 +43,28 @@
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wd-X1-heM" customClass="MTImagePlayView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.90588235289999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="260" id="1NB-XO-Nrv"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="LhB-AK-FsV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3dK-z1-tqf"/>
-                    <constraint firstItem="NRS-mN-yhJ" firstAttribute="top" secondItem="LhB-AK-FsV" secondAttribute="bottom" constant="13" id="HtM-hW-8nb"/>
+                    <constraint firstItem="1wd-X1-heM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8bw-zf-WH7"/>
                     <constraint firstItem="DHa-cL-xY0" firstAttribute="top" secondItem="Nv6-Oi-LSM" secondAttribute="bottom" constant="7" id="KtC-Pp-HYq"/>
+                    <constraint firstItem="NRS-mN-yhJ" firstAttribute="top" secondItem="1wd-X1-heM" secondAttribute="bottom" constant="13" id="MPs-5J-CVw"/>
                     <constraint firstItem="DHa-cL-xY0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="R5r-vY-Unn"/>
                     <constraint firstItem="nmM-Hd-SjW" firstAttribute="top" secondItem="Ak2-yz-Irg" secondAttribute="bottom" constant="7" id="Rwg-ay-71y"/>
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="leading" secondItem="Nv6-Oi-LSM" secondAttribute="trailing" constant="7" id="TKP-YS-cK1"/>
+                    <constraint firstAttribute="trailing" secondItem="1wd-X1-heM" secondAttribute="trailing" id="WfH-LI-2gQ"/>
                     <constraint firstItem="nmM-Hd-SjW" firstAttribute="leading" secondItem="DHa-cL-xY0" secondAttribute="trailing" id="ZKM-SF-yfq"/>
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="bpL-jc-jb6"/>
-                    <constraint firstAttribute="trailing" secondItem="LhB-AK-FsV" secondAttribute="trailing" id="ghl-WD-quM"/>
                     <constraint firstItem="NRS-mN-yhJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="inE-WZ-UQ0"/>
                     <constraint firstItem="Nv6-Oi-LSM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="jMP-tB-fIJ"/>
+                    <constraint firstItem="1wd-X1-heM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="okk-nM-aGe"/>
                     <constraint firstItem="Nv6-Oi-LSM" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="uSA-gz-MlT"/>
-                    <constraint firstItem="LhB-AK-FsV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vYl-Te-3B3"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -71,13 +72,10 @@
                 <outlet property="businessHoursLable" destination="nmM-Hd-SjW" id="RBb-xR-mvz"/>
                 <outlet property="keywordLable" destination="Ak2-yz-Irg" id="eh2-gm-oQR"/>
                 <outlet property="positionLable" destination="Nv6-Oi-LSM" id="v27-j8-LEa"/>
-                <outlet property="rollImageView" destination="LhB-AK-FsV" id="k0I-l5-Thn"/>
+                <outlet property="rollImageView" destination="1wd-X1-heM" id="JhZ-3A-DU4"/>
                 <outlet property="storeLable" destination="NRS-mN-yhJ" id="nTg-S5-8OO"/>
             </connections>
             <point key="canvasLocation" x="335.5" y="233.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="sd-1" width="281" height="194"/>
-    </resources>
 </document>
