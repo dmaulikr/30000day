@@ -2,9 +2,9 @@
 //  UIView+Extension.h
 //  郭佳微博
 //
-//  Created by admian on 15/4/7.
+//  Created by admin on 15/4/7.
 //  Copyright (c) 2015年 guojia. All rights reserved.
-//封装的设置x,y,width,height对屏幕适配有一点用处
+//  封装的设置x,y,width,height对屏幕适配有一点用处
 
 #import <UIKit/UIKit.h>
 

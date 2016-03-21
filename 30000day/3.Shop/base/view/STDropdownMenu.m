@@ -14,7 +14,6 @@
 
 @end
 
-
 @implementation DropdownTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -77,6 +76,7 @@
 @property (nonatomic,retain)UIImageView *imageView;
 
 @property (nonatomic,retain) NSIndexPath *selectIndexPath;//选中的indexPath
+
 
 @end
 

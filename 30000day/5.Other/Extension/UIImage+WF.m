@@ -25,30 +25,28 @@
     return [image stretchableImageWithLeftCapWidth:leftCap topCapHeight:topCap];
 }
 
-- (UIImage *)imageWithColor:(UIColor *)color {
+- (UIImage *) imageWithTintColor:(UIColor *)tintColor {
     
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    //We want to keep alpha, set opaque to NO; Use 0.0f for scale to use the scale factor of the device’s main screen.
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    [tintColor setFill];
     
-    CGContextTranslateCTM(context, 0, self.size.height-5);
+    CGRect bounds = CGRectMake(0, 0, self.size.width, self.size.height);
     
-    CGContextScaleCTM(context, 1.0, -1.0);
+    UIRectFill(bounds);
     
-    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    //Draw the tinted image in context
+    [self drawInRect:bounds blendMode:kCGBlendModeDestinationIn alpha:1.0f];
     
-    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    CGContextClipToMask(context, rect, self.CGImage);
-    
-    [color setFill];
-    
-    CGContextFillRect(context, rect);
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    return newImage;
+    return tintedImage;
 }
 
 
+
+    
 @end

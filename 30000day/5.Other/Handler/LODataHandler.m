@@ -22,7 +22,7 @@
 #import "MJExtension.h"
 #import "DataModel.h"
 #import "ShopModel.h"
-
+#import "SubwayModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -1046,40 +1046,46 @@
     
     self.getLocationErrorBlock = failure;
     
-    // 判断定位操作是否被允许
-    if ([CLLocationManager locationServicesEnabled]) {
+    self.locationManager = [[CLLocationManager alloc] init] ;
+    
+    self.locationManager.delegate = self;
+    
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    _locationManager.distanceFilter = 100;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         
-        self.locationManager = [[CLLocationManager alloc] init] ;
+        [_locationManager requestWhenInUseAuthorization];
         
-        self.locationManager.delegate = self;
-        
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        
-        _locationManager.distanceFilter = 100;
-        
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            
-            [_locationManager requestWhenInUseAuthorization];
-            
-        }
-        
-    } else {
-        
-        //提示用户无法进行定位操作  Product
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示"
-                                                           message:@"开启定位功能可查看天气噢！"
-                                                          delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-        
-        return;
     }
 
     //开始定位
     [_locationManager startUpdatingLocation];
+    
 }
 
 #pragma ---
 #pragma mark --- CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    switch (status) {
+            
+        case kCLAuthorizationStatusNotDetermined:
+        {
+            
+             self.getLocationErrorBlock([[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}]);
+
+        }
+            break;
+            
+        default:
+            
+            break;
+    }
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
     //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation
@@ -2688,5 +2694,112 @@
     
     [self startRequest:request];
 }
+
+//*********************************获取城市地铁数据*******************/
+- (void)sendCitySubWayWithCityId:(NSString *)cityId
+                         Success:(void (^)(NSMutableArray *))success
+                         failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:cityId forKey:@"citySign"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_LINE_LIST
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    NSArray *subArray = dictionary[@"list"];
+                                                                    
+                                                                    SubwayModel *subwayModel = [[SubwayModel alloc] init];
+                                                                    
+                                                                    subwayModel.subWayId = dictionary[@"id"];
+                                                                    
+                                                                    subwayModel.lineCode = dictionary[@"lineCode"];
+                                                                    
+                                                                    subwayModel.lineName = dictionary[@"lineName"];
+                                                                    
+                                                                    subwayModel.list = [[NSMutableArray alloc] init];
+                                                                    
+                                                                    for (int i = 0; i < subArray.count; i++) {
+                                                                        
+                                                                        platformModel *model = [[platformModel alloc] init];
+                                                                        
+                                                                        NSDictionary *dictionary = subArray[i];
+                                                                        
+                                                                        [model setValuesForKeysWithDictionary:dictionary];
+                                                                        
+                                                                        [subwayModel.list addObject:model];
+                                                                    }
+                                                                    
+                                                                    [dataArray addObject:subwayModel];
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+}
+
 
 @end

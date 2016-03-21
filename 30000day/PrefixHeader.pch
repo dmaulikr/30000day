@@ -163,6 +163,9 @@
 
 #define  GET_COMPANYDETAILS        @"/stapi/market/findProductInfo"   //获取商店详情
 
+#define  GET_LINE_LIST             @"/stapi/market/findLineList"      //获取城市地铁线路
+
+#define  GET_PLACE_LIST             @"/stapi/market/findCityList"      //获取所有的地址
 
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"

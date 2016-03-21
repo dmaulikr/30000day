@@ -96,7 +96,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>为您显示天气情况</string>
+	<string>开启定位获取更多精彩哦</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>开启定位获取更多精彩哦</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -20,4 +20,13 @@
     // Configure the view for the selected state
 }
 
+- (void)setShopModel:(ShopModel *)shopModel {
+    
+    _shopModel = shopModel;
+    
+    self.titleLabel.text = _shopModel.productName;
+
+}
+
+
 @end

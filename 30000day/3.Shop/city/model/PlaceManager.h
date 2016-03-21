@@ -10,4 +10,16 @@
 
 @interface PlaceManager : NSObject
 
++ (PlaceManager *)shareManager;
+
+//app首次进来的时候会进行配置
+- (void)configManagerSuccess:(void (^)(BOOL))success
+                     failure:(void (^)(NSError *error))failure;
+
+//根据城市name来获取该城市下一行政级别（区、县）
+- (void)countyArrayWithCityName:(NSString *)cityName success:(void (^)(NSMutableArray *))success;
+
+//根据地名字来获取地名字的id
+- (void)placeIdWithPlaceName:(NSString *)placeName success:(void (^)(NSNumber *))success;
+
 @end

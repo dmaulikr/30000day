@@ -29,6 +29,8 @@
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
     
+    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    
     [self.view addSubview:self.tableView];
     
     [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
@@ -57,6 +59,8 @@
     if (_tableViewStyle == STRefreshTableViewPlain) {
         
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
+        
+        [self.tableView setTableFooterView:[[UIView alloc] init]];
         
         [self.view addSubview:self.tableView];
     
