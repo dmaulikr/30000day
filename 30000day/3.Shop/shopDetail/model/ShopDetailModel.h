@@ -24,5 +24,7 @@
 @property (nonatomic,copy) NSString *productTypePid;       //产品类型ID
 @property (nonatomic,copy) NSString *purchaseNotice;       //购买须知
 @property (nonatomic,copy) NSString *remark;               //注意
+@property (nonatomic,copy) NSString *startTime;            //开始时间
+@property (nonatomic,copy) NSString *telephone;            //电话
 
 @end
