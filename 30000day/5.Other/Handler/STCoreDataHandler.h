@@ -20,7 +20,7 @@ typedef void(^OperationResult)(NSError* error);
 
 + (STCoreDataHandler *)shareCoreDataHandler;
 
-- (void)setupEnvModel:(NSString *)model DbFile:(NSString *)filename;
+- (void)configModel:(NSString *)model DbFile:(NSString *)filename;
 
 - (NSManagedObjectContext *)createPrivateObjectContext;
 

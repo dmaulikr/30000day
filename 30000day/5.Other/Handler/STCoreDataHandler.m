@@ -33,7 +33,7 @@ static STCoreDataHandler *onlyInstance;
     return onlyInstance;
 }
 
-- (void)setupEnvModel:(NSString *)model DbFile:(NSString*)filename {
+- (void)configModel:(NSString *)model DbFile:(NSString*)filename {
     
     _modelName = model;
     
@@ -66,7 +66,6 @@ static STCoreDataHandler *onlyInstance;
     
     return ctx;
 }
-
 
 - (NSManagedObjectModel *)managedObjectModel {
     

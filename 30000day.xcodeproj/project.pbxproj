@@ -292,6 +292,8 @@
 		B8B3F5371C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */; };
 		B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */; };
 		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
+		B8B3F5491C9D58BE00834533 /* PlaceObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */; };
+		B8B3F54A1C9D58BE00834533 /* PlaceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5481C9D58BE00834533 /* PlaceObject.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
@@ -966,6 +968,10 @@
 		B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QGRecordDetailSwitchHeadView.xib; sourceTree = "<group>"; };
 		B8B3F5391C9BEB3E00834533 /* SubwayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayModel.h; sourceTree = "<group>"; };
 		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
+		B8B3F5451C9D58BE00834533 /* PlaceObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaceObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PlaceObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B8B3F5471C9D58BE00834533 /* PlaceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceObject.h; sourceTree = "<group>"; };
+		B8B3F5481C9D58BE00834533 /* PlaceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceObject.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -2404,6 +2410,10 @@
 				B8B3F51E1C9AA01700834533 /* PlaceManager.h */,
 				B8B3F51F1C9AA01700834533 /* PlaceManager.m */,
 				B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */,
+				B8B3F5451C9D58BE00834533 /* PlaceObject+CoreDataProperties.h */,
+				B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */,
+				B8B3F5471C9D58BE00834533 /* PlaceObject.h */,
+				B8B3F5481C9D58BE00834533 /* PlaceObject.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4223,6 +4233,7 @@
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
 				B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */,
 				B8FD3E281C8A7903007BCA6B /* XHLoadMoreView.m in Sources */,
+				B8B3F5491C9D58BE00834533 /* PlaceObject+CoreDataProperties.m in Sources */,
 				B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */,
 				B8FD3AD21C83EDA3007BCA6B /* PersonDetailViewController.m in Sources */,
 				B8FD3DF81C8A7903007BCA6B /* XHAlbum.m in Sources */,
@@ -4340,6 +4351,7 @@
 				B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
+				B8B3F54A1C9D58BE00834533 /* PlaceObject.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
@@ -4582,7 +4594,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4603,7 +4615,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

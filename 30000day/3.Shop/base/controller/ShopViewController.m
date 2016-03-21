@@ -16,6 +16,7 @@
 #import "ShopModel.h"
 #import "STCoreDataHandler.h"
 #import "SubwayModel.h"
+#import "PlaceManager.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -25,7 +26,11 @@
 
 @property (nonatomic,strong) UISearchBar *searchBar;
 
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *subwayArray;
+
+@property (nonatomic,strong) NSMutableArray *placeArray;
+
+@property (nonatomic,strong) DOPDropDownMenu *menuView;
 
 @end
 
@@ -38,10 +43,62 @@
     //1.初始化UI
     [self configUI];
     
-    [self.dataHandler sendCitySubWayWithCityId:@"112" Success:^(NSMutableArray *dataArray) {
+    [self configBusinessPlaceWithCityName:@"上海"];
+    
+    self.leftBarButton.title = @"上海";
+    
+    [self startFindLocationSucess:^(NSString *cityName) {
+        
+        [self configBusinessPlaceWithCityName:cityName];
+        
+        self.leftBarButton.title = cityName;
+        
+    } failure:^(NSError *error) {
+        
+        [self configBusinessPlaceWithCityName:@"上海"];
+        
+        self.leftBarButton.title = @"上海";
+        
+    }];
+}
+
+- (void)configBusinessPlaceWithCityName:(NSString *)cityName {
+    
+    //2.配置数据库
+    PlaceManager *manager = [PlaceManager shareManager];
+    
+    [manager configManagerSuccess:^(BOOL success) {
+        
+        [manager countyArrayWithCityName:cityName success:^(NSMutableArray *array) {
+            
+            //3.配置商圈
+            self.placeArray = array;
+            
+            [self.placeArray insertObject:@"全部市区" atIndex:0];
+            
+            //4.配置地铁
+            [manager placeIdWithPlaceName:cityName success:^(NSNumber *placeId) {
+                
+                [self configCitySubWayWithCityId:[placeId stringValue]];
+                
+            }];
+            
+        }];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+
+//根据Id来配置该城市的地铁
+- (void)configCitySubWayWithCityId:(NSString *)cityId {
+    
+    [self.dataHandler sendCitySubWayWithCityId:cityId Success:^(NSMutableArray *dataArray) {
         
         //保存数据
-        self.dataArray = dataArray;
+        self.subwayArray = dataArray;
         
         //配置界面
         self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
@@ -53,6 +110,8 @@
         self.isShowMapView = NO;
         
         //初始化搜索界面
+        self.menuView = nil;
+        
         DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
         
         menuView.dataSource = self;
@@ -61,14 +120,51 @@
         
         menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
         
+        self.menuView = menuView;
+        
         [self.view addSubview:menuView];
         
     } failure:^(NSError *error) {
-       
+        
         [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
     }];
-    
 }
+
+//定位并获取获取城市名字
+- (void)startFindLocationSucess:(void (^)(NSString *))success
+                        failure:(void (^)(NSError *))failure {
+
+    [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
+        
+        NSMutableString *string = [NSMutableString stringWithString:cityName];
+        
+        NSRange locatin;
+        if ([string containsString:@"市"]) {
+            
+            locatin = [string rangeOfString:@"市"];
+            
+        } else if ([string containsString:@"自治区"]) {
+            
+            locatin = [string rangeOfString:@"自治区"];
+            
+        }
+    
+        if (locatin.length != 0) {
+            
+            [string deleteCharactersInRange:locatin];
+            
+        }
+        
+        success(string);
+        
+    } failure:^(NSError *error) {
+        
+        failure(error);
+        
+    }];
+}
+
+
 - (IBAction)leftBarButtonAcion:(id)sender {
     
     CityViewController *controller = [[CityViewController alloc] init];
@@ -154,14 +250,14 @@
     
     if (column == 0) {
         
-        return 8;
+        return self.placeArray.count;
         
     } else if (column == 1) {
         
-        return 10;
+        return 2;
         
     }
-    return 5;
+    return 2;
 }
 
 /**
@@ -171,41 +267,123 @@
     
     if (indexPath.column == 0) {
         
-//        if (indexPath.row == 0) {
-//            
-//            return @"全部商区";
-//            
-//        } else if (indexPath.row == 1) {
-//            
-//            return @"浦东新区";
-//            
-//        } else if (indexPath.row == 2) {
-//            
-//            return @"徐汇区";
-//            
-//        }  else if (indexPath.row == 3) {
-//            
-//            return @"黄浦区";
-//            
-//        } else if (indexPath.row == 4) {
-//            
-//            return @"卢湾区";
-//            
-//        } else if (indexPath.row == 5) {
-//            
-//            return @"静安区";
-//            
-//        } else if (indexPath.row == 6) {
-//            
-//            return @"长宁区";
-//            
-//        } else if (indexPath.row == 7) {
-//            
-//            return @"闵行区";
-//            
-//        }
+        return self.placeArray[indexPath.row];
+        
+    } else if (indexPath.column == 1) {
+        
+        if (indexPath.row == 0) {
+            
+            return @"全部";
+            
+        } else {
+            
+            return @"等待赋值";
+        }
+        
+    } else if (indexPath.column == 2) {
+        
+        if (indexPath.row == 0) {
+            
+            return @"排序";
+            
+        } else {
+            
+            return @"等待赋值";
+        }
+        
+    } else if (indexPath.column == 3) {
+        
+        if (indexPath.row == 0) {
+            
+            return @"筛选";
+            
+        } else {
+            
+            return @"等待赋值";
+        }
+    }
+    return @"";
+}
 
-        SubwayModel *subwayModel = self.dataArray[indexPath.row];
+/** 新增
+ *  当有column列 row 行 返回有多少个item ，如果>0，说明有二级列表 ，=0 没有二级列表
+ *  如果都没有可以不实现该协议
+ */
+- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
+    
+    if (column == 0 ) {
+        
+        return 2;
+    }
+    return 0;
+}
+
+/** 新增
+ *  当有column列 row 行 item项 title
+ *  如果都没有可以不实现该协议
+ */
+- (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    if (indexPath.column == 0 && indexPath.row == 0) {
+        
+        if (indexPath.item == 0) {
+            
+            return @"全部商区";
+            
+        } else if (indexPath.item == 1) {
+            
+            return @"等待赋值";
+            
+        }
+    }
+    return @"";
+}
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
+    
+    if (column == 0 ) {
+    
+        SubwayModel *subWay = self.subwayArray[row];
+        
+        return subWay.list.count;
+        
+    }
+    return 0;
+}
+
+- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
+    
+    if (column == 0) {
+        
+        return self.subwayArray.count;
+        
+    } else if (column == 1) {
+        
+        return 2;
+        
+    }
+    
+    return 2;
+}
+
+- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    if (indexPath.column == 0 ) {
+        
+        SubwayModel *subWay = self.subwayArray[indexPath.row];
+        
+        platformModel *model = subWay.list[indexPath.item];
+        
+        return model.name;
+    }
+    return @"";
+}
+
+- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    if (indexPath.column == 0) {
+        
+        SubwayModel *subwayModel = self.subwayArray[indexPath.row];
         
         return subwayModel.lineName;
         
@@ -241,109 +419,20 @@
             
             return @"等待赋值";
         }
-        
-    }
-    
-    return @"";
-}
-
-/** 新增
- *  当有column列 row 行 返回有多少个item ，如果>0，说明有二级列表 ，=0 没有二级列表
- *  如果都没有可以不实现该协议
- */
-- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
-    
-    if (column == 0 ) {
-        
-        return 8;
-    }
-    return 0;
-}
-
-/** 新增
- *  当有column列 row 行 item项 title
- *  如果都没有可以不实现该协议
- */
-- (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
-    
-    if (indexPath.column == 0 && indexPath.row == 0) {
-        
-        if (indexPath.item == 0) {
-            
-            return @"全部商区";
-            
-        } else if (indexPath.item == 1) {
-            
-            return @"陆家嘴";
-            
-        } else if (indexPath.item == 2) {
-            
-            return @"八佰伴";
-            
-        } else if (indexPath.item == 3) {
-            
-            return @"上南地区";
-            
-        } else if (indexPath.item == 4) {
-            
-            return @"徐汇区";
-            
-        } else if (indexPath.item == 5) {
-            
-            return @"人民广场";
-            
-        } else if (indexPath.item == 6) {
-            
-            return @"世纪公园";
-            
-        } else if (indexPath.item == 7) {
-            
-            return @"淮海路";
-        }
-    }
-    
-    return @"";
-}
-
-- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
-    
-    if (column == 0 ) {
-    
-        SubwayModel *subWay = self.dataArray[row];
-        
-        return subWay.list.count;
-        
-    }
-    return 0;
-}
-
-- (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    
-    if (column == 0) {
-        
-        return self.dataArray.count;
-        
-    } else if (column == 1) {
-        
-        return 10;
-        
-    }
-    
-    return 5;
-}
-
-- (NSString *)guoJiaMenu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
-    
-    if (indexPath.column == 0 ) {
-        
-        SubwayModel *subWay = self.dataArray[indexPath.row];
-        
-        platformModel *model = subWay.list[indexPath.item];
-        
-        return model.name;
     }
     return @"";
 }
+
+- (void)guoJiaMenu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
+
+    
+}
+
+- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    
+}
+
 
 #pragma ---
 #pragma mark -- UITableViewDataSource/UITableViewDelegate
@@ -355,7 +444,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.dataArray.count;
+    return self.subwayArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

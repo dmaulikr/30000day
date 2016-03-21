@@ -1046,40 +1046,46 @@
     
     self.getLocationErrorBlock = failure;
     
-    // 判断定位操作是否被允许
-    if ([CLLocationManager locationServicesEnabled]) {
+    self.locationManager = [[CLLocationManager alloc] init] ;
+    
+    self.locationManager.delegate = self;
+    
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    _locationManager.distanceFilter = 100;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         
-        self.locationManager = [[CLLocationManager alloc] init] ;
+        [_locationManager requestWhenInUseAuthorization];
         
-        self.locationManager.delegate = self;
-        
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        
-        _locationManager.distanceFilter = 100;
-        
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            
-            [_locationManager requestWhenInUseAuthorization];
-            
-        }
-        
-    } else {
-        
-        //提示用户无法进行定位操作  Product
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示"
-                                                           message:@"开启定位功能可查看天气噢！"
-                                                          delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-        
-        return;
     }
 
     //开始定位
     [_locationManager startUpdatingLocation];
+    
 }
 
 #pragma ---
 #pragma mark --- CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    switch (status) {
+            
+        case kCLAuthorizationStatusNotDetermined:
+        {
+            
+             self.getLocationErrorBlock([[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}]);
+
+        }
+            break;
+            
+        default:
+            
+            break;
+    }
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
     //此处locations存储了持续更新的位置坐标值，取最后一个值为最新位置，如果不想让其持续更新位置，则在此方法中获取到一个值之后让locationManager stopUpdatingLocation

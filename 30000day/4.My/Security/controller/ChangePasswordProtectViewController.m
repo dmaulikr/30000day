@@ -219,12 +219,19 @@
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
     switch (indexPath.column) {
+            
         case 0:
+            
             return self.questionStringArray[indexPath.row];
+            
             break;
+            
         default:
+            
             return nil;
+            
             break;
     }
 }

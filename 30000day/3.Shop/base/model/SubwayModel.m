@@ -10,7 +10,6 @@
 
 @implementation SubwayModel
 
-
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
     if ([key isEqualToString:@"id"]) {
@@ -30,6 +29,5 @@
         self.platformId = value;
     }
 }
-
 
 @end

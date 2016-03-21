@@ -10,15 +10,21 @@
 
 @interface DataModel : NSObject
 
-@property (nonatomic,strong) NSNumber *averageLife;
+@property (nonatomic,copy)   NSString *averageLife;
 
-@property (nonatomic,strong) NSNumber *code;
+@property (nonatomic,copy)   NSString *code;
 
-@property (nonatomic,strong) NSNumber *fraction;
+@property (nonatomic,copy)   NSString *fraction;
 
-@property (nonatomic,strong) NSNumber *provinceId;
+@property (nonatomic,strong) NSNumber *dataId;
 
-@property (nonatomic,copy) NSMutableArray *cityArray;
+@property (nonatomic,copy)   NSString *level;
+
+@property (nonatomic,copy)   NSString *name;
+
+@property (nonatomic,copy)   NSString *pCode;
+
+@property (nonatomic,copy)   NSString *rootCode;
 
 @end
 

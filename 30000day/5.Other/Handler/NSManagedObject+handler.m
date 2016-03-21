@@ -58,7 +58,7 @@
     
     NSMutableArray *orderArray = [[NSMutableArray alloc] init];
     
-    if (orders!=nil) {
+    if (orders != nil) {
         
         for (NSString *order in orders) {
             
@@ -163,7 +163,7 @@
     return results[0];
 }
 
-+ (void)one:(NSString*)predicate on:(ObjectResult)handler{
++ (void)one:(NSString*)predicate on:(ObjectResult)handler {
     
     NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
     
