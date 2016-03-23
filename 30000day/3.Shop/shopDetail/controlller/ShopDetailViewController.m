@@ -31,6 +31,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    
+    
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
+    
+    NSDate *date = [formatter dateFromString:@"15601623118"];
+    
+    NSLog(@"date1:%@",date);
+    
+    
     self.tableViewStyle = STRefreshTableViewGroup;
 
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
@@ -217,12 +232,12 @@
         if (indexPath.row == 0) {
             
             shopDetailOneLineDataTableViewCell.leftTitleLable.text = @"浦东小道888号科技大楼12楼";
-            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"sd-2"]];
+            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
             
         } else if (indexPath.row == 1){
             
-            shopDetailOneLineDataTableViewCell.leftTitleLable.text = @"1280-333444";
-            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"sd-3"]];
+            shopDetailOneLineDataTableViewCell.leftTitleLable.text = self.shopDetailModel.telephone;
+            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
         }
         
         return shopDetailOneLineDataTableViewCell;
