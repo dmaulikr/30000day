@@ -17,6 +17,7 @@
 #import "UIImageView+WebCache.h"
 #import "SignInViewController.h"
 #import "AppDelegate.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -274,7 +275,7 @@
 - (void)startFindLocationSucess {
     
     //1.开始定位
-    [self.dataHandler startFindLocationSucess:^(NSString *cityName) {
+    [self.dataHandler startFindLocationSucess:^(NSString *cityName,NSString *administrativeArea,CLLocationCoordinate2D coordinate2D) {
         
         NSMutableString *string = [NSMutableString stringWithString:cityName];
         
@@ -294,6 +295,9 @@
             [string deleteCharactersInRange:locatin];
             
         }
+        
+        
+        
         
         //获取天气情况
         [self.dataHandler getWeatherInformation:string sucess:^(WeatherInformationModel *informationModel) {
@@ -337,7 +341,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
         
-        [cell.ageLable setText:[NSString stringWithFormat:@"%ld岁",[self daysToYear]]];
+        [cell.ageLable setText:[NSString stringWithFormat:@"%ld岁",(long)[self daysToYear]]];
         [cell.jinSuoImageView setImage:[self lifeToYear]];
         
         [cell setChangeStateBlock:^() {

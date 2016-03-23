@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ShopDetailModel.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -25,6 +25,9 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 @class STBaseViewController;
 
 @class WeatherInformationModel;
+
+@class SearchConditionModel;
+
 
 @interface LODataHandler : NSObject
 
@@ -109,7 +112,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 
 
 //***********开始定位操作(sucess是城市的名字)****************/
-- (void)startFindLocationSucess:(void (^)(NSString *))sucess
+- (void)startFindLocationSucess:(void (^)(NSString *,NSString *,CLLocationCoordinate2D))sucess
                         failure:(void (^)(NSError *))failure;
 
 
@@ -230,6 +233,13 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                 Success:(void (^)(NSMutableArray *))success
                                 failure:(void (^)(NSError *error))failure;
 
+
+//*********************************获取根据筛选条件来获取所有的商品列表*******************/
+- (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
+                                     Success:(void (^)(NSMutableArray *))success
+                                     failure:(void (^)(NSError *error))failure;
+
+
 //*********************************获取评论列表*******************/
 - (void)sendfindCommentListWithProductId:(NSInteger)productId
                                     type:(NSInteger)type
@@ -237,6 +247,5 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   userId:(NSInteger)userId
                          Success:(void (^)(NSMutableArray *success))success
                          failure:(void (^)(NSError *error))failure;
-
 
 @end

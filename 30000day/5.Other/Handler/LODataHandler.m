@@ -23,10 +23,15 @@
 #import "DataModel.h"
 #import "ShopModel.h"
 #import "SubwayModel.h"
+
 #import "CommentModel.h"
+
+#import "SearchConditionModel.h"
+
 
 #import "SBJson.h"
 #import "AFNetworking.h"
+#import "NSString+URLEncoding.h"
 
 //电话簿
 #import <AddressBook/AddressBook.h>
@@ -65,7 +70,7 @@
 
 @property (nonatomic,strong)CLLocationManager *locationManager;
 
-@property (nonatomic,copy) void (^(getLocationBlock))(NSString *);//获取地理位置和城市名称的回调代码块
+@property (nonatomic,copy) void (^(getLocationBlock))(NSString *,NSString *,CLLocationCoordinate2D);//获取地理位置和城市名称的回调代码块
 
 @property (nonatomic,copy) void (^(getLocationErrorBlock))(NSError *);//获取地理位置和城市名称出错回调代码块
 
@@ -1039,9 +1044,8 @@
 
 
 //***************开始定位操作********************/
-- (void)startFindLocationSucess:(void (^)(NSString *))sucess
+- (void)startFindLocationSucess:(void (^)(NSString *,NSString *,CLLocationCoordinate2D))sucess
                         failure:(void (^)(NSError *))failure {
-    
     
     self.getLocationBlock = sucess;
     
@@ -1060,10 +1064,8 @@
         [_locationManager requestWhenInUseAuthorization];
         
     }
-
     //开始定位
     [_locationManager startUpdatingLocation];
-    
 }
 
 #pragma ---
@@ -1103,22 +1105,12 @@
         if (array.count > 0){
             
             CLPlacemark *placemark = [array objectAtIndex:0];
-            
-            //将获得的所有信息显示到label上
-            NSString *city = placemark.locality;
-            
-            if (!city) {
-                
-                //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
-                city = placemark.administrativeArea;
-                
-            }
-            
+ 
             dispatch_async(dispatch_get_main_queue(), ^{
                
-                if (![Common isObjectNull:city]) {
+                if (![Common isObjectNull:placemark.locality] && ![Common isObjectNull:placemark.administrativeArea]) {
                     
-                    self.getLocationBlock(city);//回调
+                    self.getLocationBlock(placemark.locality,placemark.administrativeArea,currentLocation.coordinate);//回调
                     
                     //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
                     [manager stopUpdatingLocation];
@@ -2747,7 +2739,7 @@
                                                                         NSDictionary *dictionary = subArray[i];
                                                                         
                                                                         [model setValuesForKeysWithDictionary:dictionary];
-                                                                        
+
                                                                         [subwayModel.list addObject:model];
                                                                     }
                                                                     
@@ -2802,6 +2794,132 @@
     
 }
 
+//*********************************获取根据筛选条件来获取所有的商品列表*******************/
+- (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
+                                     Success:(void (^)(NSMutableArray *))success
+                                     failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    if (![conditionModel.sequence isEqualToNumber:@0] && ![Common isObjectNull:conditionModel.sequence]) {
+        if ([conditionModel.sequence isEqualToNumber:@2]) {
+            [params addParameter:conditionModel.latitude forKey:@"dimension"];
+            [params addParameter:conditionModel.longitude forKey:@"longitude"];
+        }
+        [params addParameter:conditionModel.sequence forKey:@"sequence"];
+    }
+    
+    //    if (![conditionModel.pageNumber isEqualToNumber:@1] && ![Common isObjectNull:conditionModel.pageNumber]) {
+    //        [params addParameter:conditionModel.pageNumber forKey:@"pageNumber"];
+    //    }
+    
+    if (![Common isObjectNull:conditionModel.subwayStation]) {//表示是点击地铁的
+        
+        [params addParameter:conditionModel.subwayStation forKey:@"subwayStation"];
+        
+    } else if (![Common isObjectNull:conditionModel.businessCircle] && ![Common isObjectNull:conditionModel.regional]) {//表示是点击商圈的
+        
+        if (![conditionModel.businessCircle isEqualToString:@"全部商区"]) {
+            
+            [params addParameter:conditionModel.businessCircle forKey:@"businessCircle"];
+            
+            [params addParameter:conditionModel.regional forKey:@"regional"];
+        }
+    }
+    
+    if (![Common isObjectNull:conditionModel.sift] && ![conditionModel.sift isEqualToNumber:@0]) {
+        
+        [params addParameter:conditionModel.sift forKey:@"sift"];
+    }
+    
+    //两个必填
+    [params addParameter:conditionModel.provinceName forKey:@"addrProvince"];
+    
+    [params addParameter:conditionModel.cityName forKey:@"addrCity"];
+    
+    [Common urlStringWithDictionary:params withString:GET_SHOP_LIST];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_SHOP_LIST
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    ShopModel *model = [[ShopModel alloc] init];
+                                                                    
+                                                                    [model setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:model];
+                                                                    
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+}
+
+
+//*********************************获取评论列表*******************/
 - (void)sendfindCommentListWithProductId:(NSInteger)productId
                                     type:(NSInteger)type
                                      pId:(NSInteger)pId
@@ -2884,6 +3002,7 @@
                                                                     commentModel.headImg = dictionary[@"headImg"];
                                                                     
                                                                     [dataArray addObject:commentModel];
+
                                                                 }
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -2931,9 +3050,6 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
-    
 }
-
 
 @end

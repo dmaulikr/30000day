@@ -131,11 +131,20 @@
         
         PlaceObject *object = [result firstObject];
         
+        NSLog(@"object.code = %@",object.code);
+        
         [PlaceObject async:^id(NSManagedObjectContext *ctx, NSString *className) {
            
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:className];
             
-            request.predicate = [NSPredicate predicateWithFormat:@"pCode==%@",object.code];
+            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dataId" ascending:YES]];
+            
+            NSString *newCode = [object.code copy];
+            
+            if (![Common isObjectNull:newCode]) {
+                
+                request.predicate = [NSPredicate predicateWithFormat:@"pCode==%@",newCode];
+            }
             
             NSError *error;
             
@@ -159,7 +168,9 @@
                 
                 PlaceObject *object = result[i];
                 
-                [placeNameArray addObject:object.name];
+                NSString *newCode = [object.name copy];
+                
+                [placeNameArray addObject:newCode];
                 
             }
             
@@ -170,6 +181,7 @@
             });
             
         }];
+    
 
     }];
     

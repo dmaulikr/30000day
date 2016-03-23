@@ -18,10 +18,10 @@
 
 
 /**
-  * 搜索栏恢复到之前的状态（当点击取消按钮，或者键盘收起，或者点击了模态视图父控制器都会调用该方法，开发者也可以调用本方法）
+  * 搜索栏恢复到之前的状态（当点击取消按钮，或者键盘收起，或者点击了模态视图父控制器都会调用该方法，外界也可以调用本方法）
   *
   **/
-- (void)searchBarDidBeginRestore;
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation;
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 

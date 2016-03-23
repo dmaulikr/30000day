@@ -64,9 +64,9 @@
     [self.tableView reloadData];
 }
 
-- (void)searchBarDidBeginRestore {
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation {
     
-    [super searchBarDidBeginRestore];
+    [super searchBarDidBeginRestore:isAnimation];
     
     self.isSearch = NO;
     
