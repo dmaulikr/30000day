@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EFAC60DE-6228-43CE-9587-F1BD129C9FF6.png" translatesAutoresizingMaskIntoConstraints="NO" id="hU0-YR-Lug">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hU0-YR-Lug">
                         <rect key="frame" x="15" y="15" width="54" height="54"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="54" id="DmG-ec-bnA"/>
@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="惠" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CD1-ND-KS5">
-                        <rect key="frame" x="78" y="81" width="16" height="18"/>
+                        <rect key="frame" x="78" y="82" width="16" height="18"/>
                         <color key="backgroundColor" red="0.0078431372549019607" green="0.73333333333333328" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="6xg-nG-w7f"/>
@@ -74,7 +74,7 @@
                     <constraint firstItem="5BZ-I6-6CD" firstAttribute="leading" secondItem="hU0-YR-Lug" secondAttribute="trailing" constant="8" id="mQm-CK-tgB"/>
                     <constraint firstItem="7q5-j8-4Gf" firstAttribute="leading" secondItem="CD1-ND-KS5" secondAttribute="trailing" constant="3" id="r2c-bw-uG4"/>
                     <constraint firstItem="hU0-YR-Lug" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="t5S-Zg-G3r"/>
-                    <constraint firstAttribute="bottom" secondItem="CD1-ND-KS5" secondAttribute="bottom" constant="13" id="tBV-uF-q7V"/>
+                    <constraint firstAttribute="bottom" secondItem="CD1-ND-KS5" secondAttribute="bottom" constant="12" id="tBV-uF-q7V"/>
                     <constraint firstItem="hU0-YR-Lug" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="tfc-rp-L4D"/>
                     <constraint firstAttribute="bottom" secondItem="7q5-j8-4Gf" secondAttribute="bottom" constant="12" id="xQQ-ZY-mUU"/>
                     <constraint firstItem="CD1-ND-KS5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="78" id="yfa-Ik-Vmj"/>
@@ -82,6 +82,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="5BZ-I6-6CD" id="3w5-in-ycG"/>
+                <outlet property="discountLabel" destination="CD1-ND-KS5" id="elx-us-TIT"/>
                 <outlet property="priceLabel" destination="sUz-I0-2KP" id="KuS-HO-W1Y"/>
                 <outlet property="titleLabel" destination="hnY-S0-C7L" id="rq7-yL-gQa"/>
                 <outlet property="willShowImageView" destination="hU0-YR-Lug" id="ZD8-O1-tUy"/>
@@ -89,7 +90,4 @@
             <point key="canvasLocation" x="229" y="187.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="EFAC60DE-6228-43CE-9587-F1BD129C9FF6.png" width="62" height="60"/>
-    </resources>
 </document>

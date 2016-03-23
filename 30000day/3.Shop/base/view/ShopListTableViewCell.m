@@ -7,11 +7,15 @@
 //
 
 #import "ShopListTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ShopListTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    self.discountLabel.layer.cornerRadius = 2;
+    
+    self.discountLabel.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,7 +29,20 @@
     _shopModel = shopModel;
     
     self.titleLabel.text = _shopModel.productName;
-
+    
+    [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:_shopModel.productPhoto]];
+    
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",_shopModel.presentPrice];
+    
+    if (!_shopModel.twoPointsDistance) {
+        
+        self.addressLabel.text = _shopModel.address;
+        
+    } else {
+        
+        self.addressLabel.text = [NSString stringWithFormat:@"%.2fkm  %@",[_shopModel.twoPointsDistance doubleValue],_shopModel.address];
+        
+    }
 }
 
 

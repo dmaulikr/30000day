@@ -21,4 +21,6 @@
 
 @property (nonatomic,strong) ShopModel *shopModel;
 
+@property (weak, nonatomic) IBOutlet UILabel *discountLabel;//优惠label
+
 @end

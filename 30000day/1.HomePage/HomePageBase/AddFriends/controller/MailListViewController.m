@@ -82,9 +82,9 @@
 
 #pragma ---
 #pragma mark ---- 父视图的生命周期方法
-- (void)searchBarDidBeginRestore {
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation  {
     
-    [super searchBarDidBeginRestore];
+    [super searchBarDidBeginRestore:isAnimation];
     
      self.isSearch = NO;
     

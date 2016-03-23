@@ -7,10 +7,14 @@
 //
 
 #import "SearchViewController.h"
+#import "ShopListTableViewCell.h"
+#import "ShopDetailViewController.h"
 
-@interface SearchViewController () <UISearchBarDelegate>
+@interface SearchViewController () < UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) UISearchBar *searchBar;
+@property (nonatomic,assign) BOOL isSearch;
+
+@property (nonatomic,strong) NSMutableArray *dataArray;//数据源数组
 
 @end
 
@@ -19,43 +23,91 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configUI];
+    self.title = @"搜索";
+    
+    self.isSearch = NO;
+    
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource = self;
+    
+    self.searchBar.placeholder = @"输入商品的名称";
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
+#pragma mark --- 调用父类的方法
+//键盘搜索按钮点击
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [self.searchBar setValue:[UIColor whiteColor] forKeyPath:@"_searchField.textColor"];
+    if ([Common isObjectNull:searchBar.text]) {
+        
+        self.isSearch = NO;
+        
+        [self.tableView reloadData];
+        
+    } else {
+        
+        self.isSearch = YES;
+        
+        self.dataArray = [NSMutableArray arrayWithArray:@[@1,@2,@3]];
+        
+        [self.tableView reloadData];
+    }
 }
 
-- (void)configUI {
+#pragma ---
+#pragma makr --- UITableViewDataSource/UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //1.初始化searchBar
-    UISearchBar *searchBar = [[UISearchBar alloc] init];
-    
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    
-    searchBar.barTintColor = RGBACOLOR(200, 200, 200, 1);
-    
-    searchBar.tintColor = RGBACOLOR(200, 200,200, 1);
-    
-    searchBar.placeholder = @"搜索";
-    
-    searchBar.delegate = self;
-    
-    self.navigationItem.titleView = searchBar;
-
-    self.searchBar = searchBar;
-    
-    //设置搜索
-    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
-    
-    self.navigationItem.rightBarButtonItem = searchBarButton;
-
+    if (self.isSearch) {
+     
+        return self.dataArray.count;
+        
+    }
+    return 0;
 }
 
-- (void)searchAction {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
+    if (self.isSearch) {
+        
+        return 1;
+    }
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.isSearch) {
+        
+        ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        return cell;
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 113;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self searchBarDidBeginRestore:NO];
+    
+    ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 

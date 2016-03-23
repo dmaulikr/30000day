@@ -7,10 +7,7 @@
 //
 
 #import "AddressBookBaseViewController.h"
-#import "MailListTableViewCell.h"
-#import "ChineseString.h"
-#import "ShareAnimatonView.h"
-#import <MessageUI/MessageUI.h>
+
 
 @interface AddressBookBaseViewController () <UISearchBarDelegate>
 
@@ -67,7 +64,7 @@
     
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     
-    [cancelButton addTarget:self action:@selector(searchBarDidBeginRestore) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:cancelButton];
     
@@ -97,21 +94,26 @@
     
 }
 
+- (void)cancelButtonAction {
+    
+    [self searchBarDidBeginRestore:YES];
+}
+
 - (void)keyBoardHide:(NSNotification *)notification {
     
     if ([self.searchBar.text isEqualToString:@""]) {
         
-        [self searchBarDidBeginRestore];
+        [self searchBarDidBeginRestore:YES];
     }
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap {
     
-    [self searchBarDidBeginRestore];
+    [self searchBarDidBeginRestore:YES];
 }
 
 //取消
-- (void)searchBarDidBeginRestore {
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation {
     
     self.backgroundView.hidden = YES;
     
@@ -121,7 +123,23 @@
     
     [self.searchBar endEditing:YES];
     
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    if (isAnimation) {
+        
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            
+            [self.navigationController setNavigationBarHidden:NO animated:NO];
+            
+            self.cancelButton.frame = CGRectMake(SCREEN_WIDTH + 5, 64, 44, 44);
+            
+            self.searchBar.frame = CGRectMake(0, 64, SCREEN_WIDTH, 44);
+            
+            self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    } else {
         
         [self.navigationController setNavigationBarHidden:NO animated:NO];
         
@@ -131,9 +149,7 @@
         
         self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
         
-    } completion:^(BOOL finished) {
-        
-    }];
+    }
 }
 
 #pragma ---

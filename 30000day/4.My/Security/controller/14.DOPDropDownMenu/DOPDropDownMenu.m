@@ -384,6 +384,9 @@ struct {
         
         _switchHeadView.frame = CGRectMake(self.origin.x ,self.frame.origin.y + self.frame.size.height, self.width, 40);
         
+        _switchHeadView.hidden = YES;
+        
+        [self.superview addSubview:_switchHeadView];
     }
     return self;
 }
