@@ -2977,29 +2977,7 @@
                                                                     
                                                                     CommentModel *commentModel = [[CommentModel alloc] init];
                                                                     
-                                                                    commentModel.picUrl = dictionary[@"picUrl"];
-                                                                    
-                                                                    commentModel.remark = dictionary[@"remark"];
-                                                                    
-                                                                    commentModel.userId = dictionary[@"userId"];
-                                                                    
-                                                                    commentModel.commentId = dictionary[@"id"];
-                                                                    
-                                                                    commentModel.productId = dictionary[@"productId"];
-                                                                    
-                                                                    commentModel.pId = dictionary[@"pId"];
-                                                                    
-                                                                    commentModel.numberStar = dictionary[@"numberStar"];
-                                                                    
-                                                                    commentModel.type = dictionary[@"type"];
-                                                                    
-                                                                    commentModel.clickLike = dictionary[@"clickLike"];
-                                                                    
-                                                                    commentModel.createTime = dictionary[@"createTime"];
-                                                                    
-                                                                    commentModel.userName = dictionary[@"userName"];
-                                                                    
-                                                                    commentModel.headImg = dictionary[@"headImg"];
+                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];
 
