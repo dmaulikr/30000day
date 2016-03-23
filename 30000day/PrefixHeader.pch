@@ -167,6 +167,8 @@
 
 #define  GET_PLACE_LIST             @"/stapi/market/findCityList"      //获取所有的地址
 
+#define  GET_FINDCOMMENTLIST        @"/stapi/user/findCommentList"     //获取商品评论
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

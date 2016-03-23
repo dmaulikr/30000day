@@ -26,6 +26,10 @@
 		B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */; };
 		B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */; };
 		B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */; };
+		B61A4FB21CA11973000EAF4C /* Height.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FB01CA11973000EAF4C /* Height.m */; };
+		B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */; };
+		B61A4FBC1CA123CF000EAF4C /* CommentDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */; };
+		B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */; };
 		B62C38171C9AA6B6002208CD /* ShopDetailCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C380C1C9AA6B6002208CD /* ShopDetailCommentTableViewCell.m */; };
 		B62C38181C9AA6B6002208CD /* ShopDetailCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B62C380D1C9AA6B6002208CD /* ShopDetailCommentTableViewCell.xib */; };
 		B62C38191C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C380F1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m */; };
@@ -628,6 +632,13 @@
 		B6171DCF1C8D7ADF00116B13 /* EmailBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewController.h; sourceTree = "<group>"; };
 		B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewController.m; sourceTree = "<group>"; };
 		B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewController.xib; sourceTree = "<group>"; };
+		B61A4FB01CA11973000EAF4C /* Height.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Height.m; sourceTree = "<group>"; };
+		B61A4FB11CA11973000EAF4C /* Height.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Height.h; sourceTree = "<group>"; };
+		B61A4FB81CA123CF000EAF4C /* CommentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentDetailsViewController.h; sourceTree = "<group>"; };
+		B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetailsViewController.m; sourceTree = "<group>"; };
+		B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentDetailsViewController.xib; sourceTree = "<group>"; };
+		B61A4FBE1CA13E0C000EAF4C /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		B62C380B1C9AA6B6002208CD /* ShopDetailCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailCommentTableViewCell.h; sourceTree = "<group>"; };
 		B62C380C1C9AA6B6002208CD /* ShopDetailCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailCommentTableViewCell.m; sourceTree = "<group>"; };
 		B62C380D1C9AA6B6002208CD /* ShopDetailCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailCommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -1574,6 +1585,7 @@
 		B60119701C9404BC0061AD89 /* comment */ = {
 			isa = PBXGroup;
 			children = (
+				B61A4FBD1CA13DD9000EAF4C /* model */,
 				B60119711C9404BC0061AD89 /* controller */,
 				B60119751C9404BC0061AD89 /* view */,
 			);
@@ -1586,6 +1598,9 @@
 				B60119721C9404BC0061AD89 /* CommentViewController.h */,
 				B60119731C9404BC0061AD89 /* CommentViewController.m */,
 				B60119741C9404BC0061AD89 /* CommentViewController.xib */,
+				B61A4FB81CA123CF000EAF4C /* CommentDetailsViewController.h */,
+				B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */,
+				B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1633,6 +1648,15 @@
 				B6171DCC1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib */,
 			);
 			path = BindOnAccountCell;
+			sourceTree = "<group>";
+		};
+		B61A4FBD1CA13DD9000EAF4C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B61A4FBE1CA13E0C000EAF4C /* CommentModel.h */,
+				B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		B62C380A1C9AA6B6002208CD /* view */ = {
@@ -1977,6 +2001,8 @@
 				B8B3F4D41C995CD900834533 /* STChoosePictureCollectionCell.xib */,
 				B8B3F4D71C99641D00834533 /* STAvatarBrowser.h */,
 				B8B3F4D81C99641D00834533 /* STAvatarBrowser.m */,
+				B61A4FB11CA11973000EAF4C /* Height.h */,
+				B61A4FB01CA11973000EAF4C /* Height.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3955,6 +3981,7 @@
 				B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */,
 				B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
+				B61A4FBC1CA123CF000EAF4C /* CommentDetailsViewController.xib in Resources */,
 				B804FD331C8AC9A900DFD1CF /* rabbit_14_cover@2x.png in Resources */,
 				B804FD741C8AC9A900DFD1CF /* tusiji_9_cover@2x.png in Resources */,
 				B804FD861C8AC9A900DFD1CF /* msg_chat_voice_unread.png in Resources */,
@@ -4166,6 +4193,7 @@
 			files = (
 				B8FD3EBD1C8A8440007BCA6B /* CDLabelButtonTableCell.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
+				B61A4FB21CA11973000EAF4C /* Height.m in Sources */,
 				B8FD3EBA1C8A8440007BCA6B /* CDEntryBottomButton.m in Sources */,
 				B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */,
 				B8FD3E9A1C8A8408007BCA6B /* MCPhotographyHelper.m in Sources */,
@@ -4236,6 +4264,7 @@
 				B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */,
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
+				B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
@@ -4424,6 +4453,7 @@
 				B89216B11C5F3EEA0023F8A8 /* LODataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
 				B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */,
+				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,

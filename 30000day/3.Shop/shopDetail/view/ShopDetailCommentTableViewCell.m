@@ -20,4 +20,13 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)checkReply:(UIButton *)sender {
+    
+    if (self.changeStateBlock) {
+        self.changeStateBlock();
+    }
+    
+}
+
+
 @end

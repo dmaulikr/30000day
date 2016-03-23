@@ -42,11 +42,7 @@
 
     //1.初始化UI
     [self configUI];
-    
-    [self configBusinessPlaceWithCityName:@"上海"];
-    
-    self.leftBarButton.title = @"上海";
-    
+        
     [self startFindLocationSucess:^(NSString *cityName) {
         
         [self configBusinessPlaceWithCityName:cityName];
