@@ -595,13 +595,27 @@
         
         self.conditionModel.regional = self.placeArray[indexPath.row];
         
-        if (indexPath.item == 0) {
+        if (indexPath.row == 0) {
             
-            self.conditionModel.businessCircle = @"黄埔商圈";
+            if (indexPath.item == 0) {
+                
+                self.conditionModel.businessCircle = @"全部商区";
+                
+            } else if (indexPath.item == 1) {
+                
+                self.conditionModel.businessCircle = @"等待赋值";
+            }
             
-        } else if (indexPath.item == 1) {
+        } else if (indexPath.row == 1) {
             
-            self.conditionModel.businessCircle = @"黄埔军校";
+            if (indexPath.item == 0) {
+                
+                self.conditionModel.businessCircle = @"黄埔商圈";
+                
+            } else if (indexPath.item == 1) {
+                
+                self.conditionModel.businessCircle = @"黄埔军校";
+            }
         }
         
         self.conditionModel.subwayStation = @"";
