@@ -23,7 +23,11 @@
 #import "DataModel.h"
 #import "ShopModel.h"
 #import "SubwayModel.h"
+
+#import "CommentModel.h"
+
 #import "SearchConditionModel.h"
+
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -2805,9 +2809,9 @@
         [params addParameter:conditionModel.sequence forKey:@"sequence"];
     }
     
-//    if (![conditionModel.pageNumber isEqualToNumber:@1] && ![Common isObjectNull:conditionModel.pageNumber]) {
-//        [params addParameter:conditionModel.pageNumber forKey:@"pageNumber"];
-//    }
+    //    if (![conditionModel.pageNumber isEqualToNumber:@1] && ![Common isObjectNull:conditionModel.pageNumber]) {
+    //        [params addParameter:conditionModel.pageNumber forKey:@"pageNumber"];
+    //    }
     
     if (![Common isObjectNull:conditionModel.subwayStation]) {//表示是点击地铁的
         
@@ -2863,7 +2867,7 @@
                                                                     [model setValuesForKeysWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:model];
-                                                                     
+                                                                    
                                                                 }
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -2914,5 +2918,116 @@
     
 }
 
+
+//*********************************获取评论列表*******************/
+- (void)sendfindCommentListWithProductId:(NSInteger)productId
+                                    type:(NSInteger)type
+                                     pId:(NSInteger)pId
+                                  userId:(NSInteger)userId
+                                 Success:(void (^)(NSMutableArray *success))success
+                                 failure:(void (^)(NSError *error))failure {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    if (productId != -1) {
+        
+        [params setObject:@(productId) forKey:@"productId"];
+        
+    }
+    
+    if (type != -1) {
+        
+        [params setObject:@(type) forKey:@"type"];
+        
+    }
+    
+    if (pId != -1) {
+        
+        [params setObject:@(pId) forKey:@"pId"];
+        
+    }
+    
+    if (userId != -1) {
+        
+        [params setObject:@(userId) forKey:@"userId"];
+        
+    }
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_FINDCOMMENTLIST
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    CommentModel *commentModel = [[CommentModel alloc] init];
+                                                                    
+                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:commentModel];
+
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+}
 
 @end

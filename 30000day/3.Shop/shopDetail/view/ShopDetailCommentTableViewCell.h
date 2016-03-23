@@ -32,4 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *checkReply;
+
+@property (nonatomic,copy) void (^(changeStateBlock))();
+
 @end

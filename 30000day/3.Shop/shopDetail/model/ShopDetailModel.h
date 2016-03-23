@@ -10,6 +10,13 @@
 
 @interface ShopDetailModel : NSObject
 
+@property (nonatomic,copy) NSString *addrCity;             //城市地址
+@property (nonatomic,copy) NSString *addrNear;             //地址附近
+@property (nonatomic,copy) NSString *addrProvince;         //省
+@property (nonatomic,copy) NSString *address;              //地址
+@property (nonatomic,copy) NSString *alias;                //别名
+@property (nonatomic,copy) NSString *businessTime;         //营业时间
+@property (nonatomic,copy) NSString *companyName;          //商店名称
 @property (nonatomic,copy) NSString *graphicDetails;       //细节
 @property (nonatomic,copy) NSString *shopDetailId;         //商店详情ID
 @property (nonatomic,copy) NSString *originalPrice;        //原价
@@ -26,5 +33,6 @@
 @property (nonatomic,copy) NSString *remark;               //注意
 @property (nonatomic,copy) NSString *startTime;            //开始时间
 @property (nonatomic,copy) NSString *telephone;            //电话
+@property (nonatomic,copy) NSString *endTime;              //结束时间
 
 @end

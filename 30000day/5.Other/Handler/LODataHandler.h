@@ -233,9 +233,19 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                 Success:(void (^)(NSMutableArray *))success
                                 failure:(void (^)(NSError *error))failure;
 
+
 //*********************************获取根据筛选条件来获取所有的商品列表*******************/
 - (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
                                      Success:(void (^)(NSMutableArray *))success
                                      failure:(void (^)(NSError *error))failure;
+
+
+//*********************************获取评论列表*******************/
+- (void)sendfindCommentListWithProductId:(NSInteger)productId
+                                    type:(NSInteger)type
+                                     pId:(NSInteger)pId
+                                  userId:(NSInteger)userId
+                         Success:(void (^)(NSMutableArray *success))success
+                         failure:(void (^)(NSError *error))failure;
 
 @end

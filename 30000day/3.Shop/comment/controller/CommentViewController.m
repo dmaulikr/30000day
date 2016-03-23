@@ -10,9 +10,16 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentOptionsTableViewCell.h"
 #import "AppointmentConfirmViewController.h"
+#import "Height.h"
+#import "CommentDetailsViewController.h"
+#import "CommentModel.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,strong) CommentModel *commentModel;
+@property (nonatomic,strong) NSArray *commentModelArray;
 
 @end
 
@@ -20,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"全部评论";
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -35,7 +44,15 @@
     
     self.isShowBackItem = YES;
     
-    self.title = @"全部评论";
+    [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:1000000037 Success:^(NSMutableArray *success) {
+        
+        self.commentModelArray = [NSArray arrayWithArray:success];
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 #pragma mark --- 上啦刷新和下拉刷新
@@ -63,9 +80,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 0) {
+        
         return 1;
+        
     } else {
-        return 10;
+        
+        return self.commentModelArray.count;
+        
     }
     
 }
@@ -73,9 +94,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
+        
         return 44;
+        
     } else {
-        return 250;
+        
+        self.commentModel = self.commentModelArray[indexPath.row];
+        return 228 + [Height heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+        
     }
     
 }
@@ -141,6 +167,22 @@
             
         }
         
+        self.commentModel = self.commentModelArray[indexPath.row];
+        
+        [shopDetailCommentTableViewCell setChangeStateBlock:^{
+           
+            
+            
+        }];
+        
+        shopDetailCommentTableViewCell.commentContentLable.text = self.commentModel.remark;
+        
+        shopDetailCommentTableViewCell.commentNameLable.text = self.commentModel.userName;
+        
+        shopDetailCommentTableViewCell.commentTimeLable.text = [NSString stringWithFormat:@"%@",self.commentModel.createTime];
+        
+        [shopDetailCommentTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:self.commentModel.headImg]];
+        
         return shopDetailCommentTableViewCell;
         
     }
@@ -155,6 +197,14 @@
     if (indexPath.section == 0) {
         
         return;
+        
+    } else {
+    
+        self.commentModel = self.commentModelArray[indexPath.row];
+        CommentDetailsViewController *controller = [[CommentDetailsViewController alloc] init];
+        controller.commentModel = self.commentModel;
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
         
     }
     

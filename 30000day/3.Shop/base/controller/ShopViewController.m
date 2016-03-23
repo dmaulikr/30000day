@@ -52,9 +52,11 @@
 
     //1.初始化UI
     [self configUI];
+
     
     //2.定位并获取获取城市名字
     [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
+
         
         [self configBusinessPlaceWithCityName:cityName];
         
