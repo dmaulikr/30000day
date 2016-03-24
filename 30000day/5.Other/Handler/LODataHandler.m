@@ -2977,6 +2977,12 @@
                                                                     
                                                                     CommentModel *commentModel = [[CommentModel alloc] init];
                                                                     
+                                                                    if ([dictionary[@"pId"] integerValue]== 0) {
+                                                                        
+                                                                        commentModel.level = 1;
+                                                                        
+                                                                    }
+                                                                    
                                                                     [commentModel setValuesForKeysWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];

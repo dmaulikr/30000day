@@ -10,6 +10,8 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "Height.h"
 #import "UIImageView+WebCache.h"
+#import "CommentDetailsTableViewCell.h"
+#import "CommentDetailsLastTableViewCell.h"
 
 @interface CommentDetailsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -55,7 +57,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
     
 }
 
@@ -64,7 +66,7 @@
     if (section == 0) {
         return 1;
     } else {
-        return 0;
+        return 2;
     }
     
 }
@@ -77,7 +79,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 10;
+    if (section == 0) {
+        return 10;
+    } else if (section == 1) {
+        return 10;
+    }
+    
+    return 0.001;
     
 }
 
@@ -89,7 +97,15 @@
         
     } else {
         
-        return 0;
+        if (indexPath.row == 0) {
+            
+            return 230;
+            
+        } else {
+        
+            return 180;
+            
+        }
         
     }
 }
@@ -118,8 +134,50 @@
         
     } else {
     
-        return nil;
-    
+        if (indexPath.row == 0) {
+            
+            CommentDetailsTableViewCell *commentDetailsTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommentDetailsTableViewCell"];
+            
+            if (commentDetailsTableViewCell == nil) {
+                
+                commentDetailsTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommentDetailsTableViewCell" owner:nil options:nil] lastObject];
+                
+            }
+            
+            //        shopDetailCommentTableViewCell.commentContentLable.text = self.commentModel.remark;
+            //
+            //        shopDetailCommentTableViewCell.commentNameLable.text = self.commentModel.userName;
+            //
+            //        shopDetailCommentTableViewCell.commentTimeLable.text = [NSString stringWithFormat:@"%@",self.commentModel.createTime];
+            //
+            //        [shopDetailCommentTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:self.commentModel.headImg]];
+            
+            return commentDetailsTableViewCell;
+            
+        } else {
+        
+            CommentDetailsLastTableViewCell *commentDetailsLastTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommentDetailsLastTableViewCell"];
+            
+            if (commentDetailsLastTableViewCell == nil) {
+                
+                commentDetailsLastTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommentDetailsLastTableViewCell" owner:nil options:nil] lastObject];
+                
+            }
+            
+            //        shopDetailCommentTableViewCell.commentContentLable.text = self.commentModel.remark;
+            //
+            //        shopDetailCommentTableViewCell.commentNameLable.text = self.commentModel.userName;
+            //
+            //        shopDetailCommentTableViewCell.commentTimeLable.text = [NSString stringWithFormat:@"%@",self.commentModel.createTime];
+            //
+            //        [shopDetailCommentTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:self.commentModel.headImg]];
+            
+            return commentDetailsLastTableViewCell;
+
+        
+        }
+        
+        
     }
     
 }

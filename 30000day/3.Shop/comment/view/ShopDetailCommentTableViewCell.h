@@ -36,4 +36,6 @@
 
 @property (nonatomic,copy) void (^(changeStateBlock))();
 
+@property (nonatomic,assign) NSInteger click;
+
 @end
