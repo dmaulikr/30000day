@@ -55,24 +55,28 @@
 
     
     //2.定位并获取获取城市名字
-    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
-
-        
-        [self configBusinessPlaceWithCityName:cityName];
-        
-        self.leftBarButton.title = cityName;
-        
-        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
-        
-        self.conditionModel.cityName = cityName;//给获取的到市赋值
-        
-    } failure:^(NSError *error) {
-        
+//    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
+//
+//        
+//        [self configBusinessPlaceWithCityName:cityName];
+//        
+//        self.leftBarButton.title = cityName;
+//        
+//        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
+//        
+//        self.conditionModel.cityName = cityName;//给获取的到市赋值
+//        
+//    } failure:^(NSError *error) {
+    
         [self configBusinessPlaceWithCityName:@"上海"];
         
         self.leftBarButton.title = @"上海";
-        
-    }];
+    
+        self.conditionModel.provinceName = @"上海";//给获取的到省赋值
+    
+        self.conditionModel.cityName = @"上海";//给获取的到市赋值
+    
+//    }];
     
     self.pageNumber = 1;
     
