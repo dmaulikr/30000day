@@ -19,7 +19,6 @@
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) CommentModel *commentModel;
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
@@ -56,7 +55,7 @@
         
     }];
     
-    self.willRemoveArray = [NSMutableArray array];
+    
     
 }
 
@@ -108,9 +107,8 @@
     } else {
         
         if (commentModel.level == 1) {
-            
-            self.commentModel = self.commentModelArray[indexPath.row];
-            return 228 + [Height heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+
+            return 228 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         } else {
         
@@ -174,9 +172,10 @@
         
     } else {
         
-        self.commentModel = self.commentModelArray[indexPath.row];
+        CommentModel *commentModel = self.commentModelArray[indexPath.row];
         
-        if (self.commentModel.level == 1) {
+        
+        if (commentModel.level == 1) {
             
             ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
             
@@ -189,12 +188,10 @@
             __weak __typeof(shopDetailCommentTableViewCell) weakSelf = shopDetailCommentTableViewCell;
             
             [shopDetailCommentTableViewCell setChangeStateBlock:^{
-               
-                self.commentModel = self.commentModelArray[indexPath.row];
                 
                 if (shopDetailCommentTableViewCell.click == 0) {
                     
-                    [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[self.commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
+                    [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
                         
                         __strong __typeof(weakSelf) strongSelf = weakSelf;
                         if (strongSelf) {
@@ -226,6 +223,8 @@
                     
                     CommentModel *newModel = [self.commentModelArray objectAtIndex:indexPath.row];
                     
+                    self.willRemoveArray = [NSMutableArray array];
+                    
                     [self removeDataWithPId:[newModel.commentId integerValue]];
                     
                     NSMutableArray *array = [[NSMutableArray alloc] init];
@@ -245,19 +244,21 @@
                 }
             }];
             
-            shopDetailCommentTableViewCell.commentContentLable.text = self.commentModel.remark;
+            shopDetailCommentTableViewCell.commentContentLable.text = commentModel.remark;
             
-            shopDetailCommentTableViewCell.commentNameLable.text = self.commentModel.userName;
+            shopDetailCommentTableViewCell.commentNameLable.text = commentModel.userName;
             
-            shopDetailCommentTableViewCell.commentTimeLable.text = [NSString stringWithFormat:@"%@",self.commentModel.createTime];
+            shopDetailCommentTableViewCell.commentTimeLable.text = [NSString stringWithFormat:@"%@",commentModel.createTime];
             
-            [shopDetailCommentTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:self.commentModel.headImg]];
+            [shopDetailCommentTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
             
             return shopDetailCommentTableViewCell;
             
         } else {
             
-            self.commentModel = self.commentModelArray[indexPath.row];
+//            self.commentModel = self.commentModelArray[indexPath.row];
+            
+            CommentModel *commentModel = self.commentModelArray[indexPath.row];
             
             CommentDetailsTableViewCell *commentDetailsTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommentDetailsTableViewCell"];
             
@@ -271,11 +272,11 @@
             
             [commentDetailsTableViewCell setChangeStateBlock:^{
                 
-                self.commentModel = self.commentModelArray[indexPath.row];
+//                self.commentModel = self.commentModelArray[indexPath.row];
                 
                 if (commentDetailsTableViewCell.click == 0) {
                     
-                    [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[self.commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
+                    [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
                         
                         __strong __typeof(weakSelf) strongSelf = weakSelf;
                         if (strongSelf) {
@@ -304,18 +305,35 @@
                         strongSelf.click = 0;
                     }
                     
-                    [self removeDataWithPId:[self.commentModel.commentId integerValue]];
+//                    CommentModel *newModel = [self.commentModelArray objectAtIndex:indexPath.row];
+                    
+                    self.willRemoveArray = [NSMutableArray array];
+                    
+                    [self removeDataWithPId:[commentModel.commentId integerValue]];
+                    
+                    NSMutableArray *array = [[NSMutableArray alloc] init];
+                    
+                    for (int i = 0; i < self.willRemoveArray.count; i++) {
+                        
+                        NSInteger index =  [self.willRemoveArray[i] integerValue];
+                        
+                        [array addObject:self.commentModelArray[index]];
+                        
+                    }
+                    
+                    [self.commentModelArray removeObjectsInArray:array];
+                    
                     [self.tableView reloadData];
                     
                 }
 
             }];
             
-            commentDetailsTableViewCell.commentContentLable.text = self.commentModel.remark;
+            commentDetailsTableViewCell.commentContentLable.text = commentModel.remark;
             
-            commentDetailsTableViewCell.commentNameLable.text = self.commentModel.userName;
+            commentDetailsTableViewCell.commentNameLable.text = commentModel.userName;
 
-            [commentDetailsTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:self.commentModel.headImg]];
+            [commentDetailsTableViewCell.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
 
             return commentDetailsTableViewCell;
             
@@ -335,11 +353,13 @@
         return;
         
     } else {
-    
-        self.commentModel = self.commentModelArray[indexPath.row];
+
         CommentDetailsViewController *controller = [[CommentDetailsViewController alloc] init];
-        controller.commentModel = self.commentModel;
+        
+        controller.commentModel = self.commentModelArray[indexPath.row];
+        
         controller.hidesBottomBarWhenPushed = YES;
+        
         [self.navigationController pushViewController:controller animated:YES];
         
     }
