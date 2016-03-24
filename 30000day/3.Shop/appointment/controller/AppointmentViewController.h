@@ -6,8 +6,8 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "ShowBackItemViewController.h"
+#import "STRefreshViewController.h"
 
-@interface AppointmentViewController : ShowBackItemViewController
+@interface AppointmentViewController : STRefreshViewController
 
 @end

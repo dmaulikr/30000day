@@ -239,6 +239,9 @@
 		B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AC11C755981001B4B95 /* PersonHeadView.xib */; };
 		B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AC91C75D451001B4B95 /* QGPickerView.m */; };
 		B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */; };
+		B876B9341CA3930C005B7E83 /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9331CA3930C005B7E83 /* DYRateView.m */; };
+		B876B9371CA3FD88005B7E83 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* LocationModel.m */; };
+		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
@@ -301,6 +304,8 @@
 		B8B3F54A1C9D58BE00834533 /* PlaceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5481C9D58BE00834533 /* PlaceObject.m */; };
 		B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */; };
 		B8B3F55C1CA1538400834533 /* regionalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55B1CA1538400834533 /* regionalModel.m */; };
+		B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */; };
+		B8B3F5611CA28F5900834533 /* AppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F55F1CA28F5900834533 /* AppointmentTableViewCell.xib */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
@@ -880,6 +885,12 @@
 		B8695AC91C75D451001B4B95 /* QGPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGPickerView.m; sourceTree = "<group>"; };
 		B8695ACC1C76CFA4001B4B95 /* UserInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationModel.h; sourceTree = "<group>"; };
 		B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationModel.m; sourceTree = "<group>"; };
+		B876B9321CA3930C005B7E83 /* DYRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRateView.h; sourceTree = "<group>"; };
+		B876B9331CA3930C005B7E83 /* DYRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRateView.m; sourceTree = "<group>"; };
+		B876B9351CA3FD88005B7E83 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
+		B876B9361CA3FD88005B7E83 /* LocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationModel.m; sourceTree = "<group>"; };
+		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
+		B876B9391CA4021C005B7E83 /* STLocationMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationMananger.m; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -991,6 +1002,9 @@
 		B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchConditionModel.m; sourceTree = "<group>"; };
 		B8B3F55A1CA1538400834533 /* regionalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regionalModel.h; sourceTree = "<group>"; };
 		B8B3F55B1CA1538400834533 /* regionalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regionalModel.m; sourceTree = "<group>"; };
+		B8B3F55D1CA28F5900834533 /* AppointmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentTableViewCell.h; sourceTree = "<group>"; };
+		B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentTableViewCell.m; sourceTree = "<group>"; };
+		B8B3F55F1CA28F5900834533 /* AppointmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentTableViewCell.xib; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -1910,6 +1924,15 @@
 			path = QGPickView;
 			sourceTree = "<group>";
 		};
+		B876B9311CA3930C005B7E83 /* 19.DYRateView */ = {
+			isa = PBXGroup;
+			children = (
+				B876B9321CA3930C005B7E83 /* DYRateView.h */,
+				B876B9331CA3930C005B7E83 /* DYRateView.m */,
+			);
+			path = 19.DYRateView;
+			sourceTree = "<group>";
+		};
 		B88C91221C59F2260089BEAE = {
 			isa = PBXGroup;
 			children = (
@@ -2254,6 +2277,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B876B9311CA3930C005B7E83 /* 19.DYRateView */,
 				B8FD3E2E1C8A7BBA007BCA6B /* DateTools */,
 				B8695AC71C75D451001B4B95 /* QGPickView */,
 				B8365A5C1C71E07600063269 /* chineseSorting */,
@@ -2457,6 +2481,10 @@
 				B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */,
 				B8B3F5471C9D58BE00834533 /* PlaceObject.h */,
 				B8B3F5481C9D58BE00834533 /* PlaceObject.m */,
+				B876B9351CA3FD88005B7E83 /* LocationModel.h */,
+				B876B9361CA3FD88005B7E83 /* LocationModel.m */,
+				B876B9381CA4021C005B7E83 /* STLocationMananger.h */,
+				B876B9391CA4021C005B7E83 /* STLocationMananger.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2909,6 +2937,9 @@
 				B8F73C6F1C96C6CE0063CC60 /* PayTableViewCell.h */,
 				B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */,
 				B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */,
+				B8B3F55D1CA28F5900834533 /* AppointmentTableViewCell.h */,
+				B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */,
+				B8B3F55F1CA28F5900834533 /* AppointmentTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3976,6 +4007,7 @@
 				B804FDB31C8AC9A900DFD1CF /* weChatBubble_Receiving_Cavern@2x.png in Resources */,
 				B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
+				B8B3F5611CA28F5900834533 /* AppointmentTableViewCell.xib in Resources */,
 				B804FD751C8AC9A900DFD1CF /* MessageDisplayKitString.strings in Resources */,
 				B8F6482F1C93A9C3001A3119 /* ShopDetailViewController.xib in Resources */,
 				B804FD8A1C8AC9A900DFD1CF /* MultiSelectedPanelBkg@2x.png in Resources */,
@@ -4258,10 +4290,12 @@
 				B8FD3E741C8A8353007BCA6B /* CDBaseTableVC.m in Sources */,
 				B8FD3DE41C8A7903007BCA6B /* XHVoiceCommonHelper.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
+				B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */,
 				B8FD3DF91C8A7903007BCA6B /* XHAnnotation.m in Sources */,
 				B8FD3DFE1C8A7903007BCA6B /* XHShareMenuItem.m in Sources */,
 				B8F648AE1C9498F0001A3119 /* STDropdownMenu.m in Sources */,
 				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
+				B876B9341CA3930C005B7E83 /* DYRateView.m in Sources */,
 				B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */,
 				B8FD3E241C8A7903007BCA6B /* XHEmotionCollectionViewFlowLayout.m in Sources */,
 				B8FD3DFA1C8A7903007BCA6B /* XHContact.m in Sources */,
@@ -4271,6 +4305,7 @@
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
 				B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */,
+				B876B9371CA3FD88005B7E83 /* LocationModel.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
@@ -4513,6 +4548,7 @@
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8FD3E2C1C8A7903007BCA6B /* NSString+Emojize.m in Sources */,
 				B8FD3DF41C8A7903007BCA6B /* XHMessageBubbleFactory.m in Sources */,
+				B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B8FD3E271C8A7903007BCA6B /* XHShareMenuView.m in Sources */,
 				B8FD3DF71C8A7903007BCA6B /* XHVideoOutputSampleBufferFactory.m in Sources */,

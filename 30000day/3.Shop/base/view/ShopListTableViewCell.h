@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShopModel.h"
+#import "DYRateView.h"
 
 @interface ShopListTableViewCell : UITableViewCell
 
@@ -22,5 +23,7 @@
 @property (nonatomic,strong) ShopModel *shopModel;
 
 @property (weak, nonatomic) IBOutlet UILabel *discountLabel;//优惠label
+
+@property (weak, nonatomic) IBOutlet DYRateView *rateView;
 
 @end

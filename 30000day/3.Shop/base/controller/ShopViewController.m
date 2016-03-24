@@ -19,6 +19,7 @@
 #import "PlaceManager.h"
 #import "SearchConditionModel.h"
 #import <CoreLocation/CoreLocation.h>
+#import "DataModel.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -55,24 +56,28 @@
 
     
     //2.定位并获取获取城市名字
-    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
-
-        
-        [self configBusinessPlaceWithCityName:cityName];
-        
-        self.leftBarButton.title = cityName;
-        
-        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
-        
-        self.conditionModel.cityName = cityName;//给获取的到市赋值
-        
-    } failure:^(NSError *error) {
-        
+//    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
+//
+//        
+//        [self configBusinessPlaceWithCityName:cityName];
+//        
+//        self.leftBarButton.title = cityName;
+//        
+//        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
+//        
+//        self.conditionModel.cityName = cityName;//给获取的到市赋值
+//        
+//    } failure:^(NSError *error) {
+    
         [self configBusinessPlaceWithCityName:@"上海"];
         
         self.leftBarButton.title = @"上海";
-        
-    }];
+    
+        self.conditionModel.provinceName = @"上海";//给获取的到省赋值
+
+        self.conditionModel.cityName = @"上海";//给获取的到市赋值
+    
+//    }];
     
     self.pageNumber = 1;
     
@@ -91,8 +96,6 @@
             
             //配置商圈
             self.placeArray = array;
-            
-            [self.placeArray insertObject:@"全部商区" atIndex:0];
             
             //配置地铁
             [manager placeIdWithPlaceName:cityName success:^(NSNumber *placeId) {
@@ -356,7 +359,9 @@
     
     if (indexPath.column == 0) {
         
-        return self.placeArray[indexPath.row];
+        DataModel *model = self.placeArray[indexPath.row];
+        
+        return model.name;
         
     } else if (indexPath.column == 1) {
         
@@ -424,7 +429,7 @@
     
     if (column == 0 ) {
         
-        return 2;
+        return 1;
     }
     
     return 0;
@@ -441,10 +446,6 @@
         if (indexPath.item == 0) {
             
             return @"全部商区";
-            
-        } else if (indexPath.item == 1) {
-            
-            return @"等待赋值";
             
         }
         
@@ -595,7 +596,9 @@
     
     if (indexPath.column == 0 ) {//点击商圈
         
-        self.conditionModel.regional = self.placeArray[indexPath.row];
+        DataModel *model = self.placeArray[indexPath.row];
+        
+        self.conditionModel.regional = model.name;
         
         if (indexPath.row == 0) {
             

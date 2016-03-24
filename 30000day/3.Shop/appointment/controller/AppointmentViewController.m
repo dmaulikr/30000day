@@ -8,12 +8,10 @@
 
 #import "AppointmentViewController.h"
 #import "QGPickerView.h"
-#import "AppointmentCollectionView.h"
 #import "AppointmentConfirmViewController.h"
+#import "AppointmentTableViewCell.h"
 
-@interface AppointmentViewController () <QGPickerViewDelegate,AppointmentCollectionViewDelegate>
-
-@property (weak, nonatomic) IBOutlet AppointmentCollectionView *appointmentView;
+@interface AppointmentViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -21,6 +19,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT- 64);
+
+    self.isShowBackItem = YES;
+    
+    self.isShowFootRefresh = NO;
+    
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource = self;
     
     //1.设置选择时间的标题按钮
     UIButton *timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -33,12 +43,17 @@
     
     self.navigationItem.titleView = timeButton;
     
-    //2.设置预约表格视图
-    self.appointmentView.dataArray = [NSMutableArray arrayWithArray:@[@"1号场",@"2号场",@"3号场",@"4号场",@"5号场",@"6号场",@"7号场",@"8号场"]];
+    //3.预约下一步
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"预约" style:UIBarButtonItemStylePlain target:self action:@selector(submitAppoinmentAction:)];
     
-    self.appointmentView.time_dataArray = [NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00"]];
-    
-    self.appointmentView.delegate = self;
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+#pragma ---
+#pragma mark --- 父类的方法
+- (void)headerRefreshing {
+ 
+    [self.tableView.mj_header endRefreshing];
 }
 
 - (void)timeButtonAction:(UIButton *)timeButton {
@@ -59,7 +74,7 @@
     
 }
 
-- (IBAction)submitAppoinmentAction:(id)sender {
+- (void)submitAppoinmentAction:(id)sender {
     
     AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
     
@@ -68,13 +83,43 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-#pragma ---
-#pragma mark --- AppointmentCollectionViewDelegate
 
-- (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath {
+#pragma ---
+#pragma mark --- UITableViewDataSource/UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
+    
+    if (cell == nil) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
+        
+    }
+    
+    //2.设置预约表格视图
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 327;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 10.0f;
 }
 
 /*

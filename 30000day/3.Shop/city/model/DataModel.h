@@ -26,5 +26,9 @@
 
 @property (nonatomic,copy)   NSString *rootCode;
 
+@property (nonatomic,copy)   NSString *isHotCity;//是否是热门城市
+
+@property (nonatomic,copy)   NSString *businessCircle;//商圈的名字
+
 @end
 

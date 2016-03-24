@@ -26,4 +26,6 @@
 
 @property (nonatomic,strong) NSNumber *twoPointsDistance;//离我的距离
 
+@property (nonatomic,strong) NSNumber *avgNumberStar;//评分
+
 @end

@@ -10,6 +10,8 @@
 #import "AppointmentCollectionViewCell.h"
 #import "TitleCollectionViewCell.h"
 
+#define HeightMargin  0.0f
+
 @interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @end
@@ -59,7 +61,7 @@
     
     layout.minimumLineSpacing = 0;
     
-    layout.itemSize = CGSizeMake((self.width - 50.0f)/5.0f,(self.height - 50.0f)/(self.time_dataArray.count ? self.time_dataArray.count : 4));
+    layout.itemSize = CGSizeMake((self.width - 50.0f)/5.0f,(self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4));
     
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -71,7 +73,7 @@
     
     //2.设置表格视图
    
-     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(50, 50,self.width - 50,self.height - 50) collectionViewLayout:layout];
+     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(50, HeightMargin,self.width - 50,self.height - HeightMargin) collectionViewLayout:layout];
     
     [collectionView setCollectionViewLayout:layout animated:NO];
     
@@ -98,7 +100,7 @@
         
         timeLabel.text = self.time_dataArray[i];
         
-        timeLabel.frame = CGRectMake(0.0f, 50.0f + (self.height - 50.0f)/(self.time_dataArray.count ? self.time_dataArray.count : 4)/2.0f + (self.height - 50.0f)/(self.time_dataArray.count ? self.time_dataArray.count : 4)*i, 50, (self.height - 50.0f)/(self.time_dataArray.count ? self.time_dataArray.count : 4.0f));
+        timeLabel.frame = CGRectMake(0.0f, HeightMargin + (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4)/2.0f + (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4)*i, 50, (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4.0f));
         
         timeLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -173,7 +175,6 @@
     if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
         
         [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForItem:a inSection:b]];
-        
     }
 }
 

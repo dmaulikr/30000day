@@ -104,6 +104,10 @@
     object.pCode = dataModel.pCode;
     
     object.rootCode = dataModel.rootCode;
+    
+    object.isHotCity = dataModel.isHotCity;
+    
+    object.businessCircle = dataModel.businessCircle;
 }
 
 - (void)countyArrayWithCityName:(NSString *)cityName success:(void (^)(NSMutableArray *))success {
@@ -131,60 +135,110 @@
         
         PlaceObject *object = [result firstObject];
         
-        NSLog(@"object.code = %@",object.code);
+        NSManagedObjectContext *context = [STCoreDataHandler shareCoreDataHandler].mainObjectContext;
         
-        [PlaceObject async:^id(NSManagedObjectContext *ctx, NSString *className) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        [fetchRequest setEntity:[NSEntityDescription entityForName:@"PlaceObject" inManagedObjectContext:context]];
+        
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"pCode == %@",object.code]];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+        
+        [fetchRequest setSortDescriptors:@[sort]];
+        
+        NSError *newError = nil;
+        
+        NSArray *results = [context executeFetchRequest:fetchRequest error:&newError];
+        
+        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+        
+        for (PlaceObject *object in results) {
+            
+            DataModel *dataModel = [[DataModel alloc] init];
+            
+            dataModel.averageLife = object.averageLife;
+            
+            dataModel.code = object.code;
+            
+            dataModel.fraction = object.fraction;
+            
+            dataModel.dataId = object.dataId;
+            
+            dataModel.level = object.level;
+            
+            dataModel.name = object.name;
+            
+            dataModel.pCode = object.pCode;
+            
+            dataModel.rootCode = object.rootCode;
+            
+            dataModel.isHotCity = object.isHotCity;
+            
+            dataModel.businessCircle = object.businessCircle;
+            
+            [dataArray addObject:dataModel];
+        }
+        
+        //插入全部商圈
+        DataModel *firstDataModel = [[DataModel alloc] init];
+        
+        firstDataModel.name = @"全部商圈";
+        
+        [dataArray insertObject:firstDataModel atIndex:0];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
            
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:className];
-            
-            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dataId" ascending:YES]];
-            
-            NSString *newCode = [object.code copy];
-            
-            if (![Common isObjectNull:newCode]) {
-                
-                request.predicate = [NSPredicate predicateWithFormat:@"pCode==%@",newCode];
-            }
-            
-            NSError *error;
-            
-            NSArray *dataArray = [ctx executeFetchRequest:request error:&error];
-            
-            if (error) {
-                
-                return error;
-                
-            } else {
-                
-                return dataArray;
-            }
-            
-        } result:^(NSArray *result, NSError *error) {
-            
-            
-            NSMutableArray *placeNameArray = [NSMutableArray array];
-            
-            for (int i = 0; i < result.count; i++) {
-                
-                PlaceObject *object = result[i];
-                
-                NSString *newCode = [object.name copy];
-                
-                [placeNameArray addObject:newCode];
-                
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                success(placeNameArray);
-                
-            });
-            
-        }];
-    
-
+            success(dataArray);
+        });
+        
+//        [PlaceObject async:^id(NSManagedObjectContext *ctx, NSString *className) {
+//           
+//            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:className];
+//            
+//            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dataId" ascending:YES]];
+//            
+//            NSString *newCode = [object.code copy];
+//            
+//            if (![Common isObjectNull:newCode]) {
+//                
+//                request.predicate = [NSPredicate predicateWithFormat:@"pCode==%@",newCode];
+//            }
+//            
+//            NSError *error;
+//            
+//            NSArray *dataArray = [ctx executeFetchRequest:request error:&error];
+//            
+//            if (error) {
+//                
+//                return error;
+//                
+//            } else {
+//                
+//                return dataArray;
+//            }
+//            
+//        } result:^(NSArray *result, NSError *error) {
+//            
+//            NSMutableArray *placeNameArray = [NSMutableArray array];
+//            
+//            for (int i = 0; i < result.count; i++) {
+//                
+//                PlaceObject *object = result[i];
+//                
+//                NSString *newCode = [object.name copy];
+//                
+//                [placeNameArray addObject:newCode];
+//                
+//            }
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//               
+//                success(placeNameArray);
+//                
+//            });
+//        }];
     }];
-    
 }
 
 - (void)placeIdWithPlaceName:(NSString *)placeName success:(void (^)(NSNumber *))success {
@@ -217,7 +271,6 @@
             success(object.dataId);
             
         });
-
     }];
 }
 
@@ -297,6 +350,56 @@
 
 }
 
+//根据pCode来获取商圈数组
+- (NSMutableArray *)businessCircleWithPcode:(NSString *)pCode {
+    
+    NSManagedObjectContext *context = [STCoreDataHandler shareCoreDataHandler].mainObjectContext;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"PlaceObject" inManagedObjectContext:context]];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"pCode == %@",pCode]];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:@[sort]];
+    
+    NSError *error = nil;
+    
+    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
+    
+    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+
+    for (PlaceObject *object in results) {
+  
+        DataModel *dataModel = [[DataModel alloc] init];
+        
+        dataModel.averageLife = object.averageLife;
+        
+        dataModel.code = object.code;
+        
+        dataModel.fraction = object.fraction;
+        
+        dataModel.dataId = object.dataId;
+        
+        dataModel.level = object.level;
+        
+        dataModel.name = object.name;
+        
+        dataModel.pCode = object.pCode;
+        
+        dataModel.rootCode = object.rootCode;
+        
+        dataModel.isHotCity = object.isHotCity;
+        
+        dataModel.businessCircle = object.businessCircle;
+        
+        [dataArray addObject:dataModel];
+    }
+    
+   return dataArray;
+}
 
 - (NSString *)stringValueWithString:(id)value {
     

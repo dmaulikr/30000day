@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *pCode;
 @property (nullable, nonatomic, retain) NSString *rootCode;
+@property (nullable, nonatomic, retain) NSString *isHotCity;
+@property (nullable, nonatomic, retain) NSString *businessCircle;
 
 @end
 

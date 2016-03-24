@@ -22,4 +22,7 @@
 //根据地名字来获取地名字的id
 - (void)placeIdWithPlaceName:(NSString *)placeName success:(void (^)(NSNumber *))success;
 
+//根据pCode来获取商圈数组,数组里面存储的是DataModel
+- (NSMutableArray *)businessCircleWithPcode:(NSString *)pCode;
+
 @end

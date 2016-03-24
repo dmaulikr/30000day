@@ -21,5 +21,7 @@
 @dynamic name;
 @dynamic pCode;
 @dynamic rootCode;
+@dynamic isHotCity;
+@dynamic businessCircle;
 
 @end
