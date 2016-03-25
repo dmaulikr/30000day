@@ -107,12 +107,20 @@
         
         if (commentModel.level == 1) {
 
-            return 228 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 238 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         } else {
         
-            return 230;
+            if (commentModel.picUrl != nil && ![commentModel.picUrl isEqualToString:@"test.img"] && ![commentModel.picUrl isEqualToString:@"/img.img"]) {
+                
+                return 90 + (([UIScreen mainScreen].bounds.size.width - 106) / 3) + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                
+            } else {
             
+                return 90 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                
+            }
+        
         }
     }
     
@@ -195,8 +203,6 @@
             
         } else {
             
-            CommentModel *commentModel = self.commentModelArray[indexPath.row];
-            
             CommentDetailsTableViewCell *commentDetailsTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommentDetailsTableViewCell"];
             
             if (commentDetailsTableViewCell == nil) {
@@ -272,9 +278,11 @@
             changeStatusButton.tag = 2;
             
             for (int i = 0; i < success.count; i++) {
-                CommentModel *commentModel = success[i];
-                commentModel.level = 0;
-                [self.commentModelArray insertObject:commentModel atIndex:indexPath.row + 1];
+                
+                CommentModel *comment = success[i];
+                comment.level = 0;
+                comment.pName = commentModel.userName;
+                [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                 
             }
             

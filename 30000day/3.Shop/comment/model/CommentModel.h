@@ -16,6 +16,7 @@
 @property (nonatomic,copy) NSString *commentId;
 @property (nonatomic,copy) NSString *productId;
 @property (nonatomic,copy) NSString *pId;
+@property (nonatomic,copy) NSString *pName;
 @property (nonatomic,copy) NSString *numberStar;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *clickLike;

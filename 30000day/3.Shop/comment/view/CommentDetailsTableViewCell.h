@@ -23,4 +23,14 @@
 
 @property (nonatomic,strong) CommentModel *commentModel;
 
+@property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewOne;
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewTwo;
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewThree;
+
+
 @end

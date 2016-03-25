@@ -36,9 +36,32 @@
     
     self.commentContentLable.text = commentModel.remark;
     
-    self.commentNameLable.text = commentModel.userName;
+    if (commentModel.userName != nil) {
+        
+        self.commentNameLable.text = commentModel.userName;
+        
+    } else {
+        
+        self.commentNameLable.text = @"错误数据";
+    }
     
-    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
+    self.replyNameLable.text = commentModel.pName;
+    
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg] placeholderImage:[UIImage imageNamed:@"sd-4"]];
+    
+    if (commentModel.picUrl != nil && ![commentModel.picUrl isEqualToString:@"test.img"] && ![commentModel.picUrl isEqualToString:@"/img.img"]) {
+        
+        [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:commentModel.picUrl]];
+        [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:commentModel.picUrl]];
+        [self.commentContentImageViewThree sd_setImageWithURL:[NSURL URLWithString:commentModel.picUrl]];
+        
+    } else {
+    
+        self.commentContentImageViewOne.hidden = YES;
+        self.commentContentImageViewTwo.hidden = YES;
+        self.commentContentImageViewThree.hidden = YES;
+        
+    }
     
 }
 
