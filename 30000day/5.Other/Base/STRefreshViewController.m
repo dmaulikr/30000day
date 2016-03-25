@@ -209,11 +209,6 @@
     }
 }
 
-//message:是当前键盘输入的字符串   imageArray:键盘头上的选择的图片数组
-- (void)inputViewSendButtonDidClick:(NSString *)message imageArray:(NSMutableArray *)imageArray flag:(NSNumber *)flag {
-    
-}
-
 - (void)headerRefreshing {
     
     

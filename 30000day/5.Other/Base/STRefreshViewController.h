@@ -36,17 +36,13 @@ typedef enum {
 
 - (void)footerRereshing;
 
+//是否有键盘 默认是没键盘的
+@property (nonatomic,assign) BOOL isShowInputView;
+
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 
 //隐藏键盘，会清除之前的所设置的东西
 - (void)refreshControllerInputViewHide;
-
-
-//是否有键盘 默认是没键盘的
-@property (nonatomic,assign) BOOL isShowInputView;
-
-//message:是当前键盘输入的字符串   imageArray:键盘头上的选择的图片数组
-- (void)inputViewSendButtonDidClick:(NSString *)message imageArray:(NSMutableArray *)imageArray flag:(NSNumber *)flag;
 
 @end
