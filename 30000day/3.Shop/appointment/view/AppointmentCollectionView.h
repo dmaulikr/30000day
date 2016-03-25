@@ -7,18 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class AppointmentCollectionView;
+#import "AppointmentCollectionViewCell.h"
+#import "TitleCollectionViewCell.h"
 
-typedef NS_ENUM (NSInteger,AppointmentColorType) {
-    
-    AppointmentColorCanUse = 0,//可用状态
-    
-    AppointmentColorMyUse,//我的预定
-    
-    AppointmentColorSellOut,//已经售完
-    
-    AppointmentColorNoneUse,//不可用
-};
+@class AppointmentCollectionView;
 
 //协议
 @protocol AppointmentCollectionViewDelegate <NSObject>

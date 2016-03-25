@@ -18,4 +18,8 @@
 
 - (NSMutableArray *)getHotCity;
 
+- (void)getLocationSuccess:(void (^)(NSMutableArray *))success
+                         failure:(void (^)(NSError *error))failure;
+
+
 @end

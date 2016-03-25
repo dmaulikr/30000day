@@ -12,7 +12,7 @@
 
 @property (nonatomic,copy) NSString *name;
 
-@property (nonatomic,strong) NSMutableArray *cityArray;
+@property (nonatomic,strong) NSMutableArray *cityList;
 
 @end
 
@@ -20,12 +20,11 @@
 
 @property (nonatomic,copy) NSString *name;
 
-@property (nonatomic,strong) NSMutableArray *businessCircleArray;
+@property (nonatomic,strong) NSMutableArray *businessCircleList;
 
 @end
 
-
-@interface LocationModel : NSObject < NSCoding >
+@interface BusinessCircleModel : NSObject < NSCoding >
 
 @property (nonatomic,copy) NSString *name;
 

@@ -10,15 +10,25 @@
 
 @implementation ProvinceModel
 
-#pragma mark --- NSCoding的协议
+- (NSDictionary *)objectClassInArray {
+    
+    return @{ @"cityList" : [CityModel class]};
+}
 
+//- (Class)objectClassInArrayForClass:(Class)c {
+//    
+//    
+//    
+//}
+
+#pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
     if ([self init]) {
         
         self.name = [aDecoder decodeObjectForKey:@"name"];
         
-        self.cityArray = [aDecoder decodeObjectForKey:@"cityArray"];
+        self.cityList = [aDecoder decodeObjectForKey:@"cityList"];
     }
     return self;
 }
@@ -27,7 +37,7 @@
     
     [aCoder encodeObject:self.name forKey:@"name"];
     
-    [aCoder encodeObject:self.cityArray forKey:@"cityArray"];
+    [aCoder encodeObject:self.cityList forKey:@"cityList"];
     
 }
 
@@ -35,13 +45,14 @@
 
 @implementation CityModel
 
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
     if ([self init]) {
         
         self.name = [aDecoder decodeObjectForKey:@"name"];
         
-        self.businessCircleArray = [aDecoder decodeObjectForKey:@"businessCircleArray"];
+        self.businessCircleList = [aDecoder decodeObjectForKey:@"businessCircleList"];
         
     }
     return self;
@@ -51,12 +62,12 @@
     
     [aCoder encodeObject:self.name forKey:@"name"];
     
-    [aCoder encodeObject:self.businessCircleArray forKey:@"businessCircleArray"];
+    [aCoder encodeObject:self.businessCircleList forKey:@"businessCircleList"];
 }
 
 @end
 
-@implementation LocationModel
+@implementation BusinessCircleModel
 
 #pragma mark ---- 将对象转化为NSData的方法
 

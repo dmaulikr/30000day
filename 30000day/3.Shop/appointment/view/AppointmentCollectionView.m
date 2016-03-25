@@ -7,8 +7,7 @@
 //
 
 #import "AppointmentCollectionView.h"
-#import "AppointmentCollectionViewCell.h"
-#import "TitleCollectionViewCell.h"
+
 
 #define HeightMargin  0.0f
 
@@ -171,9 +170,18 @@
             
             AppointmentColorType type = [self.delegate appointmentCollectionView:self typeForRowAtIndexPath:[NSIndexPath indexPathForItem:a inSection:b - 1]];
             
+            cell.type = type;
+            
             if (type == AppointmentColorCanUse) {
                 
-                cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                if (cell.flag) {
+                    
+                    cell.backgroundColor = [UIColor redColor];
+
+                } else {
+                    
+                    cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                }
                 
             } else if (type == AppointmentColorMyUse) {
                 
@@ -208,10 +216,32 @@
     
     NSInteger b = indexPath.row;
     
-    if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
-        
-        [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForItem:a inSection:b]];
-    }
+     if (!(indexPath.section <= self.dataArray.count && indexPath.row == 0)) {
+         
+         AppointmentCollectionViewCell *cell = (AppointmentCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+         
+         if (cell.type == AppointmentColorCanUse) {
+             
+             if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
+                 
+                 [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForItem:a inSection:b]];
+             }
+             
+             if (cell.flag) {
+                 
+                  cell.flag = 0;
+                 
+                  cell.backgroundColor =  RGBACOLOR(175, 235, 178, 1);
+                 
+             } else {
+                 
+                 cell.flag = 1;
+                 
+                 cell.backgroundColor = [UIColor redColor];
+                 
+             }
+         }
+     }
 }
 
 //

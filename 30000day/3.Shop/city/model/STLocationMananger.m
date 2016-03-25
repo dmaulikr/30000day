@@ -8,6 +8,7 @@
 
 #import "STLocationMananger.h"
 #import "ProvinceModel.h"
+#import "MJExtension.h"
 
 @interface STLocationMananger ()
 
@@ -32,7 +33,7 @@
 
 - (void)synchronizedLocationDataFromServer {
     
-    [self sendPlaceSuccess:^(NSMutableArray *provinceArray) {
+    [self getLocationSuccess:^(NSMutableArray *provinceArray) {
         
         if (provinceArray.count) {
             
@@ -45,10 +46,10 @@
 }
 
 //获取省和城市
-- (void)sendPlaceSuccess:(void (^)(NSMutableArray *))success
+- (void)getLocationSuccess:(void (^)(NSMutableArray *))success
                  failure:(void (^)(NSError *error))failure {
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_PLACE_LIST]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_PLACE_TREE_LIST]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
     
     request.HTTPMethod = @"GET";
     
@@ -71,12 +72,28 @@
                 if ([recvDictionary[@"code"] isEqualToNumber:@0]) {
                     
                     NSArray *array = recvDictionary[@"value"];
-                
+                    
+                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                    
                     for (int i = 0; i < array.count; i++) {
                         
-                        ProvinceModel *model = [[ProvinceModel alloc] init];
+                        NSDictionary *dictionary = array[i];
+    
+                        NSString *code = dictionary[@"code"];
                         
-                        NSDictionary *dataDictionary = array[i];
+                        if ([code isEqualToString:@"11"] || [code isEqualToString:@"12"] || [code isEqualToString:@"31"] || [code isEqualToString:@"50"]) {//直辖市
+                            
+                            
+                            
+                        } else {//非直辖市
+                            
+                        ProvinceModel *model =   [ProvinceModel mj_objectWithKeyValues:dictionary];
+                            
+                        
+                        [dataArray addObject:model];
+                            
+                        }
+    
     
                     }
                     
