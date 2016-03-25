@@ -96,7 +96,7 @@
                             <constraint firstAttribute="width" secondItem="ude-95-mr0" secondAttribute="height" multiplier="1:1" id="YCt-71-xma"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-9e-HUJ">
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-9e-HUJ">
                         <rect key="frame" x="159" y="252" width="60" height="30"/>
                         <state key="normal" title="查看回复"/>
                         <connections>

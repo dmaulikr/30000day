@@ -7,20 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentModel.h"
 
 @interface CommentDetailsTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
-@property (nonatomic,copy) void (^(changeStateBlock))();
-
-@property (nonatomic,assign) NSInteger click;
+@property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
 @property (weak, nonatomic) IBOutlet UIImageView *commentHeadPortraitImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *commentNameLable;
 
 @property (weak, nonatomic) IBOutlet UILabel *commentContentLable;
+
+@property (nonatomic,strong) CommentModel *commentModel;
+
+@property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewOne;
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewTwo;
+
+@property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewThree;
 
 
 @end
