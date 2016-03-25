@@ -159,20 +159,22 @@
 #define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
 
 
-#define  GET_COMPANY_LIST          @"/stapi/market/findProductList"   //获取所有的公司列表
+#define  GET_COMPANY_LIST           @"/stapi/market/findProductList"      //获取所有的公司列表
 
-#define  GET_COMPANYDETAILS        @"/stapi/market/findProductInfo"   //获取商店详情
+#define  GET_COMPANYDETAILS         @"/stapi/market/findProductInfo"      //获取商店详情
 
-#define  GET_LINE_LIST             @"/stapi/market/findLineList"      //获取城市地铁线路
+#define  GET_LINE_LIST              @"/stapi/market/findLineList"         //获取城市地铁线路
 
-#define  GET_PLACE_LIST             @"/stapi/market/findRegionList"      //获取所有的地址
+#define  GET_PLACE_LIST              @"/stapi/market/findRegionList"      //获取所有的地址
 
 
-#define  GET_FINDCOMMENTLIST        @"/stapi/user/findCommentList"     //获取商品评论
+#define  GET_FINDCOMMENTLIST         @"/stapi/user/findCommentList"       //获取商品评论
 
-#define GET_SHOP_LIST               @"/stapi/market/findProductList"   //获取所有的商品列表
+#define  GET_SHOP_LIST               @"/stapi/market/findProductList"     //获取所有的商品列表
 
-#define SAVE_COMMENT                @"/stapi/user/saveComment"         //评论
+#define  SAVE_COMMENT                @"/stapi/user/saveComment"           //评论
+
+#define  SAVE_POINTPRAISEORCANCEL    @"/stapi/user/pointPraiseOrCancel"   //点赞
 
 
 //发送消息的标记
@@ -180,7 +182,7 @@
 #define MESSAGE_VOICE        @"[2]"
 #define MESSAGE_IMAGE        @"[9]"
 #define MESSAGE_VIDEO        @"[4]"
-#define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"                      //统计环境因素
+#define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"        //统计环境因素
 
 #endif
 

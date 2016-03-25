@@ -37,6 +37,8 @@
 
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
+@property (nonatomic,copy) void (^(commentZambiaButtonBlock))(UIButton *ZambiaButton);
+
 @property (nonatomic,strong) CommentModel *commentModel;
 
 @end

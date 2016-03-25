@@ -46,7 +46,7 @@
     
     self.replyNameLable.text = commentModel.pName;
     
-    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg] placeholderImage:[UIImage imageNamed:@"sd-4"]];
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     if (commentModel.picUrl != nil && ![commentModel.picUrl isEqualToString:@"test.img"] && ![commentModel.picUrl isEqualToString:@"/img.img"]) {
         

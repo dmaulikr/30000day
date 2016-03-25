@@ -33,8 +33,6 @@
 		B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */; };
 		B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */; };
 		B61A4FB21CA11973000EAF4C /* Height.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FB01CA11973000EAF4C /* Height.m */; };
-		B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */; };
-		B61A4FBC1CA123CF000EAF4C /* CommentDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */; };
 		B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */; };
 		B62C38191C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C380F1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m */; };
 		B62C381A1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B62C38101C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib */; };
@@ -653,9 +651,6 @@
 		B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewController.xib; sourceTree = "<group>"; };
 		B61A4FB01CA11973000EAF4C /* Height.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Height.m; sourceTree = "<group>"; };
 		B61A4FB11CA11973000EAF4C /* Height.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Height.h; sourceTree = "<group>"; };
-		B61A4FB81CA123CF000EAF4C /* CommentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentDetailsViewController.h; sourceTree = "<group>"; };
-		B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetailsViewController.m; sourceTree = "<group>"; };
-		B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentDetailsViewController.xib; sourceTree = "<group>"; };
 		B61A4FBE1CA13E0C000EAF4C /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
 		B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		B62C380E1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailHeadTableViewCell.h; sourceTree = "<group>"; };
@@ -1626,9 +1621,6 @@
 				B60119721C9404BC0061AD89 /* CommentViewController.h */,
 				B60119731C9404BC0061AD89 /* CommentViewController.m */,
 				B60119741C9404BC0061AD89 /* CommentViewController.xib */,
-				B61A4FB81CA123CF000EAF4C /* CommentDetailsViewController.h */,
-				B61A4FB91CA123CF000EAF4C /* CommentDetailsViewController.m */,
-				B61A4FBA1CA123CF000EAF4C /* CommentDetailsViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4035,7 +4027,6 @@
 				B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */,
 				B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
-				B61A4FBC1CA123CF000EAF4C /* CommentDetailsViewController.xib in Resources */,
 				B804FD331C8AC9A900DFD1CF /* rabbit_14_cover@2x.png in Resources */,
 				B804FD741C8AC9A900DFD1CF /* tusiji_9_cover@2x.png in Resources */,
 				B804FD861C8AC9A900DFD1CF /* msg_chat_voice_unread.png in Resources */,
@@ -4323,7 +4314,6 @@
 				B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */,
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
-				B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */,
 				B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,

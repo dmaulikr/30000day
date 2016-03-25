@@ -11,7 +11,6 @@
 #import "CommentOptionsTableViewCell.h"
 #import "AppointmentConfirmViewController.h"
 #import "Height.h"
-#import "CommentDetailsViewController.h"
 #import "CommentModel.h"
 #import "CommentDetailsTableViewCell.h"
 
@@ -198,6 +197,43 @@
 
             }];
             
+            [shopDetailCommentTableViewCell setCommentZambiaButtonBlock:^(UIButton *ZambiaButton) {
+               
+                BOOL clickLike;
+                if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
+                    
+                    clickLike = YES;
+                    
+                } else {
+                
+                    clickLike = NO;
+                    
+                }
+                
+                [self.dataHandler sendPointPraiseOrCancelWithCommentId:commentModel.commentId isClickLike:clickLike Success:^(BOOL success) {
+                    
+                    if (success) {
+                        
+                        if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
+                            
+                            [ZambiaButton setTitle:@"已赞" forState:UIControlStateNormal];
+                            
+                        } else {
+                            
+                            [ZambiaButton setTitle:@"赞" forState:UIControlStateNormal];
+                            
+                        }
+
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    [self showToast:@"未知错误"];
+                    
+                }];
+                
+            }];
+            
             shopDetailCommentTableViewCell.commentModel = commentModel;
             
             return shopDetailCommentTableViewCell;
@@ -238,7 +274,9 @@
         return;
         
     } else {
-            
+        
+        [self refreshControllerInputViewHide];
+        
             self.isShowInputView = YES;
             
             [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInt:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
