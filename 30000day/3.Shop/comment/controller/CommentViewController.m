@@ -238,20 +238,6 @@
         return;
         
     } else {
-
-        if (indexPath.row == 0) {
-         
-            CommentDetailsViewController *controller = [[CommentDetailsViewController alloc] init];
-            
-            controller.commentModel = self.commentModelArray[indexPath.row];
-            
-            controller.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:controller animated:YES];
-            
-            
-        }  else {
-            
             
             self.isShowInputView = YES;
             
@@ -261,7 +247,13 @@
                     
                     CommentModel *commentModel = self.commentModelArray[flag.integerValue];
                 
-                    [self.dataHandler sendsaveCommentWithProductId:commentModel.productId type:commentModel.type.integerValue userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue] remark:message numberStar:-1 picUrl:nil pId:commentModel.commentId Success:^(BOOL success) {
+                    [self.dataHandler sendsaveCommentWithProductId:commentModel.productId
+                                                              type:commentModel.type.integerValue
+                                                            userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue]
+                                                            remark:message numberStar:-1
+                                                            picUrl:nil
+                                                               pId:commentModel.commentId
+                                                           Success:^(BOOL success) {
                         
                         if (success) {
                             
@@ -295,7 +287,6 @@
             }];
         
         }
-    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
