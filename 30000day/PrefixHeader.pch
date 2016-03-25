@@ -165,7 +165,7 @@
 
 #define  GET_LINE_LIST             @"/stapi/market/findLineList"      //获取城市地铁线路
 
-#define  GET_PLACE_LIST             @"/stapi/market/findCityList"      //获取所有的地址
+#define  GET_PLACE_LIST             @"/stapi/market/findRegionList"      //获取所有的地址
 
 
 #define  GET_FINDCOMMENTLIST        @"/stapi/user/findCommentList"     //获取商品评论

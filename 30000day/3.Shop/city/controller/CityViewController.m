@@ -9,6 +9,7 @@
 #import "CityViewController.h"
 #import "CityHeadView.h"
 #import "CityTableViewCell.h"
+#import "STLocationMananger.h"
 
 @interface CityViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -30,6 +31,8 @@
     [self.view addSubview:self.tableView];
     
     self.searchBar.placeholder = @"输入城市名";
+    
+    [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
 }
 
 #pragma ---

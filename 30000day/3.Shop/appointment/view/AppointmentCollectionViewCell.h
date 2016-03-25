@@ -23,4 +23,6 @@ typedef NS_ENUM (NSInteger,AppointmentColorType) {
 
 @property (nonatomic,assign) NSInteger flag;//标志
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

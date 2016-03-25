@@ -153,6 +153,16 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:appoinitmentIdentifier owner:nil options:nil] lastObject];
         }
         
+        if ([self.delegate respondsToSelector:@selector(appointmentCollectionView:titleForRowAtIndexPath:)]) {
+            
+            NSInteger a = indexPath.section;
+            
+            NSInteger b = indexPath.row;
+            
+            cell.titleLabel.text = [self.delegate appointmentCollectionView:self titleForRowAtIndexPath:[NSIndexPath indexPathForItem:a inSection:b - 1]];
+            
+        }
+        
         return cell;
     }
     

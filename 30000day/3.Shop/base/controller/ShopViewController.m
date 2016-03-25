@@ -429,7 +429,11 @@
     
     if (column == 0 ) {
         
-        return 1;
+        DataModel *model = self.placeArray[row];
+        
+        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
+        
+        return array.count;
     }
     
     return 0;
@@ -449,16 +453,16 @@
             
         }
         
-    } else if (indexPath.column == 0 && indexPath.row == 1) {
+    } else if (indexPath.column == 0) {
         
-        if (indexPath.item == 0) {
-            
-            return @"黄埔商圈";
-            
-        } else if (indexPath.item == 1) {
-            
-            return @"黄埔军校";
-        }
+        DataModel *model = self.placeArray[indexPath.row];
+        
+        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
+        
+        DataModel *businessCircelModel = array[indexPath.item];
+        
+        return businessCircelModel.name;
+        
     }
     
     return @"";

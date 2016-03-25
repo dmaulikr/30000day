@@ -34,9 +34,22 @@
 
 - (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath {
     
-    
-    
+        
 }
 
+- (NSString *)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView titleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+        return @"$45";
+        
+    } else if (indexPath.section == 1) {
+        
+        return @"￥55";
+    }
+    
+    return @"￥99";
+    
+}
 
 @end

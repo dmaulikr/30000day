@@ -71,7 +71,6 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alS-Lg-sgN" customClass="AppointmentCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
-                        <color key="backgroundColor" red="0.0078431372550000003" green="0.73333333329999995" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="300" id="NZ5-Zm-S8N"/>
                         </constraints>
