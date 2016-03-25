@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentModel.h"
 
 @interface CommentDetailsTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
-@property (nonatomic,copy) void (^(changeStateBlock))();
-
-@property (nonatomic,assign) NSInteger click;
+@property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
 @property (weak, nonatomic) IBOutlet UIImageView *commentHeadPortraitImageView;
 
@@ -22,5 +21,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *commentContentLable;
 
+@property (nonatomic,strong) CommentModel *commentModel;
 
 @end

@@ -62,7 +62,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="回复"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCD-GR-XxL">
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCD-GR-XxL">
                         <rect key="frame" x="257" y="9" width="60" height="30"/>
                         <state key="normal" title="查看回复"/>
                         <connections>

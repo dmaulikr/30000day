@@ -7,6 +7,7 @@
 //
 
 #import "CommentDetailsTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation CommentDetailsTableViewCell
 
@@ -23,8 +24,21 @@
 - (IBAction)checkReply:(id)sender {
     
     if (self.changeStateBlock) {
-        self.changeStateBlock();
+        self.changeStateBlock((UIButton *)sender);
     }
+
+    
+}
+
+- (void)setCommentModel:(CommentModel *)commentModel {
+    
+    _commentModel = commentModel;
+    
+    self.commentContentLable.text = commentModel.remark;
+    
+    self.commentNameLable.text = commentModel.userName;
+    
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
     
 }
 

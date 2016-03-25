@@ -7,6 +7,7 @@
 //
 
 #import "ShopDetailCommentTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ShopDetailCommentTableViewCell
 
@@ -23,10 +24,23 @@
 - (IBAction)checkReply:(UIButton *)sender {
     
     if (self.changeStateBlock) {
-        self.changeStateBlock();
+        self.changeStateBlock((UIButton *)sender);
     }
     
 }
 
+- (void)setCommentModel:(CommentModel *)commentModel {
+
+    _commentModel = commentModel;
+    
+    self.commentContentLable.text = commentModel.remark;
+    
+    self.commentNameLable.text = commentModel.userName;
+    
+    self.commentTimeLable.text = [NSString stringWithFormat:@"%@",commentModel.createTime];
+    
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
+    
+}
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommentModel.h"
 
 @interface ShopDetailCommentTableViewCell : UITableViewCell
 
@@ -34,8 +35,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
-@property (nonatomic,copy) void (^(changeStateBlock))();
+@property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
-@property (nonatomic,assign) NSInteger click;
+@property (nonatomic,strong) CommentModel *commentModel;
 
 @end
