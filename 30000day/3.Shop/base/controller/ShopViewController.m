@@ -20,6 +20,8 @@
 #import "SearchConditionModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DataModel.h"
+#import "STLocationMananger.h"
+#import "ProvinceModel.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -42,6 +44,10 @@
 @property (nonatomic,assign) CLLocationCoordinate2D coordinate2D;//保存从系统定位获取到的经纬度
 
 @property (nonatomic,assign) NSUInteger pageNumber;
+
+@property (nonatomic,strong) NSMutableArray *locationArray;
+
+@property (nonatomic,strong) ProvinceModel *provinceModel;
 
 @end
 
@@ -69,8 +75,8 @@
 //        
 //    } failure:^(NSError *error) {
     
-        [self configBusinessPlaceWithCityName:@"上海"];
-        
+//        [self configBusinessPlaceWithCityName:@"上海"];
+    
         self.leftBarButton.title = @"上海";
     
         self.conditionModel.provinceName = @"上海";//给获取的到省赋值
@@ -79,36 +85,66 @@
     
 //    }];
     
-    self.pageNumber = 1;
-    
-    //3.获取列表数据源数组
-    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.pageNumber];
-}
-
-- (void)configBusinessPlaceWithCityName:(NSString *)cityName {
-    
-    //配置数据库
-    PlaceManager *manager = [PlaceManager shareManager];
-    
-    [manager configManagerSuccess:^(BOOL success) {
+    [[STLocationMananger shareManager] getLocationSuccess:^(NSMutableArray *array) {
         
-        [manager countyArrayWithCityName:cityName success:^(NSMutableArray *array) {
+        NSString *cityId;
+        
+        for (int i = 0; i < array.count; i++) {
             
-            //配置商圈
-            self.placeArray = array;
+            ProvinceModel *provinceModel = array[i];
             
-            //配置地铁
-            [manager placeIdWithPlaceName:cityName success:^(NSNumber *placeId) {
+            if (provinceModel.isSpecial) {//直辖市
                 
-                [self configCitySubWayWithCityId:[placeId stringValue]];
+                if ([provinceModel.name isEqualToString:self.conditionModel.provinceName] && [provinceModel.name isEqualToString:self.conditionModel.cityName]) {
+                    
+                    self.provinceModel = provinceModel;
+                    
+                    cityId = provinceModel.code;
+                    
+                    break;
+                    
+                }
+            } else {//普通省
                 
-            }];
-        }];
+                if ([provinceModel.name isEqualToString:self.conditionModel.provinceName]) {//找到当前的省
+                    
+                    for (int i = 0; i < provinceModel.cityList.count; i++) {
+                        
+                        CityModel *cityModel = provinceModel.cityList[i];
+                        
+                        if ([cityModel.name isEqualToString:self.conditionModel.cityName]) {//找到当前的市
+                            
+                            self.provinceModel = provinceModel;
+                            
+                            self.locationArray = cityModel.countyList;//获取城市的区、县
+                            
+                            cityId = cityModel.code;
+                            
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        //1.根据城市Id来配置地铁
+        [self configCitySubWayWithCityId:cityId];
         
     } failure:^(NSError *error) {
         
-        
     }];
+    
+    //3.获取列表数据源数组
+    [self getShopListArray];
+}
+
+ //3.获取列表数据源数组
+- (void)getShopListArray {
+    
+    self.pageNumber = 1;
+    
+    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.pageNumber];
 }
 
 //根据Id来配置该城市的地铁
@@ -342,7 +378,14 @@
     
     if (column == 0) {
         
-        return self.placeArray.count;
+        if (self.provinceModel.isSpecial) {//直辖市
+            
+            return self.provinceModel.cityList.count + 1;
+            
+        } else {//普通省
+        
+            return self.locationArray.count + 1;
+        }
         
     } else if (column == 1) {
         
@@ -359,10 +402,26 @@
     
     if (indexPath.column == 0) {
         
-        DataModel *model = self.placeArray[indexPath.row];
-        
-        return model.name;
-        
+        if (indexPath.row == 0) {//第一行需要显示所有的商圈
+            
+            return @"全部商圈";
+            
+        } else {//非第一行
+            
+            if (self.provinceModel.isSpecial) {
+                
+                RegionalModel *model = self.provinceModel.cityList[indexPath.row - 1];
+                
+                return model.name;
+                
+            } else {
+                
+                RegionalModel *model = self.locationArray[indexPath.row - 1 ];
+                
+                return model.name;
+            }
+        }
+
     } else if (indexPath.column == 1) {
         
         if (indexPath.row == 0) {
@@ -429,11 +488,26 @@
     
     if (column == 0 ) {
         
-        DataModel *model = self.placeArray[row];
-        
-        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
-        
-        return array.count;
+        if (row == 0) {
+            
+            return 1;
+            
+        } else {
+            
+            if (self.provinceModel.isSpecial) {//直辖市
+                
+                RegionalModel *model = self.provinceModel.cityList[row - 1];
+                
+                return model.countyList.count;
+                
+            } else {//普通省
+                
+                RegionalModel *model = self.locationArray[row - 1 ];
+                
+                return model.countyList.count;
+                
+            }
+        }
     }
     
     return 0;
@@ -455,13 +529,23 @@
         
     } else if (indexPath.column == 0) {
         
-        DataModel *model = self.placeArray[indexPath.row];
-        
-        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
-        
-        DataModel *businessCircelModel = array[indexPath.item];
-        
-        return businessCircelModel.name;
+        if (self.provinceModel.isSpecial) {//直辖市
+            
+            RegionalModel *model = self.provinceModel.cityList[indexPath.row - 1];
+            
+            BusinessCircleModel *circleModel = model.countyList[indexPath.item];
+            
+            return circleModel.name;
+            
+        } else {//普通省
+            
+            RegionalModel *model = self.locationArray[indexPath.row - 1];
+            
+            BusinessCircleModel *circleModel = model.countyList[indexPath.item];
+            
+            return circleModel.name;
+            
+        }
         
     }
     
@@ -600,30 +684,28 @@
     
     if (indexPath.column == 0 ) {//点击商圈
         
-        DataModel *model = self.placeArray[indexPath.row];
-        
-        self.conditionModel.regional = model.name;
-        
         if (indexPath.row == 0) {
             
-            if (indexPath.item == 0) {
-                
-                self.conditionModel.businessCircle = @"全部商区";
-                
-            } else if (indexPath.item == 1) {
-                
-                self.conditionModel.businessCircle = @"等待赋值";
-            }
+            self.conditionModel.businessCircle = @"全部商区";
             
-        } else if (indexPath.row == 1) {
+        } else {
             
-            if (indexPath.item == 0) {
+            if (self.provinceModel.isSpecial) {//直辖市
                 
-                self.conditionModel.businessCircle = @"黄埔商圈";
+                RegionalModel *model = self.provinceModel.cityList[indexPath.row - 1];
                 
-            } else if (indexPath.item == 1) {
+                BusinessCircleModel *circleModel = model.countyList[indexPath.item];
                 
-                self.conditionModel.businessCircle = @"黄埔军校";
+                self.conditionModel.businessCircle = circleModel.name;
+                
+            } else {//普通省
+                
+                RegionalModel *model = self.locationArray[indexPath.row - 1];
+                
+                BusinessCircleModel *circleModel = model.countyList[indexPath.item];
+                
+                self.conditionModel.businessCircle = circleModel.name;
+                
             }
         }
         

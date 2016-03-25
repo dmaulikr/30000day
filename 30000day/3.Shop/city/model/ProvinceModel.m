@@ -10,16 +10,10 @@
 
 @implementation ProvinceModel
 
-- (NSDictionary *)objectClassInArray {
++ (NSDictionary *)modelContainerPropertyGenericClass {
     
     return @{ @"cityList" : [CityModel class]};
 }
-
-//- (Class)objectClassInArrayForClass:(Class)c {
-//    
-//    
-//    
-//}
 
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -45,6 +39,10 @@
 
 @implementation CityModel
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    
+    return @{ @"countyList" : [RegionalModel class]};
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -52,7 +50,7 @@
         
         self.name = [aDecoder decodeObjectForKey:@"name"];
         
-        self.businessCircleList = [aDecoder decodeObjectForKey:@"businessCircleList"];
+        self.countyList = [aDecoder decodeObjectForKey:@"countyList"];
         
     }
     return self;
@@ -62,12 +60,27 @@
     
     [aCoder encodeObject:self.name forKey:@"name"];
     
-    [aCoder encodeObject:self.businessCircleList forKey:@"businessCircleList"];
+    [aCoder encodeObject:self.countyList forKey:@"countyList"];
 }
 
 @end
 
+@implementation RegionalModel
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    
+    return @{ @"businessCircleList" : [BusinessCircleModel class]};
+}
+
+@end
+
+
 @implementation BusinessCircleModel
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    
+    
+}
 
 #pragma mark ---- 将对象转化为NSData的方法
 

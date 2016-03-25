@@ -9,6 +9,7 @@
 #import "STLocationMananger.h"
 #import "ProvinceModel.h"
 #import "MJExtension.h"
+#import "YYModel.h"
 
 @interface STLocationMananger ()
 
@@ -83,22 +84,62 @@
                         
                         if ([code isEqualToString:@"11"] || [code isEqualToString:@"12"] || [code isEqualToString:@"31"] || [code isEqualToString:@"50"]) {//直辖市
                             
+                            ProvinceModel *model = [[ProvinceModel alloc] init];
                             
+                            model.name = dictionary[@"name"];
+                            
+                            model.code = dictionary[@"code"];
+                            
+                            model.isSpecial = YES;
+                            
+                            model.cityList = [[NSMutableArray alloc] init];
+                            
+                            NSArray *newArray = dictionary[@"cityList"];
+                            
+                            for (int i = 0; i < newArray.count; i++) {
+                                
+                                NSDictionary *dictionary = newArray[i];
+                                
+                                RegionalModel *regionalModel = [[RegionalModel alloc] init];
+                                
+                                regionalModel.name = dictionary[@"name"];
+                                
+                                regionalModel.code = dictionary[@"code"];
+                                
+                                regionalModel.countyList = [[NSMutableArray alloc] init];
+                                
+                                NSArray *array = dictionary[@"businessCircleList"];
+                                
+                                for (int i = 0; i < array.count; i++) {
+                                    
+                                    NSDictionary *dict = array[i];
+                                    
+                                    BusinessCircleModel *model = [[BusinessCircleModel alloc] init];
+                                    
+                                    [model setValuesForKeysWithDictionary:dict];
+                                    
+                                    [regionalModel.countyList addObject:model];
+                                }
+                                
+                                [model.cityList addObject:regionalModel];
+                            }
+
+                            [dataArray addObject:model];
                             
                         } else {//非直辖市
                             
-                        ProvinceModel *model =   [ProvinceModel mj_objectWithKeyValues:dictionary];
-                            
-                        
-                        [dataArray addObject:model];
-                            
+                            ProvinceModel *model = [ProvinceModel yy_modelWithDictionary:dictionary];
+                                
+                             model.isSpecial = NO;
+                                
+                            [dataArray addObject:model];
+
                         }
-    
-    
                     }
-                    
+                
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
+                        success(dataArray);
                         
                     });
                     

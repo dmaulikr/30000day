@@ -31,12 +31,6 @@
     [self.view addSubview:self.tableView];
     
     self.searchBar.placeholder = @"输入城市名";
-    
-    [[STLocationMananger shareManager] getLocationSuccess:^(NSMutableArray *array) {
-        
-    } failure:^(NSError *error) {
-        
-    }];
 }
 
 #pragma ---

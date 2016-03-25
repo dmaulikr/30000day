@@ -14,18 +14,36 @@
 
 @property (nonatomic,strong) NSMutableArray *cityList;
 
+@property (nonatomic,assign) BOOL isSpecial;//YES:表示直辖市  NO:表示普通的省
+
+@property (nonatomic,copy) NSString *code;
+
 @end
 
 @interface CityModel : NSObject < NSCoding >
 
 @property (nonatomic,copy) NSString *name;
 
-@property (nonatomic,strong) NSMutableArray *businessCircleList;
+@property (nonatomic,strong) NSMutableArray *countyList;
+
+@property (nonatomic,copy) NSString *code;
+
+@end
+
+@interface RegionalModel : NSObject
+
+@property (nonatomic,copy) NSString *name;
+
+@property (nonatomic,strong) NSMutableArray *countyList;
+
+@property (nonatomic,copy) NSString *code;
 
 @end
 
 @interface BusinessCircleModel : NSObject < NSCoding >
 
 @property (nonatomic,copy) NSString *name;
+
+@property (nonatomic,copy) NSString *code;
 
 @end
