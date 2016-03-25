@@ -3036,4 +3036,130 @@
     [self startRequest:request];
 }
 
+//*********************************获取评论列表*******************/
+- (void)sendsaveCommentWithProductId:(NSString *)productId
+                                type:(NSInteger)type
+                              userId:(NSString *)userId
+                              remark:(NSString *)remark
+                          numberStar:(NSInteger)numberStar
+                              picUrl:(NSString *)picUrl
+                                 pId:(NSString *)pId
+                             Success:(void (^)(BOOL))success
+                             failure:(void (^)(NSError *))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    if (productId != nil) {
+        
+        [params setObject:productId forKey:@"productId"];
+        
+    }
+    
+    if (type != -1) {
+        
+        [params setObject:@(type) forKey:@"type"];
+        
+    }
+    
+    if (userId != nil) {
+        
+        [params setObject:userId forKey:@"userId"];
+        
+    }
+    
+    if (remark != nil) {
+        
+        [params setObject:remark forKey:@"remark"];
+        
+    }
+    
+    if (numberStar != -1) {
+        
+        [params setObject:@(numberStar) forKey:@"numberStar"];
+        
+    }
+    
+    if (picUrl != nil) {
+        
+        [params setObject:picUrl forKey:@"picUrl"];
+        
+    }
+    
+    if (pId != nil) {
+        
+        [params setObject:pId forKey:@"pId"];
+        
+    }
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:SAVE_COMMENT
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                    
+                                                                });
+                                        
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(NO);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+    
+    
+
+}
+
 @end
