@@ -20,6 +20,10 @@
 
 @property (nonatomic,strong)NSMutableArray *imageArray;
 
+@property (nonatomic,strong) NSNumber *flag;
+
+@property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
+
 @end
 
 @implementation STRefreshViewController
@@ -147,12 +151,15 @@
         
         __weak typeof(self) weakSelf = self;
         
+        __weak typeof(_inputView) weakInputView = _inputView;
         //键盘点击回调
         [_inputView setButtonClickBlock:^(STInputViewButtonClickType type) {
             
             if (type == STInputViewButtonSendType) {
-                //发送消息
                 
+                weakSelf.inputViewBlock(weakInputView.textView.text,weakSelf.imageArray,weakSelf.flag);
+                
+                [weakSelf refreshControllerInputViewHide];
                 
             } else if (type == STInputViewButtonPictureType) {
                 
@@ -202,7 +209,13 @@
     }
 }
 
+//message:是当前键盘输入的字符串   imageArray:键盘头上的选择的图片数组
+- (void)inputViewSendButtonDidClick:(NSString *)message imageArray:(NSMutableArray *)imageArray flag:(NSNumber *)flag {
+    
+}
+
 - (void)headerRefreshing {
+    
     
 }
 
@@ -215,7 +228,6 @@
     _isShowFootRefresh = isShowFootRefresh;
     
     [self setupRefreshIsShowHeadRefresh:_isShowHeadRefresh isShowFootRefresh:_isShowFootRefresh];
-    
 }
 
 - (void)setIsShowHeadRefresh:(BOOL)isShowHeadRefresh {
@@ -235,6 +247,25 @@
     }
 }
 
+//手动显示键盘并赋值
+- (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block {
+    
+    self.inputViewBlock =  block;
+    
+    //储存标记的flag
+    self.flag = flag;
+    
+    [self inputViewMakeVisible];
+}
+
+- (void)refreshControllerInputViewHide {
+    
+    self.inputViewBlock = nil;
+    
+    self.flag = nil;
+    
+    [_inputView.textView resignFirstResponder];
+}
 
 //键盘显示
 - (void)inputViewMakeVisible {

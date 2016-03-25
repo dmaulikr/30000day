@@ -16,10 +16,6 @@
 
 - (void)synchronizedLocationDataFromServer;//从服务器同步数据
 
-- (void)encodeDataWithLocationModel:(LocationModel *)model;
-
 - (NSMutableArray *)getHotCity;
-
-- (LocationModel *)decodeData;
 
 @end

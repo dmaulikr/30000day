@@ -244,7 +244,7 @@
 		B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AC91C75D451001B4B95 /* QGPickerView.m */; };
 		B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */; };
 		B876B9341CA3930C005B7E83 /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9331CA3930C005B7E83 /* DYRateView.m */; };
-		B876B9371CA3FD88005B7E83 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* LocationModel.m */; };
+		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
@@ -897,8 +897,8 @@
 		B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationModel.m; sourceTree = "<group>"; };
 		B876B9321CA3930C005B7E83 /* DYRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRateView.h; sourceTree = "<group>"; };
 		B876B9331CA3930C005B7E83 /* DYRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRateView.m; sourceTree = "<group>"; };
-		B876B9351CA3FD88005B7E83 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
-		B876B9361CA3FD88005B7E83 /* LocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationModel.m; sourceTree = "<group>"; };
+		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
+		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
 		B876B9391CA4021C005B7E83 /* STLocationMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationMananger.m; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
@@ -2497,8 +2497,8 @@
 				B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */,
 				B8B3F5471C9D58BE00834533 /* PlaceObject.h */,
 				B8B3F5481C9D58BE00834533 /* PlaceObject.m */,
-				B876B9351CA3FD88005B7E83 /* LocationModel.h */,
-				B876B9361CA3FD88005B7E83 /* LocationModel.m */,
+				B876B9351CA3FD88005B7E83 /* ProvinceModel.h */,
+				B876B9361CA3FD88005B7E83 /* ProvinceModel.m */,
 				B876B9381CA4021C005B7E83 /* STLocationMananger.h */,
 				B876B9391CA4021C005B7E83 /* STLocationMananger.m */,
 			);
@@ -4324,7 +4324,7 @@
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
 				B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */,
-				B876B9371CA3FD88005B7E83 /* LocationModel.m in Sources */,
+				B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */,
 				B8F2D9371C5B6E40002C7712 /* BEMSimpleLineGraphView.m in Sources */,
 				B8FD3E841C8A83A6007BCA6B /* CDAbuseReport.m in Sources */,
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,

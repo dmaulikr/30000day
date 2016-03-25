@@ -7,6 +7,7 @@
 //  写入文件的本地缓存
 
 #import "STLocationMananger.h"
+#import "ProvinceModel.h"
 
 @interface STLocationMananger ()
 
@@ -31,10 +32,11 @@
 
 - (void)synchronizedLocationDataFromServer {
     
-    [self sendPlaceSuccess:^(NSMutableArray *dataArray) {
+    [self sendPlaceSuccess:^(NSMutableArray *provinceArray) {
         
-        if (dataArray.count > 0) {
-        
+        if (provinceArray.count) {
+            
+            [self encodeDataWithProvinceArray:provinceArray];
         }
         
     } failure:^(NSError *error) {
@@ -69,23 +71,18 @@
                 if ([recvDictionary[@"code"] isEqualToNumber:@0]) {
                     
                     NSArray *array = recvDictionary[@"value"];
-                    
-                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                    
+                
                     for (int i = 0; i < array.count; i++) {
                         
-//                        DataModel *model = [[DataModel alloc] init];
-//                        
-//                        NSDictionary *dataDictionary = array[i];
-//                        
-//                        [model setValuesForKeysWithDictionary:dataDictionary];
-//                        
-//                        [dataArray addObject:model];
+                        ProvinceModel *model = [[ProvinceModel alloc] init];
+                        
+                        NSDictionary *dataDictionary = array[i];
+    
                     }
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-                        success(dataArray);
+                        
                     });
                     
                 } else {
@@ -114,38 +111,36 @@
     }];
 }
 
-- (void)encodeDataWithLocationModel:(LocationModel *)model {
+- (void)encodeDataWithProvinceArray:(NSMutableArray *)provinceArray {
     
     NSMutableData *data = [[NSMutableData alloc] init];
     
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    //3.用该归档对象，把自定义类的对象，转为二进制流
-    [archiver encodeObject:model forKey:@"locationManager"];
-    //4归档完毕
+
+    [archiver encodeObject:provinceArray forKey:@"provinceArray"];
+
     [archiver finishEncoding];
     
-    [data writeToFile:[self getFilePath] atomically:YES];
+    [data writeToFile:[self getFilePath] options:NSUTF8StringEncoding error:nil];
 }
 
 - (NSString *)getFilePath {
     
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"locationManager.src"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"provinceArray.src"];
 }
 
-- (LocationModel *)decodeData {
+- (NSMutableArray *)decodeProvinceArray {
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:[self getFilePath]];
-    //2.创建一个反归档对象，将二进制数据解成正行的oc数据
+
     NSKeyedUnarchiver *unArchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     
-    LocationModel *model = [unArchiver decodeObjectForKey:@"locationManager"];
+    NSMutableArray *provinceArray = [unArchiver decodeObjectForKey:@"provinceArray"];
     
-    return model;
+    return provinceArray;
 }
 
 - (NSMutableArray *)getHotCity {
-    
-    LocationModel *model =  [self decodeData];
     
     return nil;
 }

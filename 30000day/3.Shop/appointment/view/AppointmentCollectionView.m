@@ -163,6 +163,32 @@
             
         }
         
+        if ([self.delegate respondsToSelector:@selector(appointmentCollectionView:typeForRowAtIndexPath:)]) {
+            
+            NSInteger a = indexPath.section;
+            
+            NSInteger b = indexPath.row;
+            
+            AppointmentColorType type = [self.delegate appointmentCollectionView:self typeForRowAtIndexPath:[NSIndexPath indexPathForItem:a inSection:b - 1]];
+            
+            if (type == AppointmentColorCanUse) {
+                
+                cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                
+            } else if (type == AppointmentColorMyUse) {
+                
+                cell.backgroundColor = RGBACOLOR(204, 225, 255, 1);
+                
+            } else if (type == AppointmentColorSellOut) {
+                
+                cell.backgroundColor = RGBACOLOR(242, 242, 242, 1);
+                
+            } else if (type == AppointmentColorNoneUse) {
+                
+                cell.backgroundColor = [UIColor brownColor];
+            }
+        }
+        
         return cell;
     }
     

@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 @class AppointmentCollectionView;
 
+typedef NS_ENUM (NSInteger,AppointmentColorType) {
+    
+    AppointmentColorCanUse = 0,//可用状态
+    
+    AppointmentColorMyUse,//我的预定
+    
+    AppointmentColorSellOut,//已经售完
+    
+    AppointmentColorNoneUse,//不可用
+};
+
 //协议
 @protocol AppointmentCollectionViewDelegate <NSObject>
 
@@ -17,6 +28,8 @@
 - (NSString *)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView titleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath;
+
+- (AppointmentColorType)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView typeForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
