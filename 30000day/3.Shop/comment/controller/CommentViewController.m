@@ -39,7 +39,7 @@
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
-    self.isShowHeadRefresh = NO;
+    self.isShowHeadRefresh = YES;
     
     self.isShowFootRefresh = NO;
     
@@ -63,6 +63,7 @@
 - (void)headerRefreshing {
     
     [self.tableView.mj_header endRefreshing];
+    
 }
 
 - (void)footerRereshing {
@@ -238,17 +239,65 @@
         
     } else {
 
-        CommentDetailsViewController *controller = [[CommentDetailsViewController alloc] init];
+        if (indexPath.row == 0) {
+         
+            CommentDetailsViewController *controller = [[CommentDetailsViewController alloc] init];
+            
+            controller.commentModel = self.commentModelArray[indexPath.row];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            
+        }  else {
+            
+            
+            self.isShowInputView = YES;
+            
+            [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInt:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
+                
+                if (message != nil) {
+                    
+                    CommentModel *commentModel = self.commentModelArray[flag.integerValue];
+                
+                    [self.dataHandler sendsaveCommentWithProductId:commentModel.productId type:commentModel.type.integerValue userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue] remark:message numberStar:-1 picUrl:nil pId:commentModel.commentId Success:^(BOOL success) {
+                        
+                        if (success) {
+                            
+                            [self showToast:@"回复成功"];
+                            
+                            [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
+                                
+                                self.commentModelArray = [NSMutableArray arrayWithArray:success];
+                                [self.tableView reloadData];
+                                
+                            } failure:^(NSError *error) {
+                                
+                                [self showToast:@"刷新失败"];
+                                
+                            }];
+                            
+                        } else {
+                        
+                            [self showToast:@"回复失败"];
+                            
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        
+                        [self showToast:@"回复失败"];
+                        
+                    }];
+                    
+                }
+                
+            }];
         
-        controller.commentModel = self.commentModelArray[indexPath.row];
-        
-        controller.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        
+        }
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)removeDataWithPId:(NSInteger)willRemoveId {
@@ -275,26 +324,29 @@
         
         [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
             
-            changeStatusButton.tag = 2;
-            
-            for (int i = 0; i < success.count; i++) {
+            if (success.count > 0) {
                 
-                CommentModel *comment = success[i];
-                comment.level = 0;
-                comment.pName = commentModel.userName;
-                [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
+                changeStatusButton.tag = 2;
+                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
+                
+                for (int i = 0; i < success.count; i++) {
+                    
+                    CommentModel *comment = success[i];
+                    comment.level = 0;
+                    comment.pName = commentModel.userName;
+                    [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
+                    
+                }
+                
+                [self.tableView reloadData];
                 
             }
-            
-            [self.tableView reloadData];
             
         } failure:^(NSError *error) {
             
         }];
         
     } else {
-        
-        changeStatusButton.tag = 1;
         
         self.willRemoveArray = [NSMutableArray array];
         
@@ -314,9 +366,17 @@
         
         [self.tableView reloadData];
         
+        changeStatusButton.tag = 1;
+        
+        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+        
     }
 
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self refreshControllerInputViewHide];
 }
 
 - (void)didReceiveMemoryWarning {
