@@ -20,7 +20,6 @@
 #import "GetFactorModel.h"
 #import "UserInformationManager.h"
 #import "MJExtension.h"
-#import "DataModel.h"
 #import "ShopModel.h"
 #import "SubwayModel.h"
 
@@ -2695,8 +2694,11 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:cityId forKey:@"citySign"];
-    
+    if (![Common isObjectNull:cityId]) {
+        
+        [params setObject:cityId forKey:@"citySign"];
+    }
+
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_LINE_LIST
                                                  parameters:params

@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/3/24.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//  写入文件的本地缓存
+//  把地址数据写入文件进行本地缓存
 
 #import "STLocationMananger.h"
 #import "ProvinceModel.h"
@@ -80,63 +80,9 @@
                         
                         NSDictionary *dictionary = array[i];
     
-                        NSString *code = dictionary[@"code"];
-                        
-                        if ([code isEqualToString:@"11"] || [code isEqualToString:@"12"] || [code isEqualToString:@"31"] || [code isEqualToString:@"50"]) {//直辖市
-                            
-                            ProvinceModel *model = [[ProvinceModel alloc] init];
-                            
-                            model.name = dictionary[@"name"];
-                            
-                            model.code = dictionary[@"code"];
-                            
-                            model.isSpecial = YES;
-                            
-                            model.provinceId = dictionary[@"id"];
-                            
-                            model.cityList = [[NSMutableArray alloc] init];
-                            
-                            NSArray *newArray = dictionary[@"cityList"];
-                            
-                            for (int i = 0; i < newArray.count; i++) {
-                                
-                                NSDictionary *dictionary = newArray[i];
-                                
-                                RegionalModel *regionalModel = [[RegionalModel alloc] init];
-                                
-                                regionalModel.name = dictionary[@"name"];
-                                
-                                regionalModel.code = dictionary[@"code"];
-                                
-                                regionalModel.countyList = [[NSMutableArray alloc] init];
-                                
-                                NSArray *array = dictionary[@"businessCircleList"];
-                                
-                                for (int i = 0; i < array.count; i++) {
-                                    
-                                    NSDictionary *dict = array[i];
-                                    
-                                    BusinessCircleModel *model = [[BusinessCircleModel alloc] init];
-                                    
-                                    [model setValuesForKeysWithDictionary:dict];
-                                    
-                                    [regionalModel.countyList addObject:model];
-                                }
-                                
-                                [model.cityList addObject:regionalModel];
-                            }
+                        ProvinceModel *model = [ProvinceModel yy_modelWithDictionary:dictionary];
 
-                            [dataArray addObject:model];
-                            
-                        } else {//非直辖市
-                            
-                            ProvinceModel *model = [ProvinceModel yy_modelWithDictionary:dictionary];
-                            
-                            model.isSpecial = NO;
-                            
-                            [dataArray addObject:model];
-
-                        }
+                        [dataArray addObject:model];
                     }
                 
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -169,6 +115,16 @@
             }
         }
     }];
+}
+
+- (NSMutableArray *)locationArray {
+    
+    if (!_locationArray) {
+        
+        _locationArray = [self decodeProvinceArray];
+    }
+    
+    return _locationArray;
 }
 
 - (void)encodeDataWithProvinceArray:(NSMutableArray *)provinceArray {
@@ -204,7 +160,5 @@
     
     return nil;
 }
-
-
 
 @end

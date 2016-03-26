@@ -7,11 +7,10 @@
 //
 
 #import "AddressBookBaseViewController.h"
-#import "DataModel.h"
 
 @interface CityViewController : AddressBookBaseViewController
 
 //点击按钮后的回调
-@property (nonatomic,copy) void (^cityBlock)(DataModel *);
+@property (nonatomic,copy) void (^cityBlock)(NSString *provinceName,NSString *cityName);
 
 @end

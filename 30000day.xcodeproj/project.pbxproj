@@ -295,17 +295,12 @@
 		B8B3F4E51C9A546200834533 /* CityHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4E41C9A546200834533 /* CityHeadView.m */; };
 		B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4E91C9A58C400834533 /* CityTableViewCell.m */; };
 		B8B3F4EC1C9A58C400834533 /* CityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F4EA1C9A58C400834533 /* CityTableViewCell.xib */; };
-		B8B3F51D1C9A97FB00834533 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F51C1C9A97FB00834533 /* DataModel.m */; };
-		B8B3F5201C9AA01700834533 /* PlaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F51F1C9AA01700834533 /* PlaceManager.m */; };
-		B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */; };
 		B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5261C9AAAA400834533 /* ShopModel.m */; };
 		B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */; };
 		B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */; };
 		B8B3F5371C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */; };
 		B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */; };
 		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
-		B8B3F5491C9D58BE00834533 /* PlaceObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */; };
-		B8B3F54A1C9D58BE00834533 /* PlaceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5481C9D58BE00834533 /* PlaceObject.m */; };
 		B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */; };
 		B8B3F55C1CA1538400834533 /* regionalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55B1CA1538400834533 /* regionalModel.m */; };
 		B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */; };
@@ -988,11 +983,6 @@
 		B8B3F4E81C9A58C400834533 /* CityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityTableViewCell.h; sourceTree = "<group>"; };
 		B8B3F4E91C9A58C400834533 /* CityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityTableViewCell.m; sourceTree = "<group>"; };
 		B8B3F4EA1C9A58C400834533 /* CityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityTableViewCell.xib; sourceTree = "<group>"; };
-		B8B3F51B1C9A97FB00834533 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
-		B8B3F51C1C9A97FB00834533 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
-		B8B3F51E1C9AA01700834533 /* PlaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceManager.h; sourceTree = "<group>"; };
-		B8B3F51F1C9AA01700834533 /* PlaceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceManager.m; sourceTree = "<group>"; };
-		B8B3F5221C9AA09300834533 /* PlaceModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaceModel.xcdatamodel; sourceTree = "<group>"; };
 		B8B3F5251C9AAAA400834533 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		B8B3F5261C9AAAA400834533 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		B8B3F5281C9AB73800834533 /* STCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataHandler.h; sourceTree = "<group>"; };
@@ -1004,10 +994,6 @@
 		B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QGRecordDetailSwitchHeadView.xib; sourceTree = "<group>"; };
 		B8B3F5391C9BEB3E00834533 /* SubwayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayModel.h; sourceTree = "<group>"; };
 		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
-		B8B3F5451C9D58BE00834533 /* PlaceObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaceObject+CoreDataProperties.h"; sourceTree = "<group>"; };
-		B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PlaceObject+CoreDataProperties.m"; sourceTree = "<group>"; };
-		B8B3F5471C9D58BE00834533 /* PlaceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceObject.h; sourceTree = "<group>"; };
-		B8B3F5481C9D58BE00834533 /* PlaceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceObject.m; sourceTree = "<group>"; };
 		B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchConditionModel.h; sourceTree = "<group>"; };
 		B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchConditionModel.m; sourceTree = "<group>"; };
 		B8B3F55A1CA1538400834533 /* regionalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regionalModel.h; sourceTree = "<group>"; };
@@ -2488,15 +2474,6 @@
 		B8B3F4E21C9A4E3100834533 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8B3F51B1C9A97FB00834533 /* DataModel.h */,
-				B8B3F51C1C9A97FB00834533 /* DataModel.m */,
-				B8B3F51E1C9AA01700834533 /* PlaceManager.h */,
-				B8B3F51F1C9AA01700834533 /* PlaceManager.m */,
-				B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */,
-				B8B3F5451C9D58BE00834533 /* PlaceObject+CoreDataProperties.h */,
-				B8B3F5461C9D58BE00834533 /* PlaceObject+CoreDataProperties.m */,
-				B8B3F5471C9D58BE00834533 /* PlaceObject.h */,
-				B8B3F5481C9D58BE00834533 /* PlaceObject.m */,
 				B876B9351CA3FD88005B7E83 /* ProvinceModel.h */,
 				B876B9361CA3FD88005B7E83 /* ProvinceModel.m */,
 				B876B9381CA4021C005B7E83 /* STLocationMananger.h */,
@@ -4320,7 +4297,6 @@
 				B8FD3DFA1C8A7903007BCA6B /* XHContact.m in Sources */,
 				B8FD3E021C8A7903007BCA6B /* LKBadgeView.m in Sources */,
 				B8FD3E091C8A7903007BCA6B /* SETextEditingCaret.m in Sources */,
-				B8B3F5231C9AA09300834533 /* PlaceModel.xcdatamodeld in Sources */,
 				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
 				B61A4FBB1CA123CF000EAF4C /* CommentDetailsViewController.m in Sources */,
@@ -4335,7 +4311,6 @@
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
 				B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */,
 				B8FD3E281C8A7903007BCA6B /* XHLoadMoreView.m in Sources */,
-				B8B3F5491C9D58BE00834533 /* PlaceObject+CoreDataProperties.m in Sources */,
 				B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */,
 				B8FD3AD21C83EDA3007BCA6B /* PersonDetailViewController.m in Sources */,
 				B8FD3DF81C8A7903007BCA6B /* XHAlbum.m in Sources */,
@@ -4368,7 +4343,6 @@
 				B8B3F4D51C995CD900834533 /* STChoosePictureCollectionCell.m in Sources */,
 				B8F648791C9424BF001A3119 /* AppointmentCollectionView.m in Sources */,
 				B8FD3AE41C868A83007BCA6B /* DOPDropDownMenu.m in Sources */,
-				B8B3F5201C9AA01700834533 /* PlaceManager.m in Sources */,
 				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
 				B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */,
 				B6114CA61CA2785E0088EED2 /* ShopDetailCommentTableViewCell.m in Sources */,
@@ -4455,7 +4429,6 @@
 				B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
-				B8B3F54A1C9D58BE00834533 /* PlaceObject.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
@@ -4468,7 +4441,6 @@
 				B8FD3E441C8A7BBA007BCA6B /* DTTimePeriodChain.m in Sources */,
 				B8F648AC1C9498F0001A3119 /* ShopListTableViewCell.m in Sources */,
 				B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */,
-				B8B3F51D1C9A97FB00834533 /* DataModel.m in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
 				B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */,
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
@@ -4758,16 +4730,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B8B3F5211C9AA09300834533 /* PlaceModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B8B3F5221C9AA09300834533 /* PlaceModel.xcdatamodel */,
-			);
-			currentVersion = B8B3F5221C9AA09300834533 /* PlaceModel.xcdatamodel */;
-			path = PlaceModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
