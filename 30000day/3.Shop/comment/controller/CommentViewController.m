@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
+@property (nonatomic,assign) BOOL save;
+
 @end
 
 @implementation CommentViewController
@@ -29,6 +31,8 @@
     [super viewDidLoad];
     
     self.title = @"全部评论";
+    
+    self.save = NO;
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -191,6 +195,11 @@
                 
             }
             
+            if (self.save) {
+                
+                [shopDetailCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+            }
+            
             [shopDetailCommentTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
                 
                 [self cellDataProcessing:changeStatusButton commentModel:commentModel index:indexPath];
@@ -295,11 +304,14 @@
                         
                         if (success) {
                             
+                            self.save = YES;
+                            
                             [self showToast:@"回复成功"];
                             
                             [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
                                 
                                 self.commentModelArray = [NSMutableArray arrayWithArray:success];
+                                
                                 [self.tableView reloadData];
                                 
                             } failure:^(NSError *error) {
@@ -349,6 +361,8 @@
               commentModel:(CommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
     
+    self.save = NO;
+    
     if (changeStatusButton.tag == 1) {
         
         [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
@@ -377,6 +391,10 @@
         
     } else {
         
+        changeStatusButton.tag = 1;
+        
+        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+        
         self.willRemoveArray = [NSMutableArray array];
         
         [self removeDataWithPId:[commentModel.commentId integerValue]];
@@ -394,10 +412,6 @@
         [self.commentModelArray removeObjectsInArray:array];
         
         [self.tableView reloadData];
-        
-        changeStatusButton.tag = 1;
-        
-        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
         
     }
 

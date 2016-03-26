@@ -52,6 +52,8 @@
 		B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */; };
 		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
 		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
+		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
+		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */; };
 		B6F888261C96B4B4003A65FE /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */; };
 		B6F888271C96B4B4003A65FE /* OrderContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */; };
@@ -681,6 +683,9 @@
 		B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsTableViewCell.h; sourceTree = "<group>"; };
 		B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsTableViewCell.m; sourceTree = "<group>"; };
 		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
+		B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityCommentViewController.m; sourceTree = "<group>"; };
+		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
 		B6F888171C96B4B4003A65FE /* CommodityNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityNameTableViewCell.h; sourceTree = "<group>"; };
 		B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityNameTableViewCell.m; sourceTree = "<group>"; };
 		B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityNameTableViewCell.xib; sourceTree = "<group>"; };
@@ -1621,6 +1626,9 @@
 				B60119721C9404BC0061AD89 /* CommentViewController.h */,
 				B60119731C9404BC0061AD89 /* CommentViewController.m */,
 				B60119741C9404BC0061AD89 /* CommentViewController.xib */,
+				B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */,
+				B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */,
+				B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4144,6 +4152,7 @@
 				B62C381A1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib in Resources */,
 				B8F6482A1C92DA63001A3119 /* SearchViewController.xib in Resources */,
 				B804FD441C8AC9A900DFD1CF /* rabbit_22.gif in Resources */,
+				B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */,
 				B804FD411C8AC9A900DFD1CF /* rabbit_20_cover@2x.png in Resources */,
 				B804FD521C8AC9A900DFD1CF /* rabbit_8_cover@2x.png in Resources */,
 				B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */,
@@ -4307,6 +4316,7 @@
 				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
 				B876B9341CA3930C005B7E83 /* DYRateView.m in Sources */,
 				B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */,
+				B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */,
 				B8FD3E241C8A7903007BCA6B /* XHEmotionCollectionViewFlowLayout.m in Sources */,
 				B8FD3DFA1C8A7903007BCA6B /* XHContact.m in Sources */,
 				B8FD3E021C8A7903007BCA6B /* LKBadgeView.m in Sources */,
