@@ -302,7 +302,6 @@
 		B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */; };
 		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
 		B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */; };
-		B8B3F55C1CA1538400834533 /* regionalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55B1CA1538400834533 /* regionalModel.m */; };
 		B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */; };
 		B8B3F5611CA28F5900834533 /* AppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F55F1CA28F5900834533 /* AppointmentTableViewCell.xib */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
@@ -996,8 +995,6 @@
 		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
 		B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchConditionModel.h; sourceTree = "<group>"; };
 		B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchConditionModel.m; sourceTree = "<group>"; };
-		B8B3F55A1CA1538400834533 /* regionalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regionalModel.h; sourceTree = "<group>"; };
-		B8B3F55B1CA1538400834533 /* regionalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regionalModel.m; sourceTree = "<group>"; };
 		B8B3F55D1CA28F5900834533 /* AppointmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentTableViewCell.h; sourceTree = "<group>"; };
 		B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentTableViewCell.m; sourceTree = "<group>"; };
 		B8B3F55F1CA28F5900834533 /* AppointmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentTableViewCell.xib; sourceTree = "<group>"; };
@@ -2491,8 +2488,6 @@
 				B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */,
 				B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */,
 				B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */,
-				B8B3F55A1CA1538400834533 /* regionalModel.h */,
-				B8B3F55B1CA1538400834533 /* regionalModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4437,7 +4432,6 @@
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B886E8701C7EAE1200E64BEC /* RemindContentTableViewCell.m in Sources */,
 				B8FD3DEF1C8A7903007BCA6B /* XHCacheManager.m in Sources */,
-				B8B3F55C1CA1538400834533 /* regionalModel.m in Sources */,
 				B8FD3E441C8A7BBA007BCA6B /* DTTimePeriodChain.m in Sources */,
 				B8F648AC1C9498F0001A3119 /* ShopListTableViewCell.m in Sources */,
 				B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */,

@@ -127,6 +127,7 @@
     return _locationArray;
 }
 
+//自定义对象归档到文件
 - (void)encodeDataWithProvinceArray:(NSMutableArray *)provinceArray {
     
     NSMutableData *data = [[NSMutableData alloc] init];
@@ -145,6 +146,7 @@
     return [NSHomeDirectory() stringByAppendingPathComponent:@"provinceArray.src"];
 }
 
+//自定义对象从文件解档出来
 - (NSMutableArray *)decodeProvinceArray {
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:[self getFilePath]];

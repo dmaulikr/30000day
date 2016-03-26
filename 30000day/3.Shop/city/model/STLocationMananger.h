@@ -14,11 +14,12 @@
 
 @property (nonatomic,strong) NSMutableArray *locationArray;
 
-@property (nonatomic,strong) NSMutableArray *subWayArray;
-
 + (STLocationMananger *)shareManager;
 
-- (void)synchronizedLocationDataFromServer;//从服务器同步数据
+/**
+ * 从服务器同步数据,并缓存的到本地
+**/
+- (void)synchronizedLocationDataFromServer;
 
 - (NSMutableArray *)getHotCity;
 
