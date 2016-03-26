@@ -12,7 +12,7 @@
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     
-    return @{ @"cityList" : [CityModel class]};
+    return @{ @"cityList" : [CityModel class],@"provinceId":@"id"};
 }
 
 #pragma mark --- NSCoding的协议
@@ -41,7 +41,7 @@
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     
-    return @{ @"countyList" : [RegionalModel class]};
+    return @{ @"countyList" : [RegionalModel class],@"cityId":@"id"};
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {

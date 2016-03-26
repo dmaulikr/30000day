@@ -16,7 +16,7 @@
     if (self) {
         _column = column;
         _row = row;
-        _item = -1;
+        _item = 0;
     }
     return self;
 }

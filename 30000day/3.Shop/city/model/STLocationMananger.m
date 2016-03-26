@@ -92,6 +92,8 @@
                             
                             model.isSpecial = YES;
                             
+                            model.provinceId = dictionary[@"id"];
+                            
                             model.cityList = [[NSMutableArray alloc] init];
                             
                             NSArray *newArray = dictionary[@"cityList"];
@@ -129,9 +131,9 @@
                         } else {//非直辖市
                             
                             ProvinceModel *model = [ProvinceModel yy_modelWithDictionary:dictionary];
-                                
-                             model.isSpecial = NO;
-                                
+                            
+                            model.isSpecial = NO;
+                            
                             [dataArray addObject:model];
 
                         }

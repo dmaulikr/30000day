@@ -18,6 +18,8 @@
 
 @property (nonatomic,copy) NSString *code;
 
+@property (nonatomic,strong) NSNumber *provinceId;
+
 @end
 
 @interface CityModel : NSObject < NSCoding >
@@ -27,6 +29,8 @@
 @property (nonatomic,strong) NSMutableArray *countyList;
 
 @property (nonatomic,copy) NSString *code;
+
+@property (nonatomic,strong) NSNumber *cityId;
 
 @end
 

@@ -2803,7 +2803,7 @@
     
     if (![conditionModel.sequence isEqualToNumber:@0] && ![Common isObjectNull:conditionModel.sequence]) {
         if ([conditionModel.sequence isEqualToNumber:@2]) {
-            [params addParameter:conditionModel.latitude forKey:@"dimension"];
+            [params addParameter:conditionModel.latitude forKey:@"latitude"];
             [params addParameter:conditionModel.longitude forKey:@"longitude"];
         }
         [params addParameter:conditionModel.sequence forKey:@"sequence"];

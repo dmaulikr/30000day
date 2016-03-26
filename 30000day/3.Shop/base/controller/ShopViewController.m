@@ -79,15 +79,15 @@
     
         self.leftBarButton.title = @"上海";
     
-        self.conditionModel.provinceName = @"上海";//给获取的到省赋值
+        self.conditionModel.provinceName = @"安徽";//给获取的到省赋值
 
-        self.conditionModel.cityName = @"上海";//给获取的到市赋值
+        self.conditionModel.cityName = @"合肥";//给获取的到市赋值
     
 //    }];
     
     [[STLocationMananger shareManager] getLocationSuccess:^(NSMutableArray *array) {
         
-        NSString *cityId;
+        NSNumber *cityId;
         
         for (int i = 0; i < array.count; i++) {
             
@@ -99,7 +99,7 @@
                     
                     self.provinceModel = provinceModel;
                     
-                    cityId = provinceModel.code;
+                    cityId = provinceModel.provinceId;
                     
                     break;
                     
@@ -118,7 +118,7 @@
                             
                             self.locationArray = cityModel.countyList;//获取城市的区、县
                             
-                            cityId = cityModel.code;
+                            cityId = cityModel.cityId;
                             
                             break;
                         }
@@ -129,7 +129,7 @@
         }
         
         //1.根据城市Id来配置地铁
-        [self configCitySubWayWithCityId:cityId];
+        [self configCitySubWayWithCityId:[cityId stringValue]];
         
     } failure:^(NSError *error) {
         
@@ -694,18 +694,24 @@
                 
                 RegionalModel *model = self.provinceModel.cityList[indexPath.row - 1];
                 
-                BusinessCircleModel *circleModel = model.countyList[indexPath.item];
-                
-                self.conditionModel.businessCircle = circleModel.name;
-                
+                if ( model.countyList.count ) {
+                    
+                    BusinessCircleModel *circleModel = model.countyList[indexPath.item];
+                    
+                    self.conditionModel.businessCircle = circleModel.name;
+                }
+            
             } else {//普通省
                 
                 RegionalModel *model = self.locationArray[indexPath.row - 1];
                 
-                BusinessCircleModel *circleModel = model.countyList[indexPath.item];
-                
-                self.conditionModel.businessCircle = circleModel.name;
-                
+                if (model.countyList.count) {
+                    
+                    BusinessCircleModel *circleModel = model.countyList[indexPath.item];
+                    
+                    self.conditionModel.businessCircle = circleModel.name;
+                }
+
             }
         }
         
