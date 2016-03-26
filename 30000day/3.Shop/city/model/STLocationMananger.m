@@ -117,6 +117,7 @@
     }];
 }
 
+//获取地址数据
 - (NSMutableArray *)locationArray {
     
     if (!_locationArray) {
@@ -125,6 +126,43 @@
     }
     
     return _locationArray;
+}
+
+- (NSMutableArray *)hotCityArray {
+    
+    if (!_hotCityArray) {
+        
+        _hotCityArray = [self getHotCityFromLocationArray:self.locationArray];
+    }
+    
+    return _hotCityArray;
+}
+
+- (NSMutableArray *)getHotCityFromLocationArray:(NSMutableArray *)array {
+    
+    NSMutableArray *hotCityArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < array.count; i++) {
+        
+        ProvinceModel *provinceMode = array[i];
+        
+        for (int j = 0; j < provinceMode.cityList.count; j++) {
+            
+            CityModel *cityModel = provinceMode.cityList[j];
+            
+            if ( [cityModel.isHotCity isEqualToString:@"1"] ) {
+                
+                HotCityModel *hotModel = [[HotCityModel alloc] init];
+                
+                hotModel.provinceName = provinceMode.regionName;
+                
+                hotModel.cityName = cityModel.regionName;
+                
+                [hotCityArray addObject:hotModel];
+            }
+        }
+    }
+    return hotCityArray;
 }
 
 //自定义对象归档到文件
@@ -143,7 +181,11 @@
 
 - (NSString *)getFilePath {
     
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"provinceArray.src"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    return [documentsDirectory stringByAppendingPathComponent:@"provinceArray.src"];
 }
 
 //自定义对象从文件解档出来

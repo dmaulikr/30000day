@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) NSMutableArray *locationArray;
 
+@property (nonatomic,strong) NSMutableArray *hotCityArray;
+
 + (STLocationMananger *)shareManager;
 
 /**

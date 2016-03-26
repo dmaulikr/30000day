@@ -36,4 +36,14 @@
     }
 }
 
+- (void)becomeFirst {
+    
+    self.view_1.alpha = 1.0f;
+    self.view_2.alpha = 0;
+    [self.btn_2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [self.btn_1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+}
+
+
 @end

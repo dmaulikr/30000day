@@ -25,7 +25,7 @@
     
     if ([self init]) {
         
-        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.regionName = [aDecoder decodeObjectForKey:@"regionName"];
         
         self.cityList = [aDecoder decodeObjectForKey:@"cityList"];
         
@@ -36,12 +36,11 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.regionName forKey:@"regionName"];
     
     [aCoder encodeObject:self.cityList forKey:@"cityList"];
     
     [aCoder encodeObject:self.provinceId forKey:@"provinceId"];
-    
 }
 
 @end
@@ -64,11 +63,13 @@
     
     if ([self init]) {
         
-        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.regionName = [aDecoder decodeObjectForKey:@"regionName"];
         
         self.countyList = [aDecoder decodeObjectForKey:@"countyList"];
         
         self.cityId = [aDecoder decodeObjectForKey:@"cityId"];
+        
+        self.isHotCity = [aDecoder decodeObjectForKey:@"isHotCity"];
         
     }
     return self;
@@ -76,11 +77,13 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.regionName forKey:@"regionName"];
     
     [aCoder encodeObject:self.countyList forKey:@"countyList"];
     
     [aCoder encodeObject:self.cityId forKey:@"cityId"];
+    
+    [aCoder encodeObject:self.isHotCity forKey:@"isHotCity"];
 }
 
 @end
@@ -104,7 +107,7 @@
     
     if ([self init]) {
         
-        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.regionName = [aDecoder decodeObjectForKey:@"regionName"];
         
         self.businessCircleList = [aDecoder decodeObjectForKey:@"businessCircleList"];
         
@@ -116,7 +119,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.regionName forKey:@"regionName"];
     
     [aCoder encodeObject:self.businessCircleList forKey:@"businessCircleList"];
     
@@ -127,26 +130,35 @@
 
 
 
-
-
-
 @implementation BusinessCircleModel
 
 #pragma mark ---- 将对象转化为NSData的方法
 
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
+    
+    return @{@"regionName":@"name"};
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.regionName forKey:@"regionName"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
     if ([self init]) {
         
-        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.regionName = [aDecoder decodeObjectForKey:@"regionName"];
     }
     return self;
 }
 
 @end
+
+
+@implementation HotCityModel
+
+
+@end
+
 

@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) NSNumber *presentPrice;//现价
 
+@property (nonatomic,strong) NSNumber *originalPrice;//原价
+
 @property (nonatomic,copy)   NSString *productPhoto;//产品图片url
 
 @property (nonatomic,strong) NSNumber *shopId;//商品Id

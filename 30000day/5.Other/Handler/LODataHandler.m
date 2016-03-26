@@ -2835,9 +2835,9 @@
     }
     
     //两个必填
-    [params addParameter:conditionModel.provinceName forKey:@"addrProvince"];
+    [params addParameter:[Common deletedStringWithParentString:conditionModel.provinceName] forKey:@"addrProvince"];
     
-    [params addParameter:conditionModel.cityName forKey:@"addrCity"];
+    [params addParameter:[Common deletedStringWithParentString:conditionModel.cityName] forKey:@"addrCity"];
     
     [Common urlStringWithDictionary:params withString:GET_SHOP_LIST];
     

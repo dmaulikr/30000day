@@ -32,7 +32,7 @@
     
     [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:_shopModel.productPhoto]];
     
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",_shopModel.presentPrice];
+    [self.priceLabel setAttributedText:[self attributeStringWithOriginalPrice:_shopModel.originalPrice currentPrice:_shopModel.presentPrice]];
     
     if (!_shopModel.twoPointsDistance) {
         
@@ -45,8 +45,21 @@
     }
     
     self.rateView.rate = [_shopModel.avgNumberStar doubleValue] > 5.0 ? 5.0 : [_shopModel.avgNumberStar doubleValue];
-    
 }
 
+- (NSMutableAttributedString *)attributeStringWithOriginalPrice:(NSNumber *)originalPrice currentPrice:(NSNumber *)currentPrice {
+    
+    NSString *originalPriceString = [NSString stringWithFormat:@"¥%.2f", [originalPrice floatValue]];
+    
+    NSString *currentPriceString = [NSString stringWithFormat:@"¥%.2f", [currentPrice floatValue]];
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", currentPriceString, originalPriceString]];
+    
+    [text addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, currentPriceString.length)];
+    
+    [text addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0f] range:NSMakeRange(0, originalPriceString.length)];
+    
+    return text;
+}
 
 @end

@@ -211,6 +211,30 @@
     return url;
 }
 
+//剪切字符串，吧市、自治区、省
++ (NSString *)deletedStringWithParentString:(NSString *)sting {
+    
+    if ([sting containsString:@"市"]) {
+        
+        NSArray *array = [sting componentsSeparatedByString:@"市"];
+        
+        return [array firstObject];
+
+    } else if ([sting containsString:@"自治区"]) {
+        
+       NSArray *array = [sting componentsSeparatedByString:@"自治区"];
+        
+       return [array firstObject];
+        
+    } else if ([sting containsString:@"省"]) {
+       
+        NSArray *array = [sting componentsSeparatedByString:@"省"];
+        
+        return [array firstObject];
+    }
+    
+    return sting;
+}
 
 
 @end

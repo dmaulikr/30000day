@@ -18,6 +18,10 @@
 
 @property (nonatomic,strong) NSIndexPath *selectorIndexPath;//选中的indexPath
 
+@property (nonatomic,assign) BOOL isSearch;
+
+@property (nonatomic,strong) NSMutableArray *searchResultArray;
+
 @end
 
 @implementation CityViewController
@@ -38,6 +42,52 @@
     self.searchBar.placeholder = @"输入城市名";
     
     self.isOpen = NO;//默认不是展开的
+    
+    self.isSearch = NO;//默认是不搜索的
+}
+
+#pragma ---
+#pragma mark ---- 父视图的生命周期方法
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation  {
+    
+    [super searchBarDidBeginRestore:isAnimation];
+    
+    self.isSearch = NO;
+    
+    [self.tableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    [super searchBar:searchBar textDidChange:searchText];
+    
+    self.isSearch = [searchText isEqualToString:@""] ? NO : YES;
+    
+    //开始搜索
+    self.searchResultArray = [NSMutableArray array];
+    
+    for (int i = 0; i < [STLocationMananger shareManager].locationArray.count; i++ ) {
+        
+        ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[i];
+        
+        for (int j = 0; j < provinceModel.cityList.count; j++) {
+            
+            CityModel *cityModel = provinceModel.cityList[j];
+            
+            if ([cityModel.regionName containsString:searchText]) {
+                
+                HotCityModel *model = [[HotCityModel alloc] init];
+                
+                model.provinceName = provinceModel.regionName;
+                
+                model.cityName = cityModel.regionName;
+                
+                [self.searchResultArray addObject:model];
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma ---
@@ -45,116 +95,189 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return [STLocationMananger shareManager].locationArray.count;
+    if (self.isSearch) {//正在搜索
+     
+        return 1;
+        
+    } else {//没有搜索
+        
+        return [STLocationMananger shareManager].locationArray.count;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (self.isOpen) {//打开
+    if (self.isSearch) {//正在搜索
         
-        if (self.selectorIndexPath.section == section) {
+        return self.searchResultArray.count;//搜索的数组
+        
+    } else {//没有搜索
+        
+        if (self.isOpen) {//打开
             
-            ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[section];
-            
-            return provinceModel.cityList.count + 1;
+            if (self.selectorIndexPath.section == section) {
+                
+                ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[section];
+                
+                return provinceModel.cityList.count + 1;
+                
+            } else {
+                
+                return 1;
+            }
             
         } else {
             
             return 1;
         }
-
-    } else {
-        
-        return 1;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityTableViewCell"];
-    
-    if (!cell) {
+    if (self.isSearch) {//正在搜索
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"CityTableViewCell" owner:nil options:nil] lastObject];
-    }
-    
-    ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[indexPath.section];
-    
-    if (self.isOpen && self.selectorIndexPath.section == indexPath.section ) {//打开
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
         
-        if (indexPath.row == 0) {
+        if (cell == nil) {
             
-            cell.willShowImageView.hidden = NO;
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             
-            cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_up"];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             
-            cell.willShowLabel.text = provinceModel.name;
-        
-        } else {
+            cell.textLabel.textColor = [UIColor darkGrayColor];
             
-            cell.willShowImageView.hidden = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-            CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
-            
-            cell.willShowLabel.text = cityModel.name;
         }
-    
-    } else {//关闭
         
-        if (indexPath.row == 0) {
+        HotCityModel *model = self.searchResultArray[indexPath.row];
+        
+        cell.textLabel.text = model.cityName;
+        
+        return cell;
+        
+    } else {//没有搜索
+        
+        CityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityTableViewCell"];
+        
+        if (!cell) {
             
-            cell.willShowImageView.hidden = NO;
-            
-            cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_down"];
-            
-            cell.willShowLabel.text = provinceModel.name;
-            
-        } else {
-            
-            cell.willShowImageView.hidden = YES;
-            
-            CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
-            
-            cell.willShowLabel.text = cityModel.name;
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CityTableViewCell" owner:nil options:nil] lastObject];
         }
+        
+        ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[indexPath.section];
+        
+        if (self.isOpen && self.selectorIndexPath.section == indexPath.section ) {//当选中的sectin是当前的secion才打开
+            
+            if (indexPath.row == 0) {
+                
+                cell.willShowImageView.hidden = NO;
+                
+                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_up"];
+                
+                cell.willShowLabel.text = provinceModel.regionName;
+                
+            } else {
+                
+                cell.willShowImageView.hidden = YES;
+                
+                CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
+                
+                cell.willShowLabel.text = cityModel.regionName;
+            }
+            
+        } else {//关闭
+            
+            if (indexPath.row == 0) {
+                
+                cell.willShowImageView.hidden = NO;
+                
+                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_down"];
+                
+                cell.willShowLabel.text = provinceModel.regionName;
+                
+            } else {
+                
+                cell.willShowImageView.hidden = YES;
+                
+                CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
+                
+                cell.willShowLabel.text = cityModel.regionName;
+            }
+        }
+        
+        return cell;
+        
     }
-
-    return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if (section == 0) {
+    if (self.isSearch) {//搜索状态
         
-        CityHeadView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"CityHeadView"];
+        return nil;
         
-        if (!view) {
+    } else {//不是搜索状态
+        
+        if (section == 0) {
             
-            view = [[CityHeadView alloc] init];
+            CityHeadView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"CityHeadView"];
+            
+            if (!view) {
+                
+                view = [[CityHeadView alloc] init];
+            }
+            
+            //取出热门城市并赋值
+            NSMutableArray *cityArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < [STLocationMananger shareManager].hotCityArray.count; i++) {
+                
+                HotCityModel *model = [STLocationMananger shareManager].hotCityArray[i];
+                
+                [cityArray addObject:model.cityName];
+            }
+            
+            view.cityArray = cityArray;
+            
+            [view setButtonActionBlock:^(NSUInteger index) {
+                
+                if (self.cityBlock) {
+                    
+                    HotCityModel *model = [STLocationMananger shareManager].hotCityArray[index];
+                    
+                    self.cityBlock(model.provinceName,model.cityName);
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                }
+                
+            }];
+            
+            return view;
         }
-        view.cityArray = [NSMutableArray arrayWithArray:@[@"上海",@"北京",@"广州",@"深圳",@"天津",@"南京",@"杭州",@"合肥",@"水电费",@"发广告",@"东方闪"]];
         
-        [view setButtonActionBlock:^(NSUInteger index) {
-           
-            NSLog(@"----%d",(int)index);
-            
-        }];
-
-        return view;
     }
-    
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    if (section == 0) {
+    if (self.isSearch) {//搜索状态
         
-        return [CityHeadView cityHeadViewHeightWithButtonCount:10];
-        
-    } else {
-     
         return 0.005f;
+        
+    } else {//不是搜索状态
+        
+        if (section == 0) {
+            
+            return [CityHeadView cityHeadViewHeightWithButtonCount:[STLocationMananger shareManager].hotCityArray.count];
+            
+        } else {
+            
+            return 0.005f;
+        }
     }
 }
 
@@ -166,29 +289,46 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
+    if (self.isSearch) {
         
-        self.isOpen = !self.isOpen;//设置相反
+        HotCityModel *model = self.searchResultArray[indexPath.row];
         
-        self.selectorIndexPath = indexPath;
-        
-        [self.tableView reloadData];
+        if (self.cityBlock) {
+            
+            self.cityBlock(model.provinceName,model.cityName);
+            
+            [self searchBarDidBeginRestore:NO];//恢复之前的状态
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     } else {
         
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[indexPath.section];
-        
-        CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
-        
-        if (self.cityBlock) {//点击回调
+        if (indexPath.row == 0) {
             
-            self.cityBlock(provinceModel.name,cityModel.name);
+            self.isOpen = !self.isOpen;//设置相反
             
-            [self.navigationController popViewControllerAnimated:YES];
+            self.selectorIndexPath = indexPath;
             
+            [self.tableView reloadData];
+            
+        } else {
+            
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[indexPath.section];
+            
+            CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
+            
+            if (self.cityBlock) {//点击回调
+                
+                self.cityBlock(provinceModel.regionName,cityModel.regionName);
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }
         }
+        
     }
 }
 

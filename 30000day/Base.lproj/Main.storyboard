@@ -102,7 +102,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="商城" image="mall" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" id="fwf-QA-afC">
-                        <barButtonItem key="leftBarButtonItem" title="上海" style="plain" id="nzT-aj-7BJ">
+                        <barButtonItem key="leftBarButtonItem" title="上海市" style="plain" id="nzT-aj-7BJ">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="leftBarButtonAcion:" destination="lnE-H1-1lk" id="foV-LF-Yf8"/>
