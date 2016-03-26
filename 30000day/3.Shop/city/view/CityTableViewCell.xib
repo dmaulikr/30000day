@@ -20,7 +20,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigationbar_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="YF9-fS-0rs">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigationbar_arrow_up" translatesAutoresizingMaskIntoConstraints="NO" id="YF9-fS-0rs">
                         <rect key="frame" x="10" y="18" width="13" height="7"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="13" id="k91-Nj-A5G"/>
@@ -43,6 +43,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="navigationbar_arrow_down" width="13" height="7"/>
+        <image name="navigationbar_arrow_up" width="13" height="7"/>
     </resources>
 </document>

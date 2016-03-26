@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUz-I0-2KP">
-                        <rect key="frame" x="185" y="32" width="127" height="20"/>
+                        <rect key="frame" x="202" y="32" width="110" height="20"/>
                         <color key="tintColor" red="1" green="0.57647058823529407" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="AmA-fA-KJg"/>
@@ -61,10 +61,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oN7-Ht-FfT" customClass="DYRateView">
-                        <rect key="frame" x="77" y="28" width="100" height="25"/>
+                        <rect key="frame" x="77" y="28" width="117" height="25"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="1hV-7h-3uJ"/>
+                            <constraint firstAttribute="width" constant="117" id="1hV-7h-3uJ"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -348,7 +348,7 @@
 		B8F2D9521C5C46BA002C7712 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D9511C5C46BA002C7712 /* libc++.tbd */; };
 		B8F2D95B1C5C68C7002C7712 /* LONetError.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9581C5C68C7002C7712 /* LONetError.m */; };
 		B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D95A1C5C68C7002C7712 /* LONetworkAgent.m */; };
-		B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9681C5C6924002C7712 /* LONetworkCache.m */; };
+		B8F2D96E1C5C6924002C7712 /* STNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9681C5C6924002C7712 /* STNetworkCache.m */; };
 		B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D96B1C5C6924002C7712 /* LOApiRequest.m */; };
 		B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D96D1C5C6924002C7712 /* LORequest.m */; };
 		B8F2D9991C5C8B1A002C7712 /* JBCalendarDate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D97C1C5C8B19002C7712 /* JBCalendarDate.m */; };
@@ -1070,8 +1070,8 @@
 		B8F2D9581C5C68C7002C7712 /* LONetError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LONetError.m; sourceTree = "<group>"; };
 		B8F2D9591C5C68C7002C7712 /* LONetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LONetworkAgent.h; sourceTree = "<group>"; };
 		B8F2D95A1C5C68C7002C7712 /* LONetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LONetworkAgent.m; sourceTree = "<group>"; };
-		B8F2D9671C5C6924002C7712 /* LONetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LONetworkCache.h; sourceTree = "<group>"; };
-		B8F2D9681C5C6924002C7712 /* LONetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LONetworkCache.m; sourceTree = "<group>"; };
+		B8F2D9671C5C6924002C7712 /* STNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNetworkCache.h; sourceTree = "<group>"; };
+		B8F2D9681C5C6924002C7712 /* STNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STNetworkCache.m; sourceTree = "<group>"; };
 		B8F2D96A1C5C6924002C7712 /* LOApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOApiRequest.h; sourceTree = "<group>"; };
 		B8F2D96B1C5C6924002C7712 /* LOApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOApiRequest.m; sourceTree = "<group>"; };
 		B8F2D96C1C5C6924002C7712 /* LORequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORequest.h; sourceTree = "<group>"; };
@@ -2685,8 +2685,8 @@
 		B8F2D9661C5C6924002C7712 /* NetWorkCache */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9671C5C6924002C7712 /* LONetworkCache.h */,
-				B8F2D9681C5C6924002C7712 /* LONetworkCache.m */,
+				B8F2D9671C5C6924002C7712 /* STNetworkCache.h */,
+				B8F2D9681C5C6924002C7712 /* STNetworkCache.m */,
 			);
 			path = NetWorkCache;
 			sourceTree = "<group>";
@@ -4405,7 +4405,7 @@
 				B8F880301C901A0700B5DA18 /* RemindObject.m in Sources */,
 				B8FD3CA71C8A7777007BCA6B /* CDChatRoomVC.m in Sources */,
 				B8FD3E081C8A7903007BCA6B /* SETextAttachment.m in Sources */,
-				B8F2D96E1C5C6924002C7712 /* LONetworkCache.m in Sources */,
+				B8F2D96E1C5C6924002C7712 /* STNetworkCache.m in Sources */,
 				B8FD3DE21C8A7903007BCA6B /* XHMessageBubbleHelper.m in Sources */,
 				B8FD3DDA1C8A7903007BCA6B /* UIImage+XHRounded.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  LONetworkCache.h
+//  STNetworkCache.h
 //  30000day
 //  主要用来缓存一些最近的请求 
 //  Created by GuoJia on 15/12/10.
@@ -19,7 +19,7 @@
 #endif
 
 
-@interface LONetworkCache : NSObject
+@interface STNetworkCache : NSObject
 
 
 + (nonnull instancetype)currentCache __deprecated_msg("Renamed to globalCache");
@@ -31,22 +31,28 @@
 - (nonnull instancetype)initWithCacheDirectory:(NSString* __nonnull)cacheDirectory;
 
 - (void)clearCache;
+
 - (void)removeCacheForKey:(NSString* __nonnull)key;
 
 - (BOOL)hasCacheForKey:(NSString* __nonnull)key;
 
-- (NSData* __nullable)dataForKey:(NSString* __nonnull)key;
-- (void)setData:(NSData* __nonnull)data forKey:(NSString* __nonnull)key;
-- (void)setData:(NSData* __nonnull)data forKey:(NSString* __nonnull)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSData * __nullable)dataForKey:(NSString * __nonnull)key;
 
-- (NSDate* __nullable)dateForKey:(NSString* __nonnull)key;
-- (NSArray* __nonnull)allKeys;
+- (void)setData:(NSData * __nonnull)data forKey:(NSString * __nonnull)key;
+
+- (void)setData:(NSData * __nonnull)data forKey:(NSString * __nonnull)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
+
+- (NSDate * __nullable)dateForKey:(NSString * __nonnull)key;
+- (NSArray * __nonnull)allKeys;
 
 - (void)copyFilePath:(NSString* __nonnull)filePath asKey:(NSString* __nonnull)key;
+
 - (void)copyFilePath:(NSString* __nonnull)filePath asKey:(NSString* __nonnull)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
 - (nullable id<NSCoding>)objectForKey:(NSString* __nonnull)key;
+
 - (void)setObject:(nonnull id<NSCoding>)anObject forKey:(NSString* __nonnull)key;
+
 - (void)setObject:(nonnull id<NSCoding>)anObject forKey:(NSString* __nonnull)key withTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
 @property(nonatomic) NSTimeInterval defaultTimeoutInterval; // Default is 1 day

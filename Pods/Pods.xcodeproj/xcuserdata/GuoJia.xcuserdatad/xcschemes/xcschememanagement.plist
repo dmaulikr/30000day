@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FSCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JSBadgeView-JSBadgeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,11 +77,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>257C1345E0E7CA884BD8486C96EF7F5A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
@@ -87,7 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B1EA698CF5FA2851A5E20F3EE952129</key>
+		<key>810144C984D842F5A7A4B78020439ACB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,22 +112,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A1007C23CF7721F465BCB6109650D702</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B64653EE2A2AC024B5489E6548F0EDC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>BCCC0F4081C473B2448DD2FB829E748C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D1047208DF8521C5E10AC5270C892A66</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D6D0FB7054BFF137B149426E6B94D1E6</key>
+		<key>C4652D32456E3D324EC466CA950493E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E63EA3FC3E0A88A11341641DBAC04F9F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC8A66FBAAD380950EB9406E166F034E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

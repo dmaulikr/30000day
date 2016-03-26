@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
 @property (atomic, copy) void (^failureCompletionBlock)(LONetError *error);
 
 
-/// response object
+// response object
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 @property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
 @property (nonatomic, strong, readonly) id responseJSONObject;
@@ -136,16 +136,15 @@ typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
                          success:(void (^)(id responseObject))success
                          failure:(void (^)(LONetError *error))failure;
 
+// 以下是 网络请求数据缓存 相关方法 / 属性
 
-/// 以下是 网络请求数据缓存 相关方法 / 属性
-
-/// 数据来源是否为cache
+// 数据来源是否为cache
 @property (nonatomic, assign) BOOL cacheSwitch;
 
-/// 获取当前请求对应的cache key
+// 获取当前请求对应的cache key
 - (NSString *)cacheKey;
 
-/// 将返回数据缓存
+// 将返回数据缓存
 - (void)startRequestCacheWithResponseObject:(id)responseObject;
 
 @end

@@ -174,7 +174,7 @@
                 
                 cell.willShowImageView.hidden = NO;
                 
-                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_up"];
+                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_down"];
                 
                 cell.willShowLabel.text = provinceModel.regionName;
                 
@@ -193,7 +193,7 @@
                 
                 cell.willShowImageView.hidden = NO;
                 
-                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_down"];
+                cell.willShowImageView.image = [UIImage imageNamed:@"navigationbar_arrow_up"];
                 
                 cell.willShowLabel.text = provinceModel.regionName;
                 
@@ -286,10 +286,9 @@
     return 0.005f;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.isSearch) {
+    if (self.isSearch) {//搜索状态
         
         HotCityModel *model = self.searchResultArray[indexPath.row];
         
@@ -302,7 +301,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
         
-    } else {
+    } else {//不是搜索状态
         
         if (indexPath.row == 0) {
             

@@ -7,7 +7,7 @@
 //
 
 #import "LONetworkAgent.h"
-#import "LONetworkCache.h"
+#import "STNetworkCache.h"
 #import "LORequest.h"
 
 @implementation LONetworkAgent {
@@ -317,13 +317,13 @@
 
 - (void)buildRequestHeader:(LORequest *)request {
     
-    if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
+//    if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
 //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
 //        [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
 //        [_manager.requestSerializer setValue:CLIENT_ID forHTTPHeaderField:@"Lianjia-App-Id"];
 //        [_manager.requestSerializer setValue:[LOSession sharedSession].UDID forHTTPHeaderField:@"Lianjia-Device-Id"];
 //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
-    }
+//    }
     
 //    if ([LOSession sharedSession].currentUser) {
 //        [_manager.requestSerializer setValue:[LOSession sharedSession].currentUser.access_token forHTTPHeaderField:@"Lianjia-Access-Token"];
@@ -352,70 +352,103 @@
 }
 
 - (void)handleRequestSuccessResult:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject {
+    
     NSString *key = [self requestHashKey:operation];
+    
     LORequest *request = [_requestsRecord objectForKey:key];
+    
     if (request && request.successCompletionBlock) {
+        
         [request startRequestCacheWithResponseObject:responseObject];
+        
         request.successCompletionBlock(responseObject);
     }
+    
     [self removeRequestRecord:request];
 }
 
 
-- (void)handleRequestFailureResult:(AFHTTPRequestOperation *)operation netError:(NSError *)error{
+- (void)handleRequestFailureResult:(AFHTTPRequestOperation *)operation netError:(NSError *)error {
+    
     NSString *key = [self requestHashKey:operation];
+    
     LORequest *request = [_requestsRecord objectForKey:key];
+    
     [self removeRequestRecord:request];
+    
     if (request.retryMaximumTimes > 0) {
+        
         [self delayNetworkFailureRetryWithRequest:request];
+        
     } else {
+        
         if (request && request.failureCompletionBlock) {
+            
             LONetError *netError = [LONetError errorWithAFHTTPRequestOperation:operation NSError:error];
+            
             if (request.cacheSwitch) {
-                netError.responseJSONObject = [[LONetworkCache globalCache] objectForKey:[request cacheKey]];
+                
+                netError.responseJSONObject = [[STNetworkCache globalCache] objectForKey:[request cacheKey]];
             }
+            
             request.failureCompletionBlock(netError);
         }
     }
 }
 
+//延迟重新请求数据
 - (void)delayNetworkFailureRetryWithRequest:(LORequest *)request {
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(request.retryIntervalInSeconds * NSEC_PER_SEC));
+    
     dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
         
         request.retryMaximumTimes --;
+        
         [self addRequest:request];
         
     });
 }
 
-
 - (NSString *)requestHashKey:(AFHTTPRequestOperation *)operation {
+    
     NSString *key = [NSString stringWithFormat:@"%lu", (unsigned long)[operation hash]];
+    
     return key;
 }
 
 - (void)addRequestRecord:(LORequest *)request {
+    
     if (request.operation != nil) {
+        
         NSString *key = [self requestHashKey:request.operation];
+        
         @synchronized(self) {
+            
             _requestsRecord[key] = request;
+            
         }
     }
 }
 
 - (void)removeRequestRecord:(LORequest *)request {
+    
     NSString *key = [self requestHashKey:request.operation];
+    
     @synchronized(self) {
+        
         [_requestsRecord removeObjectForKey:key];
     }
 }
 
 - (void)cancelRequestWithHash:(NSString *)requestHash {
+    
     @synchronized(self) {
+        
         LORequest *request = [_requestsRecord objectForKey:requestHash];
+        
         request.delegate = nil;
+        
         [request.operation cancel];
         
         [self removeRequestRecord:request];

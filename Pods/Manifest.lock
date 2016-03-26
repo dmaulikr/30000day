@@ -29,6 +29,7 @@ PODS:
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
+  - FSCalendar (2.0.1)
   - iRate (1.11.4)
   - iVersion (1.11.4)
   - JSBadgeView (1.4.1)
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - AVOSCloudIM
   - BaiduMapKit
   - FMDB
+  - FSCalendar
   - iRate (= 1.11.4)
   - iVersion (= 1.11.4)
   - JSBadgeView (= 1.4.1)
@@ -69,6 +71,7 @@ SPEC CHECKSUMS:
   AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
   BaiduMapKit: 5df028c6b455d29e68e89694adbcf9d37a4bcc99
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
+  FSCalendar: 18117308f5876a8f6f0fe572085d543580c2c5e5
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
