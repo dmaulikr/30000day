@@ -53,30 +53,47 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUT-Pf-nDU">
-                        <rect key="frame" x="28" y="260" width="14" height="15"/>
+                        <rect key="frame" x="28" y="256" width="14" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oWp-Qi-Mw5">
-                        <rect key="frame" x="47" y="260" width="24" height="15"/>
+                        <rect key="frame" x="47" y="256" width="24" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAx-dt-DY7">
-                        <rect key="frame" x="74" y="260" width="8" height="15"/>
+                        <rect key="frame" x="74" y="256" width="8" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-qQ-RLg">
-                        <rect key="frame" x="227" y="254" width="64" height="26"/>
-                        <state key="normal" image="sd-8"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-qQ-RLg">
+                        <rect key="frame" x="256" y="255" width="50" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="kGH-XD-wfZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="5" minY="4" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="赞" image="icon_zan">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="commentZambiaButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6gP-0O-ZaP"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhT-UY-G2F">
-                        <rect key="frame" x="296" y="255" width="65" height="25"/>
-                        <state key="normal" image="sd-9"/>
+                        <rect key="frame" x="311" y="255" width="50" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="z2Z-GG-lcS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="5" minY="4" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="评论" image="icon_edit">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 13:48" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1U-oO-JRc">
                         <rect key="frame" x="297" y="20" width="64" height="16"/>
@@ -85,7 +102,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赞" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1M-MM-41Q">
-                        <rect key="frame" x="14" y="260" width="12" height="15"/>
+                        <rect key="frame" x="14" y="256" width="12" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -97,7 +114,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bso-9e-HUJ">
-                        <rect key="frame" x="159" y="252" width="60" height="30"/>
+                        <rect key="frame" x="176" y="249" width="60" height="30"/>
                         <state key="normal" title="查看回复"/>
                         <connections>
                             <action selector="checkReply:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7o6-J6-CIq"/>
@@ -138,7 +155,7 @@
                     <constraint firstItem="IhT-UY-G2F" firstAttribute="top" secondItem="ude-95-mr0" secondAttribute="bottom" constant="20" id="x8a-p5-BfJ"/>
                     <constraint firstItem="doY-NR-ZtX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="yb1-PI-Sdi"/>
                     <constraint firstItem="ude-95-mr0" firstAttribute="centerY" secondItem="2nP-xv-pcf" secondAttribute="centerY" id="zFp-oV-53J"/>
-                    <constraint firstItem="TAC-qQ-RLg" firstAttribute="leading" secondItem="Bso-9e-HUJ" secondAttribute="trailing" constant="8" id="zr0-4w-CRe"/>
+                    <constraint firstItem="TAC-qQ-RLg" firstAttribute="leading" secondItem="Bso-9e-HUJ" secondAttribute="trailing" constant="20" id="zr0-4w-CRe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -155,15 +172,15 @@
                 <outlet property="commentZambiaButton" destination="TAC-qQ-RLg" id="9pa-K9-Yrh"/>
                 <outlet property="commentZambiaCountLable" destination="UUT-Pf-nDU" id="kYK-QQ-KuC"/>
             </connections>
-            <point key="canvasLocation" x="86.5" y="369"/>
+            <point key="canvasLocation" x="-19.5" y="375"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_edit" width="17" height="17"/>
+        <image name="icon_zan" width="16" height="17"/>
         <image name="sd-4" width="44" height="44"/>
         <image name="sd-5" width="86" height="86"/>
         <image name="sd-6" width="87" height="87"/>
         <image name="sd-7" width="86" height="87"/>
-        <image name="sd-8" width="64" height="26"/>
-        <image name="sd-9" width="65" height="25"/>
     </resources>
 </document>

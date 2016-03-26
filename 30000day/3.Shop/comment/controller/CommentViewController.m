@@ -11,7 +11,6 @@
 #import "CommentOptionsTableViewCell.h"
 #import "AppointmentConfirmViewController.h"
 #import "Height.h"
-#import "CommentDetailsViewController.h"
 #import "CommentModel.h"
 #import "CommentDetailsTableViewCell.h"
 
@@ -22,6 +21,8 @@
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
+@property (nonatomic,assign) BOOL save;
+
 @end
 
 @implementation CommentViewController
@@ -30,6 +31,8 @@
     [super viewDidLoad];
     
     self.title = @"全部评论";
+    
+    self.save = NO;
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -192,10 +195,52 @@
                 
             }
             
+            if (self.save) {
+                
+                [shopDetailCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+            }
+            
             [shopDetailCommentTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
                 
                 [self cellDataProcessing:changeStatusButton commentModel:commentModel index:indexPath];
 
+            }];
+            
+            [shopDetailCommentTableViewCell setCommentZambiaButtonBlock:^(UIButton *ZambiaButton) {
+               
+                BOOL clickLike;
+                if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
+                    
+                    clickLike = YES;
+                    
+                } else {
+                
+                    clickLike = NO;
+                    
+                }
+                
+                [self.dataHandler sendPointPraiseOrCancelWithCommentId:commentModel.commentId isClickLike:clickLike Success:^(BOOL success) {
+                    
+                    if (success) {
+                        
+                        if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
+                            
+                            [ZambiaButton setTitle:@"已赞" forState:UIControlStateNormal];
+                            
+                        } else {
+                            
+                            [ZambiaButton setTitle:@"赞" forState:UIControlStateNormal];
+                            
+                        }
+
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    [self showToast:@"未知错误"];
+                    
+                }];
+                
             }];
             
             shopDetailCommentTableViewCell.commentModel = commentModel;
@@ -238,7 +283,9 @@
         return;
         
     } else {
-            
+        
+        [self refreshControllerInputViewHide];
+        
             self.isShowInputView = YES;
             
             [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInt:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
@@ -257,11 +304,14 @@
                         
                         if (success) {
                             
+                            self.save = YES;
+                            
                             [self showToast:@"回复成功"];
                             
                             [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
                                 
                                 self.commentModelArray = [NSMutableArray arrayWithArray:success];
+                                
                                 [self.tableView reloadData];
                                 
                             } failure:^(NSError *error) {
@@ -311,6 +361,8 @@
               commentModel:(CommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
     
+    self.save = NO;
+    
     if (changeStatusButton.tag == 1) {
         
         [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
@@ -339,6 +391,10 @@
         
     } else {
         
+        changeStatusButton.tag = 1;
+        
+        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+        
         self.willRemoveArray = [NSMutableArray array];
         
         [self removeDataWithPId:[commentModel.commentId integerValue]];
@@ -356,10 +412,6 @@
         [self.commentModelArray removeObjectsInArray:array];
         
         [self.tableView reloadData];
-        
-        changeStatusButton.tag = 1;
-        
-        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
         
     }
 

@@ -16,6 +16,7 @@
 #import "AppointmentViewController.h"
 #import "ShopDetailModel.h"
 #import "Height.h"
+#import "CommodityCommentViewController.h"
 
 
 #define SECTIONSCOUNT 5
@@ -375,6 +376,12 @@
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
             
+        } else {
+            
+            CommodityCommentViewController *commodityCommentViewController = [[CommodityCommentViewController alloc] init];
+            commodityCommentViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:commodityCommentViewController animated:YES];
+        
         }
         
     }

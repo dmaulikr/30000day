@@ -12,7 +12,7 @@
 @implementation ShopDetailCommentTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -20,6 +20,15 @@
 
     // Configure the view for the selected state
 }
+
+- (IBAction)commentZambiaButtonClick:(id)sender {
+    
+    if (self.commentZambiaButtonBlock) {
+        self.commentZambiaButtonBlock((UIButton *)sender);
+    }
+    
+}
+
 
 - (IBAction)checkReply:(UIButton *)sender {
     
@@ -32,6 +41,16 @@
 - (void)setCommentModel:(CommentModel *)commentModel {
 
     _commentModel = commentModel;
+    
+    if (commentModel.clickLike.intValue) {
+        
+        self.commentContentLable.text = @"已赞";
+        
+    } else {
+    
+        self.commentContentLable.text = @"赞";
+    
+    }
     
     self.commentContentLable.text = commentModel.remark;
     
