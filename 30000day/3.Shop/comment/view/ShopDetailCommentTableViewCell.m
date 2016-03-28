@@ -13,6 +13,13 @@
 
 - (void)awakeFromNib {
     
+    self.commentContentImageViewOne.userInteractionEnabled = YES;
+    self.commentContentImageViewTwo.userInteractionEnabled = YES;
+    self.commentContentImageViewThree.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookImage:)];
+    [self.commentContentImageViewOne addGestureRecognizer:portraitTap];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -60,6 +67,19 @@
     
     [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
     
+}
+
+- (void)lookImage:(UITapGestureRecognizer *)tap {
+    
+    if (![(UIImageView *)tap.view image]) {
+        return;
+    }
+    
+    UIImageView *picView = (UIImageView *)tap.view;
+    
+    if (self.lookPhoto) {
+        self.lookPhoto(picView);
+    }
 }
 
 @end
