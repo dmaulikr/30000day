@@ -300,7 +300,6 @@
 		B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */; };
 		B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */; };
 		B8B3F5371C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */; };
-		B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */; };
 		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
 		B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */; };
 		B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */; };
@@ -993,7 +992,6 @@
 		B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		B8B3F5341C9BB1A200834533 /* QGRecordDetailSwitchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QGRecordDetailSwitchHeadView.h; sourceTree = "<group>"; };
 		B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
-		B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QGRecordDetailSwitchHeadView.xib; sourceTree = "<group>"; };
 		B8B3F5391C9BEB3E00834533 /* SubwayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayModel.h; sourceTree = "<group>"; };
 		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
 		B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchConditionModel.h; sourceTree = "<group>"; };
@@ -3129,7 +3127,6 @@
 			children = (
 				B8B3F5341C9BB1A200834533 /* QGRecordDetailSwitchHeadView.h */,
 				B8B3F5351C9BB1A200834533 /* QGRecordDetailSwitchHeadView.m */,
-				B8B3F5361C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib */,
 				B8FD3ADF1C868A83007BCA6B /* DOPDropDownMenu.h */,
 				B8FD3AE01C868A83007BCA6B /* DOPDropDownMenu.m */,
 				B8FD3AE11C868A83007BCA6B /* icon_chose_arrow_nor@2x.png */,
@@ -4029,7 +4026,6 @@
 				B804FDB81C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png in Resources */,
 				B8FD3AE61C868A83007BCA6B /* icon_chose_arrow_sel@2x.png in Resources */,
 				B804FD961C8AC9A900DFD1CF /* RecordingSignal002@2x.png in Resources */,
-				B8B3F5381C9BB1A200834533 /* QGRecordDetailSwitchHeadView.xib in Resources */,
 				B804FDAD1C8AC9A900DFD1CF /* sharemore_voipvoice@2x.png in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
 				B804FD361C8AC9A900DFD1CF /* rabbit_16.gif in Resources */,

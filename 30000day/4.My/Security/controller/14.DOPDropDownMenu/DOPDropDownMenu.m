@@ -356,7 +356,7 @@ struct {
         self.switchButtonIndex = 0;
         
         //增加switch headView
-        _switchHeadView = [[[NSBundle mainBundle] loadNibNamed:@"QGRecordDetailSwitchHeadView" owner:nil options:nil] lastObject];
+        _switchHeadView = [[QGRecordDetailSwitchHeadView alloc] init];
         
         _switchHeadView.opaque = NO;
         
