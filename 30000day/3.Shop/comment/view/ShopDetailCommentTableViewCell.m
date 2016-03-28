@@ -20,12 +20,29 @@
     UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookImage:)];
     [self.commentContentImageViewOne addGestureRecognizer:portraitTap];
     
+    UITapGestureRecognizer *portraitTapTwo = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookImage:)];
+    [self.commentContentImageViewTwo addGestureRecognizer:portraitTapTwo];
+    
+    UITapGestureRecognizer *portraitTapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lookImage:)];
+    [self.commentContentImageViewThree addGestureRecognizer:portraitTapThree];
+    
+    [self.commentButton addTarget:self action:@selector(commentClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+
+- (void)commentClick:(UIButton *)sender {
+
+    if (self.commentBlock) {
+        self.commentBlock((UIButton *)sender);
+    }
+
 }
 
 - (IBAction)commentZambiaButtonClick:(id)sender {

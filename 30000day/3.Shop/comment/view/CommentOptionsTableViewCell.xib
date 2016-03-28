@@ -79,7 +79,7 @@
                 <outlet property="praiseButtonLeft" destination="Vyz-vm-jRh" id="E0l-JR-32H"/>
                 <outlet property="praiseButtonRight" destination="TuD-hO-n9d" id="6pb-1d-Goa"/>
             </connections>
-            <point key="canvasLocation" x="111.5" y="243"/>
+            <point key="canvasLocation" x="66.5" y="243"/>
         </tableViewCell>
     </objects>
 </document>

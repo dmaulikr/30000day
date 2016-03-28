@@ -35,12 +35,17 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
+
+@property (nonatomic,strong) CommentModel *commentModel;
+
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
+
+@property (nonatomic,copy) void (^(commentBlock))(UIButton *commentButton);
 
 @property (nonatomic,copy) void (^(commentZambiaButtonBlock))(UIButton *ZambiaButton);
 
 @property (nonatomic,copy) void (^(lookPhoto))(UIImageView *imageView);
 
-@property (nonatomic,strong) CommentModel *commentModel;
+
 
 @end
