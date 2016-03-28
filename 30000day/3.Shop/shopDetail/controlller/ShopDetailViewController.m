@@ -291,6 +291,7 @@
                 shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
+            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
             
             shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"网友点评（321）";
             
@@ -305,6 +306,10 @@
                 shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
                 
             }
+            
+            shopDetailCommentTableViewCell.checkReply.hidden = YES;
+            shopDetailCommentTableViewCell.commentZambiaButton.hidden = YES;
+            shopDetailCommentTableViewCell.commentButton.hidden = YES;
             
             return shopDetailCommentTableViewCell;
             
@@ -370,7 +375,7 @@
     
     if (indexPath.section == 3) {
         
-        if (indexPath.row == 0 || indexPath.row == 3) {
+        if (indexPath.row != 0) {
             
             CommentViewController *controller = [[CommentViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;

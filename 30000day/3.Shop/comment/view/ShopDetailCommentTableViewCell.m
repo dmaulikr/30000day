@@ -80,7 +80,14 @@
     
     self.commentNameLable.text = commentModel.userName;
     
-    self.commentTimeLable.text = [NSString stringWithFormat:@"%@",commentModel.createTime];
+    NSString *str = [NSString stringWithFormat:@"%@",commentModel.createTime];//时间戳
+    NSTimeInterval time = [str doubleValue]/(double)1000;
+    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    
+    self.commentTimeLable.text = currentDateStr;
     
     [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
     
