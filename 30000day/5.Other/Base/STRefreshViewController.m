@@ -12,21 +12,22 @@
 
 @interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic,strong) STInputView *inputView;
-
-@property (nonatomic,strong) STChoosePictureView *choosePictureView;
-
-@property (nonatomic,assign) float keyBoardHeight;
-
-@property (nonatomic,strong)NSMutableArray *imageArray;
-
 @property (nonatomic,strong) NSNumber *flag;
 
 @property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
 
 @end
 
-@implementation STRefreshViewController
+@implementation STRefreshViewController {
+    
+    NSMutableArray *_imageArray;
+    
+    STInputView *_inputView;
+    
+    STChoosePictureView *_choosePictureView;
+    
+    float keyBoardHeight;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,7 +42,7 @@
     
     self.isShowBackItem = NO;
     
-    self.imageArray = [NSMutableArray array];
+    _imageArray = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -117,13 +118,13 @@
     
     UIImage *image = info[UIImagePickerControllerEditedImage];
     
-    [self.imageArray addObject:image];
+    [_imageArray addObject:image];
     
-    self.choosePictureView.hidden = NO;
+    _choosePictureView.hidden = NO;
     
-    self.choosePictureView.imageArray = self.imageArray;
+    _choosePictureView.imageArray = _imageArray;
     
-    self.choosePictureView.width =  61 * self.imageArray.count + 10;
+    _choosePictureView.width =  61 * _imageArray.count + 10;
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
@@ -152,12 +153,15 @@
         __weak typeof(self) weakSelf = self;
         
         __weak typeof(_inputView) weakInputView = _inputView;
+        
+        __weak typeof(_imageArray) weakImageArray = _imageArray;
+        
         //键盘点击回调
         [_inputView setButtonClickBlock:^(STInputViewButtonClickType type) {
             
             if (type == STInputViewButtonSendType) {
                 
-                weakSelf.inputViewBlock(weakInputView.textView.text,weakSelf.imageArray,weakSelf.flag);
+                weakSelf.inputViewBlock(weakInputView.textView.text,weakImageArray,weakSelf.flag);
                 
                 [weakSelf refreshControllerInputViewHide];
                 
@@ -195,22 +199,21 @@
         
         [STNotificationCenter addObserver:self selector:@selector(keyBoardShouldShow) name:STAvatarBrowserDidHideAvatarImage object:nil];
         
-        self.choosePictureView = [[STChoosePictureView alloc] initWithFrame:CGRectMake(20,_inputView.y - 10 - 60 , 61 * self.imageArray.count + 10, 60)];
+        _choosePictureView = [[STChoosePictureView alloc] initWithFrame:CGRectMake(20,_inputView.y - 10 - 60 , 61 * _imageArray.count + 10, 60)];
         
-        self.choosePictureView.hidden = YES;
+        _choosePictureView.hidden = YES;
         
-        self.choosePictureView .backgroundColor = RGBACOLOR(200, 200, 200, 1);
+        _choosePictureView .backgroundColor = RGBACOLOR(200, 200, 200, 1);
         
-        self.choosePictureView .imageArray = self.imageArray;
+        _choosePictureView.imageArray = _imageArray;
         
-        self.choosePictureView .delegate = self;
+        _choosePictureView.delegate = self;
         
-        [self.view addSubview:self.choosePictureView ];
+        [self.view addSubview:_choosePictureView];
     }
 }
 
 - (void)headerRefreshing {
-    
     
 }
 
@@ -280,11 +283,11 @@
     
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    self.keyBoardHeight = keyboardFrame.size.height;
+    keyBoardHeight = keyboardFrame.size.height;
     
     [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - _inputView.height;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - _inputView.height;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -358,7 +361,7 @@
         
         self.inputView.y = SCREEN_HEIGHT;
         
-        self.choosePictureView.y = self.inputView.y - 10 - 60;
+        _choosePictureView.y = self.inputView.y - 10 - 60;
         
     } completion:nil];
 
@@ -380,7 +383,7 @@
         
         _inputView.height = 47;
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -388,7 +391,7 @@
         
         _inputView.height =  47 + 20;
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47 - 20;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -396,7 +399,7 @@
         
         _inputView.height  = 47.0f + 20*2;
         
-       _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47 - 20*2;
+       _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*2;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -404,7 +407,7 @@
         
         _inputView.height  = 47 + 20*3;
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47 - 20*3;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*3;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -412,7 +415,7 @@
         
         _inputView.height  = 47 + 20*4;
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47 - 20*4;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*4;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -420,7 +423,7 @@
         
         _inputView.height = 47 + 20*5;
         
-        _inputView.y = SCREEN_HEIGHT - self.keyBoardHeight - 47 - 20*5;
+        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*5;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
     }
@@ -445,13 +448,13 @@
 
 - (void)choosePictureView:(STChoosePictureView *)choosePictureView cancelButtonDidClickAtIndex:(NSInteger)index {
     
-    [self.imageArray removeObjectAtIndex:index];
+    [_imageArray removeObjectAtIndex:index];
     
-    choosePictureView.width = 61 * self.imageArray.count  + 10;
+    choosePictureView.width = 61 * _imageArray.count  + 10;
     
-    choosePictureView.imageArray = self.imageArray;
+    choosePictureView.imageArray = _imageArray;
     
-    if (self.imageArray.count == 0) {
+    if (_imageArray.count == 0) {
         
         choosePictureView.hidden = YES;
     }
@@ -461,7 +464,7 @@
     
     [self inputViewHide];
     
-    [STAvatarBrowser showImage:self.imageArray[index]];
+    [STAvatarBrowser showImage:_imageArray[index]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -472,7 +475,9 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
     [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
     [STNotificationCenter removeObserver:self name:STAvatarBrowserDidHideAvatarImage object:nil];
 }
 
