@@ -11,8 +11,33 @@
 
 #define HeightMargin  0.0f
 
-@interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface FlagModel : NSObject
 
+@property (nonatomic,strong) NSIndexPath *flagIndexPath;
+
+@property (nonatomic,assign) NSInteger flag;//用来表示是否被选中
+
+@end
+
+@implementation FlagModel
+
+- (id)init {
+    
+    if (self = [super init]) {
+        
+        _flag = 0;
+        
+    }
+    
+    return self;
+}
+
+@end
+
+
+@interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout> {
+    NSMutableArray *_flagArray;
+}
 @end
 
 @implementation AppointmentCollectionView
@@ -52,6 +77,8 @@
     }
     
     self.backgroundColor = [UIColor whiteColor];
+    
+    _flagArray = [NSMutableArray array];
     
     //1.设置FlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -225,6 +252,13 @@
              if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
                  
                  [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForItem:a inSection:b]];
+             }
+             
+             
+             for (int i = 0; i < _flagArray.count; i++) {
+                 
+                 
+                 
              }
              
              if (cell.flag) {
