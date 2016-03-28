@@ -2534,85 +2534,6 @@
     [self startRequest:request];
 }
 
-//*********************************获取商家所有的数据*******************/
-- (void)sendCompanyListSuccess:(void (^)(NSMutableArray *companyListArray))success
-                           failure:(void (^)(NSError *error))failure {
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:GET_COMPANY_LIST
-                                                 parameters:nil
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSArray * dataArray = recvDic[@"value"];
-                                                                
-                                                                NSMutableArray *newDataArray = [NSMutableArray array];
-                                                                
-                                                                for (int i = 0; i < dataArray.count; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = dataArray[i];
-                                                                    
-                                                                    ShopModel *model = [[ShopModel alloc] init];
-                                                                    
-                                                                    [model setValuesForKeysWithDictionary:dictionary];
-                                                                    
-                                                                    [newDataArray addObject:model];
-                                                                }
-
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(newDataArray);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
-                                                                
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(LONetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = LORequestSerializerTypeJSON;
-    
-    [self startRequest:request];
-}
-
-
 - (void)sendCompanyDetailsWithCompanyId:(NSString *)companyId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure{
@@ -2798,6 +2719,7 @@
 
 //*********************************获取根据筛选条件来获取所有的商品列表*******************/
 - (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
+                                    isSearch:(BOOL)isSearch
                                      Success:(void (^)(NSMutableArray *))success
                                      failure:(void (^)(NSError *error))failure {
     
@@ -2834,15 +2756,18 @@
         [params addParameter:conditionModel.sift forKey:@"sift"];
     }
     
+    if (isSearch) {//给搜索内容赋值
+        
+        [params addParameter:conditionModel.searchContent forKey:@"productName"];
+    }
+    
     //两个必填
     [params addParameter:[Common deletedStringWithParentString:conditionModel.provinceName] forKey:@"addrProvince"];
     
     [params addParameter:[Common deletedStringWithParentString:conditionModel.cityName] forKey:@"addrCity"];
     
-    [Common urlStringWithDictionary:params withString:GET_SHOP_LIST];
-    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
-                                                        url:GET_SHOP_LIST
+                                                        url:isSearch?GET_SEARCH_LIST:GET_SHOP_LIST
                                                  parameters:params
                                                     success:^(id responseObject) {
                                                         

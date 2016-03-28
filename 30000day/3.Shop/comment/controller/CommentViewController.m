@@ -59,16 +59,15 @@
     [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
+        
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-       
+
         [self showToast:@"数据加载失败"];
+
         
     }];
-    
-    
-    
 }
 
 #pragma mark --- 上啦刷新和下拉刷新
@@ -281,7 +280,6 @@
             return commentDetailsTableViewCell;
             
         }
-        
     }
     
     return nil;
@@ -307,7 +305,6 @@
             [self.willRemoveArray addObject:[NSNumber numberWithInt:i]];
         }
     }
-    
 }
 
 //查看回复
@@ -366,10 +363,7 @@
         [self.commentModelArray removeObjectsInArray:array];
         
         [self.tableView reloadData];
-        
     }
-
-    
 }
 
 - (void)commentType:(UIButton *)changeStatusButton {

@@ -6,8 +6,6 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "AddressBookBaseViewController.h"
-
-@interface SearchViewController : AddressBookBaseViewController
+@interface SearchViewController : STRefreshViewController
 
 @end
