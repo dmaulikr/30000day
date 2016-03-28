@@ -39,6 +39,8 @@
 
 @property (nonatomic,copy) void (^(commentZambiaButtonBlock))(UIButton *ZambiaButton);
 
+@property (nonatomic,copy) void (^(lookPhoto))(UIImageView *imageView);
+
 @property (nonatomic,strong) CommentModel *commentModel;
 
 @end

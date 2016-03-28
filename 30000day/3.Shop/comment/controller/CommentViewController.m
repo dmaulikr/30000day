@@ -13,15 +13,26 @@
 #import "Height.h"
 #import "CommentModel.h"
 #import "CommentDetailsTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
+#define WIDTH  [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
 
-@interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
 @property (nonatomic,assign) BOOL save;
+
+@property (nonatomic,strong) UIImageView * imageView;
+@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,strong) UIScrollView *scrollViewMain;
+@property (nonatomic,strong) UIImageView *lastImageView;
+@property (nonatomic,assign) CGRect originalFrame;
+@property (nonatomic,copy) NSArray *imageUrlArray;
+@property (nonatomic,copy) NSArray *imageArray;
 
 @end
 
@@ -245,6 +256,17 @@
             
             shopDetailCommentTableViewCell.commentModel = commentModel;
             
+            [shopDetailCommentTableViewCell setLookPhoto:^(UIImageView *imageView){
+
+                [self load];
+                
+//                CommodityCommentViewController *commodityCommentViewController = [[CommodityCommentViewController alloc] init];
+//                [self presentViewController:commodityCommentViewController animated:NO completion:^{
+//                    
+//                }];
+                
+            }];
+            
             return shopDetailCommentTableViewCell;
             
         } else {
@@ -418,13 +440,122 @@
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self refreshControllerInputViewHide];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)load {
+    
+    NSArray *imgArray = [NSArray arrayWithObjects:@"a1",@"a2",@"a3",@"a4", nil];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0,WIDTH, HEIGHT)];
+    
+    [scrollView setDelegate:self];
+    [scrollView setBackgroundColor:[UIColor blackColor]];
+    [scrollView setContentSize:CGSizeMake(WIDTH * imgArray.count, HEIGHT)];
+    [scrollView setPagingEnabled:YES];
+    [scrollView setTag:1];
+    
+    UITapGestureRecognizer *tapBg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgView:)];
+    [scrollView addGestureRecognizer:tapBg];
+    
+    self.scrollView = scrollView;
+    
+    for (int i = 0; i < imgArray.count; i++) {
+        
+        self.imageView = [[UIImageView alloc] init];
+        [self.imageView setTag:i + 100];
+        [self.imageView setImage:[UIImage imageNamed:imgArray[i]]];
+        
+        CGRect frame;
+        frame.size.width = WIDTH;
+        frame.size.height = frame.size.width * (self.imageView.image.size.height / self.imageView.image.size.width);
+        frame.origin.x = i * WIDTH;
+        frame.origin.y = (HEIGHT - frame.size.height) * 0.5;
+        self.imageView.frame = frame;
+        
+        [scrollView addSubview:self.imageView];
+        
+    }
+    
+    [[[UIApplication sharedApplication] keyWindow] addSubview:scrollView];
+    
+    
+
+}
+
+- (void)showZoomImageView:(UIImageView *)imgView scrollView:(UIScrollView *)bgView {
+    
+    if (!imgView) {
+        return;
+    }
+    
+    bgView.backgroundColor = [UIColor blackColor];
+    UITapGestureRecognizer *tapBg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgView:)];
+    [bgView addGestureRecognizer:tapBg];
+    
+    UIImageView *picView = imgView;
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = picView.image;
+    imageView.frame = [bgView convertRect:picView.frame fromView:self.view];
+    [bgView addSubview:imageView];
+    
+    self.lastImageView = imageView;
+    self.originalFrame = imageView.frame;
+    self.scrollView = bgView;
+    //最大放大比例
+    self.scrollView.maximumZoomScale = 1.5;
+    self.scrollView.delegate = self;
+    
+    CGRect frame = imageView.frame;
+    frame.size.width = bgView.frame.size.width;
+    frame.size.height = frame.size.width * (imageView.image.size.height / imageView.image.size.width);
+    frame.origin.x = 0;
+    frame.origin.y = (bgView.frame.size.height - frame.size.height) * 0.5;
+    imageView.frame = frame;
+    
+}
+
+- (void)tapBgView:(UITapGestureRecognizer *)tapBgRecognizer {
+    
+    self.scrollView.contentOffset = CGPointZero;
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        self.lastImageView.frame = CGRectMake(WIDTH/2, HEIGHT/2, 10, 10);
+        tapBgRecognizer.view.backgroundColor = [UIColor clearColor];
+        
+    } completion:^(BOOL finished) {
+        
+        [tapBgRecognizer.view removeFromSuperview];
+        self.scrollView = nil;
+        self.lastImageView = nil;
+        
+    }];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+ 
+    if (scrollView.tag == 1) {
+    
+        NSInteger tag = scrollView.contentOffset.x / WIDTH;
+        
+        self.lastImageView = (UIImageView *)[self.view viewWithTag:tag + 100];
+        
+    } else {
+
+        [self refreshControllerInputViewHide];
+        
+    }
+    
+}
+
+//返回可缩放的视图
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return self.lastImageView;
 }
 
 
