@@ -438,8 +438,6 @@
         
         textView.contentOffset = CGPointMake(0, caretY);
     }
-    
-    [self.tableView reloadData];
 }
 
 #pragma ---

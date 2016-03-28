@@ -10,7 +10,7 @@
 #import "ShopListTableViewCell.h"
 #import "ShopDetailViewController.h"
 
-@interface SearchViewController () < UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface SearchViewController () < UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,assign) BOOL isSearch;
 
@@ -23,22 +23,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"搜索";
-    
     self.isSearch = NO;
     
     self.tableView.delegate = self;
     
     self.tableView.dataSource = self;
     
-    self.searchBar.placeholder = @"输入商品的名称";
+    self.isShowBackItem = YES;
+   
+    //搜索框
+    UITextField *textField = [[UITextField alloc] init];
+    
+    textField.frame = CGRectMake(0, 0, SCREEN_WIDTH - 100, 30);
+    
+    textField.placeholder = @"请输入搜索的关键字";
+    
+    textField.delegate = self;
+    
+    textField.font = [UIFont systemFontOfSize:15.0f];
+    
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    
+    textField.returnKeyType = UIReturnKeySearch;
+    
+    [textField becomeFirstResponder];
+    
+    self.navigationItem.titleView = textField;
 }
 
 #pragma mark --- 调用父类的方法
-//键盘搜索按钮点击
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    if ([Common isObjectNull:searchBar.text]) {
+    if ([Common isObjectNull:textField.text]) {
         
         self.isSearch = NO;
         
@@ -52,6 +69,8 @@
         
         [self.tableView reloadData];
     }
+    
+    return YES;
 }
 
 #pragma ---
@@ -101,14 +120,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self searchBarDidBeginRestore:NO];
-    
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {

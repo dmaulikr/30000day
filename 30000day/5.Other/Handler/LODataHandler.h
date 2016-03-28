@@ -218,11 +218,6 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   success:(void (^)(NSDictionary *verificationDictionary))success
                                   failure:(void (^)(NSError *error))failure;
 
-//*********************************获取商家所有的数据*******************/
-- (void)sendCompanyListSuccess:(void (^)(NSMutableArray *companyListArray))success
-                           failure:(void (^)(NSError *error))failure;
-
-
 //*********************************获取商家详细的数据*******************/
 - (void)sendCompanyDetailsWithCompanyId:(NSString *)companyId
                                     Success:(void (^)(ShopDetailModel *model))success
@@ -234,11 +229,11 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                 failure:(void (^)(NSError *error))failure;
 
 
-//*********************************获取根据筛选条件来获取所有的商品列表*******************/
+//*********************************根据筛选条件来获取所有的商品列表*******************/
 - (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
+                                    isSearch:(BOOL)isSearch
                                      Success:(void (^)(NSMutableArray *))success
                                      failure:(void (^)(NSError *error))failure;
-
 
 //*********************************获取评论列表*******************/
 - (void)sendfindCommentListWithProductId:(NSInteger)productId

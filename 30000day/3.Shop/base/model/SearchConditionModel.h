@@ -30,4 +30,6 @@
 
 @property (nonatomic,strong) NSNumber *sift;//筛选: 0默认，1健身场馆，2体检中心，3医院，4孕产机构，5家政机构，6育儿培训机构 类型：int  （可选）
 
+@property (nonatomic,copy)  NSString *searchContent;
+
 @end

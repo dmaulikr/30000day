@@ -216,25 +216,6 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (IBAction)rightBarButtonAcion:(id)sender {
-    
-    self.isShowMapView = !self.isShowMapView;
-    
-    if (self.isShowMapView ) {
-        
-        _mapView.hidden = NO;
-        
-        self.tableView.hidden = YES;
-        
-    } else {
-        
-        _mapView.hidden = YES;
-        
-        self.tableView.hidden = NO;
-        
-    }
-}
-
 - (void)configUI {
     
     //初始化searchBar
@@ -260,6 +241,33 @@
     _mapView.hidden = YES;
     
     [self.view addSubview:_mapView];
+    
+    //3.初始化rightButton
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
+    
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+- (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
+    
+    if (self.isShowMapView ) {
+        
+        _mapView.hidden = YES;
+        
+        self.tableView.hidden = NO;
+        
+        rightButton.image = [[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+  
+    } else {
+    
+        _mapView.hidden = NO;
+        
+        self.tableView.hidden = YES;
+        
+        rightButton.image = [[UIImage imageNamed:@"icon_list"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    self.isShowMapView = !self.isShowMapView;
 }
 
 - (SearchConditionModel *)conditionModel {
@@ -280,7 +288,9 @@
     
     if (pageNumber != 1) {//上拉刷新
     
-        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel Success:^(NSMutableArray *dataArray) {
+        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
+                                                      isSearch:![Common isObjectNull:self.searchBar.text]
+                                                       Success:^(NSMutableArray *dataArray) {
             
             for (int i = 0; i < dataArray.count; i++) {
                 
@@ -310,7 +320,9 @@
 
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel Success:^(NSMutableArray *dataArray) {
+        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
+                                                        isSearch:![Common isObjectNull:self.searchBar.text]
+                                                       Success:^(NSMutableArray *dataArray) {
             
             self.shopListArray = dataArray;
             
@@ -709,12 +721,13 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [self.searchBar resignFirstResponder];
+    
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma ---
@@ -728,15 +741,13 @@
 #pragma ---
 #pragma mark -- UISearchBarDelegate
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    SearchViewController *controller = [[SearchViewController alloc] init];
+    self.conditionModel.searchContent = searchBar.text;
     
-    controller.hidesBottomBarWhenPushed = YES;
+    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:1];
     
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    return NO;
+    [self.searchBar resignFirstResponder];
 }
 
 /*
