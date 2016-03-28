@@ -16,7 +16,7 @@
     if (self) {
         _column = column;
         _row = row;
-        _item = -1;
+        _item = 0;
     }
     return self;
 }
@@ -541,6 +541,10 @@ struct {
             _currentSelectedMenudIndex = tapIndex;
             
             _show = NO;
+            
+            self.switchButtonIndex = 0;
+            
+            [self.switchHeadView becomeFirst];//恢复到之前
         }];
         
     } else {
@@ -573,7 +577,13 @@ struct {
     } else {
         
         [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView tableView:_leftTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
+            
             _show = NO;
+            
+            self.switchButtonIndex = 0;
+            
+            [self.switchHeadView becomeFirst];//恢复到之前
+            
         }];
     }
     
@@ -1083,7 +1093,7 @@ struct {
 
         CATextLayer *title = (CATextLayer *)_titles[_currentSelectedMenudIndex];
         
-        if (_dataSourceFlags.numberOfItemsInRow && [_dataSource menu:self numberOfItemsInRow:_currentSelectedMenudRow column:_currentSelectedMenudIndex] > 0) {
+        if (_dataSourceFlags.numberOfItemsInRow && [_dataSource guoJiaMenu:self numberOfItemsInRow:_currentSelectedMenudRow column:_currentSelectedMenudIndex] > 0) {
             
             // 有双列表 有item数据
             if (self.isClickHaveItemValid) {

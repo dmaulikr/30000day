@@ -26,21 +26,28 @@ PODS:
   - AVOSCloudIM (3.2.6):
     - AVOSCloud
   - BaiduMapKit (2.10.0)
+  - DACircularProgress (2.3.1)
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
+  - FSCalendar (2.0.1)
   - iRate (1.11.4)
   - iVersion (1.11.4)
   - JSBadgeView (1.4.1)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.10)
   - MJRefresh (3.1.0)
+  - MWPhotoBrowser (2.1.1):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 0.9)
+    - SDWebImage (!= 3.7.2, ~> 3.7)
   - pop (1.0.8)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
   - UMengAnalytics (3.6.6)
   - UMengSocial (4.4)
+  - YYModel (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
@@ -49,16 +56,19 @@ DEPENDENCIES:
   - AVOSCloudIM
   - BaiduMapKit
   - FMDB
+  - FSCalendar
   - iRate (= 1.11.4)
   - iVersion (= 1.11.4)
   - JSBadgeView (= 1.4.1)
   - MBProgressHUD
   - MJExtension
   - MJRefresh
+  - MWPhotoBrowser (~> 2.1.1)
   - pop
   - SDWebImage
   - UMengAnalytics
   - UMengSocial (~> 4.3)
+  - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -66,16 +76,20 @@ SPEC CHECKSUMS:
   AVOSCloudCrashReporting: e5adfdfbfe683cb9097daa1723732b269e8b8d08
   AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
   BaiduMapKit: 5df028c6b455d29e68e89694adbcf9d37a4bcc99
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
+  FSCalendar: 18117308f5876a8f6f0fe572085d543580c2c5e5
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
   UMengSocial: aba7296602310385114d82c255539a7bef3b7ab0
+  YYModel: 7a467eff45ae3641c33efb136c262d33b6f48c1a
 
 COCOAPODS: 0.39.0

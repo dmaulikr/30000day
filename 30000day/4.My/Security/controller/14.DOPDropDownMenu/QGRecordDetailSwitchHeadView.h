@@ -29,4 +29,6 @@ typedef enum{
 
 @property (weak, nonatomic) IBOutlet UIButton *btn_2;
 
+- (void)becomeFirst;
+
 @end

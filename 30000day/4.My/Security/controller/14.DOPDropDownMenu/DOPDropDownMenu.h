@@ -14,7 +14,7 @@
 @property (nonatomic, assign) NSInteger row;
 @property (nonatomic, assign) NSInteger item;
 - (instancetype)initWithColumn:(NSInteger)column row:(NSInteger)row;
-// default item = -1 
+// default item = 0 
 + (instancetype)indexPathWithCol:(NSInteger)col row:(NSInteger)row;
 + (instancetype)indexPathWithCol:(NSInteger)col row:(NSInteger)row item:(NSInteger)item;
 @end

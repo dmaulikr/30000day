@@ -8,7 +8,7 @@
 
 #import "LORequest.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "LONetworkCache.h"
+#import "STNetworkCache.h"
 
 @implementation LORequest
 
@@ -70,11 +70,10 @@
     
     if (self.cacheSwitch) {
         
-        [[LONetworkCache globalCache] setObject:responseObject forKey:[self cacheKey]];
+        [[STNetworkCache globalCache] setObject:responseObject forKey:[self cacheKey]];
         
     }
 }
-
 
 - (NSString *)cacheKey {
     

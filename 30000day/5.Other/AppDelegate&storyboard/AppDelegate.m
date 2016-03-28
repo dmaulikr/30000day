@@ -29,6 +29,7 @@
 #import "CDUserManager.h"
 #import "CDSoundManager.h"
 #import "STCoreDataHandler.h"
+#import "STLocationMananger.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -127,6 +128,10 @@
 
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
+    
+    //同步省-城市-区、县的数据
+    [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self.window makeKeyAndVisible];

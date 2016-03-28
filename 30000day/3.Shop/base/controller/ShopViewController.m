@@ -16,10 +16,11 @@
 #import "ShopModel.h"
 #import "STCoreDataHandler.h"
 #import "SubwayModel.h"
-#import "PlaceManager.h"
 #import "SearchConditionModel.h"
 #import <CoreLocation/CoreLocation.h>
-#import "DataModel.h"
+#import "STLocationMananger.h"
+#import "ProvinceModel.h"
+#import "MTProgressHUD.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -43,6 +44,11 @@
 
 @property (nonatomic,assign) NSUInteger pageNumber;
 
+@property (nonatomic,strong) NSMutableArray *locationArray;
+
+@property (nonatomic,strong) ProvinceModel *provinceModel;
+
+
 @end
 
 @implementation ShopViewController
@@ -53,62 +59,81 @@
 
     //1.初始化UI
     [self configUI];
-
     
     //2.定位并获取获取城市名字
-//    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
-//
-//        
-//        [self configBusinessPlaceWithCityName:cityName];
-//        
-//        self.leftBarButton.title = cityName;
-//        
-//        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
-//        
-//        self.conditionModel.cityName = cityName;//给获取的到市赋值
-//        
-//    } failure:^(NSError *error) {
-    
-        [self configBusinessPlaceWithCityName:@"上海"];
+    [self startFindLocationSucess:^(NSString *cityName,NSString *provinceName) {
         
-        self.leftBarButton.title = @"上海";
-    
-        self.conditionModel.provinceName = @"上海";//给获取的到省赋值
-
-        self.conditionModel.cityName = @"上海";//给获取的到市赋值
-    
-//    }];
-    
-    self.pageNumber = 1;
-    
-    //3.获取列表数据源数组
-    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.pageNumber];
-}
-
-- (void)configBusinessPlaceWithCityName:(NSString *)cityName {
-    
-    //配置数据库
-    PlaceManager *manager = [PlaceManager shareManager];
-    
-    [manager configManagerSuccess:^(BOOL success) {
+        self.leftBarButton.title = cityName;
         
-        [manager countyArrayWithCityName:cityName success:^(NSMutableArray *array) {
-            
-            //配置商圈
-            self.placeArray = array;
-            
-            //配置地铁
-            [manager placeIdWithPlaceName:cityName success:^(NSNumber *placeId) {
-                
-                [self configCitySubWayWithCityId:[placeId stringValue]];
-                
-            }];
-        }];
+        self.conditionModel.provinceName = provinceName;//给获取的到省赋值
+        
+        self.conditionModel.cityName = cityName;//给获取的到市赋值
         
     } failure:^(NSError *error) {
         
-        
+        self.leftBarButton.title = @"上海市";
+    
+        self.conditionModel.provinceName = @"上海";//给获取的到省赋值
+
+        self.conditionModel.cityName = @"上海市";//给获取的到市赋值
+    
     }];
+
+    //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
+    [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:NO];
+}
+
+ //3.获取列表数据源数组
+- (void)getShopListArray {
+    
+    self.pageNumber = 1;
+    
+    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.pageNumber];
+}
+
+//用省和市的名字从给定的地址模型中选择城市、商圈的数据
+- (void)chooseCityFromLocationArray:(NSMutableArray *)locationArray withProvinceName:(NSString *)provinceName withCityName:(NSString *)cityName isFromCityController:(BOOL)isFrom {
+    
+    self.conditionModel.provinceName = provinceName;
+    
+    self.conditionModel.cityName = cityName;
+    
+    NSNumber *cityId;
+    
+    if (isFrom) {
+        
+        self.leftBarButton.title = cityName;
+    }
+    
+    for (int i = 0; i < locationArray.count; i++) {
+        
+        ProvinceModel *provinceModel = locationArray[i];
+        
+        if ([provinceModel.regionName containsString:[Common deletedStringWithParentString:provinceName]]) {//找到当前的省
+            
+            for (int i = 0; i < provinceModel.cityList.count; i++) {
+                
+                CityModel *cityModel = provinceModel.cityList[i];
+                
+                if ([cityModel.regionName containsString:[Common deletedStringWithParentString:cityName]]) {//找到当前的市
+                    
+                    self.provinceModel = provinceModel;
+                    
+                    self.locationArray = cityModel.countyList;//获取城市的区、县
+                    
+                    cityId = cityModel.cityId;
+                    
+                    break;
+                }
+                
+            }
+        }
+    }
+    //1.根据城市Id来配置地铁
+    [self configCitySubWayWithCityId:[cityId stringValue]];
+    
+    //三.获取列表数据源数组
+    [self getShopListArray];
 }
 
 //根据Id来配置该城市的地铁
@@ -129,7 +154,13 @@
         self.isShowMapView = NO;
         
         //初始化搜索界面
-        self.menuView = nil;
+        for (UIView *view in self.view.subviews) {
+            
+            if ([view isKindOfClass:[DOPDropDownMenu class]]) {
+                
+                [view removeFromSuperview];
+            }
+        }
         
         DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
         
@@ -152,34 +183,6 @@
     }];
 }
 
-//剪切字符串，吧市、自治区、省
-- (NSMutableString *)mutableStringWithString:(NSString *)sting {
-    
-    NSMutableString *mutableString = [NSMutableString stringWithString:sting];
-    
-    NSRange locatin;
-    
-    if ([mutableString containsString:@"市"]) {
-        
-        locatin = [mutableString rangeOfString:@"市"];
-        
-    } else if ([mutableString containsString:@"自治区"]) {
-        
-        locatin = [mutableString rangeOfString:@"自治区"];
-        
-    } else if ([mutableString containsString:@"省"]) {
-        
-        locatin = [mutableString rangeOfString:@"省"];
-    }
-
-    if (locatin.length != 0) {
-        
-        [mutableString deleteCharactersInRange:locatin];
-    }
-    
-    return mutableString;
-}
-
 //定位并获取获取城市名字
 - (void)startFindLocationSucess:(void (^)(NSString *,NSString *))success
                         failure:(void (^)(NSError *))failure {
@@ -188,7 +191,7 @@
         
         self.coordinate2D = coordinate2D;
         
-        success([self mutableStringWithString:locality],[self mutableStringWithString:administrativeArea]);
+        success(locality,administrativeArea);
         
     } failure:^(NSError *error) {
         
@@ -202,6 +205,13 @@
     CityViewController *controller = [[CityViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
+    
+    //点击了市cell回调
+    [controller setCityBlock:^(NSString *provinceName, NSString *cityName) {
+       
+        [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:provinceName withCityName:cityName isFromCityController:YES];
+        
+    }];
     
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -269,7 +279,7 @@
 - (void)getShopListDataWithSearchCondition:(SearchConditionModel *)conditionModel pageNumber:(NSInteger)pageNumber {
     
     if (pageNumber != 1) {//上拉刷新
-        
+    
         [self.dataHandler sendShopListWithSearchConditionModel:conditionModel Success:^(NSMutableArray *dataArray) {
             
             for (int i = 0; i < dataArray.count; i++) {
@@ -288,6 +298,8 @@
             
             self.pageNumber += 1;//上拉刷新后增加页数
             
+            
+            
         } failure:^(NSError *error) {
             
              [self.tableView.mj_footer endRefreshing];
@@ -296,6 +308,8 @@
         
     } else {//下拉刷新和首次刷新
 
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
         [self.dataHandler sendShopListWithSearchConditionModel:conditionModel Success:^(NSMutableArray *dataArray) {
             
             self.shopListArray = dataArray;
@@ -306,9 +320,13 @@
             
             self.pageNumber = 1;//下拉刷新后重置页数
             
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
         } failure:^(NSError *error) {
             
             [self.tableView.mj_header endRefreshing];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         }];
     }
@@ -342,7 +360,7 @@
     
     if (column == 0) {
         
-        return self.placeArray.count;
+        return self.locationArray.count + 1;
         
     } else if (column == 1) {
         
@@ -359,10 +377,17 @@
     
     if (indexPath.column == 0) {
         
-        DataModel *model = self.placeArray[indexPath.row];
+        if (indexPath.row == 0) {//第一行需要显示所有的商圈
+            
+            return @"全部商圈";
+            
+        } else {//非第一行
         
-        return model.name;
-        
+            RegionalModel *model = self.locationArray[indexPath.row - 1 ];
+            
+            return model.regionName;
+        }
+
     } else if (indexPath.column == 1) {
         
         if (indexPath.row == 0) {
@@ -429,11 +454,16 @@
     
     if (column == 0 ) {
         
-        DataModel *model = self.placeArray[row];
-        
-        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
-        
-        return array.count;
+        if (row == 0) {
+            
+            return 1;
+            
+        } else {
+            
+            RegionalModel *model = self.locationArray[row - 1];
+            
+            return model.businessCircleList.count;
+        }
     }
     
     return 0;
@@ -455,13 +485,11 @@
         
     } else if (indexPath.column == 0) {
         
-        DataModel *model = self.placeArray[indexPath.row];
+        RegionalModel *model = self.locationArray[indexPath.row - 1];
         
-        NSMutableArray *array =  [[PlaceManager shareManager] businessCircleWithPcode:model.code];
+        BusinessCircleModel *circleModel = model.businessCircleList[indexPath.item];
         
-        DataModel *businessCircelModel = array[indexPath.item];
-        
-        return businessCircelModel.name;
+        return circleModel.regionName;
         
     }
     
@@ -471,11 +499,14 @@
 - (NSInteger)guoJiaMenu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
     
     if (column == 0 ) {
-    
-        SubwayModel *subWay = self.subwayArray[row];
         
-        return subWay.list.count;
-        
+        if (self.subwayArray.count) {
+            
+            SubwayModel *subWay = self.subwayArray[row];
+            
+            return subWay.list.count;
+            
+        }
     }
     return 0;
 }
@@ -600,30 +631,19 @@
     
     if (indexPath.column == 0 ) {//点击商圈
         
-        DataModel *model = self.placeArray[indexPath.row];
-        
-        self.conditionModel.regional = model.name;
-        
         if (indexPath.row == 0) {
             
-            if (indexPath.item == 0) {
-                
-                self.conditionModel.businessCircle = @"全部商区";
-                
-            } else if (indexPath.item == 1) {
-                
-                self.conditionModel.businessCircle = @"等待赋值";
-            }
+            self.conditionModel.businessCircle = @"全部商区";
             
-        } else if (indexPath.row == 1) {
+        } else {
             
-            if (indexPath.item == 0) {
+            RegionalModel *model = self.locationArray[indexPath.row - 1];
+            
+            if (model.businessCircleList.count) {
                 
-                self.conditionModel.businessCircle = @"黄埔商圈";
+                BusinessCircleModel *circleModel = model.businessCircleList[indexPath.item];
                 
-            } else if (indexPath.item == 1) {
-                
-                self.conditionModel.businessCircle = @"黄埔军校";
+                self.conditionModel.businessCircle = circleModel.regionName;
             }
         }
         

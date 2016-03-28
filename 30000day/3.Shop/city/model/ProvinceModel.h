@@ -10,23 +10,47 @@
 
 @interface ProvinceModel : NSObject < NSCoding >
 
-@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *regionName;
 
-@property (nonatomic,strong) NSMutableArray *cityArray;
+@property (nonatomic,strong) NSMutableArray *cityList;
+
+@property (nonatomic,strong) NSNumber *provinceId;
 
 @end
 
 @interface CityModel : NSObject < NSCoding >
 
-@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy)   NSString *regionName;
 
-@property (nonatomic,strong) NSMutableArray *businessCircleArray;
+@property (nonatomic,strong) NSMutableArray *countyList;
+
+@property (nonatomic,strong) NSNumber *cityId;
+
+@property (nonatomic,copy)   NSString *isHotCity;//是否是热门城市
+
+@end
+
+@interface RegionalModel : NSObject
+
+@property (nonatomic,copy) NSString *regionName;
+
+@property (nonatomic,strong) NSMutableArray *businessCircleList;
+
+@property (nonatomic,strong) NSNumber *regionalId;
+
+@end
+
+@interface BusinessCircleModel : NSObject < NSCoding >
+
+@property (nonatomic,copy) NSString *regionName;
 
 @end
 
 
-@interface LocationModel : NSObject < NSCoding >
+@interface HotCityModel : NSObject
 
-@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *provinceName;
+
+@property (nonatomic,copy) NSString *cityName;
 
 @end

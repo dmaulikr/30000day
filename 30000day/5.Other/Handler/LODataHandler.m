@@ -20,7 +20,6 @@
 #import "GetFactorModel.h"
 #import "UserInformationManager.h"
 #import "MJExtension.h"
-#import "DataModel.h"
 #import "ShopModel.h"
 #import "SubwayModel.h"
 
@@ -2695,8 +2694,11 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:cityId forKey:@"citySign"];
-    
+    if (![Common isObjectNull:cityId]) {
+        
+        [params setObject:cityId forKey:@"citySign"];
+    }
+
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_LINE_LIST
                                                  parameters:params
@@ -2803,7 +2805,7 @@
     
     if (![conditionModel.sequence isEqualToNumber:@0] && ![Common isObjectNull:conditionModel.sequence]) {
         if ([conditionModel.sequence isEqualToNumber:@2]) {
-            [params addParameter:conditionModel.latitude forKey:@"dimension"];
+            [params addParameter:conditionModel.latitude forKey:@"latitude"];
             [params addParameter:conditionModel.longitude forKey:@"longitude"];
         }
         [params addParameter:conditionModel.sequence forKey:@"sequence"];
@@ -2833,9 +2835,9 @@
     }
     
     //两个必填
-    [params addParameter:conditionModel.provinceName forKey:@"addrProvince"];
+    [params addParameter:[Common deletedStringWithParentString:conditionModel.provinceName] forKey:@"addrProvince"];
     
-    [params addParameter:conditionModel.cityName forKey:@"addrCity"];
+    [params addParameter:[Common deletedStringWithParentString:conditionModel.cityName] forKey:@"addrCity"];
     
     [Common urlStringWithDictionary:params withString:GET_SHOP_LIST];
     

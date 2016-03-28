@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FSCalendar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -39,12 +49,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MWPhotoBrowser-MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>YYModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -67,7 +92,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3F0FC86A01655A7ABBF27B6141C31DDD</key>
+		<key>12E04CEBC17486BF37004EDF24B44CA1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>353E9BD3A1D5DEEBCFDA757FB3315554</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66F4267D0FA823D4F32E319860C41C9B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>757D2F67B9A4883EA54DB5845853D0A9</key>
+		<key>5813251FEA21E4AEE97385709F1912DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,6 +127,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9775596B3CA16905FC8F66DA8E2A3C67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9EAB3E42EF957541E6C3C76D35FD008E</key>
 		<dict>
 			<key>primary</key>
@@ -112,7 +142,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9FF5D0D165F307B98DD69ACD26D12AB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>BCCC0F4081C473B2448DD2FB829E748C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4652D32456E3D324EC466CA950493E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E2FE87384A67337831E53490EEA8BF11</key>
 		<dict>
 			<key>primary</key>
 			<true/>

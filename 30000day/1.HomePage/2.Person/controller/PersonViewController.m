@@ -194,8 +194,9 @@
 
 - (void)dealloc {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [STNotificationCenter removeObserver:self];
 }
+
 
 /*
 #pragma mark - Navigation
