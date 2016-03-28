@@ -12,12 +12,22 @@
 @implementation CommentDetailsTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+   
+    [self.commentButton addTarget:self action:@selector(commentClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+}
+
+- (void)commentClick:(UIButton *)sender {
+    
+    if (self.commentBlock) {
+        self.commentBlock((UIButton *)sender);
+    }
+    
 }
 
 - (IBAction)checkReply:(id)sender {

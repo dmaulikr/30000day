@@ -115,6 +115,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="checkReply" destination="dCD-GR-XxL" id="VAN-sE-1lE"/>
+                <outlet property="commentButton" destination="xVh-bd-7fC" id="oAO-Wt-Ra4"/>
                 <outlet property="commentContentImageViewOne" destination="F0N-qP-XP6" id="iVq-hI-CIN"/>
                 <outlet property="commentContentImageViewThree" destination="7R5-7q-8uL" id="9DI-4h-3yW"/>
                 <outlet property="commentContentImageViewTwo" destination="R0l-HJ-hxi" id="sWg-Gf-7H9"/>

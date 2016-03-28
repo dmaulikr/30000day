@@ -50,16 +50,24 @@
     
     self.badButton.layer.cornerRadius = 8;
     
-    [self.allButton setTag:1];
+    [self.allButton setTag:-1];
+    //[self.allButton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
+    //[self.allButton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
     [self.allButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.praiseButton setTag:2];
+    [self.praiseButton setTag:1];
+    //[self.praiseButton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
+    //[self.praiseButton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
     [self.praiseButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.commonlyBtton setTag:3];
+    [self.commonlyBtton setTag:2];
+    //[self.commonlyBtton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
+    //[self.commonlyBtton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
     [self.commonlyBtton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.badButton setTag:4];
+    [self.badButton setTag:3];
+    //[self.badButton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
+    //[self.badButton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
     [self.badButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
 }

@@ -15,6 +15,8 @@
 
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
+@property (nonatomic,copy) void (^(commentBlock))(UIButton *commentButton);
+
 @property (weak, nonatomic) IBOutlet UIImageView *commentHeadPortraitImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *commentNameLable;
@@ -24,6 +26,8 @@
 @property (nonatomic,strong) CommentModel *commentModel;
 
 @property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewOne;

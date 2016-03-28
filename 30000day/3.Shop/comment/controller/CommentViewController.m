@@ -14,11 +14,13 @@
 #import "CommentModel.h"
 #import "CommentDetailsTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "MWPhoto.h"
+#import "MWPhotoBrowser.h"
 
 #define WIDTH  [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 
-@interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
 
@@ -26,13 +28,7 @@
 
 @property (nonatomic,assign) BOOL save;
 
-@property (nonatomic,strong) UIImageView * imageView;
-@property (nonatomic,strong) UIScrollView *scrollView;
-@property (nonatomic,strong) UIScrollView *scrollViewMain;
-@property (nonatomic,strong) UIImageView *lastImageView;
-@property (nonatomic,assign) CGRect originalFrame;
-@property (nonatomic,copy) NSArray *imageUrlArray;
-@property (nonatomic,copy) NSArray *imageArray;
+@property (nonatomic,strong) NSMutableArray *photos;
 
 @end
 
@@ -59,12 +55,15 @@
     
     self.isShowBackItem = YES;
     
+    //STUserAccountHandler.userProfile.userId.integerValue
     [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
+       
+        [self showToast:@"数据加载失败"];
         
     }];
     
@@ -169,23 +168,7 @@
         
         [commentOptionsTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
            
-            if (changeStatusButton.tag == 1) {
-                
-                [self showToast:@"1"];
-                
-            } else if (changeStatusButton.tag == 2){
-                
-                [self showToast:@"2"];
-            
-            } else if (changeStatusButton.tag == 3){
-                
-                [self showToast:@"3"];
-            
-            } else {
-                
-                [self showToast:@"4"];
-            
-            }
+            [self commentType:changeStatusButton];
             
         }];
         
@@ -210,6 +193,13 @@
                 
                 [shopDetailCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
             }
+            
+            [shopDetailCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
+                
+                [self commentWithIndexPathRow:indexPath];
+                
+            }];
+            
             
             [shopDetailCommentTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
                 
@@ -258,12 +248,7 @@
             
             [shopDetailCommentTableViewCell setLookPhoto:^(UIImageView *imageView){
 
-                [self load];
-                
-//                CommodityCommentViewController *commodityCommentViewController = [[CommodityCommentViewController alloc] init];
-//                [self presentViewController:commodityCommentViewController animated:NO completion:^{
-//                    
-//                }];
+                [self browserImage];
                 
             }];
             
@@ -278,6 +263,12 @@
                 commentDetailsTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommentDetailsTableViewCell" owner:nil options:nil] lastObject];
                 
             }
+            
+            [commentDetailsTableViewCell setCommentBlock:^(UIButton *commentButton) {
+                
+                [self commentWithIndexPathRow:indexPath];
+                
+            }];
 
             [commentDetailsTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
                 
@@ -300,66 +291,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
-        
-        return;
-        
-    } else {
-        
-        [self refreshControllerInputViewHide];
-        
-            self.isShowInputView = YES;
-            
-            [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInt:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
-                
-                if (message != nil) {
-                    
-                    CommentModel *commentModel = self.commentModelArray[flag.integerValue];
-                
-                    [self.dataHandler sendsaveCommentWithProductId:commentModel.productId
-                                                              type:commentModel.type.integerValue
-                                                            userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue]
-                                                            remark:message numberStar:-1
-                                                            picUrl:nil
-                                                               pId:commentModel.commentId
-                                                           Success:^(BOOL success) {
-                        
-                        if (success) {
-                            
-                            self.save = YES;
-                            
-                            [self showToast:@"回复成功"];
-                            
-                            [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
-                                
-                                self.commentModelArray = [NSMutableArray arrayWithArray:success];
-                                
-                                [self.tableView reloadData];
-                                
-                            } failure:^(NSError *error) {
-                                
-                                [self showToast:@"刷新失败"];
-                                
-                            }];
-                            
-                        } else {
-                        
-                            [self showToast:@"回复失败"];
-                            
-                        }
-                        
-                    } failure:^(NSError *error) {
-                        
-                        [self showToast:@"回复失败"];
-                        
-                    }];
-                    
-                }
-                
-            }];
-        
-        }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -379,6 +310,7 @@
     
 }
 
+//查看回复
 - (void)cellDataProcessing:(UIButton *)changeStatusButton
               commentModel:(CommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
@@ -440,123 +372,140 @@
     
 }
 
+- (void)commentType:(UIButton *)changeStatusButton {
+
+    self.save = NO;
+    
+    [self showHUD:YES];
+    [self.dataHandler sendfindCommentListWithProductId:8 type:changeStatusButton.tag pId:0 userId:-1 Success:^(NSMutableArray *success) {
+            
+        if (success.count > 0) {
+            
+            [self.commentModelArray removeAllObjects];
+            
+            for (int i = 0; i < success.count; i++) {
+                
+                CommentModel *comment = success[i];
+                comment.level = 1;
+                [self.commentModelArray addObject:comment];
+                
+            }
+            
+            [self.tableView reloadData];
+            
+        }
+        
+        [self hideHUD:YES];
+        
+    } failure:^(NSError *error) {
+        
+        [self showToast:@"数据加载失败"];
+        
+    }];
+}
+
+
+
+//点击评论
+- (void)commentWithIndexPathRow:(NSIndexPath *)indexPath {
+
+    [self refreshControllerInputViewHide];
+    
+    self.isShowInputView = YES;
+    
+    [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
+        
+        if (message != nil) {
+            
+            CommentModel *commentModel = self.commentModelArray[flag.integerValue];
+            
+            [self.dataHandler sendsaveCommentWithProductId:commentModel.productId
+                                                      type:commentModel.type.integerValue
+                                                    userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue]
+                                                    remark:message numberStar:-1
+                                                    picUrl:nil
+                                                       pId:commentModel.commentId
+                                                   Success:^(BOOL success) {
+                                                       
+                                                       if (success) {
+                                                           
+                                                           self.save = YES;
+                                                           
+                                                           [self showToast:@"回复成功"];
+                                                           
+                                                           [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
+                                                               
+                                                               self.commentModelArray = [NSMutableArray arrayWithArray:success];
+                                                               
+                                                               [self.tableView reloadData];
+                                                               
+                                                           } failure:^(NSError *error) {
+                                                               
+                                                               [self showToast:@"刷新失败"];
+                                                               
+                                                           }];
+                                                           
+                                                       } else {
+                                                           
+                                                           [self showToast:@"回复失败"];
+                                                           
+                                                       }
+                                                       
+                                                   } failure:^(NSError *error) {
+                                                       
+                                                       [self showToast:@"回复失败"];
+                                                       
+                                                   }];
+            
+        }
+        
+    }];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)browserImage {
 
-- (void)load {
+    self.photos = [[NSMutableArray alloc] init];
+    MWPhoto *photo;
+
+    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a1"]];
+    //photo.caption = @"Fireworks";
+    [self.photos addObject:photo];
+
+    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a2"]];
+    //photo.caption = @"Campervan";
+    [self.photos addObject:photo];
     
-    NSArray *imgArray = [NSArray arrayWithObjects:@"a1",@"a2",@"a3",@"a4", nil];
+    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a3"]];
+    //photo.caption = @"Fireworks";
+    [self.photos addObject:photo];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0,WIDTH, HEIGHT)];
-    
-    [scrollView setDelegate:self];
-    [scrollView setBackgroundColor:[UIColor blackColor]];
-    [scrollView setContentSize:CGSizeMake(WIDTH * imgArray.count, HEIGHT)];
-    [scrollView setPagingEnabled:YES];
-    [scrollView setTag:1];
-    
-    UITapGestureRecognizer *tapBg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgView:)];
-    [scrollView addGestureRecognizer:tapBg];
-    
-    self.scrollView = scrollView;
-    
-    for (int i = 0; i < imgArray.count; i++) {
-        
-        self.imageView = [[UIImageView alloc] init];
-        [self.imageView setTag:i + 100];
-        [self.imageView setImage:[UIImage imageNamed:imgArray[i]]];
-        
-        CGRect frame;
-        frame.size.width = WIDTH;
-        frame.size.height = frame.size.width * (self.imageView.image.size.height / self.imageView.image.size.width);
-        frame.origin.x = i * WIDTH;
-        frame.origin.y = (HEIGHT - frame.size.height) * 0.5;
-        self.imageView.frame = frame;
-        
-        [scrollView addSubview:self.imageView];
-        
-    }
-    
-    [[[UIApplication sharedApplication] keyWindow] addSubview:scrollView];
-    
-    
+    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a4"]];
+    //photo.caption = @"Campervan";
+    [self.photos addObject:photo];
+
+
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    [self.navigationController pushViewController:browser animated:NO];
 
 }
 
-- (void)showZoomImageView:(UIImageView *)imgView scrollView:(UIScrollView *)bgView {
-    
-    if (!imgView) {
-        return;
-    }
-    
-    bgView.backgroundColor = [UIColor blackColor];
-    UITapGestureRecognizer *tapBg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgView:)];
-    [bgView addGestureRecognizer:tapBg];
-    
-    UIImageView *picView = imgView;
-    
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image = picView.image;
-    imageView.frame = [bgView convertRect:picView.frame fromView:self.view];
-    [bgView addSubview:imageView];
-    
-    self.lastImageView = imageView;
-    self.originalFrame = imageView.frame;
-    self.scrollView = bgView;
-    //最大放大比例
-    self.scrollView.maximumZoomScale = 1.5;
-    self.scrollView.delegate = self;
-    
-    CGRect frame = imageView.frame;
-    frame.size.width = bgView.frame.size.width;
-    frame.size.height = frame.size.width * (imageView.image.size.height / imageView.image.size.width);
-    frame.origin.x = 0;
-    frame.origin.y = (bgView.frame.size.height - frame.size.height) * 0.5;
-    imageView.frame = frame;
-    
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.photos.count;
 }
 
-- (void)tapBgView:(UITapGestureRecognizer *)tapBgRecognizer {
-    
-    self.scrollView.contentOffset = CGPointZero;
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        self.lastImageView.frame = CGRectMake(WIDTH/2, HEIGHT/2, 10, 10);
-        tapBgRecognizer.view.backgroundColor = [UIColor clearColor];
-        
-    } completion:^(BOOL finished) {
-        
-        [tapBgRecognizer.view removeFromSuperview];
-        self.scrollView = nil;
-        self.lastImageView = nil;
-        
-    }];
+- (id )photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < _photos.count)
+        return [_photos objectAtIndex:index];
+    return nil;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
- 
-    if (scrollView.tag == 1) {
-    
-        NSInteger tag = scrollView.contentOffset.x / WIDTH;
-        
-        self.lastImageView = (UIImageView *)[self.view viewWithTag:tag + 100];
-        
-    } else {
-
-        [self refreshControllerInputViewHide];
-        
-    }
-    
-}
-
-//返回可缩放的视图
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    
-    return self.lastImageView;
-}
 
 
 @end
