@@ -232,6 +232,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 //*********************************根据筛选条件来获取所有的商品列表*******************/
 - (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
                                     isSearch:(BOOL)isSearch
+                                  pageNumber:(NSInteger)pageNumber
                                      Success:(void (^)(NSMutableArray *))success
                                      failure:(void (^)(NSError *error))failure;
 

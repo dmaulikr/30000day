@@ -12,8 +12,6 @@
 
 @interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic,strong) NSNumber *flag;
-
 @property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
 
 @end
@@ -26,7 +24,9 @@
     
     STChoosePictureView *_choosePictureView;
     
-    float keyBoardHeight;
+    float _keyBoardHeight;
+    
+    NSNumber *_flag;
 }
 
 - (void)viewDidLoad {
@@ -156,12 +156,13 @@
         
         __weak typeof(_imageArray) weakImageArray = _imageArray;
         
+        __weak typeof(_flag) weakFlag = _flag;
         //键盘点击回调
         [_inputView setButtonClickBlock:^(STInputViewButtonClickType type) {
             
             if (type == STInputViewButtonSendType) {
                 
-                weakSelf.inputViewBlock(weakInputView.textView.text,weakImageArray,weakSelf.flag);
+                weakSelf.inputViewBlock(weakInputView.textView.text,weakImageArray,weakFlag);
                 
                 [weakSelf refreshControllerInputViewHide];
                 
@@ -251,7 +252,7 @@
     self.inputViewBlock =  block;
     
     //储存标记的flag
-    self.flag = flag;
+    _flag = flag;
     
     [self inputViewMakeVisible];
 }
@@ -260,7 +261,7 @@
     
     self.inputViewBlock = nil;
     
-    self.flag = nil;
+    _flag = nil;
     
     [_inputView.textView resignFirstResponder];
 }
@@ -283,11 +284,11 @@
     
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    keyBoardHeight = keyboardFrame.size.height;
+    _keyBoardHeight = keyboardFrame.size.height;
     
     [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - _inputView.height;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - _inputView.height;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -383,7 +384,7 @@
         
         _inputView.height = 47;
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -391,7 +392,7 @@
         
         _inputView.height =  47 + 20;
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -399,7 +400,7 @@
         
         _inputView.height  = 47.0f + 20*2;
         
-       _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*2;
+       _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*2;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -407,7 +408,7 @@
         
         _inputView.height  = 47 + 20*3;
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*3;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*3;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -415,7 +416,7 @@
         
         _inputView.height  = 47 + 20*4;
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*4;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*4;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
         
@@ -423,7 +424,7 @@
         
         _inputView.height = 47 + 20*5;
         
-        _inputView.y = SCREEN_HEIGHT - keyBoardHeight - 47 - 20*5;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*5;
         
         _choosePictureView.y = _inputView.y - 10 - 60;
     }

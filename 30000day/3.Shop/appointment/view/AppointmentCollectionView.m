@@ -11,8 +11,32 @@
 
 #define HeightMargin  0.0f
 
-@interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface FlagModel : NSObject
 
+@property (nonatomic,strong) NSIndexPath *flagIndexPath;
+
+@property (nonatomic,assign) NSInteger flag;//用来表示是否被选中
+
+@end
+
+@implementation FlagModel
+
+- (id)init {
+    
+    if (self = [super init]) {
+        
+        _flag = 0;
+        
+    }
+    
+    return self;
+}
+
+@end
+
+@interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout> {
+    NSMutableArray *_flagArray;
+}
 @end
 
 @implementation AppointmentCollectionView
@@ -52,6 +76,31 @@
     }
     
     self.backgroundColor = [UIColor whiteColor];
+    
+    //循环设置数据源数组
+    _flagArray = [NSMutableArray array];
+    
+    NSInteger a = self.time_dataArray.count ? self.time_dataArray.count : 4;
+    
+    NSInteger b = self.dataArray.count ? self.time_dataArray.count : 5;
+    
+    for (int i = 0 ; i < a - 1; i++) {
+        
+        NSMutableArray *firstArray = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < b; j++) {
+            
+            FlagModel *model = [[FlagModel alloc] init];
+            
+            model.flagIndexPath = [NSIndexPath indexPathForRow:j inSection:i];
+            
+            model.flag = 0;
+            
+            [firstArray addObject:model];
+        }
+        
+        [_flagArray addObject:firstArray];
+    }
     
     //1.设置FlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -173,14 +222,17 @@
             cell.type = type;
             
             if (type == AppointmentColorCanUse) {
+        
+                FlagModel *model = _flagArray[b-1][a];
                 
-                if (cell.flag) {
+                if (model.flag) {
                     
                     cell.backgroundColor = [UIColor redColor];
-
+                    
                 } else {
                     
                     cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                    
                 }
                 
             } else if (type == AppointmentColorMyUse) {
@@ -224,21 +276,22 @@
              
              if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
                  
-                 [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForItem:a inSection:b]];
+                 [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForRow:a inSection:b-1]];
              }
+            
+             FlagModel *model = _flagArray[b-1][a];
              
-             if (cell.flag) {
+             if (model.flag) {
                  
-                  cell.flag = 0;
+                 model.flag = 0;
                  
-                  cell.backgroundColor =  RGBACOLOR(175, 235, 178, 1);
+                 cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
                  
              } else {
                  
-                 cell.flag = 1;
+                 model.flag = 1;
                  
                  cell.backgroundColor = [UIColor redColor];
-                 
              }
          }
      }

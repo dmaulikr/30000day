@@ -287,10 +287,8 @@
 - (void)getShopListDataWithSearchCondition:(SearchConditionModel *)conditionModel pageNumber:(NSInteger)pageNumber {
     
     if (pageNumber != 1) {//上拉刷新
-    
-        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
-                                                      isSearch:![Common isObjectNull:self.searchBar.text]
-                                                       Success:^(NSMutableArray *dataArray) {
+        
+        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel isSearch:![Common isObjectNull:self.searchBar.text] pageNumber:pageNumber Success:^(NSMutableArray *dataArray) {
             
             for (int i = 0; i < dataArray.count; i++) {
                 
@@ -302,35 +300,39 @@
             if (!dataArray.count) {
                 
                 [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+                
+            } else {
+                
+                [self.tableView.mj_footer setState:MJRefreshStateIdle];
             }
             
-            [self.tableView.mj_footer endRefreshing];
-            
-            self.pageNumber += 1;//上拉刷新后增加页数
-            
-            
+            self.pageNumber += 1;//数据下载成功加1
             
         } failure:^(NSError *error) {
             
-             [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
             
         }];
-        
     } else {//下拉刷新和首次刷新
 
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        
+    
         [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
-                                                        isSearch:![Common isObjectNull:self.searchBar.text]
+                                                      isSearch:![Common isObjectNull:self.searchBar.text]
+                                                    pageNumber:pageNumber
                                                        Success:^(NSMutableArray *dataArray) {
             
             self.shopListArray = dataArray;
             
             [self.tableView reloadData];
-
+            
             [self.tableView.mj_header endRefreshing];
             
-            self.pageNumber = 1;//下拉刷新后重置页数
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                                                           
+            self.pageNumber = 1;//下拉刷新当前的页数是1
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
@@ -338,8 +340,9 @@
             
             [self.tableView.mj_header endRefreshing];
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
             
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
     }
 }
@@ -354,7 +357,7 @@
 
 - (void)footerRereshing {
     
-    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.shopListArray.count];
+    [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:self.pageNumber + 1];
 }
 
 #pragma ---
