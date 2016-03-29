@@ -2534,13 +2534,13 @@
     [self startRequest:request];
 }
 
-- (void)sendCompanyDetailsWithCompanyId:(NSString *)companyId
+- (void)sendCompanyDetailsWithProductId:(NSString *)productId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure{
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:companyId forKey:@"productId"];
+    [params setObject:productId forKey:@"productId"];
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_COMPANYDETAILS

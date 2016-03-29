@@ -20,5 +20,13 @@
     // Configure the view for the selected state
 }
 
+- (void)setShopDetailModel:(ShopDetailModel *)shopDetailModel {
+
+    _shopDetailModel = shopDetailModel;
+
+    self.storeLable.text = shopDetailModel.productName;
+    self.positionLable.text = shopDetailModel.productKeyword;
+    
+}
 
 @end
