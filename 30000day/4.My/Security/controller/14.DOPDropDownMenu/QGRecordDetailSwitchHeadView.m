@@ -32,20 +32,36 @@
     //设置两个按钮
     UIButton *firstButton = [self creatButtonWithTitle:@"全部商圈" frame:CGRectMake(0,0,self.width/2.0f,self.height - 4.0f)];
     
+    firstButton.tag = 86;
+    
     [self addSubview:firstButton];
     
     UIButton *secondButton = [self creatButtonWithTitle:@"地铁" frame:CGRectMake(self.width/2.0f,0,self.width/2.0f,self.height - 4)];
     
     self.btn_1 = firstButton;
     
+    [firstButton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [secondButton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    secondButton.tag = 87;
+    
+    self.btn_2 = secondButton;
+    
     [self addSubview:secondButton];
     
     //设置两个底部view
     UIView *firstView = [self createViewWithFrame:CGRectMake(0, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
     
+    self.view_1 = firstView;
+    
     [self addSubview:firstView];
     
-    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:[UIColor whiteColor]];
+    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
+    
+    secondView.alpha = 0.0f;
+    
+    self.view_2 = secondView;
     
     [self addSubview:secondView];
 }
@@ -72,22 +88,37 @@
     return button;
 }
 
-- (IBAction)btnClick:(id)sender {
+- (void)btnClick:(id)sender {
+    
     UIButton *btn = (UIButton *)sender;
+    
     if (btn.tag == 86) {
+        
         self.view_1.alpha = 1.0f;
+        
         self.view_2.alpha = 0;
+        
         [self.btn_2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
         [self.btn_1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        
         if (self.ClickBlock) {
+            
             self.ClickBlock(QGSwtichBtnFirstType);
         }
-    }else if (btn.tag == 87){
+        
+    } else if (btn.tag == 87){
+        
         self.view_2.alpha = 1.0f;
+        
         self.view_1.alpha = 0;
+        
         [self.btn_2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        
         [self.btn_1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
         if (self.ClickBlock) {
+            
             self.ClickBlock(QGSwtichBtnSecondType);
         }
     }

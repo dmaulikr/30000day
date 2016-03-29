@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarViewController">
             <connections>
+                <outlet property="tableView" destination="FsW-pa-V6q" id="dyQ-hz-tHb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,6 +15,22 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FsW-pa-V6q">
+                    <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="2vu-mH-vb6"/>
+                        <outlet property="delegate" destination="-1" id="ix0-pX-5HT"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="FsW-pa-V6q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="3c6-Vk-boJ"/>
+                <constraint firstAttribute="bottom" secondItem="FsW-pa-V6q" secondAttribute="bottom" id="hXd-6A-gWp"/>
+                <constraint firstAttribute="trailing" secondItem="FsW-pa-V6q" secondAttribute="trailing" id="wxg-Mz-jN1"/>
+                <constraint firstItem="FsW-pa-V6q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yYc-0C-oH7"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="25" y="52"/>
         </view>
