@@ -545,7 +545,7 @@
     if (isPostNotification) {
         
         //并发送通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
         
     }
 }

@@ -7,8 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarViewController">
             <connections>
-                <outlet property="chooseTodayButton" destination="Y0l-BM-ZUc" id="fUI-EK-R9P"/>
-                <outlet property="dateTtitleButton" destination="S0a-hf-iJr" id="hiJ-R1-pxX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,75 +14,8 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXg-l8-lhS">
-                    <rect key="frame" x="0.0" y="80" width="320" height="50"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0a-hf-iJr">
-                            <rect key="frame" x="10" y="0.0" width="98" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="98" id="Hry-9o-Eiz"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="2016-03-14">
-                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="selectorDateAction:" destination="-1" eventType="touchUpInside" id="7Oi-gZ-vaD"/>
-                            </connections>
-                        </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0l-BM-ZUc">
-                            <rect key="frame" x="116" y="0.0" width="50" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="50" id="3tv-aX-t5M"/>
-                            </constraints>
-                            <state key="normal" title="今天">
-                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="backTodayAction:" destination="-1" eventType="touchUpInside" id="Hl2-Xk-qst"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-PR-Sgp">
-                            <rect key="frame" x="260" y="0.0" width="50" height="49"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="50" id="Uux-HE-9SO"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                            <state key="normal" title="+">
-                                <color key="titleColor" red="0.29019607843137252" green="0.48627450980392156" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="addRemindAction:" destination="-1" eventType="touchUpInside" id="S52-Cb-C0u"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="xhR-PR-Sgp" firstAttribute="centerY" secondItem="LXg-l8-lhS" secondAttribute="centerY" id="5IH-AR-fb3"/>
-                        <constraint firstItem="Y0l-BM-ZUc" firstAttribute="top" secondItem="LXg-l8-lhS" secondAttribute="top" id="BJd-tc-5aH"/>
-                        <constraint firstItem="xhR-PR-Sgp" firstAttribute="top" secondItem="LXg-l8-lhS" secondAttribute="top" id="E7c-a4-hgl"/>
-                        <constraint firstAttribute="height" constant="50" id="Ea9-r2-LGp"/>
-                        <constraint firstAttribute="bottom" secondItem="Y0l-BM-ZUc" secondAttribute="bottom" id="Toa-SR-juQ"/>
-                        <constraint firstItem="S0a-hf-iJr" firstAttribute="centerY" secondItem="LXg-l8-lhS" secondAttribute="centerY" id="aka-fl-6Jr"/>
-                        <constraint firstItem="Y0l-BM-ZUc" firstAttribute="leading" secondItem="S0a-hf-iJr" secondAttribute="trailing" constant="8" id="bXn-iQ-vH7"/>
-                        <constraint firstItem="S0a-hf-iJr" firstAttribute="leading" secondItem="LXg-l8-lhS" secondAttribute="leading" constant="10" id="cZZ-no-e00"/>
-                        <constraint firstItem="S0a-hf-iJr" firstAttribute="top" secondItem="LXg-l8-lhS" secondAttribute="top" id="fRL-V1-IRJ"/>
-                        <constraint firstAttribute="trailing" secondItem="xhR-PR-Sgp" secondAttribute="trailing" constant="10" id="kUg-Ew-9b0"/>
-                    </constraints>
-                </view>
-            </subviews>
-            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstItem="LXg-l8-lhS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="Jgk-3I-mUf"/>
-                <constraint firstAttribute="trailing" secondItem="LXg-l8-lhS" secondAttribute="trailing" id="RgZ-1Z-cFr"/>
-                <constraint firstItem="LXg-l8-lhS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="abp-SB-O6g"/>
-            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="380" y="76"/>
+            <point key="canvasLocation" x="25" y="52"/>
         </view>
     </objects>
 </document>
