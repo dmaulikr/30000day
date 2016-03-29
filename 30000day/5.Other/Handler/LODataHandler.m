@@ -2783,7 +2783,7 @@
                                                                 
                                                                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                                                                 
-                                                                NSArray *array = recvDic[@"value"][@"datas"];
+                                                                NSArray *array = recvDic[@"value"];
                                                                 
                                                                 for (int i = 0; i < array.count; i++) {
                                                                     
