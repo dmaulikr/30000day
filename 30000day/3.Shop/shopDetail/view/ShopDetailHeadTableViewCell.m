@@ -26,6 +26,7 @@
 
     self.storeLable.text = shopDetailModel.productName;
     self.positionLable.text = shopDetailModel.productKeyword;
+    self.businessHoursLable.text = shopDetailModel.businessTime;
     
 }
 

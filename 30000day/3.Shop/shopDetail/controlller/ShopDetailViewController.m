@@ -402,7 +402,7 @@
 - (void)imagePlayerView:(MTImagePlayView *)imagePlayerView didTapAtIndex:(NSInteger)index {
 
     self.photos = [[NSMutableArray alloc] init];
-    
+
     for (int i = 0; i < self.sourceArray.count; i++) {
         
         MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:self.sourceArray[i]]];
