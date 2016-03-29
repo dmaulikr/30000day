@@ -17,15 +17,18 @@
 #import "ShopDetailModel.h"
 #import "Height.h"
 #import "CommodityCommentViewController.h"
+#import "MWPhoto.h"
+#import "MWPhotoBrowser.h"
 
 
 #define SECTIONSCOUNT 5
 
 
-@interface ShopDetailViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface ShopDetailViewController () <UITableViewDataSource,UITableViewDelegate,MTImagePlayerViewDelegate,MWPhotoBrowserDelegate>
 
-@property (nonatomic,strong)ShopDetailModel *shopDetailModel;
-@property (nonatomic,strong)NSArray *sourceArray;
+@property (nonatomic,strong) ShopDetailModel *shopDetailModel;
+@property (nonatomic,strong) NSArray *sourceArray;
+@property (nonatomic,strong) NSMutableArray *photos;
 
 @end
 
@@ -61,16 +64,18 @@
     
     self.tableView.dataSource  = self;
     
-    self.sourceArray = [NSArray arrayWithObjects:@"http://b.hiphotos.baidu.com/album/pic/item/caef76094b36acafe72d0e667cd98d1000e99c5f.jpg?psign=e72d0e667cd98d1001e93901213fb80e7aec54e737d1b867",@"http://pic1.nipic.com/2008-12-25/2008122510134038_2.jpg",@"http://atth.eduu.com/album/201203/12/1475134_1331559643qMzc.jpg",@"http://pic51.nipic.com/file/20141022/19779658_171157758000_2.jpg",@"http://h.hiphotos.baidu.com/image/pic/item/4034970a304e251f8ad847e7a586c9177f3e5385.jpg", nil];
-    
     [self showHUD:YES];
-    [self.dataHandler sendCompanyDetailsWithCompanyId:@"9" Success:^(ShopDetailModel *model) {
+    [self.dataHandler sendCompanyDetailsWithProductId:@"8" Success:^(ShopDetailModel *model) {
         
         [self hideHUD:YES];
         
-        self.shopDetailModel = model;
+        if (model.productPhotos != nil) {
+            
+            self.sourceArray = [model.productPhotos componentsSeparatedByString:@","];
+            
+        }
         
-        NSLog(@"%@",model.productTypePName);
+        self.shopDetailModel = model;
         
         [self.tableView reloadData];
         
@@ -214,10 +219,9 @@
             shopDetailHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        //[shopDetailHeadTableViewCell.rollImageView setMTImagePlayerViewDelegate:self];
+        [shopDetailHeadTableViewCell.rollImageView setMTImagePlayerViewDelegate:self];
         shopDetailHeadTableViewCell.rollImageView.sourceArray = self.sourceArray;
-        shopDetailHeadTableViewCell.storeLable.text = self.shopDetailModel.productName;
-        shopDetailHeadTableViewCell.positionLable.text = self.shopDetailModel.productKeyword;
+        shopDetailHeadTableViewCell.shopDetailModel = self.shopDetailModel;
         
         return shopDetailHeadTableViewCell;
         
@@ -393,6 +397,34 @@
     
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)imagePlayerView:(MTImagePlayView *)imagePlayerView didTapAtIndex:(NSInteger)index {
+
+    self.photos = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < self.sourceArray.count; i++) {
+        
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:self.sourceArray[i]]];
+        [self.photos addObject:photo];
+        
+    }
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    [browser setCurrentPhotoIndex:index];
+    [self.navigationController pushViewController:browser animated:NO];
+
+}
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.photos.count;
+}
+
+- (id )photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < _photos.count)
+        return [_photos objectAtIndex:index];
+    return nil;
 }
 
 @end

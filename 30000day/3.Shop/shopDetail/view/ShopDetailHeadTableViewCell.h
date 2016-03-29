@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *businessHoursKeyLable;
 
 
+@property (nonatomic,strong) ShopDetailModel *shopDetailModel;
 
 @end

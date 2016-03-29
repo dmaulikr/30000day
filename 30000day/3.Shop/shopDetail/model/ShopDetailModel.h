@@ -25,6 +25,7 @@
 @property (nonatomic,copy) NSString *productKeyword;       //产品关键词
 @property (nonatomic,copy) NSString *productName;          //产品名称
 @property (nonatomic,copy) NSString *productPhoto;         //产品照片
+@property (nonatomic,copy) NSString *productPhotos;        //产品详细照片
 @property (nonatomic,copy) NSString *productRebateID;      //产品折扣标识
 @property (nonatomic,copy) NSString *productTypeId;        //产品类型标识
 @property (nonatomic,copy) NSString *productTypePName;     //产品类型名称

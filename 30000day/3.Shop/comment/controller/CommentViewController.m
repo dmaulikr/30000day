@@ -468,19 +468,15 @@
     MWPhoto *photo;
 
     photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a1"]];
-    //photo.caption = @"Fireworks";
     [self.photos addObject:photo];
 
     photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a2"]];
-    //photo.caption = @"Campervan";
     [self.photos addObject:photo];
     
     photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a3"]];
-    //photo.caption = @"Fireworks";
     [self.photos addObject:photo];
     
     photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a4"]];
-    //photo.caption = @"Campervan";
     [self.photos addObject:photo];
 
 

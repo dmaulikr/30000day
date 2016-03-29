@@ -219,7 +219,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   failure:(void (^)(NSError *error))failure;
 
 //*********************************获取商家详细的数据*******************/
-- (void)sendCompanyDetailsWithCompanyId:(NSString *)companyId
+- (void)sendCompanyDetailsWithProductId:(NSString *)productId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure;
 
