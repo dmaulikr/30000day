@@ -12,12 +12,23 @@
 #import "RemindContentTableViewCell.h"
 #import "FSCalendar.h"
 
-@interface CalendarViewController () <QGPickerViewDelegate,FSCalendarDataSource, FSCalendarDelegate>
-@property (weak, nonatomic) IBOutlet FSCalendar *calendar;
+@interface CalendarViewController () < QGPickerViewDelegate,FSCalendarDataSource, FSCalendarDelegate ,FSCalendarDelegateAppearance>
+
+@property (nonatomic, strong) FSCalendar *calendar;
 
 @property (strong, nonatomic) NSCalendar *lunarCalendar;
 
 @property (strong, nonatomic) NSArray *lunarChars;
+
+@property (strong, nonatomic) NSDictionary *selectionColors;
+
+@property (strong, nonatomic) NSDictionary *borderDefaultColors;
+
+@property (strong, nonatomic) NSDictionary *borderSelectionColors;
+
+@property (strong, nonatomic) NSArray *datesWithEvent;
+
+@property (strong, nonatomic) NSArray *datesWithMultipleEvents;
 
 @end
 
@@ -27,27 +38,101 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    FSCalendar *calender = [[FSCalendar alloc] initWithFrame:CGRectMake(1, 75, SCREEN_WIDTH - 1, 300)];
+    self.selectionColors = @{@"2016/3/29":[UIColor greenColor],
+                             @"2016/3/30":[UIColor purpleColor],
+                             @"2016/3/31":[UIColor grayColor],
+                             @"2016/4/1":[UIColor cyanColor],
+                             @"2016/4/2":[UIColor greenColor],
+                             @"2016/4/3":[UIColor purpleColor],
+                             @"2016/4/4":[UIColor grayColor],
+                             @"2016/4/5":[UIColor cyanColor],
+                             @"2016/4/6":[UIColor greenColor],
+                             @"2016/4/7":[UIColor purpleColor],
+                             @"2016/4/8":[UIColor grayColor],
+                             @"2016/4/9":[UIColor cyanColor]};
     
-    calender.dataSource = self;
+    self.borderDefaultColors = @{@"2016/3/29":[UIColor brownColor],
+                                 @"2016/3/30":[UIColor magentaColor],
+                                 @"2016/3/31":FSCalendarStandardSelectionColor,
+                                 @"2016/4/1":[UIColor blackColor],
+                                 @"2016/4/2":[UIColor brownColor],
+                                 @"2016/4/3":[UIColor magentaColor],
+                                 @"2016/4/4":FSCalendarStandardSelectionColor,
+                                 @"2016/4/5":[UIColor blackColor],
+                                 @"2016/4/6":[UIColor brownColor],
+                                 @"2016/4/7":[UIColor magentaColor],
+                                 @"2016/4/8":FSCalendarStandardSelectionColor,
+                                 @"2016/4/9":[UIColor blackColor]};
     
-    calender.delegate = self;
+    self.borderSelectionColors = @{@"2016/3/29":[UIColor redColor],
+                                   @"2016/3/30":[UIColor purpleColor],
+                                   @"22016/3/31":FSCalendarStandardSelectionColor,
+                                   @"2016/4/1":FSCalendarStandardTodayColor,
+                                   @"2016/4/2":[UIColor redColor],
+                                   @"2016/4/3":[UIColor purpleColor],
+                                   @"2016/4/4":FSCalendarStandardSelectionColor,
+                                   @"2016/4/5":FSCalendarStandardTodayColor,
+                                   @"2016/4/6":[UIColor redColor],
+                                   @"2016/4/7":[UIColor purpleColor],
+                                   @"2016/4/8":FSCalendarStandardSelectionColor,
+                                   @"2016/4/9":FSCalendarStandardTodayColor};
     
-    calender.layer.cornerRadius = 5;
     
-    calender.layer.masksToBounds = YES;
+    self.datesWithEvent = @[@"2016-03-29",
+                            @"2016-03-30",
+                            @"2015-03-31",
+                            @"2015-03-28"];
     
-    calender.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+    self.datesWithMultipleEvents = @[@"2016-03-08",
+                                     @"2016-03-16",
+                                     @"2016-03-20",
+                                     @"2016-03-28"];
     
-    calender.scrollDirection = FSCalendarScrollDirectionVertical;
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(1, 65, SCREEN_WIDTH - 1, 300)];
     
-    calender.appearance.subtitleVerticalOffset = 3;
+    calendar.dataSource = self;
     
-    calender.appearance.titleFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0f];
+    calendar.delegate = self;
     
-    [self.view addSubview:calender];
+    calendar.layer.cornerRadius = 5;
     
-    self.calendar = calender;
+    calendar.layer.masksToBounds = YES;
+    
+    calendar.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+    
+    calendar.scrollDirection = FSCalendarScrollDirectionVertical;
+    
+    calendar.appearance.subtitleVerticalOffset = 2;
+    
+    calendar.appearance.titleFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:15.0f];
+    
+    calendar.appearance.weekdayTextColor = RGBACOLOR(0, 111, 225, 1);
+    
+    calendar.appearance.headerTitleColor = RGBACOLOR(0, 111, 225, 1);
+
+    calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase|FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
+    
+    self.calendar = calendar;
+    
+    [self.view addSubview:calendar];
+
+    UIButton *todayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [todayButton setTitle:@"今" forState:UIControlStateNormal];
+    
+    todayButton.frame = CGRectMake(SCREEN_WIDTH - 80, 65, 40, 40);
+    
+    [todayButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
+    
+    [todayButton addTarget:self action:@selector(todayButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:todayButton];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + 40, SCREEN_WIDTH, 0.5f)];
+    
+    view.backgroundColor = RGBACOLOR(200, 200, 200, 1);
+    
+    [self.view addSubview:view];
     
     _lunarCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
     
@@ -56,8 +141,8 @@
     _lunarChars = @[@"初一",@"初二",@"初三",@"初四",@"初五",@"初六",@"初七",@"初八",@"初九",@"初十",@"十一",@"十二",@"十三",@"十四",@"十五",@"十六",@"十七",@"十八",@"十九",@"二十",@"二一",@"二二",@"二三",@"二四",@"二五",@"二六",@"二七",@"二八",@"二九",@"三十"];
     
     //监听通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-//    
+//    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+//
 //    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
 //    
 //    swipe.direction = UISwipeGestureRecognizerDirectionUp;
@@ -69,9 +154,16 @@
 //    swipe_1.direction = UISwipeGestureRecognizerDirectionDown;
 //    
 //    [self.view addGestureRecognizer:swipe_1];
+    
+    
 }
 
+- (void)todayButtonClick {
+    
+   [_calendar setCurrentPage:[NSDate date] animated:NO];
+}
 
+//点击事件
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 
     if (self.calendar.scope == FSCalendarScopeMonth) {
@@ -96,6 +188,19 @@
     }
 }
 
+- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
+{
+    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
+    if ([_datesWithEvent containsObject:dateString]) {
+        return 1;
+    }
+    if ([_datesWithMultipleEvents containsObject:dateString]) {
+        return 3;
+    }
+    return 0;
+}
+
+
 - (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
     
     calendar.height = CGRectGetHeight(bounds);
@@ -118,14 +223,68 @@
 - (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date {
     
     NSInteger day = [_lunarCalendar components:NSCalendarUnitDay fromDate:date].day;
+    
     return _lunarChars[day-1];
 }
 
-
-
-- (void)calendarCurrentPageDidChange:(FSCalendar *)calendar
-{
+- (void)calendarCurrentPageDidChange:(FSCalendar *)calendar {
+    
     NSLog(@"%s %@", __FUNCTION__, [calendar stringFromDate:calendar.currentPage]);
+}
+
+#pragma mark - <FSCalendarDelegateAppearance>
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorForDate:(NSDate *)date
+{
+    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
+    if ([_datesWithEvent containsObject:dateString]) {
+        return [UIColor purpleColor];
+    }
+    return nil;
+}
+
+- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorsForDate:(NSDate *)date
+{
+    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
+    if ([_datesWithMultipleEvents containsObject:dateString]) {
+        return @[[UIColor magentaColor],appearance.eventColor,[UIColor blackColor]];
+    }
+    return nil;
+}
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance selectionColorForDate:(NSDate *)date
+{
+    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+    if ([_selectionColors.allKeys containsObject:key]) {
+        return _selectionColors[key];
+    }
+    return appearance.selectionColor;
+}
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date
+{
+    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+    if ([_borderDefaultColors.allKeys containsObject:key]) {
+        return _borderDefaultColors[key];
+    }
+    return appearance.borderDefaultColor;
+}
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderSelectionColorForDate:(NSDate *)date
+{
+    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+    if ([_borderSelectionColors.allKeys containsObject:key]) {
+        return _borderSelectionColors[key];
+    }
+    return appearance.borderSelectionColor;
+}
+
+- (FSCalendarCellShape)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance cellShapeForDate:(NSDate *)date
+{
+    if ([@[@8,@17,@21,@25] containsObject:@([_calendar dayOfDate:date])]) {
+        return FSCalendarCellShapeRectangle;
+    }
+    return FSCalendarCellShapeCircle;
 }
 
 //#pragma -----

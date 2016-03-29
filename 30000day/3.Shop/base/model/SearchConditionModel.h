@@ -21,8 +21,6 @@
 @property (nonatomic,copy) NSString *subwayStation;//地铁站
 //******************************************//
 
-@property (nonatomic,strong) NSNumber *pageNumber;//分页
-
 @property (nonatomic,strong) NSNumber *sequence;//排序：0默认排序，1评分最高 2离我最近【该参数2的时候，必须传递location】 3价格从低到高排序   4价格从高到低排序  类型:int（可选
 
 @property (nonatomic,strong) NSNumber *longitude;//经度

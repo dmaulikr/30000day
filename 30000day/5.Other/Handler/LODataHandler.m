@@ -2720,6 +2720,7 @@
 //*********************************获取根据筛选条件来获取所有的商品列表*******************/
 - (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
                                     isSearch:(BOOL)isSearch
+                                  pageNumber:(NSInteger)pageNumber
                                      Success:(void (^)(NSMutableArray *))success
                                      failure:(void (^)(NSError *error))failure {
     
@@ -2733,9 +2734,8 @@
         [params addParameter:conditionModel.sequence forKey:@"sequence"];
     }
     
-    //    if (![conditionModel.pageNumber isEqualToNumber:@1] && ![Common isObjectNull:conditionModel.pageNumber]) {
-    //        [params addParameter:conditionModel.pageNumber forKey:@"pageNumber"];
-    //    }
+    //分页
+    [params addParameter:[NSNumber numberWithInteger:pageNumber] forKey:@"currentPage"];
     
     if (![Common isObjectNull:conditionModel.subwayStation]) {//表示是点击地铁的
         
@@ -2783,7 +2783,7 @@
                                                                 
                                                                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                                                                 
-                                                                NSArray *array = recvDic[@"value"];
+                                                                NSArray *array = recvDic[@"value"][@"datas"];
                                                                 
                                                                 for (int i = 0; i < array.count; i++) {
                                                                     

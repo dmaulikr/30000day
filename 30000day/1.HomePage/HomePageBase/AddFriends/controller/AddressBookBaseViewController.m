@@ -90,7 +90,7 @@
     [self.view addSubview:self.backgroundView];
     
     //4.监听键盘通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
@@ -189,7 +189,7 @@
 
 - (void)dealloc {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [STNotificationCenter removeObserver:self];
 }
 
 
