@@ -244,6 +244,18 @@
         self.dateBlock(date);
     }
 }
+//
+//- (nullable UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date {
+//    
+//    if ([@[@15] containsObject:@([_calendar dayOfDate:date])]) {
+//        
+//        return [UIImage imageNamed:@"information"];
+//        
+//    } else {
+//        
+//        return nil;
+//    }
+//}
 
 - (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date {
     
@@ -259,62 +271,62 @@
 
 #pragma mark - <FSCalendarDelegateAppearance>
 
-- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorForDate:(NSDate *)date {
-    
-    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
-    
-    if ([_datesWithEvent containsObject:dateString]) {
-        
-        return [UIColor purpleColor];
-    }
-    return nil;
-}
+//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorForDate:(NSDate *)date {
+//    
+//    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
+//    
+//    if ([_datesWithEvent containsObject:dateString]) {
+//        
+//        return [UIColor purpleColor];
+//    }
+//    return nil;
+//}
+//
+//- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorsForDate:(NSDate *)date {
+//    
+//    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
+//    if ([_datesWithMultipleEvents containsObject:dateString]) {
+//        return @[[UIColor magentaColor],appearance.eventColor,[UIColor blackColor]];
+//    }
+//    return nil;
+//}
 
-- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventColorsForDate:(NSDate *)date {
-    
-    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
-    if ([_datesWithMultipleEvents containsObject:dateString]) {
-        return @[[UIColor magentaColor],appearance.eventColor,[UIColor blackColor]];
-    }
-    return nil;
-}
+//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance selectionColorForDate:(NSDate *)date {
+//    
+//    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+//    
+//    if ([_selectionColors.allKeys containsObject:key]) {
+//        
+//        return _selectionColors[key];
+//    }
+//    
+//    return appearance.selectionColor;
+//}
+//
+//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date {
+//    
+//    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+//    
+//    if ([_borderDefaultColors.allKeys containsObject:key]) {
+//        
+//        return _borderDefaultColors[key];
+//    }
+//    
+//    return appearance.borderDefaultColor;
+//}
 
-- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance selectionColorForDate:(NSDate *)date {
-    
-    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
-    
-    if ([_selectionColors.allKeys containsObject:key]) {
-        
-        return _selectionColors[key];
-    }
-    
-    return appearance.selectionColor;
-}
-
-- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date {
-    
-    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
-    
-    if ([_borderDefaultColors.allKeys containsObject:key]) {
-        
-        return _borderDefaultColors[key];
-    }
-    
-    return appearance.borderDefaultColor;
-}
-
-- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderSelectionColorForDate:(NSDate *)date {
-    
-    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
-    
-    if ([_borderSelectionColors.allKeys containsObject:key]) {
-        
-        return _borderSelectionColors[key];
-        
-    }
-    
-    return appearance.borderSelectionColor;
-}
+//- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderSelectionColorForDate:(NSDate *)date {
+//    
+//    NSString *key = [_calendar stringFromDate:date format:@"yyyy/MM/dd"];
+//    
+//    if ([_borderSelectionColors.allKeys containsObject:key]) {
+//        
+//        return _borderSelectionColors[key];
+//        
+//    }
+//    
+//    return appearance.borderSelectionColor;
+//}
 
 - (FSCalendarCellShape)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance cellShapeForDate:(NSDate *)date {
     
@@ -325,6 +337,25 @@
     }
     
     return FSCalendarCellShapeCircle;
+}
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance selectionColorForDate:(NSDate *)date {
+    
+    if ([_calendar dayOfDate:date] % 2 == 0) {
+        
+        return appearance.selectionColor;
+    }
+    
+    return [UIColor purpleColor];
+}
+
+- (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date {
+    
+    if ([@[@17,@18,@19] containsObject:@([calendar dayOfDate:date])]) {
+        
+        return [UIColor magentaColor];
+    }
+    return appearance.borderDefaultColor;
 }
 
 

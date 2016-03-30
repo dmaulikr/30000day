@@ -48,7 +48,6 @@
 
 @property (nonatomic,strong) ProvinceModel *provinceModel;
 
-
 @end
 
 @implementation ShopViewController

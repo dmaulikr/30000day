@@ -45,52 +45,18 @@
     
     self.chooseAgeString = @"80";
     
+    self.remindDataArray = [[NSMutableArray alloc] init];
+    
+    //重新刷新日历和tableView前两个section数据
     [self reloadShowCalendarDateWith:self.selectorDate];
+    
+    //下载提醒数据
+    [self loadTableViewData];
 }
 
 - (void)reloadDate {
     
     [self reloadShowCalendarDateWith:self.selectorDate];
-}
-
-#pragma -----
-#pragma mark -- QGPickerViewDelegate
-
-- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
-    
-    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
-    
-    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
-    
-    [self reloadShowCalendarDateWith:self.selectorDate];
-}
-
-- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
-    
-    self.selectorDate = selectorDate;
-
-//    self.chooseDateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:selectorDate];
-//    
-//    self.selectorDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:self.chooseDateString];
-    
-    [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
-}
-
-//选择日期
-- (void)chooseDate {
-    
-    [self.view endEditing:YES];
-    
-    QGPickerView *chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-    
-    chooseDatePickView.delegate = self;
-    
-    chooseDatePickView.titleText = @"选择日期";
-    
-    self.chooseDateString = @"";
-    
-    //显示QGPickerView
-    [chooseDatePickView showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(100.00000*365.00000*24.000000*60.00000*60.00000)]];
 }
 
 //添加提醒按钮点击事件
@@ -106,12 +72,9 @@
        
         [self loadTableViewData];
         
-        [self.tableView reloadData];
-        
     }];
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 //刷新整个日历天数的显示
@@ -133,11 +96,11 @@
         
         if ([todayString isEqualToString:selectorDateString]) {//如果选中的日期是今天
             
-//            self.chooseTodayButton.hidden = YES;
+            self.calendarCell.todayButton.hidden = YES;
             
         } else {
             
-//            self.chooseTodayButton.hidden = NO;
+            self.calendarCell.todayButton.hidden = NO;
         }
         
         NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
@@ -194,7 +157,6 @@
         picker.titleText = @"选择年龄";
         
         //算出当前userId的年龄
-        
         if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {//user生日没设置
             
             NSMutableArray *dataArray = [NSMutableArray array];
@@ -268,12 +230,49 @@
             //刷新日期的控件
             [weakSelf reloadShowCalendarDateWith:weakSelf.selectorDate];
             
+            [weakSelf loadTableViewData];
+            
         }];
     }
-    
     return _calendarCell;
 }
 
+//选择日期
+- (void)chooseDate {
+    
+    [self.view endEditing:YES];
+    
+    QGPickerView *chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+    
+    chooseDatePickView.delegate = self;
+    
+    chooseDatePickView.titleText = @"选择日期";
+    
+    self.chooseDateString = @"";
+    
+    //显示QGPickerView
+    [chooseDatePickView showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(100.00000*365.00000*24.000000*60.00000*60.00000)]];
+}
+
+
+#pragma -----
+#pragma mark -- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+    
+    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
+    
+    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
+    
+    [self reloadShowCalendarDateWith:self.selectorDate];
+}
+
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    self.selectorDate = selectorDate;
+    
+    [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
+}
 
 #pragma -----
 #pragma mark --- UITableViewDelegate / UITableViewDataSource
