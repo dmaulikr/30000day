@@ -19,6 +19,7 @@
 #import "CommodityCommentViewController.h"
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
+#import "UIImageView+WebCache.h"
 
 
 #define SECTIONSCOUNT 5
@@ -29,6 +30,8 @@
 @property (nonatomic,strong) ShopDetailModel *shopDetailModel;
 @property (nonatomic,strong) NSArray *sourceArray;
 @property (nonatomic,strong) NSMutableArray *photos;
+@property (nonatomic,strong) NSArray *commitPhotos;
+@property (nonatomic,strong) CommentModel *commentModel;
 
 @end
 
@@ -36,21 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
-    
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    
-    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
-    
-    NSDate *date = [formatter dateFromString:@"15601623118"];
-    
-    NSLog(@"date1:%@",date);
-    
     
     self.tableViewStyle = STRefreshTableViewGroup;
 
@@ -67,8 +55,6 @@
     [self showHUD:YES];
     [self.dataHandler sendCompanyDetailsWithProductId:@"8" Success:^(ShopDetailModel *model) {
         
-        [self hideHUD:YES];
-        
         if (model.productPhotos != nil) {
             
             self.sourceArray = [model.productPhotos componentsSeparatedByString:@","];
@@ -76,6 +62,25 @@
         }
         
         self.shopDetailModel = model;
+        
+        [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
+            
+            [self hideHUD:YES];
+            
+            if (success > 0) {
+                
+                self.commentModel = success[0];
+                self.commitPhotos = [self.commentModel.commentPhotos componentsSeparatedByString:@","];
+                
+            }
+            
+            
+        } failure:^(NSError *error) {
+            
+            [self hideHUD:YES];
+            
+        }];
+        
         
         [self.tableView reloadData];
         
@@ -141,7 +146,7 @@
         
     } else if (section == 3) {
         
-        return 4;
+        return 3;
         
     } else if (section == 4) {
         
@@ -172,9 +177,9 @@
         
     } else if (indexPath.section == 3) {
         
-        if (indexPath.row == 1 || indexPath.row == 2) {
+        if (indexPath.row == 1) {
             
-            return 228 + [Height heightWithText:@"环境挺不错，装修也很考究，就是人太多了，需要排队，下次提前预约好了.好好好好好好好好好好好好好好好好好好好好好好好好好" width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 228 + [Height heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         }
         
@@ -301,7 +306,7 @@
             
             return shopDetailOneLineDataNoImageViewTableViewCell;
             
-        } else if (indexPath.row == 1 || indexPath.row == 2){
+        } else if (indexPath.row == 1){
             
             ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
             
@@ -314,6 +319,23 @@
             shopDetailCommentTableViewCell.checkReply.hidden = YES;
             shopDetailCommentTableViewCell.commentZambiaButton.hidden = YES;
             shopDetailCommentTableViewCell.commentButton.hidden = YES;
+            shopDetailCommentTableViewCell.commentModel = self.commentModel;
+            
+            if (self.commitPhotos.count == 1) {
+                
+                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
+                
+            } else if (self.commitPhotos.count == 2) {
+            
+                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
+                [shopDetailCommentTableViewCell.commentContentImageViewTwo sd_setImageWithURL:self.commitPhotos[1]];
+                
+            } else if (self.commitPhotos.count == 3) {
+            
+                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
+                [shopDetailCommentTableViewCell.commentContentImageViewTwo sd_setImageWithURL:self.commitPhotos[1]];
+                [shopDetailCommentTableViewCell.commentContentImageViewThree sd_setImageWithURL:self.commitPhotos[2]];
+            }
             
             return shopDetailCommentTableViewCell;
             

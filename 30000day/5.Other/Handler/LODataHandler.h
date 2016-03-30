@@ -261,4 +261,10 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                      Success:(void (^)(BOOL success))success
                                      failure:(void (^)(NSError *error))failure;
 
+
+//*********************************商品详情评论*************************/
+- (void)sendsaveCommentWithDefaultShowCount:(NSInteger)sendsaveComment
+                                     Success:(void (^)(NSMutableArray *success))success
+                                     failure:(void (^)(NSError *error))failure;
+
 @end

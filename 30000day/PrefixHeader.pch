@@ -177,6 +177,8 @@
 
 #define  SAVE_POINTPRAISEORCANCEL    @"/stapi/user/pointPraiseOrCancel"   //点赞
 
+#define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/stapi/user/findDefaultCommentList"   //商品详情评论
+
 
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
