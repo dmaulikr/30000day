@@ -236,7 +236,7 @@
     //初始化百度地图
     _mapView = [[BMKMapView alloc] init];
     
-    _mapView.frame = CGRectMake(0, 64 + 44, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44 - 50);
+    _mapView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64- 50);
     
     _mapView.hidden = YES;
     

@@ -7,11 +7,9 @@
 //
 
 #import "CalendarTableViewCell.h"
-#import "FSCalendar.h"
+
 
 @interface CalendarTableViewCell () <FSCalendarDataSource, FSCalendarDelegate ,FSCalendarDelegateAppearance >
-
-@property (nonatomic, strong) FSCalendar *calendar;
 
 @property (strong, nonatomic) NSCalendar *lunarCalendar;
 
@@ -104,7 +102,7 @@
                                      @"2016-03-20",
                                      @"2016-03-28"];
     
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(1,0, SCREEN_WIDTH - 1, 300)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(1,0, SCREEN_WIDTH - 1, 350)];
     
     calendar.dataSource = self;
     
@@ -114,7 +112,7 @@
     
     calendar.layer.masksToBounds = YES;
     
-    calendar.scrollDirection = FSCalendarScrollDirectionHorizontal;
+    calendar.scrollDirection = FSCalendarScrollDirectionVertical;
     
     calendar.appearance.subtitleVerticalOffset = 3;
     
@@ -139,26 +137,41 @@
     
     [todayButton setTitle:@"今" forState:UIControlStateNormal];
     
-    todayButton.frame = CGRectMake(SCREEN_WIDTH - 80, 1, 40, 40);
+    todayButton.frame = CGRectMake(SCREEN_WIDTH - 80.0f, 3.0f, 40.0f, 40.0f);
     
     [todayButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
     
     [todayButton addTarget:self action:@selector(todayButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.todayButton = todayButton;
     
     [self addSubview:todayButton];
     
     //选择日期
     UIButton *chooseDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    chooseDateButton.backgroundColor = [UIColor redColor];
+    chooseDateButton.frame = CGRectMake(SCREEN_WIDTH /2.0f - 60.0f, 1.0f, 120.0f, 40.0f);
     
-    chooseDateButton.frame = CGRectMake(SCREEN_WIDTH - 80, 1, 40, 40);
+    chooseDateButton.tag = 1;
     
-    [chooseDateButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
+    [chooseDateButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [chooseDateButton addTarget:self action:@selector(chooseDateClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:chooseDateButton];
     
-    [self addSubview:todayButton];
+    //增加提醒时间
+    UIButton *addRemindButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    addRemindButton.frame = CGRectMake(SCREEN_WIDTH - 40.0f, 1.0f, 40.0f, 40.0f);
+    
+    [addRemindButton setImage:[UIImage imageNamed:@"icon_add_events"] forState:UIControlStateNormal];
+    
+    [addRemindButton setTitle:@"" forState:UIControlStateNormal];
+    
+    addRemindButton.tag = 2;
+    
+    [addRemindButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:addRemindButton];
     
     //创建背景线条
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,40, SCREEN_WIDTH, 0.5f)];
@@ -172,24 +185,22 @@
     _lunarCalendar.locale = [NSLocale localeWithLocaleIdentifier:@"zh-CN"];
     
     _lunarChars = @[@"初一",@"初二",@"初三",@"初四",@"初五",@"初六",@"初七",@"初八",@"初九",@"初十",@"十一",@"十二",@"十三",@"十四",@"十五",@"十六",@"十七",@"十八",@"十九",@"二十",@"二一",@"二二",@"二三",@"二四",@"二五",@"二六",@"二七",@"二八",@"二九",@"三十"];
-    
 }
 
 //选择日期
-- (void)chooseDateClick {
+- (void)buttonClick:(UIButton *)button {
     
     if (self.chooseDateBlock) {
         
-        self.chooseDateBlock();
+        self.chooseDateBlock(button.tag);
     }
 }
 
 //选择今天
 - (void)todayButtonClick {
     
-    [_calendar setCurrentPage:[NSDate date] animated:NO];
+    [_calendar selectDate:[NSDate date] scrollToDate:YES];
 }
-
 
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
     
@@ -227,7 +238,11 @@
         
     }];
     
-    NSLog(@"selected dates is %@",selectedDates);
+    //选择完时间进行回调
+    if (self.dateBlock) {
+        
+        self.dateBlock(date);
+    }
 }
 
 - (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date {

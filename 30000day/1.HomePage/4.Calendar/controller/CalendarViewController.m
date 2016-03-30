@@ -12,6 +12,7 @@
 #import "RemindContentTableViewCell.h"
 #import "CalendarTableViewCell.h"
 #import "AgeTableViewCell.h"
+#import "CalendarTableViewCell.h"
 
 @interface CalendarViewController () < QGPickerViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -23,6 +24,12 @@
 
 @property (nonatomic,strong) AgeTableViewCell *ageCell;
 
+@property (nonatomic,strong) CalendarTableViewCell *calendarCell;//日期cell
+
+@property (nonatomic,copy) NSString *chooseDateString;//比如2015-05-12等等
+
+@property (nonatomic,copy) NSString *chooseAgeString;//比如100，90，80，70等等
+
 @end
 
 // 选一个有意义的日期作倒计时（备注：可添加多个？）
@@ -32,152 +39,136 @@
     [super viewDidLoad];
 
     //监听通知
-//    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-
+    [STNotificationCenter addObserver:self selector:@selector(reloadDate) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    self.selectorDate = [NSDate date];//默认选中的日期是今天
+    
+    self.chooseAgeString = @"80";
+    
+    [self reloadShowCalendarDateWith:self.selectorDate];
 }
 
+- (void)reloadDate {
+    
+    [self reloadShowCalendarDateWith:self.selectorDate];
+}
 
+#pragma -----
+#pragma mark -- QGPickerViewDelegate
 
-//#pragma -----
-//#pragma mark -- QGPickerViewDelegate
-//
-//- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
-//    
-//    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
-//    
-//    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
-//    
-//    [self reloadShowCalendarDateWith:self.selectorDate];
-//}
-//
-//- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
-//    
-//    self.selectorDate = selectorDate;
-//
+- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+    
+    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
+    
+    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
+    
+    [self reloadShowCalendarDateWith:self.selectorDate];
+}
+
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    self.selectorDate = selectorDate;
+
 //    self.chooseDateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:selectorDate];
 //    
 //    self.selectorDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:self.chooseDateString];
-//
-//}
+    
+    [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
+}
 
+//选择日期
+- (void)chooseDate {
+    
+    [self.view endEditing:YES];
+    
+    QGPickerView *chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+    
+    chooseDatePickView.delegate = self;
+    
+    chooseDatePickView.titleText = @"选择日期";
+    
+    self.chooseDateString = @"";
+    
+    //显示QGPickerView
+    [chooseDatePickView showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(100.00000*365.00000*24.000000*60.00000*60.00000)]];
+}
 
-////选中日期按钮的点击事件
-//- (IBAction)selectorDateAction:(id)sender {
-//    
-//    [self chooseDate];
-//    
-//}
-//
-////选择日期
-//- (void)chooseDate {
-//    
-//    [self.view endEditing:YES];
-//    
-//    QGPickerView *chooseDatePickView = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-//    
-//    chooseDatePickView.delegate = self;
-//    
-//    chooseDatePickView.titleText = @"选择日期";
-//    
-//    self.chooseDateString = @"";
-//    
-//    //显示QGPickerView
-//    [chooseDatePickView showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(100.00000*365.00000*24.000000*60.00000*60.00000)]];
-//}
-//
-//
-////添加提醒按钮点击事件
-//- (IBAction)addRemindAction:(id)sender {
-//    
-//    AddRemindViewController *controller = [[AddRemindViewController alloc] init];
-//    
-//    controller.hidesBottomBarWhenPushed = YES;
-//    
-//    controller.changeORAdd = NO;//表示是新增的
-//    
-//    [controller setSaveOrChangeSuccessBlock:^{
-//       
-//        [self loadTableViewData];
-//        
-//        [self.tableView reloadData];
-//        
-//    }];
-//    
-//    [self.navigationController pushViewController:controller animated:YES];
-//    
-//}
-//
-//
-////刷新整个日历天数的显示
-//- (void)reloadShowCalendarDateWith:(NSDate *)selectorDate {
-//    
-//    if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {
-//    
-//        self.birthdayCell.textLabel.text = @"您还没有设置您的生日,请在个人信息里设置生日";
-//        
-//        self.ageCell.titleLabel.text = @"请设置个人生日";
-//        
-//    } else {
-//        
-//        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
-//        
-//        NSString *selectorDateString = [formatter stringFromDate:selectorDate];
-//        
-//        NSString *todayString = [formatter stringFromDate:[NSDate date]];
-//        
-//        if ([todayString isEqualToString:selectorDateString]) {//如果选中的日期是今天
-//            
+//添加提醒按钮点击事件
+- (void)addRemindAction {
+    
+    AddRemindViewController *controller = [[AddRemindViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    controller.changeORAdd = NO;//表示是新增的
+    
+    [controller setSaveOrChangeSuccessBlock:^{
+       
+        [self loadTableViewData];
+        
+        [self.tableView reloadData];
+        
+    }];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+}
+
+//刷新整个日历天数的显示
+- (void)reloadShowCalendarDateWith:(NSDate *)selectorDate {
+    
+    if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {
+    
+        self.birthdayCell.titleLabel.text = @"请在个人信息里设置生日";
+        
+        self.ageCell.titleLabel.text = @"请设置个人生日";
+        
+    } else {
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+        
+        NSString *selectorDateString = [formatter stringFromDate:selectorDate];
+        
+        NSString *todayString = [formatter stringFromDate:[NSDate date]];
+        
+        if ([todayString isEqualToString:selectorDateString]) {//如果选中的日期是今天
+            
 //            self.chooseTodayButton.hidden = YES;
-//            
-//        } else {
-//            
+            
+        } else {
+            
 //            self.chooseTodayButton.hidden = NO;
-//        }
-//        
-//        NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
-//        
-//        NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
-//        
-//        NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[self.chooseAgeString doubleValue]*365*24*60*60 sinceDate:birthdayDate];
-//        
-//        NSTimeInterval interval = [chooseAgeDate timeIntervalSinceDate:selectorNewDate];
-//        
-//        int dayNumber = interval/86400.0f;
-//        
-//        self.ageCell.titleLabel.text = [NSString stringWithFormat:@"从今天到所选岁数还有%d天。",dayNumber];
-//        
-//        NSTimeInterval birthdayInterval = [selectorNewDate timeIntervalSinceDate:birthdayDate];
-//        
-//        
-//        int birthdayNumber = birthdayInterval/86400.0f;
-//        
-//        self.birthdayCell.textLabel.text = [NSString stringWithFormat:@"您出生到这天过去了%d天。",birthdayNumber];
-//        
-//    }
-//    
-//    //拿出来重写是因为就算不设置生日有会显示该按钮
-//    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
-//    
-//    NSString *selectorDateString = [formatter stringFromDate:selectorDate];
-//    
-//    //刷新上面的当前选择的日期button
-//    [self.dateTtitleButton setTitle:selectorDateString forState:UIControlStateNormal];
-//    
-//    [self.tableView reloadData];
-//
+        }
+        
+        NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
+        
+        NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
+        
+        NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[self.chooseAgeString doubleValue]*365*24*60*60 sinceDate:birthdayDate];
+        
+        NSTimeInterval interval = [chooseAgeDate timeIntervalSinceDate:selectorNewDate];
+        
+        int dayNumber = interval/86400.0f;
+        
+        self.ageCell.titleLabel.text = [NSString stringWithFormat:@"从今天到所选岁数还有%d天。",dayNumber];
+        
+        NSTimeInterval birthdayInterval = [selectorNewDate timeIntervalSinceDate:birthdayDate];
+        
+        int birthdayNumber = birthdayInterval/86400.0f;
+        
+        self.birthdayCell.titleLabel.text = [NSString stringWithFormat:@"您出生到这天过去了%d天。",birthdayNumber];
+    }
+    
+    [self.tableView reloadData];
+}
 
 - (AgeTableViewCell *)birthdayCell {
     
     if (!_birthdayCell) {
         
         _birthdayCell =  [[[NSBundle mainBundle] loadNibNamed:@"AgeTableViewCell" owner:nil options:nil] lastObject];
-        
-        _birthdayCell.titleLabel.text = @"从您出生到这天过去了16814天";
-        
-        [_birthdayCell.ageButton setImage:[UIImage imageNamed:@"icon_add_events"] forState:UIControlStateNormal];
-        
+  
         [_birthdayCell.ageButton setTitle:@"" forState:UIControlStateNormal];
-        
     }
     
     return _birthdayCell;
@@ -190,8 +181,6 @@
         _ageCell = [[[NSBundle mainBundle] loadNibNamed:@"AgeTableViewCell" owner:nil options:nil] lastObject];
         
     }
-    
-    _ageCell.titleLabel.text = @"从今天到所选岁数还有-16815天";
     
     __weak typeof(self) weakSelf = self;
     
@@ -213,7 +202,6 @@
             for (int i = 100 ; i >= 1; i--) {
                 
                 [dataArray addObject:[NSString stringWithFormat:@"%d岁",i]];
-                
             }
             
             //显示QGPickerView
@@ -243,13 +231,52 @@
             }
             
             //显示QGPickerView
-//            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
-            
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
         }
     }];
     
     return _ageCell;
 }
+
+- (CalendarTableViewCell *)calendarCell {
+    
+    if (!_calendarCell) {
+        
+        _calendarCell = [[CalendarTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CalendarTableViewCell"];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        //选择日期回调
+        [_calendarCell setChooseDateBlock:^(NSInteger tag) {
+            
+            if (tag == 1) {
+                
+                [weakSelf chooseDate];
+                
+            } else if (tag == 2) {
+                
+                [weakSelf addRemindAction];
+                
+            }
+        }];
+        
+        //点击了日历的时间回调
+        [_calendarCell setDateBlock:^(NSDate *chooseDate) {
+            
+            weakSelf.selectorDate = chooseDate;
+            
+            //刷新日期的控件
+            [weakSelf reloadShowCalendarDateWith:weakSelf.selectorDate];
+            
+        }];
+    }
+    
+    return _calendarCell;
+}
+
+
+#pragma -----
+#pragma mark --- UITableViewDelegate / UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -265,42 +292,43 @@
     } else if (section == 1) {
         
         return 2;
+        
+    } else if (section == 2) {
+        
+        return self.remindDataArray.count;
     }
     
-    return 1;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         
-        return 300;
+        return 350;
         
     } else if (indexPath.section == 1) {
         
         return 44;
     }
-    
-    return 50;
+    return 44;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 10.0f;
+    if (section == 0) {
+        
+        return 10.0f;
+    }
+
+    return 0.005f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        
-        CalendarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CalendarTableViewCell"];
-        
-        if (cell == nil) {
-            
-            cell = [[CalendarTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CalendarTableViewCell"];
-        }
-        
-        return cell;
+
+        return self.calendarCell;
         
     } else if (indexPath.section == 1) {
         
@@ -365,7 +393,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         
         AddRemindViewController *controller = [[AddRemindViewController alloc] init];
         
@@ -450,7 +478,7 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {

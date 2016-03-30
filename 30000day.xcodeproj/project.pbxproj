@@ -231,7 +231,6 @@
 		B8365A5F1C71E08200063269 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5D1C71E08200063269 /* pinyin.c */; };
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B83B7A2C1CA6768D00D2CC6A /* MTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A2B1CA6768D00D2CC6A /* MTProgressHUD.m */; };
-		B83B7A2F1CAA738700D2CC6A /* CalendarScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A2E1CAA738700D2CC6A /* CalendarScrollView.m */; };
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
@@ -869,8 +868,6 @@
 		B8365A611C71E0BC00063269 /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
 		B83B7A2A1CA6768D00D2CC6A /* MTProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTProgressHUD.h; sourceTree = "<group>"; };
 		B83B7A2B1CA6768D00D2CC6A /* MTProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTProgressHUD.m; sourceTree = "<group>"; };
-		B83B7A2D1CAA738700D2CC6A /* CalendarScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarScrollView.h; sourceTree = "<group>"; };
-		B83B7A2E1CAA738700D2CC6A /* CalendarScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarScrollView.m; sourceTree = "<group>"; };
 		B83B7A301CAA848E00D2CC6A /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
@@ -2221,8 +2218,6 @@
 				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
 				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
 				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
-				B83B7A2D1CAA738700D2CC6A /* CalendarScrollView.h */,
-				B83B7A2E1CAA738700D2CC6A /* CalendarScrollView.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4241,7 +4236,6 @@
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8FD3EB81C8A8440007BCA6B /* CDButton.m in Sources */,
 				B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */,
-				B83B7A2F1CAA738700D2CC6A /* CalendarScrollView.m in Sources */,
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
 				B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */,
