@@ -30,6 +30,8 @@
 #import "CDSoundManager.h"
 #import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
+#import "SearchTableVersion.h"
+#import "LODataHandler.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -129,8 +131,95 @@
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
     
-    //同步省-城市-区、县的数据
-    [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+    LODataHandler *dataHandler = [[LODataHandler alloc] init];
+    [dataHandler sendSearchTableVersion:^(NSMutableArray *success) {
+        
+        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+        NSArray *searchTableVersionArray = [defaults objectForKey:KEY_SEARCHTABLEVERSION];
+        
+        if (searchTableVersionArray.count == 0 || searchTableVersionArray == nil) {
+            
+            NSMutableArray *successArray = [NSMutableArray array];
+            
+            for (int i = 0; i < success.count; i++) {
+                
+                NSMutableDictionary *successDictionary = [NSMutableDictionary dictionary];
+                SearchTableVersion *searchTableVersionSuccess = success[i];
+                
+                [successDictionary setObject:searchTableVersionSuccess.searchTableVersionId forKey:@"searchTableVersionId"];
+                [successDictionary setObject:searchTableVersionSuccess.tableName forKey:@"tableName"];
+                [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
+                
+                [successArray addObject:successDictionary];
+                
+            }
+            
+            NSArray *array = [NSArray arrayWithArray:successArray];
+            [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
+            [defaults synchronize];
+            
+        } else {
+        
+            if (searchTableVersionArray.count == success.count) {
+            
+            for (int i = 0; i < success.count; i++) {
+                
+                SearchTableVersion *searchTableVersionSuccess = success[i];
+                NSDictionary *searchTableVersion = searchTableVersionArray[i];
+                
+                if ([[NSString stringWithFormat:@"%@",searchTableVersionSuccess.searchTableVersionId] isEqualToString:[[searchTableVersion objectForKey:@"searchTableVersionId"] stringValue]]) {
+                    
+                    if (![[NSString stringWithFormat:@"%@",searchTableVersionSuccess.version] isEqualToString:[NSString stringWithFormat:@"%@",[searchTableVersion objectForKey:@"version"]]]) {
+                        
+                        //同步省-城市-区、县的数据
+                        [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+                        
+                        
+                        NSMutableArray *successArray = [NSMutableArray array];
+                        
+                        for (int i = 0; i < success.count; i++) {
+                            
+                            NSMutableDictionary *successDictionary = [NSMutableDictionary dictionary];
+                            SearchTableVersion *searchTableVersionSuccess = success[i];
+                            
+                            [successDictionary setObject:searchTableVersionSuccess.searchTableVersionId forKey:@"searchTableVersionId"];
+                            [successDictionary setObject:searchTableVersionSuccess.tableName forKey:@"tableName"];
+                            [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
+                            
+                            [successArray addObject:successDictionary];
+                            
+                        }
+                        
+                        NSArray *array = [NSArray arrayWithArray:successArray];
+                        [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
+                        [defaults synchronize];
+
+                    } else {
+                    
+                        NSLog(@"没有更新");
+                    
+                    }
+                    
+                } else {
+                    
+                    NSLog(@"后台数据表版本信息顺序有调整");
+                    
+                }
+            }
+                
+                } else {
+                    
+                    NSLog(@"后台数据表版本数量有改动");
+                    
+                }
+                
+            }
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"获取数据版本信息失败！！！！！！！！！！！！！！！");
+        
+    }];
     
     self.window.backgroundColor = [UIColor whiteColor];
     

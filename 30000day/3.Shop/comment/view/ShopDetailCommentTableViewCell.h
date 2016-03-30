@@ -35,8 +35,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
-
 @property (nonatomic,strong) CommentModel *commentModel;
+
+@property (nonatomic,copy) NSArray *commentPhotosArray;
 
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
 
