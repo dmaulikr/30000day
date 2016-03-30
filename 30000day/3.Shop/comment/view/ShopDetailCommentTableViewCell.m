@@ -78,7 +78,7 @@
     
     self.commentContentLable.text = commentModel.remark;
     
-    self.commentNameLable.text = commentModel.userName;
+    self.commentNameLable.text = [commentModel.userName isEqualToString:@""] ? commentModel.userName:@"错误数据";
     
     NSString *str = [NSString stringWithFormat:@"%@",commentModel.createTime];//时间戳
     NSTimeInterval time = [str doubleValue]/(double)1000;
