@@ -10,4 +10,7 @@
 
 @interface CalendarTableViewCell : UITableViewCell
 
+//点击日期回调
+@property (nonatomic,copy) void (^chooseDateBlock)();
+
 @end

@@ -116,13 +116,17 @@
     
     calendar.scrollDirection = FSCalendarScrollDirectionHorizontal;
     
-    calendar.appearance.subtitleVerticalOffset = 2;
+    calendar.appearance.subtitleVerticalOffset = 3;
     
-    calendar.appearance.titleFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:17.0f];
+    calendar.appearance.subtitleFont = [UIFont systemFontOfSize:10.0f];
+    
+    calendar.appearance.titleFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:30.0f];
     
     calendar.appearance.weekdayTextColor = RGBACOLOR(0, 111, 225, 1);
     
     calendar.appearance.headerTitleColor = RGBACOLOR(0, 111, 225, 1);
+    
+    calendar.appearance.adjustsFontSizeToFitContentSize = YES;
     
     calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase|FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
     
@@ -130,6 +134,7 @@
     
     [self addSubview:calendar];
     
+    //选择日期按钮
     UIButton *todayButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [todayButton setTitle:@"今" forState:UIControlStateNormal];
@@ -142,6 +147,20 @@
     
     [self addSubview:todayButton];
     
+    //选择日期
+    UIButton *chooseDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    chooseDateButton.backgroundColor = [UIColor redColor];
+    
+    chooseDateButton.frame = CGRectMake(SCREEN_WIDTH - 80, 1, 40, 40);
+    
+    [chooseDateButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
+    
+    [chooseDateButton addTarget:self action:@selector(chooseDateClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:todayButton];
+    
+    //创建背景线条
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,40, SCREEN_WIDTH, 0.5f)];
     
     view.backgroundColor = RGBACOLOR(200, 200, 200, 1);
@@ -156,6 +175,16 @@
     
 }
 
+//选择日期
+- (void)chooseDateClick {
+    
+    if (self.chooseDateBlock) {
+        
+        self.chooseDateBlock();
+    }
+}
+
+//选择今天
 - (void)todayButtonClick {
     
     [_calendar setCurrentPage:[NSDate date] animated:NO];
