@@ -3355,6 +3355,188 @@
     
     [self startRequest:request];
 
+}
+
+//*********************************店长推荐*************************/
+- (void)sendShopOwnerRecommendWithCompanyId:(NSString *)companyId
+                                      count:(NSInteger)count
+                                    Success:(void (^)(NSMutableArray *success))success
+                                    failure:(void (^)(NSError *error))failure {
+
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:companyId forKey:@"companyId"];
+    
+    [params setObject:@(count) forKey:@"count"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_SHOPOWNERRECOMMEND
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
+
+                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:commentModel];
+                                                                    
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+}
+
+//*********************************平台推荐*************************/
+- (void)sendPlatformRecommendWithProductTypeId:(NSString *)ProductTypeId
+                                         count:(NSInteger)count
+                                       Success:(void (^)(NSMutableArray *success))success
+                                       failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:ProductTypeId forKey:@"productTypeId"];
+    
+    [params setObject:@(count) forKey:@"count"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_PLATFORMRECOMMEND
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
+                                                                    
+                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:commentModel];
+                                                                    
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
 
 
 }

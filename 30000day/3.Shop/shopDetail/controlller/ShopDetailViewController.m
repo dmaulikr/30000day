@@ -20,6 +20,7 @@
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
 #import "UIImageView+WebCache.h"
+#import "ShopModel.h"
 
 
 #define SECTIONSCOUNT 5
@@ -32,6 +33,8 @@
 @property (nonatomic,strong) NSMutableArray *photos;
 @property (nonatomic,strong) NSArray *commitPhotos;
 @property (nonatomic,strong) CommentModel *commentModel;
+@property (nonatomic,strong) NSArray *shopModelKeeperArray;   //店长推荐
+@property (nonatomic,strong) NSArray *shopModelTerraceArray;  //平台推荐
 
 @end
 
@@ -61,7 +64,32 @@
             
         }
         
+        self.title = model.productName;
         self.shopDetailModel = model;
+        
+        //model.productTypePid
+        [self.dataHandler sendShopOwnerRecommendWithCompanyId:@"2" count:3 Success:^(NSMutableArray *success) {
+            
+            self.shopModelKeeperArray = [NSArray arrayWithArray:success];
+            [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"获取店长推荐失败");
+            
+        }];
+        
+        
+        [self.dataHandler sendPlatformRecommendWithProductTypeId:@"6" count:3 Success:^(NSMutableArray *success) {
+            
+            self.shopModelTerraceArray = [NSArray arrayWithArray:success];
+            [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"获取平台推荐失败");
+            
+        }];
         
         [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
             
@@ -71,9 +99,9 @@
                 
                 self.commentModel = success[0];
                 self.commitPhotos = [self.commentModel.commentPhotos componentsSeparatedByString:@","];
+                [self.tableView reloadData];
                 
             }
-            
             
         } failure:^(NSError *error) {
             
@@ -142,7 +170,14 @@
         
     } else if (section == 2) {
         
-        return 4;
+        if (self.shopModelKeeperArray.count == 0 || self.shopModelKeeperArray == nil) {
+            
+            return 0;
+            
+        } else {
+        
+            return self.shopModelKeeperArray.count + 2;
+        }
         
     } else if (section == 3) {
         
@@ -150,7 +185,14 @@
         
     } else if (section == 4) {
         
-        return 4;
+        if (self.shopModelTerraceArray.count == 0 || self.shopModelTerraceArray == nil) {
+            
+            return 0;
+            
+        } else {
+            
+            return self.shopModelTerraceArray.count + 2;
+        }
         
     }
     
@@ -169,7 +211,12 @@
         
     } else if (indexPath.section == 2) {
         
-        if (indexPath.row == 1 || indexPath.row == 2){
+        
+        if (self.shopModelKeeperArray == nil || self.shopModelKeeperArray.count == 0) {
+            
+            return 0;
+            
+        } else if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
             return 110;
             
@@ -185,8 +232,14 @@
         
     } else if (indexPath.section == 4) {
         
-        if (indexPath.row == 1 || indexPath.row == 2) {
+        if (self.shopModelKeeperArray == nil || self.shopModelKeeperArray.count == 0) {
+            
+            return 0;
+            
+        } else if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
+            
             return 110;
+            
         }
         
     }
@@ -267,9 +320,21 @@
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"店长推存（321）";
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"店长推荐（321）";
             
-        } else if (indexPath.row == 1 || indexPath.row == 2){
+            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+            
+            return shopDetailOneLineDataNoImageViewTableViewCell;
+            
+        } else if (indexPath.row == self.shopModelKeeperArray.count + 1) {
+            
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"全部推荐";
+            
+            return shopDetailOneLineDataNoImageViewTableViewCell;
+            
+        } else {
+            
+            ShopModel *shopModel = self.shopModelKeeperArray[indexPath.row - 1];
             
             ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
@@ -278,15 +343,12 @@
                 shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
+            shopListTableViewCell.shopModel = shopModel;
+            
             return shopListTableViewCell;
-            
-        } else {
-            
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看全部推存";
+
             
         }
-        
-        return shopDetailOneLineDataNoImageViewTableViewCell;
         
         
     } else if (indexPath.section == 3) {
@@ -353,9 +415,21 @@
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"推存列表（321）";
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"推荐列表（321）";
             
-        } else if (indexPath.row == 1 || indexPath.row == 2){
+            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+            
+            return shopDetailOneLineDataNoImageViewTableViewCell;
+            
+        } else if (indexPath.row == self.shopModelTerraceArray.count + 1) {
+            
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"全部推荐";
+            
+            return shopDetailOneLineDataNoImageViewTableViewCell;
+            
+        } else {
+            
+            ShopModel *shopModel = self.shopModelTerraceArray[indexPath.row - 1];
             
             ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
@@ -364,11 +438,10 @@
                 shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
+            shopListTableViewCell.shopModel = shopModel;
+            
             return shopListTableViewCell;
             
-        } else {
-            
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看全部推存";
             
         }
         

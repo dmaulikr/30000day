@@ -183,6 +183,10 @@
 
 #define  GET_SEARCHTABLEVERSIION     @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
 
+#define  GET_SHOPOWNERRECOMMEND     @"/stapi/market/shopOwnerRecommend"    //店长推荐
+
+#define  GET_PLATFORMRECOMMEND     @"/stapi/market/platformRecommend"    //平台推荐
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

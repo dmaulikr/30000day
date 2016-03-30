@@ -272,4 +272,17 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 - (void)sendSearchTableVersion:(void (^)(NSMutableArray *success))success
                        failure:(void (^)(NSError *error))failure;
 
+
+//*********************************店长推荐*************************/
+- (void)sendShopOwnerRecommendWithCompanyId:(NSString *)companyId
+                                      count:(NSInteger)count
+                                     Success:(void (^)(NSMutableArray *success))success
+                                     failure:(void (^)(NSError *error))failure;
+
+//*********************************平台推荐*************************/
+- (void)sendPlatformRecommendWithProductTypeId:(NSString *)ProductTypeId
+                                         count:(NSInteger)count
+                                       Success:(void (^)(NSMutableArray *success))success
+                                       failure:(void (^)(NSError *error))failure;
+
 @end

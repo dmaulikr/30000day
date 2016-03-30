@@ -174,7 +174,6 @@
                         //同步省-城市-区、县的数据
                         [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
                         
-                        
                         NSMutableArray *successArray = [NSMutableArray array];
                         
                         for (int i = 0; i < success.count; i++) {
