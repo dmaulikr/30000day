@@ -61,6 +61,7 @@
 		B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */; };
 		B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
+		B6F8CE661CAB9D6C00218046 /* SearchTableVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8CE651CAB9D6B00218046 /* SearchTableVersion.m */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
 		B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */; };
 		B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC781C8AC9A900DFD1CF /* avator@2x.png */; };
@@ -689,6 +690,8 @@
 		B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAmountTableViewCell.xib; sourceTree = "<group>"; };
 		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
+		B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableVersion.h; sourceTree = "<group>"; };
+		B6F8CE651CAB9D6B00218046 /* SearchTableVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableVersion.m; sourceTree = "<group>"; };
 		B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtn@2x.png"; sourceTree = "<group>"; };
 		B804FC771C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddGroupMemberBtnHL@2x.png"; sourceTree = "<group>"; };
 		B804FC781C8AC9A900DFD1CF /* avator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avator@2x.png"; sourceTree = "<group>"; };
@@ -2046,6 +2049,8 @@
 				B88C91581C59F9010089BEAE /* AppDelegate.m */,
 				B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */,
 				B88C91681C59F9AF0089BEAE /* Main.storyboard */,
+				B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */,
+				B6F8CE651CAB9D6B00218046 /* SearchTableVersion.m */,
 			);
 			path = "AppDelegate&storyboard";
 			sourceTree = "<group>";
@@ -4530,6 +4535,7 @@
 				B8FD3DFF1C8A7903007BCA6B /* XHStoreManager.m in Sources */,
 				B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */,
 				B8FD3E151C8A7903007BCA6B /* XHPathCover.m in Sources */,
+				B6F8CE661CAB9D6C00218046 /* SearchTableVersion.m in Sources */,
 				B8FD3EC01C8A8440007BCA6B /* CDPopMenuItem.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8FD3E1A1C8A7903007BCA6B /* XHBubblePhotoImageView.m in Sources */,

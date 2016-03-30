@@ -124,7 +124,7 @@
             
         } else {
         
-            if (commentModel.picUrl != nil && ![commentModel.picUrl isEqualToString:@"test.img"] && ![commentModel.picUrl isEqualToString:@"/img.img"]) {
+            if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@"test.img"] && ![commentModel.commentPhotos isEqualToString:@"/img.img"]) {
                 
                 return 90 + (([UIScreen mainScreen].bounds.size.width - 106) / 3) + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
                 
@@ -247,7 +247,7 @@
             
             [shopDetailCommentTableViewCell setLookPhoto:^(UIImageView *imageView){
 
-                [self browserImage];
+                [self browserImage:indexPath atIndex:imageView.tag];
                 
             }];
             
@@ -462,26 +462,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)browserImage {
+- (void)browserImage:(NSIndexPath *)indexPath atIndex:(NSInteger)index{
 
-    self.photos = [[NSMutableArray alloc] init];
-    MWPhoto *photo;
-
-    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a1"]];
-    [self.photos addObject:photo];
-
-    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a2"]];
-    [self.photos addObject:photo];
+    CommentModel *commentModel = self.commentModelArray[indexPath.row];
     
-    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a3"]];
-    [self.photos addObject:photo];
+    self.photos = [NSMutableArray array];
     
-    photo = [MWPhoto photoWithImage:[UIImage imageNamed:@"a4"]];
-    [self.photos addObject:photo];
+    NSArray *photoUrl = [commentModel.commentPhotos componentsSeparatedByString:@","];
 
-
+    for (int i = 0; i < photoUrl.count; i++) {
+        
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:photoUrl[i]]];
+        [self.photos addObject:photo];
+        
+    }
+    
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;
+    [browser setCurrentPhotoIndex:index];
     [self.navigationController pushViewController:browser animated:NO];
 
 }

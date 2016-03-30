@@ -102,6 +102,8 @@
 
 #define  USER_ACCOUNT_ARRAY           @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
 
+#define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
+
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 #define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
@@ -179,6 +181,7 @@
 
 #define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/stapi/user/findDefaultCommentList"   //商品详情评论
 
+#define  GET_SEARCHTABLEVERSIION     @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
 
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"

@@ -267,4 +267,9 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                      Success:(void (^)(NSMutableArray *success))success
                                      failure:(void (^)(NSError *error))failure;
 
+
+//*********************************获取后台数据表格跟新版本信息*************************/
+- (void)sendSearchTableVersion:(void (^)(NSMutableArray *success))success
+                       failure:(void (^)(NSError *error))failure;
+
 @end

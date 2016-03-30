@@ -320,22 +320,7 @@
             shopDetailCommentTableViewCell.commentZambiaButton.hidden = YES;
             shopDetailCommentTableViewCell.commentButton.hidden = YES;
             shopDetailCommentTableViewCell.commentModel = self.commentModel;
-            
-            if (self.commitPhotos.count == 1) {
-                
-                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
-                
-            } else if (self.commitPhotos.count == 2) {
-            
-                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
-                [shopDetailCommentTableViewCell.commentContentImageViewTwo sd_setImageWithURL:self.commitPhotos[1]];
-                
-            } else if (self.commitPhotos.count == 3) {
-            
-                [shopDetailCommentTableViewCell.commentContentImageViewOne sd_setImageWithURL:self.commitPhotos[0]];
-                [shopDetailCommentTableViewCell.commentContentImageViewTwo sd_setImageWithURL:self.commitPhotos[1]];
-                [shopDetailCommentTableViewCell.commentContentImageViewThree sd_setImageWithURL:self.commitPhotos[2]];
-            }
+            shopDetailCommentTableViewCell.commentPhotosArray = self.commitPhotos;
             
             return shopDetailCommentTableViewCell;
             

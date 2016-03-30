@@ -91,6 +91,54 @@
     
     [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
     
+    
+    if (self.commentPhotosArray > 0) {
+        
+        if (self.commentPhotosArray.count == 1) {
+            
+            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
+            
+        } else if (self.commentPhotosArray.count == 2) {
+            
+            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:self.commentPhotosArray[1]];
+            
+        } else if (self.commentPhotosArray.count == 3) {
+            
+            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:self.commentPhotosArray[1]];
+            [self.commentContentImageViewThree sd_setImageWithURL:self.commentPhotosArray[2]];
+        }
+
+        
+    } else {
+    
+        if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@""]) {
+            
+            NSArray *photoUrl = [commentModel.commentPhotos componentsSeparatedByString:@","];
+            
+            if (photoUrl.count == 1) {
+                
+                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+                
+            } else if (photoUrl.count == 2) {
+                
+                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+                [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
+                
+            } else if (photoUrl.count == 3) {
+                
+                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+                [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
+                [self.commentContentImageViewThree sd_setImageWithURL:photoUrl[2]];
+            }
+            
+        }
+    
+    }
+    
+    
+    
 }
 
 - (void)lookImage:(UITapGestureRecognizer *)tap {

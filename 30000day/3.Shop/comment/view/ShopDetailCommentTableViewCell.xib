@@ -46,7 +46,7 @@
                             <constraint firstAttribute="width" secondItem="2nP-xv-pcf" secondAttribute="height" multiplier="1:1" id="uU3-MF-FlA"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-6" translatesAutoresizingMaskIntoConstraints="NO" id="U6t-Uy-ZVb">
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-6" translatesAutoresizingMaskIntoConstraints="NO" id="U6t-Uy-ZVb">
                         <rect key="frame" x="135" y="129" width="105" height="106"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="U6t-Uy-ZVb" secondAttribute="height" multiplier="1:1" id="Wze-5P-Hh1"/>
@@ -96,7 +96,7 @@
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-7" translatesAutoresizingMaskIntoConstraints="NO" id="ude-95-mr0">
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sd-7" translatesAutoresizingMaskIntoConstraints="NO" id="ude-95-mr0">
                         <rect key="frame" x="255" y="129" width="106" height="106"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ude-95-mr0" secondAttribute="height" multiplier="1:1" id="YCt-71-xma"/>
