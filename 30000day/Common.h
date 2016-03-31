@@ -27,13 +27,6 @@
 + (BOOL) isObjectNull : (id) obj;
 
 /**
- * yearArray存储的是 @"2016年",@"2015年"等字符串（100个）
- * monthArray存储的是 @"1月",@"2月"等字符串(12个)
- * dayArray存储的是  @"1日"，@"2日"等字符串（31个）
- **/
-+ (void)getYearArrayMonthArrayDayArrayWithYearNumber:(int)yearNumber
-                                              hander:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler;
-/**
  * 获取NSDated的时间字符串
  * @Param   NSDate类型的对象
  * @return  @"2016-12-12"

@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/3/12.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  封装的本app显示订单可预约订单，已出售，我的预定等表格视图
 
 #import <UIKit/UIKit.h>
 #import "AppointmentCollectionViewCell.h"
