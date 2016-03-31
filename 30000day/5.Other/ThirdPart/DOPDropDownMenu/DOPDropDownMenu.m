@@ -356,7 +356,7 @@ struct {
         self.switchButtonIndex = 0;
         
         //增加switch headView
-        _switchHeadView = [[QGRecordDetailSwitchHeadView alloc] init];
+        _switchHeadView = [[QGRecordDetailSwitchHeadView alloc] initWithFrame:CGRectMake(self.origin.x ,self.frame.origin.y + self.frame.size.height, self.width, 40)];
         
         _switchHeadView.opaque = NO;
         
@@ -381,8 +381,6 @@ struct {
             [weakSelf updateTableViewHeight];
             
         }];
-        
-        _switchHeadView.frame = CGRectMake(self.origin.x ,self.frame.origin.y + self.frame.size.height, self.width, 40);
         
         _switchHeadView.hidden = YES;
         

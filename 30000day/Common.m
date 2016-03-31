@@ -79,53 +79,6 @@
         return NO;
 }
 
-/**
- * yearArray存储的是 @"2016年",@"2015年"等字符串（100个）
- * monthArray存储的是 @"1月",@"2月"等字符串(12个)
- * dayArray存储的是  @"1日"，@"2日"等字符串（31个）
- **/
-+ (void)getYearArrayMonthArrayDayArrayWithYearNumber:(int) yearNumber
-                                              hander:(void (^)(NSMutableArray *yearArray,NSMutableArray *monthArray,NSMutableArray *dayArray) )handler {
-    
-    dispatch_async(dispatch_queue_create("creatArrays", DISPATCH_QUEUE_SERIAL), ^{
-        
-        NSMutableArray *yearArray = [NSMutableArray array];
-        
-        NSMutableArray *monthArray = [NSMutableArray array];
-        
-        NSMutableArray *dayArray = [NSMutableArray array];
-        
-        for (int i = 0; i < yearNumber; i++) {
-            
-            NSString *yearStr = [NSString stringWithFormat:@"%ld年",(long)(1917+i)];
-            
-            [yearArray addObject:yearStr];
-        }
-        
-        for (int i = 0; i < 12; i++) {
-            
-            NSString *monthStr = [NSString stringWithFormat:@"%ld月",(long)(1+i)];
-            
-            [monthArray addObject:monthStr];
-        }
-        
-        for (int i = 0; i < 31; i++) {
-            
-            NSString *dayStr = [NSString stringWithFormat:@"%ld日",(long)(1+i)];
-            
-            [dayArray addObject:dayStr];
-        }
-        
-        //主线程返回
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            handler(yearArray,monthArray,dayArray);
-            
-        });
-        
-    });
-}
-
 + (NSString *)getDateStringWithDate:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -289,8 +242,6 @@
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     
     NSDateComponents *localeComp = [localeCalendar components:unitFlags fromDate:date];
-    
-    NSLog(@"%zd_%zd_%zd",localeComp.year,localeComp.month,localeComp.day);
     
     NSCalendar *commonCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     

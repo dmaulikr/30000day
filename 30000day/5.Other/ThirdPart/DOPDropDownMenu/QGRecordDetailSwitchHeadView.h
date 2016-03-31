@@ -9,26 +9,27 @@
 #import <UIKit/UIKit.h>
 
 //点击了哪个按钮
-typedef enum{
+typedef NS_ENUM(NSInteger,QGSwtichBtnType){
     
     QGSwtichBtnFirstType,
     
-    QGSwtichBtnSecondType,
-    
-}QGSwtichBtnType;
+    QGSwtichBtnSecondType
+};
 
 @interface QGRecordDetailSwitchHeadView: UIView
 
-@property (weak, nonatomic) IBOutlet UIView *view_1;
+@property (nonatomic, strong) UIView *view_1;
 
-@property (weak, nonatomic) IBOutlet UIView *view_2;
+@property (nonatomic,strong)  UIView *view_2;
 
 @property(nonatomic,copy) void (^(ClickBlock))(QGSwtichBtnType);
 
-@property (weak, nonatomic) IBOutlet UIButton *btn_1;
+@property (nonatomic, strong) UIButton *btn_1;
 
-@property (weak, nonatomic) IBOutlet UIButton *btn_2;
+@property (nonatomic,strong) UIButton *btn_2;
 
 - (void)becomeFirst;
+
+- (id)initWithFrame:(CGRect)frame;
 
 @end

@@ -20,7 +20,6 @@
     // Configure the view for the selected state
 }
 
-
 - (void)drawRect:(CGRect)rect{
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
