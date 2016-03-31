@@ -23,7 +23,6 @@
 #import "ShopModel.h"
 #import "SubwayModel.h"
 #import "SearchTableVersion.h"
-#import "ProductTypeModel.h"
 #import "CompanyModel.h"
 
 #import "CommentModel.h"
@@ -3544,7 +3543,7 @@
 }
 
 - (void)sendfindCompanyInfoByIdWithCompanyId:(NSString *)companyId
-                                     Success:(void (^)(NSMutableArray *success))success
+                                     Success:(void (^)(CompanyModel *success))success
                                      failure:(void (^)(NSError *error))failure {
 
     
@@ -3567,25 +3566,15 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
-                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                NSDictionary * dataDictionary = recvDic[@"value"];
                                                                 
-                                                                NSArray *array = recvDic[@"value"];
+                                                                CompanyModel *companyModel = [[CompanyModel alloc] init];
                                                                 
-                                                                for (int i = 0; i < array.count; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = array[i];
-                                                                    
-                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
-                                                                    
-                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
-                                                                    
-                                                                    [dataArray addObject:commentModel];
-                                                                    
-                                                                }
+                                                                [companyModel setValuesForKeysWithDictionary:dataDictionary];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(dataArray);
+                                                                    success(companyModel);
                                                                     
                                                                 });
                                                                 

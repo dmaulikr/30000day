@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ShopDetailModel.h"
+#import "CompanyModel.h"
 #import <CoreLocation/CoreLocation.h>
 
 //当前用户成功添加好友发出的通知
@@ -287,7 +288,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 
 //*********************************商店*************************/
 - (void)sendfindCompanyInfoByIdWithCompanyId:(NSString *)companyId
-                                    Success:(void (^)(NSMutableArray *success))success
+                                    Success:(void (^)(CompanyModel *success))success
                                     failure:(void (^)(NSError *error))failure;
 
 @end
