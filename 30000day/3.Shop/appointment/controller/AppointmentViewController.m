@@ -24,12 +24,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //1.配置UI界面
+    [self configUI];
+    
+    //2.下载数据
+    [self loadDataFromServer];
+}
+
+//配置UI界面
+- (void)configUI {
+    
     self.selectorDate = [NSDate date];
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
-    self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT- 64);
-
+    self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT- 64 - 50);
+    
     self.isShowBackItem = YES;
     
     self.isShowFootRefresh = NO;
@@ -53,10 +63,24 @@
     
     self.navigationItem.titleView = timeButton;
     
-    //3.预约下一步
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"预约" style:UIBarButtonItemStylePlain target:self action:@selector(submitAppoinmentAction:)];
+    //3.添加预约按钮
+    [Common addAppointmentBackgroundView:self.view title:@"确认订单" selector:@selector(goToConfirmController) controller:self];
+}
+
+//2.从服务器下载数据
+- (void)loadDataFromServer {
     
-    self.navigationItem.rightBarButtonItem = rightButton;
+    
+}
+
+//前往确认订单界面
+- (void)goToConfirmController {
+    
+    AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 //通过一个输入date来返回标题
@@ -80,15 +104,6 @@
     picker.titleText = @"选择预约日期";
     
     [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(7.0000000*10.0000000*24.000000*60.00000*60.00000)]];
-}
-
-- (void)submitAppoinmentAction:(id)sender {
-    
-    AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
-    
-    controller.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma ----
@@ -130,7 +145,6 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
         
     }
-    
     //2.设置预约表格视图
 
     return cell;
@@ -138,7 +152,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 327;
+    return [AppointmentTableViewCell cellHeightWithTimeArray:[NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

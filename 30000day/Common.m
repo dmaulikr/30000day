@@ -442,4 +442,26 @@
     return rect.size.width;
 }
 
+//添加预约按钮
++ (void)addAppointmentBackgroundView:(UIView *)superView title:(NSString *)title selector:(SEL)selector controller:(UIViewController *)controller {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50.0f, SCREEN_WIDTH, 50)];
+    
+    view.backgroundColor = RGBACOLOR(0, 93, 193, 1);
+    
+    [superView addSubview:view];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    button.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+    
+    [button setTitle:title forState:UIControlStateNormal];
+    
+    button.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    
+    [button addTarget:controller action:selector forControlEvents:UIControlEventTouchUpInside];
+    
+    [view addSubview:button];
+}
+
 @end

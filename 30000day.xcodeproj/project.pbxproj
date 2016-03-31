@@ -2003,6 +2003,13 @@
 			path = DOPDropDownMenu;
 			sourceTree = "<group>";
 		};
+		B83B7A7D1CAD226500D2CC6A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		B8695AC71C75D451001B4B95 /* QGPickView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2876,6 +2883,7 @@
 		B8F6485F1C942466001A3119 /* appointment */ = {
 			isa = PBXGroup;
 			children = (
+				B83B7A7D1CAD226500D2CC6A /* model */,
 				B8F648701C9424BF001A3119 /* view */,
 				B8F648601C942466001A3119 /* controller */,
 			);

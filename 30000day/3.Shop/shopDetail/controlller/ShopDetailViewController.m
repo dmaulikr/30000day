@@ -45,7 +45,7 @@
     
     self.tableViewStyle = STRefreshTableViewGroup;
 
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     
     self.isShowBackItem = YES;
     
@@ -117,10 +117,8 @@
         
     }];
     
-    UIBarButtonItem *barButton =  [[UIBarButtonItem alloc] initWithTitle:@"预约" style:UIBarButtonItemStylePlain target:self action:@selector(appointmentAction)];
-    
-    self.navigationItem.rightBarButtonItem = barButton;
-    
+    //3.添加预约按钮
+    [Common addAppointmentBackgroundView:self.view title:@"前往预约" selector:@selector(appointmentAction) controller:self];
  }
 
 - (void)appointmentAction {

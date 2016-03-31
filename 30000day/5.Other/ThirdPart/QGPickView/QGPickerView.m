@@ -321,7 +321,6 @@
     
     self.isDatePicker = NO;
 
-    
     //循环创建pickerView
     for (int i = 0; i < num; i++) {
         

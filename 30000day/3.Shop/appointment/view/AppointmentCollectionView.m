@@ -120,7 +120,6 @@
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
     //2.设置表格视图
-   
      UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(50, HeightMargin,self.width - 50,self.height - HeightMargin) collectionViewLayout:layout];
     
     [collectionView setCollectionViewLayout:layout animated:NO];

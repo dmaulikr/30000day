@@ -62,7 +62,6 @@
 
 + (UIImage *)imageWithColor:(UIColor *)color;
 
-
 //专门用来检查URL是否正确的
 + (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
 
@@ -79,5 +78,8 @@
 + (CGFloat)heightWithText:(NSString *)text width:(CGFloat)width fontSize:(CGFloat)fontSize;
 
 + (CGFloat)widthWithText:(NSString *)text height:(CGFloat)height fontSize:(CGFloat)fontSize;
+
+//添加预约按钮
++ (void)addAppointmentBackgroundView:(UIView *)superView title:(NSString *)title selector:(SEL)selector controller:(UIViewController *)controller;
 
 @end
