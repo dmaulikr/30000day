@@ -21,6 +21,7 @@
 #import "MWPhotoBrowser.h"
 #import "UIImageView+WebCache.h"
 #import "ShopModel.h"
+#import "CompanyViewController.h"
 
 
 #define SECTIONSCOUNT 5
