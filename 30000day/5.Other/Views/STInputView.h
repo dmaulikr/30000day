@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/3/14.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  封装的自定义键盘
 
 #import <UIKit/UIKit.h>
 

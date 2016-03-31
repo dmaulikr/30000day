@@ -179,16 +179,16 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    
-    CGRect imageViewFrame = self.imageView.frame;
-    CGFloat imageView_X = imageViewFrame.origin.x;
-    CGFloat imageView_Y = imageViewFrame.origin.y;
-    CGFloat imageView_H = imageViewFrame.size.height;
-    
-    CGFloat X = touchPoint.x;
-    CGFloat Y = touchPoint.y;
+//    UITouch *touch = [touches anyObject];
+//    CGPoint touchPoint = [touch locationInView:self];
+//    
+//    CGRect imageViewFrame = self.imageView.frame;
+//    CGFloat imageView_X = imageViewFrame.origin.x;
+//    CGFloat imageView_Y = imageViewFrame.origin.y;
+//    CGFloat imageView_H = imageViewFrame.size.height;
+//    
+//    CGFloat X = touchPoint.x;
+//    CGFloat Y = touchPoint.y;
     
     //这个判断条件表示点击了模态视图
 //    if (  !(( X > imageView_X)  && ((Y > imageView_Y)&& (Y < imageView_Y + imageView_H)))) {
@@ -271,7 +271,7 @@
         
     } else {
       
-        i = _dataArray.count;
+        i = (int)_dataArray.count;
     }
     
     self.imageViewHeightConstraint.constant = i * 44 + 12;

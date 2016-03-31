@@ -10,7 +10,6 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentOptionsTableViewCell.h"
 #import "AppointmentConfirmViewController.h"
-#import "Height.h"
 #import "CommentModel.h"
 #import "CommentDetailsTableViewCell.h"
 #import "UIImageView+WebCache.h"
@@ -120,17 +119,17 @@
         
         if (commentModel.level == 1) {
 
-            return 238 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 238 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         } else {
         
             if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@"test.img"] && ![commentModel.commentPhotos isEqualToString:@"/img.img"]) {
                 
-                return 90 + (([UIScreen mainScreen].bounds.size.width - 106) / 3) + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                return 90 + (([UIScreen mainScreen].bounds.size.width - 106) / 3) + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
                 
             } else {
             
-                return 90 + [Height heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                return 90 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
                 
             }
         
