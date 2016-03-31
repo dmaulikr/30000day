@@ -11,9 +11,8 @@
 
 @interface AppointmentTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet AppointmentCollectionView *appointmentView;
-
 //根据时间数组算出cell应该有的高度
 + (CGFloat)cellHeightWithTimeArray:(NSMutableArray *)timeArray;
+
 
 @end

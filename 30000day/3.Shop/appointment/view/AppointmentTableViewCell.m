@@ -12,6 +12,12 @@
 
 @interface AppointmentTableViewCell () <AppointmentCollectionViewDelegate>
 
+@property (weak, nonatomic) IBOutlet AppointmentCollectionView *appointmentView;
+
+@property (weak, nonatomic) IBOutlet UILabel *productNumberLabel;//商品总计label
+
+@property (weak, nonatomic) IBOutlet UILabel *productPriceLabel;//商品总价label
+
 @end
 
 @implementation AppointmentTableViewCell
@@ -23,6 +29,23 @@
     self.appointmentView.time_dataArray = [NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]];
     
     self.appointmentView.delegate = self;
+    
+    [self.productPriceLabel setAttributedText:[self attributeString:2500]];
+}
+
+- (NSMutableAttributedString *)attributeString:(CGFloat)price {
+    
+    NSString *originalPriceString = @"合计:";
+    
+    NSString *currentPriceString = [NSString stringWithFormat:@"¥%.2f", price];
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", originalPriceString,currentPriceString]];
+    
+    [text addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(text.length - currentPriceString.length,currentPriceString.length)];
+    
+//    [text addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0f] range:NSMakeRange(0, originalPriceString.length)];
+    
+    return text;
 }
 
 + (CGFloat)cellHeightWithTimeArray:(NSMutableArray *)timeArray {
@@ -38,7 +61,6 @@
 #pragma ---
 #pragma mark --- AppointmentCollectionViewDelegate
 - (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath {
-    
     
 }
 
