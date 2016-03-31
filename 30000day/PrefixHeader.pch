@@ -189,6 +189,8 @@
 
 #define  GET_FINDCOMOANYINFO        @"/stapi/market/findCompanyInfoById"    //商店
 
+#define  GET_FINDPRODUCTSBYIDS      @"/stapi/market/findProductsByIds"      //商店下的商品
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

@@ -37,6 +37,7 @@
 		B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD891CAD1A4D004C428C /* ProductTypeModel.m */; };
 		B612DD8E1CAD36C4004C428C /* CompanyCommodityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD8C1CAD36C4004C428C /* CompanyCommodityViewController.m */; };
 		B612DD8F1CAD36C4004C428C /* CompanyCommodityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B612DD8D1CAD36C4004C428C /* CompanyCommodityViewController.xib */; };
+		B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD911CAD37E7004C428C /* CompanyCommodityModel.m */; };
 		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
 		B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */; };
 		B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DCB1C8D70DC00116B13 /* SelectionMethodTableViewCell.m */; };
@@ -651,6 +652,8 @@
 		B612DD8B1CAD36C4004C428C /* CompanyCommodityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyCommodityViewController.h; sourceTree = "<group>"; };
 		B612DD8C1CAD36C4004C428C /* CompanyCommodityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyCommodityViewController.m; sourceTree = "<group>"; };
 		B612DD8D1CAD36C4004C428C /* CompanyCommodityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCommodityViewController.xib; sourceTree = "<group>"; };
+		B612DD901CAD37E7004C428C /* CompanyCommodityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyCommodityModel.h; sourceTree = "<group>"; };
+		B612DD911CAD37E7004C428C /* CompanyCommodityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyCommodityModel.m; sourceTree = "<group>"; };
 		B6171DBC1C8D208600116B13 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
 		B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
 		B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
@@ -1655,6 +1658,8 @@
 				B612DD861CAD1941004C428C /* CompanyModel.m */,
 				B612DD881CAD1A4D004C428C /* ProductTypeModel.h */,
 				B612DD891CAD1A4D004C428C /* ProductTypeModel.m */,
+				B612DD901CAD37E7004C428C /* CompanyCommodityModel.h */,
+				B612DD911CAD37E7004C428C /* CompanyCommodityModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4474,6 +4479,7 @@
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
+				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,

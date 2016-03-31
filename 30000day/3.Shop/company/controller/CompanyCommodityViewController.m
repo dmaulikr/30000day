@@ -7,8 +7,13 @@
 //
 
 #import "CompanyCommodityViewController.h"
+#import "ShopListTableViewCell.h"
+#import "ShopModel.h"
+#import "ShopDetailViewController.h"
 
 @interface CompanyCommodityViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,strong) NSArray *shopModelArray;
 
 @end
 
@@ -28,6 +33,17 @@
     self.tableView.delegate = self;
     
     self.tableView.dataSource  = self;
+    
+    [self.dataHandler sendFindProductsByIdsWithCompanyId:@"2" productTypeId:@"1" Success:^(NSMutableArray *success) {
+       
+        self.shopModelArray = [NSArray arrayWithArray:success];
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,27 +67,20 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-    
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 0;
+    return self.shopModelArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 44;
-    
+    return 110;
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    return 10.f;
+    return 0.001f;
 }
 
 
@@ -83,13 +92,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return nil;
+    ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
+    
+    if (shopListTableViewCell == nil) {
+        
+        shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
+        
+    }
+    
+    ShopModel *shopModel = self.shopModelArray[indexPath.row];
+    
+    shopListTableViewCell.shopModel = shopModel;
+    
+    return shopListTableViewCell;
     
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+    [self.navigationController pushViewController:shopDetailViewController animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
