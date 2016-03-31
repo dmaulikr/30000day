@@ -10,8 +10,13 @@
 #import "ShopHeadTableViewCell.h"
 #import "ShopOneLineDataTableViewCell.h"
 #import "ShopTitleTableViewCell.h"
+#import "ProductTypeModel.h"
+#import "UIImageView+WebCache.h"
 
 @interface CompanyViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,strong) CompanyModel *companyModel;
+@property (nonatomic,strong) NSArray *productTypeModelArray;
 
 @end
 
@@ -31,6 +36,33 @@
     self.tableView.delegate = self;
     
     self.tableView.dataSource  = self;
+    
+    [self.dataHandler sendfindCompanyInfoByIdWithCompanyId:@"2" Success:^(CompanyModel *success) {
+        
+        self.companyModel = success;
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        for (int i = 0; i < success.productTypeList.count; i++) {
+            
+            NSDictionary * dataDictionary = success.productTypeList[i];
+            
+            ProductTypeModel *productTypeModel = [[ProductTypeModel alloc] init];
+            
+            [productTypeModel setValuesForKeysWithDictionary:dataDictionary];
+ 
+            [array addObject:productTypeModel];
+        }
+        
+        self.productTypeModelArray = [NSArray arrayWithArray:array];
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
     
     
 }
@@ -74,7 +106,7 @@
         
     } else if (section == 2) {
         
-        return 2;
+        return self.productTypeModelArray.count + 1;
         
     } else if (section == 3) {
         
@@ -100,7 +132,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 4) {
+    if (section == 3) {
         
         return 0.5f;
         
@@ -126,6 +158,11 @@
             shopHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopHeadTableViewCell" owner:nil options:nil] lastObject];
         }
         
+        [shopHeadTableViewCell.headImageView sd_setImageWithURL:[NSURL URLWithString:self.companyModel.placePhoto]];
+        shopHeadTableViewCell.storeNameLable.text = self.companyModel.companyName;
+        shopHeadTableViewCell.keywordLable.text = self.companyModel.alias;
+        shopHeadTableViewCell.businessHoursLable.text = self.companyModel.businessTime;
+        
         return shopHeadTableViewCell;
         
         
@@ -141,12 +178,12 @@
         
         if (indexPath.row == 0) {
             
-            shopOneLineDataTableViewCell.leftTitleLable.text = @"地址。。。。。。。。";
+            shopOneLineDataTableViewCell.leftTitleLable.text = self.companyModel.address;
             [shopOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
             
         } else if (indexPath.row == 1){
             
-            shopOneLineDataTableViewCell.leftTitleLable.text = @"123-123-123";
+            shopOneLineDataTableViewCell.leftTitleLable.text = self.companyModel.telephone;
             [shopOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
         }
         
@@ -165,19 +202,19 @@
         
         if (indexPath.row == 0) {
             
-            shopTitleTableViewCell.textLabel.text = @"所有商铺分类";
+            shopTitleTableViewCell.textLabel.text = @"商品类别";
             
             [shopTitleTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
             
-            return shopTitleTableViewCell;
-            
         } else {
 
-            shopTitleTableViewCell.textLabel.text = @"好东西";
+            ProductTypeModel *productTypeModel = self.productTypeModelArray[indexPath.row - 1];
             
-            return shopTitleTableViewCell;
+            shopTitleTableViewCell.textLabel.text = productTypeModel.name;
             
         }
+        
+        return shopTitleTableViewCell;
         
         
     } else if (indexPath.section == 3) {
@@ -189,7 +226,10 @@
             shopTitleTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTitleTableViewCell" owner:nil options:nil] lastObject];
             
         }
-
+        
+        shopTitleTableViewCell.textLabel.text = @"商店信息";
+        
+        return shopTitleTableViewCell;
         
     }
     
