@@ -460,6 +460,13 @@
     
     if (indexPath.section == 2) {
         
+        if (indexPath.row == self.shopModelKeeperArray.count + 1) {
+            
+            CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+            [self.navigationController pushViewController:companyViewController animated:YES];
+            
+        }
+        
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
             ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
