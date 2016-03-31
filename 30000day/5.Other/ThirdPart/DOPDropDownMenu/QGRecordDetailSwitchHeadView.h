@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 
 //点击了哪个按钮
-typedef enum{
+typedef NS_ENUM(NSInteger,QGSwtichBtnType){
     
     QGSwtichBtnFirstType,
     
-    QGSwtichBtnSecondType,
-    
-}QGSwtichBtnType;
+    QGSwtichBtnSecondType
+};
 
 @interface QGRecordDetailSwitchHeadView: UIView
 

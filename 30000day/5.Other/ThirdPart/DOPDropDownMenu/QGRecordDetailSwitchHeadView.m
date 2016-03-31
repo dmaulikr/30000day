@@ -54,14 +54,24 @@
     
     [self addSubview:firstView];
     
-    
-    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
+
+    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f + 1.0f, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
     
     secondView.hidden = YES;
     
     _view_2 = secondView;
     
     [self addSubview:secondView];
+    
+    //背景图片
+    UIView *backgroudView = [self createViewWithFrame:CGRectMake(0.0f, self.height - 1.0f, self.width, 0.3f) backgroundColor:RGBACOLOR(230, 230, 230, 1)];
+
+    [self addSubview:backgroudView];
+    
+    //设置
+    UIView *backgroudview_line = [self createViewWithFrame:CGRectMake(self.width/2.0f, 10.0f, 1.0f, self.height - 20.0f) backgroundColor:RGBACOLOR(220, 220, 220, 1)];
+    
+    [self addSubview:backgroudview_line];
 }
 
 - (UIView *)createViewWithFrame:(CGRect)frame backgroundColor:(UIColor *)color {
@@ -131,7 +141,6 @@
     [self.btn_2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     
     [self.btn_1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    
 }
 
 @end
