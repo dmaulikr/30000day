@@ -111,24 +111,28 @@
     calendar.layer.cornerRadius = 5;
     
     calendar.layer.masksToBounds = YES;
-    
+
     calendar.scrollDirection = FSCalendarScrollDirectionVertical;
     
     calendar.appearance.subtitleVerticalOffset = 3;
     
     calendar.appearance.subtitleFont = [UIFont systemFontOfSize:10.0f];
     
-    calendar.appearance.titleFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:30.0f];
+    calendar.appearance.titleFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
     
     calendar.appearance.weekdayTextColor = RGBACOLOR(0, 111, 225, 1);
     
     calendar.appearance.headerTitleColor = RGBACOLOR(0, 111, 225, 1);
     
-    calendar.appearance.adjustsFontSizeToFitContentSize = YES;
+    calendar.appearance.weekdayFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
+    
+    calendar.appearance.headerTitleFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
     
     calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase|FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
     
     self.calendar = calendar;
+    
+    calendar.appearance.adjustsFontSizeToFitContentSize = NO;
     
     [self addSubview:calendar];
     
@@ -140,6 +144,8 @@
     todayButton.frame = CGRectMake(SCREEN_WIDTH - 80.0f, 3.0f, 40.0f, 40.0f);
     
     [todayButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
+    
+    todayButton.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     
     [todayButton addTarget:self action:@selector(todayButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -199,7 +205,7 @@
 //选择今天
 - (void)todayButtonClick {
     
-    [_calendar selectDate:[NSDate date] scrollToDate:YES];
+    [_calendar selectDate:[NSDate date]];
 }
 
 - (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
@@ -244,24 +250,14 @@
         self.dateBlock(date);
     }
 }
-//
-//- (nullable UIImage *)calendar:(FSCalendar *)calendar imageForDate:(NSDate *)date {
-//    
-//    if ([@[@15] containsObject:@([_calendar dayOfDate:date])]) {
-//        
-//        return [UIImage imageNamed:@"information"];
-//        
-//    } else {
-//        
-//        return nil;
-//    }
-//}
 
 - (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date {
     
-    NSInteger day = [_lunarCalendar components:NSCalendarUnitDay fromDate:date].day;
+//    NSInteger day = [_lunarCalendar components:NSCalendarUnitDay fromDate:date].day;
+//    
+//    return _lunarChars[day-1];
     
-    return _lunarChars[day-1];
+    return [Common getChineseCalendarWithDate:date];
 }
 
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar {
@@ -328,6 +324,9 @@
 //    return appearance.borderSelectionColor;
 //}
 
+#pragma mark ---
+#pragma mark --- FSCalendarDelegateAppearance
+
 - (FSCalendarCellShape)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance cellShapeForDate:(NSDate *)date {
     
     if ([@[@8,@17,@21,@25] containsObject:@([_calendar dayOfDate:date])]) {
@@ -358,5 +357,36 @@
     return appearance.borderDefaultColor;
 }
 
+- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleDefaultColorForDate:(NSDate *)date {
+    
+//    if ([@[@17,@18,@19] containsObject:@([calendar dayOfDate:date])]) {
+//        
+//        return RGBACOLOR(0, 111, 225, 1);
+//    }
+    
+    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
+        
+        return RGBACOLOR(0, 111, 225, 1);
+    }
+    return appearance.borderDefaultColor;
+}
+
+/**
+ * Asks the delegate for subtitle text color in unselected state for the specific date.
+ */
+- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance subtitleDefaultColorForDate:(NSDate *)date {
+    
+//    if ([@[@17,@18,@19] containsObject:@([calendar dayOfDate:date])]) {
+//        
+//        return RGBACOLOR(0, 111, 225, 1);
+//    }
+//    return appearance.borderDefaultColor;
+
+    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
+        
+        return RGBACOLOR(0, 111, 225, 1);
+    }
+    return appearance.borderDefaultColor;
+}
 
 @end
