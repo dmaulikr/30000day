@@ -66,8 +66,7 @@
         self.title = model.productName;
         self.shopDetailModel = model;
         
-        //model.productTypePid
-        [self.dataHandler sendShopOwnerRecommendWithCompanyId:@"2" count:3 Success:^(NSMutableArray *success) {
+        [self.dataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelKeeperArray = [NSArray arrayWithArray:success];
             [self.tableView reloadData];
@@ -190,7 +189,7 @@
             
         } else {
             
-            return self.shopModelTerraceArray.count + 2;
+            return self.shopModelTerraceArray.count + 1;
         }
         
     }
@@ -295,7 +294,7 @@
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataTableViewCell.leftTitleLable.text = @"浦东小道888号科技大楼12楼";
+            shopDetailOneLineDataTableViewCell.leftTitleLable.text = self.shopDetailModel.address == nil || [self.shopDetailModel.address isEqualToString:@""] ? @"地址不详":self.shopDetailModel.address;
             [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
             
         } else if (indexPath.row == 1){
@@ -327,7 +326,7 @@
             
         } else if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"全部推荐";
+            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看店铺";
             
             return shopDetailOneLineDataNoImageViewTableViewCell;
             
@@ -456,7 +455,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 3) {
+    
+    if (indexPath.section == 2) {
+        
+        if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
+            
+            ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+            [self.navigationController pushViewController:shopDetailViewController animated:YES];
+            
+        }
+        
+    }else if (indexPath.section == 3) {
         
         if (indexPath.row != 0) {
             
@@ -472,6 +481,15 @@
         
         }
         
+    }else if (indexPath.section == 4) {
+    
+        if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
+            
+            ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+            [self.navigationController pushViewController:shopDetailViewController animated:YES];
+            
+        }
+    
     }
     
     

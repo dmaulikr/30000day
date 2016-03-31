@@ -10,4 +10,6 @@
 
 @interface ShopDetailViewController : STRefreshViewController
 
+@property (nonatomic,copy) NSString *productId;
+
 @end
