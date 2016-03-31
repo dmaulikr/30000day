@@ -25,6 +25,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="ZHH-T2-Ar3"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <state key="normal" title="80岁">
                             <color key="titleColor" red="0.29019607843137252" green="0.48627450980392156" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         </state>

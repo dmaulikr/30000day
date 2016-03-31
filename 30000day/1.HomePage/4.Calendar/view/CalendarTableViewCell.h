@@ -22,4 +22,6 @@
 //点击日期回调
 @property (nonatomic,copy) void (^dateBlock)(NSDate *chooseDate);
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
 @end

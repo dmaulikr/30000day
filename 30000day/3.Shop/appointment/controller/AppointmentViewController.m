@@ -13,12 +13,18 @@
 
 @interface AppointmentViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,strong) UIButton *timeButton;
+
+@property (nonatomic,strong) NSDate *selectorDate;//记住选中的日期
+
 @end
 
 @implementation AppointmentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.selectorDate = [NSDate date];
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -35,11 +41,15 @@
     //1.设置选择时间的标题按钮
     UIButton *timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [timeButton setTitle:@"03-01/周三" forState:UIControlStateNormal];
+    timeButton.frame = CGRectMake(0, 0, 150, 40);
+    
+    [timeButton setTitle:[self titleStringFromDate:[NSDate date]] forState:UIControlStateNormal];
     
     [timeButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
     [timeButton addTarget:self action:@selector(timeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.timeButton = timeButton;
     
     self.navigationItem.titleView = timeButton;
     
@@ -49,11 +59,16 @@
     self.navigationItem.rightBarButtonItem = rightButton;
 }
 
-#pragma ---
-#pragma mark --- 父类的方法
-- (void)headerRefreshing {
- 
-    [self.tableView.mj_header endRefreshing];
+//通过一个输入date来返回标题
+- (NSString *)titleStringFromDate:(NSDate *)inputDate {
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    
+    NSString *title = [[formatter stringFromDate:inputDate] substringFromIndex:5];
+    
+    NSString *weekDayString = [Common weekdayStringFromDate:inputDate];
+    
+    return [NSString stringWithFormat:@"%@/%@",title,weekDayString];
 }
 
 - (void)timeButtonAction:(UIButton *)timeButton {
@@ -64,14 +79,7 @@
     
     picker.titleText = @"选择预约日期";
     
-    [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:[NSDate date] datePickerMode:UIDatePickerModeDate minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(10.0000000*24.000000*60.00000*60.00000)]];
-}
-
-#pragma ----
-#pragma mark --- QGPickerViewDelegate
-
-- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
-    
+    [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(7.0000000*10.0000000*24.000000*60.00000*60.00000)]];
 }
 
 - (void)submitAppoinmentAction:(id)sender {
@@ -83,6 +91,22 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+#pragma ----
+#pragma mark --- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    self.selectorDate = selectorDate;
+    
+    [self.timeButton setTitle:[self titleStringFromDate:selectorDate] forState:UIControlStateNormal];
+}
+
+#pragma ---
+#pragma mark --- 父类的方法
+- (void)headerRefreshing {
+ 
+    [self.tableView.mj_header endRefreshing];
+}
 
 #pragma ---
 #pragma mark --- UITableViewDataSource/UITableViewDelegate

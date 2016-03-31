@@ -96,11 +96,11 @@
         
         if ([todayString isEqualToString:selectorDateString]) {//如果选中的日期是今天
             
-            self.calendarCell.todayButton.hidden = YES;
+//            self.calendarCell.todayButton.hidden = YES;
             
         } else {
             
-            self.calendarCell.todayButton.hidden = NO;
+//            self.calendarCell.todayButton.hidden = NO;
         }
         
         NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
@@ -304,13 +304,13 @@
     
     if (indexPath.section == 0) {
         
-        return 350;
+        return 350.0f;
         
     } else if (indexPath.section == 1) {
         
-        return 44;
+        return 44.0f;
     }
-    return 44;
+    return 44.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -76,4 +76,11 @@
 //剪切字符串，吧市、自治区、省
 + (NSString *)deletedStringWithParentString:(NSString *)sting;
 
+/**
+ *  通过输入一个date来返回星期几
+ */
++ (NSString *)weekdayStringFromDate:(NSDate*)inputDate;
+
++ (NSString *)getChineseCalendarWithDate:(NSDate *)date;
+
 @end
