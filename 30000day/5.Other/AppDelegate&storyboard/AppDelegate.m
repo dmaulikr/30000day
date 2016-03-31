@@ -125,8 +125,6 @@
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-    
-
 
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
@@ -154,8 +152,13 @@
                 
             }
             
+            //同步省-城市-区、县的数据
+            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+            
             NSArray *array = [NSArray arrayWithArray:successArray];
+            
             [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
+            
             [defaults synchronize];
             
         } else {

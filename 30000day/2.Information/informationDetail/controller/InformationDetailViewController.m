@@ -12,7 +12,6 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentViewController.h"
 #import "ReportViewController.h"
-#import "Height.h"
 
 @interface InformationDetailViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -188,7 +187,7 @@
     
         if (indexPath.row == 1 || indexPath.row == 2) {
             
-            return 228 + [Height heightWithText:@"环境挺不错，装修也很考究，就是人太多了，需要排队，下次提前预约好了.好好好好好好好好好好好好好好好好好好好好好好好好好" width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 228 + [Common heightWithText:@"环境挺不错，装修也很考究，就是人太多了，需要排队，下次提前预约好了.好好好好好好好好好好好好好好好好好好好好好好好好好" width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         }
 

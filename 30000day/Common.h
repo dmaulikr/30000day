@@ -83,4 +83,8 @@
 
 + (NSString *)getChineseCalendarWithDate:(NSDate *)date;
 
++ (CGFloat)heightWithText:(NSString *)text width:(CGFloat)width fontSize:(CGFloat)fontSize;
+
++ (CGFloat)widthWithText:(NSString *)text height:(CGFloat)height fontSize:(CGFloat)fontSize;
+
 @end

@@ -15,7 +15,6 @@
 #import "CommentViewController.h"
 #import "AppointmentViewController.h"
 #import "ShopDetailModel.h"
-#import "Height.h"
 #import "CommodityCommentViewController.h"
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
@@ -226,7 +225,7 @@
         
         if (indexPath.row == 1) {
             
-            return 228 + [Height heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 228 + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
         }
         

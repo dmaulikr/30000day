@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/3/11.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  封装的点击出现下拉菜单的控件
 
 #import <UIKit/UIKit.h>
 

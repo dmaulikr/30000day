@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/3/16.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  封装的点击显示大图控件
 
 #import <Foundation/Foundation.h>
 
