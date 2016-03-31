@@ -17,8 +17,9 @@
 @property (nonatomic,copy) NSString *alias;                //别名
 @property (nonatomic,copy) NSString *businessTime;         //营业时间
 @property (nonatomic,copy) NSString *companyName;          //商店名称
+@property (nonatomic,copy) NSString *companyId;            //商店ID
 @property (nonatomic,copy) NSString *graphicDetails;       //细节
-@property (nonatomic,copy) NSString *shopDetailId;         //商店详情ID
+@property (nonatomic,copy) NSString *shopDetailId;         //商品详情ID
 @property (nonatomic,copy) NSString *originalPrice;        //原价
 @property (nonatomic,copy) NSString *presentPrice;         //现价
 @property (nonatomic,copy) NSString *productCode;          //商品编码
