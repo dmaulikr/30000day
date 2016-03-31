@@ -285,4 +285,9 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                        Success:(void (^)(NSMutableArray *success))success
                                        failure:(void (^)(NSError *error))failure;
 
+//*********************************商店*************************/
+- (void)sendfindCompanyInfoByIdWithCompanyId:(NSString *)companyId
+                                    Success:(void (^)(NSMutableArray *success))success
+                                    failure:(void (^)(NSError *error))failure;
+
 @end

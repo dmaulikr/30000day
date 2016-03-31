@@ -32,6 +32,12 @@
     
     self.tableView.dataSource  = self;
     
+    [self.dataHandler sendfindCompanyInfoByIdWithCompanyId:@"2" Success:^(NSMutableArray *success) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
     
 }
 
@@ -165,7 +171,7 @@
         
         if (indexPath.row == 0) {
             
-            shopTitleTableViewCell.textLabel.text = @"所有商铺分类";
+            shopTitleTableViewCell.textLabel.text = @"商品类别";
             
             [shopTitleTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
             
@@ -189,7 +195,10 @@
             shopTitleTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTitleTableViewCell" owner:nil options:nil] lastObject];
             
         }
-
+        
+        shopTitleTableViewCell.textLabel.text = @"商店信息";
+        
+        return shopTitleTableViewCell;
         
     }
     

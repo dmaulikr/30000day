@@ -185,7 +185,9 @@
 
 #define  GET_SHOPOWNERRECOMMEND     @"/stapi/market/shopOwnerRecommend"    //店长推荐
 
-#define  GET_PLATFORMRECOMMEND     @"/stapi/market/platformRecommend"    //平台推荐
+#define  GET_PLATFORMRECOMMEND      @"/stapi/market/platformRecommend"    //平台推荐
+
+#define  GET_FINDCOMOANYINFO        @"/stapi/market/findCompanyInfoById"    //商店
 
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"

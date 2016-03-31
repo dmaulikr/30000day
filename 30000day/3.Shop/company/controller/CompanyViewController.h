@@ -6,7 +6,7 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ShowBackItemViewController.h"
 
 @interface CompanyViewController : STRefreshViewController
 

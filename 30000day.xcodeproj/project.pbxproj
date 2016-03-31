@@ -33,6 +33,8 @@
 		B612DD821CACFE21004C428C /* ShopOneLineDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B612DD791CACFE21004C428C /* ShopOneLineDataTableViewCell.xib */; };
 		B612DD831CACFE21004C428C /* ShopTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD7B1CACFE21004C428C /* ShopTitleTableViewCell.m */; };
 		B612DD841CACFE21004C428C /* ShopTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B612DD7C1CACFE21004C428C /* ShopTitleTableViewCell.xib */; };
+		B612DD871CAD1941004C428C /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD861CAD1941004C428C /* CompanyModel.m */; };
+		B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B612DD891CAD1A4D004C428C /* ProductTypeModel.m */; };
 		B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */; };
 		B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */; };
 		B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DCB1C8D70DC00116B13 /* SelectionMethodTableViewCell.m */; };
@@ -640,6 +642,10 @@
 		B612DD7A1CACFE21004C428C /* ShopTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTitleTableViewCell.h; sourceTree = "<group>"; };
 		B612DD7B1CACFE21004C428C /* ShopTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTitleTableViewCell.m; sourceTree = "<group>"; };
 		B612DD7C1CACFE21004C428C /* ShopTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopTitleTableViewCell.xib; sourceTree = "<group>"; };
+		B612DD851CAD1941004C428C /* CompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyModel.h; sourceTree = "<group>"; };
+		B612DD861CAD1941004C428C /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
+		B612DD881CAD1A4D004C428C /* ProductTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTypeModel.h; sourceTree = "<group>"; };
+		B612DD891CAD1A4D004C428C /* ProductTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTypeModel.m; sourceTree = "<group>"; };
 		B6171DBC1C8D208600116B13 /* WeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewCell.h; sourceTree = "<group>"; };
 		B6171DBD1C8D208600116B13 /* WeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewCell.m; sourceTree = "<group>"; };
 		B6171DBE1C8D208600116B13 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
@@ -1614,15 +1620,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		B605DD1D1C9C093700BE1D3E /* 2.MTImagePlayView */ = {
-			isa = PBXGroup;
-			children = (
-				B605DD1E1C9C093700BE1D3E /* MTImagePlayView.h */,
-				B605DD1F1C9C093700BE1D3E /* MTImagePlayView.m */,
-			);
-			path = 2.MTImagePlayView;
-			sourceTree = "<group>";
-		};
 		B612DD6D1CACFE21004C428C /* company */ = {
 			isa = PBXGroup;
 			children = (
@@ -1646,6 +1643,10 @@
 		B612DD721CACFE21004C428C /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B612DD851CAD1941004C428C /* CompanyModel.h */,
+				B612DD861CAD1941004C428C /* CompanyModel.m */,
+				B612DD881CAD1A4D004C428C /* ProductTypeModel.h */,
+				B612DD891CAD1A4D004C428C /* ProductTypeModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4229,6 +4230,7 @@
 				B8FD3E831C8A83A6007BCA6B /* AVIMCustomMessage.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
+				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
 				B62C381B1C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */,
@@ -4497,6 +4499,7 @@
 				B8FD3E151C8A7903007BCA6B /* XHPathCover.m in Sources */,
 				B6F8CE661CAB9D6C00218046 /* SearchTableVersion.m in Sources */,
 				B8FD3EC01C8A8440007BCA6B /* CDPopMenuItem.m in Sources */,
+				B612DD871CAD1941004C428C /* CompanyModel.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8FD3E1A1C8A7903007BCA6B /* XHBubblePhotoImageView.m in Sources */,
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
