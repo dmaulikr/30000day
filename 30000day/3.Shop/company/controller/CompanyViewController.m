@@ -12,6 +12,7 @@
 #import "ShopTitleTableViewCell.h"
 #import "ProductTypeModel.h"
 #import "UIImageView+WebCache.h"
+#import "CompanyCommodityViewController.h"
 
 @interface CompanyViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -239,6 +240,17 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 2) {
+        
+        if (indexPath.row != 0) {
+            
+            CompanyCommodityViewController *companyCommodityViewController = [[CompanyCommodityViewController alloc] init];
+            [self.navigationController pushViewController:companyCommodityViewController animated:YES];
+            
+        }
+        
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
