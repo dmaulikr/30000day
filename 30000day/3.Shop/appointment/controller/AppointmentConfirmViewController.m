@@ -19,12 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
-    
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"支付" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
-    
-    rightButton.tintColor = [UIColor darkGrayColor];
-    
-    self.navigationItem.rightBarButtonItem = rightButton;
+    //创建下面的按钮
+    [Common addAppointmentBackgroundView:self.view title:@"前往支付" selector:@selector(rightButtonAction) controller:self];
 }
 
 - (void)rightButtonAction {

@@ -1614,15 +1614,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		B605DD1D1C9C093700BE1D3E /* 2.MTImagePlayView */ = {
-			isa = PBXGroup;
-			children = (
-				B605DD1E1C9C093700BE1D3E /* MTImagePlayView.h */,
-				B605DD1F1C9C093700BE1D3E /* MTImagePlayView.m */,
-			);
-			path = 2.MTImagePlayView;
-			sourceTree = "<group>";
-		};
 		B612DD6D1CACFE21004C428C /* company */ = {
 			isa = PBXGroup;
 			children = (
@@ -1992,6 +1983,13 @@
 				B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */,
 			);
 			path = DOPDropDownMenu;
+			sourceTree = "<group>";
+		};
+		B83B7A7D1CAD226500D2CC6A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		B8695AC71C75D451001B4B95 /* QGPickView */ = {
@@ -2867,6 +2865,7 @@
 		B8F6485F1C942466001A3119 /* appointment */ = {
 			isa = PBXGroup;
 			children = (
+				B83B7A7D1CAD226500D2CC6A /* model */,
 				B8F648701C9424BF001A3119 /* view */,
 				B8F648601C942466001A3119 /* controller */,
 			);

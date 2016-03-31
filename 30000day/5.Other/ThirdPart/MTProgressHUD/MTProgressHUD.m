@@ -21,8 +21,7 @@
 
 @implementation MTProgressHUD
 
-- (id)init
-{
+- (id)init {
     if (self = [super init]) {
         self.isHiding = NO;
         self.bounds = CGRectMake(0, 0,37,37);
@@ -33,8 +32,7 @@
     return self;
 }
 
-- (void)creatIndicatorView
-{
+- (void)creatIndicatorView {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     indicator.hidesWhenStopped = YES;
     indicator.color = [UIColor darkGrayColor];//指示器颜色可以自定义
@@ -45,8 +43,7 @@
 }
 
 #pragma mark --- 实现方法
-+ (void)showHUD:(UIView *)view
-{
++ (void)showHUD:(UIView *)view {
     UIView *lastHud = [view viewWithTag:MTProgressHUDTag];
     UIView *lastBackRoundView = (UIView *)[view viewWithTag:MTProgressHUDBackRoundViewTag];
     if (lastHud) {
@@ -72,8 +69,7 @@
     [view bringSubviewToFront:backRoundView];
 }
 
-+ (void)hideHUD:(UIView *)view
-{
++ (void)hideHUD:(UIView *)view {
     MTProgressHUD *hud = (MTProgressHUD *)[view viewWithTag:MTProgressHUDTag];
     
     UIView *backRoundView = (UIView *)[view viewWithTag:MTProgressHUDBackRoundViewTag];
