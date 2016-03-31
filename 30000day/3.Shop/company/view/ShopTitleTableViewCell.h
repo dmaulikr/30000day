@@ -1,5 +1,5 @@
 //
-//  ShopHeadTableViewCell.h
+//  ShopTitleTableViewCell.h
 //  30000day
 //
 //  Created by wei on 16/3/31.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopHeadTableViewCell : UITableViewCell
+@interface ShopTitleTableViewCell : UITableViewCell
 
 @end

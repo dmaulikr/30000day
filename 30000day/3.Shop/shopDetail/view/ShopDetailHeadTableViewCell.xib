@@ -52,17 +52,17 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="DHa-cL-xY0" firstAttribute="leading" secondItem="NRS-mN-yhJ" secondAttribute="leading" id="1lK-BD-xpC"/>
                     <constraint firstItem="1wd-X1-heM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8bw-zf-WH7"/>
                     <constraint firstItem="DHa-cL-xY0" firstAttribute="top" secondItem="Nv6-Oi-LSM" secondAttribute="bottom" constant="7" id="KtC-Pp-HYq"/>
                     <constraint firstItem="NRS-mN-yhJ" firstAttribute="top" secondItem="1wd-X1-heM" secondAttribute="bottom" constant="13" id="MPs-5J-CVw"/>
-                    <constraint firstItem="DHa-cL-xY0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="R5r-vY-Unn"/>
                     <constraint firstItem="nmM-Hd-SjW" firstAttribute="top" secondItem="Ak2-yz-Irg" secondAttribute="bottom" constant="7" id="Rwg-ay-71y"/>
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="leading" secondItem="Nv6-Oi-LSM" secondAttribute="trailing" constant="7" id="TKP-YS-cK1"/>
                     <constraint firstAttribute="trailing" secondItem="1wd-X1-heM" secondAttribute="trailing" id="WfH-LI-2gQ"/>
+                    <constraint firstItem="Nv6-Oi-LSM" firstAttribute="leading" secondItem="NRS-mN-yhJ" secondAttribute="leading" id="Z0G-Hg-6av"/>
                     <constraint firstItem="nmM-Hd-SjW" firstAttribute="leading" secondItem="DHa-cL-xY0" secondAttribute="trailing" id="ZKM-SF-yfq"/>
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="bpL-jc-jb6"/>
                     <constraint firstItem="NRS-mN-yhJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="inE-WZ-UQ0"/>
-                    <constraint firstItem="Nv6-Oi-LSM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="jMP-tB-fIJ"/>
                     <constraint firstItem="1wd-X1-heM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="okk-nM-aGe"/>
                     <constraint firstItem="Nv6-Oi-LSM" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="uSA-gz-MlT"/>
                 </constraints>

@@ -1,5 +1,5 @@
 //
-//  ShopViewController.h
+//  CompanyViewController.h
 //  30000day
 //
 //  Created by wei on 16/3/31.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShopViewController : UIViewController
+@interface CompanyViewController : STRefreshViewController
 
 @end
