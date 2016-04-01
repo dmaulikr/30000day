@@ -17,6 +17,8 @@
 
 @property (nonatomic,strong) NSDate *selectorDate;//记住选中的日期
 
+@property (nonatomic,strong) NSMutableArray *dataArray;//数据源数组
+
 @end
 
 @implementation AppointmentViewController
@@ -70,7 +72,16 @@
 //2.从服务器下载数据
 - (void)loadDataFromServer {
     
+    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
+        
+        self.dataArray = success;
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
     
+        
+    }];
 }
 
 //前往确认订单界面
@@ -133,26 +144,46 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
-    
-    if (cell == nil) {
+    if (indexPath.row == 0) {
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
+        AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
         
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] firstObject];
+            
+        }
+        //1.设置数据源数组
+        cell.dataArray = self.dataArray;
+        
+        return cell;
+        
+    } else {
+        
+        AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        return cell;
     }
-    //2.设置预约表格视图
-
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return [AppointmentTableViewCell cellHeightWithTimeArray:[NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]]];
+    if (indexPath.row == 0) {
+        
+        return [AppointmentTableViewCell cellHeightWithTimeArray:[NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]]];
+    }
+    return 44.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

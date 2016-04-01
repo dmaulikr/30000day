@@ -108,7 +108,6 @@
             
         }];
         
-        
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
@@ -126,6 +125,8 @@
     AppointmentViewController *controller = [[AppointmentViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
+    
+    controller.productId = [NSNumber numberWithLongLong:[self.productId longLongValue]];
     
     [self.navigationController pushViewController:controller animated:YES];
 }

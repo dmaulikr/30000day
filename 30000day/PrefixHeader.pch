@@ -183,13 +183,15 @@
 
 #define  GET_SEARCHTABLEVERSIION     @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
 
-#define  GET_SHOPOWNERRECOMMEND     @"/stapi/market/shopOwnerRecommend"    //店长推荐
+#define  GET_SHOPOWNERRECOMMEND      @"/stapi/market/shopOwnerRecommend"    //店长推荐
 
-#define  GET_PLATFORMRECOMMEND      @"/stapi/market/platformRecommend"    //平台推荐
+#define  GET_PLATFORMRECOMMEND       @"/stapi/market/platformRecommend"    //平台推荐
 
-#define  GET_FINDCOMOANYINFO        @"/stapi/market/findCompanyInfoById"    //商店
+#define  GET_FINDCOMOANYINFO         @"/stapi/market/findCompanyInfoById"    //商店
 
-#define  GET_FINDPRODUCTSBYIDS      @"/stapi/market/findProductsByIds"      //商店下的商品
+#define  GET_FINDPRODUCTSBYIDS       @"/stapi/market/findProductsByIds"      //商店下的商品
+
+#define  GET_ORDER_SEARCH_COUNT      @"/stapi/order/searchCourts"            //获取产品
 
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"

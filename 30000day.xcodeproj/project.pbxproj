@@ -274,6 +274,7 @@
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
+		B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD31CAE10B4005E262A /* AppointmentModel.m */; };
 		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
 		B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */; };
 		B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */; };
@@ -943,6 +944,8 @@
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
+		B886ADD21CAE10B4005E262A /* AppointmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentModel.h; sourceTree = "<group>"; };
+		B886ADD31CAE10B4005E262A /* AppointmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentModel.m; sourceTree = "<group>"; };
 		B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		B886E8681C7DDF1400E64BEC /* AgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeTableViewCell.h; sourceTree = "<group>"; };
@@ -2016,6 +2019,8 @@
 		B83B7A7D1CAD226500D2CC6A /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B886ADD21CAE10B4005E262A /* AppointmentModel.h */,
+				B886ADD31CAE10B4005E262A /* AppointmentModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4402,6 +4407,7 @@
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
 				B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */,
+				B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */,
 				B8FD3E761C8A8353007BCA6B /* CDWebViewVC.m in Sources */,
 				B8FD3E161C8A7903007BCA6B /* XHSoundManager.m in Sources */,
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,

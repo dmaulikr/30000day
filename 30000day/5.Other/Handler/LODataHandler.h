@@ -297,4 +297,11 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                    Success:(void (^)(NSMutableArray *success))success
                                    failure:(void (^)(NSError *error))failure;
 
+//*********************************获取可预约的场地*************************/
+- (void)sendFindOrderCanAppointmentWithUserId:(NSNumber *)userId
+                                    productId:(NSNumber *)productId
+                                         date:(NSString *)date
+                                      Success:(void (^)(NSMutableArray *success))success
+                                      failure:(void (^)(NSError *error))failure;
+
 @end
