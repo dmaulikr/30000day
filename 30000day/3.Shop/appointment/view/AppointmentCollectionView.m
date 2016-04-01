@@ -11,6 +11,9 @@
 
 #define HeightMargin  0.0f
 
+#define WidthMargin  100.0f
+
+
 @interface FlagModel : NSObject
 
 @property (nonatomic,strong) NSIndexPath *flagIndexPath;
@@ -36,6 +39,8 @@
 
 @interface AppointmentCollectionView () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout> {
     NSMutableArray *_flagArray;
+    
+    UICollectionView *_collectionView;
 }
 @end
 
@@ -76,32 +81,7 @@
     }
     
     self.backgroundColor = [UIColor whiteColor];
-    
-    //循环设置数据源数组
-    _flagArray = [NSMutableArray array];
-    
-    NSInteger a = self.time_dataArray.count ? self.time_dataArray.count : 4;
-    
-    NSInteger b = self.dataArray.count ? self.time_dataArray.count : 5;
-    
-    for (int i = 0 ; i < a - 1; i++) {
-        
-        NSMutableArray *firstArray = [[NSMutableArray alloc] init];
-        
-        for (int j = 0; j < b; j++) {
-            
-            FlagModel *model = [[FlagModel alloc] init];
-            
-            model.flagIndexPath = [NSIndexPath indexPathForRow:j inSection:i];
-            
-            model.flag = 0;
-            
-            [firstArray addObject:model];
-        }
-        
-        [_flagArray addObject:firstArray];
-    }
-    
+
     //1.设置FlowLayout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
@@ -109,7 +89,9 @@
     
     layout.minimumLineSpacing = 0;
     
-    layout.itemSize = CGSizeMake((self.width - 50.0f)/5.0f,(self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4));
+    CGFloat length = (self.height - HeightMargin)/(self.time_dataArray.count ? (self.time_dataArray.count + 1) : 4);
+    
+    layout.itemSize = CGSizeMake((self.width - WidthMargin)/5.0f,length);
     
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -120,7 +102,7 @@
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     
     //2.设置表格视图
-     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(50, HeightMargin,self.width - 50,self.height - HeightMargin) collectionViewLayout:layout];
+     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(WidthMargin, HeightMargin,self.width - WidthMargin,self.height - HeightMargin) collectionViewLayout:layout];
     
     [collectionView setCollectionViewLayout:layout animated:NO];
     
@@ -140,14 +122,16 @@
     
     [self addSubview:collectionView];
     
+    _collectionView = collectionView;
+    
     //3.循环创建时间label
     for (int i = 0; i < self.time_dataArray.count; i++) {
     
         UILabel *timeLabel = [[UILabel alloc] init];
         
         timeLabel.text = self.time_dataArray[i];
-        
-        timeLabel.frame = CGRectMake(0.0f, HeightMargin + (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4)/2.0f + (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4)*i, 50, (self.height - HeightMargin)/(self.time_dataArray.count ? self.time_dataArray.count : 4.0f));
+                
+        timeLabel.frame = CGRectMake(0.0f, HeightMargin + length + length*i, WidthMargin, length);
         
         timeLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -164,7 +148,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.time_dataArray.count;
+    return self.time_dataArray.count + 1;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -199,17 +183,7 @@
             
             cell = [[[NSBundle mainBundle] loadNibNamed:appoinitmentIdentifier owner:nil options:nil] lastObject];
         }
-        
-        if ([self.delegate respondsToSelector:@selector(appointmentCollectionView:titleForRowAtIndexPath:)]) {
-            
-            NSInteger a = indexPath.section;
-            
-            NSInteger b = indexPath.row;
-            
-            cell.titleLabel.text = [self.delegate appointmentCollectionView:self titleForRowAtIndexPath:[NSIndexPath indexPathForItem:a inSection:b - 1]];
-            
-        }
-        
+
         if ([self.delegate respondsToSelector:@selector(appointmentCollectionView:typeForRowAtIndexPath:)]) {
             
             NSInteger a = indexPath.section;
@@ -222,15 +196,21 @@
             
             if (type == AppointmentColorCanUse) {
         
-                FlagModel *model = _flagArray[b-1][a];
-                
-                if (model.flag) {
+                if (_flagArray.count) {
                     
-                    cell.backgroundColor = [UIColor redColor];
+                    FlagModel *model = _flagArray[b-1][a];
                     
-                } else {
+                    if (model.flag) {
+                        
+                        cell.backgroundColor = [UIColor redColor];
+                        
+                    } else {
+                        
+                        cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                        
+                    }
                     
-                    cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                    cell.titleLabel.textColor = [UIColor darkGrayColor];
                     
                 }
                 
@@ -238,13 +218,35 @@
                 
                 cell.backgroundColor = RGBACOLOR(204, 225, 255, 1);
                 
+                cell.titleLabel.textColor = [UIColor darkGrayColor];
+                
             } else if (type == AppointmentColorSellOut) {
                 
                 cell.backgroundColor = RGBACOLOR(242, 242, 242, 1);
                 
+                cell.titleLabel.textColor = [UIColor darkGrayColor];
+                
             } else if (type == AppointmentColorNoneUse) {
                 
-                cell.backgroundColor = [UIColor brownColor];
+                cell.backgroundColor = [UIColor whiteColor];
+                
+                cell.titleLabel.textColor = RGBACOLOR(200, 200, 200, 1);
+            }
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(appointmentCollectionView:titleForRowAtIndexPath:)]) {
+            
+            NSInteger a = indexPath.section;
+            
+            NSInteger b = indexPath.row;
+            
+            if (cell.type != AppointmentColorNoneUse) {//可用状态
+                
+                cell.titleLabel.text = [self.delegate appointmentCollectionView:self titleForRowAtIndexPath:[NSIndexPath indexPathForItem:a inSection:b - 1]];
+                
+            } else {//不可用状态
+                
+                cell.titleLabel.text = @"不可用";
             }
         }
         
@@ -257,8 +259,35 @@
 - (void)setTime_dataArray:(NSMutableArray *)time_dataArray {
     
     _time_dataArray = time_dataArray;
+}
+
+- (void)reloadData {
     
-    [self setNeedsDisplay];
+    //循环设置数据源数组
+    _flagArray = [NSMutableArray array];
+    
+    NSInteger a = _time_dataArray.count ? _time_dataArray.count : 4;
+    
+    NSInteger b = _dataArray.count ? _dataArray.count : 5;
+    
+    for (int i = 0 ; i < a ; i++) {
+        
+        NSMutableArray *firstArray = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < b; j++) {
+            
+            FlagModel *model = [[FlagModel alloc] init];
+            
+            model.flagIndexPath = [NSIndexPath indexPathForRow:j inSection:i];
+            
+            model.flag = 0;
+            
+            [firstArray addObject:model];
+        }
+        
+        [_flagArray addObject:firstArray];
+    }
+    [_collectionView reloadData];//重新刷新数据
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -272,37 +301,43 @@
          AppointmentCollectionViewCell *cell = (AppointmentCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
          
          if (cell.type == AppointmentColorCanUse) {
-             
-             if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:)]) {
+            
+             if (_flagArray.count) {//如果存在
                  
-                 [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForRow:a inSection:b-1]];
+                 FlagModel *model = _flagArray[b-1][a];
+                 
+                 if (model.flag) {
+                     
+                     model.flag = 0;
+                     
+                     cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
+                     
+                     if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:selector:)]) {
+                         
+                         [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForRow:a inSection:b-1] selector:NO];
+                     }
+                     
+                 } else {
+                     
+                     model.flag = 1;
+                     
+                     cell.backgroundColor = [UIColor redColor];
+                     
+                     if ([self.delegate respondsToSelector:@selector(appointmentCollectionView: didSelectionAppointmentIndexPath:selector:)]) {
+                         
+                         [self.delegate appointmentCollectionView:self didSelectionAppointmentIndexPath:[NSIndexPath indexPathForRow:a inSection:b-1] selector:YES];
+                     }
+                 }
              }
             
-             FlagModel *model = _flagArray[b-1][a];
-             
-             if (model.flag) {
-                 
-                 model.flag = 0;
-                 
-                 cell.backgroundColor = RGBACOLOR(175, 235, 178, 1);
-                 
-             } else {
-                 
-                 model.flag = 1;
-                 
-                 cell.backgroundColor = [UIColor redColor];
-             }
          }
      }
 }
 
-//
-//- (void)setDataArray:(NSMutableArray *)dataArray {
-//    
-//    _dataArray = dataArray;
-//    
-//    [self setNeedsDisplay];
-//}
+- (void)setDataArray:(NSMutableArray *)dataArray {
+    
+    _dataArray = dataArray;
+}
 
 
 /*

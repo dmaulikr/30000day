@@ -10,6 +10,7 @@
 #import "QGPickerView.h"
 #import "AppointmentConfirmViewController.h"
 #import "AppointmentTableViewCell.h"
+#import "AppointmentModel.h"
 
 @interface AppointmentViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -18,6 +19,10 @@
 @property (nonatomic,strong) NSDate *selectorDate;//记住选中的日期
 
 @property (nonatomic,strong) NSMutableArray *dataArray;//数据源数组
+
+@property (nonatomic,strong) AppointmentTableViewCell *productPriceCell;
+
+@property (nonatomic,strong) NSMutableArray *timeModelArray;
 
 @end
 
@@ -78,9 +83,11 @@
         
         [self.tableView reloadData];
         
+        [self.tableView.mj_header endRefreshing];
+        
     } failure:^(NSError *error) {
     
-        
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -117,6 +124,18 @@
     [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.selectorDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(7.0000000*10.0000000*24.000000*60.00000*60.00000)]];
 }
 
+- (AppointmentTableViewCell *)productPriceCell {
+    
+    if (!_productPriceCell) {
+        
+       _productPriceCell =  [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
+        
+    }
+    
+    return _productPriceCell;
+}
+
+
 #pragma ----
 #pragma mark --- QGPickerViewDelegate
 
@@ -130,8 +149,8 @@
 #pragma ---
 #pragma mark --- 父类的方法
 - (void)headerRefreshing {
- 
-    [self.tableView.mj_header endRefreshing];
+
+    [self loadDataFromServer];
 }
 
 #pragma ---
@@ -161,19 +180,20 @@
         //1.设置数据源数组
         cell.dataArray = self.dataArray;
         
+        //点击了预约的回调
+        [cell setClickBlock:^(NSMutableArray *timeModelArray) {
+           
+            
+            
+            self.productPriceCell.timeModelArray = timeModelArray;//给统计cell赋值
+
+        }];
+        
         return cell;
         
     } else {
-        
-        AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentTableViewCell"];
-        
-        if (cell == nil) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
-            
-        }
-        
-        return cell;
+    
+        return self.productPriceCell;
     }
 }
 
@@ -181,7 +201,9 @@
     
     if (indexPath.row == 0) {
         
-        return [AppointmentTableViewCell cellHeightWithTimeArray:[NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]]];
+        AppointmentModel *model = [self.dataArray firstObject];
+        
+        return [AppointmentTableViewCell cellHeightWithTimeArray:model.timeRangeList];
     }
     return 44.0f;
 }
@@ -190,6 +212,7 @@
     
     return 10.0f;
 }
+
 
 /*
 #pragma mark - Navigation

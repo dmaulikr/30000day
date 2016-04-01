@@ -19,8 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
-    //创建下面的按钮
-    [Common addAppointmentBackgroundView:self.view title:@"前往支付" selector:@selector(rightButtonAction) controller:self];
+        
+    [Common addAppointmentBackgroundView:self.view title:@"提交订单并支付" selector:@selector(rightButtonAction) controller:self];
 }
 
 - (void)rightButtonAction {

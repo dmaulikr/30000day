@@ -32,6 +32,8 @@
 
 @property (nonatomic,copy) NSString *price;//价格
 
+@property (nonatomic,copy) NSString *isMine;//价格
+
 @end
 
 

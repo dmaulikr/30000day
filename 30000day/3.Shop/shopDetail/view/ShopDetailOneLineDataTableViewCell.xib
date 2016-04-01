@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cjb-tB-DiN">
-                        <rect key="frame" x="14" y="6" width="32" height="32"/>
+                        <rect key="frame" x="14" y="14" width="13" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="32" id="U1t-3L-Dnc"/>
-                            <constraint firstAttribute="width" constant="32" id="i5M-Rj-QoD"/>
+                            <constraint firstAttribute="height" constant="16" id="U1t-3L-Dnc"/>
+                            <constraint firstAttribute="width" constant="13" id="i5M-Rj-QoD"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9e-NZ-zmN">
-                        <rect key="frame" x="51" y="11" width="68" height="21"/>
+                        <rect key="frame" x="32" y="11" width="68" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>

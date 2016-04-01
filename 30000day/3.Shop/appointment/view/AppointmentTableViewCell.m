@@ -13,11 +13,13 @@
 
 @interface AppointmentTableViewCell () <AppointmentCollectionViewDelegate>
 
-@property (weak, nonatomic) IBOutlet AppointmentCollectionView *appointmentView;
-
 @property (weak, nonatomic) IBOutlet UILabel *productNumberLabel;//商品总计label
 
 @property (weak, nonatomic) IBOutlet UILabel *productPriceLabel;//商品总价label
+
+@property (weak, nonatomic) IBOutlet AppointmentCollectionView *appointmentView;
+
+@property (nonatomic,strong) NSMutableArray *willAppointmentArray;//将要预约数组
 
 @end
 
@@ -27,25 +29,75 @@
     
     self.appointmentView.delegate = self;
     
-    [self.productPriceLabel setAttributedText:[self attributeString:2500]];
+    self.willAppointmentArray = [[NSMutableArray alloc] init];//初始化将要预约数组
+    
+    [self.productPriceLabel setAttributedText:[AppointmentTableViewCell attributeString:0.00f]];
+    
+    [self.productNumberLabel setAttributedText:[AppointmentTableViewCell numberAttributeString:0]];
 }
 
 - (void)setDataArray:(NSMutableArray *)dataArray {
     
     _dataArray = dataArray;
     
+    NSMutableArray *courtArray = [[NSMutableArray alloc] init];//场地array
+    
+    NSMutableArray *timeArray = [[NSMutableArray alloc] init];//时间array
+    
     for (int i = 0; i < _dataArray.count; i++) {
         
+        AppointmentModel *model = _dataArray[i];
         
+        [courtArray addObject:model.name];
         
+        if (i == 0) {//表示只有一个
+            
+            for (int j = 0; j < model.timeRangeList.count; j++) {
+                
+                AppointmentTimeModel *timeModel = model.timeRangeList[j];
+                
+                [timeArray addObject:timeModel.timeRange];
+            }
+        }
     }
     
-    self.appointmentView.dataArray = [NSMutableArray arrayWithArray:@[@"1号场",@"2号场",@"3号场",@"4号场",@"5号场",@"6号场",@"7号场",@"8号场"]];
+    self.appointmentView.dataArray = courtArray;
     
-    self.appointmentView.time_dataArray = [NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]];
+    self.appointmentView.time_dataArray = timeArray;
+    
+    [self.appointmentView reloadData];
 }
 
-- (NSMutableAttributedString *)attributeString:(CGFloat)price {
+
+- (void)setTimeModelArray:(NSMutableArray *)timeModelArray {
+    
+    _timeModelArray = timeModelArray;
+    
+    //设置价格
+    float price ;
+    
+    for (AppointmentTimeModel *time_model  in _timeModelArray) {
+        
+        price += [time_model.price floatValue];
+    }
+    
+    [self.productPriceLabel setAttributedText:[AppointmentTableViewCell attributeString:price]];
+    
+    [self.productNumberLabel setAttributedText:[AppointmentTableViewCell numberAttributeString:_timeModelArray.count]];
+}
+
++ (NSMutableAttributedString *)numberAttributeString:(NSInteger)number {
+    
+    NSString *numberString = [NSString stringWithFormat:@"%d",(int)number];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"合计%@件商品",numberString]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(2, numberString.length)];
+    
+    return string;
+}
+
++ (NSMutableAttributedString *)attributeString:(float)price {
     
     NSString *originalPriceString = @"合计:";
     
@@ -54,8 +106,6 @@
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", originalPriceString,currentPriceString]];
     
     [text addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(text.length - currentPriceString.length,currentPriceString.length)];
-    
-//    [text addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0f] range:NSMakeRange(0, originalPriceString.length)];
     
     return text;
 }
@@ -72,36 +122,80 @@
 
 #pragma ---
 #pragma mark --- AppointmentCollectionViewDelegate
-- (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath {
+- (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath selector:(BOOL)isSelector {
+   
+    NSInteger section = indexPath.row;
     
+    NSInteger row = indexPath.section;
+    
+    AppointmentModel *model = self.dataArray[section];
+    
+    AppointmentTimeModel *timeModel = model.timeRangeList[row];
+    
+    if (isSelector) {
+        
+        if (![self.willAppointmentArray containsObject:timeModel]) {
+            
+            [self.willAppointmentArray addObject:timeModel];
+        }
+        
+    } else {
+        
+        if ([self.willAppointmentArray containsObject:timeModel]) {
+            
+            [self.willAppointmentArray removeObject:timeModel];
+        }
+    }
+    
+    if (self.clickBlock) {
+        
+        self.clickBlock(self.willAppointmentArray);
+    }
+
 }
 
 - (NSString *)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView titleForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
-        
-        return @"$45";
-        
-    } else if (indexPath.section == 1) {
-        
-        return @"￥55";
-    }
+    NSInteger row = indexPath.section;
     
-    return @"￥99";
+    NSInteger section = indexPath.row;
+    
+    AppointmentModel *model = self.dataArray[section];
+    
+    AppointmentTimeModel *timeModel = model.timeRangeList[row];
+    
+    return [NSString stringWithFormat:@"￥%@",timeModel.price];
 }
 
 - (AppointmentColorType)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView typeForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSInteger row = indexPath.section;
     
-    if (indexPath.section == 0) {
+    NSInteger section = indexPath.row;
+    
+    AppointmentModel *model = self.dataArray[section];
+    
+    AppointmentTimeModel *timeModel = model.timeRangeList[row];
+    
+    if ([Common isObjectNull:timeModel.isMine]) {//表示isMine是空的
+        
+        if ([timeModel.status isEqualToString:@"0"]) {//不可预约
+            
+            return AppointmentColorSellOut;//已经售完
+            
+        } else if ([timeModel.status isEqualToString:@"1"]) {//1可以预约
+            
+            return AppointmentColorCanUse;
+            
+        } else {
+            
+            return AppointmentColorNoneUse;
+        }
+        
+    } else { //表示isMine是非空的
         
         return AppointmentColorMyUse;
-        
-    } else if (indexPath.section == 1) {
-        
-        return AppointmentColorCanUse;
     }
-    
-    return AppointmentColorSellOut;
 }
 
 @end

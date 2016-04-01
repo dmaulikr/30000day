@@ -19,7 +19,7 @@
 
 - (NSString *)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView titleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath;
+- (void)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView didSelectionAppointmentIndexPath:(NSIndexPath *)indexPath selector:(BOOL)isSelector;
 
 - (AppointmentColorType)appointmentCollectionView:(AppointmentCollectionView *)appointmentCollectionView typeForRowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -32,5 +32,7 @@
 @property (nonatomic,strong) NSMutableArray *dataArray;//上面标题数据源数组
 
 @property (nonatomic,assign) id <AppointmentCollectionViewDelegate> delegate;
+
+- (void)reloadData;
 
 @end
