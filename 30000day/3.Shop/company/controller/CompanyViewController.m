@@ -13,11 +13,18 @@
 #import "ProductTypeModel.h"
 #import "UIImageView+WebCache.h"
 #import "CompanyCommodityViewController.h"
+#import "ShopModel.h"
+#import "ShopListTableViewCell.h"
+#import "ShopDetailViewController.h"
+#import "HeaderView.h"
 
 @interface CompanyViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) CompanyModel *companyModel;
 @property (nonatomic,strong) NSArray *productTypeModelArray;
+@property (nonatomic,strong) NSMutableArray *selectedArr;
+@property (nonatomic,strong) NSMutableArray *shopModelArray;
+@property (nonatomic,assign) NSInteger selectSection;
 
 @end
 
@@ -64,7 +71,9 @@
         
         
     }];
+
     
+    self.selectedArr = [NSMutableArray array];
     
 }
 
@@ -91,7 +100,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return 4 + self.productTypeModelArray.count;
     
 }
 
@@ -107,12 +116,15 @@
         
     } else if (section == 2) {
         
-        return self.productTypeModelArray.count + 1;
+        return 1;
         
-    } else if (section == 3) {
+    } else if (section == 4 + self.productTypeModelArray.count - 1) {
         
         return 1;
         
+    } else if (self.selectSection != 0 && self.selectSection == section) {
+    
+        return self.shopModelArray.count;
     }
     
     return 0;
@@ -124,6 +136,10 @@
         
         return 355;
         
+    } else if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
+        
+        return 110;
+        
     }
     
     return 44;
@@ -133,19 +149,73 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 3) {
+    if (section == 4 + self.productTypeModelArray.count - 1) {
         
         return 0.5f;
         
+    } else if (section > 1 && section < 4 + self.productTypeModelArray.count - 2) {
+        
+        return 0.001f;
+    
     }
+    
     return 10.f;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
+    if (section > 2 && section < 4 + self.productTypeModelArray.count - 1) {
+        
+        return 44;
+        
+    }
+    
     return 0.5f;
     
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    if (section > 2 && section < 4 + self.productTypeModelArray.count - 1) {
+        
+        ProductTypeModel *productTypeModel = self.productTypeModelArray[section - 3];
+    
+        HeaderView *headerView = [[HeaderView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        headerView.productTypeName = productTypeModel.name;
+        headerView.section = section;
+        headerView.selectedArr = self.selectedArr;
+        
+        
+        [headerView setChangeStateBlock:^(UIButton *button) {
+           
+            NSString *string = [NSString stringWithFormat:@"%ld",button.tag - 10000];
+            
+            if ([self.selectedArr containsObject:string]){
+                
+                [self.selectedArr removeObject:string];
+                [self.shopModelArray removeAllObjects];
+                [self.tableView reloadData];
+                
+            }else{
+                
+                [self.selectedArr removeAllObjects];
+                self.selectSection = button.tag - 10000;
+                [self.selectedArr addObject:string];
+                [self loadShopList];
+                
+            }
+            
+        }];
+        
+        [headerView loadView];
+        
+        return headerView;
+        
+    }
+    
+    return nil;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,25 +270,15 @@
             shopTitleTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopTitleTableViewCell" owner:nil options:nil] lastObject];
             
         }
-        
-        if (indexPath.row == 0) {
             
-            shopTitleTableViewCell.textLabel.text = @"商品类别";
+        shopTitleTableViewCell.textLabel.text = @"商品类别";
             
-            [shopTitleTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
-            
-        } else {
+        [shopTitleTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
 
-            ProductTypeModel *productTypeModel = self.productTypeModelArray[indexPath.row - 1];
-            
-            shopTitleTableViewCell.textLabel.text = productTypeModel.name;
-            
-        }
-        
         return shopTitleTableViewCell;
         
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 4 + self.productTypeModelArray.count - 1) {
         
         ShopTitleTableViewCell *shopTitleTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopTitleTableViewCell"];
         
@@ -232,23 +292,56 @@
         
         return shopTitleTableViewCell;
         
+    } else {
+    
+        ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
+        
+        if (shopListTableViewCell == nil) {
+            
+            shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
+            
+        }
+        
+        ShopModel *shopModel = self.shopModelArray[indexPath.row];
+        
+        shopListTableViewCell.shopModel = shopModel;
+        
+        return shopListTableViewCell;
+    
     }
     
     return nil;
+}
+
+- (void)loadShopList {
+
+    [self showHUD:YES];
+    [self.dataHandler sendFindProductsByIdsWithCompanyId:@"2" productTypeId:@"1" Success:^(NSMutableArray *success) {
+        
+        self.shopModelArray = [NSMutableArray arrayWithArray:success];
+        
+        [self.tableView reloadData];
+        
+        [self hideHUD:YES];
+        
+    } failure:^(NSError *error) {
+        
+        [self hideHUD:YES];
+        
+    }];
+
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 2) {
+    
+    if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
+            
+        CompanyCommodityViewController *companyCommodityViewController = [[CompanyCommodityViewController alloc] init];
         
-        if (indexPath.row != 0) {
-            
-            CompanyCommodityViewController *companyCommodityViewController = [[CompanyCommodityViewController alloc] init];
-            [self.navigationController pushViewController:companyCommodityViewController animated:YES];
-            
-        }
+        [self.navigationController pushViewController:companyCommodityViewController animated:YES];
         
     }
     
