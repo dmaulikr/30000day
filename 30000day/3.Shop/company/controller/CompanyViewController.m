@@ -343,9 +343,9 @@
     
     if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
             
-        CompanyCommodityViewController *companyCommodityViewController = [[CompanyCommodityViewController alloc] init];
+        ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
         
-        [self.navigationController pushViewController:companyCommodityViewController animated:YES];
+        [self.navigationController pushViewController:shopDetailViewController animated:YES];
         
     }
     
