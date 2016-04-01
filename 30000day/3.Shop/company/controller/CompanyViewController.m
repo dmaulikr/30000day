@@ -314,9 +314,11 @@
 }
 
 - (void)loadShopList {
-
+    
+    ProductTypeModel *productTypeModel = self.productTypeModelArray[self.selectSection - 3];
+    
     [self showHUD:YES];
-    [self.dataHandler sendFindProductsByIdsWithCompanyId:@"2" productTypeId:@"1" Success:^(NSMutableArray *success) {
+    [self.dataHandler sendFindProductsByIdsWithCompanyId:self.companyModel.companyId productTypeId:productTypeModel.productTypeId Success:^(NSMutableArray *success) {
         
         self.shopModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -328,6 +330,8 @@
         
         [self hideHUD:YES];
         
+        [self.selectedArr removeAllObjects];
+        
     }];
 
 }
@@ -335,7 +339,6 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
     if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
             
