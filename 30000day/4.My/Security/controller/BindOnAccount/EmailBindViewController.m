@@ -8,6 +8,7 @@
 
 #import "EmailBindViewController.h"
 #import "EmailBindViewSuccessAndFailController.h"
+#import "MTProgressHUD.h"
 
 @interface EmailBindViewController ()<UITextFieldDelegate>
 
@@ -33,7 +34,7 @@
             
             if ([[STUserAccountHandler userProfile].email isEqualToString:@"未绑定邮箱"] || [STUserAccountHandler userProfile].email == nil ) {
             
-                [self showHUD:YES];
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 [self.dataHandler sendUploadUserSendEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] emailString:self.emailTextFiled.text success:^(BOOL success) {
                     
                     if (success) {
@@ -57,7 +58,7 @@
                                 controller.errorString = @"您已经绑定了邮箱，无需再次绑定";
                             }
                             
-                            [self hideHUD:YES];
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                             [self.navigationController pushViewController:controller animated:YES];
 
                             
@@ -74,7 +75,7 @@
                     controller.success=NO;
                     controller.errorString = error.userInfo[@"NSLocalizedDescription"];
             
-                    [self hideHUD:YES];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
                     [self.navigationController pushViewController:controller animated:YES];
                     

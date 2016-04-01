@@ -17,6 +17,7 @@
 #import "ShopListTableViewCell.h"
 #import "ShopDetailViewController.h"
 #import "HeaderView.h"
+#import "MTProgressHUD.h"
 
 @interface CompanyViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -317,18 +318,18 @@
     
     ProductTypeModel *productTypeModel = self.productTypeModelArray[self.selectSection - 3];
     
-    [self showHUD:YES];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendFindProductsByIdsWithCompanyId:self.companyModel.companyId productTypeId:productTypeModel.productTypeId Success:^(NSMutableArray *success) {
         
         self.shopModelArray = [NSMutableArray arrayWithArray:success];
         
         [self.tableView reloadData];
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     } failure:^(NSError *error) {
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self.selectedArr removeAllObjects];
         

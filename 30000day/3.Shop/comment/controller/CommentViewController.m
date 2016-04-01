@@ -15,6 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
+#import "MTProgressHUD.h"
 
 #define WIDTH  [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -369,7 +370,7 @@
 
     self.save = NO;
     
-    [self showHUD:YES];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendfindCommentListWithProductId:8 type:changeStatusButton.tag pId:0 userId:-1 Success:^(NSMutableArray *success) {
             
         if (success.count > 0) {
@@ -388,10 +389,11 @@
             
         }
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     } failure:^(NSError *error) {
         
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         [self showToast:@"数据加载失败"];
         
     }];

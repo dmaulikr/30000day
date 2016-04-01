@@ -21,6 +21,7 @@
 #import "UIImageView+WebCache.h"
 #import "ShopModel.h"
 #import "CompanyViewController.h"
+#import "MTProgressHUD.h"
 
 
 #define SECTIONSCOUNT 5
@@ -55,7 +56,7 @@
     
     self.tableView.dataSource  = self;
     
-    [self showHUD:YES];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendCompanyDetailsWithProductId:@"8" Success:^(ShopDetailModel *model) {
         
         if (model.productPhotos != nil) {
@@ -92,7 +93,7 @@
         
         [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
             
-            [self hideHUD:YES];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
             if (success > 0) {
                 
@@ -104,7 +105,7 @@
             
         } failure:^(NSError *error) {
             
-            [self hideHUD:YES];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         }];
         
@@ -112,7 +113,7 @@
         
     } failure:^(NSError *error) {
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     }];
     

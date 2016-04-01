@@ -11,6 +11,7 @@
 #import "ChangePasswordViewController.h"
 #import "ChangePasswordProtectViewController.h"
 #import "SelectionMethodViewController.h"
+#import "MTProgressHUD.h"
 
 @interface SecurityViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -80,13 +81,13 @@
     
     if (indexPath.row == 0) {
         
-        [self showHUD:YES];
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
         [self.dataHandler sendGetUserIdByUserName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSNumber *userId) {
             [self.dataHandler sendGetSecurityQuestion:userId
                                               success:^(NSDictionary *success) {
                                                   
-                                                  [self hideHUD:YES];
+                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                   
                                                   ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
                                                   

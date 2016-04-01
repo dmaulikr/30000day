@@ -18,6 +18,7 @@
 #import "LogoutTableViewCell.h"
 #import "CDChatManager.h"
 #import "CDSettingVC.h"
+#import "MTProgressHUD.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -60,7 +61,7 @@
 - (void)loadEmail {
     
     //获取用户绑定的邮箱
-    [self showHUD:YES];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
         
         if ([Common isObjectNull:verificationDictionary]){
@@ -69,9 +70,9 @@
             [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
         }
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     } failure:^(NSError *error) {
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         NSLog(@"获取绑定邮箱出错");
     }];
     
