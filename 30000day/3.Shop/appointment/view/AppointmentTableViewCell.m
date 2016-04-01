@@ -9,6 +9,7 @@
 #define  HEIGHTMARGIN    37.5f
 
 #import "AppointmentTableViewCell.h"
+#import "AppointmentModel.h"
 
 @interface AppointmentTableViewCell () <AppointmentCollectionViewDelegate>
 
@@ -24,13 +25,24 @@
 
 - (void)awakeFromNib {
     
-    self.appointmentView.dataArray = [NSMutableArray arrayWithArray:@[@"1号场",@"2号场",@"3号场",@"4号场",@"5号场",@"6号场",@"7号场",@"8号场"]];
-    
-    self.appointmentView.time_dataArray = [NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]];
-    
     self.appointmentView.delegate = self;
     
     [self.productPriceLabel setAttributedText:[self attributeString:2500]];
+}
+
+- (void)setDataArray:(NSMutableArray *)dataArray {
+    
+    _dataArray = dataArray;
+    
+    for (int i = 0; i < _dataArray.count; i++) {
+        
+        
+        
+    }
+    
+    self.appointmentView.dataArray = [NSMutableArray arrayWithArray:@[@"1号场",@"2号场",@"3号场",@"4号场",@"5号场",@"6号场",@"7号场",@"8号场"]];
+    
+    self.appointmentView.time_dataArray = [NSMutableArray arrayWithArray:@[@"9:00",@"10:00",@"11:00",@"12:00",@"13:00",@"14:00",@"15:00",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",@"18:30",@"19:00"]];
 }
 
 - (NSMutableAttributedString *)attributeString:(CGFloat)price {

@@ -17,6 +17,8 @@
 
 @property (nonatomic,strong) NSDate *selectorDate;//记住选中的日期
 
+@property (nonatomic,strong) NSMutableArray *dataArray;//数据源数组
+
 @end
 
 @implementation AppointmentViewController
@@ -70,7 +72,16 @@
 //2.从服务器下载数据
 - (void)loadDataFromServer {
     
+    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
+        
+        self.dataArray = success;
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
     
+        
+    }];
 }
 
 //前往确认订单界面
@@ -147,7 +158,8 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] firstObject];
             
         }
-        //2.设置预约表格视图
+        //1.设置数据源数组
+        cell.dataArray = self.dataArray;
         
         return cell;
         

@@ -11,8 +11,10 @@
 
 @interface AppointmentTableViewCell : UITableViewCell
 
+//里数组面存储的是AppointmentModel
+@property (nonatomic,strong) NSMutableArray *dataArray;
+
 //根据时间数组算出cell应该有的高度
 + (CGFloat)cellHeightWithTimeArray:(NSMutableArray *)timeArray;
-
 
 @end

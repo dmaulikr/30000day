@@ -10,4 +10,6 @@
 
 @interface AppointmentViewController : STRefreshViewController
 
+@property (nonatomic,strong) NSNumber *productId;
+
 @end
