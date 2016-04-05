@@ -15,39 +15,39 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号码：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OU0-2I-pTa">
-                        <rect key="frame" x="20" y="84" width="75" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号码 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OU0-2I-pTa">
+                        <rect key="frame" x="20" y="84" width="69" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hs-GD-NIu">
-                        <rect key="frame" x="20" y="37" width="50" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人     :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hs-GD-NIu">
+                        <rect key="frame" x="20" y="37" width="70" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-8A-efC">
-                        <rect key="frame" x="105" y="85" width="195" height="17"/>
+                        <rect key="frame" x="99" y="85" width="201" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8GD-tn-2sX">
-                        <rect key="frame" x="80" y="56" width="220" height="1"/>
+                        <rect key="frame" x="100" y="56" width="200" height="1"/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="iLP-YO-S30"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKg-Y1-kfi">
-                        <rect key="frame" x="105" y="103" width="195" height="1"/>
+                        <rect key="frame" x="99" y="103" width="201" height="1"/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="pnc-uQ-OB5"/>
                         </constraints>
                     </view>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DHy-Yd-KK5">
-                        <rect key="frame" x="80" y="38" width="220" height="17"/>
+                        <rect key="frame" x="100" y="38" width="200" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
@@ -122,7 +122,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX3-gk-0aM">
-                        <rect key="frame" x="18" y="66" width="33" height="18"/>
+                        <rect key="frame" x="15" y="66" width="33" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="33" id="bej-6K-AAI"/>
                         </constraints>
@@ -131,17 +131,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-02-23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QT6-Qu-qxP">
-                        <rect key="frame" x="64" y="66" width="236" height="18"/>
+                        <rect key="frame" x="96" y="66" width="198" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="eX3-gk-0aM" firstAttribute="leading" secondItem="OI6-7s-rDy" secondAttribute="leading" constant="18" id="Bqv-qy-Gm3"/>
+                    <constraint firstItem="eX3-gk-0aM" firstAttribute="leading" secondItem="OI6-7s-rDy" secondAttribute="leading" constant="15" id="Bqv-qy-Gm3"/>
                     <constraint firstItem="eX3-gk-0aM" firstAttribute="centerY" secondItem="OI6-7s-rDy" secondAttribute="centerY" id="CFk-oj-6Dc"/>
-                    <constraint firstItem="QT6-Qu-qxP" firstAttribute="leading" secondItem="eX3-gk-0aM" secondAttribute="trailing" constant="13" id="bM9-yS-Flq"/>
-                    <constraint firstAttribute="trailing" secondItem="QT6-Qu-qxP" secondAttribute="trailing" constant="20" id="mML-fr-8xu"/>
+                    <constraint firstItem="QT6-Qu-qxP" firstAttribute="leading" secondItem="eX3-gk-0aM" secondAttribute="trailing" constant="48" id="bM9-yS-Flq"/>
+                    <constraint firstAttribute="trailing" secondItem="QT6-Qu-qxP" secondAttribute="trailing" constant="26" id="mML-fr-8xu"/>
                     <constraint firstItem="QT6-Qu-qxP" firstAttribute="centerY" secondItem="OI6-7s-rDy" secondAttribute="centerY" id="v7m-C2-2ei"/>
                 </constraints>
             </tableViewCellContentView>
@@ -159,29 +159,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mov-tT-erh">
-                        <rect key="frame" x="15" y="13" width="60" height="18"/>
+                        <rect key="frame" x="14" y="13" width="60" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="Aec-Vm-E3e"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="135.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxU-LP-Ygi">
-                        <rect key="frame" x="90" y="13" width="62" height="18"/>
+                        <rect key="frame" x="94" y="13" width="62" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.17254901959999999" green="0.43529411759999997" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mov-tT-erh" firstAttribute="leading" secondItem="kb7-FW-5KU" secondAttribute="leading" constant="15" id="5jD-n7-ZVg"/>
+                    <constraint firstItem="mov-tT-erh" firstAttribute="leading" secondItem="kb7-FW-5KU" secondAttribute="leading" constant="14" id="5jD-n7-ZVg"/>
                     <constraint firstItem="yxU-LP-Ygi" firstAttribute="centerY" secondItem="kb7-FW-5KU" secondAttribute="centerY" id="CJd-Lc-f0t"/>
                     <constraint firstItem="mov-tT-erh" firstAttribute="centerY" secondItem="kb7-FW-5KU" secondAttribute="centerY" id="Mbk-AY-R2l"/>
-                    <constraint firstItem="yxU-LP-Ygi" firstAttribute="leading" secondItem="mov-tT-erh" secondAttribute="trailing" constant="15" id="qNA-IJ-3yd"/>
+                    <constraint firstItem="yxU-LP-Ygi" firstAttribute="leading" secondItem="mov-tT-erh" secondAttribute="trailing" constant="20" id="qNA-IJ-3yd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="titleLabel" destination="mov-tT-erh" id="Mw7-GY-amQ"/>
                 <outlet property="totalPriceLabel" destination="yxU-LP-Ygi" id="xR7-nl-ojJ"/>
             </connections>
-            <point key="canvasLocation" x="212" y="556"/>
+            <point key="canvasLocation" x="202" y="554"/>
         </tableViewCell>
     </objects>
 </document>

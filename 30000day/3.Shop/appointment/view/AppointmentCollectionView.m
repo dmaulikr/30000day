@@ -95,9 +95,9 @@
     
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
-    layout.headerReferenceSize = CGSizeMake(0.5f, 0.5f);
+    layout.headerReferenceSize = CGSizeMake(0.05f, 0.05f);
     
-    layout.footerReferenceSize = CGSizeMake(0.5f, 0.5f);
+    layout.footerReferenceSize = CGSizeMake(0.05f, 0.05f);
     
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     

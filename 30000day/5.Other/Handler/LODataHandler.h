@@ -311,8 +311,8 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                contactPhoneNumber:(NSString *)contactPhoneNumber
                              date:(NSString *)date
                            remark:(NSString *)remark
-                   uniqueKeyArray:(NSMutableArray *)uniqueKeyArray
-                          Success:(void (^)(NSMutableArray *success))success
+                   uniqueKeyArray:(NSMutableArray *)timeModelArray
+                          Success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure;
 
 @end

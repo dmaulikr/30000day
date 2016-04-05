@@ -14,4 +14,6 @@
 
 @property (nonatomic,strong) NSDate *selectorDate;
 
+@property (nonatomic,strong) NSNumber *productId;
+
 @end

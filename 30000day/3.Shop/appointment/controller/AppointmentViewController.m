@@ -24,6 +24,8 @@
 
 @property (nonatomic,strong) NSMutableArray *timeModelArray;
 
+@property (nonatomic,strong) UIButton *conformButton;
+
 @end
 
 @implementation AppointmentViewController
@@ -73,7 +75,11 @@
     self.timeModelArray = [NSMutableArray array];
     
     //3.添加预约按钮
-    [Common addAppointmentBackgroundView:self.view title:@"确认订单" selector:@selector(goToConfirmController) controller:self];
+    self.conformButton = [Common addAppointmentBackgroundView:self.view title:@"确认订单" selector:@selector(goToConformController) controller:self];
+    
+    [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
+    [self judgeConformButtonCanUse];
 }
 
 //2.从服务器下载数据
@@ -87,7 +93,7 @@
         
         self.timeModelArray = [NSMutableArray array];
         
-        [self.productPriceCell clearCell];//清楚数据
+        [self.productPriceCell clearCell];//清除数据
         
         [self.tableView.mj_header endRefreshing];
         
@@ -98,13 +104,15 @@
 }
 
 //前往确认订单界面
-- (void)goToConfirmController {
+- (void)goToConformController {
     
     AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
     
     controller.selectorDate = self.selectorDate;
     
     controller.timeModelArray = self.timeModelArray;
+    
+    controller.productId = self.productId;
     
     controller.hidesBottomBarWhenPushed = YES;
     
@@ -196,6 +204,8 @@
             self.timeModelArray = timeModelArray;
             
             self.productPriceCell.timeModelArray = timeModelArray;//给统计cell赋值
+            
+            [self judgeConformButtonCanUse];
 
         }];
         
@@ -223,6 +233,18 @@
     return 10.0f;
 }
 
+//判断确认订单是否可用
+- (void)judgeConformButtonCanUse {
+    
+    if (self.timeModelArray.count) {
+        
+        self.conformButton.enabled = YES;
+        
+    } else {
+        
+        self.conformButton.enabled = NO;
+    }
+}
 
 /*
 #pragma mark - Navigation
