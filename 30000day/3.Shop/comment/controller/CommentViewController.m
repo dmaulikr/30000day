@@ -56,7 +56,7 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue
-    [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
+    [self.dataHandler sendfindCommentListWithProductId:self.productId type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -108,15 +108,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    CommentModel *commentModel = self.commentModelArray[indexPath.row];
-    
-    
+
     if (indexPath.section == 0) {
         
         return 44;
         
     } else {
+        
+        CommentModel *commentModel = self.commentModelArray[indexPath.row];
         
         if (commentModel.level == 1) {
 
