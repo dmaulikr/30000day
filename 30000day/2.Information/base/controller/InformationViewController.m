@@ -14,6 +14,8 @@
 
 @interface InformationViewController () < UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate >
 
+@property (nonatomic,strong) NSArray *titleArray;
+
 @end
 
 @implementation InformationViewController
@@ -23,6 +25,7 @@
     
     self.title = @"资讯";
     
+    self.titleArray = [NSArray arrayWithObjects:@"全部分类",@"饮食",@"运动",@"作息",@"备孕",@"孕期",@"育儿",@"治未病",@"体检",@"就医", nil];
     //1.设置tableView
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -100,28 +103,24 @@
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
     
-    return 5;
+    return self.titleArray.count;
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
-    
-    if (indexPath.column == 0) {
-        
-        return @"全部分类";
-        
-    } else if (indexPath.column == 1) {
-        
-        return @"排序";
-        
-    }
-    
-    return @"";
+
+    return self.titleArray[indexPath.row];
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
     
-    return 2;
+    return 1;
     
+}
+
+-(void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
+    
+    NSLog(@"%ld",indexPath.row);
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -10,4 +10,6 @@
 
 @interface CompanyViewController : STRefreshViewController
 
+@property (nonatomic,copy) NSString *productId;
+
 @end

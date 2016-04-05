@@ -17,9 +17,6 @@
 #import "MWPhotoBrowser.h"
 #import "MTProgressHUD.h"
 
-#define WIDTH  [UIScreen mainScreen].bounds.size.width
-#define HEIGHT [UIScreen mainScreen].bounds.size.height
-
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;

@@ -10,6 +10,6 @@
 
 @interface CommentViewController : STRefreshViewController
 
-@property (nonatomic,copy) NSInteger productId;
+@property (nonatomic,assign) NSInteger productId;
 
 @end

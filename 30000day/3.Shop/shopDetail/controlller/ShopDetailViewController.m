@@ -57,7 +57,7 @@
     self.tableView.dataSource  = self;
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendCompanyDetailsWithProductId:@"8" Success:^(ShopDetailModel *model) {
+    [self.dataHandler sendCompanyDetailsWithProductId:self.productId Success:^(ShopDetailModel *model) {
         
         if (model.productPhotos != nil) {
             
@@ -462,6 +462,7 @@
         if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             
             CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+            companyViewController.productId = self.productId;
             [self.navigationController pushViewController:companyViewController animated:YES];
             
         }
@@ -479,6 +480,7 @@
             
             CommentViewController *controller = [[CommentViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
+            controller.productId = self.productId.integerValue;
             [self.navigationController pushViewController:controller animated:YES];
             
         } else {
