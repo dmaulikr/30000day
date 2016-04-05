@@ -14,6 +14,37 @@
     // Initialization code
 }
 
+- (void)configTotalPriceWith:(NSMutableArray *)timeModelArray {
+    
+    //设置价格
+    float price ;
+    
+    for (AppointmentTimeModel *time_model  in timeModelArray) {
+        
+        price += [time_model.price floatValue];
+    }
+    
+    [_totalPriceLabel setAttributedText:[PersonInformationTableViewCell priceAttributeString:price]];
+}
+
++ (NSMutableAttributedString *)priceAttributeString:(float)price {
+    
+    NSString *priceString = [NSString stringWithFormat:@"%.2f",price];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%@",priceString]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, string.length)];
+    
+    return string;
+}
+
+- (void)configOrderWithAppointmentTimeModel:(AppointmentTimeModel *)timeModel {
+
+    _contentLabel.text = [NSString stringWithFormat:@"%@ %@号场 %@元",timeModel.timeRange,[timeModel.uniqueKey substringWithRange:NSMakeRange(8, 1)],timeModel.price];
+    
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -113,9 +113,6 @@
         
         return @"排序";
         
-    } else if (indexPath.column == 2) {
-        
-        return @"筛选";
     }
     
     return @"";
@@ -123,7 +120,7 @@
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
     
-    return 3;
+    return 2;
     
 }
 

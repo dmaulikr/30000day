@@ -12,6 +12,8 @@
 
 @interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation AppointmentConfirmViewController
@@ -30,7 +32,6 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +43,11 @@
 #pragma mark -- UITableViewDataSource/UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 2) {
+        
+        return self.timeModelArray.count + 1;
+    }
     
     return 1;
 }
@@ -61,6 +67,9 @@
             
             cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil] firstObject];
             
+            cell.contactTextField.text = STUserAccountHandler.userProfile.nickName;
+            
+            cell.phoneNumberTextField.text = STUserAccountHandler.userProfile.userName;
         }
         
     } else if (indexPath.section == 1) {
@@ -79,6 +88,35 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
         }
         
+        if (indexPath.row == 0) {
+            
+            cell.firstTitleLabel.text = @"日期";
+            
+            cell.firstTitleLabel.hidden = NO;
+            
+            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate];
+            
+        } else {
+            
+            AppointmentTimeModel *timeModel = self.timeModelArray[indexPath.row - 1];
+            
+            if (indexPath.row == 1) {
+                
+                cell.firstTitleLabel.text = @"场次";
+                
+                cell.firstTitleLabel.hidden = NO;
+                
+                [cell configOrderWithAppointmentTimeModel:timeModel];
+                
+            } else {
+                
+                cell.firstTitleLabel.hidden = YES;
+                
+                [cell configOrderWithAppointmentTimeModel:timeModel];
+            }
+            
+        }
+ 
     } else if (indexPath.section == 3) {
  
         
@@ -86,6 +124,9 @@
             
             cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
         }
+        
+        //配置总价格
+        [cell configTotalPriceWith:self.timeModelArray];
     }
     
     return cell;
@@ -93,16 +134,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 2) {
+    if (indexPath.section == 0 || indexPath.section == 1) {
         
-        return 150;
+        return 100;
         
-    } else if (indexPath.section == 3) {
-        
-        return 44;
     }
     
-    return 100;
+    return 44;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
