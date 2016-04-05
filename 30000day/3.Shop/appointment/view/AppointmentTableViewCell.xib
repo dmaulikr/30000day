@@ -70,7 +70,7 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alS-Lg-sgN" customClass="AppointmentCollectionView">
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alS-Lg-sgN" customClass="AppointmentCollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="291"/>
                     </view>
                 </subviews>

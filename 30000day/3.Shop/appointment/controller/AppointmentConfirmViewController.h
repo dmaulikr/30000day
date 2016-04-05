@@ -10,5 +10,8 @@
 
 @interface AppointmentConfirmViewController : ShowBackItemViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *timeModelArray;
+
+@property (nonatomic,strong) NSDate *selectorDate;
+
 @end

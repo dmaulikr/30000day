@@ -304,4 +304,15 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                       Success:(void (^)(NSMutableArray *success))success
                                       failure:(void (^)(NSError *error))failure;
 
+//*********************************提交订单*************************/
+- (void)sendCommitOrderWithUserId:(NSNumber *)userId
+                        productId:(NSNumber *)productId
+                      contactName:(NSString *)contactName
+               contactPhoneNumber:(NSString *)contactPhoneNumber
+                             date:(NSString *)date
+                           remark:(NSString *)remark
+                   uniqueKeyArray:(NSMutableArray *)uniqueKeyArray
+                          Success:(void (^)(NSMutableArray *success))success
+                          failure:(void (^)(NSError *error))failure;
+
 @end

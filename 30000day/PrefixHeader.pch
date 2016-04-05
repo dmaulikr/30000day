@@ -193,6 +193,8 @@
 
 #define  GET_ORDER_SEARCH_COUNT      @"/stapi/order/searchCourts"            //获取产品
 
+#define COMMIT_ORDER_COURTS          @"/stapi/order/commitReservedCourts"    //提交订单
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

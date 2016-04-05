@@ -727,6 +727,10 @@
     
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
+    ShopModel *model = self.shopListArray[indexPath.row];
+    
+    controller.productId = [model.productId stringValue];
+    
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];

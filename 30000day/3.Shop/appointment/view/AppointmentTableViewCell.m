@@ -65,9 +65,10 @@
     
     self.appointmentView.time_dataArray = timeArray;
     
+    self.appointmentView.hidden = _dataArray.count ? NO : YES;//没数据就隐藏
+    
     [self.appointmentView reloadData];
 }
-
 
 - (void)setTimeModelArray:(NSMutableArray *)timeModelArray {
     
@@ -108,6 +109,13 @@
     [text addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(text.length - currentPriceString.length,currentPriceString.length)];
     
     return text;
+}
+
+- (void)clearCell {
+    
+    [self.productPriceLabel setAttributedText:[AppointmentTableViewCell attributeString:0.00f]];
+    
+    [self.productNumberLabel setAttributedText:[AppointmentTableViewCell numberAttributeString:0]];
 }
 
 + (CGFloat)cellHeightWithTimeArray:(NSMutableArray *)timeArray {

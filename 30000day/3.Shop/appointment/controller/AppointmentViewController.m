@@ -41,7 +41,7 @@
 //配置UI界面
 - (void)configUI {
     
-    self.selectorDate = [NSDate date];
+    self.selectorDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:@"2016-04-01"];
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -70,6 +70,8 @@
     
     self.navigationItem.titleView = timeButton;
     
+    self.timeModelArray = [NSMutableArray array];
+    
     //3.添加预约按钮
     [Common addAppointmentBackgroundView:self.view title:@"确认订单" selector:@selector(goToConfirmController) controller:self];
 }
@@ -83,6 +85,10 @@
         
         [self.tableView reloadData];
         
+        self.timeModelArray = [NSMutableArray array];
+        
+        [self.productPriceCell clearCell];//清楚数据
+        
         [self.tableView.mj_header endRefreshing];
         
     } failure:^(NSError *error) {
@@ -95,6 +101,10 @@
 - (void)goToConfirmController {
     
     AppointmentConfirmViewController *controller = [[AppointmentConfirmViewController alloc] init];
+    
+    controller.selectorDate = self.selectorDate;
+    
+    controller.timeModelArray = self.timeModelArray;
     
     controller.hidesBottomBarWhenPushed = YES;
     
@@ -183,7 +193,7 @@
         //点击了预约的回调
         [cell setClickBlock:^(NSMutableArray *timeModelArray) {
            
-            
+            self.timeModelArray = timeModelArray;
             
             self.productPriceCell.timeModelArray = timeModelArray;//给统计cell赋值
 

@@ -18,7 +18,7 @@
 
 @property (nonatomic,copy)   NSString *productPhoto;//产品图片url
 
-@property (nonatomic,strong) NSNumber *shopId;//商品Id
+@property (nonatomic,strong) NSNumber *productId;//商品Id
 
 @property (nonatomic,copy)   NSString *productCode;//产品编码
 
