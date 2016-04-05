@@ -9,10 +9,17 @@
 #import "AppointmentConfirmViewController.h"
 #import "PersonInformationTableViewCell.h"
 #import "PaymentViewController.h"
+#import "MTProgressHUD.h"
 
 @interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic,strong) PersonInformationTableViewCell *informationCell;
+
+@property (nonatomic,strong) PersonInformationTableViewCell *remarkCell;
+
+@property (nonatomic,strong) UIButton *conformButton;
 
 @end
 
@@ -21,17 +28,85 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
+    
+    self.conformButton =  [Common addAppointmentBackgroundView:self.view title:@"提交订单并支付" selector:@selector(rightButtonAction) controller:self];
+    
+    [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
+    [STNotificationCenter addObserver:self selector:@selector(judgeConformButton) name:UITextFieldTextDidChangeNotification object:nil];
+    
+    [self judgeConformButton];
+}
+
+//判断确认订单是否可用
+- (void)judgeConformButton {
+    
+    if ([Common isObjectNull:self.informationCell.contactTextField.text] || [Common isObjectNull:self.informationCell.phoneNumberTextField.text]) {
         
-    [Common addAppointmentBackgroundView:self.view title:@"提交订单并支付" selector:@selector(rightButtonAction) controller:self];
+        self.conformButton.enabled = NO;
+        
+    } else {
+        
+        self.conformButton.enabled = YES;
+        
+    }
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self];
+}
+
+- (PersonInformationTableViewCell *)informationCell {
+    
+    if (!_informationCell) {
+        
+        _informationCell = [[[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil] firstObject];
+    }
+    
+    return _informationCell;
+}
+
+- (PersonInformationTableViewCell *)remarkCell {
+    
+    if (!_remarkCell) {
+        
+        _remarkCell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][1];
+    }
+    
+    return _remarkCell;
 }
 
 - (void)rightButtonAction {
     
-    PaymentViewController *controller = [[PaymentViewController alloc] init];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    controller.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.dataHandler sendCommitOrderWithUserId:STUserAccountHandler .userProfile.userId
+                                      productId:self.productId
+                                    contactName:self.informationCell.contactTextField.text
+                             contactPhoneNumber:self.informationCell.phoneNumberTextField.text
+                                           date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate]
+                                         remark:self.remarkCell.remarkTextView.text
+                                 uniqueKeyArray:self.timeModelArray
+                                        Success:^(BOOL success) {
+                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                            PaymentViewController *controller = [[PaymentViewController alloc] init];
+                                            
+                                            controller.timeModelArray = self.timeModelArray;
+                                            
+                                            controller.selectorDate = self.selectorDate;
+                                            
+                                            controller.hidesBottomBarWhenPushed = YES;
+                                            
+                                            [self.navigationController pushViewController:controller animated:YES];
+                                            
+                                            
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self showToast:@"提交订单失败"];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,25 +138,19 @@
     
     if (indexPath.section == 0) {
         
-        if (cell == nil) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil] firstObject];
-            
-            cell.contactTextField.text = STUserAccountHandler.userProfile.nickName;
-            
-            cell.phoneNumberTextField.text = STUserAccountHandler.userProfile.userName;
-        }
+        self.informationCell.contactTextField.text = STUserAccountHandler.userProfile.nickName;
+        
+        self.informationCell.phoneNumberTextField.text = STUserAccountHandler.userProfile.userName;
+        
+        [self judgeConformButton];
+        
+        return self.informationCell;
         
     } else if (indexPath.section == 1) {
         
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][1];
-            
-        }
+        return self.remarkCell;
         
     } else if (indexPath.section == 2) {
-        
 
         if (cell == nil) {
             
@@ -147,8 +216,6 @@
     
     return 0.5f;
 }
-
-
 
 /*
 #pragma mark - Navigation

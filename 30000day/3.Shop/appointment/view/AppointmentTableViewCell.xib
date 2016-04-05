@@ -24,9 +24,9 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可预订" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lem-EX-QIk">
-                        <rect key="frame" x="117" y="298" width="54" height="17"/>
+                        <rect key="frame" x="117" y="298" width="45" height="17"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="54" id="pvd-W6-eNd"/>
+                            <constraint firstAttribute="width" constant="45" id="pvd-W6-eNd"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,9 +41,9 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已出售" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6Q-Sh-TBn">
-                        <rect key="frame" x="185" y="296" width="54" height="21"/>
+                        <rect key="frame" x="185" y="296" width="50" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="54" id="8T1-dN-IjC"/>
+                            <constraint firstAttribute="width" constant="50" id="8T1-dN-IjC"/>
                             <constraint firstAttribute="height" constant="21" id="VnQ-3q-usA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -51,7 +51,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uS4-c2-yr6">
-                        <rect key="frame" x="238" y="299" width="15" height="15"/>
+                        <rect key="frame" x="235" y="299" width="15" height="15"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.88235294117647056" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="1u1-gO-RWY"/>
@@ -59,10 +59,8 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的预定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ici-2F-u9E">
-                        <rect key="frame" x="256" y="296" width="65" height="21"/>
+                        <rect key="frame" x="253" y="296" width="65" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="1d3-Ym-HMr"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="WM5-Tl-mpX"/>
                             <constraint firstAttribute="height" constant="21" id="XE5-ht-mWS"/>
                             <constraint firstAttribute="width" constant="65" id="npf-Ku-YI5"/>
                         </constraints>
@@ -75,25 +73,29 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fxG-mW-fZv" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="8" id="58g-yP-gKH"/>
-                    <constraint firstItem="uS4-c2-yr6" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="8" id="8a3-Gm-way"/>
-                    <constraint firstItem="lem-EX-QIk" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="7" id="Aul-00-z1O"/>
+                    <constraint firstAttribute="bottom" secondItem="uS4-c2-yr6" secondAttribute="bottom" constant="11" id="2lp-Ul-aI5"/>
+                    <constraint firstAttribute="bottom" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="34" id="B9O-D2-3Pv"/>
+                    <constraint firstAttribute="bottom" secondItem="fxG-mW-fZv" secondAttribute="bottom" constant="11" id="EfX-Lr-05r"/>
+                    <constraint firstItem="Ici-2F-u9E" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="5" id="Fcp-ba-dWp"/>
                     <constraint firstItem="lem-EX-QIk" firstAttribute="leading" secondItem="gJk-Sp-lLX" secondAttribute="trailing" constant="2" id="KOT-e9-JnX"/>
-                    <constraint firstItem="m6Q-Sh-TBn" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="5" id="V98-v6-zYb"/>
                     <constraint firstAttribute="trailing" secondItem="alS-Lg-sgN" secondAttribute="trailing" id="VZ4-6F-Ugg"/>
                     <constraint firstItem="alS-Lg-sgN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vxl-44-5rr"/>
-                    <constraint firstItem="uS4-c2-yr6" firstAttribute="leading" secondItem="m6Q-Sh-TBn" secondAttribute="trailing" constant="-1" id="WaD-F0-htc"/>
-                    <constraint firstItem="gJk-Sp-lLX" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="9" id="aWE-a7-ppF"/>
+                    <constraint firstItem="uS4-c2-yr6" firstAttribute="leading" secondItem="m6Q-Sh-TBn" secondAttribute="trailing" id="WaD-F0-htc"/>
                     <constraint firstItem="gJk-Sp-lLX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="100" id="cNk-Db-8g0"/>
-                    <constraint firstItem="Ici-2F-u9E" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="5" id="i0L-b1-STm"/>
-                    <constraint firstItem="m6Q-Sh-TBn" firstAttribute="leading" secondItem="lem-EX-QIk" secondAttribute="trailing" constant="14" id="iRN-tL-eYO"/>
+                    <constraint firstItem="fxG-mW-fZv" firstAttribute="leading" secondItem="lem-EX-QIk" secondAttribute="trailing" constant="5" id="fPh-72-zdL"/>
+                    <constraint firstAttribute="bottom" secondItem="Ici-2F-u9E" secondAttribute="bottom" constant="8" id="gWX-EY-ZuN"/>
                     <constraint firstItem="Ici-2F-u9E" firstAttribute="leading" secondItem="uS4-c2-yr6" secondAttribute="trailing" constant="3" id="jj6-ei-sHs"/>
                     <constraint firstItem="alS-Lg-sgN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pQ1-DS-ACc"/>
+                    <constraint firstAttribute="bottom" secondItem="lem-EX-QIk" secondAttribute="bottom" constant="10" id="sv3-fX-RGf"/>
+                    <constraint firstAttribute="bottom" secondItem="m6Q-Sh-TBn" secondAttribute="bottom" constant="8" id="tRw-wp-Uhy"/>
                     <constraint firstItem="m6Q-Sh-TBn" firstAttribute="leading" secondItem="fxG-mW-fZv" secondAttribute="trailing" constant="3" id="wLk-3Y-ACb"/>
-                    <constraint firstItem="Ici-2F-u9E" firstAttribute="top" secondItem="alS-Lg-sgN" secondAttribute="bottom" constant="5" id="wVA-cU-urU"/>
                     <constraint firstAttribute="bottom" secondItem="gJk-Sp-lLX" secondAttribute="bottom" constant="10" id="xaN-f7-DXb"/>
-                    <constraint firstItem="Ici-2F-u9E" firstAttribute="leading" secondItem="uS4-c2-yr6" secondAttribute="trailing" constant="3" id="xd0-MR-YsW"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Fcp-ba-dWp"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="appointmentView" destination="alS-Lg-sgN" id="7EH-a0-EGR"/>

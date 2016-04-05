@@ -66,12 +66,6 @@
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
-		B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */; };
-		B6F888261C96B4B4003A65FE /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */; };
-		B6F888271C96B4B4003A65FE /* OrderContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */; };
-		B6F888281C96B4B4003A65FE /* OrderContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */; };
-		B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */; };
-		B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
 		B6F8CE661CAB9D6C00218046 /* SearchTableVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8CE651CAB9D6B00218046 /* SearchTableVersion.m */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
@@ -275,6 +269,8 @@
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD31CAE10B4005E262A /* AppointmentModel.m */; };
+		B886ADD81CB3BC48005E262A /* CommodityNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD61CB3BC48005E262A /* CommodityNameTableViewCell.m */; };
+		B886ADD91CB3BC48005E262A /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886ADD71CB3BC48005E262A /* CommodityNameTableViewCell.xib */; };
 		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
 		B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */; };
 		B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */; };
@@ -700,15 +696,6 @@
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
 		B6EFEA801CAE569B00777B75 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
 		B6EFEA811CAE569B00777B75 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
-		B6F888171C96B4B4003A65FE /* CommodityNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityNameTableViewCell.h; sourceTree = "<group>"; };
-		B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityNameTableViewCell.m; sourceTree = "<group>"; };
-		B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityNameTableViewCell.xib; sourceTree = "<group>"; };
-		B6F8881A1C96B4B4003A65FE /* OrderContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderContentTableViewCell.h; sourceTree = "<group>"; };
-		B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderContentTableViewCell.m; sourceTree = "<group>"; };
-		B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderContentTableViewCell.xib; sourceTree = "<group>"; };
-		B6F8881D1C96B4B4003A65FE /* PaymentAmountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentAmountTableViewCell.h; sourceTree = "<group>"; };
-		B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentAmountTableViewCell.m; sourceTree = "<group>"; };
-		B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAmountTableViewCell.xib; sourceTree = "<group>"; };
 		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
 		B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableVersion.h; sourceTree = "<group>"; };
@@ -946,6 +933,9 @@
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
 		B886ADD21CAE10B4005E262A /* AppointmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentModel.h; sourceTree = "<group>"; };
 		B886ADD31CAE10B4005E262A /* AppointmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentModel.m; sourceTree = "<group>"; };
+		B886ADD51CB3BC48005E262A /* CommodityNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityNameTableViewCell.h; sourceTree = "<group>"; };
+		B886ADD61CB3BC48005E262A /* CommodityNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityNameTableViewCell.m; sourceTree = "<group>"; };
+		B886ADD71CB3BC48005E262A /* CommodityNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityNameTableViewCell.xib; sourceTree = "<group>"; };
 		B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		B886E8681C7DDF1400E64BEC /* AgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeTableViewCell.h; sourceTree = "<group>"; };
@@ -2924,15 +2914,9 @@
 		B8F648701C9424BF001A3119 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B6F888171C96B4B4003A65FE /* CommodityNameTableViewCell.h */,
-				B6F888181C96B4B4003A65FE /* CommodityNameTableViewCell.m */,
-				B6F888191C96B4B4003A65FE /* CommodityNameTableViewCell.xib */,
-				B6F8881A1C96B4B4003A65FE /* OrderContentTableViewCell.h */,
-				B6F8881B1C96B4B4003A65FE /* OrderContentTableViewCell.m */,
-				B6F8881C1C96B4B4003A65FE /* OrderContentTableViewCell.xib */,
-				B6F8881D1C96B4B4003A65FE /* PaymentAmountTableViewCell.h */,
-				B6F8881E1C96B4B4003A65FE /* PaymentAmountTableViewCell.m */,
-				B6F8881F1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib */,
+				B886ADD51CB3BC48005E262A /* CommodityNameTableViewCell.h */,
+				B886ADD61CB3BC48005E262A /* CommodityNameTableViewCell.m */,
+				B886ADD71CB3BC48005E262A /* CommodityNameTableViewCell.xib */,
 				B8F648711C9424BF001A3119 /* AppointmentCollectionView.h */,
 				B8F648721C9424BF001A3119 /* AppointmentCollectionView.m */,
 				B8F648731C9424BF001A3119 /* AppointmentCollectionViewCell.h */,
@@ -4009,7 +3993,6 @@
 				B804FD4B1C8AC9A900DFD1CF /* rabbit_5.gif in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
-				B6F8882A1C96B4B4003A65FE /* PaymentAmountTableViewCell.xib in Resources */,
 				B8F73C3F1C9656AB0063CC60 /* B3E3E39E-02F5-401C-B53F-A37EC4775E3F.png in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
 				B804FD331C8AC9A900DFD1CF /* rabbit_14_cover@2x.png in Resources */,
@@ -4062,7 +4045,6 @@
 				B804FD241C8AC9A900DFD1CF /* contacts_add_voip@2x.png in Resources */,
 				B804FD721C8AC9A900DFD1CF /* tusiji_8_cover@2x.png in Resources */,
 				B804FD221C8AC9A900DFD1CF /* contacts_add_photo@2x.png in Resources */,
-				B6F888281C96B4B4003A65FE /* OrderContentTableViewCell.xib in Resources */,
 				B8F2D8B41C5B378F002C7712 /* UserInfoViewController.xib in Resources */,
 				B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */,
 				B804FD9E1C8AC9A900DFD1CF /* SECoreTextView.bundle in Resources */,
@@ -4111,7 +4093,7 @@
 				B804FD6B1C8AC9A900DFD1CF /* tusiji_5.gif in Resources */,
 				B804FD491C8AC9A900DFD1CF /* rabbit_4.gif in Resources */,
 				B804FD1D1C8AC9A900DFD1CF /* CellGraySelected@2x.png in Resources */,
-				B6F888261C96B4B4003A65FE /* CommodityNameTableViewCell.xib in Resources */,
+				B886ADD91CB3BC48005E262A /* CommodityNameTableViewCell.xib in Resources */,
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */,
 				B804FD8B1C8AC9A900DFD1CF /* MultiSelectedPanelConfirmBtnbKG@2x.png in Resources */,
@@ -4230,6 +4212,7 @@
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
 				B8FD3EBA1C8A8440007BCA6B /* CDEntryBottomButton.m in Sources */,
 				B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */,
+				B886ADD81CB3BC48005E262A /* CommodityNameTableViewCell.m in Sources */,
 				B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */,
 				B8FD3E9A1C8A8408007BCA6B /* MCPhotographyHelper.m in Sources */,
 				B8FD3E131C8A7903007BCA6B /* XHViewState.m in Sources */,
@@ -4280,7 +4263,6 @@
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
 				B8FD3E1C1C8A7903007BCA6B /* XHMessageDisplayTextView.m in Sources */,
 				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
-				B6F888251C96B4B4003A65FE /* CommodityNameTableViewCell.m in Sources */,
 				B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */,
 				B8FD3CC21C8A77EB007BCA6B /* CDMessageHelper.m in Sources */,
 				B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */,
@@ -4398,7 +4380,6 @@
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,
 				B8FD3E8A1C8A83D1007BCA6B /* LZPushManager.m in Sources */,
 				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
-				B6F888291C96B4B4003A65FE /* PaymentAmountTableViewCell.m in Sources */,
 				B8FD3E191C8A7903007BCA6B /* XHBaseTableViewCell.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B612DD831CACFE21004C428C /* ShopTitleTableViewCell.m in Sources */,
@@ -4502,7 +4483,6 @@
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
 				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
-				B6F888271C96B4B4003A65FE /* OrderContentTableViewCell.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,

@@ -443,7 +443,7 @@
 }
 
 //添加预约按钮
-+ (void)addAppointmentBackgroundView:(UIView *)superView title:(NSString *)title selector:(SEL)selector controller:(UIViewController *)controller {
++ (UIButton *)addAppointmentBackgroundView:(UIView *)superView title:(NSString *)title selector:(SEL)selector controller:(UIViewController *)controller {
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50.0f, SCREEN_WIDTH, 50)];
     
@@ -462,6 +462,8 @@
     [button addTarget:controller action:selector forControlEvents:UIControlEventTouchUpInside];
     
     [view addSubview:button];
+    
+    return button;
 }
 
 @end

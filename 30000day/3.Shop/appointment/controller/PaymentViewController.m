@@ -8,15 +8,13 @@
 
 #import "PaymentViewController.h"
 #import "CommodityNameTableViewCell.h"
-#import "OrderContentTableViewCell.h"
-#import "PaymentAmountTableViewCell.h"
 #import "PayTableViewCell.h"
+#import "PersonInformationTableViewCell.h"
+#import "ShopDetailViewController.h"
 
-@interface PaymentViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (nonatomic,strong) NSArray *orderContentArray;
 
 @end
 
@@ -26,11 +24,19 @@
     [super viewDidLoad];
     
     self.title = @"订单支付";
-    
-    self.orderContentArray = [NSArray arrayWithObjects:@"15:00-16:00 2号场 35.00元",@"15:00-16:00 2号场 35.00元",@"15:00-16:00 2号场 35.00元",@"15:00-16:00 2号场 35.00元",@"15:00-16:00 2号场 35.00元",@"15:00-16:00 2号场 35.00元", nil];
-    
-//    [self.tableView setTableFooterView:[self tableViewFooterView]];
+}
 
+//父类的方法
+- (void)backClick {
+    
+    for (UIViewController *controller in self.navigationController.childViewControllers) {
+        
+        if ([controller isKindOfClass:[ShopDetailViewController class]]) {
+            
+            [self.navigationController popToViewController:controller animated:YES];
+            
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,7 +55,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 0) {
-        return 4 + self.orderContentArray.count;
+        
+        return 4 + self.timeModelArray.count;
     }
     
     return 1.0f;
@@ -77,6 +84,8 @@
     
     if (indexPath.section == 0) {
         
+        PersonInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonInformationTableViewCell"];
+        
         if (indexPath.row == 0) {
             
             CommodityNameTableViewCell *commodityNameTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommodityNameTableViewCell"];
@@ -88,60 +97,73 @@
             }
             
             return commodityNameTableViewCell;
-
             
-        } else if(indexPath.row + 1 == self.orderContentArray.count + 4) {
-        
-            PaymentAmountTableViewCell *paymentAmountTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"PaymentAmountTableViewCell"];
+        } else if  (indexPath.row == 1) {
             
-            if (paymentAmountTableViewCell == nil) {
+            if (cell == nil) {
                 
-                paymentAmountTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"PaymentAmountTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
+            }
+            cell.firstTitleLabel.text = @"日期";
+            
+            cell.firstTitleLabel.hidden = NO;
+            
+            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate];
+            
+        } else if (indexPath.row == 2) {
+            
+            if (cell == nil) {
                 
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
             }
             
-            return paymentAmountTableViewCell;
+            AppointmentTimeModel *timeModel = self.timeModelArray[0];
+            
+            cell.firstTitleLabel.text = @"场次";
+            
+            cell.firstTitleLabel.hidden = NO;
+            
+            [cell configOrderWithAppointmentTimeModel:timeModel];
+            
+        } else if  (indexPath.row == 2 + self.timeModelArray.count) {//总计
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
+            }
+            
+            cell.titleLabel.text = @"总计";
+            
+            //配置总价格
+            [cell configTotalPriceWith:self.timeModelArray];
+            
+        } else if  (indexPath.row == 3 + self.timeModelArray.count) {//总额
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
+            }
+            
+            cell.titleLabel.text = @"支付总额";
+            
+            //配置总价格
+            [cell configTotalPriceWith:self.timeModelArray];
             
         } else {
-        
-            OrderContentTableViewCell *orderContentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"OrderContentTableViewCell"];
             
-            if (orderContentTableViewCell == nil) {
+            if (cell == nil) {
                 
-                orderContentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"OrderContentTableViewCell" owner:nil options:nil] lastObject];
-                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
             }
             
-                if (indexPath.row == 1) {
-                    
-                    return orderContentTableViewCell;
-                    
-                } else if(indexPath.row >= 2 && self.orderContentArray. count + 2  - indexPath.row > 0){
-                    
-                    if(indexPath.row == 2){
-                        
-                        orderContentTableViewCell.titleLable.text = @"场次";
-                        
-                    } else {
-                        
-                        orderContentTableViewCell.titleLable.hidden = YES;
-                    }
-        
-                    orderContentTableViewCell.dataLable.text = self.orderContentArray[indexPath.row - 2];
-
-                    return orderContentTableViewCell;
-                    
-                } else {
-                
-                    orderContentTableViewCell.titleLable.hidden = NO;
-                    orderContentTableViewCell.titleLable.text = @"总计";
-                    orderContentTableViewCell.dataLable.text = @"135.00元";
-                    
-                    return orderContentTableViewCell;
-                }
-
-        
+            AppointmentTimeModel *timeModel = self.timeModelArray[indexPath.row - 2];
+            
+            cell.firstTitleLabel.hidden = YES;
+            
+            [cell configOrderWithAppointmentTimeModel:timeModel];
         }
+        
+        return cell;
         
     } else {
     

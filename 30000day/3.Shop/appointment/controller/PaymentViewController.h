@@ -10,4 +10,8 @@
 
 @interface PaymentViewController : ShowBackItemViewController
 
+@property (nonatomic,strong) NSDate *selectorDate;
+
+@property (nonatomic,strong) NSMutableArray *timeModelArray;
+
 @end

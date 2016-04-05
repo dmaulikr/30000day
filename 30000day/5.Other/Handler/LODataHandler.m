@@ -1,4 +1,4 @@
-//
+ //
 //  LODataHandler.m
 //  30000day
 //
@@ -3717,7 +3717,7 @@
                                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:@10000012 forKey:@"userId"];
+    [params setObject:userId forKey:@"userId"];
     
     [params setObject:@8 forKey:@"productId"];
     
@@ -3806,8 +3806,8 @@
                       contactPhoneNumber:(NSString *)contactPhoneNumber
                              date:(NSString *)date
                            remark:(NSString *)remark
-                        uniqueKeyArray:(NSMutableArray *)uniqueKeyArray
-                          Success:(void (^)(NSMutableArray *success))success
+                        uniqueKeyArray:(NSMutableArray *)timeModelArray
+                          Success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -3827,6 +3827,14 @@
         [params setObject:remark forKey:@"memo"];
     }
     
+    if (timeModelArray.count) {
+        
+        NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
+        
+        [params setObject:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
+        
+    }
+    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:COMMIT_ORDER_COURTS
                                                  parameters:params
@@ -3842,14 +3850,9 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
-                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                                                                
-                                                                NSArray *array = recvDic[@"value"];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(dataArray);
-                                                                    
+                                                                    success(YES);
                                                                 });
                                                                 
                                                             } else {
@@ -3893,5 +3896,53 @@
     [self startRequest:request];
 }
 
+
+//用uniqueKeyString得到{\"uniqueKey\":\"A01Y010012016040109001000\"}
+- (NSString *)dictionaryStringWithTimeModel:(AppointmentTimeModel *)timeModel {
+    
+    return [NSString stringWithFormat:@"{\"uniqueKey\":\"%@\",\"price\":\"%@\"}",timeModel.uniqueKey,timeModel.price];
+}
+
+//用uniqueKeyArray得到[{\"uniqueKey\":\"A01Y010012016040109001000\"},{\"uniqueKey\":\"A01Y010022016040109001000\"},{\"uniqueKey\":\"A01Y010032016040109001000\"]
+
+- (NSString *)arrayStringWithTimeModeArray:(NSMutableArray *)timeModelArray {
+    
+    NSString *arrayString = @"";
+    
+    for (int i = 0 ; i < timeModelArray.count; i++) {
+        
+        AppointmentTimeModel *timeModel = timeModelArray[i];
+        
+        if (timeModelArray.count == 1) {//表示数组只有一个
+            
+            arrayString = [NSString stringWithFormat:@"[%@]",[self dictionaryStringWithTimeModel:timeModel]];
+            
+        } else {
+            
+            NSString *dictionaryString = [self dictionaryStringWithTimeModel:timeModel];
+            
+            if (i == 0) {//第一个
+                
+                arrayString = [NSString stringWithFormat:@"[%@,",dictionaryString];
+                
+            } else if (i == timeModelArray.count - 1) {//等于最后一个
+                
+                arrayString = [arrayString stringByAppendingString:[NSString stringWithFormat:@"%@]",dictionaryString]];
+                
+            } else {
+                
+                arrayString = [arrayString stringByAppendingString:[NSString stringWithFormat:@"%@,",dictionaryString]];
+            }
+        }
+    }
+    
+    return arrayString;
+}
+
+//用uniqueKeyString得到{\"uniqueKey\":\"A01Y010012016040109001000\"}
+- (NSString *)dictionaryString:(NSString *)key {
+    
+    return [NSString stringWithFormat:@"{\"json\":%@}",key];
+}
 
 @end
