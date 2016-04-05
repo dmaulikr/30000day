@@ -77,16 +77,29 @@
 //2.从服务器下载数据
 - (void)loadDataFromServer {
     
-    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
-        
-        self.dataArray = success;
-        
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_header endRefreshing];
-        
-    } failure:^(NSError *error) {
+//    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
+//        
+//        self.dataArray = success;
+//        
+//        [self.tableView reloadData];
+//        
+//        [self.tableView.mj_header endRefreshing];
+//        
+//    } failure:^(NSError *error) {
+//    
+//        [self.tableView.mj_header endRefreshing];
+//    }];
     
+    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:@"2016-04-01" Success:^(NSMutableArray *success) {
+
+        self.dataArray = success;
+
+        [self.tableView reloadData];
+
+        [self.tableView.mj_header endRefreshing];
+
+    } failure:^(NSError *error) {
+
         [self.tableView.mj_header endRefreshing];
     }];
 }
