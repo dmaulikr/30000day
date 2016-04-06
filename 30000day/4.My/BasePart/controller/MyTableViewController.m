@@ -19,6 +19,7 @@
 #import "CDChatManager.h"
 #import "CDSettingVC.h"
 #import "MTProgressHUD.h"
+#import "MyOrderViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -97,7 +98,7 @@
         
         return 1;
         
-    } else if(section==1) {
+    } else if(section == 1) {
         
         return 2;
         
@@ -185,7 +186,7 @@
         
     } else if (indexPath.section == 1) {
         
-        if (indexPath.row==0) {
+        if (indexPath.row == 0) {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"healthy.png"]];
             
@@ -193,15 +194,14 @@
             
             cell.seperatorLineView.hidden = NO;
             
-        } else {
+        } else if (indexPath.row == 1) {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"consumption.png"]];
             
-            [cell.titleLabel setText:@"消费记录"];
+            [cell.titleLabel setText:@"我的订单"];
             
             cell.seperatorLineView.hidden = YES;
             
-          
         }
          return cell;
         
@@ -282,7 +282,15 @@
             
             [self.navigationController pushViewController:hsc animated:YES];
             
+        } else if (indexPath.row == 1) {
+            
+            MyOrderViewController *controller = [[MyOrderViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
         }
+        
     } else if (indexPath.section == 2) {
         
         if (indexPath.row == 0) {

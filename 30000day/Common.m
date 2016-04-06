@@ -466,4 +466,14 @@
     return button;
 }
 
+
++ (NSMutableAttributedString *)attributedStringWithPrice:(CGFloat)price {
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+    
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, string.length)];
+    
+    return string;
+}
+
 @end

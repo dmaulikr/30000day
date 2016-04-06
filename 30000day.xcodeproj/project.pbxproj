@@ -231,6 +231,8 @@
 		B804FDB81C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FD171C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png */; };
 		B808FB581C7718D20000449C /* UserLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB571C7718D20000449C /* UserLifeModel.m */; };
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
+		B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */; };
+		B81306C01CB4AC980051C4BA /* MyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */; };
 		B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A4B1C70820100063269 /* UIView+Extension.m */; };
 		B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A4D1C709BA400063269 /* SignOutViewController.xib */; };
 		B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A551C71A53500063269 /* HeadViewTableViewCell.m */; };
@@ -272,6 +274,11 @@
 		B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD31CAE10B4005E262A /* AppointmentModel.m */; };
 		B886ADD81CB3BC48005E262A /* CommodityNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD61CB3BC48005E262A /* CommodityNameTableViewCell.m */; };
 		B886ADD91CB3BC48005E262A /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886ADD71CB3BC48005E262A /* CommodityNameTableViewCell.xib */; };
+		B886ADE01CB3C344005E262A /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADDE1CB3C344005E262A /* MyOrderViewController.m */; };
+		B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886ADDF1CB3C344005E262A /* MyOrderViewController.xib */; };
+		B886ADE51CB3C5F4005E262A /* Win5SwitchTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADE41CB3C5F4005E262A /* Win5SwitchTitleView.m */; };
+		B886ADE81CB3C913005E262A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADE71CB3C913005E262A /* OrderViewController.m */; };
+		B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADEB1CB4A32E005E262A /* MyOrderModel.m */; };
 		B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */; };
 		B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B886E8691C7DDF1400E64BEC /* AgeTableViewCell.m */; };
 		B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B886E86A1C7DDF1400E64BEC /* AgeTableViewCell.xib */; };
@@ -867,6 +874,9 @@
 		B808FB571C7718D20000449C /* UserLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLifeModel.m; sourceTree = "<group>"; };
 		B808FB5A1C780D250000449C /* GetFactorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFactorModel.h; sourceTree = "<group>"; };
 		B808FB5B1C780D250000449C /* GetFactorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFactorModel.m; sourceTree = "<group>"; };
+		B81306BC1CB4AC980051C4BA /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
+		B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
+		B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderTableViewCell.xib; sourceTree = "<group>"; };
 		B8365A4A1C70820100063269 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B8365A4B1C70820100063269 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B8365A4D1C709BA400063269 /* SignOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignOutViewController.xib; sourceTree = "<group>"; };
@@ -938,6 +948,15 @@
 		B886ADD51CB3BC48005E262A /* CommodityNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityNameTableViewCell.h; sourceTree = "<group>"; };
 		B886ADD61CB3BC48005E262A /* CommodityNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityNameTableViewCell.m; sourceTree = "<group>"; };
 		B886ADD71CB3BC48005E262A /* CommodityNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityNameTableViewCell.xib; sourceTree = "<group>"; };
+		B886ADDD1CB3C344005E262A /* MyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderViewController.h; sourceTree = "<group>"; };
+		B886ADDE1CB3C344005E262A /* MyOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderViewController.m; sourceTree = "<group>"; };
+		B886ADDF1CB3C344005E262A /* MyOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderViewController.xib; sourceTree = "<group>"; };
+		B886ADE31CB3C5F4005E262A /* Win5SwitchTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Win5SwitchTitleView.h; sourceTree = "<group>"; };
+		B886ADE41CB3C5F4005E262A /* Win5SwitchTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Win5SwitchTitleView.m; sourceTree = "<group>"; };
+		B886ADE61CB3C913005E262A /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
+		B886ADE71CB3C913005E262A /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		B886ADEA1CB4A32E005E262A /* MyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderModel.h; sourceTree = "<group>"; };
+		B886ADEB1CB4A32E005E262A /* MyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderModel.m; sourceTree = "<group>"; };
 		B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		B886E8681C7DDF1400E64BEC /* AgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgeTableViewCell.h; sourceTree = "<group>"; };
@@ -2026,6 +2045,56 @@
 			path = QGPickView;
 			sourceTree = "<group>";
 		};
+		B886ADDA1CB3C1B9005E262A /* MyOrder */ = {
+			isa = PBXGroup;
+			children = (
+				B886ADE91CB4A312005E262A /* model */,
+				B886ADDB1CB3C1B9005E262A /* controller */,
+				B886ADDC1CB3C1B9005E262A /* view */,
+			);
+			path = MyOrder;
+			sourceTree = "<group>";
+		};
+		B886ADDB1CB3C1B9005E262A /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B886ADDD1CB3C344005E262A /* MyOrderViewController.h */,
+				B886ADDE1CB3C344005E262A /* MyOrderViewController.m */,
+				B886ADDF1CB3C344005E262A /* MyOrderViewController.xib */,
+				B886ADE61CB3C913005E262A /* OrderViewController.h */,
+				B886ADE71CB3C913005E262A /* OrderViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B886ADDC1CB3C1B9005E262A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B81306BC1CB4AC980051C4BA /* MyOrderTableViewCell.h */,
+				B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */,
+				B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B886ADE21CB3C5F4005E262A /* SwithTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				B886ADE31CB3C5F4005E262A /* Win5SwitchTitleView.h */,
+				B886ADE41CB3C5F4005E262A /* Win5SwitchTitleView.m */,
+			);
+			path = SwithTitleView;
+			sourceTree = "<group>";
+		};
+		B886ADE91CB4A312005E262A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B886ADEA1CB4A32E005E262A /* MyOrderModel.h */,
+				B886ADEB1CB4A32E005E262A /* MyOrderModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		B88C91221C59F2260089BEAE = {
 			isa = PBXGroup;
 			children = (
@@ -2342,6 +2411,7 @@
 		B88C918E1C5A08D00089BEAE /* 4.My */ = {
 			isa = PBXGroup;
 			children = (
+				B886ADDA1CB3C1B9005E262A /* MyOrder */,
 				B8F2DA191C5F3D04002C7712 /* SignInANDSignOut */,
 				B8F2D8E01C5B3A39002C7712 /* HealthSetUp */,
 				B88C91AF1C5B00500089BEAE /* BasePart */,
@@ -2355,6 +2425,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B886ADE21CB3C5F4005E262A /* SwithTitleView */,
 				B83B7A741CAD099F00D2CC6A /* DOPDropDownMenu */,
 				B83B7A681CAD072500D2CC6A /* DYRateView */,
 				B83B7A6B1CAD072500D2CC6A /* MTImagePlayView */,
@@ -3902,6 +3973,7 @@
 				B804FD571C8AC9A900DFD1CF /* tusiji_1.gif in Resources */,
 				B804FD561C8AC9A900DFD1CF /* tusiji_0_cover@2x.png in Resources */,
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
+				B81306C01CB4AC980051C4BA /* MyOrderTableViewCell.xib in Resources */,
 				B804FDAC1C8AC9A900DFD1CF /* sharemore_voiceinput@2x.png in Resources */,
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
 				B804FD951C8AC9A900DFD1CF /* RecordingSignal001@2x.png in Resources */,
@@ -4138,6 +4210,7 @@
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B804FD3C1C8AC9A900DFD1CF /* rabbit_19.gif in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
+				B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */,
 				B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */,
 				B804FD371C8AC9A900DFD1CF /* rabbit_16_cover@2x.png in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
@@ -4249,6 +4322,7 @@
 				B8FD3E831C8A83A6007BCA6B /* AVIMCustomMessage.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
+				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
 				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
@@ -4257,6 +4331,7 @@
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
+				B886ADE51CB3C5F4005E262A /* Win5SwitchTitleView.m in Sources */,
 				B8FD3E861C8A83A6007BCA6B /* CDUser.m in Sources */,
 				B8FD3DF11C8A7903007BCA6B /* XHHTTPClient.m in Sources */,
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
@@ -4370,6 +4445,7 @@
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				B8FD3E0C1C8A7903007BCA6B /* SETextLayout.m in Sources */,
+				B886ADE01CB3C344005E262A /* MyOrderViewController.m in Sources */,
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
 				B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */,
@@ -4442,6 +4518,7 @@
 				B8FD3E0B1C8A7903007BCA6B /* SETextInput.m in Sources */,
 				B8FD3E061C8A7903007BCA6B /* SELinkText.m in Sources */,
 				B8365A5F1C71E08200063269 /* pinyin.c in Sources */,
+				B886ADE81CB3C913005E262A /* OrderViewController.m in Sources */,
 				B8FD3DE01C8A7903007BCA6B /* XHFoundationCommon.m in Sources */,
 				B8FD3E1B1C8A7903007BCA6B /* XHMessageBubbleView.m in Sources */,
 				B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */,
@@ -4475,6 +4552,7 @@
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
+				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,

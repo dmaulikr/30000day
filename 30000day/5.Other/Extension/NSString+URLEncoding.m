@@ -10,17 +10,18 @@
 
 @implementation NSString (URLEncoding)
 
-- (NSString *)urlEncodeUsingEncoding : (NSStringEncoding) encoding
-{
+- (NSString *)urlEncodeUsingEncoding : (NSStringEncoding) encoding {
+    
 	return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)self, NULL, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ", CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
 
-- (NSString *)urlDecodeUsingDecoding{
+- (NSString *)urlDecodeUsingDecoding {
+    
     return (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL,  (CFStringRef)self, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ", CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
 }
 
-- (NSString *)escapedURLString
-{
+- (NSString *)escapedURLString {
+    
     NSString *ret = self;
     char *src     = (char *)[self UTF8String];
     if (NULL != src)
@@ -51,4 +52,5 @@
     }
     return ret;
 }
+
 @end
