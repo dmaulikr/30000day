@@ -195,6 +195,8 @@
 
 #define COMMIT_ORDER_COURTS          @"/stapi/order/commitReservedCourts"    //提交订单
 
+#define  GET_ORDER_LIST              @"/stapi/order/searchUserOrders"       //获取订单
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

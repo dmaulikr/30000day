@@ -82,4 +82,7 @@
 //添加预约按钮
 + (UIButton *)addAppointmentBackgroundView:(UIView *)superView title:(NSString *)title selector:(SEL)selector controller:(UIViewController *)controller;
 
+//15.00  -> ￥15.00(红色)
++ (NSMutableAttributedString *)attributedStringWithPrice:(CGFloat)price;
+
 @end
