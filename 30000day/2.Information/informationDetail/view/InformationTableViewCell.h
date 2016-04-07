@@ -18,12 +18,4 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *InformationDetailContent;
 
-@property (weak, nonatomic) IBOutlet UIImageView *InformationDetailImageView;
-
-@property (weak, nonatomic) IBOutlet UIButton *InformationDetailShare;
-
-@property (weak, nonatomic) IBOutlet UIButton *InformationDetailZan;
-
-@property (weak, nonatomic) IBOutlet UIButton *InformationDetailComment;
-
 @end
