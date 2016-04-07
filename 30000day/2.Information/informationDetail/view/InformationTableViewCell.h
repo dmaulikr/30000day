@@ -10,4 +10,20 @@
 
 @interface InformationTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *InformationDetailTitle;
+
+@property (weak, nonatomic) IBOutlet UIButton *InformationDetailAuthor;
+
+@property (weak, nonatomic) IBOutlet UILabel *InformationDetailTime;
+
+@property (weak, nonatomic) IBOutlet UILabel *InformationDetailContent;
+
+@property (weak, nonatomic) IBOutlet UIImageView *InformationDetailImageView;
+
+@property (weak, nonatomic) IBOutlet UIButton *InformationDetailShare;
+
+@property (weak, nonatomic) IBOutlet UIButton *InformationDetailZan;
+
+@property (weak, nonatomic) IBOutlet UIButton *InformationDetailComment;
+
 @end

@@ -29,7 +29,9 @@
     
     self.isShowFootRefresh = NO;
     
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.isShowHeadRefresh = NO;
+    
+    self.tableView.frame = CGRectMake(0, 54, SCREEN_WIDTH, SCREEN_HEIGHT - 54);
     
     self.tableView.dataSource = self;
     
@@ -98,116 +100,37 @@
 #pragma mark --- UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (section == 0) {
         
-        return 1;
+    return 1;
         
-    } else if (section == 1) {
-        
-        return 4;
-    }
-    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
         
-        InformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationTableViewCell"];
+    InformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationTableViewCell"];
         
-        if (cell == nil) {
+    if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationTableViewCell" owner:nil options:nil] lastObject];
-        }
-        
-        return cell;
-        
-    } else if (indexPath.section == 1) {
-        
-        if (indexPath.row == 0) {
-            
-            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
-            
-            if (cell == nil) {
-                
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
-                
-            }
-            
-            cell.textLabel.text = @"网友点评（321）";
-            
-            return cell;
-            
-        } else if (indexPath.row == 1 || indexPath.row == 2){
-            
-            ShopDetailCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
-            
-            if (cell == nil) {
-                
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
-                
-            }
-            
-            return cell;
-            
-        } else {
-            
-            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
-            
-            if (cell == nil) {
-                
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
-                
-            }
-            
-            cell.textLabel.text = @"查看全部评论";
-            
-            return cell;
-            
-        }
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationTableViewCell" owner:nil options:nil] lastObject];
     }
-    
-    return nil;
-    
+        
+    return cell;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
         
-        return 460.0f;
+    CGFloat height = [Common heightWithText:@"江西35岁女县长直升副厅级领导江西35岁女县长直升副厅级领导" width:SCREEN_WIDTH fontSize:16.0] + [Common heightWithText:@"一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。" width:SCREEN_WIDTH fontSize:15.0] + 127 + 150;
         
-    } else if (indexPath.section == 1) {
-    
-        if (indexPath.row == 1 || indexPath.row == 2) {
-            
-            return 228 + [Common heightWithText:@"环境挺不错，装修也很考究，就是人太多了，需要排队，下次提前预约好了.好好好好好好好好好好好好好好好好好好好好好好好好好" width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
-            
-        }
-
-    }
-    
-    return 44.0f;
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 1) {
-        
-        if (indexPath.row == 0 || indexPath.row == 3) {
-            
-            CommentViewController *controller = [[CommentViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-            
-        }
-    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

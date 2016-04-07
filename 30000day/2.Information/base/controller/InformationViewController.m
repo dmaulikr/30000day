@@ -29,7 +29,7 @@
     //1.设置tableView
     self.tableViewStyle = STRefreshTableViewGroup;
     
-    self.tableView.frame = CGRectMake(0, 44 + 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64-44-44);
+    self.tableView.frame = CGRectMake(0, 44 + 54, SCREEN_WIDTH, SCREEN_HEIGHT - 54-44-44);
     
     self.tableView.delegate = self;
     
