@@ -29,16 +29,23 @@
 //父类的方法
 - (void)backClick {
     
+    BOOL isExist = NO;
+    
     for (UIViewController *controller in self.navigationController.childViewControllers) {
         
         if ([controller isKindOfClass:[ShopDetailViewController class]]) {
             
+            isExist = YES;
+            
             [self.navigationController popToViewController:controller animated:YES];
             
-        } else {
-            
-            [self.navigationController popViewControllerAnimated:YES];
         }
+    }
+    
+    if (!isExist) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
     }
 }
 

@@ -18,14 +18,11 @@
 
 @property (nonatomic,strong) MyOrderDetailModel *detailModel;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (weak, nonatomic) IBOutlet UIButton *conformButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
-
 
 @end
 
@@ -37,24 +34,26 @@
     
     //配置UI界面
     [self configUI];
-    
-    //下载数据
-    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
-       
-        self.detailModel = detailModel;
-        
-        [self.tableView reloadData];
-        
-    } failure:^(NSError *error) {
-        
-    }];
 
     [self judgeConformButtonCanUse];
     
+    [self loadDataFromServer];
 }
 
 //配置UI界面
 - (void)configUI {
+    
+    self.isShowBackItem = YES;
+    
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    self.isShowFootRefresh = NO;
+    
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
+    
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource = self;
     
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
@@ -69,8 +68,37 @@
     self.conformButton.layer.masksToBounds = YES;
     
     [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-    
     [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+}
+
+- (void)headerRefreshing {
+    
+    [self loadDataFromServer];
+    
+}
+
+//从服务器下载数据
+- (void)loadDataFromServer {
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    //下载数据
+    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
+        
+        self.detailModel = detailModel;
+        
+        [self.tableView reloadData];
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self.tableView.mj_header endRefreshing];
+        
+    }];
 }
 
 //取消预约
@@ -115,22 +143,38 @@
 //判断确认订单是否可用
 - (void)judgeConformButtonCanUse {
     
-//    if (self.isPaid) {//表示付款了
-//        
-//        self.conformButton.enabled = NO;
-//        
-//        self.cancelButton.enabled = NO;
-//        
-//        [self.conformButton setTitle:@"已经付款" forState:UIControlStateNormal];
-//        
-//    } else {
-//        
-//        self.conformButton.enabled = YES;
-//        
-//        self.cancelButton.enabled = YES;
-//        
-//        [self.conformButton setTitle:@"前往支付" forState:UIControlStateNormal];
-//    }
+    if ([self.status isEqualToString:@"10"]) {
+        
+        [self.conformButton setTitle:@"等待付款" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = YES;
+        
+        self.cancelButton.enabled = YES;
+
+    } else if ([self.status isEqualToString:@"11"]) {
+        
+        [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+    } else if ([self.status isEqualToString:@"12"]) {
+        
+        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+    } else if ([self.status isEqualToString:@"2"]) {
+        
+        [self.conformButton setTitle:@"支付成功" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+    }
 }
 
 #pragma ----

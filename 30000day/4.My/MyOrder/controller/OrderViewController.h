@@ -19,8 +19,6 @@ typedef NS_ENUM(NSInteger,OrderType) {
 
 @interface OrderViewController : STRefreshViewController
 
-//- (void)loadDataFromServerWith:(OrderType)type;
-
 @property (nonatomic,assign) OrderType type;
 
 @end

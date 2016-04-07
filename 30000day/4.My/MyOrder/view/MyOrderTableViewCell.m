@@ -41,7 +41,7 @@
         
     } else if ([_orderModel.status isEqualToString:@"11"]) {
         
-        [self.handleButton setTitle:@"已经取消" forState:UIControlStateNormal];
+        [self.handleButton setTitle:@"已取消" forState:UIControlStateNormal];
         
         self.backImageView.hidden = YES;
         

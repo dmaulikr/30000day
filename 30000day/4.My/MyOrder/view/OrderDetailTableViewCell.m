@@ -29,6 +29,15 @@
     self.contactLabel.text = timeModel.reserverName;
     
     self.contactPhoneNumber.text = timeModel.reserverContactNo;
+    
+    if ([Common isObjectNull:timeModel.memo]) {
+        
+        self.remakLabel.text = @"备注：        暂无备注";
+        
+    } else {
+        
+         self.remakLabel.text = [NSString stringWithFormat:@"备注：        %@",timeModel.memo];
+    }
 }
 
 - (void)configProductInformation:(MyOrderDetailModel *)detailModel {

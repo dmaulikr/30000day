@@ -15,19 +15,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系人:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Eg-ShG">
-                        <rect key="frame" x="15" y="11" width="52" height="21"/>
+                        <rect key="frame" x="15" y="11" width="70" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="LUA-8g-8iO"/>
-                            <constraint firstAttribute="width" constant="52" id="Mk5-PN-eVY"/>
+                            <constraint firstAttribute="width" constant="70" id="Mk5-PN-eVY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系号码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRY-h3-uMZ">
-                        <rect key="frame" x="15" y="40" width="67" height="21"/>
+                        <rect key="frame" x="15" y="40" width="70" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="67" id="fVG-OE-kwT"/>
+                            <constraint firstAttribute="width" constant="70" id="fVG-OE-kwT"/>
                             <constraint firstAttribute="height" constant="21" id="t3x-L5-oO6"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -35,19 +35,19 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFf-rn-36W">
-                        <rect key="frame" x="95" y="39" width="215" height="18"/>
+                        <rect key="frame" x="90" y="39" width="220" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注：dsfsdfsdfdsfsdfsdfsdfsdfsdfsddddddddddddddddd发斯蒂芬斯蒂芬是电风扇的范德萨sdfsdfdfsdfsdfdfsdfsdfdsfsdfsdfsdfsdf" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ht0-pk-kYu">
-                        <rect key="frame" x="15" y="69" width="295" height="54"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注：" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ht0-pk-kYu">
+                        <rect key="frame" x="15" y="69" width="295" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-Tf-syW">
-                        <rect key="frame" x="75" y="13" width="235" height="18"/>
+                        <rect key="frame" x="90" y="13" width="220" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="eul-Eg-ShG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="AB4-oR-2bC"/>
-                    <constraint firstItem="TpN-Tf-syW" firstAttribute="leading" secondItem="eul-Eg-ShG" secondAttribute="trailing" constant="8" id="BQd-kh-IEd"/>
+                    <constraint firstItem="TpN-Tf-syW" firstAttribute="leading" secondItem="eul-Eg-ShG" secondAttribute="trailing" constant="5" id="BQd-kh-IEd"/>
                     <constraint firstItem="dRY-h3-uMZ" firstAttribute="top" secondItem="eul-Eg-ShG" secondAttribute="bottom" constant="8" id="JWK-Na-MEk"/>
                     <constraint firstAttribute="trailing" secondItem="sFf-rn-36W" secondAttribute="trailing" constant="10" id="MaW-ba-XWl"/>
                     <constraint firstItem="sFf-rn-36W" firstAttribute="top" secondItem="TpN-Tf-syW" secondAttribute="bottom" constant="8" id="NzS-XZ-jLA"/>
@@ -65,7 +65,7 @@
                     <constraint firstAttribute="trailing" secondItem="Ht0-pk-kYu" secondAttribute="trailing" constant="10" id="aKu-sQ-Xea"/>
                     <constraint firstItem="Ht0-pk-kYu" firstAttribute="top" secondItem="dRY-h3-uMZ" secondAttribute="bottom" constant="8" id="b8T-pe-Y3q"/>
                     <constraint firstItem="Ht0-pk-kYu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bMZ-hJ-72l"/>
-                    <constraint firstItem="sFf-rn-36W" firstAttribute="leading" secondItem="dRY-h3-uMZ" secondAttribute="trailing" constant="13" id="dXc-yx-jlz"/>
+                    <constraint firstItem="sFf-rn-36W" firstAttribute="leading" secondItem="dRY-h3-uMZ" secondAttribute="trailing" constant="5" id="dXc-yx-jlz"/>
                     <constraint firstItem="TpN-Tf-syW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="f7S-Xw-sDU"/>
                 </constraints>
             </tableViewCellContentView>
@@ -74,7 +74,7 @@
                 <outlet property="contactPhoneNumber" destination="sFf-rn-36W" id="9Pk-9W-bYA"/>
                 <outlet property="remakLabel" destination="Ht0-pk-kYu" id="FBT-t2-Q64"/>
             </connections>
-            <point key="canvasLocation" x="606" y="40"/>
+            <point key="canvasLocation" x="596" y="42"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="141" id="msw-qO-E3I" customClass="OrderDetailTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="321" height="141"/>

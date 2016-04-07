@@ -3956,7 +3956,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    if (![Common isObjectNull:userId]) {
+        
+        [params setObject:userId forKey:@"userId"];
+    }
     
     if (![type isEqual:@0]) {
         
@@ -4046,7 +4049,11 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:orderNumber forKey:@"orderNo"];
+    if(![Common isObjectNull:orderNumber]) {
+        
+        [params setObject:orderNumber forKey:@"orderNo"];
+        
+    }
 
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_ORDER_DETAIL
@@ -4113,7 +4120,6 @@
     
     [self startRequest:request];
 }
-
 
 //*****************************************根据类型查资讯************/
 - (void)sendsearchInfomationsWithWriterId:(NSString *)writerId
@@ -4214,8 +4220,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:orderNumber forKey:@"orderNo"];
-    
+    if (![Common isObjectNull:orderNumber]) {
+        
+        [params setObject:orderNumber forKey:@"orderNo"];
+    }
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_ORDER_CANCEL
                                                  parameters:params

@@ -10,7 +10,6 @@
                 <outlet property="backgoudView" destination="RJc-Hb-Dvl" id="lPv-ZN-IxR"/>
                 <outlet property="cancelButton" destination="5jn-eK-e26" id="gMY-ol-89d"/>
                 <outlet property="conformButton" destination="4L8-PB-vwg" id="Vng-Ke-RZz"/>
-                <outlet property="tableView" destination="on9-ub-x6Y" id="bSN-jq-IUN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,23 +52,11 @@
                         <constraint firstItem="5jn-eK-e26" firstAttribute="leading" secondItem="RJc-Hb-Dvl" secondAttribute="leading" constant="10" id="zJc-gd-o1O"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="on9-ub-x6Y">
-                    <rect key="frame" x="0.0" y="64" width="320" height="460"/>
-                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="42n-dn-qEb"/>
-                        <outlet property="delegate" destination="-1" id="tSY-C3-uCq"/>
-                    </connections>
-                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="on9-ub-x6Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="N4K-Xs-0eP"/>
                 <constraint firstAttribute="bottom" secondItem="RJc-Hb-Dvl" secondAttribute="bottom" id="PjO-yH-44b"/>
                 <constraint firstAttribute="trailing" secondItem="RJc-Hb-Dvl" secondAttribute="trailing" id="V4U-6g-j5s"/>
-                <constraint firstItem="on9-ub-x6Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Z79-EN-hDd"/>
-                <constraint firstAttribute="trailing" secondItem="on9-ub-x6Y" secondAttribute="trailing" id="mur-My-TaG"/>
-                <constraint firstItem="RJc-Hb-Dvl" firstAttribute="top" secondItem="on9-ub-x6Y" secondAttribute="bottom" id="rhI-1n-XlJ"/>
                 <constraint firstItem="RJc-Hb-Dvl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wuE-AC-gkt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
