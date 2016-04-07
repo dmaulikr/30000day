@@ -11,6 +11,7 @@
 
 @interface PersonInformationTableViewCell : UITableViewCell
 
+//******************************************************************************************
 @property (weak, nonatomic) IBOutlet UITextField *contactTextField;//联系人label
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;//手机号码label
@@ -18,16 +19,18 @@
 @property (weak, nonatomic) IBOutlet UITextView *remarkTextView;//备注的textView
 
 
-
+//******************************************************************************************
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;//总价label
 
-//根据AppointmentTimeModel配置总计
+/**
+ *  根据AppointmentTimeModel配置总计
+ **/
 - (void)configTotalPriceWith:(NSMutableArray *)timeModelArray;
 
 
-
+//******************************************************************************************
 //标题label
 @property (weak, nonatomic) IBOutlet UILabel *firstTitleLabel;
 
@@ -35,5 +38,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 - (void)configOrderWithAppointmentTimeModel:(AppointmentTimeModel *)timeModel;
+
 
 @end

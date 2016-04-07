@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderDetailViewController">
             <connections>
+                <outlet property="backgoudView" destination="RJc-Hb-Dvl" id="lPv-ZN-IxR"/>
+                <outlet property="cancelButton" destination="5jn-eK-e26" id="gMY-ol-89d"/>
+                <outlet property="conformButton" destination="4L8-PB-vwg" id="Vng-Ke-RZz"/>
                 <outlet property="tableView" destination="on9-ub-x6Y" id="bSN-jq-IUN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -16,17 +19,58 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="on9-ub-x6Y">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJc-Hb-Dvl">
+                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jn-eK-e26">
+                            <rect key="frame" x="10" y="5" width="145" height="34"/>
+                            <color key="backgroundColor" red="0.29019607843137252" green="0.48627450980392156" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="取消订单"/>
+                            <connections>
+                                <action selector="leftButtonAction:" destination="-1" eventType="touchUpInside" id="0fE-TJ-yQQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L8-PB-vwg">
+                            <rect key="frame" x="165" y="5" width="145" height="34"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="前往支付"/>
+                            <connections>
+                                <action selector="rightButtonAction:" destination="-1" eventType="touchUpInside" id="9hE-im-UF6"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="4L8-PB-vwg" firstAttribute="top" secondItem="RJc-Hb-Dvl" secondAttribute="top" constant="5" id="3N2-WW-VSi"/>
+                        <constraint firstAttribute="bottom" secondItem="5jn-eK-e26" secondAttribute="bottom" constant="5" id="Euf-Jr-aqt"/>
+                        <constraint firstAttribute="trailing" secondItem="4L8-PB-vwg" secondAttribute="trailing" constant="10" id="JVA-2D-0ud"/>
+                        <constraint firstItem="4L8-PB-vwg" firstAttribute="width" secondItem="5jn-eK-e26" secondAttribute="width" id="MBL-CI-n1H"/>
+                        <constraint firstItem="5jn-eK-e26" firstAttribute="top" secondItem="RJc-Hb-Dvl" secondAttribute="top" constant="5" id="R8w-RB-g71"/>
+                        <constraint firstItem="4L8-PB-vwg" firstAttribute="leading" secondItem="5jn-eK-e26" secondAttribute="trailing" constant="10" id="V9c-jK-a37"/>
+                        <constraint firstAttribute="height" constant="44" id="bgW-YA-jkS"/>
+                        <constraint firstAttribute="bottom" secondItem="4L8-PB-vwg" secondAttribute="bottom" constant="5" id="iwl-Xb-XB5"/>
+                        <constraint firstItem="5jn-eK-e26" firstAttribute="leading" secondItem="RJc-Hb-Dvl" secondAttribute="leading" constant="10" id="zJc-gd-o1O"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="on9-ub-x6Y">
+                    <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="42n-dn-qEb"/>
+                        <outlet property="delegate" destination="-1" id="tSY-C3-uCq"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="on9-ub-x6Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DSa-bp-nmp"/>
-                <constraint firstAttribute="bottom" secondItem="on9-ub-x6Y" secondAttribute="bottom" id="Ykx-30-kot"/>
-                <constraint firstAttribute="trailing" secondItem="on9-ub-x6Y" secondAttribute="trailing" id="iBR-b9-jgw"/>
-                <constraint firstItem="on9-ub-x6Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yXx-Yv-NG4"/>
+                <constraint firstItem="on9-ub-x6Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="N4K-Xs-0eP"/>
+                <constraint firstAttribute="bottom" secondItem="RJc-Hb-Dvl" secondAttribute="bottom" id="PjO-yH-44b"/>
+                <constraint firstAttribute="trailing" secondItem="RJc-Hb-Dvl" secondAttribute="trailing" id="V4U-6g-j5s"/>
+                <constraint firstItem="on9-ub-x6Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Z79-EN-hDd"/>
+                <constraint firstAttribute="trailing" secondItem="on9-ub-x6Y" secondAttribute="trailing" id="mur-My-TaG"/>
+                <constraint firstItem="RJc-Hb-Dvl" firstAttribute="top" secondItem="on9-ub-x6Y" secondAttribute="bottom" id="rhI-1n-XlJ"/>
+                <constraint firstItem="RJc-Hb-Dvl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wuE-AC-gkt"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="233" y="163"/>

@@ -7,6 +7,8 @@
 //
 
 #import "OrderDetailTableViewCell.h"
+#import "UIImageView+WebCache.h"
+#import "AppointmentModel.h"
 
 @implementation OrderDetailTableViewCell
 
@@ -18,6 +20,26 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)configContactPersonInformation:(MyOrderDetailModel *)detailModel {
+    
+    AppointmentTimeModel *timeModel = [detailModel.orderCourtList firstObject];
+    
+    self.contactLabel.text = timeModel.reserverName;
+    
+    self.contactPhoneNumber.text = timeModel.reserverContactNo;
+}
+
+- (void)configProductInformation:(MyOrderDetailModel *)detailModel {
+    
+    [self.productImageView sd_setImageWithURL:[NSURL URLWithString:detailModel.productPhoto] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    self.productNameLabel.text = detailModel.productName;
+    
+    self.productNumber.text = [NSString stringWithFormat:@"%@",detailModel.quantity];
+    
+    self.productMarkNumber.text = detailModel.orderNo;
 }
 
 @end

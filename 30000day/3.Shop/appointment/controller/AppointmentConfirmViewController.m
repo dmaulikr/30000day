@@ -96,6 +96,8 @@
                                             
                                             controller.selectorDate = self.selectorDate;
                                             
+                                            controller.productName = self.productName;
+                                            
                                             controller.hidesBottomBarWhenPushed = YES;
                                             
                                             [self.navigationController pushViewController:controller animated:YES];
@@ -216,6 +218,8 @@
     
     return 0.5f;
 }
+
+
 
 /*
 #pragma mark - Navigation

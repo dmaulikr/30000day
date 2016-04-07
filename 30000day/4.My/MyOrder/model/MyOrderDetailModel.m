@@ -13,13 +13,7 @@
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     
-    return @{ @"orderCourtList" : [OrderInfomationModel class]};
+    return @{ @"orderCourtList" : [AppointmentTimeModel class]};
 }
-
-
-@end
-
-
-@implementation OrderInfomationModel
 
 @end

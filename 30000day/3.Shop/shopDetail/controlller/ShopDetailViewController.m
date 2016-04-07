@@ -66,6 +66,7 @@
         }
         
         self.title = model.productName;
+        
         self.shopDetailModel = model;
         
         [self.dataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
@@ -128,6 +129,8 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     controller.productId = [NSNumber numberWithLongLong:[self.productId longLongValue]];
+    
+    controller.productName = self.shopDetailModel.productName;
     
     [self.navigationController pushViewController:controller animated:YES];
 }

@@ -333,4 +333,9 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   success:(void (^)(NSMutableArray *success))success
                                   failure:(void (^)(NSError *error))failure;
 
+//**************取消订单************/
+- (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
+                               success:(void (^)(BOOL success))success
+                               failure:(void (^)(NSError *error))failure;
+
 @end

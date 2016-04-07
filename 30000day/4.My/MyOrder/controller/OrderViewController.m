@@ -142,6 +142,22 @@
     
     controller.orderNumber = model.orderNumber;
     
+    if ([model.status isEqualToString:@"1"]) {//未支付
+        
+        controller.isPaid = NO;
+        
+    } else {//3表示已经支付
+        
+        controller.isPaid = YES;
+    }
+    
+    //点击左边取消按钮的回调
+    [controller setButtonClickBlock:^{
+       
+        [self loadDataFromServerWith:_type];//从服务器刷新数据
+        
+    }];
+    
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
