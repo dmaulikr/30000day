@@ -12,4 +12,6 @@
 
 @property (nonatomic,copy)NSString *orderNumber;//订单标号
 
+@property (nonatomic,copy) NSString *status;//支付状态
+
 @end

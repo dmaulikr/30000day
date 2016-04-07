@@ -121,6 +121,8 @@
     controller.timeModelArray = self.timeModelArray;
     
     controller.productId = self.productId;
+        
+    controller.productName = self.productName;
     
     controller.hidesBottomBarWhenPushed = YES;
     

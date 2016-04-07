@@ -14,4 +14,6 @@
 
 @property (nonatomic,strong) NSMutableArray *timeModelArray;
 
+@property (nonatomic,copy) NSString *productName;
+
 @end

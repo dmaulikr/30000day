@@ -35,6 +35,9 @@
             
             [self.navigationController popToViewController:controller animated:YES];
             
+        } else {
+            
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
@@ -95,6 +98,8 @@
                 commodityNameTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommodityNameTableViewCell" owner:nil options:nil] lastObject];
                 
             }
+            
+            commodityNameTableViewCell.commodityNameLable.text = self.productName;
             
             return commodityNameTableViewCell;
             

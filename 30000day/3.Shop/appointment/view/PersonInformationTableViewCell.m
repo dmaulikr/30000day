@@ -7,6 +7,7 @@
 //
 
 #import "PersonInformationTableViewCell.h"
+#import "MyOrderDetailModel.h"
 
 @implementation PersonInformationTableViewCell
 
@@ -40,10 +41,15 @@
 
 - (void)configOrderWithAppointmentTimeModel:(AppointmentTimeModel *)timeModel {
 
-    _contentLabel.text = [NSString stringWithFormat:@"%@ %@号场 %@元",timeModel.timeRange,[timeModel.uniqueKey substringWithRange:NSMakeRange(8, 1)],timeModel.price];
-    
+    if ([Common isObjectNull:timeModel.uniqueKey] && ![Common isObjectNull:timeModel.courtName]) {//订单详情使用
+        
+        _contentLabel.text = [NSString stringWithFormat:@"%@ %@ %@元",timeModel.timeRange,timeModel.courtName,timeModel.price];
+        
+    } else {//提交订单的时候使用
+        
+        _contentLabel.text = [NSString stringWithFormat:@"%@ %@号场 %@元",timeModel.timeRange,[timeModel.uniqueKey substringWithRange:NSMakeRange(8, 1)],timeModel.price];
+    }
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -16,4 +16,6 @@
 
 @property (nonatomic,strong) NSNumber *productId;
 
+@property (nonatomic,copy) NSString *productName;
+
 @end

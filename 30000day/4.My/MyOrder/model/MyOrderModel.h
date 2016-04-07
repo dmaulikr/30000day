@@ -10,7 +10,7 @@
 
 @interface MyOrderModel : NSObject
 
-@property (nonatomic,copy) NSString *status;
+@property (nonatomic,copy) NSString *status;//1表示 
 
 @property (nonatomic,strong) NSNumber *orderId;
 
