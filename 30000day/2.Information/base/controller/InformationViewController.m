@@ -11,10 +11,13 @@
 #import "InformationListTableViewCell.h"
 #import "SubscribeViewController.h"
 #import "InformationDetailViewController.h"
+#import "MTProgressHUD.h"
 
 @interface InformationViewController () < UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate >
 
 @property (nonatomic,strong) NSArray *titleArray;
+
+@property (nonatomic,strong) NSMutableArray *informationModelArray;
 
 @end
 
@@ -34,6 +37,8 @@
     self.tableView.delegate = self;
     
     self.tableView.dataSource = self;
+    
+    [self loadDataWithCode:@""];
     
     //2.设置mune
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
@@ -72,7 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return self.informationModelArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -88,6 +93,10 @@
         
         cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationListTableViewCell" owner:nil options:nil] lastObject];
     }
+    
+    InformationModel *informationModel = self.informationModelArray[indexPath.row];
+    
+    cell.informationModel = informationModel;
     
     return cell;
 }
@@ -120,6 +129,18 @@
 -(void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
     
     NSLog(@"%ld",indexPath.row);
+    
+    NSString *code;
+    if (indexPath.row == 0) {
+        
+        code = @"";
+        
+    } else {
+    
+        code = [NSString stringWithFormat:@"%ld",indexPath.row + 9];
+    }
+    
+    [self loadDataWithCode:code];
 
 }
 
@@ -150,6 +171,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)loadDataWithCode:(NSString *)code {
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:code success:^(NSMutableArray *success) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        NSLog(@"%@",success);
+        
+        self.informationModelArray = [NSMutableArray arrayWithArray:success];
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+    
+    }];
+
+}
+
 
 /*
 #pragma mark - Navigation

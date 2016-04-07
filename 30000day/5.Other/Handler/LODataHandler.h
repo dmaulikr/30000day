@@ -327,4 +327,10 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                     success:(void (^)(MyOrderDetailModel *detailModel))success
                     failure:(void (^)(NSError *error))failure;
 
+//*****************************************根据类型查资讯************/
+- (void)sendsearchInfomationsWithWriterId:(NSString *)writerId
+                             infoTypeCode:(NSString *)infoTypeCode
+                                  success:(void (^)(NSMutableArray *success))success
+                                  failure:(void (^)(NSError *error))failure;
+
 @end

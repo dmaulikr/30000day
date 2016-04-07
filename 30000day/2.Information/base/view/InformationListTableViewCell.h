@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InformationModel.h"
 
 @interface InformationListTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *infoPhotosImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *infoTitleLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *infoCommentCount;
+
+@property (nonatomic,strong) InformationModel *informationModel;
 @end

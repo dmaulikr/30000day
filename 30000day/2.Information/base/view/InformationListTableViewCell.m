@@ -7,6 +7,8 @@
 //
 
 #import "InformationListTableViewCell.h"
+#import "UIImageView+WebCache.h"
+
 
 @implementation InformationListTableViewCell
 
@@ -18,6 +20,15 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setInformationModel:(InformationModel *)informationModel {
+
+    [self.infoPhotosImageView sd_setImageWithURL:[NSURL URLWithString:informationModel.infoPhotos]];
+    
+    [self.infoTitleLable setText:informationModel.infoName];
+
+    
 }
 
 @end
