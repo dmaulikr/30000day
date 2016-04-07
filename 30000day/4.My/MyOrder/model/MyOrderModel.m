@@ -20,7 +20,7 @@
 
 + (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
     
-    return @{@"orderId":@"id"};
+    return @{@"orderId":@"id",@"orderNumber":@"orderNo"};
 }
 
 @end

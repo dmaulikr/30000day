@@ -29,6 +29,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 
 @class SearchConditionModel;
 
+@class MyOrderDetailModel;
 
 @interface LODataHandler : NSObject
 
@@ -318,7 +319,12 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/
 - (void)sendFindOrderUserId:(NSNumber *)userId
                        type:(NSNumber *)type
-                                      Success:(void (^)(NSMutableArray *success))success
-                                      failure:(void (^)(NSError *error))failure;
+                    success:(void (^)(NSMutableArray *success))success
+                    failure:(void (^)(NSError *error))failure;
+
+//**************根据类型获取订单，返回的是MyOrderDetailModel************/
+- (void)sendFindOrderDetailOrderNumber:(NSString *)orderNumber
+                    success:(void (^)(MyOrderDetailModel *detailModel))success
+                    failure:(void (^)(NSError *error))failure;
 
 @end

@@ -11,6 +11,8 @@
 
 @interface MyOrderTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *backImageView;
 
 @property (weak, nonatomic) IBOutlet UIButton *handleButton;

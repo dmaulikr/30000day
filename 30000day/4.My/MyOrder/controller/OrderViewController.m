@@ -9,10 +9,13 @@
 #import "OrderViewController.h"
 #import "MyOrderTableViewCell.h"
 #import "MTProgressHUD.h"
+#import "OrderDetailViewController.h"
 
 @interface OrderViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
+
+@property (nonatomic,strong) NSMutableArray *cellArray;
 
 @end
 
@@ -33,15 +36,44 @@
     
     self.isShowFootRefresh = NO;
     
-    [self loadDataFromServer];
+    [self loadDataFromServerWith:_type];
 }
 
-- (void)loadDataFromServer {
+- (void)loadDataFromServerWith:(OrderType)type {
+    
+    _type = type;
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendFindOrderUserId:STUserAccountHandler.userProfile.userId type:@1 Success:^(NSMutableArray *success) {
+    
+    NSNumber *newType = @0;
+    
+    if (type == OrderTypeAll) {
         
+        newType = @0;
+        
+    } else if (type == OrderTypepaid) {
+        
+        newType = @3;
+        
+    } else if (type == OrderTypeWillPay) {
+        
+        newType = @1;
+    }
+    
+    [self.dataHandler sendFindOrderUserId:STUserAccountHandler.userProfile.userId type:newType success:^(NSMutableArray *success) {
+       
         self.dataArray = success;
+        
+        self.cellArray = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < self.dataArray.count; i++) {
+            
+            MyOrderTableViewCell *cell =  [[[NSBundle mainBundle] loadNibNamed:@"MyOrderTableViewCell" owner:self options:nil] lastObject];
+            
+            cell.orderModel = self.dataArray[i];
+            
+            [self.cellArray addObject:cell];
+        }
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
@@ -51,7 +83,7 @@
         
     } failure:^(NSError *error) {
         
-       [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self.tableView.mj_header endRefreshing];
         
@@ -60,7 +92,7 @@
 
 - (void)headerRefreshing {
     
-    [self loadDataFromServer];
+    [self loadDataFromServerWith:_type];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,16 +115,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderTableViewCell"];
+//    MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderTableViewCell"];
+//    
+//    if (cell == nil) {
+//        
+//        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyOrderTableViewCell" owner:self options:nil] lastObject];
+//    }
+//    
+//    cell.orderModel = self.dataArray[indexPath.row];
     
-    if (cell == nil) {
-        
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyOrderTableViewCell" owner:self options:nil] lastObject];
-    }
-    
-    cell.orderModel = self.dataArray[indexPath.row];
-    
-    return cell;
+    return self.cellArray[indexPath.row];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,6 +136,15 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    MyOrderModel *model = self.dataArray[indexPath.row];
+    
+    OrderDetailViewController *controller = [[OrderDetailViewController alloc] init];
+    
+    controller.orderNumber = model.orderNumber;
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 /*

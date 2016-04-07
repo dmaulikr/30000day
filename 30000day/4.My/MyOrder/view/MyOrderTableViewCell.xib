@@ -29,20 +29,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="p50-rc-9jl">
-                        <rect key="frame" x="15" y="50" width="98" height="63"/>
+                        <rect key="frame" x="15" y="50" width="64" height="63"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="98" id="uO2-hN-anh"/>
+                            <constraint firstAttribute="width" constant="64" id="uO2-hN-anh"/>
                             <constraint firstAttribute="height" constant="63" id="x80-6Y-5Vv"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="【进行中】中式点心手工制作" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VmH-Dv-jZy">
-                        <rect key="frame" x="118" y="51" width="193" height="18"/>
+                        <rect key="frame" x="84" y="51" width="227" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总价:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nD-sl-x2D">
-                        <rect key="frame" x="121" y="86" width="37" height="21"/>
+                        <rect key="frame" x="87" y="86" width="37" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="37" id="ApB-2u-VeS"/>
                             <constraint firstAttribute="height" constant="21" id="vWv-o6-mSM"/>
@@ -52,7 +52,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥150:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SfK-eX-on4">
-                        <rect key="frame" x="158" y="86" width="90" height="21"/>
+                        <rect key="frame" x="124" y="86" width="90" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="LfZ-fH-jX3"/>
                             <constraint firstAttribute="width" constant="90" id="ULB-Vn-p2c"/>
@@ -78,7 +78,7 @@
                             <constraint firstAttribute="height" constant="18" id="Yhe-wI-7xl"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2v-G8-l6u">
@@ -122,6 +122,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backImageView" destination="Z2Q-9y-6vM" id="72F-L1-8Vl"/>
+                <outlet property="dateLabel" destination="qsB-AP-umF" id="8g2-nd-8db"/>
                 <outlet property="handleButton" destination="w2v-G8-l6u" id="JmO-mZ-QAg"/>
                 <outlet property="priceLabel" destination="SfK-eX-on4" id="5u6-gA-hSh"/>
                 <outlet property="productNumberLabel" destination="dcJ-mZ-hoD" id="NLh-vq-7Sd"/>

@@ -232,6 +232,11 @@
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
 		B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */; };
 		B81306C01CB4AC980051C4BA /* MyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */; };
+		B81306C41CB50F930051C4BA /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306C21CB50F930051C4BA /* OrderDetailViewController.m */; };
+		B81306C51CB50F930051C4BA /* OrderDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81306C31CB50F930051C4BA /* OrderDetailViewController.xib */; };
+		B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306C71CB512C70051C4BA /* MyOrderDetailModel.m */; };
+		B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306CA1CB5FA680051C4BA /* OrderDetailTableViewCell.m */; };
+		B81306CD1CB5FA680051C4BA /* OrderDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81306CB1CB5FA680051C4BA /* OrderDetailTableViewCell.xib */; };
 		B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A4B1C70820100063269 /* UIView+Extension.m */; };
 		B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A4D1C709BA400063269 /* SignOutViewController.xib */; };
 		B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A551C71A53500063269 /* HeadViewTableViewCell.m */; };
@@ -875,6 +880,14 @@
 		B81306BC1CB4AC980051C4BA /* MyOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderTableViewCell.h; sourceTree = "<group>"; };
 		B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderTableViewCell.m; sourceTree = "<group>"; };
 		B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderTableViewCell.xib; sourceTree = "<group>"; };
+		B81306C11CB50F930051C4BA /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		B81306C21CB50F930051C4BA /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		B81306C31CB50F930051C4BA /* OrderDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailViewController.xib; sourceTree = "<group>"; };
+		B81306C61CB512C70051C4BA /* MyOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderDetailModel.h; sourceTree = "<group>"; };
+		B81306C71CB512C70051C4BA /* MyOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderDetailModel.m; sourceTree = "<group>"; };
+		B81306C91CB5FA680051C4BA /* OrderDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailTableViewCell.h; sourceTree = "<group>"; };
+		B81306CA1CB5FA680051C4BA /* OrderDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTableViewCell.m; sourceTree = "<group>"; };
+		B81306CB1CB5FA680051C4BA /* OrderDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailTableViewCell.xib; sourceTree = "<group>"; };
 		B8365A4A1C70820100063269 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B8365A4B1C70820100063269 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B8365A4D1C709BA400063269 /* SignOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignOutViewController.xib; sourceTree = "<group>"; };
@@ -2061,6 +2074,9 @@
 				B886ADDF1CB3C344005E262A /* MyOrderViewController.xib */,
 				B886ADE61CB3C913005E262A /* OrderViewController.h */,
 				B886ADE71CB3C913005E262A /* OrderViewController.m */,
+				B81306C11CB50F930051C4BA /* OrderDetailViewController.h */,
+				B81306C21CB50F930051C4BA /* OrderDetailViewController.m */,
+				B81306C31CB50F930051C4BA /* OrderDetailViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2071,6 +2087,9 @@
 				B81306BC1CB4AC980051C4BA /* MyOrderTableViewCell.h */,
 				B81306BD1CB4AC980051C4BA /* MyOrderTableViewCell.m */,
 				B81306BE1CB4AC980051C4BA /* MyOrderTableViewCell.xib */,
+				B81306C91CB5FA680051C4BA /* OrderDetailTableViewCell.h */,
+				B81306CA1CB5FA680051C4BA /* OrderDetailTableViewCell.m */,
+				B81306CB1CB5FA680051C4BA /* OrderDetailTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2089,6 +2108,8 @@
 			children = (
 				B886ADEA1CB4A32E005E262A /* MyOrderModel.h */,
 				B886ADEB1CB4A32E005E262A /* MyOrderModel.m */,
+				B81306C61CB512C70051C4BA /* MyOrderDetailModel.h */,
+				B81306C71CB512C70051C4BA /* MyOrderDetailModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4015,6 +4036,7 @@
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B804FD461C8AC9A900DFD1CF /* rabbit_2_cover@2x.png in Resources */,
 				B804FD351C8AC9A900DFD1CF /* rabbit_15_cover@2x.png in Resources */,
+				B81306C51CB50F930051C4BA /* OrderDetailViewController.xib in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
 				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B804FD8F1C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
@@ -4106,6 +4128,7 @@
 				B804FD431C8AC9A900DFD1CF /* rabbit_21_cover@2x.png in Resources */,
 				B8F73C661C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png in Resources */,
 				B6114CA71CA2785E0088EED2 /* ShopDetailCommentTableViewCell.xib in Resources */,
+				B81306CD1CB5FA680051C4BA /* OrderDetailTableViewCell.xib in Resources */,
 				B804FD421C8AC9A900DFD1CF /* rabbit_21.gif in Resources */,
 				B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */,
 				B804FD841C8AC9A900DFD1CF /* MessageVideoPlay@2x.png in Resources */,
@@ -4310,6 +4333,7 @@
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8FD3DEC1C8A7903007BCA6B /* XHDisplayMediaViewController.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
+				B81306C41CB50F930051C4BA /* OrderDetailViewController.m in Sources */,
 				B8FD3DD01C8A7903007BCA6B /* LZStatusView.m in Sources */,
 				B8FD3DF51C8A7903007BCA6B /* XHMessageVideoConverPhotoFactory.m in Sources */,
 				B8FD3E221C8A7903007BCA6B /* XHVoiceRecordHUD.m in Sources */,
@@ -4388,6 +4412,7 @@
 				B8FD3DEE1C8A7903007BCA6B /* XHMessageTableViewController.m in Sources */,
 				B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */,
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
+				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
@@ -4475,6 +4500,7 @@
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
 				B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
+				B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
 				B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */,
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
