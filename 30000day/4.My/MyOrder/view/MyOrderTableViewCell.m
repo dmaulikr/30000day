@@ -33,15 +33,27 @@
     
     _orderModel = orderModel;
     
-    if ([_orderModel.status isEqualToString:@"1"]) {
+    if ([_orderModel.status isEqualToString:@"10"]) {
         
         [self.handleButton setTitle:@"等待付款" forState:UIControlStateNormal];
         
         self.backImageView.hidden = NO;
         
-    } else if ([_orderModel.status isEqualToString:@"3"]) {
+    } else if ([_orderModel.status isEqualToString:@"11"]) {
         
-        [self.handleButton setTitle:@"已付款" forState:UIControlStateNormal];
+        [self.handleButton setTitle:@"已经取消" forState:UIControlStateNormal];
+        
+        self.backImageView.hidden = YES;
+        
+    } else if ([_orderModel.status isEqualToString:@"12"]) {
+        
+        [self.handleButton setTitle:@"已超时" forState:UIControlStateNormal];
+        
+        self.backImageView.hidden = YES;
+        
+    } else if ([_orderModel.status isEqualToString:@"2"]) {
+        
+        [self.handleButton setTitle:@"支付成功" forState:UIControlStateNormal];
         
         self.backImageView.hidden = YES;
     }

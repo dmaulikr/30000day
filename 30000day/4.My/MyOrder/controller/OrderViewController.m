@@ -37,8 +37,20 @@
     self.isShowFootRefresh = NO;
     
     [self loadDataFromServerWith:_type];
+
+    //成功取消订单要监听
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessCancelOrderSendNotification object:nil];
+    //成功支付订单要监听
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessPaySendNotification object:nil];
 }
 
+//监听的通知的selector
+- (void)reloadData {
+    
+    [self loadDataFromServerWith:_type];
+}
+
+//根据类型从服务器下载数据
 - (void)loadDataFromServerWith:(OrderType)type {
     
     _type = type;
@@ -53,7 +65,7 @@
         
     } else if (type == OrderTypepaid) {
         
-        newType = @3;
+        newType = @2;
         
     } else if (type == OrderTypeWillPay) {
         
@@ -142,26 +154,19 @@
     
     controller.orderNumber = model.orderNumber;
     
-    if ([model.status isEqualToString:@"1"]) {//未支付
-        
-        controller.isPaid = NO;
-        
-    } else {//3表示已经支付
-        
-        controller.isPaid = YES;
-    }
-    
-    //点击左边取消按钮的回调
-    [controller setButtonClickBlock:^{
-       
-        [self loadDataFromServerWith:_type];//从服务器刷新数据
-        
-    }];
+    controller.status = model.status;
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
 }
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessCancelOrderSendNotification object:nil];
+    [STNotificationCenter removeObserver:self name:STDidSuccessPaySendNotification object:nil];
+}
+
 
 /*
 #pragma mark - Navigation

@@ -4236,6 +4236,8 @@
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
+                                                                    //成功取消订单发出通知
+                                                                    [STNotificationCenter postNotificationName:STDidSuccessPaySendNotification object:nil];
                                                                     
                                                                 });
                                                                 

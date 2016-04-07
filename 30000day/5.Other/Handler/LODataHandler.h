@@ -20,6 +20,11 @@ static NSString *const STUserAccountHandlerUseProfileDidChangeNotification = @"S
 //成功获取好友的时候发送的通知
 static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuccessGetFriendsSendNotification";
 
+//成功取消订单会发出通知
+static NSString *const STDidSuccessCancelOrderSendNotification = @"STDidSuccessCancelOrderSendNotification";
+
+//成功支付会发出通知
+static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNotification";
 
 @class LONetError;
 
@@ -333,7 +338,7 @@ static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuc
                                   success:(void (^)(NSMutableArray *success))success
                                   failure:(void (^)(NSError *error))failure;
 
-//**************取消订单************/
+//**************取消订单,会出发通知:STDidSuccessPaySendNotification************/
 - (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
                                success:(void (^)(BOOL success))success
                                failure:(void (^)(NSError *error))failure;

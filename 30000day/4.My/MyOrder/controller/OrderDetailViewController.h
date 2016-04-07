@@ -12,9 +12,6 @@
 
 @property (nonatomic,copy)NSString *orderNumber;//订单标号
 
-@property (nonatomic,assign) BOOL isPaid;//是否付款了
-
-//点击底部左按钮的回调
-@property (nonatomic,copy) void (^buttonClickBlock)();
+@property (nonatomic,copy) NSString *status;//支付状态
 
 @end

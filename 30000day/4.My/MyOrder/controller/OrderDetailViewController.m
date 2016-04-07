@@ -35,6 +35,9 @@
     [super viewDidLoad];
     self.title = @"订单详情";
     
+    //配置UI界面
+    [self configUI];
+    
     //下载数据
     [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
        
@@ -45,12 +48,13 @@
     } failure:^(NSError *error) {
         
     }];
-    
-    [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-    
-    [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-    
+
     [self judgeConformButtonCanUse];
+    
+}
+
+//配置UI界面
+- (void)configUI {
     
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
@@ -63,6 +67,10 @@
     
     self.conformButton.layer.cornerRadius = 5;
     self.conformButton.layer.masksToBounds = YES;
+    
+    [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
+    [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
 }
 
 //取消预约
@@ -82,12 +90,6 @@
                                                  [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
                                                  
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                 
-                                                 if (self.buttonClickBlock) {
-                                                     
-                                                     self.buttonClickBlock();
-                                                 }
-                                                 
                                                  
                                              } failure:^(NSError *error) {
                                                  
@@ -113,22 +115,22 @@
 //判断确认订单是否可用
 - (void)judgeConformButtonCanUse {
     
-    if (self.isPaid) {//表示付款了
-        
-        self.conformButton.enabled = NO;
-        
-        self.cancelButton.enabled = NO;
-        
-        [self.conformButton setTitle:@"已经付款" forState:UIControlStateNormal];
-        
-    } else {
-        
-        self.conformButton.enabled = YES;
-        
-        self.cancelButton.enabled = YES;
-        
-        [self.conformButton setTitle:@"前往支付" forState:UIControlStateNormal];
-    }
+//    if (self.isPaid) {//表示付款了
+//        
+//        self.conformButton.enabled = NO;
+//        
+//        self.cancelButton.enabled = NO;
+//        
+//        [self.conformButton setTitle:@"已经付款" forState:UIControlStateNormal];
+//        
+//    } else {
+//        
+//        self.conformButton.enabled = YES;
+//        
+//        self.cancelButton.enabled = YES;
+//        
+//        [self.conformButton setTitle:@"前往支付" forState:UIControlStateNormal];
+//    }
 }
 
 #pragma ----
