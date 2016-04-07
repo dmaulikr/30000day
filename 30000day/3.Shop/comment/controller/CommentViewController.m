@@ -62,7 +62,6 @@
     } failure:^(NSError *error) {
 
         [self showToast:@"数据加载失败"];
-
         
     }];
 }

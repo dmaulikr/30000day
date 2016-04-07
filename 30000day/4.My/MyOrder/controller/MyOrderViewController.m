@@ -26,14 +26,12 @@
     //1.第一个
     OrderViewController *firstController = [[OrderViewController alloc] init];
     firstController.title = @"全部";
-    firstController.view.backgroundColor = [UIColor redColor];
     firstController.type = OrderTypeAll;
     [self addChildViewController:firstController];//如果想要push效果 需加上
     
     //2.第二个
     OrderViewController *secondController = [[OrderViewController alloc] init];
     secondController.title = @"已付款";
-    secondController.view.backgroundColor = [UIColor yellowColor];
     secondController.type = OrderTypepaid;
     [self addChildViewController:secondController];//如果想要push效果 需加上
     
@@ -41,7 +39,6 @@
     OrderViewController *thirdController = [[OrderViewController alloc] init];
     thirdController.title = @"未付款";
     thirdController.type = OrderTypeWillPay;
-    thirdController.view.backgroundColor = [UIColor purpleColor];
     [self addChildViewController:thirdController];//如果想要push效果 需加上
     
     self.switchTitle.titleBarHeight = 44;

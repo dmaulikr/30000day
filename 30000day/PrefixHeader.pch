@@ -197,6 +197,8 @@
 
 #define  GET_ORDER_LIST              @"/stapi/order/searchUserOrders"       //获取订单
 
+#define GET_ORDER_DETAIL             @"/stapi/order/getOrderDetail"         //获取订单详情
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"
