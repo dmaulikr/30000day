@@ -12,6 +12,8 @@
 #import "ShopDetailCommentTableViewCell.h"
 #import "CommentViewController.h"
 #import "ReportViewController.h"
+#import "InformationDetailImageTableViewCell.h"
+#import "InformationDetailDownTableViewCell.h"
 
 @interface InformationDetailViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -31,11 +33,13 @@
     
     self.isShowHeadRefresh = NO;
     
-    self.tableView.frame = CGRectMake(0, 54, SCREEN_WIDTH, SCREEN_HEIGHT - 54);
+    self.tableView.frame = CGRectMake(0, 54, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
     self.tableView.dataSource = self;
     
     self.tableView.delegate = self;
+    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(barButtonAction)];
     
@@ -99,40 +103,15 @@
 #pragma --
 #pragma mark --- UITableViewDelegate,UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        
-    return 1;
-        
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
         
-    InformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationTableViewCell"];
+    return 4;
         
-    if (cell == nil) {
-            
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"InformationTableViewCell" owner:nil options:nil] lastObject];
-    }
-        
-    return cell;
-
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-        
-    CGFloat height = [Common heightWithText:@"江西35岁女县长直升副厅级领导江西35岁女县长直升副厅级领导" width:SCREEN_WIDTH fontSize:16.0] + [Common heightWithText:@"一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。" width:SCREEN_WIDTH fontSize:15.0] + 127 + 150;
-        
-    return height;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -143,6 +122,70 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
     return 0.5f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        
+        CGFloat height = [Common heightWithText:@"江西35岁女县长直升副厅级领导江西35岁女县长直升副厅级领导" width:SCREEN_WIDTH fontSize:16.0] + [Common heightWithText:@"一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。一般是说、县（市、区）长先接任书记，才有可能进入副厅级领导行列，想彭艳梅这样，直接从县长直升副厅级领导的毕竟是少数。" width:SCREEN_WIDTH fontSize:15.0] + 70;
+        
+        return height;
+        
+    } else if (indexPath.row == 1 || indexPath.row == 2) {
+    
+        return 150;
+    
+    }
+    
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        
+        InformationTableViewCell *informationTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"InformationTableViewCell"];
+        
+        if (informationTableViewCell == nil) {
+            
+            informationTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"InformationTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        return informationTableViewCell;
+        
+    } else if (indexPath.row == 1 || indexPath.row == 2) {
+        
+        InformationDetailImageTableViewCell *informationDetailImageTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"InformationDetailImageTableViewCell"];
+        
+        if (informationDetailImageTableViewCell == nil) {
+            
+            informationDetailImageTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailImageTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        return informationDetailImageTableViewCell;
+        
+        
+    } else {
+        
+        InformationDetailDownTableViewCell *informationDetailDownTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"InformationDetailDownTableViewCell"];
+        
+        if (informationDetailDownTableViewCell == nil) {
+            
+            informationDetailDownTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailDownTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        return informationDetailDownTableViewCell;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*

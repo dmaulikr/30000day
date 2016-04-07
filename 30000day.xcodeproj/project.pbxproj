@@ -13,6 +13,10 @@
 		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
 		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
 		B60435F31CB6077B00752CCB /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435F21CB6077B00752CCB /* InformationModel.m */; };
+		B60435F71CB6531800752CCB /* InformationDetailImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */; };
+		B60435F81CB6531800752CCB /* InformationDetailImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */; };
+		B60435FC1CB653E400752CCB /* InformationDetailDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */; };
+		B60435FD1CB653E400752CCB /* InformationDetailDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
@@ -624,6 +628,12 @@
 		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
 		B60435F11CB6077B00752CCB /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
 		B60435F21CB6077B00752CCB /* InformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationModel.m; sourceTree = "<group>"; };
+		B60435F41CB6531800752CCB /* InformationDetailImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailImageTableViewCell.h; sourceTree = "<group>"; };
+		B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailImageTableViewCell.m; sourceTree = "<group>"; };
+		B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailImageTableViewCell.xib; sourceTree = "<group>"; };
+		B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailDownTableViewCell.h; sourceTree = "<group>"; };
+		B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailDownTableViewCell.m; sourceTree = "<group>"; };
+		B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownTableViewCell.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
@@ -3122,6 +3132,12 @@
 				B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */,
 				B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */,
 				B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */,
+				B60435F41CB6531800752CCB /* InformationDetailImageTableViewCell.h */,
+				B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */,
+				B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */,
+				B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */,
+				B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */,
+				B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4123,6 +4139,7 @@
 				B804FD4F1C8AC9A900DFD1CF /* rabbit_7.gif in Resources */,
 				B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */,
 				B804FD791C8AC9A900DFD1CF /* group_icon.png in Resources */,
+				B60435FD1CB653E400752CCB /* InformationDetailDownTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B804FD3B1C8AC9A900DFD1CF /* rabbit_18_cover@2x.png in Resources */,
 				B804FD231C8AC9A900DFD1CF /* contacts_add_scan@2x.png in Resources */,
@@ -4227,6 +4244,7 @@
 				B804FD291C8AC9A900DFD1CF /* rabbit_1.gif in Resources */,
 				B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */,
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
+				B60435F81CB6531800752CCB /* InformationDetailImageTableViewCell.xib in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
@@ -4419,6 +4437,7 @@
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
+				B60435FC1CB653E400752CCB /* InformationDetailDownTableViewCell.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
 				B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */,
@@ -4611,6 +4630,7 @@
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
 				B83B7A631CAD060700D2CC6A /* STDropdownMenu.m in Sources */,
+				B60435F71CB6531800752CCB /* InformationDetailImageTableViewCell.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
