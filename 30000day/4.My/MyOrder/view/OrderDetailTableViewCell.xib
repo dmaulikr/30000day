@@ -117,13 +117,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-fv-Noo">
-                        <rect key="frame" x="94" y="87" width="184" height="18"/>
+                        <rect key="frame" x="90" y="87" width="208" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1231" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpk-Uw-hXe">
-                        <rect key="frame" x="94" y="115" width="184" height="18"/>
+                        <rect key="frame" x="90" y="115" width="198" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -133,15 +133,15 @@
                     <constraint firstItem="Bvr-60-gGj" firstAttribute="top" secondItem="iOo-Zm-cit" secondAttribute="top" constant="10" id="3Lz-lK-ZA7"/>
                     <constraint firstAttribute="trailing" secondItem="Bvr-60-gGj" secondAttribute="trailing" constant="10" id="5pi-t8-LeC"/>
                     <constraint firstItem="qzx-k3-Wiv" firstAttribute="top" secondItem="iOo-Zm-cit" secondAttribute="top" constant="10" id="AGX-mR-slp"/>
-                    <constraint firstAttribute="trailing" secondItem="6f7-fv-Noo" secondAttribute="trailing" constant="10" id="BNd-bt-25U"/>
+                    <constraint firstAttribute="trailing" secondItem="6f7-fv-Noo" secondAttribute="trailing" constant="-10" id="BNd-bt-25U"/>
                     <constraint firstItem="2Sv-ss-SRE" firstAttribute="top" secondItem="qzx-k3-Wiv" secondAttribute="bottom" constant="14" id="Hxu-JI-Uw7"/>
-                    <constraint firstAttribute="trailing" secondItem="vpk-Uw-hXe" secondAttribute="trailing" constant="10" id="ILm-oH-kWY"/>
+                    <constraint firstAttribute="trailing" secondItem="vpk-Uw-hXe" secondAttribute="trailing" id="ILm-oH-kWY"/>
                     <constraint firstItem="Bvr-60-gGj" firstAttribute="leading" secondItem="qzx-k3-Wiv" secondAttribute="trailing" constant="10" id="LDv-Ub-jJk"/>
                     <constraint firstItem="2Sv-ss-SRE" firstAttribute="leading" secondItem="iOo-Zm-cit" secondAttribute="leading" constant="15" id="NPN-03-bor"/>
                     <constraint firstItem="vpk-Uw-hXe" firstAttribute="top" secondItem="6f7-fv-Noo" secondAttribute="bottom" constant="10" id="Pie-Rm-ieC"/>
                     <constraint firstItem="qzx-k3-Wiv" firstAttribute="leading" secondItem="iOo-Zm-cit" secondAttribute="leading" constant="15" id="UPj-Re-Odi"/>
-                    <constraint firstItem="6f7-fv-Noo" firstAttribute="leading" secondItem="2Sv-ss-SRE" secondAttribute="trailing" constant="10" id="Xre-n4-7Fk"/>
-                    <constraint firstItem="vpk-Uw-hXe" firstAttribute="leading" secondItem="Hib-SR-AHh" secondAttribute="trailing" constant="44" id="coz-XJ-nz6"/>
+                    <constraint firstItem="6f7-fv-Noo" firstAttribute="leading" secondItem="2Sv-ss-SRE" secondAttribute="trailing" constant="6" id="Xre-n4-7Fk"/>
+                    <constraint firstItem="vpk-Uw-hXe" firstAttribute="leading" secondItem="Hib-SR-AHh" secondAttribute="trailing" constant="40" id="coz-XJ-nz6"/>
                     <constraint firstItem="Hib-SR-AHh" firstAttribute="top" secondItem="2Sv-ss-SRE" secondAttribute="bottom" constant="7" id="dnn-l8-s4W"/>
                     <constraint firstItem="Hib-SR-AHh" firstAttribute="leading" secondItem="iOo-Zm-cit" secondAttribute="leading" constant="15" id="ggu-Vc-mzf"/>
                     <constraint firstItem="6f7-fv-Noo" firstAttribute="top" secondItem="Bvr-60-gGj" secondAttribute="bottom" constant="59" id="xOr-S8-yGy"/>

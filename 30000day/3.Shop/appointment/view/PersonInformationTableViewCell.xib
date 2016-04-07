@@ -168,7 +168,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="135.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxU-LP-Ygi">
-                        <rect key="frame" x="94" y="13" width="62" height="18"/>
+                        <rect key="frame" x="94" y="13" width="216" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.17254901959999999" green="0.43529411759999997" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -179,6 +179,7 @@
                     <constraint firstItem="yxU-LP-Ygi" firstAttribute="centerY" secondItem="kb7-FW-5KU" secondAttribute="centerY" id="CJd-Lc-f0t"/>
                     <constraint firstItem="mov-tT-erh" firstAttribute="centerY" secondItem="kb7-FW-5KU" secondAttribute="centerY" id="Mbk-AY-R2l"/>
                     <constraint firstItem="yxU-LP-Ygi" firstAttribute="leading" secondItem="mov-tT-erh" secondAttribute="trailing" constant="20" id="qNA-IJ-3yd"/>
+                    <constraint firstAttribute="trailing" secondItem="yxU-LP-Ygi" secondAttribute="trailing" constant="10" id="xqC-RP-vSC"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

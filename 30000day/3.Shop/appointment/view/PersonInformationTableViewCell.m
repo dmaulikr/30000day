@@ -18,7 +18,7 @@
 - (void)configTotalPriceWith:(NSMutableArray *)timeModelArray {
     
     //设置价格
-    float price ;
+    float price = 0.00f;
     
     for (AppointmentTimeModel *time_model  in timeModelArray) {
         
