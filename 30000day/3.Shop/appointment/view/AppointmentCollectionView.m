@@ -13,6 +13,7 @@
 
 #define WidthMargin  100.0f
 
+#define cellNumber_width  4.0f
 
 @interface FlagModel : NSObject
 
@@ -89,9 +90,9 @@
     
     layout.minimumLineSpacing = 0;
     
-    CGFloat length = (self.height - HeightMargin)/(self.time_dataArray.count ? (self.time_dataArray.count + 1) : 4);
+    CGFloat length = (self.height - HeightMargin)/(self.time_dataArray.count ? (self.time_dataArray.count + 1) : cellNumber_width);
     
-    layout.itemSize = CGSizeMake((self.width - WidthMargin)/4.0f,length);
+    layout.itemSize = CGSizeMake((self.width - WidthMargin)/cellNumber_width,length);
     
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -266,9 +267,9 @@
     //循环设置数据源数组
     _flagArray = [NSMutableArray array];
     
-    NSInteger a = _time_dataArray.count ? _time_dataArray.count : 4;
+    NSInteger a = _time_dataArray.count ? _time_dataArray.count : cellNumber_width;
     
-    NSInteger b = _dataArray.count ? _dataArray.count : 4;
+    NSInteger b = _dataArray.count ? _dataArray.count : cellNumber_width;
     
     for (int i = 0 ; i < a ; i++) {
         

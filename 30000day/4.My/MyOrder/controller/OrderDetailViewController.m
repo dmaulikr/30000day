@@ -200,6 +200,8 @@
                                                  
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                  
+                                                 [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                                                 
                                              }];
 }
 

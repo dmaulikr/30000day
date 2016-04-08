@@ -119,7 +119,7 @@
                 <outlet property="titleLabel" destination="VmH-Dv-jZy" id="J1g-lL-Se6"/>
                 <outlet property="willShowImageView" destination="p50-rc-9jl" id="5w4-RO-Azg"/>
             </connections>
-            <point key="canvasLocation" x="511.5" y="218"/>
+            <point key="canvasLocation" x="625.5" y="300"/>
         </tableViewCell>
     </objects>
     <resources>

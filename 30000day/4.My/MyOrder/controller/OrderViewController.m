@@ -123,15 +123,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    MyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderTableViewCell"];
-//    
-//    if (cell == nil) {
-//        
-//        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyOrderTableViewCell" owner:self options:nil] lastObject];
-//    }
-//    
-//    cell.orderModel = self.dataArray[indexPath.row];
-    
     return self.cellArray[indexPath.row];
 }
 
