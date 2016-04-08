@@ -29,7 +29,7 @@
     self.contactLabel.text = timeModel.reserverName;
     
     self.contactPhoneNumber.text = timeModel.reserverContactNo;
-    
+
     if ([Common isObjectNull:timeModel.memo]) {
         
         self.remakLabel.text = @"备注：        暂无备注";
@@ -49,6 +49,8 @@
     self.productNumber.text = [NSString stringWithFormat:@"%@",detailModel.quantity];
     
     self.productMarkNumber.text = detailModel.orderNo;
+    
+    self.applyOrderTime.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[detailModel.orderDate doubleValue]/1000]];
 }
 
 @end

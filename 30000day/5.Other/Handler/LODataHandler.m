@@ -3838,6 +3838,8 @@
         
     }
     
+    [Common urlStringWithDictionary:params withString:COMMIT_ORDER_COURTS];
+    
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:COMMIT_ORDER_COURTS
                                                  parameters:params
@@ -4238,8 +4240,6 @@
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-//                                                                NSDictionary *dictionary = recvDic[@"value"];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     

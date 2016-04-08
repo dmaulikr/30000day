@@ -11,7 +11,7 @@
 #import "PaymentViewController.h"
 #import "MTProgressHUD.h"
 
-@interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface AppointmentConfirmViewController () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -48,7 +48,6 @@
     } else {
         
         self.conformButton.enabled = YES;
-        
     }
 }
 
@@ -72,8 +71,10 @@
     if (!_remarkCell) {
         
         _remarkCell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][1];
+        
+        _remarkCell.remarkTextView.delegate = self;
+        
     }
-    
     return _remarkCell;
 }
 
@@ -107,7 +108,7 @@
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self showToast:@"提交订单失败"];
+        [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
     }];
 }
 
@@ -219,7 +220,19 @@
     return 0.5f;
 }
 
+#pragma ---
+#pragma mark --- UITextViewDelegate
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        
+        return NO;
+    }
+    return YES;
+}
 
 /*
 #pragma mark - Navigation

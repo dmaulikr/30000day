@@ -24,9 +24,15 @@
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
 
+@property (nonatomic,strong) UILabel *rightLabel;
+
 @end
 
-@implementation OrderDetailViewController
+@implementation OrderDetailViewController {
+    
+    NSTimer *_timer;
+    long _count;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +40,7 @@
     
     //配置UI界面
     [self configUI];
-
+    
     [self judgeConformButtonCanUse];
     
     [self loadDataFromServer];
@@ -69,18 +75,22 @@
     
     [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
     [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
+    self.rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
+    
+    self.rightLabel.textColor = [UIColor redColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightLabel];
 }
 
 - (void)headerRefreshing {
     
     [self loadDataFromServer];
-    
 }
 
 //从服务器下载数据
 - (void)loadDataFromServer {
-    
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+
     //下载数据
     [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
         
@@ -90,15 +100,88 @@
         
         [self.tableView.mj_header endRefreshing];
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        self.status = self.detailModel.status;
+        
+        if ([self.status isEqualToString:@"10"]) {
+            
+            [self configOrderLimitTime:self.detailModel.orderDate];
+        }
+        
+        [self judgeConformButtonCanUse];
         
     } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self.tableView.mj_header endRefreshing];
         
     }];
+}
+
+//配置限时时间
+- (void)configOrderLimitTime:(NSNumber *)orderTime {
+    
+    NSDate *date = [NSDate date];
+    
+    NSTimeInterval currentTimeInterval = [date timeIntervalSince1970];
+    
+    NSTimeInterval a = [orderTime doubleValue]/1000;
+    
+    if ((currentTimeInterval - a ) > 300 ) {//超过5分钟了
+        
+    } else if ((currentTimeInterval - a ) < 300 ) {//在5分钟之内
+        
+        NSTimeInterval b = 300 + a - currentTimeInterval;//剩余的时间
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countNumberOfData) userInfo:nil repeats:YES];
+        
+        _count = (long)b;
+        
+        [_timer fire];
+    }
+}
+
+- (void)countNumberOfData {
+    
+    _count--;
+    
+    self.rightLabel.text = [NSString stringWithFormat:@"%02li:%02li",_count/60,_count%60];
+    
+    if (_count == 0) {
+        
+        [_timer invalidate];
+        
+        //发出更新通知
+        [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+        
+        //修改时间显示
+        self.rightLabel.text = @"";
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+    }
+}
+
+//取消订单，修改按钮并发出通知
+- (void)canceledOrderSetting {
+    
+    [self showToast:@"订单取消成功"];
+    
+    self.conformButton.enabled = NO;
+    
+    self.cancelButton.enabled = NO;
+    
+    self.rightLabel.text = @"";
+    
+    [_timer invalidate];
+    
+    [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+    
+    //发出更新通知
+    [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+    
+    [self loadDataFromServer];//重新从服务器下载数据
 }
 
 //取消预约
@@ -108,16 +191,10 @@
     
     [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
                                              success:^(BOOL success) {
-                                                 
-                                                 [self showToast:@"订单取消成功"];
-                                                 
-                                                 self.conformButton.enabled = NO;
-                                                 
-                                                 self.cancelButton.enabled = NO;
-                                                 
-                                                 [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
-                                                 
+
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                 
+                                                 [self canceledOrderSetting];
                                                  
                                              } failure:^(NSError *error) {
                                                  
@@ -211,7 +288,7 @@
         
     } else if (indexPath.section == 1) {
         
-        return 140;
+        return 169;
     }
     return 44;
 }
@@ -252,11 +329,11 @@
                 
                 cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
             }
-            cell.firstTitleLabel.text = @"日期";
+            cell.firstTitleLabel.text = @"预约日期";
             
             cell.firstTitleLabel.hidden = NO;
             
-            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000]];
+            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000]];
             
         } else if (indexPath.row == 1) {
             

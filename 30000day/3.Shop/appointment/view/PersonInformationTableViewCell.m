@@ -12,7 +12,18 @@
 @implementation PersonInformationTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    [self.remarkTextView setPlaceholder:@"备注"];
+    
+    self.remarkTextView.backgroundColor = [UIColor whiteColor];
+    
+    self.remarkTextView.layer.cornerRadius = 5;
+    
+    self.remarkTextView.layer.masksToBounds = YES;
+    
+    self.remarkTextView.layer.borderColor = RGBACOLOR(200,200 , 200, 1).CGColor;
+    
+    self.remarkTextView.layer.borderWidth = 1.0f;
 }
 
 - (void)configTotalPriceWith:(NSMutableArray *)timeModelArray {

@@ -86,8 +86,6 @@
 //2.从服务器下载数据
 - (void)loadDataFromServer {
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
         
         self.dataArray = success;
@@ -100,13 +98,9 @@
         
         [self.tableView.mj_header endRefreshing];
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
     } failure:^(NSError *error) {
     
         [self.tableView.mj_header endRefreshing];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     }];
 }
@@ -157,12 +151,10 @@
     if (!_productPriceCell) {
         
        _productPriceCell =  [[[NSBundle mainBundle] loadNibNamed:@"AppointmentTableViewCell" owner:nil options:nil] lastObject];
-        
     }
     
     return _productPriceCell;
 }
-
 
 #pragma ----
 #pragma mark --- QGPickerViewDelegate
