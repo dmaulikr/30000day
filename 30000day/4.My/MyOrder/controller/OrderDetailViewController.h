@@ -8,7 +8,7 @@
 
 #import "ShowBackItemViewController.h"
 
-@interface OrderDetailViewController : ShowBackItemViewController
+@interface OrderDetailViewController : STRefreshViewController
 
 @property (nonatomic,copy)NSString *orderNumber;//订单标号
 

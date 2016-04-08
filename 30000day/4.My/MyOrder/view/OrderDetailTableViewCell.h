@@ -18,9 +18,10 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
-@property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productNumber;
-@property (weak, nonatomic) IBOutlet UILabel *productMarkNumber;
+@property (weak, nonatomic) IBOutlet UILabel *productNameLabel;//商品名字
+@property (weak, nonatomic) IBOutlet UILabel *productNumber;//总数
+@property (weak, nonatomic) IBOutlet UILabel *productMarkNumber;//订单编号
+@property (weak, nonatomic) IBOutlet UILabel *applyOrderTime;//下单时间
 - (void)configProductInformation:(MyOrderDetailModel *)detailModel;
 
 @end

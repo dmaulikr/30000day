@@ -91,7 +91,7 @@
     
     CGFloat length = (self.height - HeightMargin)/(self.time_dataArray.count ? (self.time_dataArray.count + 1) : 4);
     
-    layout.itemSize = CGSizeMake((self.width - WidthMargin)/5.0f,length);
+    layout.itemSize = CGSizeMake((self.width - WidthMargin)/4.0f,length);
     
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
@@ -268,7 +268,7 @@
     
     NSInteger a = _time_dataArray.count ? _time_dataArray.count : 4;
     
-    NSInteger b = _dataArray.count ? _dataArray.count : 5;
+    NSInteger b = _dataArray.count ? _dataArray.count : 4;
     
     for (int i = 0 ; i < a ; i++) {
         

@@ -40,6 +40,8 @@
 
 @property (nonatomic,copy) NSString *courtName;//1号场
 
+@property (nonatomic,copy) NSString *memo;//remark
+
 @end
 
 

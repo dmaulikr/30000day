@@ -16,7 +16,14 @@
 @implementation GJTextView
 
 
-
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if (self = [super initWithCoder:aDecoder]) {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TextChange) name:UITextViewTextDidChangeNotification object:self];
+    }
+    return self;
+}
 
 
 #pragma mark -系统方法

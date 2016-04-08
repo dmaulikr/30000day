@@ -13,14 +13,13 @@
 @implementation MyOrderTableViewCell {
     
     NSTimer *_timer;
-    int _count;
+    long _count;
+    NSNumber *_saveTimeInterval;
 }
 
 - (void)awakeFromNib {
     
     _count = 60;
-    
-    self.backImageView.image = [UIImage imageWithCGImage:[[UIImage imageNamed:@"back"] imageWithTintColor:RGBACOLOR(0, 93, 193, 1)].CGImage scale:2 orientation:UIImageOrientationUpMirrored];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -37,25 +36,26 @@
         
         [self.handleButton setTitle:@"等待付款" forState:UIControlStateNormal];
         
-        self.backImageView.hidden = NO;
-        
+        [self configTimerWithTimeInter:_orderModel.orderDate];
+
     } else if ([_orderModel.status isEqualToString:@"11"]) {
         
-        [self.handleButton setTitle:@"已经取消" forState:UIControlStateNormal];
+        [self.handleButton setTitle:@"已取消" forState:UIControlStateNormal];
         
-        self.backImageView.hidden = YES;
-        
+        self.dateLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[_orderModel.orderDate doubleValue]/1000]];
+
     } else if ([_orderModel.status isEqualToString:@"12"]) {
         
         [self.handleButton setTitle:@"已超时" forState:UIControlStateNormal];
         
-        self.backImageView.hidden = YES;
+        self.dateLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[_orderModel.orderDate doubleValue]/1000]];
+
         
     } else if ([_orderModel.status isEqualToString:@"2"]) {
         
         [self.handleButton setTitle:@"支付成功" forState:UIControlStateNormal];
         
-        self.backImageView.hidden = YES;
+        self.dateLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[_orderModel.orderDate doubleValue]/1000]];
     }
     
     self.productNumberLabel.text = [NSString stringWithFormat:@"%@",_orderModel.quantity];//数量
@@ -66,21 +66,56 @@
     [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:_orderModel.productPhoto] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     [_priceLabel setAttributedText:[Common attributedStringWithPrice:[_orderModel.totalPrice floatValue]]];
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countNumberOfData) userInfo:nil repeats:YES];
-    
-    [_timer fire];
 }
 
 - (void)countNumberOfData {
     
-    self.dateLabel.text = [NSString stringWithFormat:@"%d",_count--];
+    _count--;
     
-    if (_count == -1) {
-        
-        _count = 60;
+    self.dateLabel.text = [NSString stringWithFormat:@"%02li:%02li",_count/60,_count%60];
+    
+    self.dateLabel.textColor = [UIColor redColor];
+    
+    if (_count == 0) {
         
         [_timer invalidate];
+        
+        //发出更新通知
+        [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+        
+        //修改时间显示
+        self.dateLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[_saveTimeInterval doubleValue]/1000]];
+        
+        self.dateLabel.textColor = [UIColor darkGrayColor];
+    }
+}
+
+- (void)configTimerWithTimeInter:(NSNumber *)timeNumber {
+    
+    NSDate *date = [NSDate date];
+    
+    NSTimeInterval currentTimeInterval = [date timeIntervalSince1970];
+    
+    NSTimeInterval a = [timeNumber doubleValue]/1000;
+    
+    if ((currentTimeInterval - a ) > 300 ) {//超过5分钟了
+        
+        //修改时间显示
+        self.dateLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[timeNumber doubleValue]/1000]];
+        
+        self.dateLabel.textColor = [UIColor darkGrayColor];
+        
+    } else if ((currentTimeInterval - a ) < 300 ) {//在5分钟之内
+        
+        NSTimeInterval b = 300 + a - currentTimeInterval;//剩余的时间
+        
+        _saveTimeInterval = timeNumber;//存储下单时间
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countNumberOfData) userInfo:nil repeats:YES];
+        
+        _count = (long)b;
+        
+        [_timer fire];
     }
 }
 

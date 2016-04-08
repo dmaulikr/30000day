@@ -50,7 +50,10 @@
 
 @end
 
-@implementation ShopViewController
+@implementation ShopViewController {
+    
+    BOOL _isFromCityController;
+}
 
 - (void)viewDidLoad {
     
@@ -79,7 +82,10 @@
     }];
 
     //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
-    [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:NO];
+    
+    _isFromCityController = NO;
+    
+    [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
 }
 
  //3.获取列表数据源数组
@@ -179,6 +185,8 @@
         
         [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
         
+        //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
+        [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
     }];
 }
 
@@ -196,6 +204,8 @@
         
         failure(error);
         
+        
+        
     }];
 }
 
@@ -208,7 +218,9 @@
     //点击了市cell回调
     [controller setCityBlock:^(NSString *provinceName, NSString *cityName) {
        
-        [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:provinceName withCityName:cityName isFromCityController:YES];
+        _isFromCityController = YES;
+        
+        [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:provinceName withCityName:cityName isFromCityController:_isFromCityController];
         
     }];
     
@@ -315,8 +327,6 @@
             
         }];
     } else {//下拉刷新和首次刷新
-
-        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
         [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
                                                       isSearch:![Common isObjectNull:self.searchBar.text]
@@ -332,16 +342,13 @@
             [self.tableView.mj_footer setState:MJRefreshStateIdle];
                                                            
             self.pageNumber = 1;//下拉刷新当前的页数是1
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
+        
         } failure:^(NSError *error) {
             
             [self.tableView.mj_header endRefreshing];
             
             [self.tableView.mj_footer setState:MJRefreshStateIdle];
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
     }
 }

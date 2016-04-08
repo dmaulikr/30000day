@@ -21,8 +21,6 @@
 #import "UIImageView+WebCache.h"
 #import "ShopModel.h"
 #import "CompanyViewController.h"
-#import "MTProgressHUD.h"
-
 
 #define SECTIONSCOUNT 5
 
@@ -56,7 +54,6 @@
     
     self.tableView.dataSource  = self;
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendCompanyDetailsWithProductId:self.productId Success:^(ShopDetailModel *model) {
         
         if (model.productPhotos != nil) {
@@ -94,8 +91,6 @@
         
         [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
             if (success > 0) {
                 
                 self.commentModel = success[0];
@@ -106,16 +101,12 @@
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         }];
         
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
+    
     }];
     
     //3.添加预约按钮

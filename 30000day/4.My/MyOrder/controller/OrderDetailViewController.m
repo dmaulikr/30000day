@@ -18,18 +18,21 @@
 
 @property (nonatomic,strong) MyOrderDetailModel *detailModel;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (weak, nonatomic) IBOutlet UIButton *conformButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
 
+@property (nonatomic,strong) UILabel *rightLabel;
 
 @end
 
-@implementation OrderDetailViewController
+@implementation OrderDetailViewController {
+    
+    NSTimer *_timer;
+    long _count;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,23 +41,25 @@
     //配置UI界面
     [self configUI];
     
-    //下载数据
-    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
-       
-        self.detailModel = detailModel;
-        
-        [self.tableView reloadData];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-
     [self judgeConformButtonCanUse];
     
+    [self loadDataFromServer];
 }
 
 //配置UI界面
 - (void)configUI {
+    
+    self.isShowBackItem = YES;
+    
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    self.isShowFootRefresh = NO;
+    
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
+    
+    self.tableView.delegate = self;
+    
+    self.tableView.dataSource = self;
     
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
@@ -69,8 +74,114 @@
     self.conformButton.layer.masksToBounds = YES;
     
     [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-    
     [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
+    self.rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
+    
+    self.rightLabel.textColor = [UIColor redColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightLabel];
+}
+
+- (void)headerRefreshing {
+    
+    [self loadDataFromServer];
+}
+
+//从服务器下载数据
+- (void)loadDataFromServer {
+
+    //下载数据
+    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
+        
+        self.detailModel = detailModel;
+        
+        [self.tableView reloadData];
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        self.status = self.detailModel.status;
+        
+        if ([self.status isEqualToString:@"10"]) {
+            
+            [self configOrderLimitTime:self.detailModel.orderDate];
+        }
+        
+        [self judgeConformButtonCanUse];
+        
+    } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
+        
+    }];
+}
+
+//配置限时时间
+- (void)configOrderLimitTime:(NSNumber *)orderTime {
+    
+    NSDate *date = [NSDate date];
+    
+    NSTimeInterval currentTimeInterval = [date timeIntervalSince1970];
+    
+    NSTimeInterval a = [orderTime doubleValue]/1000;
+    
+    if ((currentTimeInterval - a ) > 300 ) {//超过5分钟了
+        
+    } else if ((currentTimeInterval - a ) < 300 ) {//在5分钟之内
+        
+        NSTimeInterval b = 300 + a - currentTimeInterval;//剩余的时间
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countNumberOfData) userInfo:nil repeats:YES];
+        
+        _count = (long)b;
+        
+        [_timer fire];
+    }
+}
+
+- (void)countNumberOfData {
+    
+    _count--;
+    
+    self.rightLabel.text = [NSString stringWithFormat:@"%02li:%02li",_count/60,_count%60];
+    
+    if (_count == 0) {
+        
+        [_timer invalidate];
+        
+        //发出更新通知
+        [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+        
+        //修改时间显示
+        self.rightLabel.text = @"";
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+    }
+}
+
+//取消订单，修改按钮并发出通知
+- (void)canceledOrderSetting {
+    
+    [self showToast:@"订单取消成功"];
+    
+    self.conformButton.enabled = NO;
+    
+    self.cancelButton.enabled = NO;
+    
+    self.rightLabel.text = @"";
+    
+    [_timer invalidate];
+    
+    [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+    
+    //发出更新通知
+    [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+    
+    [self loadDataFromServer];//重新从服务器下载数据
 }
 
 //取消预约
@@ -80,16 +191,10 @@
     
     [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
                                              success:^(BOOL success) {
-                                                 
-                                                 [self showToast:@"订单取消成功"];
-                                                 
-                                                 self.conformButton.enabled = NO;
-                                                 
-                                                 self.cancelButton.enabled = NO;
-                                                 
-                                                 [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
-                                                 
+
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                 
+                                                 [self canceledOrderSetting];
                                                  
                                              } failure:^(NSError *error) {
                                                  
@@ -115,22 +220,38 @@
 //判断确认订单是否可用
 - (void)judgeConformButtonCanUse {
     
-//    if (self.isPaid) {//表示付款了
-//        
-//        self.conformButton.enabled = NO;
-//        
-//        self.cancelButton.enabled = NO;
-//        
-//        [self.conformButton setTitle:@"已经付款" forState:UIControlStateNormal];
-//        
-//    } else {
-//        
-//        self.conformButton.enabled = YES;
-//        
-//        self.cancelButton.enabled = YES;
-//        
-//        [self.conformButton setTitle:@"前往支付" forState:UIControlStateNormal];
-//    }
+    if ([self.status isEqualToString:@"10"]) {
+        
+        [self.conformButton setTitle:@"等待付款" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = YES;
+        
+        self.cancelButton.enabled = YES;
+
+    } else if ([self.status isEqualToString:@"11"]) {
+        
+        [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+    } else if ([self.status isEqualToString:@"12"]) {
+        
+        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+        
+    } else if ([self.status isEqualToString:@"2"]) {
+        
+        [self.conformButton setTitle:@"支付成功" forState:UIControlStateNormal];
+        
+        self.conformButton.enabled = NO;
+        
+        self.cancelButton.enabled = NO;
+    }
 }
 
 #pragma ----
@@ -167,7 +288,7 @@
         
     } else if (indexPath.section == 1) {
         
-        return 140;
+        return 169;
     }
     return 44;
 }
@@ -208,11 +329,11 @@
                 
                 cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
             }
-            cell.firstTitleLabel.text = @"日期";
+            cell.firstTitleLabel.text = @"预约日期";
             
             cell.firstTitleLabel.hidden = NO;
             
-            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000]];
+            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000]];
             
         } else if (indexPath.row == 1) {
             

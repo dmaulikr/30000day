@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AppointmentModel.h"
+#import "GJTextView.h"
 
 @interface PersonInformationTableViewCell : UITableViewCell
 
@@ -16,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;//手机号码label
 
-@property (weak, nonatomic) IBOutlet UITextView *remarkTextView;//备注的textView
+@property (weak, nonatomic) IBOutlet GJTextView *remarkTextView;//备注的textView
 
 
 //******************************************************************************************

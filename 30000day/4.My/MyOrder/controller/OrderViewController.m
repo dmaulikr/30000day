@@ -55,8 +55,6 @@
     
     _type = type;
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     NSNumber *newType = @0;
     
     if (type == OrderTypeAll) {
@@ -87,17 +85,15 @@
             [self.cellArray addObject:cell];
         }
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
         [self.tableView.mj_header endRefreshing];
         
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
         [self.tableView.mj_header endRefreshing];
+        
+        [self loadDataFromServerWith:_type];
         
     }];
 }
