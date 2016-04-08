@@ -9,7 +9,6 @@
 #import "InformationListTableViewCell.h"
 #import "UIImageView+WebCache.h"
 
-
 @implementation InformationListTableViewCell
 
 - (void)awakeFromNib {
@@ -24,10 +23,13 @@
 
 - (void)setInformationModel:(InformationModel *)informationModel {
 
-    [self.infoPhotosImageView sd_setImageWithURL:[NSURL URLWithString:informationModel.infoPhotos]];
+    [self.infoPhotosImageView sd_setImageWithURL:[NSURL URLWithString:informationModel.infoPhoto]];
     
     [self.infoTitleLable setText:informationModel.infoName];
 
+    self.infoCommentCount.text = [NSString stringWithFormat:@"%ld评",(long)informationModel.commentCount];
+    
+    self.infoCategoryLable.text = informationModel.infoCategory;
     
 }
 

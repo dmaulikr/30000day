@@ -36,18 +36,27 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="饮食" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uT6-MP-SPe">
+                        <rect key="frame" x="115" y="70" width="26" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="6OG-UC-L8U" secondAttribute="trailing" constant="8" id="1au-Rm-cRv"/>
                     <constraint firstAttribute="trailing" secondItem="2CW-Tr-qrK" secondAttribute="trailing" constant="12" id="4a2-WU-lht"/>
                     <constraint firstAttribute="bottom" secondItem="6OG-UC-L8U" secondAttribute="bottom" constant="11" id="9wb-M0-QLu"/>
+                    <constraint firstItem="6OG-UC-L8U" firstAttribute="centerY" secondItem="uT6-MP-SPe" secondAttribute="centerY" id="HLj-pv-3IK"/>
                     <constraint firstItem="2CW-Tr-qrK" firstAttribute="top" secondItem="nsD-eZ-yUW" secondAttribute="top" id="cQf-Gl-N7t"/>
                     <constraint firstItem="nsD-eZ-yUW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="eXn-hE-9N3"/>
                     <constraint firstItem="2CW-Tr-qrK" firstAttribute="leading" secondItem="nsD-eZ-yUW" secondAttribute="trailing" constant="10" id="ghK-ZH-Cel"/>
+                    <constraint firstItem="uT6-MP-SPe" firstAttribute="leading" secondItem="2CW-Tr-qrK" secondAttribute="leading" id="heE-Ia-xwe"/>
                     <constraint firstItem="nsD-eZ-yUW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hxQ-cJ-xh8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="infoCategoryLable" destination="uT6-MP-SPe" id="we2-Gy-Pfz"/>
                 <outlet property="infoCommentCount" destination="6OG-UC-L8U" id="aSo-X4-OHe"/>
                 <outlet property="infoPhotosImageView" destination="nsD-eZ-yUW" id="blN-Fj-YYb"/>
                 <outlet property="infoTitleLable" destination="2CW-Tr-qrK" id="TnA-Az-K7g"/>

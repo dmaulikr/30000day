@@ -16,4 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *InformationDetailComment;
 
+@property (nonatomic,copy) void (^(shareButtonBlock))(UIButton *shareButton);
+
+@property (nonatomic,copy) void (^(commentButtonBlock))();
+
 @end

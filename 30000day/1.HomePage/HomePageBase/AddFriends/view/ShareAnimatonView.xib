@@ -248,7 +248,7 @@
                 <outlet property="qqBtn" destination="G3U-sP-o1f" id="avf-el-IAy"/>
                 <outlet property="shortMessageBtn" destination="qGV-iz-w3m" id="GYf-XZ-hIy"/>
             </connections>
-            <point key="canvasLocation" x="-14" y="84"/>
+            <point key="canvasLocation" x="-153" y="73"/>
         </view>
     </objects>
     <resources>

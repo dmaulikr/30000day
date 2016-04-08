@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InformationDetailDownTableViewCell" id="KGk-i7-Jjw" customClass="InformationDetailDownTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="InformationDetailDownTableViewCell" id="KGk-i7-Jjw" customClass="InformationDetailDownTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -63,6 +63,11 @@
                     <constraint firstItem="FWW-Nf-BPn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uav-2o-lVy"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="InformationDetailComment" destination="fff-F5-uhs" id="Qds-RN-ClN"/>
+                <outlet property="InformationDetailShare" destination="FWW-Nf-BPn" id="qdz-KT-Xh5"/>
+                <outlet property="InformationDetailZan" destination="5ix-Qc-Ktg" id="mcR-Db-7Zd"/>
+            </connections>
             <point key="canvasLocation" x="129.5" y="241"/>
         </tableViewCell>
     </objects>

@@ -203,6 +203,8 @@
 
 #define  GET_ORDER_CANCEL             @"/stapi/order/cancelOrders"             //取消订单
 
+#define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"       //资讯详情
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

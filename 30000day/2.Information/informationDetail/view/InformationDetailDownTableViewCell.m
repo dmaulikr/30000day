@@ -11,7 +11,11 @@
 @implementation InformationDetailDownTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    [self.InformationDetailShare addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.InformationDetailComment addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -19,5 +23,22 @@
 
     // Configure the view for the selected state
 }
+
+- (void)shareClick:(UIButton *)sender {
+    
+    if (self.shareButtonBlock) {
+        self.shareButtonBlock((UIButton *)sender);
+    }
+
+}
+
+- (void)commentClick {
+    
+    if (self.commentButtonBlock) {
+        self.commentButtonBlock();
+    }
+    
+}
+
 
 @end

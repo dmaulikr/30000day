@@ -17,5 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *infoCommentCount;
 
+@property (weak, nonatomic) IBOutlet UILabel *infoCategoryLable;
+
+
 @property (nonatomic,strong) InformationModel *informationModel;
 @end

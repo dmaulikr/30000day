@@ -12,4 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *InformationDetailImageView;
 
+@property (nonatomic,copy) NSString *imageViewURLString;
+
+@property (nonatomic,copy) void (^(lookPhoto))(UIImageView *imageView);
+
 @end

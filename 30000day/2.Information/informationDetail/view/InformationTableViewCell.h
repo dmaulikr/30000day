@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InformationDetailModel.h"
 
 @interface InformationTableViewCell : UITableViewCell
 
@@ -17,5 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *InformationDetailTime;
 
 @property (weak, nonatomic) IBOutlet UILabel *InformationDetailContent;
+
+@property (nonatomic,strong) InformationDetailModel* informationDetailModel;
 
 @end

@@ -68,6 +68,11 @@
 		B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */; };
 		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
 		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
+		B6DDB4F21CB74D9C0026322A /* InformationDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */; };
+		B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F91CB784360026322A /* ShareInformationView.m */; };
+		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
+		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
+		B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */; };
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
@@ -714,6 +719,14 @@
 		B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsTableViewCell.h; sourceTree = "<group>"; };
 		B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsTableViewCell.m; sourceTree = "<group>"; };
 		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
+		B6DDB4F01CB74D9B0026322A /* InformationDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailModel.h; sourceTree = "<group>"; };
+		B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailModel.m; sourceTree = "<group>"; };
+		B6DDB4F81CB784360026322A /* ShareInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInformationView.h; sourceTree = "<group>"; };
+		B6DDB4F91CB784360026322A /* ShareInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareInformationView.m; sourceTree = "<group>"; };
+		B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareInformationView.xib; sourceTree = "<group>"; };
+		B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentViewController.h; sourceTree = "<group>"; };
+		B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentViewController.m; sourceTree = "<group>"; };
+		B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentViewController.xib; sourceTree = "<group>"; };
 		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
 		B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityCommentViewController.m; sourceTree = "<group>"; };
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
@@ -1796,6 +1809,15 @@
 				B89216E31C634E650023F8A8 /* view */,
 			);
 			path = AddFriends;
+			sourceTree = "<group>";
+		};
+		B6DDB4EF1CB74D700026322A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B6DDB4F01CB74D9B0026322A /* InformationDetailModel.h */,
+				B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		B804FC751C8AC9A900DFD1CF /* Resources */ = {
@@ -3109,6 +3131,7 @@
 		B8F73C301C9651760063CC60 /* informationDetail */ = {
 			isa = PBXGroup;
 			children = (
+				B6DDB4EF1CB74D700026322A /* model */,
 				B8F73C311C9651760063CC60 /* controller */,
 				B8F73C321C9651760063CC60 /* view */,
 			);
@@ -3121,6 +3144,9 @@
 				B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */,
 				B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */,
 				B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */,
+				B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */,
+				B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */,
+				B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3138,6 +3164,9 @@
 				B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */,
 				B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */,
 				B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */,
+				B6DDB4F81CB784360026322A /* ShareInformationView.h */,
+				B6DDB4F91CB784360026322A /* ShareInformationView.m */,
+				B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4088,6 +4117,7 @@
 				B804FD5E1C8AC9A900DFD1CF /* tusiji_13.gif in Resources */,
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
+				B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B804FD931C8AC9A900DFD1CF /* RecordCancel@2x.png in Resources */,
 				B8F648871C942C9F001A3119 /* PersonInformationTableViewCell.xib in Resources */,
@@ -4120,6 +4150,7 @@
 				B804FD961C8AC9A900DFD1CF /* RecordingSignal002@2x.png in Resources */,
 				B804FDAD1C8AC9A900DFD1CF /* sharemore_voipvoice@2x.png in Resources */,
 				B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */,
+				B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */,
 				B804FD361C8AC9A900DFD1CF /* rabbit_16.gif in Resources */,
 				B8FD3E481C8A7BBA007BCA6B /* LICENSE in Resources */,
 				B804FD731C8AC9A900DFD1CF /* tusiji_9.gif in Resources */,
@@ -4491,6 +4522,7 @@
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				B8FD3E0C1C8A7903007BCA6B /* SETextLayout.m in Sources */,
+				B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */,
 				B886ADE01CB3C344005E262A /* MyOrderViewController.m in Sources */,
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
@@ -4596,6 +4628,7 @@
 				B89216B11C5F3EEA0023F8A8 /* LODataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
 				B8F2D96F1C5C6924002C7712 /* LOApiRequest.m in Sources */,
+				B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
@@ -4621,6 +4654,7 @@
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
+				B6DDB4F21CB74D9C0026322A /* InformationDetailModel.m in Sources */,
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
