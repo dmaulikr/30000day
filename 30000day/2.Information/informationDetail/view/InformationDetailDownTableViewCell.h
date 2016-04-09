@@ -20,4 +20,6 @@
 
 @property (nonatomic,copy) void (^(commentButtonBlock))();
 
+@property (nonatomic,copy) void (^(zanButtonBlock))(UIButton *zanButton);
+
 @end

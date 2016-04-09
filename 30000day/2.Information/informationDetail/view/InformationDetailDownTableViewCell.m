@@ -16,6 +16,8 @@
     
     [self.InformationDetailComment addTarget:self action:@selector(commentClick) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.InformationDetailZan addTarget:self action:@selector(zanClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -36,6 +38,14 @@
     
     if (self.commentButtonBlock) {
         self.commentButtonBlock();
+    }
+    
+}
+
+- (void)zanClick:(UIButton *)sender {
+    
+    if (self.zanButtonBlock) {
+        self.zanButtonBlock((UIButton *)sender);
     }
     
 }

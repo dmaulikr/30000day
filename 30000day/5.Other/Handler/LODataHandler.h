@@ -349,4 +349,18 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                                success:(void (^)(InformationDetailModel *informationDetailModel))success
                                failure:(void (^)(NSError *error))failure;
 
+//*****************************************资讯点赞*********************/
+- (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
+                                commentId:(NSString *)commentId
+                              isClickLike:(NSInteger)isClickLike
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
+
+//*****************************************资讯评论*********************/
+- (void)sendInfomationCommentWithProductId:(NSString *)productId
+                                commentId:(NSString *)commentId
+                              isClickLike:(NSInteger)isClickLike
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
+
 @end

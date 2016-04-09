@@ -205,6 +205,8 @@
 
 #define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"       //资讯详情
 
+#define  SAVE_POINT                   @"/stapi/user/pointOrCancelPraise"       //资讯点赞
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

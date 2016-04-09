@@ -8,6 +8,6 @@
 
 #import "STRefreshViewController.h"
 
-@interface InformationViewController : STRefreshViewController
+@interface InformationViewController : UIViewController
 
 @end

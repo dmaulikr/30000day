@@ -141,7 +141,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma --
 #pragma mark --- UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -226,6 +225,20 @@
             
         }];
         
+        [informationDetailDownTableViewCell setZanButtonBlock:^(UIButton *zanButton) {
+            
+            [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId commentId:@"" isClickLike:1 success:^(BOOL success) {
+                
+                NSLog(@"%d",success);
+                
+            } failure:^(NSError *error) {
+                
+                
+                
+            }];
+            
+        }];
+        
         return informationDetailDownTableViewCell;
         
     } else {
@@ -241,19 +254,7 @@
         
         [informationDetailImageTableViewCell setLookPhoto:^(UIImageView *imageView) {
            
-            self.photos = [NSMutableArray array];
-            
-            for (int i = 0; i < self.imageURLArray.count; i++) {
-                
-                MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:self.imageURLArray[i]]];
-                [self.photos addObject:photo];
-                
-            }
-            
-            MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-            browser.displayActionButton = NO;
-            [self.navigationController pushViewController:browser animated:NO];
-            
+            [self loadPhotoBrowser];
         }];
         
         return informationDetailImageTableViewCell;
@@ -310,6 +311,24 @@
     }
 }
 
+
+- (void)loadPhotoBrowser {
+
+    self.photos = [NSMutableArray array];
+    
+    for (int i = 0; i < self.imageURLArray.count; i++) {
+        
+        MWPhoto *photo = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:self.imageURLArray[i]]];
+        [self.photos addObject:photo];
+        
+    }
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    [self.navigationController pushViewController:browser animated:NO];
+
+
+}
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
     return self.photos.count;

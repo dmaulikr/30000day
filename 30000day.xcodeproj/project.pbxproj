@@ -445,7 +445,6 @@
 		B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */; };
 		B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */; };
 		B8F73C641C96959A0063CC60 /* InformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */; };
-		B8F73C661C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C651C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png */; };
 		B8F73C721C96C6CE0063CC60 /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */; };
 		B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
@@ -1244,7 +1243,6 @@
 		B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationTableViewCell.xib; sourceTree = "<group>"; };
-		B8F73C651C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "547A57CD-AD5C-4599-A54B-D3C1A6D07615.png"; sourceTree = "<group>"; };
 		B8F73C6F1C96C6CE0063CC60 /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayTableViewCell.xib; sourceTree = "<group>"; };
@@ -3154,7 +3152,6 @@
 		B8F73C321C9651760063CC60 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C651C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png */,
 				B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */,
 				B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */,
 				B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */,
@@ -4179,7 +4176,6 @@
 				B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */,
 				B62C381C1C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.xib in Resources */,
 				B804FD431C8AC9A900DFD1CF /* rabbit_21_cover@2x.png in Resources */,
-				B8F73C661C9695F20063CC60 /* 547A57CD-AD5C-4599-A54B-D3C1A6D07615.png in Resources */,
 				B6114CA71CA2785E0088EED2 /* ShopDetailCommentTableViewCell.xib in Resources */,
 				B81306CD1CB5FA680051C4BA /* OrderDetailTableViewCell.xib in Resources */,
 				B804FD421C8AC9A900DFD1CF /* rabbit_21.gif in Resources */,
