@@ -7,17 +7,41 @@
 //
 
 #import "InformationDetailImageTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation InformationDetailImageTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    self.InformationDetailImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClick:)];
+    [self.InformationDetailImageView addGestureRecognizer:portraitTap];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setImageViewURLString:(NSString *)imageViewURLString {
+
+    [self.InformationDetailImageView sd_setImageWithURL:[NSURL URLWithString:imageViewURLString]];
+
+}
+
+- (void)imageClick:(UITapGestureRecognizer *)tap {
+    
+    if (![(UIImageView *)tap.view image]) {
+        return;
+    }
+    
+    UIImageView *picView = (UIImageView *)tap.view;
+    
+    if (self.lookPhoto) {
+        self.lookPhoto(picView);
+    }
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "ShopDetailModel.h"
 #import "CompanyModel.h"
 #import <CoreLocation/CoreLocation.h>
+#import "InformationDetailModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -342,5 +343,24 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 - (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
                                success:(void (^)(BOOL success))success
                                failure:(void (^)(NSError *error))failure;
+
+//*****************************************获取资讯详情*********************/
+- (void)sendInfomationDetailWithInfoId:(NSString *)infoId
+                               success:(void (^)(InformationDetailModel *informationDetailModel))success
+                               failure:(void (^)(NSError *error))failure;
+
+//*****************************************资讯点赞*********************/
+- (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
+                                commentId:(NSString *)commentId
+                              isClickLike:(NSInteger)isClickLike
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
+
+//*****************************************资讯评论*********************/
+- (void)sendInfomationCommentWithProductId:(NSString *)productId
+                                commentId:(NSString *)commentId
+                              isClickLike:(NSInteger)isClickLike
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
 
 @end

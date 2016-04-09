@@ -10,9 +10,10 @@
 
 @interface InformationModel : NSObject
 
-@property (nonatomic,copy) NSString *createTime;
 @property (nonatomic,copy) NSString *informationId;
 @property (nonatomic,copy) NSString *infoName;
-@property (nonatomic,copy) NSString *infoPhotos;
+@property (nonatomic,copy) NSString *infoPhoto;
+@property (nonatomic,assign) NSInteger commentCount;
+@property (nonatomic,copy) NSString *infoCategory;
 
 @end
