@@ -10,11 +10,11 @@
 #import "DOPDropDownMenu.h"
 #import "InformationListTableViewCell.h"
 #import "SubscribeViewController.h"
-#import "InformationDetailViewController.h"
 #import "MTProgressHUD.h"
 #import "LODataHandler.h"
 #import "MJRefresh.h"
 #import "SubscribeListTableViewCell.h"
+#import "InformationDetailWebViewController.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -22,6 +22,8 @@
 @interface InformationViewController () < UITableViewDataSource,UITableViewDelegate,DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSArray *titleArray;
+
+@property (nonatomic,strong) NSArray *sortArray;
 
 @property (nonatomic,strong) NSMutableArray *informationModelArray;
 
@@ -61,6 +63,7 @@
     [self createButton];
     
     //1.设置mune
+    self.sortArray = [NSArray arrayWithObjects:@"时间",@"热度", nil];
     self.titleArray = [NSArray arrayWithObjects:@"全部分类",@"饮食",@"运动",@"作息",@"备孕",@"孕期",@"育儿",@"治未病",@"体检",@"就医", nil];
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
     menu.delegate = self;
@@ -221,7 +224,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    InformationDetailViewController *controller = [[InformationDetailViewController alloc] init];
+    InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
@@ -234,17 +237,33 @@
 
 - (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
     
-    return self.titleArray.count;
+    if (column == 0) {
+        
+        return self.titleArray.count;
+    
+    } else {
+    
+        return self.sortArray.count;
+    
+    }
 }
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
 
-    return self.titleArray[indexPath.row];
+    if (indexPath.column == 0) {
+        
+        return self.titleArray[indexPath.row];
+    
+    } else {
+    
+        return self.sortArray[indexPath.row];
+    
+    }
 }
 
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
     
-    return 1;
+    return 2;
     
 }
 

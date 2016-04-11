@@ -76,6 +76,10 @@
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
+		B6F66DA31CBB44CE0064DB11 /* InformationDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */; };
+		B6F66DA41CBB44CE0064DB11 /* InformationDetailWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */; };
+		B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */; };
+		B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
 		B6F8CE661CAB9D6C00218046 /* SearchTableVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8CE651CAB9D6B00218046 /* SearchTableVersion.m */; };
 		B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FC761C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png */; };
@@ -435,8 +439,6 @@
 		B8F73C441C965D440063CC60 /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C431C965D440063CC60 /* SubscribeViewController.m */; };
 		B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */; };
 		B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */; };
-		B8F73C4B1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */; };
-		B8F73C4D1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */; };
 		B8F73C511C9689640063CC60 /* MySubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */; };
 		B8F73C521C9689640063CC60 /* MySubscribeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */; };
 		B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C571C968CC20063CC60 /* ReportViewController.m */; };
@@ -731,6 +733,12 @@
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
 		B6EFEA801CAE569B00777B75 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
 		B6EFEA811CAE569B00777B75 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		B6F66DA01CBB44CE0064DB11 /* InformationDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailWebViewController.h; sourceTree = "<group>"; };
+		B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailWebViewController.m; sourceTree = "<group>"; };
+		B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailWebViewController.xib; sourceTree = "<group>"; };
+		B6F66DA51CBB4AF40064DB11 /* InformationDetailDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailDownView.h; sourceTree = "<group>"; };
+		B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailDownView.m; sourceTree = "<group>"; };
+		B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownView.xib; sourceTree = "<group>"; };
 		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
 		B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableVersion.h; sourceTree = "<group>"; };
@@ -1229,8 +1237,6 @@
 		B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeListTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeListTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeListTableViewCell.xib; sourceTree = "<group>"; };
-		B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "947AA1C0-26DB-4962-A185-0D23C505D417.png"; sourceTree = "<group>"; };
-		B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png"; sourceTree = "<group>"; };
 		B8F73C4E1C9689640063CC60 /* MySubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySubscribeViewController.h; sourceTree = "<group>"; };
 		B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySubscribeViewController.m; sourceTree = "<group>"; };
 		B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySubscribeViewController.xib; sourceTree = "<group>"; };
@@ -3145,6 +3151,9 @@
 				B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */,
 				B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */,
 				B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */,
+				B6F66DA01CBB44CE0064DB11 /* InformationDetailWebViewController.h */,
+				B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */,
+				B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3164,6 +3173,9 @@
 				B6DDB4F81CB784360026322A /* ShareInformationView.h */,
 				B6DDB4F91CB784360026322A /* ShareInformationView.m */,
 				B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */,
+				B6F66DA51CBB4AF40064DB11 /* InformationDetailDownView.h */,
+				B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */,
+				B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3192,8 +3204,6 @@
 		B8F73C351C9651760063CC60 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C4C1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png */,
-				B8F73C4A1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png */,
 				B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */,
 				B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */,
 				B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */,
@@ -4053,7 +4063,6 @@
 				B804FD891C8AC9A900DFD1CF /* multiMedia_HL@2x.png in Resources */,
 				B804FDA91C8AC9A900DFD1CF /* sharemore_pic@2x.png in Resources */,
 				B8FD3EBE1C8A8440007BCA6B /* CDLabelButtonTableCell.xib in Resources */,
-				B8F73C4B1C9663A50063CC60 /* 947AA1C0-26DB-4962-A185-0D23C505D417.png in Resources */,
 				B804FDA71C8AC9A900DFD1CF /* sharemore_myfav@2x.png in Resources */,
 				B804FD4E1C8AC9A900DFD1CF /* rabbit_6_cover@2x.png in Resources */,
 				B804FDB71C8AC9A900DFD1CF /* weChatBubble_Sending_LeanChat@2x.png in Resources */,
@@ -4132,7 +4141,6 @@
 				B8F6482F1C93A9C3001A3119 /* ShopDetailViewController.xib in Resources */,
 				B804FD8A1C8AC9A900DFD1CF /* MultiSelectedPanelBkg@2x.png in Resources */,
 				B804FD9B1C8AC9A900DFD1CF /* RecordingSignal007@2x.png in Resources */,
-				B8F73C4D1C96681F0063CC60 /* 8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png in Resources */,
 				B804FD4B1C8AC9A900DFD1CF /* rabbit_5.gif in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
@@ -4256,6 +4264,7 @@
 				B62C381A1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib in Resources */,
 				B8F6482A1C92DA63001A3119 /* SearchViewController.xib in Resources */,
 				B804FD441C8AC9A900DFD1CF /* rabbit_22.gif in Resources */,
+				B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */,
 				B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */,
 				B804FD411C8AC9A900DFD1CF /* rabbit_20_cover@2x.png in Resources */,
 				B804FD521C8AC9A900DFD1CF /* rabbit_8_cover@2x.png in Resources */,
@@ -4293,6 +4302,7 @@
 				B804FD1F1C8AC9A900DFD1CF /* CellRedSelected@2x.png in Resources */,
 				B8F648AD1C9498F0001A3119 /* ShopListTableViewCell.xib in Resources */,
 				B804FD7E1C8AC9A900DFD1CF /* input-field-cover.png in Resources */,
+				B6F66DA41CBB44CE0064DB11 /* InformationDetailWebViewController.xib in Resources */,
 				B804FD8D1C8AC9A900DFD1CF /* receive.caf in Resources */,
 				B804FD581C8AC9A900DFD1CF /* tusiji_10.gif in Resources */,
 			);
@@ -4596,6 +4606,7 @@
 				B886ADE81CB3C913005E262A /* OrderViewController.m in Sources */,
 				B8FD3DE01C8A7903007BCA6B /* XHFoundationCommon.m in Sources */,
 				B8FD3E1B1C8A7903007BCA6B /* XHMessageBubbleView.m in Sources */,
+				B6F66DA31CBB44CE0064DB11 /* InformationDetailWebViewController.m in Sources */,
 				B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */,
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
 				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
@@ -4630,6 +4641,7 @@
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
+				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,

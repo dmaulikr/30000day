@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png" translatesAutoresizingMaskIntoConstraints="NO" id="7YZ-lN-tYP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3" translatesAutoresizingMaskIntoConstraints="NO" id="7YZ-lN-tYP">
                         <rect key="frame" x="11" y="13" width="55" height="55"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="55" id="Agh-BK-7QE"/>
@@ -80,11 +80,11 @@
                 <outlet property="actionButton" destination="9oX-j3-r3I" id="r2d-sh-azT"/>
                 <outlet property="willShowImageView" destination="7YZ-lN-tYP" id="wWP-ag-gKE"/>
             </connections>
-            <point key="canvasLocation" x="304" y="217.5"/>
+            <point key="canvasLocation" x="229" y="224.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3.png" width="61" height="59"/>
+        <image name="8AAD2B74-8ACD-40B0-87DD-4D960CD125F3" width="60" height="60"/>
         <image name="icon_unsubscribe" width="32" height="32"/>
     </resources>
 </document>
