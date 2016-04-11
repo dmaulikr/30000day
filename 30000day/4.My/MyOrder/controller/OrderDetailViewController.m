@@ -194,6 +194,8 @@
         
         controller.orderNumber = self.orderNumber;
         
+        controller.productName = self.detailModel.productName;
+        
         [self.navigationController pushViewController:controller animated:YES];
         
     } else {//取消订单
