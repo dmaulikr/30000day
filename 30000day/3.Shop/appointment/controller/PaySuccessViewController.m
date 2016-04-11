@@ -7,6 +7,7 @@
 //
 
 #import "PaySuccessViewController.h"
+#import "CommodityCommentViewController.h"
 
 @interface PaySuccessViewController ()
 
@@ -38,7 +39,25 @@
     self.returnMoneyButton.layer.masksToBounds = YES;
     
     [self.returnMoneyButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    
     [self.judgeButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+}
+
+#pragma ---
+#pragma mark -- 按钮点击效果
+- (IBAction)judgeAction:(id)sender {//跳转到评价接口
+    
+    CommodityCommentViewController *controller = [[CommodityCommentViewController alloc] init];
+    
+    controller.orderNumber = controller.orderNumber;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)returnMoneyAction:(id)sender {//退款操作
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -13,14 +13,15 @@
 #import "PersonInformationTableViewCell.h"
 #import "ShopDetailViewController.h"
 #import "MTProgressHUD.h"
+#import "CommodityCommentViewController.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) MyOrderDetailModel *detailModel;
 
-@property (weak, nonatomic) IBOutlet UIButton *conformButton;
+@property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *leftButton;
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
 
@@ -64,17 +65,17 @@
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
     
-    self.cancelButton.layer.cornerRadius = 5;
-    self.cancelButton.layer.masksToBounds = YES;
+    self.leftButton.layer.cornerRadius = 5;
+    self.leftButton.layer.masksToBounds = YES;
     
-    self.cancelButton.layer.borderWidth = 0.5f;
-    self.cancelButton.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    self.leftButton.layer.borderWidth = 0.5f;
+    self.leftButton.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     
-    self.conformButton.layer.cornerRadius = 5;
-    self.conformButton.layer.masksToBounds = YES;
+    self.rightButton.layer.cornerRadius = 5;
+    self.rightButton.layer.masksToBounds = YES;
     
-    [self.conformButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
-    [self.cancelButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    [self.rightButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+    [self.leftButton setBackgroundImage:[Common imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
     
     self.rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
     
@@ -155,11 +156,11 @@
         //修改时间显示
         self.rightLabel.text = @"";
         
-        self.conformButton.enabled = NO;
+        self.rightButton.enabled = NO;
         
-        self.cancelButton.enabled = NO;
+        self.leftButton.enabled = NO;
         
-        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+        [self.rightButton setTitle:@"已超时" forState:UIControlStateNormal];
     }
 }
 
@@ -168,15 +169,15 @@
     
     [self showToast:@"订单取消成功"];
     
-    self.conformButton.enabled = NO;
+    self.rightButton.enabled = NO;
     
-    self.cancelButton.enabled = NO;
+    self.leftButton.enabled = NO;
     
     self.rightLabel.text = @"";
     
     [_timer invalidate];
     
-    [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+    [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
     
     //发出更新通知
     [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
@@ -187,38 +188,57 @@
 //取消预约
 - (IBAction)leftButtonAction:(id)sender {
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
-    [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
-                                             success:^(BOOL success) {
-
-                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                 
-                                                 [self canceledOrderSetting];
-                                                 
-                                             } failure:^(NSError *error) {
-                                                 
-                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                 
-                                                 [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-                                                 
-                                             }];
+    if ([self.status isEqualToString:@"2"]) {//去评价
+        
+        CommodityCommentViewController *controller = [[CommodityCommentViewController alloc] init];
+        
+        controller.orderNumber = self.orderNumber;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else {//取消订单
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
+                                                 success:^(BOOL success) {
+                                                     
+                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                     
+                                                     [self canceledOrderSetting];
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     
+                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                     
+                                                     [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                                                     
+                                                 }];
+        
+    }
 }
 
 //前往预约
 - (IBAction)rightButtonAction:(id)sender {
     
-    PaymentViewController *controller = [[PaymentViewController alloc] init];
-    
-    controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
-    
-    controller.timeModelArray = self.detailModel.orderCourtList;
-    
-    controller.productName = self.detailModel.productName;
-    
-    controller.orderNumber = self.detailModel.orderNo;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    if ([self.status isEqualToString:@"2"]) {//表示支付完成
+        
+        
+        
+    } else {
+        
+        PaymentViewController *controller = [[PaymentViewController alloc] init];
+        
+        controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
+        
+        controller.timeModelArray = self.detailModel.orderCourtList;
+        
+        controller.productName = self.detailModel.productName;
+        
+        controller.orderNumber = self.detailModel.orderNo;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 //判断确认订单是否可用
@@ -226,35 +246,37 @@
     
     if ([self.status isEqualToString:@"10"]) {
         
-        [self.conformButton setTitle:@"前往付款" forState:UIControlStateNormal];
+        [self.rightButton setTitle:@"前往付款" forState:UIControlStateNormal];
         
-        self.conformButton.enabled = YES;
+        self.rightButton.enabled = YES;
         
-        self.cancelButton.enabled = YES;
+        self.leftButton.enabled = YES;
 
     } else if ([self.status isEqualToString:@"11"]) {
         
-        [self.conformButton setTitle:@"已取消" forState:UIControlStateNormal];
+        [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
         
-        self.conformButton.enabled = NO;
+        self.rightButton.enabled = NO;
         
-        self.cancelButton.enabled = NO;
+        self.leftButton.enabled = NO;
         
     } else if ([self.status isEqualToString:@"12"]) {
         
-        [self.conformButton setTitle:@"已超时" forState:UIControlStateNormal];
+        [self.rightButton setTitle:@"已超时" forState:UIControlStateNormal];
         
-        self.conformButton.enabled = NO;
+        self.rightButton.enabled = NO;
         
-        self.cancelButton.enabled = NO;
+        self.leftButton.enabled = NO;
         
     } else if ([self.status isEqualToString:@"2"]) {
         
-        [self.conformButton setTitle:@"支付成功" forState:UIControlStateNormal];
+        [self.rightButton setTitle:@"申请退款" forState:UIControlStateNormal];
         
-        self.conformButton.enabled = NO;
+        [self.leftButton setTitle:@"去评价" forState:UIControlStateNormal];
         
-        self.cancelButton.enabled = NO;
+        self.rightButton.enabled = YES;
+        
+        self.leftButton.enabled = YES;
     }
 }
 

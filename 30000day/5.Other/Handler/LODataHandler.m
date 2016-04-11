@@ -2544,7 +2544,11 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:productId forKey:@"productId"];
+    if (![Common isObjectNull:productId]) {
+        
+        [params setObject:productId forKey:@"productId"];
+        
+    }
     
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:GET_COMPANYDETAILS
