@@ -11,6 +11,7 @@
 @implementation SubscribeListTableViewCell
 
 - (void)awakeFromNib {
+    
     self.willShowImageView.layer.cornerRadius = 3;
     
     self.willShowImageView.layer.masksToBounds = YES;

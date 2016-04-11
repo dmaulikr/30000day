@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InformationDetailDownView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeY-ck-Y4f">
+                    <rect key="frame" x="308" y="11" width="52" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="3Q2-Ai-b4C"/>
+                        <constraint firstAttribute="height" constant="22" id="z2H-99-1OE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="3" minY="5" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                    <state key="normal" title="评论" image="icon_edit">
+                        <color key="titleColor" red="0.33725490200000002" green="0.33725490200000002" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="commentButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="EWB-jP-fo0"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-aG-DJy">
+                    <rect key="frame" x="241" y="11" width="52" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="lFD-K0-NkR"/>
+                        <constraint firstAttribute="height" constant="22" id="v3E-ja-WOo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="3" minY="5" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                    <state key="normal" title="已赞" image="icon_zan">
+                        <color key="titleColor" red="0.33725490200000002" green="0.33725490200000002" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="zanButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="t2T-2Z-Nl9"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HJ-zt-rDT">
+                    <rect key="frame" x="15" y="11" width="53" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="7sY-2u-uQk"/>
+                        <constraint firstAttribute="width" constant="53" id="b5W-yB-cys"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="3" minY="5" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                    <state key="normal" title="分享" image="iconfont_share">
+                        <color key="titleColor" red="0.33725490200000002" green="0.33725490200000002" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="shareButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="vSL-iF-O9o"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="5Nc-aG-DJy" firstAttribute="centerY" secondItem="9HJ-zt-rDT" secondAttribute="centerY" id="7OD-38-MYw"/>
+                <constraint firstItem="HeY-ck-Y4f" firstAttribute="centerY" secondItem="9HJ-zt-rDT" secondAttribute="centerY" id="IgF-Lz-Ak0"/>
+                <constraint firstItem="9HJ-zt-rDT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VUi-I6-Bgv"/>
+                <constraint firstItem="HeY-ck-Y4f" firstAttribute="leading" secondItem="5Nc-aG-DJy" secondAttribute="trailing" constant="15" id="e5T-dG-cNu"/>
+                <constraint firstAttribute="trailing" secondItem="HeY-ck-Y4f" secondAttribute="trailing" constant="15" id="fz2-Tu-BHu"/>
+                <constraint firstItem="9HJ-zt-rDT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="htW-xR-1DT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="commentButton" destination="HeY-ck-Y4f" id="T30-9N-N3v"/>
+                <outlet property="shareButton" destination="9HJ-zt-rDT" id="cnn-8r-xII"/>
+                <outlet property="zanButton" destination="5Nc-aG-DJy" id="yld-0y-ivj"/>
+            </connections>
+            <point key="canvasLocation" x="-190.5" y="107"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_edit" width="17" height="17"/>
+        <image name="icon_zan" width="16" height="17"/>
+        <image name="iconfont_share" width="17" height="17"/>
+    </resources>
+</document>

@@ -68,7 +68,7 @@
                 <outlet property="InformationDetailShare" destination="FWW-Nf-BPn" id="qdz-KT-Xh5"/>
                 <outlet property="InformationDetailZan" destination="5ix-Qc-Ktg" id="mcR-Db-7Zd"/>
             </connections>
-            <point key="canvasLocation" x="129.5" y="241"/>
+            <point key="canvasLocation" x="181.5" y="246"/>
         </tableViewCell>
     </objects>
     <resources>
