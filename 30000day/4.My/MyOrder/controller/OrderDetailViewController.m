@@ -55,7 +55,7 @@
     
     self.isShowFootRefresh = NO;
     
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     
     self.tableView.delegate = self;
     
@@ -216,6 +216,8 @@
     
     controller.productName = self.detailModel.productName;
     
+    controller.orderNumber = self.detailModel.orderNo;
+    
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -224,7 +226,7 @@
     
     if ([self.status isEqualToString:@"10"]) {
         
-        [self.conformButton setTitle:@"等待付款" forState:UIControlStateNormal];
+        [self.conformButton setTitle:@"前往付款" forState:UIControlStateNormal];
         
         self.conformButton.enabled = YES;
         

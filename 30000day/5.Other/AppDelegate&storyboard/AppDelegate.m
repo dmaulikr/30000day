@@ -9,12 +9,12 @@
 #import "AppDelegate.h"
 #import "JHAPISDK.h"
 #import "JHOpenidSupplier.h"
-#import "MobClick.h"
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <AlipaySDK/AlipaySDK.h>
 
 #import "CDAbuseReport.h"
 #import "CDCacheManager.h"
@@ -73,12 +73,6 @@
     
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
-    
-    [MobClick startWithAppkey:@"56c6d04f67e58e0833000755" reportPolicy:BATCH channelId:nil];
-    
-    [MobClick setAppVersion:BUNDEL_VERSION];
-    
-    [MobClick setCrashReportEnabled:NO];
     
     [UMSocialWechatHandler setWXAppId:@"" appSecret:@"" url:@"http://www.umeng.com/social"];
     
@@ -323,7 +317,29 @@
     
     if (result == FALSE) {
         
-        //调用其他SDK，例如支付宝SDK等
+        //跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给SDK
+        if ([url.host isEqualToString:@"safepay"]) {
+            
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                
+                 if ([resultDic[@"resultStatus"] isEqualToString:@"6001"] ) {
+                     
+                     UIAlertView *alertview = [[UIAlertView alloc]initWithTitle:nil message:@"您已取消支付" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                     
+                     [alertview show];
+                     
+                 } else if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {
+                     
+                     [STNotificationCenter postNotificationName:STDidSuccessPaySendNotification object:nil];
+                 }
+                 
+             }];
+            
+        } else {
+            
+//            return [WXApi handleOpenURL:url delegate:self] || [WeiboSDK handleOpenURL:url delegate:self] ||[TencentOAuth HandleOpenURL:url];
+        }
+        return YES;
     }
     
     return result;

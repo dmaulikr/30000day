@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaySuccessViewController">
+            <connections>
+                <outlet property="backgoudView" destination="gD1-um-iP5" id="kgs-2S-Lgc"/>
+                <outlet property="judgeButton" destination="TPV-K5-MXq" id="i4o-FS-cmB"/>
+                <outlet property="returnMoneyButton" destination="4s8-QJ-kHf" id="BIB-p8-JHd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gD1-um-iP5">
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                    <subviews>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPV-K5-MXq">
+                            <rect key="frame" x="10" y="5" width="145" height="40"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="去评价"/>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4s8-QJ-kHf">
+                            <rect key="frame" x="165" y="5" width="145" height="40"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="申请退款"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="TPV-K5-MXq" secondAttribute="bottom" constant="5" id="EUr-hC-tgK"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="top" secondItem="gD1-um-iP5" secondAttribute="top" constant="5" id="Gdr-ym-Q7N"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="leading" secondItem="TPV-K5-MXq" secondAttribute="trailing" constant="10" id="KkR-hq-mIx"/>
+                        <constraint firstAttribute="height" constant="50" id="Odn-bI-aEo"/>
+                        <constraint firstItem="TPV-K5-MXq" firstAttribute="leading" secondItem="gD1-um-iP5" secondAttribute="leading" constant="10" id="c0f-r4-OzV"/>
+                        <constraint firstItem="TPV-K5-MXq" firstAttribute="top" secondItem="gD1-um-iP5" secondAttribute="top" constant="5" id="ghI-0b-FFq"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="width" secondItem="TPV-K5-MXq" secondAttribute="width" id="mpJ-A6-NmJ"/>
+                        <constraint firstAttribute="trailing" secondItem="4s8-QJ-kHf" secondAttribute="trailing" constant="10" id="n5n-3j-GcO"/>
+                        <constraint firstAttribute="bottom" secondItem="4s8-QJ-kHf" secondAttribute="bottom" constant="5" id="rhS-ex-jar"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="14o-Sh-GQB">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="14o-Sh-GQB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1iA-8q-k6s"/>
+                <constraint firstItem="gD1-um-iP5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="APF-Ie-kQp"/>
+                <constraint firstAttribute="bottom" secondItem="gD1-um-iP5" secondAttribute="bottom" id="AhA-hv-JRm"/>
+                <constraint firstAttribute="trailing" secondItem="gD1-um-iP5" secondAttribute="trailing" id="Dr6-Ao-KRy"/>
+                <constraint firstItem="gD1-um-iP5" firstAttribute="top" secondItem="14o-Sh-GQB" secondAttribute="bottom" id="H2D-HW-fWC"/>
+                <constraint firstItem="14o-Sh-GQB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="STy-1m-t3g"/>
+                <constraint firstAttribute="trailing" secondItem="14o-Sh-GQB" secondAttribute="trailing" id="s0s-Jx-ifE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="39" y="151"/>
+        </view>
+    </objects>
+</document>

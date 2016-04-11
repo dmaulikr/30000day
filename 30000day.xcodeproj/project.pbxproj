@@ -450,6 +450,8 @@
 		B8F6E3931CB9208A000CC117 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F6E3921CB9208A000CC117 /* CFNetwork.framework */; };
 		B8F6E3951CB92093000CC117 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F6E3941CB92093000CC117 /* CoreMotion.framework */; };
 		B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F6E3961CB92128000CC117 /* libz.tbd */; };
+		B8F6E39C1CBB8ACD000CC117 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E39A1CBB8ACD000CC117 /* PaySuccessViewController.m */; };
+		B8F6E39D1CBB8ACD000CC117 /* PaySuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6E39B1CBB8ACD000CC117 /* PaySuccessViewController.xib */; };
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
@@ -1347,6 +1349,9 @@
 		B8F6E3921CB9208A000CC117 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B8F6E3941CB92093000CC117 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		B8F6E3961CB92128000CC117 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B8F6E3991CBB8ACD000CC117 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessViewController.h; sourceTree = "<group>"; };
+		B8F6E39A1CBB8ACD000CC117 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
+		B8F6E39B1CBB8ACD000CC117 /* PaySuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySuccessViewController.xib; sourceTree = "<group>"; };
 		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
@@ -3183,6 +3188,9 @@
 				B8F648641C942466001A3119 /* PaymentViewController.h */,
 				B8F648651C942466001A3119 /* PaymentViewController.m */,
 				B8F648661C942466001A3119 /* PaymentViewController.xib */,
+				B8F6E3991CBB8ACD000CC117 /* PaySuccessViewController.h */,
+				B8F6E39A1CBB8ACD000CC117 /* PaySuccessViewController.m */,
+				B8F6E39B1CBB8ACD000CC117 /* PaySuccessViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4300,6 +4308,7 @@
 				B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */,
 				B804FD7F1C8AC9A900DFD1CF /* input-field-cover@2x.png in Resources */,
 				B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */,
+				B8F6E39D1CBB8ACD000CC117 /* PaySuccessViewController.xib in Resources */,
 				B8F6486A1C942466001A3119 /* PaymentViewController.xib in Resources */,
 				B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */,
 				B8B3F4E11C9A4C1A00834533 /* CityViewController.xib in Resources */,
@@ -4866,6 +4875,7 @@
 				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
 				B8FD3E1E1C8A7903007BCA6B /* XHMessageTableView.m in Sources */,
+				B8F6E39C1CBB8ACD000CC117 /* PaySuccessViewController.m in Sources */,
 				B6114CAB1CA27FE60088EED2 /* CommentDetailsLastTableViewCell.m in Sources */,
 				B8FD3DDD1C8A7903007BCA6B /* UIView+XHRemoteImage.m in Sources */,
 				B8FD3E0B1C8A7903007BCA6B /* SETextInput.m in Sources */,

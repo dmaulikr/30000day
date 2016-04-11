@@ -11,6 +11,8 @@
 #import "PayTableViewCell.h"
 #import "PersonInformationTableViewCell.h"
 #import "ShopDetailViewController.h"
+#import "pay.h"
+#import "PaySuccessViewController.h"
 
 @interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -22,8 +24,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"订单支付";
+    [STNotificationCenter addObserver:self selector:@selector(alipaySuccess) name:STDidSuccessPaySendNotification object:nil];
+}
+
+//支付宝支付成功的回调
+- (void)alipaySuccess {
+    
+    PaySuccessViewController *controller = [[PaySuccessViewController alloc] init];
+    
+    controller.orderNumber = self.orderNumber;//订单编号
+    
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 //父类的方法
@@ -210,14 +222,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (indexPath.section == 2 ) {
+ 
+        [[[pay alloc] init] payWithOrderID:self.orderNumber goodTtitle:self.productName goodPrice:@"0.01"];
+    }
 }
 
 - (void)confirmButtonClick {
 
     NSLog(@"1");
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self];
 }
 
 /*
