@@ -51,6 +51,8 @@
     
     controller.orderNumber = controller.orderNumber;
     
+    controller.productName = self.productName;
+    
     [self.navigationController pushViewController:controller animated:YES];
 }
 

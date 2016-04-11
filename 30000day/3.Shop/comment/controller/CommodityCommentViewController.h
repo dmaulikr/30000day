@@ -12,4 +12,6 @@
 
 @property (nonatomic,copy) NSString *orderNumber;//订单编号
 
+@property (nonatomic,copy) NSString *productName;//订单名字
+
 @end

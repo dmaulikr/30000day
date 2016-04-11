@@ -35,6 +35,8 @@
     
     controller.orderNumber = self.orderNumber;//订单编号
     
+    controller.productName = self.productName;
+    
     [self.navigationController pushViewController:controller animated:NO];
 }
 
