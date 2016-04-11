@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommodityCommentViewController : UIViewController
+@interface CommodityCommentViewController : ShowBackItemViewController
+
+@property (nonatomic,copy) NSString *orderNumber;//订单编号
 
 @end

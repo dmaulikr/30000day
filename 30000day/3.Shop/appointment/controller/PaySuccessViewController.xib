@@ -26,12 +26,18 @@
                             <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="去评价"/>
+                            <connections>
+                                <action selector="judgeAction:" destination="-1" eventType="touchUpInside" id="40B-yk-QQx"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4s8-QJ-kHf">
                             <rect key="frame" x="165" y="5" width="145" height="40"/>
                             <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="申请退款"/>
+                            <connections>
+                                <action selector="returnMoneyAction:" destination="-1" eventType="touchUpInside" id="RaU-U1-Mzw"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
@@ -47,13 +53,13 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="14o-Sh-GQB">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                    <rect key="frame" x="0.0" y="64" width="320" height="454"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="14o-Sh-GQB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1iA-8q-k6s"/>
+                <constraint firstItem="14o-Sh-GQB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="1iA-8q-k6s"/>
                 <constraint firstItem="gD1-um-iP5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="APF-Ie-kQp"/>
                 <constraint firstAttribute="bottom" secondItem="gD1-um-iP5" secondAttribute="bottom" id="AhA-hv-JRm"/>
                 <constraint firstAttribute="trailing" secondItem="gD1-um-iP5" secondAttribute="trailing" id="Dr6-Ao-KRy"/>

@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderDetailViewController">
             <connections>
                 <outlet property="backgoudView" destination="RJc-Hb-Dvl" id="lPv-ZN-IxR"/>
-                <outlet property="cancelButton" destination="5jn-eK-e26" id="gMY-ol-89d"/>
-                <outlet property="conformButton" destination="4L8-PB-vwg" id="Vng-Ke-RZz"/>
+                <outlet property="leftButton" destination="5jn-eK-e26" id="SKW-gI-dsa"/>
+                <outlet property="rightButton" destination="4L8-PB-vwg" id="XOR-g2-6Ke"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
