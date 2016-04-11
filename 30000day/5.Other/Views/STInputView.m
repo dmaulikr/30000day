@@ -55,6 +55,8 @@
     
     textView.layer.borderWidth = 0.5f;
     
+    textView.returnKeyType = UIReturnKeyDone;
+    
     [self addSubview:textView];
     
     self.textView = textView;

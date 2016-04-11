@@ -12,10 +12,10 @@
 
 @property (nonatomic,strong) NSMutableArray *timeModelArray;
 
-@property (nonatomic,strong) NSDate *selectorDate;
+@property (nonatomic,strong) NSDate *selectorDate;//选中的日期
 
-@property (nonatomic,strong) NSNumber *productId;
+@property (nonatomic,strong) NSNumber *productId;//商品id
 
-@property (nonatomic,copy) NSString *productName;
+@property (nonatomic,copy) NSString *productName;//订单编号
 
 @end

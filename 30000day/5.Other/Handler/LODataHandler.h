@@ -319,7 +319,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                              date:(NSString *)date
                            remark:(NSString *)remark
                    uniqueKeyArray:(NSMutableArray *)timeModelArray
-                          Success:(void (^)(BOOL success))success
+                          Success:(void (^)(NSString *orderNumber))success
                           failure:(void (^)(NSError *error))failure;
 
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/

@@ -214,6 +214,14 @@
 #define MESSAGE_VIDEO        @"[4]"
 #define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"        //统计环境因素
 
+
+#define WX_APP_ID          @"wx75e720a9c37aa258"
+#define WX_APP_SECRET      @"aed80adf8eb3b5169b6cb4121058e68f"
+#define WX_MCH_ID          @"1237581002"                                                   // 商户号，填写商户对应参数
+#define WX_PARTNER_ID      @"iTCkH65rtkztlPP5GlBGABRgjHImrZrF"                             // 商户API密钥，填写相应参数
+#define WX_NOTIFY_URL      @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php"          // 支付结果回调页面
+#define WX_SP_URL          @"http://www.17dong.com.cn/api/v2.0/payment/wechat"            // 获取服务器端支付数据地址（商户自定义）
+
 #endif
 
 #endif /* PrefixHeader_pch */

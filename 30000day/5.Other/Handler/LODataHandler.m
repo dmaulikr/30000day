@@ -3810,7 +3810,7 @@
                              date:(NSString *)date
                            remark:(NSString *)remark
                         uniqueKeyArray:(NSMutableArray *)timeModelArray
-                          Success:(void (^)(BOOL success))success
+                          Success:(void (^)(NSString *orderNumber))success
                           failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -3857,7 +3857,7 @@
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(YES);
+                                                                    success(recvDic[@"value"]);
                                                                 });
                                                                 
                                                             } else {

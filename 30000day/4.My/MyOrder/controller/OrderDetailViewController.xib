@@ -19,10 +19,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJc-Hb-Dvl">
-                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <subviews>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jn-eK-e26">
-                            <rect key="frame" x="10" y="5" width="145" height="34"/>
+                            <rect key="frame" x="10" y="5" width="145" height="40"/>
                             <color key="backgroundColor" red="0.29019607843137252" green="0.48627450980392156" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="取消订单"/>
@@ -31,7 +31,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L8-PB-vwg">
-                            <rect key="frame" x="165" y="5" width="145" height="34"/>
+                            <rect key="frame" x="165" y="5" width="145" height="40"/>
                             <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="前往支付"/>
@@ -47,7 +47,7 @@
                         <constraint firstItem="4L8-PB-vwg" firstAttribute="width" secondItem="5jn-eK-e26" secondAttribute="width" id="MBL-CI-n1H"/>
                         <constraint firstItem="5jn-eK-e26" firstAttribute="top" secondItem="RJc-Hb-Dvl" secondAttribute="top" constant="5" id="R8w-RB-g71"/>
                         <constraint firstItem="4L8-PB-vwg" firstAttribute="leading" secondItem="5jn-eK-e26" secondAttribute="trailing" constant="10" id="V9c-jK-a37"/>
-                        <constraint firstAttribute="height" constant="44" id="bgW-YA-jkS"/>
+                        <constraint firstAttribute="height" constant="50" id="bgW-YA-jkS"/>
                         <constraint firstAttribute="bottom" secondItem="4L8-PB-vwg" secondAttribute="bottom" constant="5" id="iwl-Xb-XB5"/>
                         <constraint firstItem="5jn-eK-e26" firstAttribute="leading" secondItem="RJc-Hb-Dvl" secondAttribute="leading" constant="10" id="zJc-gd-o1O"/>
                     </constraints>

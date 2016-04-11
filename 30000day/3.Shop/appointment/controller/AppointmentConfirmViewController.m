@@ -89,7 +89,7 @@
                                            date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate]
                                          remark:self.remarkCell.remarkTextView.text
                                  uniqueKeyArray:self.timeModelArray
-                                        Success:^(BOOL success) {
+                                        Success:^(NSString *orderNumber) {
                                             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                             PaymentViewController *controller = [[PaymentViewController alloc] init];
                                             
@@ -98,6 +98,8 @@
                                             controller.selectorDate = self.selectorDate;
                                             
                                             controller.productName = self.productName;
+                                            
+                                            controller.orderNumber = orderNumber;
                                             
                                             controller.hidesBottomBarWhenPushed = YES;
                                             
