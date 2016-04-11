@@ -269,19 +269,25 @@
 
 -(void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
     
-    NSLog(@"%ld",indexPath.row);
-    
-    NSString *code;
-    if (indexPath.row == 0) {
+    if (indexPath.column == 0) {
         
-        code = @"";
+        NSString *code;
+        if (indexPath.row == 0) {
+            
+            code = @"";
+            
+        } else {
+        
+            code = [NSString stringWithFormat:@"%ld",indexPath.row + 9];
+        }
+        
+        [self loadDataWithCode:code];
         
     } else {
+        
+        [self loadDataWithCode:[NSString stringWithFormat:@"%ld",indexPath.row + 1]];
     
-        code = [NSString stringWithFormat:@"%ld",indexPath.row + 9];
     }
-    
-    [self loadDataWithCode:code];
 
 }
 
