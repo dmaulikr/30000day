@@ -10,6 +10,8 @@
 
 @interface PaySuccessViewController : ShowBackItemViewController
 
+@property (nonatomic,strong) NSNumber *productId;//商品id
+
 @property (nonatomic,copy) NSString *orderNumber;
 
 @property (nonatomic,copy) NSString *productName;//商品名字

@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
-#import <BaiduMapAPI_Search/BMKSearchComponent.h>
 
-@interface ShopViewController : STRefreshViewController <BMKMapViewDelegate,BMKPoiSearchDelegate > {
+@interface ShopViewController : STRefreshViewController <BMKMapViewDelegate> {
     BMKMapView  *_mapView;
-    BMKPoiSearch *_poisearch;
 }
 
 @end

@@ -21,6 +21,8 @@
 #import "STLocationMananger.h"
 #import "ProvinceModel.h"
 #import "MTProgressHUD.h"
+#import "MapShowTitleAnnotationView.h"
+#import "ShopAnnotation.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -78,14 +80,55 @@
         self.conditionModel.provinceName = @"上海";//给获取的到省赋值
 
         self.conditionModel.cityName = @"上海市";//给获取的到市赋值
-    
+
     }];
 
     //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
-    
     _isFromCityController = NO;
     
     [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [_mapView viewWillAppear];
+    
+     _mapView.delegate = self; //不用时，置nil
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [_mapView viewWillDisappear];
+    
+    _mapView.delegate = nil; //不用时，置nil
+}
+
+- (void)dealloc {
+    
+    if (_mapView) {
+        
+        _mapView = nil;
+    }
+    
+    self.searchBar = nil;
+    
+    self.subwayArray = nil;
+    
+    self.placeArray = nil;
+    
+    self.menuView = nil;
+    
+    [self.menuView removeFromSuperview];
+    
+    self.shopListArray = nil;
+    
+    self.locationArray = nil;
+    
+    self.conditionModel = nil;
+    
+    self.provinceModel = nil;
 }
 
  //3.获取列表数据源数组
@@ -204,8 +247,6 @@
         
         failure(error);
         
-        
-        
     }];
 }
 
@@ -249,11 +290,19 @@
     
     _mapView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64- 50);
     
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(31.19,121.70)];
+    
+    _mapView.showsUserLocation = NO;
+    
+    _mapView.zoomLevel = 15;//地图等级
+    
+    _mapView.delegate = self;
+    
     _mapView.hidden = YES;
     
     [self.view addSubview:_mapView];
     
-    //3.初始化rightButton
+    //初始化rightButton
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                                                                               style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
     
@@ -301,10 +350,7 @@
         
         [self.dataHandler sendShopListWithSearchConditionModel:conditionModel isSearch:![Common isObjectNull:self.searchBar.text] pageNumber:pageNumber Success:^(NSMutableArray *dataArray) {
             
-            for (int i = 0; i < dataArray.count; i++) {
-                
-                [self.shopListArray addObject:dataArray[i]];
-            };
+            [self.shopListArray addObjectsFromArray:dataArray];
             
             [self.tableView reloadData];
             
@@ -318,6 +364,38 @@
             }
             
             self.pageNumber += 1;//数据下载成功加1
+            
+            //在百度地图上显示
+            NSMutableArray *annotation = [[NSMutableArray alloc] init];
+            
+            [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
+            
+            for (int i = 0; i < self.shopListArray.count; i++) {
+                
+                ShopModel *model = self.shopListArray[i];
+                
+                ShopAnnotation *item = [[ShopAnnotation alloc] init];
+                
+                item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
+                
+                item.title = model.productName;
+                
+                item.subtitle = model.address;
+            
+                item.model = model;
+                
+                [annotation addObject:item];
+                
+                if (i == 0) {//把第一个经纬度作为中心
+                    
+                    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
+                    _mapView.zoomLevel = 15;
+                }
+            }
+
+            [_mapView addAnnotations:annotation];
+            [_mapView showAnnotations:annotation animated:NO];
+            _mapView.zoomLevel = 15;
             
         } failure:^(NSError *error) {
             
@@ -333,16 +411,51 @@
                                                     pageNumber:pageNumber
                                                        Success:^(NSMutableArray *dataArray) {
             
-            self.shopListArray = dataArray;
+           self.shopListArray = dataArray;
             
-            [self.tableView reloadData];
-            
-            [self.tableView.mj_header endRefreshing];
-            
-            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+           [self.tableView reloadData];
                                                            
-            self.pageNumber = 1;//下拉刷新当前的页数是1
-        
+           [self.tableView.mj_header endRefreshing];
+           
+           [self.tableView.mj_footer setState:MJRefreshStateIdle];
+           
+           self.pageNumber = 1;//下拉刷新当前的页数是1
+                                                           
+           //在百度地图上显示
+           NSMutableArray *annotation = [[NSMutableArray alloc] init];
+           
+           // 清楚屏幕中所有的annotation
+           [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
+                                                           
+           for (int i = 0; i < dataArray.count; i++) {
+               
+               ShopModel *model = dataArray[i];
+               
+               ShopAnnotation *item = [[ShopAnnotation alloc] init];
+               
+               item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
+               
+               item.title = model.productName;
+               
+               item.subtitle = model.address;
+               
+               item.model = model;
+               
+               [annotation addObject:item];
+               
+               if (i == 0) {//把第一个经纬度作为中心
+                   
+                   [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
+                   _mapView.zoomLevel = 15;
+               }
+           }
+                                                           
+           [_mapView addAnnotations:annotation];
+                                                           
+           [_mapView showAnnotations:annotation animated:NO];
+                                                           
+            _mapView.zoomLevel = 15;
+          
         } failure:^(NSError *error) {
             
             [self.tableView.mj_header endRefreshing];
@@ -745,7 +858,6 @@
 
 #pragma ---
 #pragma mark --- UIScrollViewDelegate
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     [self.searchBar resignFirstResponder];
@@ -753,7 +865,6 @@
 
 #pragma ---
 #pragma mark -- UISearchBarDelegate
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     self.conditionModel.searchContent = searchBar.text;
@@ -761,6 +872,76 @@
     [self getShopListDataWithSearchCondition:self.conditionModel pageNumber:1];
     
     [self.searchBar resignFirstResponder];
+}
+
+#pragma mark -
+#pragma mark implement BMKMapViewDelegate
+- (BMKAnnotationView *)mapView:(BMKMapView *)view viewForAnnotation:(id <BMKAnnotation>)annotation {
+    
+    static NSString *identifier = @"MapShowTitleAnnotationView";
+    
+    MapShowTitleAnnotationView *titleView = (MapShowTitleAnnotationView *)[view dequeueReusableAnnotationViewWithIdentifier:identifier];
+    
+    if (titleView == nil) {
+       
+        titleView = [[MapShowTitleAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+    }
+    
+    titleView.draggable = YES;
+    
+    titleView.annotation = annotation;
+    
+    titleView.centerOffset = CGPointMake(0, 5);
+    
+    titleView.canShowCallout = YES;
+    
+    titleView.title = annotation.title;
+    
+    titleView.size = [MapShowTitleAnnotationView titleSize:annotation.title];//设置坐标
+    
+    return titleView;
+}
+
+- (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {
+    
+    [mapView bringSubviewToFront:view];
+    
+    [mapView setNeedsDisplay];
+}
+
+//点击气泡代理
+- (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view {
+    
+    ShopAnnotation *annotation = view.annotation;
+    
+    ShopModel *model = annotation.model;
+    
+    [self.searchBar resignFirstResponder];
+    
+    ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
+    
+    controller.productId = [model.productId stringValue];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+}
+
+- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    
+    NSLog(@"didAddAnnotationViews");
+}
+
+
+
+/**
+ *地图初始化完毕时会调用此接口
+ *@param mapview 地图View
+ */
+- (void)mapViewDidFinishLoading:(BMKMapView *)mapView {
+    //百度地图显示等级
+    _mapView.zoomLevel = 15;
 }
 
 /*

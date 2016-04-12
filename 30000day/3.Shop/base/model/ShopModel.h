@@ -30,4 +30,8 @@
 
 @property (nonatomic,strong) NSNumber *avgNumberStar;//评分
 
+@property (nonatomic,strong) NSNumber *longitude;//经度
+
+@property (nonatomic,strong) NSNumber *latitude;//维度
+
 @end

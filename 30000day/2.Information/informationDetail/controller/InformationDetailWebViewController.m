@@ -75,6 +75,8 @@
     
 }
 
+#pragma --
+#pragma mark -- UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 
     JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
