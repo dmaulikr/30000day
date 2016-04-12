@@ -203,9 +203,7 @@
 #pragma mark - Table view data delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     if (indexPath.section == 2 ) {
         
         pay *p = [[pay alloc] init];
@@ -214,6 +212,8 @@
         
         [p payWithOrderID:self.orderNumber goodTtitle:self.productName goodPrice:@"0.01"];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma ----

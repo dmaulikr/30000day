@@ -503,7 +503,7 @@
             
         }
         
-    }else if (indexPath.section == 3) {
+    } else if (indexPath.section == 3) {
         
         if (indexPath.row != 0) {
             
@@ -520,7 +520,7 @@
         
         }
         
-    }else if (indexPath.section == 4) {
+    } else if (indexPath.section == 4) {
     
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
@@ -550,7 +550,6 @@
     browser.displayActionButton = NO;
     [browser setCurrentPhotoIndex:index];
     [self.navigationController pushViewController:browser animated:NO];
-
 }
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {

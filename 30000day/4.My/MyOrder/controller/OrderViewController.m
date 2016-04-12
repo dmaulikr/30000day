@@ -132,9 +132,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     MyOrderModel *model = self.dataArray[indexPath.row];
     
     OrderDetailViewController *controller = [[OrderDetailViewController alloc] init];
@@ -146,6 +143,8 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)dealloc {

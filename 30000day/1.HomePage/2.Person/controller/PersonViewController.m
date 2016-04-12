@@ -174,9 +174,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
@@ -184,6 +181,8 @@
     controller.informationModel = _dataArray[indexPath.row];
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 

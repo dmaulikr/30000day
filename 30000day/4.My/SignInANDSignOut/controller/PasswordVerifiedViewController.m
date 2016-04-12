@@ -225,8 +225,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     [self hideKeyboard];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

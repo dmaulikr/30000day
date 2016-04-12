@@ -312,9 +312,7 @@
             [self.tableView reloadData];
             
         } else {
-            
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            
+
             ProvinceModel *provinceModel = [STLocationMananger shareManager].locationArray[indexPath.section];
             
             CityModel *cityModel = provinceModel.cityList[indexPath.row - 1];
@@ -326,6 +324,8 @@
                 [self.navigationController popViewControllerAnimated:YES];
                 
             }
+            
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }
 }

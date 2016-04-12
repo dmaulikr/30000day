@@ -117,14 +117,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

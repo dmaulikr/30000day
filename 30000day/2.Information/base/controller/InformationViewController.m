@@ -222,13 +222,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
