@@ -841,8 +841,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [self.searchBar resignFirstResponder];
     
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
@@ -854,6 +852,8 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma ---
@@ -925,15 +925,7 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
-
-- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    
-    NSLog(@"didAddAnnotationViews");
-}
-
-
 
 /**
  *地图初始化完毕时会调用此接口
@@ -942,6 +934,11 @@
 - (void)mapViewDidFinishLoading:(BMKMapView *)mapView {
     //百度地图显示等级
     _mapView.zoomLevel = 15;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    NSLog(@"收到内存警告");
 }
 
 /*

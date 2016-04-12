@@ -1150,7 +1150,7 @@
         APISCallBack* callBack = [APISCallBack alloc];
         
         callBack.onSuccess = ^(long status, NSString* responseString) {
-            NSLog(@"onSuccess");
+
             if(responseString != nil) {
                 
                 NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
@@ -1195,12 +1195,11 @@
                 };
 
         callBack.onError = ^(long status, NSString* responseString) {
-            NSLog(@"onError");
-            NSLog(@"%@",responseString);
+            
         };
     
         callBack.onComplete = ^() {
-            NSLog(@"onComplete");
+            
         };
         
         //请求API
@@ -3254,11 +3253,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3339,11 +3334,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3431,11 +3422,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3522,11 +3509,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3601,11 +3584,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3692,11 +3671,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3782,11 +3757,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -3881,11 +3852,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4024,11 +3991,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4103,11 +4066,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4196,11 +4155,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4273,11 +4228,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4351,11 +4302,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4430,11 +4377,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4453,7 +4396,6 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-
 }
 
 //*****************************************作者主页*********************/
@@ -4534,8 +4476,6 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
-
-
 }
 
 //*****************************************订阅*********************/
