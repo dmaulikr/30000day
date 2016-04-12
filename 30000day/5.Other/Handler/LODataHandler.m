@@ -4452,13 +4452,9 @@
                                                         } else {
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    failure(localError);
-                                                                    
-                                                                });
-                                                                
+                                                                failure(localError);
+
                                                             });
                                                             
                                                         }
@@ -4526,11 +4522,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
@@ -4600,14 +4592,9 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
-                                                            
                                                         }
                                                         
                                                     } failure:^(LONetError *error) {

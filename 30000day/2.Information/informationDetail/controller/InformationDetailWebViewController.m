@@ -89,9 +89,13 @@
        
         NSLog(@"%@",weakCell.writerId);
         
-        InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
-        controller.writerId = weakCell.writerId;
-        [self.navigationController pushViewController:controller animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+            controller.writerId = weakCell.writerId;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        });
         
     }];
     
