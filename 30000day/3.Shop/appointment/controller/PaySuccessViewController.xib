@@ -3,13 +3,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaySuccessViewController">
             <connections>
                 <outlet property="backgoudView" destination="gD1-um-iP5" id="kgs-2S-Lgc"/>
-                <outlet property="judgeButton" destination="TPV-K5-MXq" id="i4o-FS-cmB"/>
-                <outlet property="returnMoneyButton" destination="4s8-QJ-kHf" id="BIB-p8-JHd"/>
+                <outlet property="firstButton" destination="TPV-K5-MXq" id="r10-6j-Qav"/>
+                <outlet property="fourthButton" destination="4s8-QJ-kHf" id="S0K-0D-boQ"/>
+                <outlet property="secondButton" destination="bs2-FY-Rc5" id="DCQ-KX-185"/>
+                <outlet property="thirdButton" destination="CSk-Hg-cSv" id="J9D-yY-eVm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,35 +24,61 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gD1-um-iP5">
                     <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <subviews>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPV-K5-MXq">
-                            <rect key="frame" x="10" y="5" width="145" height="40"/>
-                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" title="去评价"/>
-                            <connections>
-                                <action selector="judgeAction:" destination="-1" eventType="touchUpInside" id="40B-yk-QQx"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4s8-QJ-kHf">
-                            <rect key="frame" x="165" y="5" width="145" height="40"/>
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4s8-QJ-kHf">
+                            <rect key="frame" x="236" y="5" width="79" height="40"/>
                             <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="申请退款"/>
                             <connections>
-                                <action selector="returnMoneyAction:" destination="-1" eventType="touchUpInside" id="RaU-U1-Mzw"/>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="nF8-xT-gNS"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bs2-FY-Rc5">
+                            <rect key="frame" x="69" y="5" width="79" height="40"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="继续预定"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="tNY-oU-u7x"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSk-Hg-cSv">
+                            <rect key="frame" x="153" y="5" width="78" height="40"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="查看订单"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="iEy-fD-k67"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPV-K5-MXq">
+                            <rect key="frame" x="5" y="5" width="59" height="40"/>
+                            <color key="backgroundColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="去评价"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="YiI-PI-tZL"/>
                             </connections>
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="TPV-K5-MXq" secondAttribute="bottom" constant="5" id="EUr-hC-tgK"/>
-                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="top" secondItem="gD1-um-iP5" secondAttribute="top" constant="5" id="Gdr-ym-Q7N"/>
-                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="leading" secondItem="TPV-K5-MXq" secondAttribute="trailing" constant="10" id="KkR-hq-mIx"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="centerY" secondItem="TPV-K5-MXq" secondAttribute="centerY" id="77c-P6-mWO"/>
+                        <constraint firstItem="TPV-K5-MXq" firstAttribute="centerY" secondItem="gD1-um-iP5" secondAttribute="centerY" id="8Yp-nP-0ZV"/>
+                        <constraint firstItem="bs2-FY-Rc5" firstAttribute="centerY" secondItem="TPV-K5-MXq" secondAttribute="centerY" id="Ak7-PX-1ol"/>
+                        <constraint firstItem="CSk-Hg-cSv" firstAttribute="width" secondItem="bs2-FY-Rc5" secondAttribute="width" id="Fk0-sb-OGS"/>
+                        <constraint firstAttribute="trailing" secondItem="4s8-QJ-kHf" secondAttribute="trailing" constant="5" id="HDf-dj-Me0"/>
+                        <constraint firstItem="TPV-K5-MXq" firstAttribute="leading" secondItem="gD1-um-iP5" secondAttribute="leading" constant="5" id="NxR-g0-w8O"/>
                         <constraint firstAttribute="height" constant="50" id="Odn-bI-aEo"/>
-                        <constraint firstItem="TPV-K5-MXq" firstAttribute="leading" secondItem="gD1-um-iP5" secondAttribute="leading" constant="10" id="c0f-r4-OzV"/>
-                        <constraint firstItem="TPV-K5-MXq" firstAttribute="top" secondItem="gD1-um-iP5" secondAttribute="top" constant="5" id="ghI-0b-FFq"/>
-                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="width" secondItem="TPV-K5-MXq" secondAttribute="width" id="mpJ-A6-NmJ"/>
-                        <constraint firstAttribute="trailing" secondItem="4s8-QJ-kHf" secondAttribute="trailing" constant="10" id="n5n-3j-GcO"/>
-                        <constraint firstAttribute="bottom" secondItem="4s8-QJ-kHf" secondAttribute="bottom" constant="5" id="rhS-ex-jar"/>
+                        <constraint firstItem="CSk-Hg-cSv" firstAttribute="leading" secondItem="bs2-FY-Rc5" secondAttribute="trailing" constant="5" id="P3p-xR-rnw"/>
+                        <constraint firstItem="bs2-FY-Rc5" firstAttribute="width" secondItem="TPV-K5-MXq" secondAttribute="width" multiplier="4:3" id="Rcp-jb-cSM"/>
+                        <constraint firstItem="CSk-Hg-cSv" firstAttribute="top" secondItem="TPV-K5-MXq" secondAttribute="top" id="Scg-yu-p8F"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="top" secondItem="TPV-K5-MXq" secondAttribute="top" id="dZd-P3-31r"/>
+                        <constraint firstItem="bs2-FY-Rc5" firstAttribute="top" secondItem="TPV-K5-MXq" secondAttribute="top" id="eBS-qb-DSM"/>
+                        <constraint firstItem="bs2-FY-Rc5" firstAttribute="leading" secondItem="TPV-K5-MXq" secondAttribute="trailing" constant="5" id="f83-lc-hL1"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="leading" secondItem="CSk-Hg-cSv" secondAttribute="trailing" constant="5" id="i1k-WH-Yqc"/>
+                        <constraint firstItem="CSk-Hg-cSv" firstAttribute="centerY" secondItem="TPV-K5-MXq" secondAttribute="centerY" id="iPs-mr-Ox4"/>
+                        <constraint firstItem="TPV-K5-MXq" firstAttribute="top" secondItem="gD1-um-iP5" secondAttribute="top" constant="5" id="vFE-OJ-f4r"/>
+                        <constraint firstItem="4s8-QJ-kHf" firstAttribute="width" secondItem="bs2-FY-Rc5" secondAttribute="width" id="zuf-4C-iUQ"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="14o-Sh-GQB">

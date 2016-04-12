@@ -21,6 +21,7 @@
 #import "UIImageView+WebCache.h"
 #import "ShopModel.h"
 #import "CompanyViewController.h"
+#import "ShopDetailMapViewController.h"
 
 #define SECTIONSCOUNT 5
 
@@ -53,6 +54,14 @@
     self.tableView.delegate = self;
     
     self.tableView.dataSource  = self;
+    //添加预约按钮
+    [Common addAppointmentBackgroundView:self.view title:@"前往预约" selector:@selector(appointmentAction) controller:self];
+    
+    [self loadDetailData];
+ }
+
+//下载详细数据
+- (void)loadDetailData {
     
     [self.dataHandler sendCompanyDetailsWithProductId:self.productId Success:^(ShopDetailModel *model) {
         
@@ -69,11 +78,14 @@
         [self.dataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelKeeperArray = [NSArray arrayWithArray:success];
+            
             [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
             
         } failure:^(NSError *error) {
             
-            NSLog(@"获取店长推荐失败");
+            [self.tableView.mj_header endRefreshing];
             
         }];
         
@@ -81,11 +93,12 @@
         [self.dataHandler sendPlatformRecommendWithProductTypeId:@"6" count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelTerraceArray = [NSArray arrayWithArray:success];
+            [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
             
         } failure:^(NSError *error) {
             
-            NSLog(@"获取平台推荐失败");
+            [self.tableView.mj_header endRefreshing];
             
         }];
         
@@ -95,23 +108,26 @@
                 
                 self.commentModel = success[0];
                 self.commitPhotos = [self.commentModel.commentPhotos componentsSeparatedByString:@","];
+                [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
                 
             }
             
         } failure:^(NSError *error) {
             
+            [self.tableView.mj_header endRefreshing];
+            
         }];
         
         [self.tableView reloadData];
         
+        [self.tableView.mj_header endRefreshing];
+        
     } failure:^(NSError *error) {
-    
+        
+        [self.tableView.mj_header endRefreshing];
     }];
-    
-    //3.添加预约按钮
-    [Common addAppointmentBackgroundView:self.view title:@"前往预约" selector:@selector(appointmentAction) controller:self];
- }
+}
 
 - (void)appointmentAction {
     
@@ -136,14 +152,9 @@
 
 - (void)headerRefreshing {
     
-    [self.tableView.mj_header endRefreshing];
+    [self loadDetailData];
 }
 
-- (void)footerRereshing {
-    
-    [self.tableView.mj_footer endRefreshing];
-    
-}
 
 #pragma mark - Table view data source
 
@@ -203,8 +214,7 @@
         return 44;
         
     } else if (indexPath.section == 2) {
-        
-        
+
         if (self.shopModelKeeperArray == nil || self.shopModelKeeperArray.count == 0) {
             
             return 0;
@@ -240,7 +250,6 @@
     return 44;
     
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
@@ -395,7 +404,6 @@
             
         }
         
-        
     } else if (indexPath.section == 4) {
         
         ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
@@ -434,14 +442,11 @@
             shopListTableViewCell.shopModel = shopModel;
             
             return shopListTableViewCell;
-            
-            
         }
         
         return shopDetailOneLineDataNoImageViewTableViewCell;
         
     }
-    
     
     return nil;
 }
@@ -450,8 +455,38 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
+      
+        if (indexPath.row == 0) {
+            
+            ShopDetailMapViewController *controller = [[ShopDetailMapViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            controller.detailModel = self.shopDetailModel;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        } else if (indexPath.row == 1 ){
+ 
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定拨打%@?",self.shopDetailModel.telephone] message:@"该电话为商家联系电话" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.shopDetailModel.telephone]]];
+                
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [controller addAction:action];
+            
+            [controller addAction:cancelAction];
+            
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        
+    } else if (indexPath.section == 2) {
         
         if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             

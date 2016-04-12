@@ -36,5 +36,7 @@
 @property (nonatomic,copy) NSString *startTime;            //开始时间
 @property (nonatomic,copy) NSString *telephone;            //电话
 @property (nonatomic,copy) NSString *endTime;              //结束时间
+@property (nonatomic,strong) NSNumber *longitude;          //经度
+@property (nonatomic,strong) NSNumber *latitude;           //维度
 
 @end

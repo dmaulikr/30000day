@@ -2538,6 +2538,7 @@
     [self startRequest:request];
 }
 
+//*********************************获取商家详细的数据*******************/
 - (void)sendCompanyDetailsWithProductId:(NSString *)productId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure{

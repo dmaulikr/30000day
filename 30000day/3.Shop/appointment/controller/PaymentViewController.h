@@ -18,4 +18,6 @@
 
 @property (nonatomic,copy) NSString *orderNumber;//订单编号
 
+@property (nonatomic,strong) NSNumber *productId;//商品id
+
 @end

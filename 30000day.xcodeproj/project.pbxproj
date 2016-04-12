@@ -456,6 +456,9 @@
 		B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F6E3961CB92128000CC117 /* libz.tbd */; };
 		B8F6E39C1CBB8ACD000CC117 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E39A1CBB8ACD000CC117 /* PaySuccessViewController.m */; };
 		B8F6E39D1CBB8ACD000CC117 /* PaySuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6E39B1CBB8ACD000CC117 /* PaySuccessViewController.xib */; };
+		B8F6E3AA1CBCD0E8000CC117 /* MapShowTitleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3A91CBCD0E8000CC117 /* MapShowTitleAnnotationView.m */; };
+		B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */; };
+		B8F6E3B01CBCD645000CC117 /* ShopDetailMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */; };
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
@@ -1360,6 +1363,12 @@
 		B8F6E3991CBB8ACD000CC117 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessViewController.h; sourceTree = "<group>"; };
 		B8F6E39A1CBB8ACD000CC117 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
 		B8F6E39B1CBB8ACD000CC117 /* PaySuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySuccessViewController.xib; sourceTree = "<group>"; };
+		B8F6E3A81CBCD0E8000CC117 /* MapShowTitleAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapShowTitleAnnotationView.h; sourceTree = "<group>"; };
+		B8F6E3A91CBCD0E8000CC117 /* MapShowTitleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapShowTitleAnnotationView.m; sourceTree = "<group>"; };
+		B8F6E3AB1CBCD40B000CC117 /* ShopAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopAnnotation.h; sourceTree = "<group>"; };
+		B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopAnnotation.m; sourceTree = "<group>"; };
+		B8F6E3AE1CBCD645000CC117 /* ShopDetailMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailMapViewController.h; sourceTree = "<group>"; };
+		B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailMapViewController.m; sourceTree = "<group>"; };
 		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
@@ -2854,6 +2863,8 @@
 				B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */,
 				B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */,
 				B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */,
+				B8F6E3AB1CBCD40B000CC117 /* ShopAnnotation.h */,
+				B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3250,6 +3261,8 @@
 		B8F648A31C9498F0001A3119 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8F6E3A81CBCD0E8000CC117 /* MapShowTitleAnnotationView.h */,
+				B8F6E3A91CBCD0E8000CC117 /* MapShowTitleAnnotationView.m */,
 				B8F648A51C9498F0001A3119 /* ShopListTableViewCell.h */,
 				B8F648A61C9498F0001A3119 /* ShopListTableViewCell.m */,
 				B8F648A71C9498F0001A3119 /* ShopListTableViewCell.xib */,
@@ -3539,6 +3552,8 @@
 				B8F6482B1C93A9C3001A3119 /* ShopDetailViewController.h */,
 				B8F6482C1C93A9C3001A3119 /* ShopDetailViewController.m */,
 				B8F6482D1C93A9C3001A3119 /* ShopDetailViewController.xib */,
+				B8F6E3AE1CBCD645000CC117 /* ShopDetailMapViewController.h */,
+				B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */,
 			);
 			path = controlller;
 			sourceTree = "<group>";
@@ -4815,6 +4830,7 @@
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
 				B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */,
+				B8F6E3AA1CBCD0E8000CC117 /* MapShowTitleAnnotationView.m in Sources */,
 				B8FD3E211C8A7903007BCA6B /* XHMessageTextView.m in Sources */,
 				B8F6E2431CB91989000CC117 /* pay.m in Sources */,
 				B8F880301C901A0700B5DA18 /* RemindObject.m in Sources */,
@@ -4826,6 +4842,7 @@
 				B612DD7D1CACFE21004C428C /* CompanyViewController.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,
 				B8FD3E8A1C8A83D1007BCA6B /* LZPushManager.m in Sources */,
+				B8F6E3B01CBCD645000CC117 /* ShopDetailMapViewController.m in Sources */,
 				B8365A621C71E0BC00063269 /* ChineseString.m in Sources */,
 				B8FD3E191C8A7903007BCA6B /* XHBaseTableViewCell.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
@@ -4929,6 +4946,7 @@
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
+				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
@@ -5118,6 +5136,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
+					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/BaiduMapKit",
 				);
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -5170,6 +5189,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
+					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/BaiduMapKit",
 				);
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (

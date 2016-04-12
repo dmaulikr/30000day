@@ -39,6 +39,13 @@
     
     //2.下载数据
     [self loadDataFromServer];
+    
+    [STNotificationCenter addObserver:self selector:@selector(alipaySuccess) name:STDidSuccessPaySendNotification object:nil];
+}
+
+- (void)alipaySuccess {
+    
+    [self loadDataFromServer];
 }
 
 //配置UI界面
@@ -246,6 +253,11 @@
         
         self.conformButton.enabled = NO;
     }
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self];
 }
 
 /*

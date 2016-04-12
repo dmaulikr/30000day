@@ -235,6 +235,8 @@
         
         controller.timeModelArray = self.detailModel.orderCourtList;
         
+        controller.productId = self.detailModel.productId;
+        
         controller.productName = self.detailModel.productName;
         
         controller.orderNumber = self.detailModel.orderNo;

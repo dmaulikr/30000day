@@ -10,11 +10,11 @@
 #import "CommodityNameTableViewCell.h"
 #import "PayTableViewCell.h"
 #import "PersonInformationTableViewCell.h"
-#import "ShopDetailViewController.h"
+#import "AppointmentViewController.h"
 #import "pay.h"
 #import "PaySuccessViewController.h"
 
-@interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate,payResultStatusDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -37,31 +37,11 @@
     
     controller.productName = self.productName;
     
+    controller.productId = self.productId;
+    
     [self.navigationController pushViewController:controller animated:NO];
 }
 
-//父类的方法
-- (void)backClick {
-    
-    BOOL isExist = NO;
-    
-    for (UIViewController *controller in self.navigationController.childViewControllers) {
-        
-        if ([controller isKindOfClass:[ShopDetailViewController class]]) {
-            
-            isExist = YES;
-            
-            [self.navigationController popToViewController:controller animated:YES];
-            
-        }
-    }
-    
-    if (!isExist) {
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -227,8 +207,23 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 2 ) {
- 
-        [[[pay alloc] init] payWithOrderID:self.orderNumber goodTtitle:self.productName goodPrice:@"0.01"];
+        
+        pay *p = [[pay alloc] init];
+        
+        p.delegate = self;
+        
+        [p payWithOrderID:self.orderNumber goodTtitle:self.productName goodPrice:@"0.01"];
+    }
+}
+
+#pragma ----
+#pragma mark --  payResultStatusDelegate
+
+- (void)resultStatus:(NSString *)status {//这个代理是HTML5网页支付时候调用的
+    
+    if ([status isEqualToString:@"9000"]) {
+        
+        [STNotificationCenter postNotificationName:STDidSuccessPaySendNotification object:nil];
     }
 }
 
