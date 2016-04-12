@@ -61,7 +61,7 @@
                 <outlet property="infoPhotosImageView" destination="nsD-eZ-yUW" id="blN-Fj-YYb"/>
                 <outlet property="infoTitleLable" destination="2CW-Tr-qrK" id="TnA-Az-K7g"/>
             </connections>
-            <point key="canvasLocation" x="188.5" y="296"/>
+            <point key="canvasLocation" x="158.5" y="375"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -16,8 +16,13 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 
-@interface InformationDetailWebViewController () <UMSocialUIDelegate>
+#import <JavaScriptCore/JSContext.h>
+#import "InformationWebJSObject.h"
+#import "InformationWriterHomepageViewController.h"
 
+@interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
+
+@property (nonatomic,copy) NSString *writerId;
 
 @end
 
@@ -27,6 +32,8 @@
     [super viewDidLoad];
 
     self.dataHandler = [[LODataHandler alloc] init];
+    
+    [self.informationWebView setDelegate:self];
     
     InformationDetailDownView *informationDetailDownView = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailDownView" owner:nil options:nil] lastObject];
     
@@ -62,11 +69,32 @@
     
     [self.view addSubview:informationDetailDownView];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.101:8081/STManager/infomation/infoLink?infoId=2"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.101:8081/STManager/infomation/infoLink?infoId=2&userId=10000022"]];
     
     [self.informationWebView loadRequest:request];
     
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+
+    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+
+    InformationWebJSObject *webJSObject=[InformationWebJSObject new];
+    context[@"clientObj"] = webJSObject;
+    
+    __weak typeof(webJSObject) weakCell = webJSObject;
+    [webJSObject setWriterButtonBlock:^{
+       
+        NSLog(@"%@",weakCell.writerId);
+        
+        InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+        controller.writerId = weakCell.writerId;
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }];
+    
+}
+
 
 //显示分享界面
 - (void)showShareAnimatonView {

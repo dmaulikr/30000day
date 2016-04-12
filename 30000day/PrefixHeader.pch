@@ -207,6 +207,12 @@
 
 #define  SAVE_POINT                   @"/stapi/user/pointOrCancelPraise"       //资讯点赞
 
+#define  GET_SEARCH_WRITER            @"/stapi/info/searchWriterInfomations"   //作者主页
+
+#define  COMMIT_SUBSCRIBE             @"/stapi/info/subscribe"                  //订阅作者
+
+#define  COMMIT_CANCEL_SUBSCRIBE      @"/stapi/info/cancelSubscribe"            //取消订阅
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

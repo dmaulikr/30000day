@@ -11,6 +11,7 @@
 #import "CompanyModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "InformationDetailModel.h"
+#import "InformationWriterModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -336,6 +337,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 //*****************************************根据类型查资讯************/
 - (void)sendsearchInfomationsWithWriterId:(NSString *)writerId
                              infoTypeCode:(NSString *)infoTypeCode
+                                 sortType:(NSInteger)sortType
                                   success:(void (^)(NSMutableArray *success))success
                                   failure:(void (^)(NSError *error))failure;
 
@@ -362,5 +364,23 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                               isClickLike:(NSInteger)isClickLike
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure;
+
+//*****************************************作者主页*********************/
+- (void)senSearchWriterInfomationsWithWriterId:(NSString *)writerId
+                                        userId:(NSString *)userId
+                                       success:(void (^)(InformationWriterModel *success))success
+                                       failure:(void (^)(NSError *error))failure;
+
+//*****************************************订阅*********************/
+- (void)sendSubscribeWithWriterId:(NSString *)writerId
+                           userId:(NSString *)userId
+                          success:(void (^)(BOOL success))success
+                          failure:(void (^)(NSError *error))failure;
+
+//*****************************************取消订阅*********************/
+- (void)sendCancelSubscribeWriterId:(NSString *)writerId
+                             userId:(NSString *)userId
+                            success:(void (^)(BOOL success))success
+                            failure:(void (^)(NSError *error))failure;
 
 @end

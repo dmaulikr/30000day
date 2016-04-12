@@ -15,6 +15,7 @@
 #import "MJRefresh.h"
 #import "SubscribeListTableViewCell.h"
 #import "InformationDetailWebViewController.h"
+#import "InformationWriterHomepageViewController.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -45,6 +46,10 @@
 
 @property (nonatomic,assign) NSInteger scrollViewIndex;//记录scrollView第几页
 
+@property (nonatomic,assign) NSInteger orderByIndex; //记录排序类型
+
+@property (nonatomic,strong) NSString *typeIndex; //记录
+
 @end
 
 @implementation InformationViewController
@@ -54,7 +59,11 @@
     
     self.title = @"资讯";
     
+    self.orderByIndex = 1;
+    
     self.scrollViewIndex = 0;
+    
+    self.typeIndex = [[NSString alloc] init];
     
     self.dataHandler = [[LODataHandler alloc] init];
     
@@ -222,13 +231,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if ([tableView isEqual:self.tableViewInformation]) {
+    
+        InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else {
+    
+        InformationWriterHomepageViewController *informationWriterHomepageViewController = [[InformationWriterHomepageViewController alloc] init];
+        informationWriterHomepageViewController.writerId = @"10000012";
+        informationWriterHomepageViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:informationWriterHomepageViewController animated:YES];
+    
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
-    
-    controller.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 
@@ -281,12 +301,16 @@
             code = [NSString stringWithFormat:@"%ld",indexPath.row + 9];
         }
         
+        self.typeIndex = code;
+        
         [self loadDataWithCode:code];
         
     } else {
         
-        [self loadDataWithCode:[NSString stringWithFormat:@"%ld",indexPath.row + 1]];
-    
+        self.orderByIndex = indexPath.row + 1;
+        
+        [self loadDataWithCode:self.typeIndex];
+
     }
 
 }
@@ -299,16 +323,14 @@
 - (void)loadDataWithCode:(NSString *)code {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:code success:^(NSMutableArray *success) {
+
+    [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:code sortType:self.orderByIndex success:^(NSMutableArray *success) {
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        NSLog(@"%@",success);
         
         self.informationModelArray = [NSMutableArray arrayWithArray:success];
         
         [self.tableViewInformation reloadData];
-        [self.tableViewSubscription reloadData];
         
     } failure:^(NSError *error) {
         

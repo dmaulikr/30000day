@@ -7,8 +7,12 @@
 //
 
 #import "CommodityCommentViewController.h"
+#import "GJTextView.h"
 
 @interface CommodityCommentViewController ()
+
+@property (weak, nonatomic) IBOutlet GJTextView *textView;
+
 
 @end
 
@@ -16,7 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    self.textView.placeholder = @"合作很愉快，期待下次继续合作";
+    [self.textView setBackgroundColor:[UIColor whiteColor]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

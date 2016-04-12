@@ -43,7 +43,7 @@
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
-    self.isShowHeadRefresh = NO;
+    self.isShowHeadRefresh = YES;
     
     self.isShowFootRefresh = NO;
     
@@ -52,6 +52,19 @@
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 
+}
+
+#pragma ---
+#pragma mark --- 上啦刷新和下拉刷新
+
+- (void)headerRefreshing {
+    
+    [self.tableView.mj_header endRefreshing];
+}
+
+- (void)footerRereshing {
+    
+    [self.tableView.mj_footer endRefreshing];
 }
 
 - (void)reloadData:(NSNotification *)notification {

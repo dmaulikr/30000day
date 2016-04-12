@@ -18,6 +18,8 @@
 		B60435FC1CB653E400752CCB /* InformationDetailDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */; };
 		B60435FD1CB653E400752CCB /* InformationDetailDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
+		B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606AE671CBCF97300830D28 /* JavaScriptCore.framework */; };
+		B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
 		B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85861C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m */; };
@@ -73,6 +75,11 @@
 		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
 		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
 		B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */; };
+		B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C3B1CBC90190039217D /* InformationWriterHomepageViewController.m */; };
+		B6E44C3E1CBC901A0039217D /* InformationWriterHomepageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E44C3C1CBC90190039217D /* InformationWriterHomepageViewController.xib */; };
+		B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */; };
+		B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */; };
+		B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C451CBC9FD50039217D /* InformationWriterModel.m */; };
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
@@ -665,6 +672,10 @@
 		B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownTableViewCell.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
+		B606AE671CBCF97300830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWebJSObject.h; sourceTree = "<group>"; };
+		B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWebJSObject.m; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
 		B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCell.m; sourceTree = "<group>"; };
 		B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCell.xib; sourceTree = "<group>"; };
@@ -751,6 +762,14 @@
 		B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentViewController.h; sourceTree = "<group>"; };
 		B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentViewController.m; sourceTree = "<group>"; };
 		B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentViewController.xib; sourceTree = "<group>"; };
+		B6E44C3A1CBC90190039217D /* InformationWriterHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterHomepageViewController.h; sourceTree = "<group>"; };
+		B6E44C3B1CBC90190039217D /* InformationWriterHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterHomepageViewController.m; sourceTree = "<group>"; };
+		B6E44C3C1CBC90190039217D /* InformationWriterHomepageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationWriterHomepageViewController.xib; sourceTree = "<group>"; };
+		B6E44C3F1CBC97AE0039217D /* InformationWriterHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterHeadTableViewCell.h; sourceTree = "<group>"; };
+		B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterHeadTableViewCell.m; sourceTree = "<group>"; };
+		B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationWriterHeadTableViewCell.xib; sourceTree = "<group>"; };
+		B6E44C441CBC9FD50039217D /* InformationWriterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterModel.h; sourceTree = "<group>"; };
+		B6E44C451CBC9FD50039217D /* InformationWriterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterModel.m; sourceTree = "<group>"; };
 		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
 		B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityCommentViewController.m; sourceTree = "<group>"; };
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
@@ -1739,6 +1758,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */,
 				B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */,
 				B8F6E3951CB92093000CC117 /* CoreMotion.framework in Frameworks */,
 				B8F6E3931CB9208A000CC117 /* CFNetwork.framework in Frameworks */,
@@ -1774,6 +1794,8 @@
 		2B3E1B6A3876F650B59C8A8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */,
+				B606AE671CBCF97300830D28 /* JavaScriptCore.framework */,
 				B8F6E3961CB92128000CC117 /* libz.tbd */,
 				B8F6E3941CB92093000CC117 /* CoreMotion.framework */,
 				B8F6E3921CB9208A000CC117 /* CFNetwork.framework */,
@@ -1970,6 +1992,10 @@
 			children = (
 				B6DDB4F01CB74D9B0026322A /* InformationDetailModel.h */,
 				B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */,
+				B6E44C441CBC9FD50039217D /* InformationWriterModel.h */,
+				B6E44C451CBC9FD50039217D /* InformationWriterModel.m */,
+				B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */,
+				B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3431,6 +3457,9 @@
 				B6F66DA01CBB44CE0064DB11 /* InformationDetailWebViewController.h */,
 				B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */,
 				B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */,
+				B6E44C3A1CBC90190039217D /* InformationWriterHomepageViewController.h */,
+				B6E44C3B1CBC90190039217D /* InformationWriterHomepageViewController.m */,
+				B6E44C3C1CBC90190039217D /* InformationWriterHomepageViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3444,8 +3473,8 @@
 				B60435F41CB6531800752CCB /* InformationDetailImageTableViewCell.h */,
 				B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */,
 				B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */,
-				B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */,
 				B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */,
+				B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */,
 				B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */,
 				B6DDB4F81CB784360026322A /* ShareInformationView.h */,
 				B6DDB4F91CB784360026322A /* ShareInformationView.m */,
@@ -3453,6 +3482,9 @@
 				B6F66DA51CBB4AF40064DB11 /* InformationDetailDownView.h */,
 				B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */,
 				B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */,
+				B6E44C3F1CBC97AE0039217D /* InformationWriterHeadTableViewCell.h */,
+				B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */,
+				B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4409,6 +4441,7 @@
 				B804FD401C8AC9A900DFD1CF /* rabbit_20.gif in Resources */,
 				B804FD2E1C8AC9A900DFD1CF /* rabbit_12.gif in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
+				B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */,
 				B804FD781C8AC9A900DFD1CF /* Fav_Cell_Loc@2x.png in Resources */,
 				B804FDB51C8AC9A900DFD1CF /* weChatBubble_Receiving_Solid@2x.png in Resources */,
 				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
@@ -4493,6 +4526,7 @@
 				B60D85891C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.xib in Resources */,
 				B804FD281C8AC9A900DFD1CF /* rabbit_0_cover@2x.png in Resources */,
 				B612DD801CACFE21004C428C /* ShopHeadTableViewCell.xib in Resources */,
+				B6E44C3E1CBC901A0039217D /* InformationWriterHomepageViewController.xib in Resources */,
 				B8B3F4EC1C9A58C400834533 /* CityTableViewCell.xib in Resources */,
 				B804FD6E1C8AC9A900DFD1CF /* tusiji_6_cover@2x.png in Resources */,
 				B804FD991C8AC9A900DFD1CF /* RecordingSignal005@2x.png in Resources */,
@@ -4687,6 +4721,7 @@
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
 				B62C381B1C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */,
+				B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */,
 				B8FD3DEA1C8A7903007BCA6B /* XHDisplayEmotionViewController.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
@@ -4777,6 +4812,7 @@
 				B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
 				B8F73C511C9689640063CC60 /* MySubscribeViewController.m in Sources */,
+				B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */,
 				B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */,
 				B83B7A721CAD072500D2CC6A /* MTImagePlayView.m in Sources */,
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
@@ -4860,6 +4896,7 @@
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
+				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
@@ -4899,6 +4936,7 @@
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
 				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
+				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
@@ -5118,6 +5156,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -5170,6 +5209,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (

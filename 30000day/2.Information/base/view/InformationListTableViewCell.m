@@ -22,8 +22,10 @@
 }
 
 - (void)setInformationModel:(InformationModel *)informationModel {
-
-    [self.infoPhotosImageView sd_setImageWithURL:[NSURL URLWithString:informationModel.infoPhoto]];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",informationModel.infoPhoto]];
+    
+    [self.infoPhotosImageView sd_setImageWithURL:url];
     
     [self.infoTitleLable setText:informationModel.infoName];
 
