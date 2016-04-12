@@ -76,9 +76,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     if (indexPath.row == 0) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
@@ -129,6 +127,8 @@
         [self.navigationController pushViewController:controller animated:YES];
         
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*

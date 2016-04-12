@@ -230,7 +230,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     if ([tableView isEqual:self.tableViewInformation]) {
     
         InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
@@ -245,9 +245,8 @@
         informationWriterHomepageViewController.writerId = @"10000012";
         informationWriterHomepageViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:informationWriterHomepageViewController animated:YES];
-    
     }
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
