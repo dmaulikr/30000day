@@ -14,6 +14,20 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.firstButton.layer.cornerRadius = 5;
+    self.firstButton.layer.masksToBounds = YES;
+    self.firstButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.firstButton.layer.borderWidth = 1.0f;
+    
+    self.secondButton.layer.cornerRadius = 5;
+    self.secondButton.layer.masksToBounds = YES;
+    self.secondButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.secondButton.layer.borderWidth = 1.0f;
+    
+    self.thirdButton.layer.cornerRadius = 5;
+    self.thirdButton.layer.masksToBounds = YES;
+    self.thirdButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.thirdButton.layer.borderWidth = 1.0f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -51,6 +65,39 @@
     self.productMarkNumber.text = detailModel.orderNo;
     
     self.applyOrderTime.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[detailModel.orderDate doubleValue]/1000]];
+}
+
+- (IBAction)buttonAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (self.buttonClick) {
+        
+        self.buttonClick(button.tag);
+        
+    }
+}
+
+- (IBAction)secondButtonAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (self.buttonClick) {
+        
+        self.buttonClick(button.tag);
+        
+    }
+}
+
+- (IBAction)thirdButtonAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (self.buttonClick) {
+        
+        self.buttonClick(button.tag);
+        
+    }
 }
 
 @end

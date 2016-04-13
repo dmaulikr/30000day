@@ -14,6 +14,9 @@
 #import "ShopDetailViewController.h"
 #import "MTProgressHUD.h"
 #import "CommodityCommentViewController.h"
+#import "MyOrderViewController.h"
+#import "STTabBarViewController.h"
+#import "AppointmentViewController.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -27,6 +30,8 @@
 
 @property (nonatomic,strong) UILabel *rightLabel;
 
+@property (nonatomic,assign) OrderStatus type;//订单类型
+
 @end
 
 @implementation OrderDetailViewController {
@@ -39,11 +44,11 @@
     [super viewDidLoad];
     self.title = @"订单详情";
     
+    self.type = OrderStatusWillPay;//初始化等待付款状态
+
     //配置UI界面
     [self configUI];
-    
-    [self judgeConformButtonCanUse];
-    
+
     [self loadDataFromServer];
 }
 
@@ -96,25 +101,168 @@
     [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
         
         self.detailModel = detailModel;
+        //判断按钮是否可用
+        [self judgeConformButtonCanUse:self.detailModel.status];
         
         [self.tableView reloadData];
         
         [self.tableView.mj_header endRefreshing];
-        
-        self.status = self.detailModel.status;
-        
-        if ([self.status isEqualToString:@"10"]) {
-            
-            [self configOrderLimitTime:self.detailModel.orderDate];
-        }
-        
-        [self judgeConformButtonCanUse];
         
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];
         
     }];
+}
+
+//取消预约
+- (IBAction)leftButtonAction:(id)sender {
+    
+    if (self.type == OrderStatusPay) {//表示支付完成，去查看订单
+
+        BOOL isExist = NO;
+        
+        for (UIViewController *controller in self.navigationController.childViewControllers) {
+            
+            if ([controller isKindOfClass:[MyOrderViewController class]]) {
+                
+                isExist = YES;
+                
+                [self.navigationController popToViewController:controller animated:YES];
+            }
+        }
+        
+        if (!isExist) {
+            
+            MyOrderViewController *controller = [[MyOrderViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    } else {//取消订单
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
+                                                 success:^(BOOL success) {
+                                                     
+                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                     
+                                                     [self canceledOrderSetting];
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     
+                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                     
+                                                     [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                                                     
+                                                 }];
+        
+    }
+}
+
+//底部右边按钮点击事件
+- (IBAction)rightButtonAction:(id)sender {
+    
+    if (self.type == OrderStatusPay) {//表示支付完成
+        
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+        STTabBarViewController *controller = [board instantiateInitialViewController];
+        
+        [controller setSelectedIndex:2];
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        
+        window.rootViewController = controller;
+
+    } else {
+        
+        PaymentViewController *controller = [[PaymentViewController alloc] init];
+        
+        controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
+        
+        controller.timeModelArray = self.detailModel.orderCourtList;
+        
+        controller.productId = self.detailModel.productId;
+        
+        controller.productName = self.detailModel.productName;
+        
+        controller.orderNumber = self.detailModel.orderNo;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
+//取消订单，修改按钮并发出通知
+- (void)canceledOrderSetting {
+    
+    [self showToast:@"订单取消成功"];
+    
+    self.rightButton.enabled = NO;
+    
+    self.leftButton.enabled = NO;
+    
+    self.rightLabel.text = @"";
+    
+    [_timer invalidate];
+    
+    [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
+    
+    //发出更新通知
+    [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
+    
+    [self loadDataFromServer];//重新从服务器下载数据
+}
+
+//判断确认订单是否可用
+- (void)judgeConformButtonCanUse:(NSString *)status {
+    
+    if ([status isEqualToString:@"10"]) {
+        
+        [self.rightButton setTitle:@"前往付款" forState:UIControlStateNormal];
+        
+        self.rightButton.enabled = YES;
+        
+        self.leftButton.enabled = YES;
+        
+        self.type = OrderStatusWillPay;
+        
+        [self configOrderLimitTime:self.detailModel.orderDate];
+
+    } else if ([status isEqualToString:@"11"]) {
+        
+        [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
+        
+        self.rightButton.enabled = NO;
+        
+        self.leftButton.enabled = NO;
+        
+        self.type = OrderStatusCancel;
+        
+    } else if ([status isEqualToString:@"12"]) {
+        
+        [self.rightButton setTitle:@"已超时" forState:UIControlStateNormal];
+        
+        self.rightButton.enabled = NO;
+        
+        self.leftButton.enabled = NO;
+        
+        self.type = OrderStatusOvertime;
+        
+    } else if ([status isEqualToString:@"2"]) {
+        
+        [self.rightButton setTitle:@"返回首页" forState:UIControlStateNormal];
+        
+        [self.leftButton setTitle:@"查看订单" forState:UIControlStateNormal];
+        
+        self.rightButton.enabled = YES;
+        
+        self.leftButton.enabled = YES;
+        
+        self.type = OrderStatusPay;
+    }
 }
 
 //配置限时时间
@@ -164,126 +312,6 @@
     }
 }
 
-//取消订单，修改按钮并发出通知
-- (void)canceledOrderSetting {
-    
-    [self showToast:@"订单取消成功"];
-    
-    self.rightButton.enabled = NO;
-    
-    self.leftButton.enabled = NO;
-    
-    self.rightLabel.text = @"";
-    
-    [_timer invalidate];
-    
-    [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
-    
-    //发出更新通知
-    [STNotificationCenter postNotificationName:STDidSuccessCancelOrderSendNotification object:nil];
-    
-    [self loadDataFromServer];//重新从服务器下载数据
-}
-
-//取消预约
-- (IBAction)leftButtonAction:(id)sender {
-    
-    if ([self.status isEqualToString:@"2"]) {//去评价
-        
-        CommodityCommentViewController *controller = [[CommodityCommentViewController alloc] init];
-        
-        controller.orderNumber = self.orderNumber;
-        
-        controller.productName = self.detailModel.productName;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        
-    } else {//取消订单
-        
-        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
-                                                 success:^(BOOL success) {
-                                                     
-                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                     
-                                                     [self canceledOrderSetting];
-                                                     
-                                                 } failure:^(NSError *error) {
-                                                     
-                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                     
-                                                     [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-                                                     
-                                                 }];
-        
-    }
-}
-
-//前往预约
-- (IBAction)rightButtonAction:(id)sender {
-    
-    if ([self.status isEqualToString:@"2"]) {//表示支付完成
-        
-        
-        
-    } else {
-        
-        PaymentViewController *controller = [[PaymentViewController alloc] init];
-        
-        controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
-        
-        controller.timeModelArray = self.detailModel.orderCourtList;
-        
-        controller.productId = self.detailModel.productId;
-        
-        controller.productName = self.detailModel.productName;
-        
-        controller.orderNumber = self.detailModel.orderNo;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-}
-
-//判断确认订单是否可用
-- (void)judgeConformButtonCanUse {
-    
-    if ([self.status isEqualToString:@"10"]) {
-        
-        [self.rightButton setTitle:@"前往付款" forState:UIControlStateNormal];
-        
-        self.rightButton.enabled = YES;
-        
-        self.leftButton.enabled = YES;
-
-    } else if ([self.status isEqualToString:@"11"]) {
-        
-        [self.rightButton setTitle:@"已取消" forState:UIControlStateNormal];
-        
-        self.rightButton.enabled = NO;
-        
-        self.leftButton.enabled = NO;
-        
-    } else if ([self.status isEqualToString:@"12"]) {
-        
-        [self.rightButton setTitle:@"已超时" forState:UIControlStateNormal];
-        
-        self.rightButton.enabled = NO;
-        
-        self.leftButton.enabled = NO;
-        
-    } else if ([self.status isEqualToString:@"2"]) {
-        
-        [self.rightButton setTitle:@"申请退款" forState:UIControlStateNormal];
-        
-        [self.leftButton setTitle:@"去评价" forState:UIControlStateNormal];
-        
-        self.rightButton.enabled = YES;
-        
-        self.leftButton.enabled = YES;
-    }
-}
-
 #pragma ----
 #pragma mark ---- UITableViewDataSource/UITableViewDelegate
 
@@ -305,6 +333,31 @@
     return 0;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (self.type == OrderStatusPay && section == 0) {
+        
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
+        
+        view.backgroundColor = RGBACOLOR(74, 124, 200, 1);
+    
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 80)];
+        
+        [view addSubview:label];
+        
+        label.backgroundColor = RGBACOLOR(74, 124, 200, 1);
+        
+        label.text = @"付款成功";
+        
+        label.font = [UIFont systemFontOfSize:15.0f];
+        
+        label.textColor = [UIColor whiteColor];
+    
+        return view;
+    }
+    return nil;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 3;
@@ -318,7 +371,14 @@
         
     } else if (indexPath.section == 1) {
         
-        return 169;
+        if (self.type == OrderStatusPay) {
+            
+            return 222;
+            
+        } else {
+            
+           return 169;
+        }
     }
     return 44;
 }
@@ -346,6 +406,71 @@
         }
         
         [cell configProductInformation:self.detailModel];
+        
+        if (self.type == OrderStatusPay) {//支付成功
+            
+            cell.firstButton.hidden = NO;
+            
+            cell.secondButton.hidden = NO;
+            
+            cell.thirdButton.hidden = NO;
+            
+            [cell setButtonClick:^(NSInteger index) {
+                
+                if (index == 1) {//第一个按钮
+                    
+                    CommodityCommentViewController *controller = [[CommodityCommentViewController alloc] init];
+                    
+                    controller.orderNumber = self.orderNumber;
+                    
+                    controller.productName = self.detailModel.productName;
+                    
+                    controller.hidesBottomBarWhenPushed = YES;
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                } else if (index == 2) {//第二个按钮
+                    
+                    BOOL isExist = NO;
+                    
+                    for (UIViewController *controller in self.navigationController.childViewControllers) {
+                        
+                        if ([controller isKindOfClass:[AppointmentViewController class]]) {
+                            
+                            isExist = YES;
+                            
+                            [self.navigationController popToViewController:controller animated:YES];
+                        }
+                    }
+                    
+                    if (!isExist) {
+                        
+                        AppointmentViewController *controller = [[AppointmentViewController alloc] init];
+                        
+                        controller.hidesBottomBarWhenPushed = YES;
+                        
+                        controller.productName = self.detailModel.productName;
+                        
+                        controller.productId = self.detailModel.productId;
+                        
+                        [self.navigationController pushViewController:controller animated:YES];
+                    }
+                    
+                } else if (index == 3) {//第三个按钮
+                    
+                    [self showToast:@"正在开发"];
+                }
+                
+            }];
+            
+        } else {
+            
+            cell.firstButton.hidden = YES;
+            
+            cell.secondButton.hidden = YES;
+            
+            cell.thirdButton.hidden = YES;
+        }
         
         return cell;
         
@@ -416,8 +541,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 10.0f;
+    if (self.type == OrderStatusPay && section == 0) {
+        
+        return 80.0f;
+        
+    }
     
+    return 10.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

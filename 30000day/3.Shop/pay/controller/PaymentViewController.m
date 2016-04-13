@@ -12,7 +12,7 @@
 #import "PersonInformationTableViewCell.h"
 #import "AppointmentViewController.h"
 #import "pay.h"
-#import "PaySuccessViewController.h"
+#import "OrderDetailViewController.h"
 
 @interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate,payResultStatusDelegate>
 
@@ -31,13 +31,9 @@
 //支付宝支付成功的回调
 - (void)alipaySuccess {
     
-    PaySuccessViewController *controller = [[PaySuccessViewController alloc] init];
+    OrderDetailViewController *controller = [[OrderDetailViewController alloc] init];
     
     controller.orderNumber = self.orderNumber;//订单编号
-    
-    controller.productName = self.productName;
-    
-    controller.productId = self.productId;
     
     [self.navigationController pushViewController:controller animated:NO];
 }
