@@ -19,11 +19,19 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *imageButtonThree;
 
+@property (strong, nonatomic) UIButton *imageCloseButtonOne;
+
+@property (strong, nonatomic) UIButton *imageCloseButtonTwo;
+
+@property (strong, nonatomic) UIButton *imageCloseButtonThree;
+
 @property (nonatomic,strong) UIImage *imageOne;
 
 @property (nonatomic,strong) UIImage *imageTwo;
 
 @property (nonatomic,strong) UIImage *imageThree;
+
+@property (nonatomic,assign) NSInteger clickButtonIndex;
 
 @end
 
@@ -32,8 +40,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.clickButtonIndex = 0;
+    
     self.textView.placeholder = @"合作很愉快，期待下次继续合作";
     [self.textView setBackgroundColor:[UIColor whiteColor]];
+    
+    self.imageCloseButtonOne = [self createImageCloseButton:1];
+    self.imageCloseButtonTwo = [self createImageCloseButton:2];
+    self.imageCloseButtonThree = [self createImageCloseButton:3];
+    
+    [self.imageButtonOne addSubview:self.imageCloseButtonOne];
+    [self.imageButtonTwo addSubview:self.imageCloseButtonTwo];
+    [self.imageButtonThree addSubview:self.imageCloseButtonThree];
+
+}
+- (IBAction)anonymousButtonClick:(UIButton *)sender {
+    
+    [sender setBackgroundColor:[UIColor blueColor]];
     
 }
 
@@ -51,6 +74,7 @@
                                                     otherButtonTitles:@"拍照", @"从相册中选取", nil];
     [choiceSheet showInView:self.view];
     
+    self.clickButtonIndex = sender.tag;
 }
 
 #pragma mark UIActionSheetDelegate
@@ -81,9 +105,28 @@
     
     UIImage *originImage = info[UIImagePickerControllerOriginalImage];
     
-    self.imageOne = image;
+    if (self.clickButtonIndex == 1) {
+        
+        [self.imageButtonOne setImage:image forState:UIControlStateNormal];
+        self.imageCloseButtonOne.hidden = NO;
+        self.imageOne = image;
+        
+        
+    } else if (self.clickButtonIndex == 2) {
     
-    [self.imageButtonOne setImage:image forState:UIControlStateNormal];
+        [self.imageButtonTwo setImage:image forState:UIControlStateNormal];
+        self.imageCloseButtonTwo.hidden = NO;
+        self.imageTwo = image;
+        
+    
+    } else if (self.clickButtonIndex == 3) {
+    
+        [self.imageButtonThree setImage:image forState:UIControlStateNormal];
+        self.imageCloseButtonThree.hidden = NO;
+        self.imageThree = image;
+        
+    
+    }
     
     //保存图片到本地相册
     UIImageWriteToSavedPhotosAlbum(originImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
@@ -108,6 +151,45 @@
     }
 }
 
+- (UIButton *)createImageCloseButton:(NSInteger)tag {
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"x" forState:UIControlStateNormal];
+    btn.layer.masksToBounds = YES;
+    btn.layer.cornerRadius = 10.0;
+    [btn setBackgroundColor:[UIColor redColor]];
+    btn.tag = tag;
+    [btn addTarget:self action:@selector(clickCloseButton:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setFrame:CGRectMake(40, 0, 20, 20)];
+    btn.hidden = YES;
+    return btn;
+
+}
+
+- (void)clickCloseButton:(UIButton *)sender {
+
+    if (sender.tag == 1) {
+        
+        [self.imageButtonOne setImage:[UIImage imageNamed:@"AddGroupMemberBtn"] forState:UIControlStateNormal];
+        self.imageCloseButtonOne.hidden = YES;
+        self.imageOne = nil;
+        
+        
+    } else if (sender.tag == 2) {
+        
+        [self.imageButtonTwo setImage:[UIImage imageNamed:@"AddGroupMemberBtn"] forState:UIControlStateNormal];
+        self.imageCloseButtonTwo.hidden = YES;
+        self.imageTwo = nil;
+        
+    } else {
+
+        [self.imageButtonThree setImage:[UIImage imageNamed:@"AddGroupMemberBtn"] forState:UIControlStateNormal];
+        self.imageCloseButtonThree.hidden = YES;
+        self.imageThree = nil;
+        
+    }
+
+}
 
 /*
 #pragma mark - Navigation
