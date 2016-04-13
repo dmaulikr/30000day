@@ -13,13 +13,12 @@
 		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
 		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
 		B60435F31CB6077B00752CCB /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435F21CB6077B00752CCB /* InformationModel.m */; };
-		B60435F71CB6531800752CCB /* InformationDetailImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */; };
-		B60435F81CB6531800752CCB /* InformationDetailImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */; };
-		B60435FC1CB653E400752CCB /* InformationDetailDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */; };
-		B60435FD1CB653E400752CCB /* InformationDetailDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */; };
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606AE671CBCF97300830D28 /* JavaScriptCore.framework */; };
 		B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */; };
+		B608FDE41CBDE63D00C39C77 /* InformationMySubscribeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B608FDE31CBDE63D00C39C77 /* InformationMySubscribeModel.m */; };
+		B608FDE81CBDE67100C39C77 /* SubscribeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B608FDE61CBDE67100C39C77 /* SubscribeListTableViewCell.m */; };
+		B608FDE91CBDE67100C39C77 /* SubscribeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B608FDE71CBDE67100C39C77 /* SubscribeListTableViewCell.xib */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
 		B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85861C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m */; };
@@ -469,17 +468,10 @@
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
-		B8F73C441C965D440063CC60 /* SubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C431C965D440063CC60 /* SubscribeViewController.m */; };
-		B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */; };
-		B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */; };
 		B8F73C511C9689640063CC60 /* MySubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */; };
 		B8F73C521C9689640063CC60 /* MySubscribeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */; };
 		B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C571C968CC20063CC60 /* ReportViewController.m */; };
 		B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C581C968CC20063CC60 /* ReportViewController.xib */; };
-		B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */; };
-		B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */; };
-		B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */; };
-		B8F73C641C96959A0063CC60 /* InformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */; };
 		B8F73C721C96C6CE0063CC60 /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */; };
 		B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
@@ -667,18 +659,17 @@
 		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
 		B60435F11CB6077B00752CCB /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
 		B60435F21CB6077B00752CCB /* InformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationModel.m; sourceTree = "<group>"; };
-		B60435F41CB6531800752CCB /* InformationDetailImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailImageTableViewCell.h; sourceTree = "<group>"; };
-		B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailImageTableViewCell.m; sourceTree = "<group>"; };
-		B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailImageTableViewCell.xib; sourceTree = "<group>"; };
-		B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailDownTableViewCell.h; sourceTree = "<group>"; };
-		B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailDownTableViewCell.m; sourceTree = "<group>"; };
-		B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownTableViewCell.xib; sourceTree = "<group>"; };
 		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
 		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B606AE671CBCF97300830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWebJSObject.h; sourceTree = "<group>"; };
 		B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWebJSObject.m; sourceTree = "<group>"; };
+		B608FDE21CBDE63D00C39C77 /* InformationMySubscribeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationMySubscribeModel.h; sourceTree = "<group>"; };
+		B608FDE31CBDE63D00C39C77 /* InformationMySubscribeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationMySubscribeModel.m; sourceTree = "<group>"; };
+		B608FDE51CBDE67100C39C77 /* SubscribeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeListTableViewCell.h; sourceTree = "<group>"; };
+		B608FDE61CBDE67100C39C77 /* SubscribeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeListTableViewCell.m; sourceTree = "<group>"; };
+		B608FDE71CBDE67100C39C77 /* SubscribeListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeListTableViewCell.xib; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
 		B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCell.m; sourceTree = "<group>"; };
 		B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCell.xib; sourceTree = "<group>"; };
@@ -1393,23 +1384,12 @@
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationListTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationListTableViewCell.xib; sourceTree = "<group>"; };
-		B8F73C421C965D440063CC60 /* SubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeViewController.h; sourceTree = "<group>"; };
-		B8F73C431C965D440063CC60 /* SubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeViewController.m; sourceTree = "<group>"; };
-		B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeListTableViewCell.h; sourceTree = "<group>"; };
-		B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeListTableViewCell.m; sourceTree = "<group>"; };
-		B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeListTableViewCell.xib; sourceTree = "<group>"; };
 		B8F73C4E1C9689640063CC60 /* MySubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySubscribeViewController.h; sourceTree = "<group>"; };
 		B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySubscribeViewController.m; sourceTree = "<group>"; };
 		B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySubscribeViewController.xib; sourceTree = "<group>"; };
 		B8F73C561C968CC20063CC60 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		B8F73C571C968CC20063CC60 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		B8F73C581C968CC20063CC60 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
-		B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailViewController.h; sourceTree = "<group>"; };
-		B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailViewController.m; sourceTree = "<group>"; };
-		B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailViewController.xib; sourceTree = "<group>"; };
-		B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationTableViewCell.h; sourceTree = "<group>"; };
-		B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationTableViewCell.m; sourceTree = "<group>"; };
-		B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationTableViewCell.xib; sourceTree = "<group>"; };
 		B8F73C6F1C96C6CE0063CC60 /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
 		B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
 		B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayTableViewCell.xib; sourceTree = "<group>"; };
@@ -1868,6 +1848,8 @@
 			children = (
 				B60435F11CB6077B00752CCB /* InformationModel.h */,
 				B60435F21CB6077B00752CCB /* InformationModel.m */,
+				B608FDE21CBDE63D00C39C77 /* InformationMySubscribeModel.h */,
+				B608FDE31CBDE63D00C39C77 /* InformationMySubscribeModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3444,6 +3426,9 @@
 				B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */,
 				B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */,
 				B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */,
+				B608FDE51CBDE67100C39C77 /* SubscribeListTableViewCell.h */,
+				B608FDE61CBDE67100C39C77 /* SubscribeListTableViewCell.m */,
+				B608FDE71CBDE67100C39C77 /* SubscribeListTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3461,9 +3446,6 @@
 		B8F73C311C9651760063CC60 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */,
-				B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */,
-				B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */,
 				B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */,
 				B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */,
 				B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */,
@@ -3480,15 +3462,6 @@
 		B8F73C321C9651760063CC60 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */,
-				B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */,
-				B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */,
-				B60435F41CB6531800752CCB /* InformationDetailImageTableViewCell.h */,
-				B60435F51CB6531800752CCB /* InformationDetailImageTableViewCell.m */,
-				B60435F61CB6531800752CCB /* InformationDetailImageTableViewCell.xib */,
-				B60435FA1CB653E400752CCB /* InformationDetailDownTableViewCell.m */,
-				B60435F91CB653E400752CCB /* InformationDetailDownTableViewCell.h */,
-				B60435FB1CB653E400752CCB /* InformationDetailDownTableViewCell.xib */,
 				B6DDB4F81CB784360026322A /* ShareInformationView.h */,
 				B6DDB4F91CB784360026322A /* ShareInformationView.m */,
 				B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */,
@@ -3514,8 +3487,6 @@
 		B8F73C341C9651760063CC60 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C421C965D440063CC60 /* SubscribeViewController.h */,
-				B8F73C431C965D440063CC60 /* SubscribeViewController.m */,
 				B8F73C4E1C9689640063CC60 /* MySubscribeViewController.h */,
 				B8F73C4F1C9689640063CC60 /* MySubscribeViewController.m */,
 				B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */,
@@ -3526,9 +3497,6 @@
 		B8F73C351C9651760063CC60 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F73C451C96637E0063CC60 /* SubscribeListTableViewCell.h */,
-				B8F73C461C96637E0063CC60 /* SubscribeListTableViewCell.m */,
-				B8F73C471C96637E0063CC60 /* SubscribeListTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4394,6 +4362,7 @@
 				B804FD501C8AC9A900DFD1CF /* rabbit_7_cover@2x.png in Resources */,
 				B804FD711C8AC9A900DFD1CF /* tusiji_8.gif in Resources */,
 				B804FD971C8AC9A900DFD1CF /* RecordingSignal003@2x.png in Resources */,
+				B608FDE91CBDE67100C39C77 /* SubscribeListTableViewCell.xib in Resources */,
 				B804FD7B1C8AC9A900DFD1CF /* input-bar-background@2x.png in Resources */,
 				B804FD191C8AC9A900DFD1CF /* AddGroupMemberBtn@2x.png in Resources */,
 				B804FD8E1C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
@@ -4444,7 +4413,6 @@
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B804FD1B1C8AC9A900DFD1CF /* avator@2x.png in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
-				B8F73C641C96959A0063CC60 /* InformationTableViewCell.xib in Resources */,
 				B804FD5E1C8AC9A900DFD1CF /* tusiji_13.gif in Resources */,
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
@@ -4489,7 +4457,6 @@
 				B804FD321C8AC9A900DFD1CF /* rabbit_14.gif in Resources */,
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B804FD881C8AC9A900DFD1CF /* multiMedia@2x.png in Resources */,
-				B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */,
 				B804FD641C8AC9A900DFD1CF /* tusiji_1_cover@2x.png in Resources */,
 				B804FD1A1C8AC9A900DFD1CF /* AddGroupMemberBtnHL@2x.png in Resources */,
 				B8FD3EBC1C8A8440007BCA6B /* CDImageLabelTableCell.xib in Resources */,
@@ -4502,7 +4469,6 @@
 				B804FD4F1C8AC9A900DFD1CF /* rabbit_7.gif in Resources */,
 				B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */,
 				B804FD791C8AC9A900DFD1CF /* group_icon.png in Resources */,
-				B60435FD1CB653E400752CCB /* InformationDetailDownTableViewCell.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B804FD3B1C8AC9A900DFD1CF /* rabbit_18_cover@2x.png in Resources */,
 				B804FD231C8AC9A900DFD1CF /* contacts_add_scan@2x.png in Resources */,
@@ -4608,7 +4574,6 @@
 				B804FD291C8AC9A900DFD1CF /* rabbit_1.gif in Resources */,
 				B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */,
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
-				B60435F81CB6531800752CCB /* InformationDetailImageTableViewCell.xib in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
 				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
@@ -4617,7 +4582,6 @@
 				B804FD3C1C8AC9A900DFD1CF /* rabbit_19.gif in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
 				B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */,
-				B8F73C491C96637E0063CC60 /* SubscribeListTableViewCell.xib in Resources */,
 				B804FD371C8AC9A900DFD1CF /* rabbit_16_cover@2x.png in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
 				B804FDB41C8AC9A900DFD1CF /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
@@ -4707,7 +4671,6 @@
 				B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8FD3EB81C8A8440007BCA6B /* CDButton.m in Sources */,
-				B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */,
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
 				B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */,
@@ -4804,7 +4767,6 @@
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
-				B60435FC1CB653E400752CCB /* InformationDetailDownTableViewCell.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
 				B8F6E3831CB91BEE000CC117 /* DataSigner.m in Sources */,
@@ -4899,7 +4861,6 @@
 				B8FD3E971C8A8408007BCA6B /* CDIMService.m in Sources */,
 				B8F2D9701C5C6924002C7712 /* LORequest.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
-				B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
@@ -4923,9 +4884,9 @@
 				B8FD3E441C8A7BBA007BCA6B /* DTTimePeriodChain.m in Sources */,
 				B8F648AC1C9498F0001A3119 /* ShopListTableViewCell.m in Sources */,
 				B8F6E3821CB91BEE000CC117 /* base64.m in Sources */,
+				B608FDE41CBDE63D00C39C77 /* InformationMySubscribeModel.m in Sources */,
 				B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
-				B8F73C481C96637E0063CC60 /* SubscribeListTableViewCell.m in Sources */,
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
@@ -4934,7 +4895,6 @@
 				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
 				B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */,
 				B8FD3DED1C8A7903007BCA6B /* XHDisplayTextViewController.m in Sources */,
-				B8F73C441C965D440063CC60 /* SubscribeViewController.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
@@ -5016,7 +4976,6 @@
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
 				B83B7A631CAD060700D2CC6A /* STDropdownMenu.m in Sources */,
-				B60435F71CB6531800752CCB /* InformationDetailImageTableViewCell.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
@@ -5039,6 +4998,7 @@
 				B8F2D95C1C5C68C7002C7712 /* LONetworkAgent.m in Sources */,
 				B8FD3E2C1C8A7903007BCA6B /* NSString+Emojize.m in Sources */,
 				B8FD3DF41C8A7903007BCA6B /* XHMessageBubbleFactory.m in Sources */,
+				B608FDE81CBDE67100C39C77 /* SubscribeListTableViewCell.m in Sources */,
 				B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B8FD3E271C8A7903007BCA6B /* XHShareMenuView.m in Sources */,
@@ -5173,7 +5133,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
-						"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
+					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay/Alipay",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
 				GCC_PREFIX_HEADER = 30000day/PrefixHeader.pch;

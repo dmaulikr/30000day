@@ -7,6 +7,7 @@
 //
 
 #import "SubscribeListTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation SubscribeListTableViewCell
 
@@ -21,6 +22,16 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setInformationMySubscribeModel:(InformationMySubscribeModel *)informationMySubscribeModel {
+
+    [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:informationMySubscribeModel.headImg]];
+    
+    self.writerName.text = informationMySubscribeModel.writerName;
+    
+    self.memoLable.text = informationMySubscribeModel.memo;
+
 }
 
 @end

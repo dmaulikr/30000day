@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *informationWebView;
 
+@property (nonatomic,copy) NSString *infoId;
 
 @end

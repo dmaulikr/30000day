@@ -9,13 +9,13 @@
 #import "InformationViewController.h"
 #import "DOPDropDownMenu.h"
 #import "InformationListTableViewCell.h"
-#import "SubscribeViewController.h"
 #import "MTProgressHUD.h"
 #import "LODataHandler.h"
 #import "MJRefresh.h"
 #import "SubscribeListTableViewCell.h"
 #import "InformationDetailWebViewController.h"
 #import "InformationWriterHomepageViewController.h"
+#import "InformationMySubscribeModel.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -50,6 +50,8 @@
 
 @property (nonatomic,strong) NSString *typeIndex; //记录
 
+@property (nonatomic,strong) NSArray *mySubscribeArray;
+
 @end
 
 @implementation InformationViewController
@@ -74,6 +76,7 @@
     //1.设置mune
     self.sortArray = [NSArray arrayWithObjects:@"时间",@"热度", nil];
     self.titleArray = [NSArray arrayWithObjects:@"全部分类",@"饮食",@"运动",@"作息",@"备孕",@"孕期",@"育儿",@"治未病",@"体检",@"就医", nil];
+    
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
     menu.delegate = self;
     menu.dataSource = self;
@@ -82,6 +85,26 @@
     //2.设置tableView
     [self createTableView];
 
+    [self loadMySubscribeData];
+    
+}
+
+
+- (void)loadMySubscribeData {
+
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    //[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue]
+    [self.dataHandler sendMySubscribeWithUserId:@"10000022" success:^(NSMutableArray *success) {
+        
+        self.mySubscribeArray = [NSArray arrayWithArray:success];
+        [self.tableViewSubscription reloadData];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    }];
     
 }
 
@@ -131,8 +154,26 @@
     
     if (self.scrollViewIndex == 0) {
         
-        [self.tableViewInformation.mj_header endRefreshing];
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
+        [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:@"" sortType:self.orderByIndex success:^(NSMutableArray *success) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            self.informationModelArray = [NSMutableArray arrayWithArray:success];
+            
+            [self.tableViewInformation reloadData];
+            
+            [self.tableViewInformation.mj_header endRefreshing];
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self.tableViewInformation.mj_header endRefreshing];
+            
+        }];
+
     } else {
     
         [self.tableViewSubscription.mj_header endRefreshing];
@@ -172,7 +213,7 @@
         
     } else {
     
-        return 10;
+        return self.mySubscribeArray.count;
     
     }
     
@@ -199,12 +240,16 @@
     
     } else {
         
+        InformationMySubscribeModel *mySubscribeModel = self.mySubscribeArray[indexPath.row];
+        
         SubscribeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeListTableViewCell"];
         
         if (cell == nil) {
             
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeListTableViewCell" owner:nil options:nil] lastObject];
         }
+        
+        cell.informationMySubscribeModel = mySubscribeModel;
         
         return cell;
         
@@ -214,7 +259,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath  {
     
-    return 100;
+    if ([tableView isEqual:self.tableViewInformation]){
+    
+        return 100;
+    
+    }
+    
+    return 81;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -233,7 +284,11 @@
 
     if ([tableView isEqual:self.tableViewInformation]) {
     
+        InformationModel *informationModel = self.informationModelArray[indexPath.row];
+        
         InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
+        
+        controller.infoId = informationModel.informationId;
         
         controller.hidesBottomBarWhenPushed = YES;
         
@@ -241,8 +296,10 @@
         
     } else {
     
+        InformationMySubscribeModel *mySubscribeModel = self.mySubscribeArray[indexPath.row];
+        
         InformationWriterHomepageViewController *informationWriterHomepageViewController = [[InformationWriterHomepageViewController alloc] init];
-        informationWriterHomepageViewController.writerId = @"10000012";
+        informationWriterHomepageViewController.writerId = mySubscribeModel.writerId;
         informationWriterHomepageViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:informationWriterHomepageViewController animated:YES];
     }

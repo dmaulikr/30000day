@@ -4328,8 +4328,9 @@
 
 //*****************************************资讯点赞*********************/
 - (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
-                                commentId:(NSString *)commentId
+                                   busiId:(NSString *)busiId
                               isClickLike:(NSInteger)isClickLike
+                                 busiType:(NSInteger)busiType
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure {
     
@@ -4337,9 +4338,11 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    [params setObject:commentId forKey:@"commentId"];
+    [params setObject:busiId forKey:@"busiId"];
     
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
+    
+    [params setObject:@(busiType) forKey:@"busiType"];
 
     LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
                                                         url:SAVE_POINT
@@ -4595,6 +4598,90 @@
                                                                 failure(localError);
                                                                 
                                                             });
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+}
+
+//*****************************************我的订阅*********************/
+- (void)sendMySubscribeWithUserId:(NSString *)userId
+                          success:(void (^)(NSMutableArray *success))success
+                          failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:userId forKey:@"userId"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_MY_SUBSCRIBE
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    InformationMySubscribeModel *informationModel = [[InformationMySubscribeModel alloc] init];
+                                                                    
+                                                                    [informationModel setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:informationModel];
+                                                                    
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                            
                                                         }
                                                         
                                                     } failure:^(LONetError *error) {

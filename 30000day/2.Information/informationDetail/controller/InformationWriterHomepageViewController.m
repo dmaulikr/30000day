@@ -8,7 +8,7 @@
 
 #import "InformationWriterHomepageViewController.h"
 #import "InformationModel.h"
-//#import "MTProgressHUD.h"
+#import "MTProgressHUD.h"
 #import "InformationWriterHeadTableViewCell.h"
 #import "InformationListTableViewCell.h"
 #import "InformationDetailWebViewController.h"
@@ -42,8 +42,8 @@
     
     self.isShowBackItem = YES;
 
-    //[MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler senSearchWriterInfomationsWithWriterId:self.writerId userId:@"10000022" success:^(InformationWriterModel *success) {
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler senSearchWriterInfomationsWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(InformationWriterModel *success) {
        
         self.title = success.writerName;
         
@@ -69,11 +69,11 @@
     
         [self.tableView reloadData];
         
-        //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     } failure:^(NSError *error) {
         
-        //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     }];
 }
@@ -167,9 +167,9 @@
            
             if (button.tag) {
                 
-                //[MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self.dataHandler sendCancelSubscribeWriterId:self.writerId userId:@"10000022" success:^(BOOL success) {
+                [self.dataHandler sendCancelSubscribeWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
                     
                     if (success) {
                         
@@ -182,19 +182,19 @@
                         
                     }
                     
-                    //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
                 } failure:^(NSError *error) {
                     
-                    //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
                 }];
 
                 
             } else {
             
-                //[MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-                [self.dataHandler sendSubscribeWithWriterId:self.writerId userId:@"10000022" success:^(BOOL success) {
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+                [self.dataHandler sendSubscribeWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
                     
                     if (success) {
                         
@@ -207,11 +207,11 @@
                         
                     }
                     
-                    //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
                 } failure:^(NSError *error) {
                     
-                    //[MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
                 }];
 
@@ -249,7 +249,9 @@
 
     if (indexPath.section != 0) {
         
+        InformationModel *informationModel = self.informationModelArray[indexPath.row];
         InformationDetailWebViewController *controller = [[InformationDetailWebViewController alloc] init];
+        controller.infoId = informationModel.informationId;
         [self.navigationController pushViewController:controller animated:YES];
         
     }

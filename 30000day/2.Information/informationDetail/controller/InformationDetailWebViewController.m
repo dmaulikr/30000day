@@ -20,6 +20,8 @@
 #import "InformationWebJSObject.h"
 #import "InformationWriterHomepageViewController.h"
 
+#import "MTProgressHUD.h"
+
 @interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
 
 @property (nonatomic,copy) NSString *writerId;
@@ -30,11 +32,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.dataHandler = [[LODataHandler alloc] init];
+
+    [self loadWebView];
     
-    [self.informationWebView setDelegate:self];
+    [self loadInformationDetailDownView];
     
+}
+
+- (void)loadInformationDetailDownView {
+
     InformationDetailDownView *informationDetailDownView = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailDownView" owner:nil options:nil] lastObject];
     
     [informationDetailDownView setShareButtonBlock:^(UIButton *button) {
@@ -44,8 +52,8 @@
     }];
     
     [informationDetailDownView setZanButtonBlock:^(UIButton *button) {
-       
-        [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId commentId:@"" isClickLike:1 success:^(BOOL success) {
+        
+        [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
             
             NSLog(@"%d",success);
             
@@ -57,7 +65,7 @@
     }];
     
     [informationDetailDownView setCommentButtonBlock:^{
-       
+        
         InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
         informationCommentViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:informationCommentViewController animated:YES];
@@ -68,11 +76,18 @@
     [informationDetailDownView setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
     
     [self.view addSubview:informationDetailDownView];
+
+}
+
+- (void)loadWebView {
+
+    [self.informationWebView setDelegate:self];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.101:8081/STManager/infomation/infoLink?infoId=2&userId=10000022"]];
-    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.1.101:8081/STManager/infomation/infoLink?infoId=%@&userId=%d",self.infoId,STUserAccountHandler.userProfile.userId.intValue]]];
     [self.informationWebView loadRequest:request];
-    
+    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+
 }
 
 #pragma --

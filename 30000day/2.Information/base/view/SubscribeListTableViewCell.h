@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InformationMySubscribeModel.h"
 
 @interface SubscribeListTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *willShowImageView;
 
-@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+@property (weak, nonatomic) IBOutlet UILabel *writerName;
+
+@property (weak, nonatomic) IBOutlet UILabel *memoLable;
+
+@property (nonatomic,strong) InformationMySubscribeModel *informationMySubscribeModel;
 
 @end
