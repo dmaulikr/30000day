@@ -14,7 +14,7 @@
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
-@interface UserInfoViewController () <UINavigationControllerDelegate,QGPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
+@interface UserInfoViewController () <UINavigationControllerDelegate,QGPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 
 @property (nonatomic,strong)NSArray *titleArray;
 
