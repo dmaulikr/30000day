@@ -138,8 +138,6 @@
     
     controller.orderNumber = model.orderNumber;
     
-    controller.status = model.status;
-    
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];

@@ -22,6 +22,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *productNumber;//总数
 @property (weak, nonatomic) IBOutlet UILabel *productMarkNumber;//订单编号
 @property (weak, nonatomic) IBOutlet UILabel *applyOrderTime;//下单时间
+
+
+@property (weak, nonatomic) IBOutlet UIButton *firstButton;
+@property (weak, nonatomic) IBOutlet UIButton *secondButton;
+@property (weak, nonatomic) IBOutlet UIButton *thirdButton;
+@property (nonatomic,copy) void (^buttonClick)(NSInteger index);//按钮点击事件,1.表示第一个按钮 2表示第二个按钮 3表示第三个按钮
 - (void)configProductInformation:(MyOrderDetailModel *)detailModel;
 
 @end
