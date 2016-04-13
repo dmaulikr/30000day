@@ -90,7 +90,7 @@
         }];
         
         
-        [self.dataHandler sendPlatformRecommendWithProductTypeId:@"6" count:3 Success:^(NSMutableArray *success) {
+        [self.dataHandler sendPlatformRecommendWithProductTypeId:model.productTypePid count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelTerraceArray = [NSArray arrayWithArray:success];
             [self.tableView.mj_header endRefreshing];
@@ -495,7 +495,10 @@
         
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
+            ShopModel *shopModel = self.shopModelKeeperArray[indexPath.row - 1];
+            
             ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+            shopDetailViewController.productId = [NSString stringWithFormat:@"%d",shopModel.productId.intValue];
             [self.navigationController pushViewController:shopDetailViewController animated:YES];
             
         }
@@ -527,7 +530,6 @@
         }
     
     }
-    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

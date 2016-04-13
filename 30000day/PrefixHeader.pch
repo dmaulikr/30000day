@@ -213,6 +213,8 @@
 
 #define  COMMIT_CANCEL_SUBSCRIBE      @"/stapi/info/cancelSubscribe"            //取消订阅
 
+#define  GET_MY_SUBSCRIBE             @"/stapi/info/mySubscribe"                //我的订阅
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

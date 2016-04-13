@@ -12,6 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "InformationDetailModel.h"
 #import "InformationWriterModel.h"
+#import "InformationMySubscribeModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -353,8 +354,9 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 
 //*****************************************资讯点赞*********************/
 - (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
-                                commentId:(NSString *)commentId
+                                   busiId:(NSString *)busiId
                               isClickLike:(NSInteger)isClickLike
+                                 busiType:(NSInteger)busiType
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure;
 
@@ -382,5 +384,10 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                              userId:(NSString *)userId
                             success:(void (^)(BOOL success))success
                             failure:(void (^)(NSError *error))failure;
+
+//*****************************************我的订阅*********************/
+- (void)sendMySubscribeWithUserId:(NSString *)userId
+                          success:(void (^)(NSMutableArray *success))success
+                          failure:(void (^)(NSError *error))failure;
 
 @end
