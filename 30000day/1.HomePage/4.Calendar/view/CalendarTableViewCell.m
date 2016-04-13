@@ -179,13 +179,6 @@
     
     [self addSubview:addRemindButton];
     
-    //创建背景线条
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,40, SCREEN_WIDTH, 0.5f)];
-    
-    view.backgroundColor = RGBACOLOR(200, 200, 200, 1);
-    
-    [self addSubview:view];
-    
     _lunarCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
     
     _lunarCalendar.locale = [NSLocale localeWithLocaleIdentifier:@"zh-CN"];

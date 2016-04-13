@@ -170,7 +170,7 @@
         
     } else if (section == 1) {
         
-        return 2;
+        return 3;
         
     } else if (section == 2) {
         
@@ -288,27 +288,31 @@
         
     } else if (indexPath.section == 1) {
         
-        ShopDetailOneLineDataTableViewCell *shopDetailOneLineDataTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        ShopDetailOneLineDataTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
         
-        if (shopDetailOneLineDataTableViewCell == nil) {
+        if (cell == nil) {
             
-            shopDetailOneLineDataTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataTableViewCell.leftTitleLable.text = self.shopDetailModel.address == nil || [self.shopDetailModel.address isEqualToString:@""] ? @"地址不详":self.shopDetailModel.address;
-            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
+            cell.leftTitleLable.text = self.shopDetailModel.address == nil || [self.shopDetailModel.address isEqualToString:@""] ? @"地址不详":self.shopDetailModel.address;
+            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
             
         } else if (indexPath.row == 1){
             
-            shopDetailOneLineDataTableViewCell.leftTitleLable.text = self.shopDetailModel.telephone;
-            [shopDetailOneLineDataTableViewCell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
+            cell.leftTitleLable.text = self.shopDetailModel.telephone;
+            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
+            
+        } else if (indexPath.row == 2) {
+            
+            cell.leftTitleLable.text = @"联系商家";
+            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
         }
         
-        return shopDetailOneLineDataTableViewCell;
-        
+        return cell;
         
     } else if (indexPath.section == 2) {
         
