@@ -20,26 +20,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SL-W9-RSs">
-                    <rect key="frame" x="8" y="466" width="359" height="30"/>
+                    <rect key="frame" x="8" y="463" width="359" height="30"/>
                     <color key="backgroundColor" red="0.25882352941176473" green="0.41568627450980394" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="提交">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="匿名评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-rj-M5T">
-                    <rect key="frame" x="48" y="415" width="68" height="21"/>
+                    <rect key="frame" x="43" y="412" width="68" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24E-IW-pSy">
-                    <rect key="frame" x="17" y="415" width="20" height="20"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="joR-Ks-bxy"/>
-                        <constraint firstAttribute="width" constant="20" id="pPa-HX-FBm"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaZ-bB-335">
                     <rect key="frame" x="0.0" y="64" width="375" height="340"/>
                     <subviews>
@@ -127,22 +119,33 @@
                         <constraint firstItem="L5f-g0-RYG" firstAttribute="leading" secondItem="RtR-vj-o1G" secondAttribute="trailing" constant="10" id="ufy-vB-Zpx"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZN-WC-oEs">
+                    <rect key="frame" x="14" y="415" width="15" height="15"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="rfc-Vr-Yyq"/>
+                        <constraint firstAttribute="width" constant="15" id="tQN-4j-A1U"/>
+                    </constraints>
+                    <connections>
+                        <action selector="anonymousButtonClick:" destination="-1" eventType="touchUpInside" id="K6a-Hl-Lyk"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="qaZ-bB-335" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1ns-1A-d4l"/>
                 <constraint firstAttribute="trailing" secondItem="7SL-W9-RSs" secondAttribute="trailing" constant="8" id="4N4-jh-1zc"/>
-                <constraint firstItem="24E-IW-pSy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="BfY-fm-wzs"/>
-                <constraint firstItem="lbI-rj-M5T" firstAttribute="leading" secondItem="24E-IW-pSy" secondAttribute="trailing" constant="11" id="QKF-VX-dcP"/>
+                <constraint firstItem="tZN-WC-oEs" firstAttribute="top" secondItem="qaZ-bB-335" secondAttribute="bottom" constant="11" id="CXi-7T-jYF"/>
+                <constraint firstItem="tZN-WC-oEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="FZH-ES-4au"/>
                 <constraint firstAttribute="trailing" secondItem="qaZ-bB-335" secondAttribute="trailing" id="Whs-YQ-sRV"/>
                 <constraint firstItem="7SL-W9-RSs" firstAttribute="top" secondItem="lbI-rj-M5T" secondAttribute="bottom" constant="30" id="Xcv-aU-1Ue"/>
+                <constraint firstItem="lbI-rj-M5T" firstAttribute="leading" secondItem="tZN-WC-oEs" secondAttribute="trailing" constant="14" id="YA2-Wq-xPJ"/>
                 <constraint firstItem="qaZ-bB-335" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="YN2-EG-S2r"/>
-                <constraint firstItem="lbI-rj-M5T" firstAttribute="centerY" secondItem="24E-IW-pSy" secondAttribute="centerY" id="Zcb-kC-cin"/>
                 <constraint firstItem="7SL-W9-RSs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="c7D-fO-gPm"/>
-                <constraint firstItem="24E-IW-pSy" firstAttribute="top" secondItem="qaZ-bB-335" secondAttribute="bottom" constant="11" id="iqu-U4-1MB"/>
+                <constraint firstItem="tZN-WC-oEs" firstAttribute="centerY" secondItem="lbI-rj-M5T" secondAttribute="centerY" id="ddU-5n-y4V"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-483.5" y="230.5"/>
+            <point key="canvasLocation" x="-606.5" y="199.5"/>
         </view>
     </objects>
     <resources>
