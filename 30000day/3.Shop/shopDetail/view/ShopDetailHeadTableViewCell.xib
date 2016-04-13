@@ -15,8 +15,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每天9:00-22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmM-Hd-SjW">
-                        <rect key="frame" x="75" y="324" width="103" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="84" y="325" width="110" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -26,20 +26,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关键字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak2-yz-Irg">
-                        <rect key="frame" x="63" y="300" width="42" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="66" y="300" width="45" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="营业时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-cL-xY0">
-                        <rect key="frame" x="14" y="324" width="61" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="14" y="325" width="65" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打浦桥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nv6-Oi-LSM">
-                        <rect key="frame" x="14" y="300" width="42" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="14" y="300" width="45" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -60,7 +60,7 @@
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="leading" secondItem="Nv6-Oi-LSM" secondAttribute="trailing" constant="7" id="TKP-YS-cK1"/>
                     <constraint firstAttribute="trailing" secondItem="1wd-X1-heM" secondAttribute="trailing" id="WfH-LI-2gQ"/>
                     <constraint firstItem="Nv6-Oi-LSM" firstAttribute="leading" secondItem="NRS-mN-yhJ" secondAttribute="leading" id="Z0G-Hg-6av"/>
-                    <constraint firstItem="nmM-Hd-SjW" firstAttribute="leading" secondItem="DHa-cL-xY0" secondAttribute="trailing" id="ZKM-SF-yfq"/>
+                    <constraint firstItem="nmM-Hd-SjW" firstAttribute="leading" secondItem="DHa-cL-xY0" secondAttribute="trailing" constant="5" id="ZKM-SF-yfq"/>
                     <constraint firstItem="Ak2-yz-Irg" firstAttribute="top" secondItem="NRS-mN-yhJ" secondAttribute="bottom" constant="6" id="bpL-jc-jb6"/>
                     <constraint firstItem="NRS-mN-yhJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="inE-WZ-UQ0"/>
                     <constraint firstItem="1wd-X1-heM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="okk-nM-aGe"/>

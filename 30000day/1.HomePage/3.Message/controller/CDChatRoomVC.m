@@ -88,7 +88,7 @@ static NSInteger const kOnePageSize = 10;
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
     
 //    [self refreshConv];
     [self loadMessagesWhenInit];
@@ -126,18 +126,28 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)initBottomMenuAndEmotionView {
+    
     NSMutableArray *shareMenuItems = [NSMutableArray array];
+    
     NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video"];
+    
     NSArray *plugTitle = @[@"照片", @"拍摄"];
+    
     for (NSString *plugIcon in plugIcons) {
+        
         XHShareMenuItem *shareMenuItem = [[XHShareMenuItem alloc] initWithNormalIconImage:[UIImage imageNamed:plugIcon] title:[plugTitle objectAtIndex:[plugIcons indexOfObject:plugIcon]]];
+        
         [shareMenuItems addObject:shareMenuItem];
     }
+    
     self.shareMenuItems = shareMenuItems;
+    
     [self.shareMenuView reloadData];
     
     _emotionManagers = [CDEmotionUtils emotionManagers];
+    
     self.emotionManagerView.isShowEmotionStoreButton = YES;
+    
     [self.emotionManagerView reloadData];
 }
 

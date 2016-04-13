@@ -52,25 +52,27 @@ static NSString *cellIdentifier = @"ContactCell";
     return _conversations;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [LZConversationCell registerCellToTableView:self.tableView];
     
-    self.refreshControl = [self getRefreshControl];
+//    self.refreshControl = [self getRefreshControl];
+    
+    //添加头部刷新
+    [self addHeadRefresh];
     
     // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationMessageReceived object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationMessageReceived object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kCDNotificationUnreadsUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationUnreadsUpdated object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
     
     //当成功的从数天服务器获取到好友的时候发送的通知
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:STUseDidSuccessGetFriendsSendNotification object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:STUseDidSuccessGetFriendsSendNotification object:nil];
     
-    [self updateStatusView];
+//    [self updateStatusView];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
@@ -80,7 +82,7 @@ static NSString *cellIdentifier = @"ContactCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // 刷新 unread badge 和新增的对话
-    [self performSelector:@selector(refresh:) withObject:nil afterDelay:0];
+    [self performSelector:@selector(headerRefreshing) withObject:nil afterDelay:0];
 }
 
 - (void)dealloc {
@@ -93,6 +95,85 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:STUseDidSuccessGetFriendsSendNotification object:nil];
 }
+
+- (void)addHeadRefresh {
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    
+}
+
+- (void)headerRefreshing {
+    
+    if (self.isRefreshing) {
+        
+        return;
+    }
+    
+    self.isRefreshing = YES;
+    
+    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
+        
+        dispatch_block_t finishBlock = ^{
+            
+            [self.tableView.mj_header endRefreshing];
+            
+            if ([self filterError:error]) {
+                
+                self.conversations = [NSMutableArray arrayWithArray:conversations];
+                
+                for (int i = 0; i < self.conversations.count; i++) {
+                    
+                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
+                    
+                    UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+                    
+                    if (!model) {
+                        
+                        [[CDConversationStore store] deleteConversation:conversation];
+                    }
+                    
+                }
+                
+                [self.tableView reloadData];
+                
+                if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
+                    
+                    [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
+                    
+                }
+                
+                [self selectConversationIfHasRemoteNotificatoinConvid];
+            }
+            
+            self.isRefreshing = NO;
+        };
+        
+        if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
+            
+            [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
+                
+                if ([self filterError:error]) {
+                    
+                    finishBlock();
+                    
+                } else {
+                    
+                    [self.tableView.mj_header endRefreshing];
+                    
+                    self.isRefreshing = NO;
+                }
+            }];
+            
+        } else {
+            
+            finishBlock();
+            
+        }
+    }];
+}
+
+
+
 
 #pragma mark - client status view
 
@@ -132,79 +213,79 @@ static NSString *cellIdentifier = @"ContactCell";
 
 #pragma mark - refresh
 
-- (void)refresh {
-    [self refresh:nil];
-}
+//- (void)refresh {
+//    [self refresh:nil];
+//}
 
-- (void)refresh:(UIRefreshControl *)refreshControl {
-    
-    if (self.isRefreshing) {
-        
-        return;
-    }
-    
-    self.isRefreshing = YES;
-    
-    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
-        
-        dispatch_block_t finishBlock = ^{
-            
-            [self stopRefreshControl:refreshControl];
-            
-            if ([self filterError:error]) {
-                
-                self.conversations = [NSMutableArray arrayWithArray:conversations];
-                
-                for (int i = 0; i < self.conversations.count; i++) {
-                    
-                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
-                    
-                     UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
-                    
-                    if (!model) {
-                        
-                        [[CDConversationStore store] deleteConversation:conversation];
-                    }
-                    
-                }
-                
-                [self.tableView reloadData];
-                
-                if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
-                    
-                    [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
-                    
-                }
-                
-                [self selectConversationIfHasRemoteNotificatoinConvid];
-            }
-            
-            self.isRefreshing = NO;
-        };
-        
-        if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
-            
-            [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
-                
-                if ([self filterError:error]) {
-                    
-                    finishBlock();
-                    
-                } else {
-                    
-                    [self stopRefreshControl:refreshControl];
-                    
-                    self.isRefreshing = NO;
-                }
-            }];
-            
-        } else {
-            
-            finishBlock();
-            
-        }
-    }];
-}
+//- (void)refresh:(UIRefreshControl *)refreshControl {
+//    
+//    if (self.isRefreshing) {
+//        
+//        return;
+//    }
+//    
+//    self.isRefreshing = YES;
+//    
+//    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
+//        
+//        dispatch_block_t finishBlock = ^{
+//            
+//            [self stopRefreshControl:refreshControl];
+//            
+//            if ([self filterError:error]) {
+//                
+//                self.conversations = [NSMutableArray arrayWithArray:conversations];
+//                
+//                for (int i = 0; i < self.conversations.count; i++) {
+//                    
+//                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
+//                    
+//                     UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
+//                    
+//                    if (!model) {
+//                        
+//                        [[CDConversationStore store] deleteConversation:conversation];
+//                    }
+//                    
+//                }
+//                
+//                [self.tableView reloadData];
+//                
+//                if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
+//                    
+//                    [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
+//                    
+//                }
+//                
+//                [self selectConversationIfHasRemoteNotificatoinConvid];
+//            }
+//            
+//            self.isRefreshing = NO;
+//        };
+//        
+//        if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
+//            
+//            [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
+//                
+//                if ([self filterError:error]) {
+//                    
+//                    finishBlock();
+//                    
+//                } else {
+//                    
+//                    [self stopRefreshControl:refreshControl];
+//                    
+//                    self.isRefreshing = NO;
+//                }
+//            }];
+//            
+//        } else {
+//            
+//            finishBlock();
+//            
+//        }
+//    }];
+//}
 
 - (void)selectConversationIfHasRemoteNotificatoinConvid {
     
@@ -287,7 +368,7 @@ static NSString *cellIdentifier = @"ContactCell";
                 
                 [[CDConversationStore store] deleteConversation:conversation];
                 
-                [self refresh];
+                [self headerRefreshing];
                 
             }];
 
@@ -352,7 +433,7 @@ static NSString *cellIdentifier = @"ContactCell";
         
         [[CDConversationStore store] deleteConversation:conversation];
         
-        [self refresh];
+        [self headerRefreshing];
     }
 }
 
@@ -370,7 +451,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [conversation markAsReadInBackground];
     
-    [self refresh];
+    [self headerRefreshing];
     
 //    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
 //        

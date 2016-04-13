@@ -15,21 +15,21 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cjb-tB-DiN">
-                        <rect key="frame" x="14" y="14" width="13" height="16"/>
+                        <rect key="frame" x="14" y="13" width="16" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="U1t-3L-Dnc"/>
-                            <constraint firstAttribute="width" constant="13" id="i5M-Rj-QoD"/>
+                            <constraint firstAttribute="height" constant="18" id="U1t-3L-Dnc"/>
+                            <constraint firstAttribute="width" constant="16" id="i5M-Rj-QoD"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9e-NZ-zmN">
-                        <rect key="frame" x="32" y="11" width="68" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="40" y="13" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="S9e-NZ-zmN" firstAttribute="leading" secondItem="cjb-tB-DiN" secondAttribute="trailing" constant="5" id="2hJ-uy-53e"/>
+                    <constraint firstItem="S9e-NZ-zmN" firstAttribute="leading" secondItem="cjb-tB-DiN" secondAttribute="trailing" constant="10" id="2hJ-uy-53e"/>
                     <constraint firstItem="cjb-tB-DiN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="HBR-x1-UMb"/>
                     <constraint firstItem="cjb-tB-DiN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eP8-dg-ykk"/>
                     <constraint firstItem="S9e-NZ-zmN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="x2H-hu-gYe"/>

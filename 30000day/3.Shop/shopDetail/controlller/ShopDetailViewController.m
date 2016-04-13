@@ -22,6 +22,8 @@
 #import "ShopModel.h"
 #import "CompanyViewController.h"
 #import "ShopDetailMapViewController.h"
+#import "CDChatVC.h"
+#import "CDIMService.h"
 
 #define SECTIONSCOUNT 5
 
@@ -74,7 +76,7 @@
         self.title = model.productName;
         
         self.shopDetailModel = model;
-        
+        //店长推荐
         [self.dataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelKeeperArray = [NSArray arrayWithArray:success];
@@ -89,7 +91,7 @@
             
         }];
         
-        
+        //平台推荐
         [self.dataHandler sendPlatformRecommendWithProductTypeId:model.productTypePid count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelTerraceArray = [NSArray arrayWithArray:success];
@@ -101,7 +103,7 @@
             [self.tableView.mj_header endRefreshing];
             
         }];
-        
+        //商品详情评论
         [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
             
             if (success > 0) {
@@ -244,7 +246,6 @@
             return 110;
             
         }
-        
     }
     
     return 44;
@@ -309,7 +310,7 @@
         } else if (indexPath.row == 2) {
             
             cell.leftTitleLable.text = @"联系商家";
-            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
+            [cell.leftImageView setImage:[UIImage imageNamed:@"shortMessage"]];
         }
         
         return cell;
@@ -452,7 +453,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1) {//查看商家地址
       
         if (indexPath.row == 0) {
             
@@ -464,7 +465,7 @@
             
             [self.navigationController pushViewController:controller animated:YES];
             
-        } else if (indexPath.row == 1 ){
+        } else if (indexPath.row == 1 ){//拨打商家的热线电话
  
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定拨打%@?",self.shopDetailModel.telephone] message:@"该电话为商家联系电话" preferredStyle:UIAlertControllerStyleAlert];
             
@@ -481,6 +482,24 @@
             [controller addAction:cancelAction];
             
             [self presentViewController:controller animated:YES completion:nil];
+            
+        } else if (indexPath.row == 2) {//开启和商家聊天之旅
+            
+            //查询conversation
+            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.companyId] callback: ^(AVIMConversation *conversation, NSError *error) {
+                
+                if (error) {
+                    
+                    [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                    
+                } else {
+                    CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                    
+                    //                    controller.otherModel = self.informationModel;
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
+            }];
         }
         
     } else if (indexPath.section == 2) {
