@@ -272,18 +272,18 @@
     
     if (indexPath.section == 0) {
         
-        ShopDetailHeadTableViewCell *shopDetailHeadTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailHeadTableViewCell"];
+        ShopDetailHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailHeadTableViewCell"];
         
-        if (shopDetailHeadTableViewCell == nil) {
+        if (cell == nil) {
             
-            shopDetailHeadTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        [shopDetailHeadTableViewCell.rollImageView setMTImagePlayerViewDelegate:self];
-        shopDetailHeadTableViewCell.rollImageView.sourceArray = self.sourceArray;
-        shopDetailHeadTableViewCell.shopDetailModel = self.shopDetailModel;
+        [cell.rollImageView setMTImagePlayerViewDelegate:self];
+        cell.rollImageView.sourceArray = self.sourceArray;
+        cell.shopDetailModel = self.shopDetailModel;
         
-        return shopDetailHeadTableViewCell;
+        return cell;
         
         
     } else if (indexPath.section == 1) {
@@ -316,44 +316,43 @@
         
     } else if (indexPath.section == 2) {
         
-        ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+        ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
         
-        if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
+        if (cell == nil) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"店长推荐（321）";
+            cell.textLabel.text = @"店长推荐（321）";
             
-            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
             
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            return cell;
             
         } else if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看店铺";
+            cell.textLabel.text = @"查看店铺";
             
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            return cell;
             
         } else {
             
             ShopModel *shopModel = self.shopModelKeeperArray[indexPath.row - 1];
             
-            ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
+            ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
-            if (shopListTableViewCell == nil) {
+            if (cell == nil) {
                 
-                shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            shopListTableViewCell.shopModel = shopModel;
+            cell.shopModel = shopModel;
             
-            return shopListTableViewCell;
+            return cell;
 
-            
         }
         
         
@@ -361,94 +360,88 @@
         
         if (indexPath.row == 0) {
             
-            ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
             
-            if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
+            if (cell == nil) {
                 
-                shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
-            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"网友点评（321）";
+            cell.textLabel.text = @"网友点评（321）";
             
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            return cell;
             
         } else if (indexPath.row == 1){
             
-            ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
+            ShopDetailCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
             
-            if (shopDetailCommentTableViewCell == nil) {
+            if (cell == nil) {
                 
-                shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
                 
             }
             
-            shopDetailCommentTableViewCell.checkReply.hidden = YES;
-            shopDetailCommentTableViewCell.commentZambiaButton.hidden = YES;
-            shopDetailCommentTableViewCell.commentButton.hidden = YES;
-            shopDetailCommentTableViewCell.commentModel = self.commentModel;
-            shopDetailCommentTableViewCell.commentPhotosArray = self.commitPhotos;
+            cell.checkReply.hidden = YES;
+            cell.commentZambiaButton.hidden = YES;
+            cell.commentButton.hidden = YES;
+            cell.commentModel = self.commentModel;
+            cell.commentPhotosArray = self.commitPhotos;
             
-            return shopDetailCommentTableViewCell;
+            return cell;
             
         } else {
             
-            ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
             
-            if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
+            if (cell == nil) {
                 
-                shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"查看全部评论";
+            cell.textLabel.text = @"查看全部评论";
             
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            return cell;
             
         }
         
     } else if (indexPath.section == 4) {
         
-        ShopDetailOneLineDataNoImageViewTableViewCell *shopDetailOneLineDataNoImageViewTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+        ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
         
-        if (shopDetailOneLineDataNoImageViewTableViewCell == nil) {
+        if (cell == nil) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
         if (indexPath.row == 0) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"推荐列表（321）";
+            cell.textLabel.text = @"推荐列表（321）";
             
-            [shopDetailOneLineDataNoImageViewTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
-            
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
             
         } else if (indexPath.row == self.shopModelTerraceArray.count + 1) {
             
-            shopDetailOneLineDataNoImageViewTableViewCell.textLabel.text = @"全部推荐";
-            
-            return shopDetailOneLineDataNoImageViewTableViewCell;
+            cell.textLabel.text = @"全部推荐";
             
         } else {
             
             ShopModel *shopModel = self.shopModelTerraceArray[indexPath.row - 1];
             
-            ShopListTableViewCell *shopListTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
+            ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
-            if (shopListTableViewCell == nil) {
+            if (cell == nil) {
                 
-                shopListTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            shopListTableViewCell.shopModel = shopModel;
-            
-            return shopListTableViewCell;
+            cell.shopModel = shopModel;
         }
         
-        return shopDetailOneLineDataNoImageViewTableViewCell;
+        return cell;
         
     }
     
