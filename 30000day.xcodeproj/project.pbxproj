@@ -358,6 +358,7 @@
 		B8BD787B1CBE2DAA00362C89 /* CommodityNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BD78761CBE2DAA00362C89 /* CommodityNameTableViewCell.xib */; };
 		B8BD787C1CBE2DAA00362C89 /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78781CBE2DAA00362C89 /* PayTableViewCell.m */; };
 		B8BD787D1CBE2DAA00362C89 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BD78791CBE2DAA00362C89 /* PayTableViewCell.xib */; };
+		B8BD78801CBE2E6500362C89 /* ShopDeliverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD787F1CBE2E6500362C89 /* ShopDeliverModel.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
@@ -1137,6 +1138,8 @@
 		B8BD78771CBE2DAA00362C89 /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
 		B8BD78781CBE2DAA00362C89 /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
 		B8BD78791CBE2DAA00362C89 /* PayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayTableViewCell.xib; sourceTree = "<group>"; };
+		B8BD787E1CBE2E6500362C89 /* ShopDeliverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDeliverModel.h; sourceTree = "<group>"; };
+		B8BD787F1CBE2E6500362C89 /* ShopDeliverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDeliverModel.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -2884,6 +2887,8 @@
 				B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */,
 				B8F6E3AB1CBCD40B000CC117 /* ShopAnnotation.h */,
 				B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */,
+				B8BD787E1CBE2E6500362C89 /* ShopDeliverModel.h */,
+				B8BD787F1CBE2E6500362C89 /* ShopDeliverModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4789,6 +4794,7 @@
 				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */,
 				B8F6487A1C9424BF001A3119 /* AppointmentCollectionViewCell.m in Sources */,
+				B8BD78801CBE2E6500362C89 /* ShopDeliverModel.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
