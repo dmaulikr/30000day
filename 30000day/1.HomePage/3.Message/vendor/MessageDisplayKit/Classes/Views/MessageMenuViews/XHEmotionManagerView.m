@@ -14,7 +14,7 @@
 #import "XHEmotionCollectionViewFlowLayout.h"
 
 
-@interface XHEmotionManagerView () <UICollectionViewDelegate, UICollectionViewDataSource, XHEmotionSectionBarDelegate>
+@interface XHEmotionManagerView () <UICollectionViewDelegate, UICollectionViewDataSource, XHEmotionSectionBarDelegate,UICollectionViewDelegateFlowLayout>
 
 /**
  *  显示表情的collectView控件
@@ -46,19 +46,27 @@
 @implementation XHEmotionManagerView
 
 - (void)reloadData {
+    
     NSInteger numberOfEmotionManagers = [self.dataSource numberOfEmotionManagers];
+    
     if (!numberOfEmotionManagers) {
+        
         return ;
     }
     
     self.emotionSectionBar.emotionManagers = [self.dataSource emotionManagersAtManager];
+    
     [self.emotionSectionBar reloadData];
     
     
     XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
+    
     self.emotionPageControl.numberOfPages = emotionManager.estimatedPages;
     
     [self.emotionCollectionView reloadData];
+    
+    //滚动到第一页位置
+    [self.emotionCollectionView scrollRectToVisible:CGRectMake(0, 0, self.emotionCollectionView.size.width, self.emotionCollectionView.size.height) animated:NO];
 }
 
 #pragma mark - Life cycle
@@ -158,22 +166,49 @@
 #pragma UICollectionView DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    
+    XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
+    
+    if (self.selectedIndex) {//表示是大图的gif表情
+        
+        return emotionManager.emotions.count%8 ? (emotionManager.emotions.count/8 + 1) : (emotionManager.emotions.count/8);
+        
+    } else {//小图表情
+        
+        return emotionManager.emotions.count%21 ? (emotionManager.emotions.count/21 + 1) : (emotionManager.emotions.count/21);
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
     XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
-    NSInteger count = emotionManager.emotions.count;
-    return count;
+    
+    if (emotionManager.emotions.count % (self.selectedIndex ? 8 : 21)) {//没除尽
+        
+        if (section ==  emotionManager.emotions.count/(self.selectedIndex ? 8 : 21)) {
+            
+            return emotionManager.emotions.count%(self.selectedIndex ? 8 : 21);
+        }
+        
+        return (self.selectedIndex ? 8 : 21);
+        
+    } else {//除尽了
+        
+        return (self.selectedIndex ? 8 : 21);
+        
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     XHEmotionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kXHEmotionCollectionViewCellIdentifier forIndexPath:indexPath];
     
     XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
-    cell.emotion = emotionManager.emotions[indexPath.row];
+    
+    cell.emotion = emotionManager.emotions[indexPath.row + (self.selectedIndex?8:21) * indexPath.section];
+    
     cell.emotionSize = emotionManager.emotionSize;
-    cell.backgroundColor = [UIColor redColor];
+    
     return cell;
 }
 
@@ -182,15 +217,31 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
+    
     return emotionManager.emotionSize;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     if ([self.delegate respondsToSelector:@selector(didSelecteEmotion:atIndexPath:)]) {
+        
         XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
-        [self.delegate didSelecteEmotion:emotionManager.emotions[indexPath.row] atIndexPath:indexPath];
+        
+        [self.delegate didSelecteEmotion:emotionManager.emotions[indexPath.row + indexPath.section * (self.selectedIndex?8:21)] atIndexPath:indexPath];
     }
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+        
+    return self.selectedIndex ? UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 220) / 5.0f, 0, (SCREEN_WIDTH - 220) / 5.0f)  :UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 245) / 8.0f, 0, (SCREEN_WIDTH - 245) / 8.0f);
+    
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    
+    return self.selectedIndex ? (SCREEN_WIDTH - 220) / 5.0f  :(SCREEN_WIDTH - 245) / 8.0f;
 }
 
 @end

@@ -35,7 +35,7 @@
     }
 }
 
--(void)storeButtonClicked:(UIButton*)sender{
+- (void)storeButtonClicked:(UIButton*)sender{
     if([self.delegate respondsToSelector:@selector(didSelectEmotionStoreButton:)]){
         [self.delegate didSelectEmotionStoreButton:sender];
     }
@@ -45,7 +45,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.frame = CGRectMake(0, 0, kXHStoreManagerItemWidth, CGRectGetHeight(self.bounds));
     [button addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [button setTitleColor:[UIColor colorWithRed:40.f/255 green:130.f/255 blue:226.f/255 alpha:1] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithRed:73.f/255 green:124.f/255 blue:200.f/255 alpha:1] forState:UIControlStateNormal];
     return button;
 }
 
