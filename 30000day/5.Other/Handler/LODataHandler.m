@@ -4697,7 +4697,77 @@
     request.requestSerializerType = LORequestSerializerTypeJSON;
     
     [self startRequest:request];
+}
 
+//*****************************************根据userId来获取个人信息模型*********************/
+- (void)sendUserInformtionWithUserId:(NSNumber *)userId
+                             success:(void (^)(UserInformationModel *model))success
+                             failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:userId forKey:@"userId"];
+    
+    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+                                                        url:GET_USER_INFORMATION
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSDictionary *dictionary = recvDic[@"value"];
+                                                                
+                                                                UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(model);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(LONetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = LORequestSerializerTypeJSON;
+    
+    [self startRequest:request];
 }
 
 @end

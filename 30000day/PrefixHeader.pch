@@ -215,6 +215,8 @@
 
 #define  GET_MY_SUBSCRIBE             @"/stapi/info/mySubscribe"                //我的订阅
 
+#define  GET_USER_INFORMATION         @"/stapi/user/getUserById"               //获取个人信息
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"

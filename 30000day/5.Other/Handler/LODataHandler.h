@@ -39,6 +39,8 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 
 @class MyOrderDetailModel;
 
+@class UserInformationModel;
+
 @interface LODataHandler : NSObject
 
 @property (nonatomic, weak) STBaseViewController *delegate;
@@ -388,6 +390,11 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 //*****************************************我的订阅*********************/
 - (void)sendMySubscribeWithUserId:(NSString *)userId
                           success:(void (^)(NSMutableArray *success))success
+                          failure:(void (^)(NSError *error))failure;
+
+//*****************************************根据userId来获取个人信息模型*********************/
+- (void)sendUserInformtionWithUserId:(NSNumber *)userId
+                          success:(void (^)(UserInformationModel *model))success
                           failure:(void (^)(NSError *error))failure;
 
 @end
