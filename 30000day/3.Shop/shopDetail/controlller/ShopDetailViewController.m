@@ -24,6 +24,7 @@
 #import "ShopDetailMapViewController.h"
 #import "CDChatVC.h"
 #import "CDIMService.h"
+#import "MTProgressHUD.h"
 
 #define SECTIONSCOUNT 5
 
@@ -37,6 +38,7 @@
 @property (nonatomic,strong) CommentModel *commentModel;
 @property (nonatomic,strong) NSArray *shopModelKeeperArray;   //店长推荐
 @property (nonatomic,strong) NSArray *shopModelTerraceArray;  //平台推荐
+@property (nonatomic,strong)UserInformationModel *ownerInformationModel;//店主的个人信息
 
 @end
 
@@ -118,6 +120,15 @@
         } failure:^(NSError *error) {
             
             [self.tableView.mj_header endRefreshing];
+            
+        }];
+        
+        //下载店主的个人信息
+        [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+           
+            self.ownerInformationModel = model;
+            
+        } failure:^(NSError *error) {
             
         }];
         
@@ -483,21 +494,45 @@
             
             [self presentViewController:controller animated:YES completion:nil];
             
-        } else if (indexPath.row == 2) {//开启和商家聊天之旅
+        } else if (indexPath.row == 2) {//开启与商家聊天之旅
             
             //查询conversation
-            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.companyId] callback: ^(AVIMConversation *conversation, NSError *error) {
+            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] callback: ^(AVIMConversation *conversation, NSError *error) {
                 
                 if (error) {
                     
                     [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
                     
                 } else {
-                    CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                    
-                    //                    controller.otherModel = self.informationModel;
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
+                
+                    if (self.ownerInformationModel) {//如果店主的个人信息模型存在那么直接过去
+                        
+                        CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                        
+                        controller.otherModel = self.ownerInformationModel;
+                        
+                        [self.navigationController pushViewController:controller animated:YES];
+                        
+                    } else {//如果店主的个人信息模型不在，需要去下载
+                        
+                        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                        [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+                           
+                            CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                            
+                            controller.otherModel = model;
+                            
+                            [self.navigationController pushViewController:controller animated:YES];
+                            
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                            
+                        } failure:^(NSError *error) {
+                            
+                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                            
+                        }];
+                    }
                 }
             }];
         }
