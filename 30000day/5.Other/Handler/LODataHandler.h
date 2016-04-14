@@ -397,4 +397,10 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                           success:(void (^)(UserInformationModel *model))success
                           failure:(void (^)(NSError *error))failure;
 
+//*****************************************查找作者*********************/
+- (void)sendSearchWriterListWithWriterName:(NSString *)writerName
+                                    userId:(NSString *)userId
+                          success:(void (^)(NSMutableArray *success))success
+                          failure:(void (^)(NSError *error))failure;
+
 @end

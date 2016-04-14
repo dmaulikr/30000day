@@ -8,6 +8,8 @@
 
 #import "SubscriptionCentralityViewController.h"
 #import "SubscribeListTableViewCell.h"
+#import "InformationMySubscribeModel.h"
+#import "InformationWriterHomepageViewController.h"
 
 @interface SubscriptionCentralityViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -30,11 +32,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
     self.searchBackgroundView.layer.cornerRadius = 5;
     
     self.searchBackgroundView.layer.masksToBounds = YES;
+    
+    [self.tableView setDelegate:self];
+    
+    [self.tableView setDataSource:self];
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
@@ -44,6 +48,17 @@
     
     [self.textField becomeFirstResponder];
     
+    [self.textField setDelegate:self];
+    
+    self.searchResultArray = [NSMutableArray array];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 }
 
 - (IBAction)cancelAction:(UIButton *)sender {
@@ -64,14 +79,22 @@
     
     if (self.isSearch) {
         
-        
+        [self.dataHandler sendSearchWriterListWithWriterName:self.textField.text userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+            
+            self.searchResultArray = success;
+            
+            [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+            
+            
+            
+        }];
         
     } else {
         
         
     }
-    
-    [self.tableView reloadData];
     
     return YES;
 }
@@ -92,21 +115,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    static NSString *searchResultIdentifier = @"SearchResultTableViewCell";
-//    
-//    SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:searchResultIdentifier];
-//    
-//    if (cell == nil) {
-//        
-//        cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
-//    }
-//    
-    return nil;
+    static NSString *searchResultIdentifier = @"SubscribeListTableViewCell";
+    
+    SubscribeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:searchResultIdentifier];
+    
+    if (cell == nil) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
+    }
+    
+    cell.subscriptionModel = self.searchResultArray[indexPath.row];
+    
+
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 70;
+    return 81;
 }
 
 - (void)dealloc {
@@ -115,6 +141,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SubscriptionModel *subscriptionModel = self.searchResultArray[indexPath.row];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+    controller.writerId = subscriptionModel.writerId;
+    [self.navigationController pushViewController:controller animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

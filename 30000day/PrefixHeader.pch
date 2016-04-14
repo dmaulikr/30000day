@@ -217,6 +217,8 @@
 
 #define  GET_USER_INFORMATION         @"/stapi/user/getUserById"               //获取个人信息
 
+#define  GET_SEARCH_WRITER_LIST            @"/stapi/info/searchWriterList"     //搜索作者
+
 //发送消息的标记
 #define MESSAGE_STRING       @"[1]"
 #define MESSAGE_VOICE        @"[2]"
