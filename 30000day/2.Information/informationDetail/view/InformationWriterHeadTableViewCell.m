@@ -13,6 +13,14 @@
 
 - (void)awakeFromNib {
 
+    self.headImageView.layer.masksToBounds = YES;
+    self.headImageView.layer.cornerRadius = 5.0;
+    
+    self.subscriptionButton.layer.masksToBounds = YES;
+    [self.subscriptionButton.layer setBorderWidth:2.0];
+    [self.subscriptionButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    self.subscriptionButton.layer.cornerRadius = 5.0;
+    
     [self.subscriptionButton addTarget:self action:@selector(subscriptionButtonClick:) forControlEvents:UIControlEventTouchDown];
     
 }
@@ -39,11 +47,9 @@
     
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:informationWriterModel.headImg]];
     
-    [self.nameLable setText:informationWriterModel.writerName];
-    
     [self.synopsisLable setText:informationWriterModel.writerDescription];
     
-    [self.subscriptionCountLable setText:[NSString stringWithFormat:@"%ld",informationWriterModel.subscribeCount]];
+    [self.subscriptionCountLable setText:[NSString stringWithFormat:@"%ld人已订阅",informationWriterModel.subscribeCount]];
 
 }
 

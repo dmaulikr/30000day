@@ -16,6 +16,7 @@
 #import "InformationDetailWebViewController.h"
 #import "InformationWriterHomepageViewController.h"
 #import "InformationMySubscribeModel.h"
+#import "SubscriptionCentralityViewController.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -31,6 +32,8 @@
 @property (nonatomic,strong) UITableView *tableViewInformation; //资讯tableView
 
 @property (nonatomic,strong) UITableView *tableViewSubscription; //订阅tableView
+
+@property (nonatomic,strong) UIButton *subscriptionCentralityButton; //订阅中心
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 
@@ -416,6 +419,40 @@
     [_bottomScrollView setBackgroundColor:BLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
+    
+    self.subscriptionCentralityButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.subscriptionCentralityButton setTitle:@"订阅中心" forState:UIControlStateNormal];
+    [self.subscriptionCentralityButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [self.subscriptionCentralityButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.subscriptionCentralityButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
+    [self.buttonParentView addSubview:self.subscriptionCentralityButton];
+    self.subscriptionCentralityButton.translatesAutoresizingMaskIntoConstraints=NO;
+    
+    [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.subscriptionCentralityButton
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.buttonParentView
+                                                                      attribute:NSLayoutAttributeCenterY
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+    
+    [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.subscriptionCentralityButton
+                                                                      attribute:NSLayoutAttributeRight
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.buttonParentView
+                                                                      attribute:NSLayoutAttributeRight
+                                                                     multiplier:1.0
+                                                                       constant:0]];
+
+    
+}
+
+- (void)addFriendsClick {
+
+    SubscriptionCentralityViewController *controller = [[SubscriptionCentralityViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+
 }
 
 - (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {

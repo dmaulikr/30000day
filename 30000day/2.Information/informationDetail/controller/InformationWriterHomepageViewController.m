@@ -137,9 +137,9 @@
 
     if (indexPath.section == 0) {
         
-       CGFloat textHeight = [Common heightWithText:self.informationWriterModel.writerDescription width:[UIScreen mainScreen].bounds.size.width - 90 fontSize:14.0];
+       CGFloat textHeight = [Common heightWithText:self.informationWriterModel.writerDescription width:[UIScreen mainScreen].bounds.size.width - 16 fontSize:14.0];
         
-        return 153 + textHeight;
+        return 162 + 20 + textHeight;
         
     }
     
@@ -178,7 +178,7 @@
                         
                         self.isSubscription = self.isSubscription - 1;
                         
-                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld",self.isSubscription];
+                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
                         
                     }
                     
@@ -203,7 +203,7 @@
                         
                         self.isSubscription = self.isSubscription + 1;
                         
-                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld",self.isSubscription];
+                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
                         
                     }
                     

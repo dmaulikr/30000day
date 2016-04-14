@@ -51,6 +51,8 @@
 		B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6171DD01C8D7ADF00116B13 /* EmailBindViewController.m */; };
 		B6171DD31C8D7ADF00116B13 /* EmailBindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */; };
 		B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */; };
+		B6271B821CBF871400F45578 /* SubscriptionCentralityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6271B801CBF871400F45578 /* SubscriptionCentralityViewController.m */; };
+		B6271B831CBF871400F45578 /* SubscriptionCentralityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6271B811CBF871400F45578 /* SubscriptionCentralityViewController.xib */; };
 		B62C38191C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C380F1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m */; };
 		B62C381A1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B62C38101C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib */; };
 		B62C381B1C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B62C38121C9AA6B6002208CD /* ShopDetailOneLineDataNoImageViewTableViewCell.m */; };
@@ -473,12 +475,6 @@
 		B8F73C521C9689640063CC60 /* MySubscribeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C501C9689640063CC60 /* MySubscribeViewController.xib */; };
 		B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C571C968CC20063CC60 /* ReportViewController.m */; };
 		B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C581C968CC20063CC60 /* ReportViewController.xib */; };
-		B8F73C721C96C6CE0063CC60 /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */; };
-		B8F73C731C96C6CE0063CC60 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */; };
-		B8F73C5E1C968D1D0063CC60 /* InformationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */; };
-		B8F73C5F1C968D1D0063CC60 /* InformationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */; };
-		B8F73C631C96959A0063CC60 /* InformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */; };
-		B8F73C641C96959A0063CC60 /* InformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
 		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
@@ -725,6 +721,9 @@
 		B6171DD11C8D7ADF00116B13 /* EmailBindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewController.xib; sourceTree = "<group>"; };
 		B61A4FBE1CA13E0C000EAF4C /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
 		B61A4FBF1CA13E0C000EAF4C /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		B6271B7F1CBF871400F45578 /* SubscriptionCentralityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionCentralityViewController.h; sourceTree = "<group>"; };
+		B6271B801CBF871400F45578 /* SubscriptionCentralityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionCentralityViewController.m; sourceTree = "<group>"; };
+		B6271B811CBF871400F45578 /* SubscriptionCentralityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionCentralityViewController.xib; sourceTree = "<group>"; };
 		B62C380E1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailHeadTableViewCell.h; sourceTree = "<group>"; };
 		B62C380F1C9AA6B6002208CD /* ShopDetailHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailHeadTableViewCell.m; sourceTree = "<group>"; };
 		B62C38101C9AA6B6002208CD /* ShopDetailHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailHeadTableViewCell.xib; sourceTree = "<group>"; };
@@ -1397,15 +1396,6 @@
 		B8F73C561C968CC20063CC60 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		B8F73C571C968CC20063CC60 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		B8F73C581C968CC20063CC60 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
-		B8F73C6F1C96C6CE0063CC60 /* PayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
-		B8F73C701C96C6CE0063CC60 /* PayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
-		B8F73C711C96C6CE0063CC60 /* PayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayTableViewCell.xib; sourceTree = "<group>"; };
-		B8F73C5B1C968D1D0063CC60 /* InformationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailViewController.h; sourceTree = "<group>"; };
-		B8F73C5C1C968D1D0063CC60 /* InformationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailViewController.m; sourceTree = "<group>"; };
-		B8F73C5D1C968D1D0063CC60 /* InformationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailViewController.xib; sourceTree = "<group>"; };
-		B8F73C601C96959A0063CC60 /* InformationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationTableViewCell.h; sourceTree = "<group>"; };
-		B8F73C611C96959A0063CC60 /* InformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationTableViewCell.m; sourceTree = "<group>"; };
-		B8F73C621C96959A0063CC60 /* InformationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationTableViewCell.xib; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
 		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
@@ -3460,6 +3450,9 @@
 			children = (
 				B8F73C361C96519F0063CC60 /* InformationViewController.h */,
 				B8F73C371C96519F0063CC60 /* InformationViewController.m */,
+				B6271B7F1CBF871400F45578 /* SubscriptionCentralityViewController.h */,
+				B6271B801CBF871400F45578 /* SubscriptionCentralityViewController.m */,
+				B6271B811CBF871400F45578 /* SubscriptionCentralityViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4544,6 +4537,7 @@
 				B8FD3AD81C852BE3007BCA6B /* ChangePasswordViewController.xib in Resources */,
 				B6171DC01C8D208600116B13 /* WeatherTableViewCell.xib in Resources */,
 				B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */,
+				B6271B831CBF871400F45578 /* SubscriptionCentralityViewController.xib in Resources */,
 				B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */,
 				B804FD661C8AC9A900DFD1CF /* tusiji_2_cover@2x.png in Resources */,
 				B88C913B1C59F2260089BEAE /* Images.xcassets in Resources */,
@@ -4998,6 +4992,7 @@
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
 				B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */,
 				B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */,
+				B6271B821CBF871400F45578 /* SubscriptionCentralityViewController.m in Sources */,
 				B8FD3DE91C8A7903007BCA6B /* XHBaseViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,

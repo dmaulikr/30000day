@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLable;
-
 @property (weak, nonatomic) IBOutlet UIButton *subscriptionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLable;
