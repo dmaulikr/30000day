@@ -173,7 +173,7 @@
     XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
     cell.emotion = emotionManager.emotions[indexPath.row];
     cell.emotionSize = emotionManager.emotionSize;
-    
+    cell.backgroundColor = [UIColor redColor];
     return cell;
 }
 

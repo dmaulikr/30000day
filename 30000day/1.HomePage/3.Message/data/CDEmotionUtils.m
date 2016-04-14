@@ -102,8 +102,8 @@
         for (NSInteger j = 0; j < emotionCodes.count; j++) {
             XHEmotion *xhEmotion = [[XHEmotion alloc] init];
             NSString *code = emotionCodes[j];
-            CGFloat emojiSize = 30;
-            xhEmotion.emotionConverPhoto = [self imageFromString:codeToEmoji[code] attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:25] } size:CGSizeMake(emojiSize, emojiSize)];
+            CGFloat emojiSize = 35;
+            xhEmotion.emotionConverPhoto = [self imageFromString:codeToEmoji[code] attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:25] } size:CGSizeMake(width, width)];
             xhEmotion.emotionPath = code;
             [emotions addObject:xhEmotion];
         }
