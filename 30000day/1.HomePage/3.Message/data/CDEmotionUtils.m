@@ -82,7 +82,7 @@
 
 + (UIImage *)imageFromString:(NSString *)string attributes:(NSDictionary *)attributes size:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    [string drawInRect:CGRectMake(0, 0, size.width, size.height) withAttributes:attributes];
+    [string drawInRect:CGRectMake(4.0f, 3.0f, size.width, size.height) withAttributes:attributes];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
@@ -95,7 +95,7 @@
     {
         XHEmotionManager *emotionManager = [[XHEmotionManager alloc] init];
         CGFloat width = 35;
-        emotionManager.estimatedPages = 2;
+        emotionManager.estimatedPages = emotionCodes.count%21 ? emotionCodes.count/21 + 1 : emotionCodes.count/21;
         emotionManager.emotionSize = CGSizeMake(width, width);
         emotionManager.emotionName = @"普通";
         NSMutableArray *emotions = [NSMutableArray array];
@@ -103,7 +103,7 @@
             XHEmotion *xhEmotion = [[XHEmotion alloc] init];
             NSString *code = emotionCodes[j];
             CGFloat emojiSize = 35;
-            xhEmotion.emotionConverPhoto = [self imageFromString:codeToEmoji[code] attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:25] } size:CGSizeMake(width, width)];
+            xhEmotion.emotionConverPhoto = [self imageFromString:codeToEmoji[code] attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:25.0f]} size:CGSizeMake(emojiSize, emojiSize)];
             xhEmotion.emotionPath = code;
             [emotions addObject:xhEmotion];
         }
@@ -111,11 +111,11 @@
         [emotionManagers addObject:emotionManager];
     }
     {
-        XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:1 name:@"兔斯基" maxIndex:15 prefix:@"tusiji"];
+        XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:2 name:@"兔斯基" maxIndex:15 prefix:@"tusiji"];
         [emotionManagers addObject:emotionManager];
     }
     {
-        XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:2 name:@"玉兔" maxIndex:22 prefix:@"rabbit"];
+        XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:3 name:@"玉兔" maxIndex:22 prefix:@"rabbit"];
         [emotionManagers addObject:emotionManager];
     }
     return emotionManagers;

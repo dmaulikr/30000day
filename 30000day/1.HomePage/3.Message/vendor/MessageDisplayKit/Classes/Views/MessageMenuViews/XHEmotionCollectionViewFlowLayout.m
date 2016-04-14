@@ -11,12 +11,19 @@
 @implementation XHEmotionCollectionViewFlowLayout
 
 - (instancetype)init {
+    
     self = [super init];
+    
     if (self) {
+        
         self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        self.minimumLineSpacing = kXHEmotionMinimumLineSpacing;
-        self.sectionInset = UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, kXHEmotionCollectionViewSectionInset, 0, kXHEmotionCollectionViewSectionInset);
+        
+//        self.minimumLineSpacing = (SCREEN_WIDTH - 245) / 8.0f;//行间距(最小值)
+//        
+//        self.sectionInset = UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 245) / 8.0f, 0, (SCREEN_WIDTH - 245) / 8.0f);
+        
         self.collectionView.alwaysBounceVertical = YES;
+        
     }
     return self;
 }
