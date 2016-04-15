@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "InformationMySubscribeModel.h"
+#import "SubscriptionModel.h"
 
 @interface SubscribeListTableViewCell : UITableViewCell
 
@@ -18,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *memoLable;
 
 @property (nonatomic,strong) InformationMySubscribeModel *informationMySubscribeModel;
+
+@property (nonatomic,strong) SubscriptionModel* subscriptionModel;
 
 @end

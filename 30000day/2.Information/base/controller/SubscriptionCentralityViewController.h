@@ -1,5 +1,5 @@
 //
-//  subscriptionCentralityViewController.h
+//  SubscriptionCentralityViewController.h
 //  30000day
 //
 //  Created by wei on 16/4/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SubscriptionCentralityViewController : UIViewController
+@interface SubscriptionCentralityViewController : STBaseViewController
 
 @end

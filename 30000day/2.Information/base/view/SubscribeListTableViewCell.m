@@ -34,4 +34,14 @@
 
 }
 
+- (void)setSubscriptionModel:(SubscriptionModel *)subscriptionModel {
+
+    [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:subscriptionModel.headImg]];
+    
+    self.writerName.text = subscriptionModel.writerName;
+    
+    self.memoLable.text = subscriptionModel.writerDescription;
+
+}
+
 @end
