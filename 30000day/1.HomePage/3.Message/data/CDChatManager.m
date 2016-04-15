@@ -95,6 +95,53 @@ static CDChatManager *instance;
     [self.client closeWithCallback:callback];
 }
 
+
+#pragma mark ---- 新加的
+- (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    [array addObject:self.client.clientId];
+    
+    [array addObject:otherId];
+    
+    [self fetchConversationWithMembers:array type:CDConversationTypeSingle attributes:attributes callback:callback];
+}
+
+- (void)fetchConversationWithMembers:(NSArray *)members type:(CDConversationType)type attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
+    
+    if ([members containsObject:self.clientId] == NO) {
+        
+        [NSException raise:NSInvalidArgumentException format:@"members should contain myself"];
+    }
+    
+    [self checkDuplicateValueOfArray:members];
+    
+    [self createConversationWithMembers:members type:type unique:YES attributes:attributes callback:callback];
+}
+
+- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
+    
+    NSString *name = nil;
+    
+    if (type == CDConversationTypeGroup) {
+        // 群聊默认名字， 老王、小李
+        name = [AVIMConversation nameOfUserIds:members];
+    }
+    
+    AVIMConversationOption options;
+    
+    if (unique) {
+        // 如果相同 members 的对话已经存在，将返回原来的对话
+        options = AVIMConversationOptionUnique;
+    } else {
+        // 创建一个新对话
+        options = AVIMConversationOptionNone;
+    }
+    
+    [self.client createConversationWithName:name clientIds:members attributes:attributes options:options callback:callback];
+}
+
 #pragma mark - conversation
 
 - (void)fecthConversationWithConversationId:(NSString *)conversationId callback:(AVIMConversationResultBlock)callback {
@@ -153,7 +200,6 @@ static CDChatManager *instance;
 - (void)fetchConversationWithMembers:(NSArray *)members callback:(AVIMConversationResultBlock)callback {
     
     [self fetchConversationWithMembers:members type:CDConversationTypeGroup callback:callback];
-    
 }
 
 - (void)fetchConversationWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback {
@@ -188,6 +234,7 @@ static CDChatManager *instance;
     
     [self.client createConversationWithName:name clientIds:members attributes:@{ CONVERSATION_TYPE:@(type) } options:options callback:callback];
 }
+
 
 - (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type callback:(AVIMConversationResultBlock)callback {
     

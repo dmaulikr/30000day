@@ -31,6 +31,4 @@
  */
 - (instancetype)initWithConversation:(AVIMConversation *)conversation;
 
-@property (nonatomic,strong)UserInformationModel *otherModel;
-
 @end

@@ -126,6 +126,9 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 - (void)fetchConversationWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback;
 
+#pragma mark ---- 新加的
+- (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
+
 /**
  *  已知参与对话 members，获取群聊对话
  *  @param members  成员，clientId 数组

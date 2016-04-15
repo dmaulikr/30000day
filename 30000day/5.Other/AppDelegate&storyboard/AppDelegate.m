@@ -83,7 +83,7 @@
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
     
-    [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
+    [AVOSCloud setApplicationId:@"JGc0l9bvghJjrnzRbinUk5zd-gzGzoHsz" clientKey:@"v3RgJFMcjtzCCYtzMCzrw3Po"];
     
     [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
@@ -111,7 +111,6 @@
     [self initAnalytics];
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc]init];

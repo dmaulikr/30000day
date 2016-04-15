@@ -24,7 +24,7 @@
 
 @interface CDChatListVC ()
 
-@property (nonatomic, strong) LZStatusView *clientStatusView;
+//@property (nonatomic, strong) LZStatusView *clientStatusView;
 
 @property (nonatomic, strong) NSMutableArray *conversations;
 
@@ -121,19 +121,6 @@ static NSString *cellIdentifier = @"ContactCell";
                 
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
                 
-                for (int i = 0; i < self.conversations.count; i++) {
-                    
-                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
-                    
-                    UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
-                    
-                    if (!model) {
-                        
-                        [[CDConversationStore store] deleteConversation:conversation];
-                    }
-                    
-                }
-                
                 [self.tableView reloadData];
                 
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
@@ -177,28 +164,28 @@ static NSString *cellIdentifier = @"ContactCell";
 
 #pragma mark - client status view
 
-- (LZStatusView *)clientStatusView {
-    
-    if (_clientStatusView == nil) {
-        
-        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), kLZStatusViewHight)];
-        
-    }
-    
-    return _clientStatusView;
-}
-
-- (void)updateStatusView {
-    
-    if ([CDChatManager manager].connect) {
-        
-        self.tableView.tableHeaderView = nil ;
-        
-    } else {
-        
-        self.tableView.tableHeaderView = self.clientStatusView;
-    }
-}
+//- (LZStatusView *)clientStatusView {
+//    
+//    if (_clientStatusView == nil) {
+//        
+//        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), kLZStatusViewHight)];
+//        
+//    }
+//    
+//    return _clientStatusView;
+//}
+//
+//- (void)updateStatusView {
+//    
+//    if ([CDChatManager manager].connect) {
+//        
+//        self.tableView.tableHeaderView = nil ;
+//        
+//    } else {
+//        
+//        self.tableView.tableHeaderView = self.clientStatusView;
+//    }
+//}
 
 - (UIRefreshControl *)getRefreshControl {
     
@@ -353,11 +340,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     if (conversation.type == CDConversationTypeSingle) {
         
-//        id <CDUserModelDelegate> user = [[CDChatManager manager].userDelegate getUserById:conversation.otherId];
-        
-        UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
-        
-        cell.nameLabel.text = model.nickName;
+        cell.nameLabel.text = conversation.displayName;
         
         //长按手势，长按后删除该cell
         [cell setLongPressBlock:^{
@@ -381,14 +364,13 @@ static NSString *cellIdentifier = @"ContactCell";
             [self presentViewController:controller animated:YES completion:nil];
         }];
         
-        if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)] && model.headImg) {
+        if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)]) {
             
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
             
         } else {
             
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.headImg] placeholderImage:[UIImage imageNamed:@"avator"]];
-            
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"avator"]];
         }
         
     } else {
@@ -461,8 +443,6 @@ static NSString *cellIdentifier = @"ContactCell";
     
     //push到聊天界面
     CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
-    
-    controller.otherModel = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
     
     controller.hidesBottomBarWhenPushed = YES;
     

@@ -496,45 +496,53 @@
             
         } else if (indexPath.row == 2) {//开启与商家聊天之旅
             
-            //查询conversation
-            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] callback: ^(AVIMConversation *conversation, NSError *error) {
+            if ([Common isObjectNull:self.ownerInformationModel]) {//空
                 
-                if (error) {
-                    
-                    [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-                    
-                } else {
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
-                    if (self.ownerInformationModel) {//如果店主的个人信息模型存在那么直接过去
+                [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+                    
+                    [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                         
-                        CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                        
-                        controller.otherModel = self.ownerInformationModel;
-                        
-                        [self.navigationController pushViewController:controller animated:YES];
-                        
-                    } else {//如果店主的个人信息模型不在，需要去下载
-                        
-                        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-                        
-                        [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
-                           
-                            CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                        if (error) {
                             
-                            controller.otherModel = model;
+                            [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                            
+                        } else {
+                            
+                            CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
                             
                             [self.navigationController pushViewController:controller animated:YES];
                             
-                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                            
-                        } failure:^(NSError *error) {
-                            
-                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                            
-                        }];
+                        }
+                    }];
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                } failure:^(NSError *error) {
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                }];
+
+            } else {//非空
+                
+                [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:self.ownerInformationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+                  
+                    if (error) {
+                        
+                        [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                        
+                    } else {
+                        
+                        CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
+                        
+                        [self.navigationController pushViewController:controller animated:YES];
+                        
                     }
-                }
-            }];
+                }];
+            }
+
         }
         
     } else if (indexPath.section == 2) {
