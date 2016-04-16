@@ -15,6 +15,7 @@
 #import "MainViewController.h"
 #import "SignInViewController.h"
 #import "AppDelegate.h"
+#import "JSBadgeView.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -36,6 +37,8 @@
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
 
 @property (nonatomic ,strong) UIScrollView *scrollView;
+
+@property (nonatomic,strong) JSBadgeView *badgeView;
 
 @end
 
@@ -85,9 +88,7 @@
                                              }
                                              
                                          }];
-        
     }
-
 }
 
 //跳到登录控制器
@@ -102,6 +103,9 @@
 
 #pragma mark ----初始化UI界面
 - (void)configUI {
+    
+    //创建顶部按钮
+    [self createButton];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -118,6 +122,30 @@
     MainViewController *mainPageController = [[MainViewController alloc] init];
     PersonViewController *personViewController = [[PersonViewController alloc] init];
     CDConvsVC *messageViewController = [[CDConvsVC alloc] init];
+    
+    //未读消息发生改变了的回调
+    [messageViewController setUnreadMessageChange:^(NSInteger totalUnreadCount) {
+        
+        if (totalUnreadCount) {
+            
+            if (totalUnreadCount >= 100) {
+                
+                self.badgeView.badgeText = @"99+";
+                
+            } else {
+
+                self.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(totalUnreadCount)];
+                
+            }
+
+            self.badgeView.hidden = NO;
+            
+        } else {
+            
+            self.badgeView.hidden = YES;
+        }
+    }];
+    
     CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     [self addChildViewController:mainPageController];
     [self addChildViewController:messageViewController];
@@ -137,9 +165,18 @@
     [_scrollView addSubview:calendarViewController.view];
     
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 4, 0)];
+}
+
+- (JSBadgeView *)badgeView {
     
-    //创建顶部按钮
-    [self createButton];
+    if (_badgeView == nil) {
+        
+        _badgeView = [[JSBadgeView alloc] initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
+        
+        _badgeView.badgePositionAdjustment = CGPointMake(-10.0f, 10.0f);
+    }
+    
+    return _badgeView;
 }
 
 - (void)createButton {

@@ -39,11 +39,30 @@
 
 - (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {
     if (totalUnreadCount > 0) {
-        [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
+        
+        if (totalUnreadCount >= 100) {
+            
+            [[self navigationController] tabBarItem].badgeValue = @"99+";
+            
+        } else {
+            
+            [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
+            
+        }
+        
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
+        
     } else {
+        
         [[self navigationController] tabBarItem].badgeValue = nil;
+        
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        
+    }
+    
+    if (self.unreadMessageChange) {
+        
+        self.unreadMessageChange(totalUnreadCount);
     }
 }
 

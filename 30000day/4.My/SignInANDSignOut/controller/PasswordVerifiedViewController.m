@@ -99,7 +99,7 @@
         
         [self.tableView reloadData];
         
-    } failure:^(LONetError *error) {
+    } failure:^(STNetError *error) {
         
         NSLog(@"获取所有密保问题失败");
         
@@ -132,7 +132,7 @@
         newPassword.type = YES;
         [self.navigationController pushViewController:newPassword animated:YES];
         
-    } failure:^(LONetError *error) {
+    } failure:^(STNetError *error) {
         
         [self showToast:@"验证失败"];
         

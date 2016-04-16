@@ -1,16 +1,16 @@
 //
-//  LORequest.m
+//  STRequest.m
 //  30000day
 //
-//  Created by GuoJia on 15/12/10.
-//  Copyright © 2015年 GuoJia. All rights reserved.
+//  Created by GuoJia on 16/4/16.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "LORequest.h"
+#import "STRequest.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "STNetworkCache.h"
 
-@implementation LORequest
+@implementation STRequest
 
 #pragma mark - Basic Executative Methods
 
@@ -27,11 +27,11 @@
     return self;
 }
 
-+ (LORequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STRequest *)requestWithMethod:(STRequestMethod)requestMethod
                              url:(NSString *)requesturl
                       parameters:(id)parameters
                          success:(void (^)(id responseObject))success
-                         failure:(void (^)(LONetError *error))failure
+                         failure:(void (^)(STNetError *error))failure
 {
     return [self requestWithMethod:requestMethod
                                url:requesturl
@@ -42,15 +42,15 @@
                            failure:failure];
 }
 
-+ (LORequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STRequest *)requestWithMethod:(STRequestMethod)requestMethod
                              url:(NSString *)requesturl
                       parameters:(id)parameters
            constructingBodyBlock:(AFConstructingBlock)constructingBodyBlock
                         progress:(LORequestProgressBlock)progress
                          success:(void (^)(id responseObject))success
-                         failure:(void (^)(LONetError *error))failure
+                         failure:(void (^)(STNetError *error))failure
 {
-    LORequest *request = [[LORequest alloc] init];
+    STRequest *request = [[STRequest alloc] init];
     
     request.requestMethod = requestMethod;
     request.requestUrl = requesturl;

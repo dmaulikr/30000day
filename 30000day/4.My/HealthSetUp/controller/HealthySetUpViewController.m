@@ -9,6 +9,7 @@
 #import "HealthySetUpViewController.h"
 #import "HealthyTableViewCell.h"
 #import "GetFactorModel.h"
+#import "STHealthyManager.h"
 
 @interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -45,19 +46,13 @@
 //保存健康因素
 - (void)saveFactor {
     
-    [self showHUDWithContent:@"正在保存" animated:YES];
-    
     [self.dataHandler sendSaveUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:self.getFactorArray success:^(BOOL success) {
-        
-        [self hideHUD:YES];
         
         [self showToast:@"保存成功"];
         
         self.barButton.enabled = NO;
         
-    } failure:^(LONetError *error) {
-        
-        [self hideHUD:YES];
+    } failure:^(STNetError *error) {
         
         [self showToast:@"保存失败"];
         
@@ -67,23 +62,9 @@
 //下载健康因素
 - (void)loadFactor {
     
-    [self showHUDWithContent:@"正在加载" animated:YES];
-    //获取所有的健康因子
-    [self.dataHandler sendGetFactors:^(NSMutableArray *dataArray) {
-       
-        [self hideHUD:YES];
-        
-        self.getFactorArray = dataArray;
-        
-        [self.tableView reloadData];
-        
-    } failure:^(LONetError *error) {
-        
-        [self hideHUD:YES];
-        
-        [self showToast:[error.error userInfo][NSLocalizedDescriptionKey]];
-        
-    }];
+    self.getFactorArray = [STHealthyManager shareManager].healthyArray;
+    
+    [self.tableView reloadData];
 }
 
 //设置QGPickView,并显示QGPickView

@@ -7,7 +7,7 @@
 //
 
 #import "STBaseViewController.h"
-#import "LONetworkAgent.h"
+#import "STNetworkAgent.h"
 
 @interface STBaseViewController ()
 //{
@@ -26,7 +26,7 @@
     //定制网络请求
     self.requestRecord = [[NSMutableArray alloc] init];
     
-    self.dataHandler = [[LODataHandler alloc] init];
+    self.dataHandler = [[STDataHandler alloc] init];
     
     self.dataHandler.delegate = self;
     
@@ -63,7 +63,7 @@
 #pragma mark -
 #pragma mark handleHTTPError
 
-- (BOOL)handleLONetError:(LONetError *)error {
+- (BOOL)handleLONetError:(STNetError *)error {
     
     if (error.lostConnection) {
         
@@ -179,7 +179,7 @@
 
 - (void)dealloc {
     
-    [[LONetworkAgent sharedAgent] cancelRequestsWithHashArray:_requestRecord];
+    [[STNetworkAgent sharedAgent] cancelRequestsWithHashArray:_requestRecord];
 }
 
 - (void)didReceiveMemoryWarning {

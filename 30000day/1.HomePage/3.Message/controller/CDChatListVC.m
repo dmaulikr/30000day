@@ -159,9 +159,6 @@ static NSString *cellIdentifier = @"ContactCell";
     }];
 }
 
-
-
-
 #pragma mark - client status view
 
 //- (LZStatusView *)clientStatusView {
@@ -395,7 +392,14 @@ static NSString *cellIdentifier = @"ContactCell";
             
         } else {
             
-            cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+            if (conversation.unreadCount >= 100) {
+                
+                cell.badgeView.badgeText = @"99+";
+                
+            } else {
+                
+                cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+            }
         }
     }
     
@@ -426,28 +430,27 @@ static NSString *cellIdentifier = @"ContactCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
     
     [conversation markAsReadInBackground];
     
     [self headerRefreshing];
     
-//    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
-//        
-//        [self.chatListDelegate viewController:self didSelectConv:conversation];
-//        
-//    }
+    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
+        
+        [self.chatListDelegate viewController:self didSelectConv:conversation];
+        
+    }
     
     //push到聊天界面
-    CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
+//    CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
+//    
+//    controller.hidesBottomBarWhenPushed = YES;
+//    
+//    [self.navigationController pushViewController:controller animated:YES];
     
-    controller.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:controller animated:YES];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

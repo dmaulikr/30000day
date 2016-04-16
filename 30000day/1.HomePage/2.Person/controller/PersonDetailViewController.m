@@ -123,7 +123,7 @@
         
         [self.tableView reloadData];
         
-    } failure:^(LONetError *error) {
+    } failure:^(STNetError *error) {
         
     }];
 }

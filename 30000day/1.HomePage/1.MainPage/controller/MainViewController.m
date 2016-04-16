@@ -188,7 +188,7 @@
             
             [self.tableView.mj_header endRefreshing];
 
-        } failure:^(LONetError *error) {
+        } failure:^(STNetError *error) {
             
             [self showToast:@"获取天龄失败，可能是网络繁忙"];
             

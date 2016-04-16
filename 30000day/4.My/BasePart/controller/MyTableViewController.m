@@ -17,7 +17,6 @@
 #import "UserHeadViewTableViewCell.h"
 #import "LogoutTableViewCell.h"
 #import "CDChatManager.h"
-#import "CDSettingVC.h"
 #import "MTProgressHUD.h"
 #import "MyOrderViewController.h"
 
@@ -102,7 +101,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -117,7 +116,7 @@
         
     } else if (section == 2) {
         
-        return 3;
+        return 2;
         
     } else if (section == 3) {
         
@@ -144,13 +143,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 3) {
+    if (section == 2) {
         
         return 30;
-        
-    }else if (section == 4) {
-        
-        return 85;
         
     } else {
         
@@ -172,7 +167,7 @@
     
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString* ID = @"mainCell";
     
@@ -236,28 +231,11 @@
             
             cell.seperatorLineView.hidden = YES;
             
-        } else {
-            
-            [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
-            
-            [cell.titleLabel setText:@"消息设置"];
-            
-            cell.seperatorLineView.hidden = YES;
         }
         
         return cell;
         
-    } else if (indexPath.section == 3) {
-        
-        [cell.leftImage setImage:[UIImage imageNamed:@"about.png"]];
-        
-        [cell.titleLabel setText:@"关于"];
-        
-        cell.seperatorLineView.hidden = YES;
-        
-        return cell;
-        
-    } else if (indexPath.section == 4 ) {
+    }  else if (indexPath.section == 3 ) {
         
         LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
         
@@ -322,17 +300,9 @@
             
             [self.navigationController pushViewController:suc animated:YES];
         
-        } else if (indexPath.row == 2 ){
-            
-            CDSettingVC *controller = [[CDSettingVC alloc] init];
-            
-            controller.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:controller animated:YES];
-
         }
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 3) {
         
         [self cancelAction];
     }

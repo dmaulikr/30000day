@@ -59,7 +59,7 @@
                                               
                                               [self.navigationController pushViewController:controller animated:YES];
                                               
-                                          } failure:^(LONetError *error) {
+                                          } failure:^(STNetError *error) {
                                               
                                           }];
         

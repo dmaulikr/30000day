@@ -1,27 +1,25 @@
 //
-//  LONetworkAgent.h
+//  STNetworkAgent.h
 //  30000day
 //
-//  LONetworkAgent 负责执行 request，并且 request 的 hash 值来记录运行中的request
-//  具有停止request等能力
-//
-//  Created by GuoJia on 15/12/11.
-//  Copyright © 2015年 GuoJia. All rights reserved.
+//  Created by GuoJia on 16/4/16.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "LORequest.h"
-@interface LONetworkAgent : NSObject
+#import "STRequest.h"
 
-typedef NS_ENUM(NSInteger, LONetworkReachabilityStatus) {
+@interface STNetworkAgent : NSObject
+
+typedef NS_ENUM(NSInteger, STNetworkReachabilityStatus) {
     
-    LONetworkReachabilityStatusUnknown      = -1,
+    STNetworkReachabilityStatusUnknown      = -1,
     
-    LONetworkReachabilityStatusNotReachable = 0,
+    STNetworkReachabilityStatusNotReachable = 0,
     
-    LONetworkReachabilityStatus3G           = 1,
+    STNetworkReachabilityStatus3G           = 1,
     
-    LONetworkReachabilityStatusWiFi         = 2,
+    STNetworkReachabilityStatusWiFi         = 2,
 };
 
 + (instancetype)sharedAgent;
@@ -42,7 +40,7 @@ typedef NS_ENUM(NSInteger, LONetworkReachabilityStatus) {
  *
  *  @return 返回明确的网络状态
  */
-- (LONetworkReachabilityStatus)networkReachabilityStatus;
+- (STNetworkReachabilityStatus)networkReachabilityStatus;
 
 
 //------------------------------------------------------------------------------
@@ -53,7 +51,7 @@ typedef NS_ENUM(NSInteger, LONetworkReachabilityStatus) {
  *
  *  @return 请求的Hash编码值
  */
-- (NSString *)addRequest:(LORequest *)request;
+- (NSString *)addRequest:(STRequest *)request;
 
 
 //------------------------------------------------------------------------------

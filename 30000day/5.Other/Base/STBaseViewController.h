@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LODataHandler.h"
-#import "LOApiRequest.h"
-#import "LONetworkAgent.h"
+#import "STDataHandler.h"
+#import "STApiRequest.h"
+#import "STNetworkAgent.h"
 #import "MBProgressHUD.h"
 
 @interface STBaseViewController : UIViewController
@@ -17,9 +17,9 @@
 // 网络请求及记录
 @property (nonatomic, strong) NSMutableArray *requestRecord;
 
-@property (nonatomic, strong) LODataHandler *dataHandler;
+@property (nonatomic, strong) STDataHandler *dataHandler;
 
-- (BOOL)handleLONetError:(LONetError *)error;
+- (BOOL)handleLONetError:(STNetError *)error;
 
 // 展示一个带有 label 的等待 HUD，show 和 hide 成对使用
 - (void)showHUDWithContent:(NSString *)content animated:(BOOL)animated;
