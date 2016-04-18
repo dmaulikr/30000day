@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     self.searchBackgroundView.layer.cornerRadius = 5;
     
     self.searchBackgroundView.layer.masksToBounds = YES;
