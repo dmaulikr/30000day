@@ -420,8 +420,7 @@
     
     
     self.subscriptionCentralityButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.subscriptionCentralityButton setTitle:@"订阅中心" forState:UIControlStateNormal];
-    [self.subscriptionCentralityButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [self.subscriptionCentralityButton setImage:[UIImage imageNamed:@"icon_add_events"] forState:UIControlStateNormal];
     [self.subscriptionCentralityButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.subscriptionCentralityButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
     [self.buttonParentView addSubview:self.subscriptionCentralityButton];

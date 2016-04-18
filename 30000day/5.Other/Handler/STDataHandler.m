@@ -4058,6 +4058,8 @@
     
     [params setObject:@(sortType) forKey:@"sortType"];
     
+    //[Common urlStringWithDictionary:params withString:GET_SEARCH_MATIONS];
+    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_MATIONS
                                                  parameters:params

@@ -43,6 +43,8 @@
 
     InformationDetailDownView *informationDetailDownView = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailDownView" owner:nil options:nil] lastObject];
     
+    [informationDetailDownView setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
+    
     [informationDetailDownView setShareButtonBlock:^(UIButton *button) {
         
         [self showShareAnimatonView];
@@ -69,9 +71,6 @@
         [self.navigationController pushViewController:informationCommentViewController animated:YES];
         
     }];
-    
-    
-    [informationDetailDownView setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
     
     [self.view addSubview:informationDetailDownView];
 
