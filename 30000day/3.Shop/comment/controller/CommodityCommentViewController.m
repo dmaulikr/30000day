@@ -9,8 +9,9 @@
 #import "CommodityCommentViewController.h"
 #import "GJTextView.h"
 #import "ZLPhotoActionSheet.h"
+#import "DYRateView.h"
 
-@interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
+@interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,DYRateViewDelegate>
 {
     ZLPhotoActionSheet *actionSheet;
 }
@@ -25,6 +26,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *submit;
 
+@property (weak, nonatomic) IBOutlet DYRateView *rateView;
+
 
 @property (nonatomic,strong) NSMutableArray *imageArray;
 
@@ -35,6 +38,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.rateView.editable = YES;
+    [self.rateView setDelegate:self];
     self.textView.placeholder = @"合作很愉快，期待下次继续合作";
     [self.textView setBackgroundColor:[UIColor whiteColor]];
     self.submit.layer.cornerRadius = 6;
@@ -74,9 +79,19 @@
 
 - (IBAction)anonymousButtonClick:(UIButton *)sender {
     
-    [sender setBackgroundColor:[UIColor blueColor]];
+    if (sender.tag) {
         
+        [sender setBackgroundColor:[UIColor whiteColor]];
+        
+        sender.tag = 0;
+        
+    } else {
     
+        [sender setBackgroundColor:[UIColor colorWithRed:66.0/255.0 green:147.0/255.0 blue:255/255.0 alpha:1.0]];
+        
+        sender.tag = 1;
+    
+    }
 }
 
 - (IBAction)deleteImage:(UIButton *)sender {
@@ -86,6 +101,11 @@
     
 }
 
+- (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate {
+
+    NSLog(@"%ld",rate.integerValue);
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
