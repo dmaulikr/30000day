@@ -17,22 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:recognizer];
-    
     //定制返回按钮
     [self backBarButtonItem];
     
-}
-
-- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer {
-    
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
