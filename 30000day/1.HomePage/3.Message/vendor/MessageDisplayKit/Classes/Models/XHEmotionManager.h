@@ -16,6 +16,8 @@
 @property (nonatomic, assign) CGSize emotionSize;
 
 @property (nonatomic, copy) NSString *emotionName;
+
+@property (nonatomic, copy) NSString *emotionBottomButtonImageName;//表情底部按钮封面
 /**
  *  某一类表情的数据源
  */

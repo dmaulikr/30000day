@@ -23,12 +23,11 @@
     
     //定制返回按钮
     [self backBarButtonItem];
-    
 }
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer {
     
-    if(recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+    if(recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
         
         [self.navigationController popViewControllerAnimated:YES];
         

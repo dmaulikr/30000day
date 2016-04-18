@@ -67,7 +67,7 @@
 
 + (CGSize)neededSizeForPhoto:(UIImage *)photo {
     // 这里需要缩放后的size
-    CGSize photoSize = CGSizeMake(120, 120);
+    CGSize photoSize = CGSizeMake(140, 140 * photo.size.height/photo.size.width);
     return photoSize;
 }
 
@@ -132,8 +132,6 @@
 }
 
 #pragma mark - Getters
-
-
 - (CGRect)bubbleFrame {
     CGSize bubbleSize = [XHMessageBubbleView getBubbleFrameWithMessage:self.message];
     
@@ -172,7 +170,6 @@
             
             // 只要是文本、语音、第三方表情，都需要把显示尖嘴图片的控件隐藏了
             _bubblePhotoImageView.hidden = YES;
-            
             
             if (currentType == XHBubbleMessageMediaTypeText) {
                 // 如果是文本消息，那文本消息的控件需要显示

@@ -509,7 +509,7 @@ static CGPoint  delayOffset = {0.0};
     messageTableView.delegate = self;
     messageTableView.separatorColor = [UIColor clearColor];
     messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+
     BOOL shouldLoadMoreMessagesScrollToTop = YES;
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
         shouldLoadMoreMessagesScrollToTop = [self.delegate shouldLoadMoreMessagesScrollToTop];
@@ -667,6 +667,7 @@ static CGPoint  delayOffset = {0.0};
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)dealloc {
     _messages = nil;

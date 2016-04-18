@@ -338,9 +338,11 @@
         
         if (indexPath.row == 0) {
             
-            cell.textLabel.text = @"店长推荐（321）";
+            cell.textLabel.text = @"店长推荐";
             
             [cell setAccessoryType:UITableViewCellAccessoryNone];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
             
@@ -379,9 +381,12 @@
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
                 
             }
+            
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             
-            cell.textLabel.text = @"网友点评（321）";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.textLabel.text = @"网友点评";
             
             return cell;
             
@@ -410,13 +415,11 @@
             if (cell == nil) {
                 
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
-                
             }
             
             cell.textLabel.text = @"查看全部评论";
             
             return cell;
-            
         }
         
     } else if (indexPath.section == 4) {
@@ -431,7 +434,7 @@
         
         if (indexPath.row == 0) {
             
-            cell.textLabel.text = @"推荐列表（321）";
+            cell.textLabel.text = @"推荐列表";
             
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             
@@ -510,10 +513,7 @@
                             
                         } else {
                             
-                            CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                            
-                            [self.navigationController pushViewController:controller animated:YES];
-                            
+                            [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
                         }
                     }];
                     
@@ -534,10 +534,8 @@
                         [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
                         
                     } else {
-                        
-                        CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                        
-                        [self.navigationController pushViewController:controller animated:YES];
+
+                        [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
                         
                     }
                 }];
@@ -550,7 +548,9 @@
         if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             
             CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+            
             companyViewController.productId = self.productId;
+            
             [self.navigationController pushViewController:companyViewController animated:YES];
             
         }
@@ -560,7 +560,9 @@
             ShopModel *shopModel = self.shopModelKeeperArray[indexPath.row - 1];
             
             ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+            
             shopDetailViewController.productId = [NSString stringWithFormat:@"%d",shopModel.productId.intValue];
+            
             [self.navigationController pushViewController:shopDetailViewController animated:YES];
             
         }
@@ -570,14 +572,19 @@
         if (indexPath.row != 0) {
             
             CommentViewController *controller = [[CommentViewController alloc] init];
+            
             controller.hidesBottomBarWhenPushed = YES;
+            
             controller.productId = self.productId.integerValue;
+            
             [self.navigationController pushViewController:controller animated:YES];
             
         } else {
             
             CommodityCommentViewController *commodityCommentViewController = [[CommodityCommentViewController alloc] init];
+            
             commodityCommentViewController.hidesBottomBarWhenPushed = YES;
+            
             [self.navigationController pushViewController:commodityCommentViewController animated:YES];
         
         }
@@ -587,6 +594,7 @@
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
             ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+            
             [self.navigationController pushViewController:shopDetailViewController animated:YES];
             
         }

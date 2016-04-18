@@ -55,6 +55,7 @@ static NSInteger const kOnePageSize = 10;
 //        self.allowsSendMultiMedia = NO;
         _isLoadingMsg = NO;
         _msgs = [NSMutableArray array];
+//        [self setBackgroundColor:RGBACOLOR(247, 247, 247, 1)];
     }
     return self;
 }
@@ -176,13 +177,21 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - XHMessageTableViewCell delegate
 
 - (void)multiMediaMessageDidSelectedOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
+    
     UIViewController *disPlayViewController;
+    
     switch (message.messageMediaType) {
+            
         case XHBubbleMessageMediaTypeVideo:
+            
         case XHBubbleMessageMediaTypePhoto: {
+            
             XHDisplayMediaViewController *messageDisplayTextView = [[XHDisplayMediaViewController alloc] init];
+            
             messageDisplayTextView.message = message;
+            
             disPlayViewController = messageDisplayTextView;
+            
             break;
         }
             break;
@@ -192,19 +201,29 @@ static NSInteger const kOnePageSize = 10;
             //message.isRead = YES;
             //messageTableViewCell.messageBubbleView.voiceUnreadDotImageView.hidden = YES;
             [[XHAudioPlayerHelper shareInstance] setDelegate:self];
+            
             if (_currentSelectedCell) {
+                
                 [_currentSelectedCell.messageBubbleView.animationVoiceImageView stopAnimating];
             }
+            
             if (_currentSelectedCell == messageTableViewCell) {
+                
                 [messageTableViewCell.messageBubbleView.animationVoiceImageView stopAnimating];
+                
                 [[XHAudioPlayerHelper shareInstance] stopAudio];
+                
                 self.currentSelectedCell = nil;
-            }
-            else {
+                
+            } else {
+                
                 self.currentSelectedCell = messageTableViewCell;
+                
                 [messageTableViewCell.messageBubbleView.animationVoiceImageView startAnimating];
+                
                 [[XHAudioPlayerHelper shareInstance] managerAudioWithFileName:message.voicePath toPlay:YES];
             }
+            
             break;
         }
             
@@ -318,7 +337,6 @@ static NSInteger const kOnePageSize = 10;
     }
     AVIMTypedMessage *msg = [AVIMAudioMessage messageWithText:nil attachedFilePath:voicePath attributes:nil];
     [self sendMsg:msg];
-    
 }
 
 // 发送表情消息的回调方法
