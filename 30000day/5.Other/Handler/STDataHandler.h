@@ -29,9 +29,7 @@ static NSString *const STDidSuccessCancelOrderSendNotification = @"STDidSuccessC
 //成功支付会发出通知
 static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNotification";
 
-@class LONetError;
-
-@class STBaseViewController;
+@class STNetError;
 
 @class WeatherInformationModel;
 
@@ -41,9 +39,9 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 
 @class UserInformationModel;
 
-@interface LODataHandler : NSObject
+@interface STDataHandler : NSObject
 
-@property (nonatomic, weak) STBaseViewController *delegate;
+@property (nonatomic, weak) id delegate;
 
 //********* 发送验证请求 *************/
 - (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
@@ -74,6 +72,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 
 //***** 普通登录 *****/
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
+//提醒:并且会循环设置个人健康因素，直到成功
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
@@ -83,6 +82,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 
 //***** 用户注册 *****/
 //提醒:注册成功会获取用户的个人信息，首界面应刷新，所以注册成功会发出一个通知
+//提醒:并且会循环设置个人健康因素，直到成功
 - (void)postRegesiterWithPassword:(NSString *)password
                       phoneNumber:(NSString *)phoneNumber
                          nickName:(NSString *)nickName
@@ -117,7 +117,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                                   birthday:(NSString *)birthday
                         headImageUrlString:(NSString *)headImageUrlString
                                   success:(void (^)(BOOL))success
-                                  failure:(void (^)(LONetError *))failure;
+                                  failure:(void (^)(STNetError *))failure;
 
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
@@ -139,25 +139,25 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                 success:(void (^)(NSMutableArray *dataArray))success
-                                failure:(void (^)(LONetError *error))failure;
+                                failure:(void (^)(STNetError *error))failure;
 
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
 - (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
-               failure:(void (^)(LONetError *error))failure;
+               failure:(void (^)(STNetError *error))failure;
 
 
 //***********获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
 - (void)sendGetSubFactorsWithFactorsModel:(NSMutableArray *)factorsArray
                                   success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(LONetError *error))failure;
+                                  failure:(void (^)(STNetError *error))failure;
 
 
 //***********获获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
 - (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
-                             failure:(void (^)(LONetError *error))failure;
+                             failure:(void (^)(STNetError *error))failure;
 
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
@@ -165,7 +165,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 - (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
                               success:(void (^)(BOOL success))success
-                              failure:(void (^)(LONetError *error))failure;
+                              failure:(void (^)(STNetError *error))failure;
 
 
 //***********************************更新用户头像*********************/
@@ -177,24 +177,24 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 //***********************************获取个人密保问题*********************/
 - (void)sendGetSecurityQuestion:(NSNumber *)userId
                        success:(void (^)(NSDictionary *dic))success
-                       failure:(void (^)(LONetError *error))failure;
+                       failure:(void (^)(STNetError *error))failure;
 
 //***********************************获取所有密保问题*********************/
 - (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
-                           failure:(void (^)(LONetError *error))failure;
+                           failure:(void (^)(STNetError *error))failure;
 
 //***********************************验证个人密保问题*********************/
 - (void)sendSecurityQuestionvalidate:(NSNumber *)userId
                         answer:(NSArray *)answerArr
                         success:(void (^)(NSString *successToken))success
-                        failure:(void (^)(LONetError *error))failure;
+                        failure:(void (^)(STNetError *error))failure;
 
 //***********************************密保修改密码*********************/
 - (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
                                token:(NSString *)token
                             password:(NSString *)password
                              success:(void (^)(BOOL success))success
-                             failure:(void (^)(LONetError *error))failure;
+                             failure:(void (^)(STNetError *error))failure;
 
 //***********************************修改密码*********************/
 - (void)sendChangePasswordWithUserId:(NSNumber *)userId
@@ -359,13 +359,6 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                                    busiId:(NSString *)busiId
                               isClickLike:(NSInteger)isClickLike
                                  busiType:(NSInteger)busiType
-                                  success:(void (^)(BOOL success))success
-                                  failure:(void (^)(NSError *error))failure;
-
-//*****************************************资讯评论*********************/
-- (void)sendInfomationCommentWithProductId:(NSString *)productId
-                                commentId:(NSString *)commentId
-                              isClickLike:(NSInteger)isClickLike
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure;
 

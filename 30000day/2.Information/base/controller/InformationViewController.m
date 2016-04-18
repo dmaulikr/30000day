@@ -10,7 +10,6 @@
 #import "DOPDropDownMenu.h"
 #import "InformationListTableViewCell.h"
 #import "MTProgressHUD.h"
-#import "LODataHandler.h"
 #import "MJRefresh.h"
 #import "SubscribeListTableViewCell.h"
 #import "InformationDetailWebViewController.h"
@@ -37,7 +36,7 @@
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 
-@property (nonatomic,strong) LODataHandler *dataHandler;
+@property (nonatomic,strong) STDataHandler *dataHandler;
 
 @property (nonatomic,strong) UIButton *informationButton;//资讯按钮
 
@@ -70,7 +69,7 @@
     
     self.typeIndex = [[NSString alloc] init];
     
-    self.dataHandler = [[LODataHandler alloc] init];
+    self.dataHandler = [[STDataHandler alloc] init];
     
     //0. 创建顶部视图
     [self createScrollView];

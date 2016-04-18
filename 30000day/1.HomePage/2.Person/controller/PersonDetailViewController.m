@@ -123,7 +123,7 @@
         
         [self.tableView reloadData];
         
-    } failure:^(LONetError *error) {
+    } failure:^(STNetError *error) {
         
     }];
 }
@@ -136,15 +136,13 @@
     if (button.tag == 1) {//右按钮
         
         if (self.informationModel.userId) {//这个userId存在的时候才进行push
-            
+
             //查询conversation
-            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] callback: ^(AVIMConversation *conversation, NSError *error) {
+            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:self.informationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                 
                 if ([self filterError:error]) {
                     
                     CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                    
-                    controller.otherModel = self.informationModel;
                     
                     [self.navigationController pushViewController:controller animated:YES];
                     

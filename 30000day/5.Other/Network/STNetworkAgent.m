@@ -1,23 +1,23 @@
 //
-//  LONetworkAgent.m
+//  STNetworkAgent.m
 //  30000day
 //
-//  Created by GuoJia on 15/12/11.
-//  Copyright © 2015年 GuoJia. All rights reserved.
+//  Created by GuoJia on 16/4/16.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "LONetworkAgent.h"
+#import "STNetworkAgent.h"
 #import "STNetworkCache.h"
-#import "LORequest.h"
+#import "STRequest.h"
 
-@implementation LONetworkAgent {
+@implementation STNetworkAgent {
     
     AFHTTPRequestOperationManager *_manager;
     
     NSMutableDictionary *_requestsRecord;
 }
 
-+ (LONetworkAgent *)sharedAgent {
++ (STNetworkAgent *)sharedAgent {
     
     static id sharedInstance = nil;
     
@@ -43,7 +43,7 @@
         _manager.operationQueue.maxConcurrentOperationCount = 4;
         
         _urlFilters = [[NSMutableDictionary alloc] init];
-
+        
         _requestsRecord = [NSMutableDictionary dictionary];
     }
     
@@ -59,27 +59,27 @@
     
 }
 
-- (LONetworkReachabilityStatus)networkReachabilityStatus {
+- (STNetworkReachabilityStatus)networkReachabilityStatus {
     
-    LONetworkReachabilityStatus status = LONetworkReachabilityStatusUnknown;
+    STNetworkReachabilityStatus status = STNetworkReachabilityStatusUnknown;
     
     switch ([[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]) {
             
         case AFNetworkReachabilityStatusNotReachable:
             
-            status = LONetworkReachabilityStatusNotReachable;
+            status = STNetworkReachabilityStatusNotReachable;
             
             break;
             
         case AFNetworkReachabilityStatusReachableViaWWAN:
             
-            status = LONetworkReachabilityStatus3G;
+            status = STNetworkReachabilityStatus3G;
             
             break;
             
         case AFNetworkReachabilityStatusReachableViaWiFi:
             
-            status = LONetworkReachabilityStatusWiFi;
+            status = STNetworkReachabilityStatusWiFi;
             
             break;
             
@@ -95,23 +95,23 @@
 #pragma mark -
 #pragma mark Request Handler
 
-- (NSString *)addRequest:(LORequest *)request {
+- (NSString *)addRequest:(STRequest *)request {
     
-    if (request.requestSerializerType == LORequestSerializerTypeHTTP) {
+    if (request.requestSerializerType == STRequestSerializerTypeHTTP) {
         
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
-    } else if (request.requestSerializerType == LORequestSerializerTypeJSON) {
+    } else if (request.requestSerializerType == STRequestSerializerTypeJSON) {
         
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
     }
     
-    if (request.responseSerializerType == LOResponseTypeImage) {
+    if (request.responseSerializerType == STResponseTypeImage) {
         
         _manager.responseSerializer = [AFImageResponseSerializer serializer];
         
-    } else if (request.responseSerializerType == LOResponseTypeJSON) {
+    } else if (request.responseSerializerType == STResponseTypeJSON) {
         
         _manager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
@@ -135,7 +135,7 @@
     
     switch ([request requestMethod]) {
             
-        case LORequestMethodGet:
+        case STRequestMethodGet:
         {
             request.operation = [_manager GET:url
                                    parameters:param
@@ -149,7 +149,7 @@
         }
             break;
             
-        case LORequestMethodPost:
+        case STRequestMethodPost:
         {
             AFConstructingBlock constructingBlock = [request constructingBodyBlock];
             
@@ -186,7 +186,7 @@
             }
         }
             break;
-        case LORequestMethodHead:
+        case STRequestMethodHead:
         {
             request.operation = [_manager HEAD:url
                                     parameters:param
@@ -199,7 +199,7 @@
                                  ];
         }
             break;
-        case LORequestMethodPut:
+        case STRequestMethodPut:
         {
             request.operation = [_manager PUT:url
                                    parameters:param
@@ -212,7 +212,7 @@
                                  ];
         }
             break;
-        case LORequestMethodDelete:
+        case STRequestMethodDelete:
         {
             request.operation = [_manager DELETE:url
                                       parameters:param
@@ -225,7 +225,7 @@
                                  ];
         }
             break;
-        case LORequestMethodPatch:
+        case STRequestMethodPatch:
         {
             request.operation = [_manager PATCH:url
                                      parameters:param
@@ -264,7 +264,7 @@
     
     for (NSString *key in copyRecord) {
         
-        LORequest *request = copyRecord[key];
+        STRequest *request = copyRecord[key];
         
         request.delegate = nil;
         
@@ -278,7 +278,7 @@
 #pragma mark -
 #pragma mark Private Method
 
-- (NSString *)buildRequestUrl:(LORequest *)request {
+- (NSString *)buildRequestUrl:(STRequest *)request {
     
     NSString *detailUrl = [request requestUrl];
     
@@ -301,7 +301,7 @@
     return [NSString stringWithFormat:@"%@%@", baseUrl, detailUrl];
 }
 
-- (id)buildRequestParam:(LORequest *)request {
+- (id)buildRequestParam:(STRequest *)request {
     
     id param = request.parameters;
     
@@ -315,20 +315,20 @@
     return param;
 }
 
-- (void)buildRequestHeader:(LORequest *)request {
+- (void)buildRequestHeader:(STRequest *)request {
     
-//    if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
-//        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
-//        [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
-//        [_manager.requestSerializer setValue:CLIENT_ID forHTTPHeaderField:@"Lianjia-App-Id"];
-//        [_manager.requestSerializer setValue:[LOSession sharedSession].UDID forHTTPHeaderField:@"Lianjia-Device-Id"];
-//        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
-//    }
+    //    if (request.needHeaderAuthorization) { //&& [LOSession sharedSession].accessToken) {
+    //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
+    //        [_manager.requestSerializer setValue:CLIENT_SECRET forHTTPHeaderField:@"Lianjia-App-Secret"];
+    //        [_manager.requestSerializer setValue:CLIENT_ID forHTTPHeaderField:@"Lianjia-App-Id"];
+    //        [_manager.requestSerializer setValue:[LOSession sharedSession].UDID forHTTPHeaderField:@"Lianjia-Device-Id"];
+    //        [_manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [LOSession sharedSession].accessToken] forHTTPHeaderField:@"Authorization"];
+    //    }
     
-//    if ([LOSession sharedSession].currentUser) {
-//        [_manager.requestSerializer setValue:[LOSession sharedSession].currentUser.access_token forHTTPHeaderField:@"Lianjia-Access-Token"];
-//        //[_manager.requestSerializer setValue:[LOSession sharedSession].currentUser.access_timestamp forHTTPHeaderField:@"Lianjia-Timestamp"];
-//    }
+    //    if ([LOSession sharedSession].currentUser) {
+    //        [_manager.requestSerializer setValue:[LOSession sharedSession].currentUser.access_token forHTTPHeaderField:@"Lianjia-Access-Token"];
+    //        //[_manager.requestSerializer setValue:[LOSession sharedSession].currentUser.access_timestamp forHTTPHeaderField:@"Lianjia-Timestamp"];
+    //    }
     
     // if api need add custom value to HTTPHeaderField
     NSDictionary *headerFieldValueDictionary = [request requestHeaderFieldValueDictionary];
@@ -355,7 +355,7 @@
     
     NSString *key = [self requestHashKey:operation];
     
-    LORequest *request = [_requestsRecord objectForKey:key];
+    STRequest *request = [_requestsRecord objectForKey:key];
     
     if (request && request.successCompletionBlock) {
         
@@ -372,7 +372,7 @@
     
     NSString *key = [self requestHashKey:operation];
     
-    LORequest *request = [_requestsRecord objectForKey:key];
+    STRequest *request = [_requestsRecord objectForKey:key];
     
     [self removeRequestRecord:request];
     
@@ -384,7 +384,7 @@
         
         if (request && request.failureCompletionBlock) {
             
-            LONetError *netError = [LONetError errorWithAFHTTPRequestOperation:operation NSError:error];
+            STNetError *netError = [STNetError errorWithAFHTTPRequestOperation:operation NSError:error];
             
             if (request.cacheSwitch) {
                 
@@ -397,7 +397,7 @@
 }
 
 //延迟重新请求数据
-- (void)delayNetworkFailureRetryWithRequest:(LORequest *)request {
+- (void)delayNetworkFailureRetryWithRequest:(STRequest *)request {
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(request.retryIntervalInSeconds * NSEC_PER_SEC));
     
@@ -417,7 +417,7 @@
     return key;
 }
 
-- (void)addRequestRecord:(LORequest *)request {
+- (void)addRequestRecord:(STRequest *)request {
     
     if (request.operation != nil) {
         
@@ -431,7 +431,7 @@
     }
 }
 
-- (void)removeRequestRecord:(LORequest *)request {
+- (void)removeRequestRecord:(STRequest *)request {
     
     NSString *key = [self requestHashKey:request.operation];
     
@@ -445,7 +445,7 @@
     
     @synchronized(self) {
         
-        LORequest *request = [_requestsRecord objectForKey:requestHash];
+        STRequest *request = [_requestsRecord objectForKey:requestHash];
         
         request.delegate = nil;
         
@@ -456,4 +456,3 @@
 }
 
 @end
-

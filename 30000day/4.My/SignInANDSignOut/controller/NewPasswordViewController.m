@@ -58,7 +58,7 @@
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }
                 
-            } failure:^(LONetError *error) {
+            } failure:^(STNetError *error) {
                 
                 [self showToast:@"密码修改失败"];
                 

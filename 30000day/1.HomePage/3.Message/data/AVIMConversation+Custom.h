@@ -49,6 +49,12 @@ typedef enum : NSUInteger {
  */
 - (NSString *)displayName;
 
+
+/**
+ *  对话对方的头像url。单聊对方的头像，群聊有待开发
+ */
+- (NSString *)otherHeadUrl;
+
 /**
  *  对话的标题。如 兴趣群(30)
  */

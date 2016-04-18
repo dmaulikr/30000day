@@ -167,6 +167,8 @@
     
     url = [NSString stringWithFormat:@"%@%@",url,keyValueString];
     
+    NSLog(@"验证接口 = %@",url);
+    
     return url;
 }
 

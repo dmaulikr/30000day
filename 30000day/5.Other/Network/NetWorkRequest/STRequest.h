@@ -1,64 +1,64 @@
 //
-//  LORequest.h
+//  STRequest.h
 //  30000day
 //
-//  Created by GuoJia on 15/12/10.
-//  Copyright © 2015年 GuoJia. All rights reserved.
+//  Created by GuoJia on 16/4/16.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
-#import "LONetError.h"
+#import "STNetError.h"
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 typedef void (^LORequestProgressBlock)(long long totalBytesWritten, long long totalBytesExpectedToWrite);
 
 
-typedef NS_ENUM(NSInteger , LORequestMethod) {
-    LORequestMethodGet = 0,
-    LORequestMethodHead,
-    LORequestMethodPost,
-    LORequestMethodPut,
-    LORequestMethodDelete,
-    LORequestMethodPatch
+typedef NS_ENUM(NSInteger , STRequestMethod) {
+    STRequestMethodGet = 0,
+    STRequestMethodHead,
+    STRequestMethodPost,
+    STRequestMethodPut,
+    STRequestMethodDelete,
+    STRequestMethodPatch
 };
 
-typedef NS_ENUM(NSInteger , LORequestSerializerType) {
-    LORequestSerializerTypeHTTP = 0,
-    LORequestSerializerTypeJSON,
+typedef NS_ENUM(NSInteger , STRequestSerializerType) {
+    STRequestSerializerTypeHTTP = 0,
+    STRequestSerializerTypeJSON,
 };
 
-typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
-    LOResponseTypeHTTP = 0,
-    LOResponseTypeJSON,
-    LOResponseTypeXMLParser,
-    LOResponseTypePropertyList,
-    LOResponseTypeImage,
+typedef NS_ENUM(NSInteger , STResponseSerializerType) {
+    STResponseTypeHTTP = 0,
+    STResponseTypeJSON,
+    STResponseTypeXMLParser,
+    STResponseTypePropertyList,
+    STResponseTypeImage,
 };
 
-@class LORequest;
+@class STRequest;
 
-@protocol LORequestProtocal <NSObject>
+@protocol STRequestProtocal <NSObject>
 
-- (void)requestFinished:(LORequest *)request;
-- (void)requestFailed:(LORequest *)request;
+- (void)requestFinished:(STRequest *)request;
+- (void)requestFailed:(STRequest *)request;
 
 @end
 
-@interface LORequest : NSObject
+@interface STRequest : NSObject
 
 // 公共信息
 @property (nonatomic) NSInteger tag;
 @property (nonatomic, strong) AFHTTPRequestOperation *operation;
 
 // Http请求的方法
-@property (nonatomic, assign) LORequestMethod requestMethod;
+@property (nonatomic, assign) STRequestMethod requestMethod;
 
 // 请求的SerializerType
-@property (nonatomic, assign) LORequestSerializerType requestSerializerType;
+@property (nonatomic, assign) STRequestSerializerType requestSerializerType;
 
 // 返回的SerializerType
-@property (nonatomic, assign) LOResponseSerializerType responseSerializerType;
+@property (nonatomic, assign) STResponseSerializerType responseSerializerType;
 
 // 自定义的 BaseURL，不设置时交给 LONetworkAgent 的时候使用 Agent 的配置值
 @property (nonatomic, strong) NSString *baseUrl;
@@ -107,12 +107,12 @@ typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
 
 
 // 用于代理模式进行回调
-@property (nonatomic, weak) id<LORequestProtocal> delegate;
+@property (nonatomic, weak) id<STRequestProtocal> delegate;
 
 
 // 用户 block 模式进行回调
 @property (atomic, copy) void (^successCompletionBlock)(id responseObject);
-@property (atomic, copy) void (^failureCompletionBlock)(LONetError *error);
+@property (atomic, copy) void (^failureCompletionBlock)(STNetError *error);
 
 
 // response object
@@ -121,20 +121,20 @@ typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
 @property (nonatomic, strong, readonly) id responseJSONObject;
 
 
-+ (LORequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STRequest *)requestWithMethod:(STRequestMethod)requestMethod
                              url:(NSString *)requesturl
                       parameters:(id)parameters
                          success:(void (^)(id responseObject))success
-                         failure:(void (^)(LONetError *error))failure;
+                         failure:(void (^)(STNetError *error))failure;
 
 
-+ (LORequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STRequest *)requestWithMethod:(STRequestMethod)requestMethod
                              url:(NSString *)requesturl
                       parameters:(id)parameters
            constructingBodyBlock:(AFConstructingBlock)constructingBodyBlock
                         progress:(LORequestProgressBlock)progress
                          success:(void (^)(id responseObject))success
-                         failure:(void (^)(LONetError *error))failure;
+                         failure:(void (^)(STNetError *error))failure;
 
 // 以下是 网络请求数据缓存 相关方法 / 属性
 
@@ -148,3 +148,4 @@ typedef NS_ENUM(NSInteger , LOResponseSerializerType) {
 - (void)startRequestCacheWithResponseObject:(id)responseObject;
 
 @end
+

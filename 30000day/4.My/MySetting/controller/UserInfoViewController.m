@@ -108,7 +108,7 @@
         
         [self.navigationController popViewControllerAnimated:YES];
         
-    } failure:^(LONetError *error) {
+    } failure:^(STNetError *error) {
         
         [self hideHUD:YES];
         

@@ -15,7 +15,7 @@
 #import "STNavigationController.h"
 #import "STBaseViewController.h"
 #import "ShowBackItemViewController.h"
-#import "LODataHandler.h"
+#import "STDataHandler.h"
 #import "Common.h"
 #import "UserAccountHandler.h"
 #import "UIView+Extension.h"
@@ -219,12 +219,12 @@
 
 #define  GET_SEARCH_WRITER_LIST            @"/stapi/info/searchWriterList"     //搜索作者
 
-//发送消息的标记
-#define MESSAGE_STRING       @"[1]"
-#define MESSAGE_VOICE        @"[2]"
-#define MESSAGE_IMAGE        @"[9]"
-#define MESSAGE_VIDEO        @"[4]"
 #define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"        //统计环境因素
+
+//凌云用到的宏
+#define NICK_NAME             @"nickName"
+#define USER_ID               @"userId"
+#define IMG_URL               @"imgUrl"
 
 
 #define WX_APP_ID          @"wx75e720a9c37aa258"

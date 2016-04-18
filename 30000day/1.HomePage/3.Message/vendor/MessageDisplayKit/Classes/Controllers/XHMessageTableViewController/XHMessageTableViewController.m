@@ -1141,15 +1141,37 @@ static CGPoint  delayOffset = {0.0};
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     if ([self.delegate respondsToSelector:@selector(shouldLoadMoreMessagesScrollToTop)]) {
+        
         BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
         if (shouldLoadMoreMessages) {
-            if (scrollView.contentOffset.y >=0 && scrollView.contentOffset.y <= 44) {
-                if (!self.loadingMoreMessage) {
-                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-                        [self.delegate loadMoreMessagesScrollTotop];
+//            if (scrollView.contentOffset.y >=0 && scrollView.contentOffset.y <= 44) {
+//                if (!self.loadingMoreMessage) {
+//                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+//                        [self.delegate loadMoreMessagesScrollTotop];
+//                    }
+//                }
+//            }
+            CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+            
+            if ( translation.y > 0) {//向下滑动
+                
+                if (scrollView.contentOffset.y >=0 && scrollView.contentOffset.y <= 44) {
+                    
+                    if (!self.loadingMoreMessage) {
+                        
+                        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                            
+                            [self.delegate loadMoreMessagesScrollTotop];
+                            
+                        }
                     }
                 }
+                
+            } else if (translation.y < 0) {//向上滑动
+                
+                
             }
         }
     }

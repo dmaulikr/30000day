@@ -6,10 +6,10 @@
 //  Copyright © 2015年 GuoJia. All rights reserved.
 //
 
-#import "LODataHandler.h"
-#import "LORequest.h"
-#import "LOApiRequest.h"
-#import "LONetworkAgent.h"
+#import "STDataHandler.h"
+#import "STRequest.h"
+#import "STApiRequest.h"
+#import "STNetworkAgent.h"
 #import "STBaseViewController.h"
 
 #import "AddressBookModel.h"
@@ -32,6 +32,7 @@
 #import "MyOrderDetailModel.h"
 #import "InformationModel.h"
 #import "SubscriptionModel.h"
+#import "STHealthyManager.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -68,7 +69,7 @@
 
 @end
 
-@interface LODataHandler () <CLLocationManagerDelegate>
+@interface STDataHandler () <CLLocationManagerDelegate>
 
 @property (nonatomic ,copy) void (^(addressBookBlock))(NSMutableArray *,NSMutableArray *,NSMutableArray *);//获取电话簿的回调代码块
 
@@ -81,7 +82,7 @@
 @end
 
 
-@implementation LODataHandler
+@implementation STDataHandler
 
 - (id)init {
     
@@ -95,13 +96,13 @@
 }
 
 // 开始一个请求，并将请求 Hash 值插入回 BaseViewController
-- (NSString *)startRequest:(LORequest *)request {
+- (NSString *)startRequest:(STRequest *)request {
     
-    NSString *requestHash = [[LONetworkAgent sharedAgent] addRequest:request];
+    NSString *requestHash = [[STNetworkAgent sharedAgent] addRequest:request];
     
-    if ([(STBaseViewController *)self.delegate respondsToSelector:@selector(requestRecord)]) {
+    if ([self.delegate respondsToSelector:@selector(requestRecord)]) {
         
-        [[(STBaseViewController *)self.delegate requestRecord] addObject:requestHash];
+        [[self.delegate requestRecord] addObject:requestHash];
         
     }
     
@@ -109,11 +110,11 @@
 }
 
 // 试图将错误交回给 BaseViewController 预处理
-- (void)preHandleLONetError:(LONetError *)error failureBlock:(void (^)(LONetError *))failure {
+- (void)preHandleLONetError:(STNetError *)error failureBlock:(void (^)(STNetError *))failure {
     
-    if ([(STBaseViewController *)self.delegate respondsToSelector:@selector(handleLONetError:)]) {
+    if ([self.delegate respondsToSelector:@selector(handleLONetError:)]) {
         
-        [(STBaseViewController *)self.delegate handleLONetError:error];
+        [self.delegate handleLONetError:error];
     }
     
     if (failure) {
@@ -137,7 +138,7 @@
     
         [parameters addParameter:type forKey:@"type"];
     
-        LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+        STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SMS_CODE
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -175,7 +176,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -186,7 +187,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -204,7 +205,7 @@
     
     [parameters addParameter:smsCode forKey:@"code"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:VALIDATE_SMS_CODE
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -234,7 +235,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -245,7 +246,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -266,7 +267,7 @@
     
     [parameters addParameter:password forKey:@"password"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_PASSWORD_BYMOBILE
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -310,7 +311,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -321,7 +322,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
   
@@ -336,7 +337,7 @@
     
     [parameters addParameter:userName forKey:@"userName"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_USERID_BY_NAME
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -378,7 +379,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -389,7 +390,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -408,7 +409,7 @@
     
     [parameters addParameter:password forKey:@"password"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:LOGIN_WITH_PASSWORD
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -457,7 +458,7 @@
  
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -468,7 +469,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     return [self startRequest:request];
 }
@@ -553,6 +554,9 @@
         [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
         
     }
+    
+    //设置个人健康模型
+    [[STHealthyManager shareManager] synchronizedHealthyDataFromServer];
 }
 
 //********** 用户注册 ************/
@@ -573,7 +577,7 @@
     
     [parameters addParameter:nickName forKey:@"nickName"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:REGISTER
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -613,7 +617,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -624,7 +628,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -638,7 +642,9 @@
     
     [parameters addParameter:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    [Common urlStringWithDictionary:parameters withString:GET_MY_FRIENDS];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_MY_FRIENDS
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -659,9 +665,7 @@
                                                                 
                                                                 //赋值
                                                                 [UserInformationManager shareUserInformationManager].userInformationArray = array;
-                                                                
-                                                                
-                                                                
+
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(array);
@@ -677,7 +681,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -688,7 +692,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -700,7 +704,7 @@
                                    birthday:(NSString *)birthday
                          headImageUrlString:(NSString *)headImageUrlString
                                     success:(void (^)(BOOL))success
-                                    failure:(void (^)(LONetError *))failure {
+                                    failure:(void (^)(STNetError *))failure {
     
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
@@ -715,7 +719,7 @@
     
     [parameters addParameter:gender forKey:@"gender"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_INFORMATION
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -748,7 +752,7 @@
                                                                 
                                                             } else {
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -759,20 +763,17 @@
                                                             
                                                         } else {
                                                             
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                failure(error);
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -783,7 +784,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -980,7 +981,7 @@
     
     [parameters addParameter:userId forKey:@"fUserId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:ADD_USER
                                                  parameters:parameters
                                             success:^(id responseObject) {
@@ -1029,7 +1030,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1040,7 +1041,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -1125,11 +1126,18 @@
             
            NSError *newError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
             
-            self.getLocationErrorBlock(newError);
+            dispatch_async(dispatch_get_main_queue(), ^{
             
+                self.getLocationErrorBlock(newError);
+                
+            });
         } else if (error != nil) {
         
-            self.getLocationErrorBlock(error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.getLocationErrorBlock(error);
+                
+            });
         }
 
     }];
@@ -1148,7 +1156,7 @@
         
         NSString *method = @"post";
         
-        APISCallBack* callBack = [APISCallBack alloc];
+        APISCallBack *callBack = [APISCallBack alloc];
         
         callBack.onSuccess = ^(long status, NSString* responseString) {
 
@@ -1195,11 +1203,21 @@
                     }
                 };
 
-        callBack.onError = ^(long status, NSString* responseString) {
+        callBack.onError = ^(long status, NSString *responseString) {
+            
+            
+             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:responseString}];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(failureError);
+                
+            });
             
         };
     
         callBack.onComplete = ^() {
+            
             
         };
         
@@ -1214,7 +1232,7 @@
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                   success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(LONetError *error))failure {
+                                  failure:(void (^)(STNetError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
@@ -1224,7 +1242,7 @@
     
     [parameters addParameter:dayNumber forKey:@"day"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_USER_LIFE_LIST
                                                  parameters:parameters
                                                     success:^(id responseObject) {
@@ -1250,7 +1268,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1264,7 +1282,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1276,7 +1294,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1286,16 +1304,16 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
 - (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
-                  failure:(void (^)(LONetError *error))failure {
+                  failure:(void (^)(STNetError *error))failure {
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FACTORS
                                                  parameters:nil
                                                     success:^(id responseObject) {
@@ -1351,11 +1369,11 @@
                                                                             
                                                                         });
                                                                         
-                                                                    } failure:^(LONetError *error) {
+                                                                    } failure:^(STNetError *error) {
                                                                         
                                                                         NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载个人健康因失败"}];
                                                                         
-                                                                        LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                        STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                         
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                                             
@@ -1365,11 +1383,11 @@
                                                                         
                                                                     }];
                                                                     
-                                                                } failure:^(LONetError *error) {
+                                                                } failure:^(STNetError *error) {
                                                                     
                                                                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子选项失败"}];
                                                                     
-                                                                    LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                    STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                     
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
@@ -1383,7 +1401,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1397,7 +1415,7 @@
                                                             
                                                             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
                                                             
-                                                            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
@@ -1407,11 +1425,11 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
                                                         
-                                                        LONetError *newError = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                        STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1422,7 +1440,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -1430,9 +1448,9 @@
 //***********私有API:获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
 - (void)sendGetSubFactorsWithFactorsModel:(NSMutableArray *)factorsArray
                                   success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(LONetError *error))failure {
+                                  failure:(void (^)(STNetError *error))failure {
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SUBFACTORS
                                                  parameters:nil
                                                     success:^(id responseObject) {
@@ -1482,7 +1500,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1496,7 +1514,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1508,7 +1526,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1518,7 +1536,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -1527,7 +1545,7 @@
 - (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
-                             failure:(void (^)(LONetError *error))failure {
+                             failure:(void (^)(STNetError *error))failure {
     //异步执行
     dispatch_async(dispatch_queue_create("saveUserFactores", DISPATCH_QUEUE_SERIAL), ^{
         
@@ -1589,7 +1607,7 @@
                         
                         NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
                         
-                        LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                        STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
@@ -1602,7 +1620,7 @@
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
                     
-                    LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                    STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
@@ -1616,7 +1634,7 @@
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
                 
-                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
@@ -1629,7 +1647,7 @@
             
             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"获取个人健康因子失败"}];
             
-            LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
@@ -1646,7 +1664,7 @@
 - (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
                               success:(void (^)(BOOL success))success
-                              failure:(void (^)(LONetError *error))failure {
+                              failure:(void (^)(STNetError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -1675,7 +1693,7 @@
     
     params[@"data"] = dataString;
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_FACTORS
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -1695,7 +1713,7 @@
                                                                     //当用户成功保存健康因子的时候会发出通知
                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
                                                                                                                         object:nil];
-                                                                    
+        
                                                                       success(YES);
                                                                     
                                                                 });
@@ -1704,7 +1722,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1716,21 +1734,17 @@
                                                             
                                                         } else {
                                                             
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(error);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1740,7 +1754,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -1849,14 +1863,13 @@
 
 -(void)sendGetSecurityQuestion:(NSNumber *)userId
                        success:(void (^)(NSDictionary *dic))success
-                       failure:(void (^)(LONetError *error))failure{
+                       failure:(void (^)(STNetError *error))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     params[@"userId"] = userId;
     
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -1883,7 +1896,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1895,21 +1908,17 @@
                                                             
                                                         } else {
                                                             
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(error);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1919,16 +1928,16 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
 
 
 - (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
-                           failure:(void (^)(LONetError *error))failure{
+                           failure:(void (^)(STNetError *error))failure{
 
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION_SUM
                                                  parameters:nil
                                                     success:^(id responseObject) {
@@ -1955,7 +1964,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1969,7 +1978,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -1981,7 +1990,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -1991,7 +2000,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -2000,7 +2009,7 @@
 -(void)sendSecurityQuestionvalidate:(NSNumber *)userId
                             answer:(NSArray *)answerArr
                             success:(void (^)(NSString *successToken))success
-                            failure:(void (^)(LONetError *error))failure{
+                            failure:(void (^)(STNetError *error))failure{
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:userId forKey:@"userId"];
@@ -2011,7 +2020,7 @@
     }
     
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION_VERIFICATION
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2036,7 +2045,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -2048,21 +2057,17 @@
                                                             
                                                         } else {
                                                             
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(error);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2072,7 +2077,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -2082,7 +2087,7 @@
                                       token:(NSString *)token
                                    password:(NSString *)password
                                     success:(void (^)(BOOL success))success
-                                    failure:(void (^)(LONetError *))failure{
+                                    failure:(void (^)(STNetError *))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -2090,8 +2095,7 @@
     [params setObject:userId forKey:@"userId"];
     [params setObject:password forKey:@"password"];
     
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION_UPTUSERPWDBYSECU
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2108,7 +2112,7 @@
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(recvDic[@"value"]);
+                                                                    success(YES);
                                                                     
                                                                 });
                                                                 
@@ -2116,7 +2120,7 @@
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -2128,21 +2132,17 @@
                                                             
                                                         } else {
                                                             
+                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                LONetError *error = [LONetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(error);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2152,7 +2152,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -2174,7 +2174,7 @@
     
     [params setObject:newPassword forKey:@"newPwd"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:CHANGE_PASSWORD
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2211,17 +2211,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2231,7 +2227,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -2254,7 +2250,7 @@
         [params setObject:answerArray[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
     }
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_SECURITY
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2291,17 +2287,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2311,7 +2303,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -2328,7 +2320,7 @@
     
     [params setObject:data forKey:@"data"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_STAT_USERLLFE
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2365,17 +2357,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2385,7 +2373,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -2402,7 +2390,7 @@
     
     [params setObject:email forKey:@"email"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_SENDEMAIL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2439,17 +2427,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2459,7 +2443,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -2474,7 +2458,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_VERIFICATION_EMAIL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2513,17 +2497,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2533,7 +2513,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -2551,7 +2531,7 @@
         
     }
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMPANYDETAILS
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2593,16 +2573,12 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2612,7 +2588,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -2628,8 +2604,8 @@
         
         [params setObject:cityId forKey:@"citySign"];
     }
-
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_LINE_LIST
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2700,17 +2676,13 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
+                                                                failure(localError);
                                                                 
                                                             });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2720,7 +2692,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -2775,7 +2747,7 @@
     
     [params addParameter:[Common deletedStringWithParentString:conditionModel.cityName] forKey:@"addrCity"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:isSearch?GET_SEARCH_LIST:GET_SHOP_LIST
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2825,20 +2797,16 @@
                                                             }
                                                             
                                                         } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     failure(localError);
                                                                     
                                                                 });
-                                                                
-                                                            });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2848,7 +2816,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -2888,7 +2856,7 @@
         
     }
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FINDCOMMENTLIST
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -2945,19 +2913,16 @@
                                                             
                                                         } else {
                                                             
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     failure(localError);
                                                                     
                                                                 });
-                                                                
-                                                            });
+
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -2967,7 +2932,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -3027,7 +2992,7 @@
         
     }
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_COMMENT
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3067,20 +3032,16 @@
                                                             }
                                                             
                                                         } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     failure(localError);
                                                                     
                                                                 });
-                                                                
-                                                            });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3090,7 +3051,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -3114,7 +3075,7 @@
     
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_POINTPRAISEORCANCEL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3154,20 +3115,16 @@
                                                             }
                                                             
                                                         } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     failure(localError);
                                                                     
                                                                 });
-                                                                
-                                                            });
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3177,7 +3134,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
     
@@ -3192,10 +3149,8 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
     [params setObject:@(sendsaveComment) forKey:@"sendsaveComment"];
-        
     
-    
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_FINDDEFAUITCOMMWNT_COUNT
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3260,7 +3215,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3270,7 +3225,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -3282,7 +3237,7 @@
 - (void)sendSearchTableVersion:(void (^)(NSMutableArray *success))success
                        failure:(void (^)(NSError *error))failure {
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCHTABLEVERSIION
                                                  parameters:nil
                                                     success:^(id responseObject) {
@@ -3341,7 +3296,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3351,7 +3306,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -3370,7 +3325,7 @@
     
     [params setObject:@(count) forKey:@"count"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SHOPOWNERRECOMMEND
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3429,7 +3384,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3439,7 +3394,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -3457,7 +3412,7 @@
     
     [params setObject:@(count) forKey:@"count"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_PLATFORMRECOMMEND
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3516,7 +3471,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3526,7 +3481,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -3542,7 +3497,7 @@
     
     [params setObject:companyId forKey:@"companyId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FINDCOMOANYINFO
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3591,7 +3546,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3601,7 +3556,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -3619,7 +3574,7 @@
     
     [params setObject:productTypeId forKey:@"productTypeId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FINDPRODUCTSBYIDS
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3678,7 +3633,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3688,7 +3643,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -3707,7 +3662,7 @@
     
     [params setObject:date forKey:@"date"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_SEARCH_COUNT
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3764,7 +3719,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3774,7 +3729,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -3817,7 +3772,7 @@
     
     [Common urlStringWithDictionary:params withString:COMMIT_ORDER_COURTS];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_ORDER_COURTS
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3859,7 +3814,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -3869,7 +3824,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -3941,7 +3896,7 @@
         [params setObject:type forKey:@"orderStatus"];
     }
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_LIST
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -3998,7 +3953,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4008,7 +3963,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4026,7 +3981,7 @@
         
     }
 
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_DETAIL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4073,7 +4028,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4083,7 +4038,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4103,7 +4058,7 @@
     
     [params setObject:@(sortType) forKey:@"sortType"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_MATIONS
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4162,7 +4117,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4172,7 +4127,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -4190,7 +4145,7 @@
         
         [params setObject:orderNumber forKey:@"orderNo"];
     }
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_CANCEL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4235,7 +4190,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4245,7 +4200,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4260,7 +4215,7 @@
     
     [params setObject:infoId forKey:@"infoId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_INFOMATION_DETAIL
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4309,7 +4264,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4319,12 +4274,9 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-
-
-
 }
 
 //*****************************************资讯点赞*********************/
@@ -4345,7 +4297,7 @@
     
     [params setObject:@(busiType) forKey:@"busiType"];
 
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_POINT
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4387,7 +4339,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4397,7 +4349,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4414,7 +4366,7 @@
     
     [params setObject:writerId forKey:@"writerId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_WRITER
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4463,7 +4415,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4473,7 +4425,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4490,7 +4442,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_SUBSCRIBE
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4532,7 +4484,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4542,7 +4494,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -4560,7 +4512,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_CANCEL_SUBSCRIBE
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4601,7 +4553,7 @@
                                                             });
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4611,7 +4563,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 
@@ -4626,7 +4578,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_MY_SUBSCRIBE
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4685,7 +4637,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4695,7 +4647,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4709,7 +4661,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_USER_INFORMATION
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4756,7 +4708,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4766,7 +4718,7 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
 }
@@ -4783,7 +4735,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    LOApiRequest *request = [LOApiRequest requestWithMethod:LORequestMethodGet
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_WRITER_LIST
                                                  parameters:params
                                                     success:^(id responseObject) {
@@ -4842,7 +4794,7 @@
                                                             
                                                         }
                                                         
-                                                    } failure:^(LONetError *error) {
+                                                    } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
@@ -4852,12 +4804,9 @@
                                                     }];
     request.needHeaderAuthorization = NO;
     
-    request.requestSerializerType = LORequestSerializerTypeJSON;
+    request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-
-
-
 }
 
 @end

@@ -31,7 +31,7 @@
 #import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
 #import "SearchTableVersion.h"
-#import "LODataHandler.h"
+
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -65,7 +65,6 @@
                 return;
             }
         }];
-        
     }
     
     //***********************************设置聚合SDK的APPID*******************************//
@@ -83,7 +82,7 @@
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
     
-    [AVOSCloud setApplicationId:@"Y53KlD1EfKwLOgoVv4onj3jh-gzGzoHsz" clientKey:@"FgrznsRALF0F8c1vOFYe45j2"];
+    [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
     
     [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
@@ -112,7 +111,6 @@
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];//
@@ -123,7 +121,7 @@
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
     
-    LODataHandler *dataHandler = [[LODataHandler alloc] init];
+    STDataHandler *dataHandler = [[STDataHandler alloc] init];
     [dataHandler sendSearchTableVersion:^(NSMutableArray *success) {
         
         NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
@@ -216,7 +214,7 @@
         NSLog(@"获取数据版本信息失败！！！！！！！！！！！！！！！");
         
     }];
-    
+
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self.window makeKeyAndVisible];

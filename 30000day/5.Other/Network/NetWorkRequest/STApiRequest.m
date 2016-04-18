@@ -1,21 +1,20 @@
 //
-//  LOApiRequest.m
+//  STApiRequest.m
 //  30000day
 //
-//  Created by GuoJia on 15/12/11.
-//  Copyright © 2015年 GuoJia. All rights reserved.
+//  Created by GuoJia on 16/4/16.
+//  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "LOApiRequest.h"
+#import "STApiRequest.h"
 
-@implementation LOApiRequest
+@implementation STApiRequest
 
-+ (LOApiRequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STApiRequest *)requestWithMethod:(STRequestMethod)requestMethod
                                 url:(NSString *)requesturl
                          parameters:(id)parameters
                             success:(void (^)(id responseObject))success
-                            failure:(void (^)(LONetError *error))failure
-{
+                            failure:(void (^)(STNetError *error))failure {
     return [self requestWithMethod:requestMethod
                                url:requesturl
                         parameters:parameters
@@ -25,15 +24,15 @@
                            failure:failure];
 }
 
-+ (LOApiRequest *)requestWithMethod:(LORequestMethod)requestMethod
++ (STApiRequest *)requestWithMethod:(STRequestMethod)requestMethod
                                 url:(NSString *)requesturl
                          parameters:(id)parameters
               constructingBodyBlock:(AFConstructingBlock)constructingBodyBlock
                            progress:(LORequestProgressBlock)progress
                             success:(void (^)(id responseObject))success
-                            failure:(void (^)(LONetError *error))failure
-{
-    LOApiRequest *request = [[LOApiRequest alloc] init];
+                            failure:(void (^)(STNetError *error))failure {
+    
+    STApiRequest *request = [[STApiRequest alloc] init];
     
     //设置 baseurl
     request.baseUrl = ST_API_SERVER;

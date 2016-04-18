@@ -51,30 +51,67 @@
 }
 
 - (NSString *)displayName {
+    
     if ([self type] == CDConversationTypeSingle) {
-//        NSString *otherId = [self otherId];
-//        id<CDUserModelDelegate> other = [[CDChatManager manager].userDelegate getUserById:otherId];
-#warning 标记一下
-        return @"wangGang";
+        
+        NSString *otherId = [self otherId];
+        
+        NSDictionary *otherDictionary = self.attributes;
+        
+        NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
+        
+        return [newDictionay objectForKey:NICK_NAME];
+        
     } else {
+        
         return self.name;
     }
 }
 
-- (NSString *)otherId {
-    NSArray *members = self.members;
-    if (members.count == 0) {
-        [NSException raise:@"invalid conversation" format:@"invalid conversation"];
+- (NSString *)otherHeadUrl {
+    
+    if ([self type] == CDConversationTypeSingle) {
+        
+        NSString *otherId = [self otherId];
+        
+        NSDictionary *otherDictionary = self.attributes;
+        
+        NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
+        
+        return [newDictionay objectForKey:IMG_URL];
+        
+    } else {
+        
+        return @"正在开发";
     }
+}
+
+
+- (NSString *)otherId {
+    
+    NSArray *members = self.members;
+    
+    if (members.count == 0) {
+        
+        [NSException raise:@"invalid conversation" format:@"invalid conversation"];
+        
+    }
+    
     if (members.count == 1) {
         return members[0];
     }
+    
     NSString *otherId;
+    
     if ([members[0] isEqualToString:[CDChatManager manager].clientId]) {
+        
         otherId = members[1];
+        
     } else {
+        
         otherId = members[0];
     }
+    
     return otherId;
 }
 

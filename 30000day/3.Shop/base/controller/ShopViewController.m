@@ -226,8 +226,6 @@
         
     } failure:^(NSError *error) {
         
-        [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-        
         //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
         [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
     }];

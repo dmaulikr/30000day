@@ -38,7 +38,7 @@ static NSInteger const kOnePageSize = 10;
 
 @property (nonatomic, strong) NSArray *emotionManagers;
 
-@property (nonatomic, strong) LZStatusView *clientStatusView;
+//@property (nonatomic, strong) LZStatusView *clientStatusView;
 
 @end
 
@@ -71,13 +71,13 @@ static NSInteger const kOnePageSize = 10;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.title = self.otherModel.nickName;
+    self.title = self.conversation.displayName;
     
     [self initBarButton];
     
     [self initBottomMenuAndEmotionView];
     
-    [self.view addSubview:self.clientStatusView];
+//    [self.view addSubview:self.clientStatusView];
     
     // 设置自身用户名
     self.messageSender = STUserAccountHandler.userProfile.nickName;
@@ -92,7 +92,7 @@ static NSInteger const kOnePageSize = 10;
     
 //    [self refreshConv];
     [self loadMessagesWhenInit];
-    [self updateStatusView];
+//    [self updateStatusView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -156,22 +156,22 @@ static NSInteger const kOnePageSize = 10;
 }
 
 #pragma mark - connect status view
-
-- (LZStatusView *)clientStatusView {
-    if (_clientStatusView == nil) {
-        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 64, self.messageTableView.frame.size.width, kLZStatusViewHight)];
-        _clientStatusView.hidden = YES;
-    }
-    return _clientStatusView;
-}
-
-- (void)updateStatusView {
-    if ([CDChatManager manager].connect) {
-        self.clientStatusView.hidden = YES;
-    } else {
-        self.clientStatusView.hidden = NO;
-    }
-}
+//
+//- (LZStatusView *)clientStatusView {
+//    if (_clientStatusView == nil) {
+//        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 64, self.messageTableView.frame.size.width, kLZStatusViewHight)];
+//        _clientStatusView.hidden = YES;
+//    }
+//    return _clientStatusView;
+//}
+//
+//- (void)updateStatusView {
+//    if ([CDChatManager manager].connect) {
+//        self.clientStatusView.hidden = YES;
+//    } else {
+//        self.clientStatusView.hidden = NO;
+//    }
+//}
 
 #pragma mark - XHMessageTableViewCell delegate
 
@@ -527,22 +527,37 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)onMessageDelivered:(NSNotification *)notification {
+    
     AVIMTypedMessage *message = notification.object;
+    
     if ([message.conversationId isEqualToString:self.conversation.conversationId]) {
+        
         AVIMTypedMessage *foundMessage;
+        
         NSInteger pos;
+        
         for (pos = 0; pos < self.msgs.count; pos++) {
+            
             AVIMTypedMessage *msg = self.msgs[pos];
+            
             if ([msg.messageId isEqualToString:message.messageId]) {
+                
                 foundMessage = msg;
+                
                 break;
             }
         }
+        
         if (foundMessage != nil) {
+            
             XHMessage *xhMsg = [self getXHMessageByMsg:foundMessage];
+            
             [self.messages setObject:xhMsg atIndexedSubscript:pos];
+            
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:pos inSection:0];
+            
             [self.messageTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
             [self scrollToBottomAnimated:YES];
         }
     }
@@ -563,7 +578,7 @@ static NSInteger const kOnePageSize = 10;
         
     } else {
         
-       return self.otherModel.nickName;
+       return self.conversation.displayName;
         
     }
 }
@@ -576,7 +591,7 @@ static NSInteger const kOnePageSize = 10;
         
     } else {
         
-        return self.otherModel.headImg;
+        return self.conversation.otherHeadUrl;
         
     }
 }
@@ -712,30 +727,46 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)loadMessagesWhenInit {
+    
     if (self.isLoadingMsg) {
+        
         return;
+        
     } else {
+        
         self.isLoadingMsg = YES;
+        
         [self queryAndCacheMessagesWithTimestamp:0 block:^(NSArray *msgs, NSError *error) {
+            
             if ([self filterError:error]) {
+                
                 // 失败消息加到末尾，因为 SDK 缓存不保存它们
                 NSArray *failedMessages = [[CDFailedMessageStore store] selectFailedMessagesByConversationId:self.conversation.conversationId];
+                
                 NSMutableArray *allMessages = [NSMutableArray arrayWithArray:msgs];
+                
                 [allMessages addObjectsFromArray:failedMessages];
                 
                 NSMutableArray *xhMsgs = [self getXHMessages:allMessages];
+                
                 self.messages = xhMsgs;
+                
                 self.msgs = allMessages;
+                
                 [self.messageTableView reloadData];
+                
                 [self scrollToBottomAnimated:NO];
                 
                 if (self.msgs.count > 0) {
+                    
                     [self updateConversationAsRead];
                 }
                 
                 // 如果连接上，则重发所有的失败消息。若夹杂在历史消息中间不好处理
                 if ([CDChatManager manager].connect) {
+                    
                     for (NSInteger row = msgs.count;row < allMessages.count; row ++) {
+                        
                         [self resendMessageAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] discardIfFailed:YES];
                     }
                 }
@@ -756,17 +787,29 @@ static NSInteger const kOnePageSize = 10;
         self.isLoadingMsg = YES;
         
         AVIMTypedMessage *msg = [self.msgs objectAtIndex:0];
+        
         int64_t timestamp = msg.sendTimestamp;
+        
         [self queryAndCacheMessagesWithTimestamp:timestamp block:^(NSArray *msgs, NSError *error) {
+            
             if ([self filterError:error]) {
+                
                 NSMutableArray *xhMsgs = [[self getXHMessages:msgs] mutableCopy];
+                
                 NSMutableArray *newMsgs = [NSMutableArray arrayWithArray:msgs];
+                
                 [newMsgs addObjectsFromArray:self.msgs];
+                
                 self.msgs = newMsgs;
+                
                 [self insertOldMessages:xhMsgs completion: ^{
+                    
                     self.isLoadingMsg = NO;
+                    
                 }];
+                
             } else {
+                
                 self.isLoadingMsg = NO;
             }
         }];
@@ -774,25 +817,41 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)memoryCacheMsgs:(NSArray *)msgs callback:(AVBooleanResultBlock)callback {
+    
     [self runInGlobalQueue:^{
+        
         NSMutableSet *userIds = [[NSMutableSet alloc] init];
+        
         for (AVIMTypedMessage *msg in msgs) {
+            
             [userIds addObject:msg.clientId];
+            
             if (msg.mediaType == kAVIMMessageMediaTypeImage || msg.mediaType == kAVIMMessageMediaTypeAudio) {
+                
                 AVFile *file = msg.file;
+                
                 if (file && file.isDataAvailable == NO) {
+                    
                     NSError *error;
+                    
                     // 下载到本地
                     NSData *data = [file getData:&error];
+                    
                     if (error || data == nil) {
                         DLog(@"download file error : %@", error);
                     }
                 }
+                
             } else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
+                
                 NSString *path = [[CDChatManager manager] videoPathOfMessag:(AVIMVideoMessage *)msg];
+                
                 if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                    
                     NSError *error;
+                    
                     NSData *data = [msg.file getData:&error];
+                    
                     if (error) {
                         DLog(@"download file error : %@", error);
                     } else {
@@ -819,20 +878,33 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)insertMessage:(AVIMTypedMessage *)message {
+    
     if (self.isLoadingMsg) {
+        
         [self performSelector:@selector(insertMessage:) withObject:message afterDelay:1];
+        
         return;
     }
+    
     self.isLoadingMsg = YES;
+    
     [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
+        
         if ([self filterError:error]) {
+            
             XHMessage *xhMessage = [self getXHMessageByMsg:message];
+            
             [self.msgs addObject:message];
+            
             [self.messages addObject:xhMessage];
+            
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+            
             [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
             [self scrollToBottomAnimated:YES];
         }
+        
         self.isLoadingMsg = NO;
     }];
 }
