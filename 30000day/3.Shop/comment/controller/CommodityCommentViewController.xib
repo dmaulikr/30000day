@@ -10,6 +10,7 @@
                 <outlet property="baseView" destination="rp6-py-nge" id="Z6K-m8-KaS"/>
                 <outlet property="deleteImageButton" destination="Gr1-6S-bvY" id="J6y-ZF-C7v"/>
                 <outlet property="insertImageButton" destination="bSs-VV-z4t" id="pLT-8F-MY4"/>
+                <outlet property="rateView" destination="qDa-NH-75e" id="riR-PQ-78h"/>
                 <outlet property="submit" destination="7SL-W9-RSs" id="lX3-F5-cBe"/>
                 <outlet property="textView" destination="ltt-Jg-7HU" id="NoT-YH-Ku0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,7 +32,7 @@
                     </state>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="匿名评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-rj-M5T">
-                    <rect key="frame" x="43" y="362" width="68" height="21"/>
+                    <rect key="frame" x="39" y="362" width="68" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.62352941176470589" green="0.62352941176470589" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -84,6 +85,13 @@
                                 <action selector="deleteImage:" destination="-1" eventType="touchUpInside" id="i8h-pw-dEN"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDa-NH-75e" customClass="DYRateView">
+                            <rect key="frame" x="50" y="8" width="311" height="22"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="xLd-JY-iD4"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rp6-py-nge">
                             <rect key="frame" x="10" y="170" width="339" height="90"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,6 +112,8 @@
                         <constraint firstItem="Gr1-6S-bvY" firstAttribute="centerY" secondItem="rp6-py-nge" secondAttribute="centerY" id="PhA-RQ-uGC"/>
                         <constraint firstItem="bSs-VV-z4t" firstAttribute="top" secondItem="rp6-py-nge" secondAttribute="bottom" id="Sld-M2-bQU"/>
                         <constraint firstAttribute="trailing" secondItem="Fv0-ua-FrN" secondAttribute="trailing" id="TCm-n2-G90"/>
+                        <constraint firstItem="qDa-NH-75e" firstAttribute="leading" secondItem="64P-aK-Dtv" secondAttribute="trailing" constant="8" id="UHm-2R-xAJ"/>
+                        <constraint firstItem="qDa-NH-75e" firstAttribute="centerY" secondItem="64P-aK-Dtv" secondAttribute="centerY" id="WpI-s6-YAw"/>
                         <constraint firstItem="Gr1-6S-bvY" firstAttribute="leading" secondItem="rp6-py-nge" secondAttribute="trailing" id="aKe-eV-y1t"/>
                         <constraint firstItem="bSs-VV-z4t" firstAttribute="centerX" secondItem="qaZ-bB-335" secondAttribute="centerX" id="aka-jV-3hH"/>
                         <constraint firstAttribute="height" constant="290" id="bAM-fE-DH7"/>
@@ -112,6 +122,7 @@
                         <constraint firstItem="64P-aK-Dtv" firstAttribute="leading" secondItem="qaZ-bB-335" secondAttribute="leading" constant="8" id="eNj-3Q-ndD"/>
                         <constraint firstAttribute="trailing" secondItem="ltt-Jg-7HU" secondAttribute="trailing" id="gob-KW-SFu"/>
                         <constraint firstItem="Fv0-ua-FrN" firstAttribute="top" secondItem="64P-aK-Dtv" secondAttribute="bottom" constant="8" id="lie-Wu-ApZ"/>
+                        <constraint firstAttribute="trailing" secondItem="qDa-NH-75e" secondAttribute="trailing" constant="14" id="t4X-fY-J9y"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZN-WC-oEs">
@@ -134,13 +145,13 @@
                 <constraint firstItem="tZN-WC-oEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="FZH-ES-4au"/>
                 <constraint firstAttribute="trailing" secondItem="qaZ-bB-335" secondAttribute="trailing" id="Whs-YQ-sRV"/>
                 <constraint firstItem="7SL-W9-RSs" firstAttribute="top" secondItem="lbI-rj-M5T" secondAttribute="bottom" constant="30" id="Xcv-aU-1Ue"/>
-                <constraint firstItem="lbI-rj-M5T" firstAttribute="leading" secondItem="tZN-WC-oEs" secondAttribute="trailing" constant="14" id="YA2-Wq-xPJ"/>
+                <constraint firstItem="lbI-rj-M5T" firstAttribute="leading" secondItem="tZN-WC-oEs" secondAttribute="trailing" constant="10" id="YA2-Wq-xPJ"/>
                 <constraint firstItem="qaZ-bB-335" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="YN2-EG-S2r"/>
                 <constraint firstItem="7SL-W9-RSs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="c7D-fO-gPm"/>
                 <constraint firstItem="tZN-WC-oEs" firstAttribute="centerY" secondItem="lbI-rj-M5T" secondAttribute="centerY" id="ddU-5n-y4V"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-890.5" y="173.5"/>
+            <point key="canvasLocation" x="-945.5" y="173.5"/>
         </view>
     </objects>
     <resources>

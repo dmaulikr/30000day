@@ -58,12 +58,7 @@
 
 - (void)headerRefreshing {
     
-    [self.tableView.mj_header endRefreshing];
-}
-
-- (void)footerRereshing {
-    
-    [self.tableView.mj_footer endRefreshing];
+    [self loadEmail];
 }
 
 - (void)reloadData:(NSNotification *)notification {
@@ -83,8 +78,13 @@
             [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
         }
         
+        [self.tableView.mj_header endRefreshing];
+        
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
+        
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         NSLog(@"获取绑定邮箱出错");
     }];
