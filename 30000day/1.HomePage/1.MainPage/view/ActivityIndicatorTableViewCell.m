@@ -99,7 +99,7 @@
 
     if (type == ShowLabelPastAgeAndAllAgeType) {//过去天龄+总天龄
         
-        self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - hasbeen];
+        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
         
         self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
         
@@ -109,9 +109,9 @@
         
         self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber - hasbeen];
         
-    } else {//剩余天龄+总天龄
+    } else {//默认是的:剩余天龄+总天龄
         
-        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
+        self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - hasbeen];
         
         self.label_2.text = [NSString stringWithFormat:@"%.1f",totalLifeDayNumber];
     }

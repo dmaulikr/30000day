@@ -92,9 +92,9 @@
 
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-#define STAppDelegate                (AppDelegate *)[UIApplication sharedApplication].delegate
+#define STAppDelegate                 (AppDelegate *)[UIApplication sharedApplication].delegate
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8081"                 //阿里云服务器地址
+#define  ST_API_SERVER                @"http://192.168.1.101:8081"                 //阿里云服务器地址
 
 #define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
 

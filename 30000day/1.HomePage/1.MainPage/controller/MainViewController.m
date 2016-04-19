@@ -543,6 +543,7 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+//动画般的显示用户设置天龄的方法
 - (void)animationShowLabelWithTpye:(ShowLabelType )type {
     
     UIView *view = [[UIView alloc] init];
@@ -559,13 +560,13 @@
     
     view.x = 0;
 
-    view.height = SCREEN_WIDTH < 375 ? 70 : 35;
+    view.height = SCREEN_WIDTH <= 375 ? 60 : 35;
     
-    view.y = 64 - label.height;
+    view.y = 64 - view.height;
     
     label.width = SCREEN_WIDTH - 5;
     
-    label.height = SCREEN_WIDTH < 375 ? 70 : 35;
+    label.height = SCREEN_WIDTH <= 375 ? 60 : 35;
     
     label.y = 0;
     
