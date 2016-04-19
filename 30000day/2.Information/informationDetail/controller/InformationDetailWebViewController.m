@@ -26,6 +26,8 @@
 
 @property (nonatomic,copy) NSString *writerId;
 
+//@property (nonatomic,strong) UIButton *zanButton;
+
 @end
 
 @implementation InformationDetailWebViewController
@@ -40,73 +42,69 @@
 }
 
 - (void)loadInformationDetailDownView {
+    
+    UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
+    
+    [downView setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:downView];
+    
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setTag:1];
+    [shareButton setFrame:CGRectMake(15, 11, 20, 20)];
+    [shareButton setImage:[UIImage imageNamed:@"iconfont_share"] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [downView addSubview:shareButton];
+    
+    UIButton *zanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [zanButton setTag:2];
+    [zanButton setFrame:CGRectMake(SCREEN_WIDTH - 80, 11, 20, 20)];
+    [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+    [zanButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [downView addSubview:zanButton];
+    //self.zanButton = zanButton;
+    
+    UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [commentButton setTag:3];
+    [commentButton setFrame:CGRectMake(SCREEN_WIDTH - 40, 11, 20, 20)];
+    [commentButton setImage:[UIImage imageNamed:@"icon_edit"] forState:UIControlStateNormal];
+    [commentButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [downView addSubview:commentButton];
 
-    InformationDetailDownView *informationDetailDownView = [[[NSBundle mainBundle] loadNibNamed:@"InformationDetailDownView" owner:nil options:nil] lastObject];
-    
-    [informationDetailDownView setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
-    
-    [informationDetailDownView setShareButtonBlock:^(UIButton *button) {
+}
+
+- (void) buttonClick:(UIButton *)sender {
+
+    if (sender.tag == 1) {
         
         [self showShareAnimatonView];
         
-    }];
+    } else if(sender.tag == 2) {
     
-    [informationDetailDownView setZanButtonBlock:^(UIButton *button) {
-        
         [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
-            
-            NSLog(@"%d",success);
-            
+
+            if (success) {
+                
+                [sender setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                
+            }
+
         } failure:^(NSError *error) {
             
+            [self showToast:@"服务器游神中。。。"];
             
         }];
         
-    }];
     
-    [informationDetailDownView setCommentButtonBlock:^{
+    
         
+    } else if (sender.tag == 3) {
+    
         InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
         informationCommentViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:informationCommentViewController animated:YES];
-        
-    }];
-    
-    [self.view addSubview:informationDetailDownView];
-    
-//    informationDetailDownView.translatesAutoresizingMaskIntoConstraints = NO;
-//    
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
-//                                                                      attribute:NSLayoutAttributeLeft
-//                                                                      relatedBy:NSLayoutRelationEqual
-//                                                                         toItem:self.view
-//                                                                      attribute:NSLayoutAttributeLeft
-//                                                                     multiplier:1.0
-//                                                                       constant:0]];
-//    
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
-//                                                          attribute:NSLayoutAttributeRight
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.view
-//                                                          attribute:NSLayoutAttributeRight
-//                                                         multiplier:1.0
-//                                                           constant:0]];
-//    
-//    [informationDetailDownView addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
-//                                                          attribute:NSLayoutAttributeHeight
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:informationDetailDownView
-//                                                          attribute:NSLayoutAttributeHeight
-//                                                         multiplier:1.0
-//                                                           constant:44]];
-//    
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
-//                                                          attribute:NSLayoutAttributeBottom
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.view
-//                                                          attribute:NSLayoutAttributeBottom
-//                                                         multiplier:1.0
-//                                                           constant:0]];
+
+    }
 
 }
 

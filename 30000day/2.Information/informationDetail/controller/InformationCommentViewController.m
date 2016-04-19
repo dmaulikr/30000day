@@ -50,14 +50,19 @@
     
     self.isShowBackItem = YES;
     
-    //STUserAccountHandler.userProfile.userId.integerValue
-    [self.dataHandler sendSearchInfoCommentsWithInfoId:self.productId busiType:1 success:^(NSMutableArray *success) {
+    //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
+    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 success:^(NSMutableArray *success) {
         
+        self.commentModelArray = [NSMutableArray arrayWithArray:success];
+        
+        [self.tableView reloadData];
         
         NSLog(@"%@",success);
         
         
     } failure:^(NSError *error) {
+        
+        [self showToast:@"数据加载失败"];
         
     }];
     
