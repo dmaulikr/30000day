@@ -35,7 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self setBackgroundColor:RGBACOLOR(247, 247, 247, 1)];
+
 //    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"contact_face_group_icon"] style:UIBarButtonItemStyleDone target:self action:@selector(goChatGroupDetail:)];
 //    self.navigationItem.rightBarButtonItem = item;
 //    [self testSendCustomeMessage];

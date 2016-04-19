@@ -26,4 +26,6 @@ typedef void (^completionBlock)(BOOL successed, NSError *error);
  */
 - (void)pushToChatRoomByConversation:(AVIMConversation *)conversation fromNavigation:(UINavigationController *)navigation completion:(completionBlock)completion;
 
+- (void)pushToChatRoomByConversation:(AVIMConversation *)conversation fromNavigationController:(UINavigationController *)navigationController;
+
 @end

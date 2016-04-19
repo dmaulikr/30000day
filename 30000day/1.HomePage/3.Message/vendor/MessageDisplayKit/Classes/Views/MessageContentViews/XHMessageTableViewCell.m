@@ -482,7 +482,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     CGFloat layoutOriginY = kXHAvatorPaddingY + (self.displayTimestamp ? kXHTimeStampLabelHeight : 0);
     CGRect avatorButtonFrame = self.avatorButton.frame;
     avatorButtonFrame.origin.y = layoutOriginY;
@@ -517,7 +517,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     }else{
         self.statusView.hidden=YES;
     }
-//    self.messageBubbleView.backgroundColor=[UIColor blackColor];
+//    self.messageBubbleView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
 //    self.avatorButton.backgroundColor=[UIColor redColor];
 //    self.userNameLabel.backgroundColor=[UIColor greenColor];
 }

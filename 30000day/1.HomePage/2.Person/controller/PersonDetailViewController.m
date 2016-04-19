@@ -142,9 +142,7 @@
                 
                 if ([self filterError:error]) {
                     
-                    CDChatVC *controller = [[CDChatVC alloc] initWithConversation:conversation];
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
+                    [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
                     
                 }
             }];

@@ -18,8 +18,8 @@
  */
 @property (nonatomic, assign) BOOL isShowEmotionStoreButton; // default is YES
 
-
 @property (nonatomic, weak) UIScrollView *sectionBarScrollView;
+
 @property (nonatomic, weak) UIButton *storeManagerItemButton;
 
 @end
@@ -56,16 +56,24 @@
     [self.sectionBarScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     for (XHEmotionManager *emotionManager in self.emotionManagers) {
+        
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
+        
         UIButton *sectionButton = [self createdButton];
+        
         sectionButton.tag = index;
-        [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
-        sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        
+//        [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
+        
+        [sectionButton setImage:[UIImage imageNamed:emotionManager.emotionBottomButtonImageName] forState:UIControlStateNormal];
+        
+//        sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         
         CGRect sectionButtonFrame = sectionButton.frame;
-        sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame));
-        sectionButton.frame = sectionButtonFrame;
         
+        sectionButtonFrame.origin.x = index * (CGRectGetWidth(sectionButtonFrame));
+        
+        sectionButton.frame = sectionButtonFrame;
         
         [self.sectionBarScrollView addSubview:sectionButton];
     }
@@ -94,12 +102,21 @@
         UIButton *storeManagerItemButton = [self createdButton];
         
         CGRect storeManagerItemButtonFrame = storeManagerItemButton.frame;
-        storeManagerItemButtonFrame.origin.x = CGRectGetWidth(self.bounds) - kXHStoreManagerItemWidth-kXHEmotionStoreButtonMargin;
+        
+        storeManagerItemButtonFrame.origin.x = CGRectGetWidth(self.bounds) - kXHStoreManagerItemWidth;
+        
         storeManagerItemButton.frame = storeManagerItemButtonFrame;
         
+        storeManagerItemButton.backgroundColor = RGBACOLOR(83, 128, 196, 1);
+        
+        [storeManagerItemButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
         [storeManagerItemButton setTitle:@"发送" forState:UIControlStateNormal];
+        
         [storeManagerItemButton addTarget:self action:@selector(storeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self addSubview:storeManagerItemButton];
+        
         _storeManagerItemButton = storeManagerItemButton;
     }
 }
