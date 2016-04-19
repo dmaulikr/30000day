@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JZNavigationExtension.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,17 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>427C8642A29B3795798013B1A236E41D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4789FD4DE592ED7DD01BE4853E09ECC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5813251FEA21E4AEE97385709F1912DE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5B38D856A54046A05C2B47BFB0A74D25</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,17 +152,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEBE038F1AA41B49C21B8F594EC6E6AB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>E2FE87384A67337831E53490EEA8BF11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E53358E207D73AA80DE05DC67C738CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E63EA3FC3E0A88A11341641DBAC04F9F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB4BAD90D911FE839B843B0B21C2472B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
