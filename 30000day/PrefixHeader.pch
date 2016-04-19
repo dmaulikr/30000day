@@ -35,26 +35,6 @@
 #   define DLog(...)
 #endif
 
-
-#define DBNAME        @"calendarinfo.sqlite"
-
-#define DB_ID         @"id"
-
-#define DB_TITLE      @"title"
-
-#define DB_CONTENT    @"content"
-
-#define DB_DATE       @"date"
-
-#define DB_TIME       @"time"
-
-#define DB_NUMBER     @"number"
-
-#define DB_USERID     @"userid"
-
-#define DB_TABLENAME  @"calendarinfo"
-
-
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
 
 #define jhOpenID @"JHcac3a9be7b4f37a04bebb4b9bf5414eb"
@@ -79,6 +59,8 @@
 #define maxSelectDateTime 2050
 
 #define minSelectDateTime 1900
+
+#define SHOWLABLETYPE   @"ShowLabelType"   //表示用户当前显示的是那种天龄
 
 
 #define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
@@ -110,9 +92,9 @@
 
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-#define STAppDelegate                (AppDelegate *)[UIApplication sharedApplication].delegate
+#define STAppDelegate                 (AppDelegate *)[UIApplication sharedApplication].delegate
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8081"                 //阿里云服务器地址
+#define  ST_API_SERVER                @"http://192.168.1.101:8081"                 //阿里云服务器地址
 
 #define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
 

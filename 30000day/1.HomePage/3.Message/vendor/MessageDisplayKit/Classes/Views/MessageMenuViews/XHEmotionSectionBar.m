@@ -22,15 +22,41 @@
 
 @property (nonatomic, weak) UIButton *storeManagerItemButton;
 
+@property (nonatomic, strong) UIButton *selectionButton;
+
+@property (nonatomic, strong) NSMutableArray *buttonArray;
+
 @end
 
 @implementation XHEmotionSectionBar
 
 - (void)sectionButtonClicked:(UIButton *)sender {
+    
     if ([self.delegate respondsToSelector:@selector(didSelecteEmotionManager:atSection:)]) {
+        
         NSInteger section = sender.tag;
+        
         if (section < self.emotionManagers.count) {
+            
             [self.delegate didSelecteEmotionManager:[self.emotionManagers objectAtIndex:section] atSection:section];
+            
+        }
+    }
+    
+    [self changeButtonBackgroundColorWithSelectionButton:sender];
+}
+
+- (void)changeButtonBackgroundColorWithSelectionButton:(UIButton *)selectionButton {
+    
+    for (UIButton *button in self.buttonArray) {
+        
+        if (button.tag == selectionButton.tag) {
+            
+            button.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+            
+        } else {
+            
+            button.backgroundColor = RGBACOLOR(247, 247, 247, 1);
         }
     }
 }
@@ -55,6 +81,8 @@
     
     [self.sectionBarScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
+    self.buttonArray = [[NSMutableArray alloc] init];
+    
     for (XHEmotionManager *emotionManager in self.emotionManagers) {
         
         NSInteger index = [self.emotionManagers indexOfObject:emotionManager];
@@ -65,7 +93,7 @@
         
 //        [sectionButton setTitle:emotionManager.emotionName forState:UIControlStateNormal];
         
-        [sectionButton setImage:[UIImage imageNamed:emotionManager.emotionBottomButtonImageName] forState:UIControlStateNormal];
+        [sectionButton setImage:[[UIImage imageNamed:emotionManager.emotionBottomButtonImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         
 //        sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         
@@ -75,8 +103,12 @@
         
         sectionButton.frame = sectionButtonFrame;
         
+        [self.buttonArray addObject:sectionButton];
+        
         [self.sectionBarScrollView addSubview:sectionButton];
     }
+    //配置第一个按钮
+    [self changeButtonBackgroundColorWithSelectionButton:[self.buttonArray firstObject]];
     
     [self.sectionBarScrollView setContentSize:CGSizeMake(self.emotionManagers.count * kXHStoreManagerItemWidth, CGRectGetHeight(self.bounds))];
 }

@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
 
+@property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
+
 @end
 
 @implementation MainViewController
@@ -57,6 +59,16 @@
     
     //获取用户天龄
     [self getUserLifeList];
+}
+
+- (ActivityIndicatorTableViewCell *)indicatorCell {
+    
+    if (!_indicatorCell) {
+        
+        _indicatorCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorTableViewCell" owner:self options:nil] lastObject];
+    }
+    
+    return _indicatorCell;
 }
 
 - (void)headerRefreshing {
@@ -334,20 +346,11 @@
         return cell;
         
     } else if (indexPath.row == 1) {
-        
-        static NSString *activityIndicatorCellIndentifier = @"ActivityIndicatorTableViewCell";
-        
-        ActivityIndicatorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:activityIndicatorCellIndentifier];
-        
-        if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:activityIndicatorCellIndentifier owner:nil options:nil] lastObject];
-        }
-        
         //刷新数据
-        [cell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday];
+        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
-        return cell;
+        return self.indicatorCell;
         
     } else if (indexPath.row == 2) {
         
@@ -394,6 +397,52 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 1) {
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"剩余天龄+总天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelSurplusAgeAndAllAgeType];
+            
+            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelSurplusAgeAndAllAgeType];
+            
+            [self animationShowLabelWithTpye:ShowLabelSurplusAgeAndAllAgeType];
+            
+        }];
+        
+        UIAlertAction *action_second = [UIAlertAction actionWithTitle:@"过去天龄+总天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndAllAgeType];
+            
+            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndAllAgeType];
+            
+            [self animationShowLabelWithTpye:ShowLabelPastAgeAndAllAgeType];
+            
+        }];
+        
+        UIAlertAction *action_third = [UIAlertAction actionWithTitle:@"过去天龄+剩余天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndSurplusAgeType];
+            
+            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndSurplusAgeType];
+            
+            [self animationShowLabelWithTpye:ShowLabelPastAgeAndSurplusAgeType];
+        }];
+        
+        UIAlertAction *action_fourth = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [controller addAction:action_first];
+        
+        [controller addAction:action_second];
+        
+        [controller addAction:action_third];
+        
+        [controller addAction:action_fourth];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -492,8 +541,77 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
+
+//动画般的显示用户设置天龄的方法
+- (void)animationShowLabelWithTpye:(ShowLabelType )type {
+    
+    UIView *view = [[UIView alloc] init];
+    
+    view.backgroundColor = RGBACOLOR(83, 128, 196, 1);
+    
+    UILabel *label = [[UILabel alloc] init];
+    
+    [view addSubview:label];
+    
+    label.backgroundColor = RGBACOLOR(83, 128, 196, 1);
+    
+    view.width = SCREEN_WIDTH;
+    
+    view.x = 0;
+
+    view.height = SCREEN_WIDTH <= 375 ? 60 : 35;
+    
+    view.y = 64 - view.height;
+    
+    label.width = SCREEN_WIDTH - 5;
+    
+    label.height = SCREEN_WIDTH <= 375 ? 60 : 35;
+    
+    label.y = 0;
+    
+    label.x = 5;
+    
+    label.textAlignment = NSTextAlignmentLeft;
+    
+    label.font = [UIFont systemFontOfSize:15.0f];
+    
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    label.numberOfLines = 2;
+    
+    if (type == ShowLabelSurplusAgeAndAllAgeType) {
+        
+        label.text = @"  已切换成【过去天龄+剩余天龄】并同步作用于好友详细资料";
+        
+    } else if (type == ShowLabelPastAgeAndAllAgeType) {
+        
+        label.text = @"  已切换成【过去天龄+总天龄】并同步作用于好友详细资料";
+        
+    } else if (type == ShowLabelPastAgeAndSurplusAgeType) {
+    
+        label.text = @"  已切换成【过去天龄+剩余天龄】并同步作用于好友详细资料";
+    }
+    
+    label.textColor = [UIColor whiteColor];
+    
+    [self.navigationController.view insertSubview:view belowSubview:self.navigationController.navigationBar];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        //label.y += label.height;
+        
+        view.transform = CGAffineTransformMakeTranslation(0, view.height);
+        
+    } completion:^(BOOL finished) {
+        CGFloat delay = 0.5;
+        [UIView animateWithDuration:1 delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            view.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+        }];
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
