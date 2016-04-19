@@ -98,7 +98,7 @@
         emotionManager.estimatedPages = emotionCodes.count%21 ? emotionCodes.count/21 + 1 : emotionCodes.count/21;
         emotionManager.emotionSize = CGSizeMake(width, width);
         emotionManager.emotionName = @"普通";
-        emotionManager.emotionBottomButtonImageName = @"tusiji_12_cover";
+        emotionManager.emotionBottomButtonImageName = @"emotion_1";
         NSMutableArray *emotions = [NSMutableArray array];
         for (NSInteger j = 0; j < emotionCodes.count; j++) {
             XHEmotion *xhEmotion = [[XHEmotion alloc] init];
@@ -113,12 +113,12 @@
     }
     {
         XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:2 name:@"兔斯基" maxIndex:15 prefix:@"tusiji"];
-        emotionManager.emotionBottomButtonImageName = @"tusiji_12_cover";
+        emotionManager.emotionBottomButtonImageName = @"close";
         [emotionManagers addObject:emotionManager];
     }
     {
         XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:3 name:@"玉兔" maxIndex:22 prefix:@"rabbit"];
-        emotionManager.emotionBottomButtonImageName = @"tusiji_12_cover";
+        emotionManager.emotionBottomButtonImageName = @"close";
         [emotionManagers addObject:emotionManager];
     }
     return emotionManagers;

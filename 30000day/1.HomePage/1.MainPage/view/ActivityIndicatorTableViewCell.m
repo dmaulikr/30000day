@@ -48,7 +48,6 @@
         self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
         
     }
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -57,7 +56,7 @@
     // Configure the view for the selected state
 }
 
-- (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString {
+- (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString showLabelTye:(ShowLabelType)type {
     
     int hasbeen;
     
@@ -98,9 +97,24 @@
     
     self.indicatiorView.theme.thickness = 30.0;//粗细
 
-    self.label_1.text = [NSString stringWithFormat:@"%.2d",hasbeen];
-    
-    self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
+    if (type == ShowLabelPastAgeAndAllAgeType) {//过去天龄+总天龄
+        
+        self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - hasbeen];
+        
+        self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
+        
+    } else if (type == ShowLabelPastAgeAndSurplusAgeType) {//过去天龄+剩余天龄
+        
+        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
+        
+        self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber - hasbeen];
+        
+    } else {//剩余天龄+总天龄
+        
+        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
+        
+        self.label_2.text = [NSString stringWithFormat:@"%.1f",totalLifeDayNumber];
+    }
     
     if (hasbeen == 0) {
         
@@ -152,7 +166,7 @@
 }
 
 //获取当前设备
--(NSString*)getDeviceType{
+- (NSString*)getDeviceType {
 
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -181,6 +195,24 @@
     return deviceString;
 }
 
+- (void)setType:(ShowLabelType)type {
+    
+    _type = type;
+    
+    if (_type == ShowLabelSurplusAgeAndAllAgeType) {//剩余天龄+总天龄
+        
+        
+        
+    } else if (_type == ShowLabelPastAgeAndAllAgeType) {//过去天龄+总天龄
+        
+        
+        
+    } else if (_type == ShowLabelPastAgeAndSurplusAgeType) {//过去天龄+剩余天龄
+        
+        
+        
+    }
+}
 
 
 @end

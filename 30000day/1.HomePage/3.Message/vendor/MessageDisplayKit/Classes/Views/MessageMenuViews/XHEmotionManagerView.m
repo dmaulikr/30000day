@@ -79,7 +79,7 @@
     
     if (!_emotionCollectionView) {
         UICollectionView *emotionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kXHEmotionPageControlHeight - kXHEmotionSectionBarHeight) collectionViewLayout:[[XHEmotionCollectionViewFlowLayout alloc] init]];
-        emotionCollectionView.backgroundColor = self.backgroundColor;
+        emotionCollectionView.backgroundColor = [UIColor whiteColor];
         [emotionCollectionView registerClass:[XHEmotionCollectionViewCell class] forCellWithReuseIdentifier:kXHEmotionCollectionViewCellIdentifier];
         emotionCollectionView.showsHorizontalScrollIndicator = NO;
         emotionCollectionView.showsVerticalScrollIndicator = NO;
@@ -95,7 +95,7 @@
         UIPageControl *emotionPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionCollectionView.frame), CGRectGetWidth(self.bounds), kXHEmotionPageControlHeight)];
         emotionPageControl.currentPageIndicatorTintColor = [UIColor colorWithWhite:0.471 alpha:1.000];
         emotionPageControl.pageIndicatorTintColor = [UIColor colorWithWhite:0.678 alpha:1.000];
-        emotionPageControl.backgroundColor = self.backgroundColor;
+        emotionPageControl.backgroundColor = [UIColor whiteColor];
         emotionPageControl.hidesForSinglePage = YES;
         emotionPageControl.defersCurrentPageDisplay = YES;
         [self addSubview:emotionPageControl];
@@ -106,7 +106,7 @@
         XHEmotionSectionBar *emotionSectionBar = [[XHEmotionSectionBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.emotionPageControl.frame), CGRectGetWidth(self.bounds), kXHEmotionSectionBarHeight) showEmotionStoreButton:self.isShowEmotionStoreButton];
         emotionSectionBar.delegate = self;
         emotionSectionBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        emotionSectionBar.backgroundColor = [UIColor colorWithWhite:0.886 alpha:1.000];
+        emotionSectionBar.backgroundColor = RGBACOLOR(247, 247, 247, 1);
         [self addSubview:emotionSectionBar];
         self.emotionSectionBar = emotionSectionBar;
     }

@@ -205,7 +205,7 @@
         }
         
         //刷新数据
-        [cell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday];
+        [cell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
         return cell;
         
