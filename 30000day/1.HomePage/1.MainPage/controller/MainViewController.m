@@ -31,6 +31,8 @@
 
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
 
+@property (nonatomic,strong) UIView *indicationView;//指示view
+
 @end
 
 @implementation MainViewController
@@ -411,7 +413,7 @@
             [self animationShowLabelWithTpye:ShowLabelSurplusAgeAndAllAgeType];
             
         }];
-        
+    
         UIAlertAction *action_second = [UIAlertAction actionWithTitle:@"过去天龄+总天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndAllAgeType];
@@ -440,6 +442,38 @@
         [controller addAction:action_third];
         
         [controller addAction:action_fourth];
+        
+        if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelSurplusAgeAndAllAgeType) {
+            
+            [action_first setValue:[UIColor redColor] forKey:@"_titleTextColor"];
+            
+            [action_second setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_third setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            
+        } else if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndAllAgeType){
+            
+            [action_first setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_second setValue:[UIColor redColor] forKey:@"_titleTextColor"];
+            
+            [action_third setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+        } else {
+            
+            [action_first setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_second setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+            
+            [action_third setValue:[UIColor redColor] forKey:@"_titleTextColor"];
+            
+            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
+        }
         
         [self presentViewController:controller animated:YES completion:nil];
     }
@@ -546,12 +580,26 @@
 //动画般的显示用户设置天龄的方法
 - (void)animationShowLabelWithTpye:(ShowLabelType )type {
     
+    //显示之前先把之前的view先移除
+    if (self.indicationView) {
+        
+        [self.indicationView removeFromSuperview];
+        
+        self.indicationView = nil;
+    }
+    
     UIView *view = [[UIView alloc] init];
+    
+    self.indicationView = view;
     
     view.backgroundColor = RGBACOLOR(83, 128, 196, 1);
     
+    [self.navigationController.view insertSubview:view belowSubview:self.navigationController.navigationBar];
+    //显示标题的label
     UILabel *label = [[UILabel alloc] init];
     
+    label.textColor = [UIColor whiteColor];
+
     [view addSubview:label];
     
     label.backgroundColor = RGBACOLOR(83, 128, 196, 1);
@@ -560,13 +608,13 @@
     
     view.x = 0;
 
-    view.height = SCREEN_WIDTH <= 375 ? 60 : 35;
+    view.height = 70;
     
     view.y = 64 - view.height;
     
     label.width = SCREEN_WIDTH - 5;
     
-    label.height = SCREEN_WIDTH <= 375 ? 60 : 35;
+    label.height = 70;
     
     label.y = 0;
     
@@ -579,7 +627,33 @@
     label.lineBreakMode = NSLineBreakByWordWrapping;
     
     label.numberOfLines = 2;
+    //添加知道了按钮
+    UILabel *cancelLabel = [[UILabel alloc] init];
     
+    cancelLabel.text = @"知道了";
+    
+    cancelLabel.textColor = [UIColor whiteColor];
+    
+    cancelLabel.font = [UIFont systemFontOfSize:14.0f];
+    
+    cancelLabel.frame = CGRectMake(SCREEN_WIDTH - 65.0f, 40, 60, 28.0f);
+    
+    cancelLabel.layer.cornerRadius = 5;
+    
+    cancelLabel.layer.masksToBounds = YES;
+    
+    cancelLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    cancelLabel.layer.borderWidth = 1.0f;
+    
+    cancelLabel.backgroundColor = RGBACOLOR(83, 128, 196, 1);
+    
+    cancelLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [view addSubview:cancelLabel];
+    //添加手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
+    [view addGestureRecognizer:tap];
     if (type == ShowLabelSurplusAgeAndAllAgeType) {
         
         label.text = @"  已切换成【过去天龄+剩余天龄】并同步作用于好友详细资料";
@@ -592,26 +666,28 @@
     
         label.text = @"  已切换成【过去天龄+剩余天龄】并同步作用于好友详细资料";
     }
-    
-    label.textColor = [UIColor whiteColor];
-    
-    [self.navigationController.view insertSubview:view belowSubview:self.navigationController.navigationBar];
-    
-    [UIView animateWithDuration:1.0 animations:^{
+
+    [UIView animateWithDuration:0.5f animations:^{
         //label.y += label.height;
         
         view.transform = CGAffineTransformMakeTranslation(0, view.height);
         
-    } completion:^(BOOL finished) {
-        CGFloat delay = 0.5;
-        [UIView animateWithDuration:1 delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            view.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-            [view removeFromSuperview];
-        }];
-    }];
+    } completion:nil];
 }
 
+- (void)cancelAction:(UITapGestureRecognizer *)tap {
+    
+    [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        self.indicationView.transform = CGAffineTransformIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        [self.indicationView removeFromSuperview];
+        
+        self.indicationView = nil;
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -621,6 +697,8 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self];
+    
+    self.indicationView = nil;
 }
 
 /*

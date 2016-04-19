@@ -58,36 +58,19 @@
 
 - (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString showLabelTye:(ShowLabelType)type {
     
-    int hasbeen;
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
     
-    int count = 0;
+    NSDate *birthdayDate = [formatter dateFromString:birthdayString];
     
-    if ([Common isObjectNull:birthdayString]) {
-        
-        hasbeen = 0;
-        
-    } else {
-        
-        hasbeen = [self getDays:birthdayString];
-    }
+    NSString *todayString = [formatter stringFromDate:[NSDate date]];
     
-    NSArray *array = [birthdayString componentsSeparatedByString:@"-"];
+    NSDate *newToday = [formatter dateFromString:todayString];
     
-    int year = [array[0] intValue];
+    NSTimeInterval interval = [newToday timeIntervalSinceDate:birthdayDate];
     
-    for (int i = year; i < year + 80; i++) {
-        
-        if (i % 400 == 0 || ( i%4 == 0 && i % 100 != 0)) {
-            
-            count += 366;
-            
-        } else {
-            
-            count += 365;
-        }
-    }
-    
-    self.indicatiorView.progressCounter = hasbeen;
+    int dayNumber = interval/86400.0f;
+
+    self.indicatiorView.progressCounter = dayNumber;
     
     self.indicatiorView.progressTotal = totalLifeDayNumber;
     
@@ -99,24 +82,24 @@
 
     if (type == ShowLabelPastAgeAndAllAgeType) {//过去天龄+总天龄
         
-        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
+        self.label_1.text = [NSString stringWithFormat:@"%d",dayNumber];
         
         self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
         
     } else if (type == ShowLabelPastAgeAndSurplusAgeType) {//过去天龄+剩余天龄
         
-        self.label_1.text = [NSString stringWithFormat:@"%d",hasbeen];
+        self.label_1.text = [NSString stringWithFormat:@"%d",dayNumber];
         
-        self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber - hasbeen];
+        self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber - dayNumber];
         
     } else {//默认是的:剩余天龄+总天龄
         
-        self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - hasbeen];
+        self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - dayNumber];
         
         self.label_2.text = [NSString stringWithFormat:@"%.1f",totalLifeDayNumber];
     }
     
-    if (hasbeen == 0) {
+    if (dayNumber == 0) {
         
         self.indicatiorView.theme.completedColor = RGBACOLOR(230, 230, 230, 1);
         
