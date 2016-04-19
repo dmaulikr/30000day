@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.title = @"订阅中心";
     
     self.searchBackgroundView.layer.cornerRadius = 5;
     
@@ -56,18 +56,28 @@
     
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-
-}
-
 - (IBAction)cancelAction:(UIButton *)sender {
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
+    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
     
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isSearch) {
+        
+        [self.dataHandler sendSearchWriterListWithWriterName:self.textField.text userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+            
+            self.searchResultArray = success;
+            
+            [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+            
+            [self ShowAlert:@"服务器走神了"];
+            
+        }];
+        
+    }
+    
+    [self.textField resignFirstResponder];
     
 }
 
@@ -89,14 +99,13 @@
             
         } failure:^(NSError *error) {
             
-            
+            [self ShowAlert:@"服务器走神了"];
             
         }];
         
-    } else {
-        
-        
     }
+    
+    [textField resignFirstResponder];
     
     return YES;
 }
@@ -146,7 +155,6 @@
     
     SubscriptionModel *subscriptionModel = self.searchResultArray[indexPath.row];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
     controller.writerId = subscriptionModel.writerId;
     [self.navigationController pushViewController:controller animated:YES];

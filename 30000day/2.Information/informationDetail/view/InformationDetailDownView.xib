@@ -62,12 +62,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="HeY-ck-Y4f" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3oO-22-hfk"/>
                 <constraint firstItem="9HJ-zt-rDT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KQ5-ln-jgc"/>
                 <constraint firstItem="HeY-ck-Y4f" firstAttribute="leading" secondItem="5Nc-aG-DJy" secondAttribute="trailing" constant="15" id="e5T-dG-cNu"/>
+                <constraint firstItem="5Nc-aG-DJy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fKp-ph-wp6"/>
                 <constraint firstAttribute="trailing" secondItem="HeY-ck-Y4f" secondAttribute="trailing" constant="15" id="fz2-Tu-BHu"/>
                 <constraint firstItem="9HJ-zt-rDT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="htW-xR-1DT"/>
-                <constraint firstItem="5Nc-aG-DJy" firstAttribute="centerY" secondItem="9HJ-zt-rDT" secondAttribute="centerY" id="ohZ-gg-K2u"/>
-                <constraint firstItem="HeY-ck-Y4f" firstAttribute="centerY" secondItem="9HJ-zt-rDT" secondAttribute="centerY" id="ukt-Xf-Umh"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -75,7 +75,7 @@
                 <outlet property="shareButton" destination="9HJ-zt-rDT" id="cnn-8r-xII"/>
                 <outlet property="zanButton" destination="5Nc-aG-DJy" id="yld-0y-ivj"/>
             </connections>
-            <point key="canvasLocation" x="-190.5" y="107"/>
+            <point key="canvasLocation" x="-219.5" y="141"/>
         </view>
     </objects>
     <resources>

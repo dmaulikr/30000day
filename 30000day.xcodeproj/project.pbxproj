@@ -121,6 +121,7 @@
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
+		B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F043321CC6184F002DF26E /* InformationCommentModel.m */; };
 		B6F66DA31CBB44CE0064DB11 /* InformationDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */; };
 		B6F66DA41CBB44CE0064DB11 /* InformationDetailWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */; };
 		B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */; };
@@ -865,6 +866,8 @@
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
 		B6EFEA801CAE569B00777B75 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
 		B6EFEA811CAE569B00777B75 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		B6F043311CC6184F002DF26E /* InformationCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentModel.h; sourceTree = "<group>"; };
+		B6F043321CC6184F002DF26E /* InformationCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentModel.m; sourceTree = "<group>"; };
 		B6F66DA01CBB44CE0064DB11 /* InformationDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailWebViewController.h; sourceTree = "<group>"; };
 		B6F66DA11CBB44CE0064DB11 /* InformationDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailWebViewController.m; sourceTree = "<group>"; };
 		B6F66DA21CBB44CE0064DB11 /* InformationDetailWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailWebViewController.xib; sourceTree = "<group>"; };
@@ -2151,6 +2154,8 @@
 				B6E44C451CBC9FD50039217D /* InformationWriterModel.m */,
 				B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */,
 				B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */,
+				B6F043311CC6184F002DF26E /* InformationCommentModel.h */,
+				B6F043321CC6184F002DF26E /* InformationCommentModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5181,6 +5186,7 @@
 				B89216B11C5F3EEA0023F8A8 /* STDataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
 				B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */,
+				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,

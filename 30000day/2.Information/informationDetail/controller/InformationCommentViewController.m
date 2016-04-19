@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"全部评论";
+    self.title = @"资讯评论";
     
     self.save = NO;
     
@@ -51,17 +51,28 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue
-    [self.dataHandler sendfindCommentListWithProductId:self.productId type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchInfoCommentsWithInfoId:self.productId busiType:1 success:^(NSMutableArray *success) {
         
-        self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
-        [self.tableView reloadData];
+        NSLog(@"%@",success);
+        
         
     } failure:^(NSError *error) {
         
-        [self showToast:@"数据加载失败"];
-        
     }];
+    
+    
+//    [self.dataHandler sendfindCommentListWithProductId:self.productId type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
+//        
+//        self.commentModelArray = [NSMutableArray arrayWithArray:success];
+//        
+//        [self.tableView reloadData];
+//        
+//    } failure:^(NSError *error) {
+//        
+//        [self showToast:@"数据加载失败"];
+//        
+//    }];
 }
 
 #pragma mark --- 上啦刷新和下拉刷新

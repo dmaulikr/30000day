@@ -217,9 +217,11 @@
 
 #define  GET_USER_INFORMATION         @"/stapi/user/getUserById"               //获取个人信息
 
-#define  GET_SEARCH_WRITER_LIST            @"/stapi/info/searchWriterList"     //搜索作者
+#define  GET_SEARCH_WRITER_LIST       @"/stapi/info/searchWriterList"           //搜索作者
 
-#define  UPDATE_STAT_USERLLFE           @"/stapi/life/statUserLife"        //统计环境因素
+#define  UPDATE_STAT_USERLLFE         @"/stapi/life/statUserLife"               //统计环境因素
+
+#define  GET_COMMENTS                 @"/stapi/user/searchInfoComments"         //获取资讯评论
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"

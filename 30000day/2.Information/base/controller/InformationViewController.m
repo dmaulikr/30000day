@@ -422,7 +422,7 @@
     self.subscriptionCentralityButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.subscriptionCentralityButton setImage:[UIImage imageNamed:@"icon_add_events"] forState:UIControlStateNormal];
     [self.subscriptionCentralityButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [self.subscriptionCentralityButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
+    [self.subscriptionCentralityButton addTarget:self action:@selector(subscription) forControlEvents:UIControlEventTouchDown];
     [self.buttonParentView addSubview:self.subscriptionCentralityButton];
     self.subscriptionCentralityButton.translatesAutoresizingMaskIntoConstraints=NO;
     
@@ -445,7 +445,7 @@
     
 }
 
-- (void)addFriendsClick {
+- (void)subscription {
 
     SubscriptionCentralityViewController *controller = [[SubscriptionCentralityViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
