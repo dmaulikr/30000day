@@ -73,6 +73,40 @@
     }];
     
     [self.view addSubview:informationDetailDownView];
+    
+//    informationDetailDownView.translatesAutoresizingMaskIntoConstraints = NO;
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
+//                                                                      attribute:NSLayoutAttributeLeft
+//                                                                      relatedBy:NSLayoutRelationEqual
+//                                                                         toItem:self.view
+//                                                                      attribute:NSLayoutAttributeLeft
+//                                                                     multiplier:1.0
+//                                                                       constant:0]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
+//                                                          attribute:NSLayoutAttributeRight
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:self.view
+//                                                          attribute:NSLayoutAttributeRight
+//                                                         multiplier:1.0
+//                                                           constant:0]];
+//    
+//    [informationDetailDownView addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
+//                                                          attribute:NSLayoutAttributeHeight
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:informationDetailDownView
+//                                                          attribute:NSLayoutAttributeHeight
+//                                                         multiplier:1.0
+//                                                           constant:44]];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:informationDetailDownView
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:self.view
+//                                                          attribute:NSLayoutAttributeBottom
+//                                                         multiplier:1.0
+//                                                           constant:0]];
 
 }
 

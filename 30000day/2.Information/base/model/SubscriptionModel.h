@@ -18,8 +18,8 @@
 
 @property (nonatomic,copy) NSString *writerName;
 
-@property (nonatomic,assign) BOOL isMineSubscribe;
+@property (nonatomic,copy) NSString *isMineSubscribe;
 
-@property (nonatomic,strong) NSString *subscribeCount;
+@property (nonatomic,copy) NSString *subscribeCount;
 
 @end

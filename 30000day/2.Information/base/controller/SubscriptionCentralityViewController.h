@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SubscriptionCentralityViewController : STBaseViewController
+@interface SubscriptionCentralityViewController : ShowBackItemViewController
 
 @end

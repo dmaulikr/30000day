@@ -65,17 +65,72 @@
         weakSelf.imageArray = [NSMutableArray arrayWithArray:selectPhotos];
         weakSelf.deleteImageButton.hidden = NO;
         
-        CGFloat width = 90;
+        CGFloat width = 60;
         for (int i = 0; i < selectPhotos.count; i++) {
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i%3*(width+5), 0 , width, width)];
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i%3*(width+5), 0 , width, 60)];
             [imgView setBackgroundColor:[UIColor redColor]];
-            imgView.image = selectPhotos[i];
+            imgView.image = [self imageCompressForSize:selectPhotos[i] targetSize:CGSizeMake(width, 60)];
             [weakSelf.baseView addSubview:imgView];
         }
     }];
-    
-    
 }
+
+-(UIImage *) imageCompressForSize:(UIImage *)sourceImage targetSize:(CGSize)size{
+    
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = size.width;
+    CGFloat targetHeight = size.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0, 0.0);
+    
+    if(CGSizeEqualToSize(imageSize, size) == NO){
+        
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if(widthFactor > heightFactor){
+            scaleFactor = widthFactor;
+            
+        }
+        else{
+            
+            scaleFactor = heightFactor;
+        }
+        scaledWidth = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        if(widthFactor > heightFactor){
+            
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }else if(widthFactor < heightFactor){
+            
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    
+    UIGraphicsBeginImageContext(size);
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    if(newImage == nil){
+        NSLog(@"scale image fail");
+    }
+    
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 
 - (IBAction)anonymousButtonClick:(UIButton *)sender {
     
