@@ -79,7 +79,7 @@
     
     InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
     informationCommentViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:informationCommentViewController animated:YES];    
+    [self.navigationController pushViewController:informationCommentViewController animated:YES];
 }
 
 - (IBAction)buttonAction:(id)sender {
