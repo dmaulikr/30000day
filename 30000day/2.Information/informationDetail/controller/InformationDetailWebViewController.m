@@ -21,13 +21,19 @@
 #import "InformationWriterHomepageViewController.h"
 
 #import "MTProgressHUD.h"
+#import "InformationLabel.h"
 
 @interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
 
 @property (nonatomic,copy) NSString *writerId;
 
-@property (nonatomic,strong) UIButton *zanButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;//分享按钮
 
+@property (weak, nonatomic) IBOutlet UIButton *praiseButton;//点赞按钮
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentLabelWidth;
+
+@property (weak, nonatomic) IBOutlet InformationLabel *commetLabel;
 @end
 
 @implementation InformationDetailWebViewController
@@ -35,75 +41,66 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadInformationDetailDownView];
+    self.commetLabel.layer.cornerRadius = 5;
     
+    self.commetLabel.layer.masksToBounds = YES;
+    
+    self.commetLabel.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    
+    self.commetLabel.layer.borderWidth = 1.0f;
+    
+    self.commentLabelWidth.constant = [InformationLabel getLabelWidthWithText:@"0跟帖"];
+    //下载数据
     [self.dataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
        
         [self loadWebView:success.linkUrl];
         
         if ([success.isClickLike isEqualToString:@"1"]) {
             
-            [self.zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+            [self.praiseButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
             
-            self.zanButton.selected = YES;
+            self.praiseButton.selected = YES;
         }
+        
+        self.commentLabelWidth.constant = [InformationLabel getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
+        
+        self.commetLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
         
     } failure:^(NSError *error) {
         
-        [self showToast:@"服务器游神了"];
-        
     }];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    
+    [self.commetLabel addGestureRecognizer:tap];
 }
 
-- (void)loadInformationDetailDownView {
+- (void)tapAction {
     
-    UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
-    
-    [downView setBackgroundColor:[UIColor whiteColor]];
-    
-    [self.view addSubview:downView];
-    
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setTag:1];
-    [shareButton setFrame:CGRectMake(15, 11, 20, 20)];
-    [shareButton setImage:[UIImage imageNamed:@"iconfont_share"] forState:UIControlStateNormal];
-    [shareButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [downView addSubview:shareButton];
-    
-    UIButton *zanButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [zanButton setTag:2];
-    [zanButton setFrame:CGRectMake(SCREEN_WIDTH - 80, 11, 20, 20)];
-    [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-    [zanButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [downView addSubview:zanButton];
-    self.zanButton = zanButton;
-    
-    UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentButton setTag:3];
-    [commentButton setFrame:CGRectMake(SCREEN_WIDTH - 40, 11, 20, 20)];
-    [commentButton setImage:[UIImage imageNamed:@"icon_edit"] forState:UIControlStateNormal];
-    [commentButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [downView addSubview:commentButton];
-
+    InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
+    informationCommentViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:informationCommentViewController animated:YES];    
 }
 
-- (void) buttonClick:(UIButton *)sender {
-
-    if (sender.tag == 1) {
+- (IBAction)buttonAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    
+    if (button.tag == 1) {//分享按钮
         
         [self showShareAnimatonView];
         
-    } else if(sender.tag == 2) {
-    
-        if (sender.selected) {
+    } else if (button.tag == 2) {//点赞按钮
+        
+        if (button.selected) {
             
             [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:0 busiType:1 success:^(BOOL success) {
                 
                 if (success) {
                     
-                    [sender setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                    self.zanButton.selected = NO;
+                    [button setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                    
+                    button.selected = NO;
                 }
                 
             } failure:^(NSError *error) {
@@ -113,13 +110,13 @@
             }];
             
         } else {
-        
+            
             [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
                 
                 if (success) {
                     
-                    [sender setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                    self.zanButton.selected = YES;
+                    [button setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                    button.selected = YES;
                 }
                 
             } failure:^(NSError *error) {
@@ -127,17 +124,9 @@
                 [self showToast:@"服务器繁忙"];
                 
             }];
-        
         }
-
-    } else if (sender.tag == 3) {
-    
-        InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
-        informationCommentViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:informationCommentViewController animated:YES];
-
+        
     }
-
 }
 
 - (void)loadWebView:(NSString *)url {

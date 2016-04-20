@@ -7,7 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InformationDetailWebViewController">
             <connections>
+                <outlet property="commentLabelWidth" destination="5ZE-Wu-you" id="VLR-Ei-nhH"/>
+                <outlet property="commetLabel" destination="xyu-U7-SLQ" id="Jre-8V-MX1"/>
                 <outlet property="informationWebView" destination="ouL-es-Bz0" id="jqi-Uq-eYk"/>
+                <outlet property="praiseButton" destination="Zii-Ym-vMW" id="W85-S8-qHo"/>
+                <outlet property="shareButton" destination="WnQ-lf-JEn" id="lPG-QG-NN4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,16 +27,70 @@
                         <outlet property="delegate" destination="-1" id="CVr-9t-iVi"/>
                     </connections>
                 </webView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWh-XE-9YT">
+                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnQ-lf-JEn">
+                            <rect key="frame" x="10" y="5" width="34" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="cqh-oK-1zj"/>
+                            </constraints>
+                            <state key="normal" image="iconfont_share"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="YqJ-Pl-Vce"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zii-Ym-vMW">
+                            <rect key="frame" x="170" y="5" width="34" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="E4y-kF-Itv"/>
+                                <constraint firstAttribute="height" constant="34" id="Z9P-hE-hfq"/>
+                            </constraints>
+                            <state key="normal" image="icon_zan"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="shH-li-Z3J"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3跟帖" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyu-U7-SLQ" customClass="InformationLabel">
+                            <rect key="frame" x="295" y="5" width="60" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="5ZE-Wu-you"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="xyu-U7-SLQ" secondAttribute="trailing" constant="20" id="6dD-PK-oOm"/>
+                        <constraint firstAttribute="bottom" secondItem="WnQ-lf-JEn" secondAttribute="bottom" constant="5" id="Edd-Qe-eNc"/>
+                        <constraint firstItem="Zii-Ym-vMW" firstAttribute="centerX" secondItem="NWh-XE-9YT" secondAttribute="centerX" id="KZS-MO-c3r"/>
+                        <constraint firstItem="WnQ-lf-JEn" firstAttribute="top" secondItem="NWh-XE-9YT" secondAttribute="top" constant="5" id="PBR-xb-xfR"/>
+                        <constraint firstItem="WnQ-lf-JEn" firstAttribute="leading" secondItem="NWh-XE-9YT" secondAttribute="leading" constant="10" id="VeJ-Q4-FNT"/>
+                        <constraint firstItem="xyu-U7-SLQ" firstAttribute="top" secondItem="NWh-XE-9YT" secondAttribute="top" constant="5" id="c2Q-Y7-bbn"/>
+                        <constraint firstAttribute="bottom" secondItem="xyu-U7-SLQ" secondAttribute="bottom" constant="5" id="q3V-Ec-5RA"/>
+                        <constraint firstItem="Zii-Ym-vMW" firstAttribute="centerY" secondItem="NWh-XE-9YT" secondAttribute="centerY" id="zvC-Dh-fBM"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="NWh-XE-9YT" secondAttribute="bottom" id="3ZP-7M-rkW"/>
                 <constraint firstAttribute="bottom" secondItem="ouL-es-Bz0" secondAttribute="bottom" constant="44" id="Ptj-Qx-0IT"/>
+                <constraint firstItem="NWh-XE-9YT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XJh-cB-6UA"/>
+                <constraint firstAttribute="trailing" secondItem="NWh-XE-9YT" secondAttribute="trailing" id="d9E-Hn-jNE"/>
                 <constraint firstAttribute="trailing" secondItem="ouL-es-Bz0" secondAttribute="trailing" id="ekT-l6-qbx"/>
                 <constraint firstItem="ouL-es-Bz0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hgv-lH-i8t"/>
                 <constraint firstItem="ouL-es-Bz0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rQe-sR-84f"/>
+                <constraint firstItem="NWh-XE-9YT" firstAttribute="top" secondItem="ouL-es-Bz0" secondAttribute="bottom" id="yKa-Hy-PTB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="224.5" y="162.5"/>
+            <point key="canvasLocation" x="204.5" y="172.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_zan" width="16" height="17"/>
+        <image name="iconfont_share" width="17" height="17"/>
+    </resources>
 </document>

@@ -14,4 +14,6 @@
 
 @property (nonatomic,copy) NSString *linkUrl;
 
+@property (nonatomic,strong) NSNumber *commentCount;//评论数量
+
 @end

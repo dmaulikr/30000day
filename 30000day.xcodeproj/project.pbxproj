@@ -333,6 +333,7 @@
 		B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AC11C755981001B4B95 /* PersonHeadView.xib */; };
 		B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AC91C75D451001B4B95 /* QGPickerView.m */; };
 		B8695ACE1C76CFA4001B4B95 /* UserInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */; };
+		B86A10241CC7851900D3E01B /* InformationLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10231CC7851900D3E01B /* InformationLabel.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -1118,6 +1119,8 @@
 		B8695AC91C75D451001B4B95 /* QGPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGPickerView.m; sourceTree = "<group>"; };
 		B8695ACC1C76CFA4001B4B95 /* UserInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationModel.h; sourceTree = "<group>"; };
 		B8695ACD1C76CFA4001B4B95 /* UserInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationModel.m; sourceTree = "<group>"; };
+		B86A10221CC7851900D3E01B /* InformationLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationLabel.h; sourceTree = "<group>"; };
+		B86A10231CC7851900D3E01B /* InformationLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationLabel.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -3690,6 +3693,8 @@
 				B6DB85CA1CC762A00088F867 /* InformationCommentTableViewCell.h */,
 				B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */,
 				B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */,
+				B86A10221CC7851900D3E01B /* InformationLabel.h */,
+				B86A10231CC7851900D3E01B /* InformationLabel.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5224,6 +5229,7 @@
 				B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */,
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
+				B86A10241CC7851900D3E01B /* InformationLabel.m in Sources */,
 				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
