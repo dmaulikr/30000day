@@ -109,6 +109,8 @@
 		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
 		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
 		B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DB85C81CC722400088F867 /* InformationDetails.m */; };
+		B6DB85CD1CC762A00088F867 /* InformationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */; };
+		B6DB85CE1CC762A00088F867 /* InformationCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */; };
 		B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F91CB784360026322A /* ShareInformationView.m */; };
 		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
 		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
@@ -847,6 +849,9 @@
 		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		B6DB85C71CC722400088F867 /* InformationDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetails.h; sourceTree = "<group>"; };
 		B6DB85C81CC722400088F867 /* InformationDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetails.m; sourceTree = "<group>"; };
+		B6DB85CA1CC762A00088F867 /* InformationCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentTableViewCell.h; sourceTree = "<group>"; };
+		B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentTableViewCell.m; sourceTree = "<group>"; };
+		B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentTableViewCell.xib; sourceTree = "<group>"; };
 		B6DDB4F81CB784360026322A /* ShareInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInformationView.h; sourceTree = "<group>"; };
 		B6DDB4F91CB784360026322A /* ShareInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareInformationView.m; sourceTree = "<group>"; };
 		B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareInformationView.xib; sourceTree = "<group>"; };
@@ -3682,6 +3687,9 @@
 				B6E44C3F1CBC97AE0039217D /* InformationWriterHeadTableViewCell.h */,
 				B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */,
 				B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */,
+				B6DB85CA1CC762A00088F867 /* InformationCommentTableViewCell.h */,
+				B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */,
+				B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4655,6 +4663,7 @@
 				B804FD8A1C8AC9A900DFD1CF /* MultiSelectedPanelBkg@2x.png in Resources */,
 				B804FD9B1C8AC9A900DFD1CF /* RecordingSignal007@2x.png in Resources */,
 				B804FD4B1C8AC9A900DFD1CF /* rabbit_5.gif in Resources */,
+				B6DB85CE1CC762A00088F867 /* InformationCommentTableViewCell.xib in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
 				B804FDA81C8AC9A900DFD1CF /* sharemore_openapi@2x.png in Resources */,
@@ -5117,6 +5126,7 @@
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
+				B6DB85CD1CC762A00088F867 /* InformationCommentTableViewCell.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,

@@ -103,7 +103,7 @@
                 if (success) {
                     
                     [sender setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                    
+                    self.zanButton.selected = NO;
                 }
                 
             } failure:^(NSError *error) {
@@ -113,15 +113,13 @@
             }];
             
         } else {
-            
-            NSLog(@"%ld",STUserAccountHandler.userProfile.userId.integerValue);
         
             [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
                 
                 if (success) {
                     
                     [sender setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                    
+                    self.zanButton.selected = YES;
                 }
                 
             } failure:^(NSError *error) {
