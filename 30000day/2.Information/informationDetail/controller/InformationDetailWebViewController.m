@@ -40,13 +40,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.commetLabel.layer.cornerRadius = 5;
     
     self.commetLabel.layer.masksToBounds = YES;
     
     self.commetLabel.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-    
+
+    self.title = @"详情";
+
     self.commetLabel.layer.borderWidth = 1.0f;
     
     self.commentLabelWidth.constant = [InformationLabel getLabelWidthWithText:@"0跟帖"];

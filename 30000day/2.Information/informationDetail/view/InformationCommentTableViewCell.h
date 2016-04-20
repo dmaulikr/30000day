@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InformationCommentModel.h"
 
 @interface InformationCommentTableViewCell : UITableViewCell
 
@@ -29,5 +30,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *replyLable;
 
 @property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
+@property (nonatomic,copy) void (^(replyBlock))(UIButton *replyButton);
+
+@property (nonatomic,copy) void (^(commentBlock))(UIButton *commentButton);
+
+@property (nonatomic,copy) void (^(zanButtonBlock))(UIButton *zanButton);
+
+@property (nonatomic,strong) InformationCommentModel *informationCommentModel;
 
 @end
