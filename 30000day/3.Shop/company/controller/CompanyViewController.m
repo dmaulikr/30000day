@@ -48,6 +48,8 @@
     
     [self.dataHandler sendfindCompanyInfoByIdWithCompanyId:@"2" Success:^(CompanyModel *success) {
         
+        self.title = success.companyName;
+        
         self.companyModel = success;
         
         NSMutableArray *array = [NSMutableArray array];
@@ -342,8 +344,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
-            
+        
+        ShopModel *model = self.shopModelArray[indexPath.row];
+        
         ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
+        
+        shopDetailViewController.productId = [NSString stringWithFormat:@"%ld",model.productId.integerValue];
         
         [self.navigationController pushViewController:shopDetailViewController animated:YES];
         
