@@ -26,7 +26,7 @@
 
 @property (nonatomic,copy) NSString *writerId;
 
-//@property (nonatomic,strong) UIButton *zanButton;
+@property (nonatomic,strong) UIButton *zanButton;
 
 @end
 
@@ -34,10 +34,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self loadWebView];
     
     [self loadInformationDetailDownView];
+    
+    [self.dataHandler getInfomationDetailWithInfoId:self.infoId.integerValue userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(InformationDetails *success) {
+       
+        [self loadWebView:success.linkUrl];
+        
+        if (success.isClickLike) {
+            
+            [self.zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+            self.zanButton.selected = YES;
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        [self showToast:@"服务器游神了"];
+        
+    }];
     
 }
 
@@ -62,7 +77,7 @@
     [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
     [zanButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [downView addSubview:zanButton];
-    //self.zanButton = zanButton;
+    self.zanButton = zanButton;
     
     UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentButton setTag:3];
@@ -81,23 +96,42 @@
         
     } else if(sender.tag == 2) {
     
-        [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
-
-            if (success) {
-                
-                [sender setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                
-            }
-
-        } failure:^(NSError *error) {
+        if (sender.selected) {
             
-            [self showToast:@"服务器游神中。。。"];
+            [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:0 busiType:1 success:^(BOOL success) {
+                
+                if (success) {
+                    
+                    [sender setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"服务器繁忙"];
+                
+            }];
             
-        }];
+        } else {
+            
+            NSLog(@"%ld",STUserAccountHandler.userProfile.userId.integerValue);
         
-    
-    
+            [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
+                
+                if (success) {
+                    
+                    [sender setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"服务器繁忙"];
+                
+            }];
         
+        }
+
     } else if (sender.tag == 3) {
     
         InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
@@ -108,12 +142,12 @@
 
 }
 
-- (void)loadWebView {
+- (void)loadWebView:(NSString *)url {
 
     [self.informationWebView setDelegate:self];
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.1.101:8081/STManager/infomation/infoLink?infoId=%@&userId=%d",self.infoId,STUserAccountHandler.userProfile.userId.intValue]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.informationWebView loadRequest:request];
     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
 

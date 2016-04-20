@@ -108,7 +108,7 @@
 		B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D531C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib */; };
 		B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */; };
 		B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */; };
-		B6DDB4F21CB74D9C0026322A /* InformationDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */; };
+		B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DB85C81CC722400088F867 /* InformationDetails.m */; };
 		B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F91CB784360026322A /* ShareInformationView.m */; };
 		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
 		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
@@ -845,8 +845,8 @@
 		B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JinSuoDetailsTableViewCell.h; sourceTree = "<group>"; };
 		B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JinSuoDetailsTableViewCell.m; sourceTree = "<group>"; };
 		B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JinSuoDetailsTableViewCell.xib; sourceTree = "<group>"; };
-		B6DDB4F01CB74D9B0026322A /* InformationDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetailModel.h; sourceTree = "<group>"; };
-		B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetailModel.m; sourceTree = "<group>"; };
+		B6DB85C71CC722400088F867 /* InformationDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDetails.h; sourceTree = "<group>"; };
+		B6DB85C81CC722400088F867 /* InformationDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDetails.m; sourceTree = "<group>"; };
 		B6DDB4F81CB784360026322A /* ShareInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInformationView.h; sourceTree = "<group>"; };
 		B6DDB4F91CB784360026322A /* ShareInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareInformationView.m; sourceTree = "<group>"; };
 		B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareInformationView.xib; sourceTree = "<group>"; };
@@ -2148,14 +2148,14 @@
 		B6DDB4EF1CB74D700026322A /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B6DDB4F01CB74D9B0026322A /* InformationDetailModel.h */,
-				B6DDB4F11CB74D9C0026322A /* InformationDetailModel.m */,
 				B6E44C441CBC9FD50039217D /* InformationWriterModel.h */,
 				B6E44C451CBC9FD50039217D /* InformationWriterModel.m */,
 				B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */,
 				B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */,
 				B6F043311CC6184F002DF26E /* InformationCommentModel.h */,
 				B6F043321CC6184F002DF26E /* InformationCommentModel.m */,
+				B6DB85C71CC722400088F867 /* InformationDetails.h */,
+				B6DB85C81CC722400088F867 /* InformationDetails.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5039,6 +5039,7 @@
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
+				B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */,
 				B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */,
 				B8B3F4E51C9A546200834533 /* CityHeadView.m in Sources */,
 				B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */,
@@ -5215,7 +5216,6 @@
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
-				B6DDB4F21CB74D9C0026322A /* InformationDetailModel.m in Sources */,
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,

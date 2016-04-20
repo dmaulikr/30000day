@@ -9,6 +9,7 @@
 #import "STRefreshViewController.h"
 #import "STChoosePictureView.h"
 #import "STAvatarBrowser.h"
+#import "JZNavigationExtension.h"
 
 @interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -243,6 +244,7 @@
     if (_isShowBackItem) {
         
         [self backBarButtonItem];
+        self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;
     }
 }
 

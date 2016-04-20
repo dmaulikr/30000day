@@ -7,6 +7,7 @@
 //
 
 #import "ShowBackItemViewController.h"
+#import "JZNavigationExtension.h"
 
 @interface ShowBackItemViewController ()
 
@@ -19,6 +20,8 @@
     
     //定制返回按钮
     [self backBarButtonItem];
+    
+    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
