@@ -415,11 +415,22 @@
     
     // 如果是可以发送语言的，那就需要一个按钮录音的按钮，事件可以在外部添加
     if (self.allowsSendVoice) {
-        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
-        button = [self createButtonWithImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_Black"], edgeInsets) HLImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_BlackHL"], edgeInsets)];
+//        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
+//        button = [self createButtonWithImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_Black"], edgeInsets) HLImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_BlackHL"], edgeInsets)];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        button.layer.cornerRadius = 5;
+        button.layer.masksToBounds = YES;
+        
+        button.layer.borderWidth = 1.0f;
+
+        button.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [button setTitle:kXHTouchToRecord forState:UIControlStateNormal];
         [button setTitle:kXHTouchToFinish forState:UIControlStateHighlighted];
+        [button setBackgroundImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] forState:UIControlStateHighlighted];
         buttonFrame = _inputTextView.frame;
         button.frame = buttonFrame;
         button.alpha = self.voiceChangeButton.selected;
