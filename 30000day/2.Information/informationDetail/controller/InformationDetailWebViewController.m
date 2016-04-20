@@ -37,15 +37,15 @@
     
     [self loadInformationDetailDownView];
     
-    [self.dataHandler getInfomationDetailWithInfoId:self.infoId.integerValue userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(InformationDetails *success) {
+    [self.dataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
        
         [self loadWebView:success.linkUrl];
         
-        if (success.isClickLike) {
+        if ([success.isClickLike isEqualToString:@"1"]) {
             
             [self.zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-            self.zanButton.selected = YES;
             
+            self.zanButton.selected = YES;
         }
         
     } failure:^(NSError *error) {
@@ -141,14 +141,10 @@
 }
 
 - (void)loadWebView:(NSString *)url {
-
-    [self.informationWebView setDelegate:self];
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
     [self.informationWebView loadRequest:request];
-    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-
 }
 
 #pragma --
@@ -157,7 +153,7 @@
 
     JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
 
-    InformationWebJSObject *webJSObject=[InformationWebJSObject new];
+    InformationWebJSObject *webJSObject = [InformationWebJSObject new];
     context[@"clientObj"] = webJSObject;
     
     __weak typeof(webJSObject) weakCell = webJSObject;

@@ -4833,14 +4833,14 @@
 }
 
 //*****************************************资讯详情*********************/
-- (void)getInfomationDetailWithInfoId:(NSInteger)infoId
-                               userId:(NSString *)userId
+- (void)getInfomationDetailWithInfoId:(NSNumber *)infoId
+                               userId:(NSNumber *)userId
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:@(infoId) forKey:@"infoId"];
+    [params setObject:infoId forKey:@"infoId"];
     
     [params setObject:userId forKey:@"userId"];
     
@@ -4865,7 +4865,6 @@
                                                                 
                                                                 [model setValuesForKeysWithDictionary:dictionary];
 
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(model);

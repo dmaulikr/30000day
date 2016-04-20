@@ -10,7 +10,8 @@
 
 @interface InformationDetails : NSObject
 
-@property (nonatomic,assign) BOOL isClickLike;
+@property (nonatomic,copy) NSString *isClickLike;
+
 @property (nonatomic,copy) NSString *linkUrl;
 
 @end

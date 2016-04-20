@@ -398,8 +398,8 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                                  failure:(void (^)(NSError *error))failure;
 
 //*****************************************资讯详情*********************/
-- (void)getInfomationDetailWithInfoId:(NSInteger)infoId
-                               userId:(NSString *)userId
+- (void)getInfomationDetailWithInfoId:(NSNumber *)infoId
+                               userId:(NSNumber *)userId
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure;
 
