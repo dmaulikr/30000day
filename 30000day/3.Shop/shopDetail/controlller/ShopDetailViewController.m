@@ -507,11 +507,7 @@
                     
                     [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                         
-                        if (error) {
-                            
-                            [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-                            
-                        } else {
+                        if (!error) {
                             
                             [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
                         }
@@ -529,14 +525,9 @@
                 
                 [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:self.ownerInformationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                   
-                    if (error) {
+                    if (!error) {
                         
-                        [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
-                        
-                    } else {
-
                         [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                        
                     }
                 }];
             }

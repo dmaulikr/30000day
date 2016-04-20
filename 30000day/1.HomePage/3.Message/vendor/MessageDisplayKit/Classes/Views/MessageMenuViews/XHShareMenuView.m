@@ -37,15 +37,19 @@
         UIButton *shareMenuItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         shareMenuItemButton.frame = CGRectMake(0, 0, kXHShareMenuItemWidth, kXHShareMenuItemWidth);
         shareMenuItemButton.backgroundColor = [UIColor clearColor];
+        shareMenuItemButton.layer.cornerRadius = 3;
+        shareMenuItemButton.layer.masksToBounds = YES;
+        shareMenuItemButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        shareMenuItemButton.layer.borderWidth = 1.0f;
         [self addSubview:shareMenuItemButton];
         
         self.shareMenuItemButton = shareMenuItemButton;
     }
     
     if (!_shareMenuItemTitleLabel) {
-        UILabel *shareMenuItemTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.shareMenuItemButton.frame), kXHShareMenuItemWidth, KXHShareMenuItemHeight - kXHShareMenuItemWidth)];
+        UILabel *shareMenuItemTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.shareMenuItemButton.frame) + 3, kXHShareMenuItemWidth, KXHShareMenuItemHeight - kXHShareMenuItemWidth)];
         shareMenuItemTitleLabel.backgroundColor = [UIColor clearColor];
-        shareMenuItemTitleLabel.textColor = [UIColor blackColor];
+        shareMenuItemTitleLabel.textColor = [UIColor lightGrayColor];
         shareMenuItemTitleLabel.font = [UIFont systemFontOfSize:12];
         shareMenuItemTitleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:shareMenuItemTitleLabel];
