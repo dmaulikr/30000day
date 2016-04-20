@@ -78,6 +78,16 @@
 
 + (NSDictionary *)attributesDictionay:(UserInformationModel *)model userProfile:(UserProfile *)userProfile {
     
+    if ([model.userId isEqualToNumber:userProfile.userId]) {
+        
+        return nil;
+    }
+    
+    if ([Common isObjectNull:model.userId] || [Common isObjectNull:userProfile.userId]) {
+        
+        return nil;
+    }
+    
     return  @{[model.userId stringValue]:@{@"userId":[model.userId stringValue],@"imgUrl":model.headImg,@"nickName":model.nickName},[userProfile.userId stringValue]:@{@"userId":[userProfile.userId stringValue],@"imgUrl":userProfile.headImg,@"nickName":userProfile.nickName},@"type":@0};
 }
 

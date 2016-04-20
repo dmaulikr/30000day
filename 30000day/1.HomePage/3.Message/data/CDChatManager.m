@@ -99,13 +99,16 @@ static CDChatManager *instance;
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    [array addObject:self.client.clientId];
-    
-    [array addObject:otherId];
-    
-    [self fetchConversationWithMembers:array type:CDConversationTypeSingle attributes:attributes callback:callback];
+    if (![Common isObjectNull:attributes]) {//非空的
+        
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        
+        [array addObject:self.client.clientId];
+        
+        [array addObject:otherId];
+        
+        [self fetchConversationWithMembers:array type:CDConversationTypeSingle attributes:attributes callback:callback];
+    }
 }
 
 - (void)fetchConversationWithMembers:(NSArray *)members type:(CDConversationType)type attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
