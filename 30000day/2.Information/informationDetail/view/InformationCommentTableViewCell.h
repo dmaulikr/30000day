@@ -26,4 +26,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
+@property (weak, nonatomic) IBOutlet UILabel *replyLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
 @end

@@ -72,13 +72,13 @@
                         <rect key="frame" x="228" y="129" width="60" height="30"/>
                         <state key="normal" title="查看回复"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="烟火冰之夏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSt-q7-QOe">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="烟火冰之夏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSt-q7-QOe">
                         <rect key="frame" x="69" y="40" width="65" height="16"/>
                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="回复" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKY-yo-WWL">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="回复" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uKY-yo-WWL">
                         <rect key="frame" x="69" y="27" width="20" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,8 +121,10 @@
                 <outlet property="commentTimeLable" destination="eTg-J1-0i9" id="9Qf-fo-C8C"/>
                 <outlet property="commentZambiaButton" destination="K3m-RO-at5" id="cdP-9I-YcD"/>
                 <outlet property="headPortraitImageView" destination="ZlB-Mb-toS" id="xv9-nD-0R9"/>
+                <outlet property="replyLable" destination="uKY-yo-WWL" id="5CQ-RG-w3F"/>
+                <outlet property="replyNameLable" destination="hSt-q7-QOe" id="kKE-CP-7Ik"/>
             </connections>
-            <point key="canvasLocation" x="263.5" y="270"/>
+            <point key="canvasLocation" x="142.5" y="295"/>
         </tableViewCell>
     </objects>
     <resources>

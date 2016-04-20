@@ -95,8 +95,7 @@
 - (void)loadMySubscribeData {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    //[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue]
-    [self.dataHandler sendMySubscribeWithUserId:@"10000022" success:^(NSMutableArray *success) {
+    [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
         
         self.mySubscribeArray = [NSArray arrayWithArray:success];
         [self.tableViewSubscription reloadData];
@@ -177,8 +176,23 @@
         }];
 
     } else {
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+            
+            self.mySubscribeArray = [NSArray arrayWithArray:success];
+            [self.tableViewSubscription reloadData];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self.tableViewSubscription.mj_header endRefreshing];
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self.tableViewSubscription.mj_header endRefreshing];
+            
+        }];
     
-        [self.tableViewSubscription.mj_header endRefreshing];
+        
     
     }
     
