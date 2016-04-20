@@ -21,93 +21,69 @@
 #import "InformationWriterHomepageViewController.h"
 
 #import "MTProgressHUD.h"
-#import "InformationLabel.h"
+#import "CommentView.h"
 
 @interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
 
 @property (nonatomic,copy) NSString *writerId;
 
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;//分享按钮
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentViewWidth;
 
-@property (weak, nonatomic) IBOutlet UIButton *praiseButton;//点赞按钮
+@property (weak, nonatomic) IBOutlet CommentView *comment_view;
+@property (weak, nonatomic) IBOutlet CommentView *comment_share_view;//分享view
+@property (weak, nonatomic) IBOutlet CommentView *praiseView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentLabelWidth;
-
-@property (weak, nonatomic) IBOutlet InformationLabel *commetLabel;
 @end
 
 @implementation InformationDetailWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.commetLabel.layer.cornerRadius = 5;
-    
-    self.commetLabel.layer.masksToBounds = YES;
-    
-    self.commetLabel.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-
     self.title = @"详情";
-
-    self.commetLabel.layer.borderWidth = 1.0f;
+    //跟帖
+    self.comment_view.layer.cornerRadius = 5;
+    self.comment_view.layer.masksToBounds = YES;
+    self.comment_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    self.comment_view.layer.borderWidth = 1.0f;
+    self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:@"0跟帖"];
     
-    self.commentLabelWidth.constant = [InformationLabel getLabelWidthWithText:@"0跟帖"];
-    //下载数据
-    [self.dataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
+    //分享
+    self.comment_share_view.layer.cornerRadius = 5;
+    self.comment_share_view.layer.masksToBounds = YES;
+    self.comment_share_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    self.comment_share_view.layer.borderWidth = 1.0f;
+    self.comment_share_view.showImageView.image = [UIImage imageNamed:@"iconfont_share"];
+    self.comment_share_view.showLabel.text = @"分享";
+    [self.comment_share_view setClickBlock:^{
        
-        [self loadWebView:success.linkUrl];
-        
-        if ([success.isClickLike isEqualToString:@"1"]) {
-            
-            [self.praiseButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-            
-            self.praiseButton.selected = YES;
-        }
-        
-        self.commentLabelWidth.constant = [InformationLabel getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
-        
-        self.commetLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
-        
-    } failure:^(NSError *error) {
+        [self showShareAnimatonView];
         
     }];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    
-    [self.commetLabel addGestureRecognizer:tap];
-}
-
-- (void)tapAction {
-    
-    InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
-    informationCommentViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:informationCommentViewController animated:YES];
-}
-
-- (IBAction)buttonAction:(id)sender {
-    
-    UIButton *button = (UIButton *)sender;
-    
-    if (button.tag == 1) {//分享按钮
-        
-        [self showShareAnimatonView];
-        
-    } else if (button.tag == 2) {//点赞按钮
-        
-        if (button.selected) {
+    //
+    self.praiseView.layer.cornerRadius = 5;
+    self.praiseView.layer.masksToBounds = YES;
+    self.praiseView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    self.praiseView.layer.borderWidth = 1.0f;
+    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+    self.praiseView.showLabel.text = @"点赞";
+    self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
+    [self.praiseView setClickBlock:^{
+       
+        if (self.praiseView.isSelected) {
             
             [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:0 busiType:1 success:^(BOOL success) {
                 
                 if (success) {
                     
-                    [button setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                    
-                    button.selected = NO;
+                    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+                    self.praiseView.showLabel.text = @"点赞";
+                    self.praiseView.selected = NO;
+                    self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
                 }
                 
             } failure:^(NSError *error) {
-                
-                [self showToast:@"服务器繁忙"];
+
                 
             }];
             
@@ -117,18 +93,55 @@
                 
                 if (success) {
                     
-                    [button setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                    button.selected = YES;
+                    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
+                    self.praiseView.showLabel.text = @"已赞";
+                    self.praiseView.selected = YES;
+                    self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
                 }
                 
             } failure:^(NSError *error) {
                 
-                [self showToast:@"服务器繁忙"];
-                
             }];
         }
+    }];
+    
+    //下载数据
+    [self.dataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
+       
+        [self loadWebView:success.linkUrl];
         
-    }
+        if ([success.isClickLike isEqualToString:@"1"]) {
+            
+            self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
+            self.praiseView.showLabel.text = @"已赞";
+            self.praiseView.selected = YES;
+            self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
+            
+        } else {
+            
+            self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+            self.praiseView.showLabel.text = @"点赞";
+            self.praiseView.selected = NO;
+            self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
+        }
+        
+        self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
+        
+        self.comment_view.showLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+- (void)tapAction {
+    
+    InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
+    
+    informationCommentViewController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:informationCommentViewController animated:YES];
 }
 
 - (void)loadWebView:(NSString *)url {

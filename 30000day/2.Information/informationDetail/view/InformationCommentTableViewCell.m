@@ -68,9 +68,7 @@
     self.commentContentLable.text = informationCommentModel.remark;
 
     self.commentCountLable.text = informationCommentModel.countCommentNum;
-    
-    
-    
+
 }
 
 
