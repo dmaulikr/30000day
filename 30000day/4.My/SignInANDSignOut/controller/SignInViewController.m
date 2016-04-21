@@ -184,8 +184,6 @@
                                              
                                          } failure:^(NSError *error) {
                                              
-                                             [self showToast:@"链接聊天服务器失败"];
-                                             
                                          }];
                                          
                                          [self hideHUD:YES];

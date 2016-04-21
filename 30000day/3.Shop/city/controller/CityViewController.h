@@ -6,9 +6,9 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "AddressBookBaseViewController.h"
+#import "SearchBaseViewController.h"
 
-@interface CityViewController : AddressBookBaseViewController
+@interface CityViewController : SearchBaseViewController
 
 //点击按钮后的回调
 @property (nonatomic,copy) void (^cityBlock)(NSString *provinceName,NSString *cityName);

@@ -8,7 +8,7 @@
 
 #import "ShowBackItemViewController.h"
 
-@interface AddressBookBaseViewController : ShowBackItemViewController
+@interface SearchBaseViewController : ShowBackItemViewController
 
 @property (nonatomic, strong)  UITableView *tableView;
 
@@ -16,6 +16,7 @@
 
 @property (nonatomic ,strong)  UIButton *cancelButton;
 
+@property (nonatomic,assign) BOOL isChangeSearchBarHeight;//是否改变搜索bar的高度，默认是改变的
 
 /**
   * 搜索栏恢复到之前的状态（当点击取消按钮，或者键盘收起，或者点击了模态视图父控制器都会调用该方法，外界也可以调用本方法）

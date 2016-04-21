@@ -8,6 +8,8 @@
 
 #import "SubscribeCentreViewController.h"
 #import "SubscribeTableViewCell.h"
+#import "SearchWriterViewController.h"
+#import "UIImage+WF.h"
 
 @interface SubscribeCentreViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -36,6 +38,28 @@
     self.titleArray = [NSArray arrayWithObjects:@"热门",@"饮食",@"运动",@"作息",@"备孕",@"孕期",@"育儿",@"治未病",@"体检",@"就医", nil];
     
     self.selectRow = 0;
+    
+    //设置右按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setImage:[[UIImage imageNamed:@"search"] imageWithTintColor:LOWBLUECOLOR] forState:UIControlStateNormal];
+    
+    button.frame = CGRectMake(0, 0, 28, 28);
+    
+    UIBarButtonItem *rightItem  = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    [button addTarget:self action:@selector(rightClickAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)rightClickAction {
+    
+    SearchWriterViewController *controller = [[SearchWriterViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

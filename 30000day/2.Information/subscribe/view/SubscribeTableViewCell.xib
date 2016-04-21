@@ -14,8 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体育" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIj-ZQ-Trh">
-                        <rect key="frame" x="145" y="12" width="30" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体育" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIj-ZQ-Trh">
+                        <rect key="frame" x="138" y="12" width="45" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="s4o-9J-FDP"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -31,7 +34,7 @@
                 <outlet property="secondSucribeButton" destination="UB2-jS-Ykq" id="oBb-PK-6fu"/>
                 <outlet property="titleLabel" destination="sIj-ZQ-Trh" id="mJY-N6-A4s"/>
             </connections>
-            <point key="canvasLocation" x="209" y="127"/>
+            <point key="canvasLocation" x="229" y="126"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="71" id="9qX-4J-Xtm" customClass="SubscribeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="292" height="72"/>
@@ -49,9 +52,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们爱说冷笑话" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNr-S8-CmF">
-                        <rect key="frame" x="79" y="13" width="128" height="21"/>
+                        <rect key="frame" x="79" y="13" width="110" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="128" id="4DL-Uu-JvP"/>
+                            <constraint firstAttribute="width" constant="110" id="4DL-Uu-JvP"/>
                             <constraint firstAttribute="height" constant="21" id="fON-fW-bsz"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -59,9 +62,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17万人订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Bv-uR-PWR">
-                        <rect key="frame" x="79" y="39" width="128" height="21"/>
+                        <rect key="frame" x="79" y="39" width="110" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="128" id="U1O-Va-aEL"/>
+                            <constraint firstAttribute="width" constant="110" id="U1O-Va-aEL"/>
                             <constraint firstAttribute="height" constant="21" id="xso-97-cW8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -69,7 +72,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UB2-jS-Ykq">
-                        <rect key="frame" x="217" y="20" width="60" height="30"/>
+                        <rect key="frame" x="222" y="20" width="60" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="imm-5w-tGD"/>
                             <constraint firstAttribute="height" constant="30" id="xyO-Yw-GS4"/>
@@ -86,7 +89,7 @@
                 <constraints>
                     <constraint firstItem="pbs-ch-rrB" firstAttribute="leading" secondItem="Oto-Vy-cgl" secondAttribute="leading" constant="15" id="D0M-fp-rq7"/>
                     <constraint firstItem="LNr-S8-CmF" firstAttribute="leading" secondItem="pbs-ch-rrB" secondAttribute="trailing" constant="14" id="I2B-uh-jWi"/>
-                    <constraint firstAttribute="trailing" secondItem="UB2-jS-Ykq" secondAttribute="trailing" constant="15" id="JDO-AI-awG"/>
+                    <constraint firstAttribute="trailing" secondItem="UB2-jS-Ykq" secondAttribute="trailing" constant="10" id="JDO-AI-awG"/>
                     <constraint firstItem="5Bv-uR-PWR" firstAttribute="leading" secondItem="pbs-ch-rrB" secondAttribute="trailing" constant="14" id="ggc-gP-fvy"/>
                     <constraint firstItem="UB2-jS-Ykq" firstAttribute="centerY" secondItem="Oto-Vy-cgl" secondAttribute="centerY" id="hY5-e2-mLj"/>
                     <constraint firstItem="pbs-ch-rrB" firstAttribute="centerY" secondItem="Oto-Vy-cgl" secondAttribute="centerY" id="jKZ-st-uDM"/>
