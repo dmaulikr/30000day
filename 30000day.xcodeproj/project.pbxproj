@@ -328,8 +328,6 @@
 		B86A10271CC7CC4400D3E01B /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10261CC7CC4400D3E01B /* CommentView.m */; };
 		B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10291CC870DA00D3E01B /* SubscribeCentreViewController.m */; };
 		B86A102C1CC870DA00D3E01B /* SubscribeCentreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86A102A1CC870DA00D3E01B /* SubscribeCentreViewController.xib */; };
-		B86A10301CC8714E00D3E01B /* SubscriptionCentralityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A102E1CC8714E00D3E01B /* SubscriptionCentralityViewController.m */; };
-		B86A10311CC8714E00D3E01B /* SubscriptionCentralityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86A102F1CC8714E00D3E01B /* SubscriptionCentralityViewController.xib */; };
 		B86A10391CC8719700D3E01B /* SubscribeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10341CC8719700D3E01B /* SubscribeListTableViewCell.m */; };
 		B86A103A1CC8719700D3E01B /* SubscribeListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86A10351CC8719700D3E01B /* SubscribeListTableViewCell.xib */; };
 		B86A103B1CC8719700D3E01B /* SubscriptionCentralityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10371CC8719700D3E01B /* SubscriptionCentralityTableViewCell.m */; };
@@ -338,6 +336,8 @@
 		B86A10431CC871DF00D3E01B /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10411CC871DF00D3E01B /* SubscriptionModel.m */; };
 		B86A10471CC8755E00D3E01B /* SubscribeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A10451CC8755E00D3E01B /* SubscribeTableViewCell.m */; };
 		B86A10481CC8755E00D3E01B /* SubscribeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86A10461CC8755E00D3E01B /* SubscribeTableViewCell.xib */; };
+		B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A104C1CC8CE5E00D3E01B /* SearchWriterViewController.m */; };
+		B86A10501CC8DF9500D3E01B /* SearchBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A104F1CC8DF9500D3E01B /* SearchBaseViewController.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -414,7 +414,6 @@
 		B8BD789A1CC24FC500362C89 /* STNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78991CC24FC500362C89 /* STNetworkAgent.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
-		B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */; };
 		B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A1B1C7420B000805EE2 /* SearchFriendsTableViewCell.m */; };
 		B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A1C1C7420B000805EE2 /* SearchFriendsTableViewCell.xib */; };
 		B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */; };
@@ -1113,9 +1112,6 @@
 		B86A10281CC870DA00D3E01B /* SubscribeCentreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeCentreViewController.h; sourceTree = "<group>"; };
 		B86A10291CC870DA00D3E01B /* SubscribeCentreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeCentreViewController.m; sourceTree = "<group>"; };
 		B86A102A1CC870DA00D3E01B /* SubscribeCentreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeCentreViewController.xib; sourceTree = "<group>"; };
-		B86A102D1CC8714E00D3E01B /* SubscriptionCentralityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionCentralityViewController.h; sourceTree = "<group>"; };
-		B86A102E1CC8714E00D3E01B /* SubscriptionCentralityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionCentralityViewController.m; sourceTree = "<group>"; };
-		B86A102F1CC8714E00D3E01B /* SubscriptionCentralityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionCentralityViewController.xib; sourceTree = "<group>"; };
 		B86A10331CC8719700D3E01B /* SubscribeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeListTableViewCell.h; sourceTree = "<group>"; };
 		B86A10341CC8719700D3E01B /* SubscribeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeListTableViewCell.m; sourceTree = "<group>"; };
 		B86A10351CC8719700D3E01B /* SubscribeListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1129,6 +1125,10 @@
 		B86A10441CC8755E00D3E01B /* SubscribeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeTableViewCell.h; sourceTree = "<group>"; };
 		B86A10451CC8755E00D3E01B /* SubscribeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeTableViewCell.m; sourceTree = "<group>"; };
 		B86A10461CC8755E00D3E01B /* SubscribeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeTableViewCell.xib; sourceTree = "<group>"; };
+		B86A104B1CC8CE5E00D3E01B /* SearchWriterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWriterViewController.h; sourceTree = "<group>"; };
+		B86A104C1CC8CE5E00D3E01B /* SearchWriterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWriterViewController.m; sourceTree = "<group>"; };
+		B86A104E1CC8DF9500D3E01B /* SearchBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBaseViewController.h; sourceTree = "<group>"; };
+		B86A104F1CC8DF9500D3E01B /* SearchBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBaseViewController.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -1265,8 +1265,6 @@
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
-		B8D67A0F1C73356400805EE2 /* AddressBookBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookBaseViewController.h; sourceTree = "<group>"; };
-		B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookBaseViewController.m; sourceTree = "<group>"; };
 		B8D67A1A1C7420B000805EE2 /* SearchFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendsTableViewCell.h; sourceTree = "<group>"; };
 		B8D67A1B1C7420B000805EE2 /* SearchFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendsTableViewCell.m; sourceTree = "<group>"; };
 		B8D67A1C1C7420B000805EE2 /* SearchFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFriendsTableViewCell.xib; sourceTree = "<group>"; };
@@ -2604,6 +2602,8 @@
 		B88C91541C59F8940089BEAE /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				B86A104E1CC8DF9500D3E01B /* SearchBaseViewController.h */,
+				B86A104F1CC8DF9500D3E01B /* SearchBaseViewController.m */,
 				B88C92231C5B11020089BEAE /* STNavigationController.h */,
 				B88C92241C5B11020089BEAE /* STNavigationController.m */,
 				B8F2DA131C5F3448002C7712 /* STBaseViewController.h */,
@@ -2983,8 +2983,6 @@
 				B89216D71C634E650023F8A8 /* AddFriendsViewController.h */,
 				B89216D81C634E650023F8A8 /* AddFriendsViewController.m */,
 				B89216D91C634E650023F8A8 /* AddFriendsViewController.xib */,
-				B8D67A0F1C73356400805EE2 /* AddressBookBaseViewController.h */,
-				B8D67A101C73356400805EE2 /* AddressBookBaseViewController.m */,
 				B89216DA1C634E650023F8A8 /* MailListViewController.h */,
 				B89216DB1C634E650023F8A8 /* MailListViewController.m */,
 				B8D67A241C74420500805EE2 /* SearchFriendsViewController.h */,
@@ -3731,12 +3729,11 @@
 		B8F73C341C9651760063CC60 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B86A102D1CC8714E00D3E01B /* SubscriptionCentralityViewController.h */,
-				B86A102E1CC8714E00D3E01B /* SubscriptionCentralityViewController.m */,
-				B86A102F1CC8714E00D3E01B /* SubscriptionCentralityViewController.xib */,
 				B86A10281CC870DA00D3E01B /* SubscribeCentreViewController.h */,
 				B86A10291CC870DA00D3E01B /* SubscribeCentreViewController.m */,
 				B86A102A1CC870DA00D3E01B /* SubscribeCentreViewController.xib */,
+				B86A104B1CC8CE5E00D3E01B /* SearchWriterViewController.h */,
+				B86A104C1CC8CE5E00D3E01B /* SearchWriterViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4663,7 +4660,6 @@
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
 				B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */,
-				B86A10311CC8714E00D3E01B /* SubscriptionCentralityViewController.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F6E24E1CB919E1000CC117 /* AlipaySDK.bundle in Resources */,
 				B804FD931C8AC9A900DFD1CF /* RecordCancel@2x.png in Resources */,
@@ -5002,7 +4998,6 @@
 				B8FD3E091C8A7903007BCA6B /* SETextEditingCaret.m in Sources */,
 				B86A103B1CC8719700D3E01B /* SubscriptionCentralityTableViewCell.m in Sources */,
 				B665F8D91CC4BF5200070458 /* ZLPhotoTool.m in Sources */,
-				B8D67A111C73356400805EE2 /* AddressBookBaseViewController.m in Sources */,
 				B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */,
 				B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */,
 				B86A10431CC871DF00D3E01B /* SubscriptionModel.m in Sources */,
@@ -5038,7 +5033,6 @@
 				B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */,
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
-				B86A10301CC8714E00D3E01B /* SubscriptionCentralityViewController.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
@@ -5232,6 +5226,7 @@
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
+				B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
@@ -5247,6 +5242,7 @@
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,
 				B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */,
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,
+				B86A10501CC8DF9500D3E01B /* SearchBaseViewController.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,

@@ -6,9 +6,8 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "STBaseViewController.h"
-#import "AddressBookBaseViewController.h"
+#import "SearchBaseViewController.h"
 
-@interface MailListViewController : AddressBookBaseViewController
+@interface MailListViewController : SearchBaseViewController
 
 @end

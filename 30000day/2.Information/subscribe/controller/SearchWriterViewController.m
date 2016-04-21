@@ -1,96 +1,68 @@
 //
-//  SubscriptionCentralityViewController.m
+//  SearchWriterViewController.m
 //  30000day
 //
-//  Created by wei on 16/4/14.
+//  Created by GuoJia on 16/4/21.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "SubscriptionCentralityViewController.h"
+#import "SearchWriterViewController.h"
 #import "SubscribeListTableViewCell.h"
 #import "InformationMySubscribeModel.h"
 #import "InformationWriterHomepageViewController.h"
 
-@interface SubscriptionCentralityViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UIView *searchBackgroundView;//搜索框的背景视图
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;//主表格视图
+@interface SearchWriterViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *searchResultArray;//搜索结果数组
 
 @property (nonatomic,assign) BOOL isSearch;//搜索状态
 
-@property (weak, nonatomic) IBOutlet UIView *noResultView;//无搜索结果的时候显示的视图
-
-@property (weak, nonatomic) IBOutlet UITextField *textField;//搜索的textField
-
 @end
 
-@implementation SubscriptionCentralityViewController
+@implementation SearchWriterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"订阅中心";
+    self.title = @"搜索中心";
     
-    self.searchBackgroundView.layer.cornerRadius = 5;
+    self.isSearch = NO;
     
-    self.searchBackgroundView.layer.masksToBounds = YES;
+    self.tableView.delegate = self;
     
-    [self.tableView setDelegate:self];
+    self.tableView.dataSource = self;
     
-    [self.tableView setDataSource:self];
+    [self.searchBar becomeFirstResponder];
     
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    self.searchBar.placeholder = @"输入作者名字/账号";
     
-    self.isSearch = NO;//刚进来的时候不是搜索状态
+    self.isChangeSearchBarHeight = NO;
     
-    self.noResultView.hidden = YES;
-    
-    [self.textField becomeFirstResponder];
-    
-    [self.textField setDelegate:self];
-    
-    self.searchResultArray = [NSMutableArray array];
-}
-
-- (IBAction)cancelAction:(UIButton *)sender {
-    
-    //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
-    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
-    
-    if (self.isSearch) {
-        
-        [self.dataHandler sendSearchWriterListWithWriterName:self.textField.text userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
-            
-            self.searchResultArray = success;
-            
-            [self.tableView reloadData];
-            
-        } failure:^(NSError *error) {
-            
-            [self ShowAlert:@"服务器走神了"];
-            
-        }];
-        
-    }
-    
-    [self.textField resignFirstResponder];
-    
+    [self.cancelButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
 }
 
 #pragma ---
-#pragma mark --- UITextFieldDelegate
+#pragma mark ---- 父视图的生命周期方法
+- (void)searchBarDidBeginRestore:(BOOL)isAnimation  {
+    
+    [super searchBarDidBeginRestore:isAnimation];
+    
+    self.isSearch = NO;
+    
+    [self.tableView reloadData];
+}
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+#pragma ---
+#pragma mark --- UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
-    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
+    self.isSearch = [Common isObjectNull:self.searchBar.text] ? NO : YES;
     
     if (self.isSearch) {
         
-        [self.dataHandler sendSearchWriterListWithWriterName:self.textField.text userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchWriterListWithWriterName:self.searchBar.text userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
             
             self.searchResultArray = success;
             
@@ -99,14 +71,10 @@
         } failure:^(NSError *error) {
             
             [self ShowAlert:@"服务器走神了"];
-            
         }];
-        
     }
     
-    [textField resignFirstResponder];
-    
-    return YES;
+    [searchBar resignFirstResponder];
 }
 
 #pragma ---
@@ -115,7 +83,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -136,18 +103,13 @@
     
     cell.subscriptionModel = self.searchResultArray[indexPath.row];
     
-
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 81;
-}
-
-- (void)dealloc {
-    
-    [STNotificationCenter removeObserver:self];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -159,9 +121,7 @@
     [self.navigationController pushViewController:controller animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
