@@ -54,7 +54,7 @@
 
     [self.headPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
     
-    //self.commentNameLable.text = informationCommentModel
+    self.commentNameLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.userName];
     
     NSString *str = [NSString stringWithFormat:@"%@",informationCommentModel.createTime];//时间戳
     NSTimeInterval time = [str doubleValue]/(double)1000;
@@ -67,7 +67,7 @@
     
     self.commentContentLable.text = informationCommentModel.remark;
 
-    self.commentCountLable.text = informationCommentModel.countCommentNum;
+    //self.commentCountLable.text = informationCommentModel.countCommentNum;
 
 }
 

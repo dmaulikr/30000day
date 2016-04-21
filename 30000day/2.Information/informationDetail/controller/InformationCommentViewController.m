@@ -48,14 +48,11 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:30 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
         [self.tableView reloadData];
-        
-        NSLog(@"%@",success);
-        
         
     } failure:^(NSError *error) {
         
@@ -84,6 +81,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (self.commentModelArray.count == 0) {
+        
+        return 0;
+        
+    }
+    
     return self.commentModelArray.count;
     
 }
@@ -91,11 +94,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
-    
-    //if (commentModel.level == 1) {
         
-    return 238 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
-        
+    return 107 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
     
 }
 
@@ -182,9 +182,6 @@
     informationCommentTableViewCell.informationCommentModel = commentModel;
     
     return informationCommentTableViewCell;
-    
-    
-    return nil;
 }
 
 #pragma mark - Table view data delegate
@@ -219,7 +216,7 @@
     if (changeStatusButton.tag == 1) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:30 success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
                 
@@ -229,7 +226,7 @@
                 for (int i = 0; i < success.count; i++) {
                     
                     InformationCommentModel *comment = success[i];
-                    comment.level = 0;
+                    //comment.level = 0;
                     //comment.pName = commentModel.userName;
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     

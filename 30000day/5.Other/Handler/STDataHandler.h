@@ -13,6 +13,7 @@
 #import "InformationWriterModel.h"
 #import "InformationMySubscribeModel.h"
 #import "InformationDetails.h"
+#import "InformationCommentModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -394,6 +395,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 //*****************************************资讯评论*********************/
 - (void)sendSearchInfoCommentsWithInfoId:(NSInteger)infoId
                                 busiType:(NSInteger)busiType
+                                     pid:(NSInteger)pid
                                  success:(void (^)(NSMutableArray *success))success
                                  failure:(void (^)(NSError *error))failure;
 
