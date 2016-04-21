@@ -59,9 +59,9 @@
     
     self.chartView.colorBottom = [UIColor whiteColor];
     
-    self.chartView.colorLine = BLUECOLOR;
+    self.chartView.colorLine = LOWBLUECOLOR;
     
-    self.chartView.colorPoint = BLUECOLOR;
+    self.chartView.colorPoint = LOWBLUECOLOR;
     
     self.chartView.colorXaxisLabel = [UIColor darkGrayColor];
     

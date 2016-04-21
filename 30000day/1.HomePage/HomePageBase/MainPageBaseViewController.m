@@ -185,7 +185,7 @@
     self.navigationItem.titleView = self.buttonParentView;
     
     _mainPageButton = [self buttonWithTitle:@"主页" numberAndTag:0];
-    [_mainPageButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+    [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
     [_mainPageButton setFrame:CGRectMake(0, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_mainPageButton];
     
@@ -206,7 +206,7 @@
     
     
     _bottomScrollView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, 65, 2)];
-    [_bottomScrollView setBackgroundColor:BLUECOLOR];
+    [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
     
@@ -286,28 +286,28 @@
     switch (page) {
             
         case 0:
-            [_mainPageButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 1:
-            [_newsButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_newsButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 2:
-            [_personButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_personButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 3:
-            [_moreAgeButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_moreAgeButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

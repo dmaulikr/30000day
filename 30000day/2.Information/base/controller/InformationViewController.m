@@ -15,7 +15,7 @@
 #import "InformationDetailWebViewController.h"
 #import "InformationWriterHomepageViewController.h"
 #import "InformationMySubscribeModel.h"
-#import "SubscriptionCentralityViewController.h"
+#import "SubscribeCentreViewController.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -420,7 +420,7 @@
     CGFloat leftX = (self.buttonParentView.bounds.size.width - BUTTON_WIDTH) / 2;
     
     _informationButton = [self buttonWithTitle:@"资讯" numberAndTag:0];
-    [_informationButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+    [_informationButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
     [_informationButton setFrame:CGRectMake(leftX - BUTTON_WIDTH, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_informationButton];
     
@@ -429,7 +429,7 @@
     [self.buttonParentView addSubview:_subscriptionButton];
     
     _bottomScrollView = [[UIView alloc]initWithFrame:CGRectMake(leftX - BUTTON_WIDTH, 42, BUTTON_WIDTH, 2)];
-    [_bottomScrollView setBackgroundColor:BLUECOLOR];
+    [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
     
@@ -461,7 +461,7 @@
 
 - (void)subscription {
 
-    SubscriptionCentralityViewController *controller = [[SubscriptionCentralityViewController alloc] init];
+    SubscribeCentreViewController *controller = [[SubscribeCentreViewController alloc] init];
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 
@@ -506,12 +506,12 @@
     switch (page) {
             
         case 0:
-            [_informationButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_informationButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_subscriptionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 1:
-            [_subscriptionButton setTitleColor:BLUECOLOR forState:UIControlStateNormal];
+            [_subscriptionButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_informationButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
