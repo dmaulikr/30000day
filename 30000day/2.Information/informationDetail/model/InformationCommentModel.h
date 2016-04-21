@@ -27,4 +27,6 @@
 @property (nonatomic,copy) NSString *userName;
 @property (nonatomic,copy) NSString *parentUserName;
 
+@property (nonatomic,assign) BOOL selected;//是否被选中的
+
 @end

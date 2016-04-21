@@ -219,11 +219,7 @@
         
     }
     
-    
-    
     if (!changeStatusButton.selected) {
-        
-        
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
@@ -237,11 +233,10 @@
                     
                 }
                 
-                [self.tableView reloadData];
-                
                 changeStatusButton.selected = YES;
                 [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
                 
+                [self.tableView reloadData];
             }
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];

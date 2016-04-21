@@ -119,7 +119,6 @@
                 
                 self.flag = YES;
             }
-            
         }];
         return cell;
     }
