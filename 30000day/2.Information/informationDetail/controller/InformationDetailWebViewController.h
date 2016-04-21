@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface InformationDetailWebViewController : ShowBackItemViewController
+@interface InformationDetailWebViewController : STRefreshViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView *informationWebView;
 

@@ -23,15 +23,15 @@
 #import "MTProgressHUD.h"
 #import "CommentView.h"
 
-@interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
+@interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,copy) NSString *writerId;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentViewWidth;
 
 @property (weak, nonatomic) IBOutlet CommentView *comment_view;
-@property (weak, nonatomic) IBOutlet CommentView *comment_share_view;//分享view
 @property (weak, nonatomic) IBOutlet CommentView *praiseView;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
 
@@ -40,6 +40,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"详情";
+    self.isShowFootRefresh = NO;
+    self.isShowHeadRefresh = NO;
+    self.isShowBackItem = YES;
+    [self.tableView removeFromSuperview];
+    
     //跟帖
     self.comment_view.layer.cornerRadius = 5;
     self.comment_view.layer.masksToBounds = YES;
@@ -57,17 +62,20 @@
     }];
     
     //分享
-    self.comment_share_view.layer.cornerRadius = 5;
-    self.comment_share_view.layer.masksToBounds = YES;
-    self.comment_share_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-    self.comment_share_view.layer.borderWidth = 1.0f;
-    self.comment_share_view.showImageView.image = [UIImage imageNamed:@"iconfont_share"];
-    self.comment_share_view.showLabel.text = @"分享";
-    [self.comment_share_view setClickBlock:^{
+    CommentView *comment_share_view = [[CommentView alloc] initWithFrame:CGRectMake(0, 0, 70, 30)];
+    comment_share_view.layer.cornerRadius = 5;
+    comment_share_view.layer.masksToBounds = YES;
+    comment_share_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    comment_share_view.layer.borderWidth = 1.0f;
+    comment_share_view.showImageView.image = [UIImage imageNamed:@"iconfont_share"];
+    comment_share_view.showLabel.text = @"分享";
+    [comment_share_view setClickBlock:^{
        
         [self showShareAnimatonView];
         
     }];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:comment_share_view];
     
     //
     self.praiseView.layer.cornerRadius = 5;
@@ -150,6 +158,17 @@
     
     [self.informationWebView loadRequest:request];
 }
+
+
+#pragma ---
+#pragma mark ---UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    
+}
+
+
+
 
 #pragma --
 #pragma mark -- UIWebViewDelegate
