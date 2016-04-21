@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubscribeCentreViewController">
             <connections>
+                <outlet property="leftTableView" destination="FrO-fY-CcO" id="6EP-27-Nia"/>
+                <outlet property="rightTableView" destination="KaX-qK-uNY" id="vkw-Nk-rWQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-fY-CcO">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="568"/>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="3pk-4h-yR8"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="BoS-0p-pco"/>
+                        <outlet property="delegate" destination="-1" id="seY-dz-Cnz"/>
+                    </connections>
+                </tableView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KaX-qK-uNY">
+                    <rect key="frame" x="50" y="64" width="270" height="504"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="A7w-AR-ywh"/>
+                        <outlet property="delegate" destination="-1" id="oYH-Rf-GO9"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="FrO-fY-CcO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EwH-rK-wnK"/>
+                <constraint firstItem="FrO-fY-CcO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="KTX-Ey-tcj"/>
+                <constraint firstAttribute="trailing" secondItem="KaX-qK-uNY" secondAttribute="trailing" id="b7z-fW-jzR"/>
+                <constraint firstAttribute="bottom" secondItem="FrO-fY-CcO" secondAttribute="bottom" id="bnT-g9-IHi"/>
+                <constraint firstItem="KaX-qK-uNY" firstAttribute="leading" secondItem="FrO-fY-CcO" secondAttribute="trailing" id="dHb-L1-84N"/>
+                <constraint firstItem="KaX-qK-uNY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="fLF-gu-BWe"/>
+                <constraint firstAttribute="bottom" secondItem="KaX-qK-uNY" secondAttribute="bottom" id="sA6-Uf-7Dz"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="386" y="179"/>
         </view>
     </objects>
 </document>

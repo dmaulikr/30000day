@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
-@property (nonatomic,assign) BOOL save;
+@property (nonatomic,assign) BOOL save;  //是否点击了Pid为0的 查看回复 按钮
 
 @property (nonatomic,strong) NSMutableArray *photos;
 
@@ -31,7 +31,7 @@
     
     self.title = @"资讯评论";
     
-    self.save = NO;
+    //self.save = NO;
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -48,7 +48,7 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:30 success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:0 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -124,10 +124,10 @@
         
     }
     
-    if (self.save) {
-        
-        [informationCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
-    }
+//    if (self.save) {
+//        
+//        [informationCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+//    }
     
     [informationCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
         
@@ -211,28 +211,36 @@
               commentModel:(InformationCommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
     
-    self.save = NO;
+    InformationCommentModel *model = self.commentModelArray[indexPath.row];
     
-    if (changeStatusButton.tag == 1) {
+    if (model.pId.integerValue == 0) {
+        
+        self.save = NO;
+        
+    }
+    
+    
+    
+    if (!changeStatusButton.selected) {
+        
+        
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:30 success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
-                
-                changeStatusButton.tag = 2;
-                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
-                
+
                 for (int i = 0; i < success.count; i++) {
                     
                     InformationCommentModel *comment = success[i];
-                    //comment.level = 0;
-                    //comment.pName = commentModel.userName;
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     
                 }
                 
                 [self.tableView reloadData];
+                
+                changeStatusButton.selected = YES;
+                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
                 
             }
             
@@ -247,11 +255,7 @@
         }];
         
     } else {
-        
-        changeStatusButton.tag = 1;
-        
-        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
-        
+
         self.willRemoveArray = [NSMutableArray array];
         
         [self removeDataWithPId:[commentModel.commentId integerValue]];
@@ -269,6 +273,10 @@
         [self.commentModelArray removeObjectsInArray:array];
         
         [self.tableView reloadData];
+        
+        changeStatusButton.selected = NO;
+        
+        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
     }
 }
 
@@ -295,7 +303,7 @@
                                                        
                                                        if (success) {
                                                            
-                                                           self.save = YES;
+                                                           //self.save = YES;
                                                            
                                                            [self showToast:@"回复成功"];
                                                            
