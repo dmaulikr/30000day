@@ -74,9 +74,13 @@
                             <constraint firstAttribute="width" constant="60" id="imm-5w-tGD"/>
                             <constraint firstAttribute="height" constant="30" id="xyO-Yw-GS4"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="订阅">
                             <color key="titleColor" red="0.28627450980392155" green="0.48627450980392156" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="buttonClickAction:" destination="9qX-4J-Xtm" eventType="touchUpInside" id="ctG-8C-sPa"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -95,7 +99,7 @@
                 <outlet property="secondTitleLabel" destination="LNr-S8-CmF" id="y15-JF-GK5"/>
                 <outlet property="showImageView" destination="pbs-ch-rrB" id="XYo-iF-meV"/>
             </connections>
-            <point key="canvasLocation" x="202" y="246"/>
+            <point key="canvasLocation" x="215" y="240"/>
         </tableViewCell>
     </objects>
 </document>

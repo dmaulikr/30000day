@@ -23,4 +23,13 @@
     // Configure the view for the selected state
 }
 
+//按钮点击回调
+- (IBAction)buttonClickAction:(id)sender {
+    
+    if (self.clickActionBlock) {
+        
+        self.clickActionBlock(sender);
+    }
+}
+
 @end
