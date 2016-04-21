@@ -395,7 +395,7 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
 //*****************************************获取评论*********************/
 - (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
                             busiType:(NSInteger)busiType
-                                 pid:(NSString *)pid
+                                 pid:(NSInteger)pid
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure;
 

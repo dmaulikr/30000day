@@ -48,7 +48,7 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:nil success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -215,7 +215,7 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:1 busiType:1 pid:model.commentId success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchCommentsWithBusiId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
 
@@ -289,7 +289,7 @@
                     
                     [self showToast:@"回复成功"];
                     
-                    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:nil success:^(NSMutableArray *success) {
+                    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
                         
                         self.commentModelArray = [NSMutableArray arrayWithArray:success];
                         

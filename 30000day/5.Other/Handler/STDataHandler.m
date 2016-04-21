@@ -4734,7 +4734,7 @@
 //*****************************************获取评论*********************/
 - (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
                             busiType:(NSInteger)busiType
-                                 pid:(NSString *)pid
+                                 pid:(NSInteger)pid
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure {
 
@@ -4744,13 +4744,8 @@
         
     [params setObject:@(busiType) forKey:@"busiType"];
     
-    if (pid != nil) {
+    [params setObject:@(pid) forKey:@"pid"];
         
-        [params setObject:pid forKey:@"pid"];
-        
-    }
-    
-    [Common urlStringWithDictionary:params withString:GET_COMMENTS];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMMENTS
