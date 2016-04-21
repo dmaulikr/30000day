@@ -17,6 +17,10 @@
 
 @property (nonatomic,assign) NSInteger selectRow;//选中的row
 
+@property (nonatomic,strong) NSArray *titleArray;
+
+@property (nonatomic,assign) BOOL flag;//标志
+
 @end
 
 @implementation SubscribeCentreViewController
@@ -27,9 +31,9 @@
     
     [self.leftTableView setTableFooterView:[[UIView alloc] init]];
     
-    
-    
     [self.rightTableView setTableFooterView:[[UIView alloc] init]];
+    
+    self.titleArray = [NSArray arrayWithObjects:@"热门",@"饮食",@"运动",@"作息",@"备孕",@"孕期",@"育儿",@"治未病",@"体检",@"就医", nil];
     
     self.selectRow = 0;
 }
@@ -69,13 +73,13 @@
     
     if (tableView == self.leftTableView) {
         
-        static NSString *indentifier = @"SubscribeTableViewCell";
+        static NSString *indentifier_first = @"SubscribeTableViewCell_first";
         
-        SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+        SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier_first];
         
         if (!cell) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:indentifier owner:self options:nil] firstObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeTableViewCell" owner:self options:nil] firstObject];
         }
         
         if (indexPath.row == self.selectRow) {
@@ -84,20 +88,38 @@
             
             [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
+        
+        cell.titleLabel.text = self.titleArray[indexPath.row];
+        
         return cell;
         
     } else {
         
-        static NSString *indentifier = @"SubscribeTableViewCell";
+        static NSString *indentifier_second = @"SubscribeTableViewCell_second";
         
-        SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+        SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier_second];
         
         if (!cell) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:indentifier owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeTableViewCell" owner:self options:nil] lastObject];
             
         }
-        
+        //点击订阅回调
+        [cell setClickActionBlock:^(UIButton *subcribeButton) {
+            
+            if (self.flag) {
+                
+                [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                
+                self.flag = NO;
+                
+            } else {
+            
+                [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                
+                self.flag = YES;
+            }
+        }];
         return cell;
     }
 }
