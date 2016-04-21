@@ -31,24 +31,24 @@
                     <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUm-FL-ydB" customClass="CommentView">
-                            <rect key="frame" x="292" y="7" width="63" height="30"/>
+                            <rect key="frame" x="285" y="7" width="70" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="63" id="bRn-o8-C6f"/>
+                                <constraint firstAttribute="width" constant="70" id="bRn-o8-C6f"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsz-DG-X3t" customClass="CommentView">
-                            <rect key="frame" x="20" y="7" width="63" height="30"/>
+                            <rect key="frame" x="20" y="7" width="70" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="63" id="fcz-Ac-oJX"/>
+                                <constraint firstAttribute="width" constant="70" id="fcz-Ac-oJX"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYt-Yv-5Xv" customClass="CommentView">
-                            <rect key="frame" x="156" y="7" width="63" height="30"/>
+                            <rect key="frame" x="153" y="7" width="70" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="63" id="Ofa-OB-ecZ"/>
+                                <constraint firstAttribute="width" constant="70" id="Ofa-OB-ecZ"/>
                             </constraints>
                         </view>
                     </subviews>
