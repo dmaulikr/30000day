@@ -46,6 +46,15 @@
     self.comment_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.comment_view.layer.borderWidth = 1.0f;
     self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:@"0跟帖"];
+    [self.comment_view setClickBlock:^{
+       
+        InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
+        
+        informationCommentViewController.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:informationCommentViewController animated:YES];
+        
+    }];
     
     //分享
     self.comment_share_view.layer.cornerRadius = 5;
@@ -133,15 +142,6 @@
         
         
     }];
-}
-
-- (void)tapAction {
-    
-    InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
-    
-    informationCommentViewController.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:informationCommentViewController animated:YES];
 }
 
 - (void)loadWebView:(NSString *)url {

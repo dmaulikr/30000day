@@ -53,7 +53,6 @@
     [self.textField setDelegate:self];
     
     self.searchResultArray = [NSMutableArray array];
-    
 }
 
 - (IBAction)cancelAction:(UIButton *)sender {
