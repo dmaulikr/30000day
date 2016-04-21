@@ -18,5 +18,13 @@
     }
 }
 
+- (id)init {
+    
+    if (self = [super init]) {
+
+        self.selected = NO;
+    }
+    return self;
+}
 
 @end
