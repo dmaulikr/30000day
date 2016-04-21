@@ -24,6 +24,7 @@
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *headImg;
 @property (nonatomic,copy) NSString *userId;
-@property (nonatomic,assign) NSInteger level;
+@property (nonatomic,copy) NSString *userName;
+@property (nonatomic,copy) NSString *parentUserName;
 
 @end

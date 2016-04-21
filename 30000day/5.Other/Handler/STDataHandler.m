@@ -2881,12 +2881,6 @@
                                                                     
                                                                     CommentModel *commentModel = [[CommentModel alloc] init];
                                                                     
-                                                                    if ([dictionary[@"pId"] integerValue]== 0) {
-                                                                        
-                                                                        commentModel.level = 1;
-                                                                        
-                                                                    }
-                                                                    
                                                                     [commentModel setValuesForKeysWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];
@@ -4740,6 +4734,7 @@
 //*****************************************资讯评论*********************/
 - (void)sendSearchInfoCommentsWithInfoId:(NSInteger)infoId
                                 busiType:(NSInteger)busiType
+                                     pid:(NSInteger)pid
                                  success:(void (^)(NSMutableArray *success))success
                                  failure:(void (^)(NSError *error))failure {
 
@@ -4748,6 +4743,8 @@
     [params setObject:@(infoId) forKey:@"infoId"];
         
     [params setObject:@(busiType) forKey:@"busiType"];
+    
+    [params setObject:@(pid) forKey:@"pid"];
         
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -4773,13 +4770,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    CommentModel *commentModel = [[CommentModel alloc] init];
-                                                                    
-                                                                    if ([dictionary[@"pId"] integerValue]== 0) {
-                                                                        
-                                                                        commentModel.level = 1;
-                                                                        
-                                                                    }
+                                                                    InformationCommentModel *commentModel = [[InformationCommentModel alloc] init];
                                                                     
                                                                     [commentModel setValuesForKeysWithDictionary:dictionary];
                                                                     

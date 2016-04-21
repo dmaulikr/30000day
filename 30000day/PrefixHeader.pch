@@ -73,6 +73,9 @@
 
 #define LOWBLUECOLOR             RGBACOLOR(73,124,200,1)
 
+#define LOWBLUECOLOR             RGBACOLOR(73,124,200,1)
+
+
 #define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
 
 #define KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
