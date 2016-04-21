@@ -4731,16 +4731,16 @@
     [self startRequest:request];
 }
 
-//*****************************************资讯评论*********************/
-- (void)sendSearchInfoCommentsWithInfoId:(NSInteger)infoId
-                                busiType:(NSInteger)busiType
-                                     pid:(NSInteger)pid
-                                 success:(void (^)(NSMutableArray *success))success
-                                 failure:(void (^)(NSError *error))failure {
+//*****************************************获取评论*********************/
+- (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
+                            busiType:(NSInteger)busiType
+                                 pid:(NSInteger)pid
+                             success:(void (^)(NSMutableArray *success))success
+                             failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:@(infoId) forKey:@"infoId"];
+    [params setObject:@(busiId) forKey:@"busiId"];
         
     [params setObject:@(busiType) forKey:@"busiType"];
     
@@ -4897,6 +4897,90 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
+
+
+}
+
+//*****************************************评论*********************/
+- (void)sendSaveCommentWithBusiId:(NSInteger)busiId
+                         busiType:(NSInteger)busiType
+                           userId:(NSInteger)userId
+                           remark:(NSString *)remark
+                              pid:(NSInteger)pid
+                       isHideName:(BOOL)isHideName
+                       numberStar:(NSInteger)numberStar
+                          success:(void (^)(BOOL success))success
+                          failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:@(busiId) forKey:@"busiId"];
+    
+    [params setObject:@(busiType) forKey:@"busiType"];
+    
+    [params setObject:@(userId) forKey:@"userId"];
+    
+    [params setObject:remark forKey:@"remark"];
+    
+    [params setObject:@(pid) forKey:@"pid"];
+    
+    [params setObject:@(isHideName) forKey:@"isHideName"];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:SAVE_COMMENT_SUM
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
 
 
 }

@@ -201,9 +201,11 @@
 
 #define  UPDATE_STAT_USERLLFE         @"/stapi/life/statUserLife"               //统计环境因素
 
-#define  GET_COMMENTS                 @"/stapi/user/searchInfoComments"         //获取资讯评论
+#define  GET_COMMENTS                 @"/stapi/user/searchComments"             //获取评论
 
 #define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"        //获取资讯资讯详情
+
+#define  SAVE_COMMENT_SUM             @"/stapi/user/saveComment"                //获取资讯资讯详情
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"

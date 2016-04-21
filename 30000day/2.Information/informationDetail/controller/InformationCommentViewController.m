@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MTProgressHUD.h"
 
-@interface InformationCommentViewController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface InformationCommentViewController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
 
@@ -48,7 +48,7 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:0 success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -138,7 +138,7 @@
     
     [informationCommentTableViewCell setReplyBlock:^(UIButton *replyButton) {
         
-        [self cellDataProcessing:replyButton commentModel:commentModel index:indexPath];
+        [self cellDataProcessing:replyButton index:indexPath];
         
     }];
     
@@ -208,21 +208,14 @@
 
 //查看回复
 - (void)cellDataProcessing:(UIButton *)changeStatusButton
-              commentModel:(InformationCommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
     
     InformationCommentModel *model = self.commentModelArray[indexPath.row];
     
-    if (model.pId.integerValue == 0) {
-        
-        self.save = NO;
-        
-    }
-    
-    if (!changeStatusButton.selected) {
+    if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchInfoCommentsWithInfoId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchCommentsWithBusiId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
 
@@ -233,7 +226,7 @@
                     
                 }
                 
-                changeStatusButton.selected = YES;
+                model.selected = YES;
                 [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
                 
                 [self.tableView reloadData];
@@ -253,7 +246,7 @@
 
         self.willRemoveArray = [NSMutableArray array];
         
-        [self removeDataWithPId:[commentModel.commentId integerValue]];
+        [self removeDataWithPId:[model.commentId integerValue]];
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
         
@@ -266,12 +259,12 @@
         }
         
         [self.commentModelArray removeObjectsInArray:array];
-        
-        [self.tableView reloadData];
-        
-        changeStatusButton.selected = NO;
+
+        model.selected = NO;
         
         [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -288,48 +281,56 @@
             
             InformationCommentModel *commentModel = self.commentModelArray[flag.integerValue];
             
-            [self.dataHandler sendsaveCommentWithProductId:commentModel.productId
-                                                      type:commentModel.type.integerValue
-                                                    userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue]
-                                                    remark:message numberStar:-1
-                                                    picUrl:nil
-                                                       pId:commentModel.commentId
-                                                   Success:^(BOOL success) {
-                                                       
-                                                       if (success) {
-                                                           
-                                                           //self.save = YES;
-                                                           
-                                                           [self showToast:@"回复成功"];
-                                                           
-                                                           [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
-                                                               
-                                                               self.commentModelArray = [NSMutableArray arrayWithArray:success];
-                                                               
-                                                               [self.tableView reloadData];
-                                                               
-                                                           } failure:^(NSError *error) {
-                                                               
-                                                               [self showToast:@"刷新失败"];
-                                                               
-                                                           }];
-                                                           
-                                                       } else {
-                                                           
-                                                           [self showToast:@"回复失败"];
-                                                           
-                                                       }
-                                                       
-                                                   } failure:^(NSError *error) {
-                                                       
-                                                       [self showToast:@"回复失败"];
-                                                       
-                                                   }];
+            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 success:^(BOOL success) {
+                
+                if (success) {
+                    
+                    //self.save = YES;
+                    
+                    [self showToast:@"回复成功"];
+                    
+                    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
+                        
+                        self.commentModelArray = [NSMutableArray arrayWithArray:success];
+                        
+                        [self.tableView reloadData];
+                        
+                    } failure:^(NSError *error) {
+                        
+                        [self showToast:@"数据加载失败"];
+                        
+                    }];
+                } else {
+                    
+                    [self showToast:@"回复失败"];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                
+                [self showToast:@"回复失败"];
+                
+            }];
             
+            
+        } else {
+        
+        
+            [self refreshControllerInputViewHide];
+        
         }
         
     }];
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+    
+    
+    return YES;
+
 }
 
 - (void)didReceiveMemoryWarning {

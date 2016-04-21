@@ -392,17 +392,29 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                           success:(void (^)(NSMutableArray *success))success
                           failure:(void (^)(NSError *error))failure;
 
-//*****************************************资讯评论*********************/
-- (void)sendSearchInfoCommentsWithInfoId:(NSInteger)infoId
-                                busiType:(NSInteger)busiType
-                                     pid:(NSInteger)pid
-                                 success:(void (^)(NSMutableArray *success))success
-                                 failure:(void (^)(NSError *error))failure;
+//*****************************************获取评论*********************/
+- (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
+                            busiType:(NSInteger)busiType
+                                 pid:(NSInteger)pid
+                             success:(void (^)(NSMutableArray *success))success
+                             failure:(void (^)(NSError *error))failure;
 
 //*****************************************资讯详情*********************/
 - (void)getInfomationDetailWithInfoId:(NSNumber *)infoId
                                userId:(NSNumber *)userId
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure;
+
+
+//*****************************************评论*********************/
+- (void)sendSaveCommentWithBusiId:(NSInteger)busiId
+                         busiType:(NSInteger)busiType
+                           userId:(NSInteger)userId
+                           remark:(NSString *)remark
+                              pid:(NSInteger)pid
+                       isHideName:(BOOL)isHideName
+                       numberStar:(NSInteger)numberStar
+                          success:(void (^)(BOOL success))success
+                          failure:(void (^)(NSError *error))failure;
 
 @end

@@ -45,6 +45,8 @@
     self.submit.layer.cornerRadius = 6;
     self.submit.layer.masksToBounds = YES;
     
+    self.rateView.rate = 1;
+    
     // Do any additional setup after loading the view, typically from a nib.
     actionSheet = [[ZLPhotoActionSheet alloc] init];
     //设置照片最大选择数

@@ -51,6 +51,20 @@
 }
 
 - (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
+    
+    if (informationCommentModel.pId.integerValue != 0) {
+        
+        self.replyLable.hidden = NO;
+        self.replyNameLable.hidden = NO;
+        self.replyNameLable.text = informationCommentModel.parentUserName;
+        
+    }
+    
+    if (!informationCommentModel.selected) {
+        
+        [self.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+        
+    }
 
     [self.headPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
     
