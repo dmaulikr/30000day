@@ -136,7 +136,7 @@
                 <outlet property="replyLable" destination="uKY-yo-WWL" id="5CQ-RG-w3F"/>
                 <outlet property="replyNameLable" destination="hSt-q7-QOe" id="kKE-CP-7Ik"/>
             </connections>
-            <point key="canvasLocation" x="-10.5" y="348"/>
+            <point key="canvasLocation" x="-94.5" y="357"/>
         </tableViewCell>
     </objects>
     <resources>
