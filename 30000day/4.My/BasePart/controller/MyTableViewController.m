@@ -110,9 +110,9 @@
         
         return 1;
         
-    } else if(section == 1) {
+    } else if (section == 1) {
         
-        return 2;
+        return 1;
         
     } else if (section == 2) {
         
@@ -196,14 +196,6 @@
         
         if (indexPath.row == 0) {
             
-            [cell.leftImage setImage:[UIImage imageNamed:@"healthy.png"]];
-            
-            [cell.titleLabel setText:@"健康因素"];
-            
-            cell.seperatorLineView.hidden = NO;
-            
-        } else if (indexPath.row == 1) {
-            
             [cell.leftImage setImage:[UIImage imageNamed:@"consumption.png"]];
             
             [cell.titleLabel setText:@"我的订单"];
@@ -267,19 +259,12 @@
         
         if (indexPath.row == 0) {
             
-            HealthySetUpViewController *hsc = [[HealthySetUpViewController alloc]init];
-            
-            hsc.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:hsc animated:YES];
-            
-        } else if (indexPath.row == 1) {
-            
             MyOrderViewController *controller = [[MyOrderViewController alloc] init];
             
             controller.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:controller animated:YES];
+            
         }
         
     } else if (indexPath.section == 2) {

@@ -34,6 +34,16 @@
     return self;
 }
 
+- (id)init {
+    
+    if (self = [super init]) {
+        
+        [self configUI];
+        
+    }
+    return self;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -42,51 +52,46 @@
 
 - (void)configUI {
     
-    for (UIView *view in self.subviews) {
+    if (!self.collectionView) {
         
-        if ([view isKindOfClass:[UICollectionView class]]) {
-            
-            [view removeFromSuperview];
-        }
+        //1.设置FlowLayout
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        
+        layout.minimumInteritemSpacing = 0;
+        
+        layout.minimumLineSpacing = 0;
+        
+        layout.itemSize = CGSizeMake(60,60);
+        
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+        layout.headerReferenceSize = CGSizeMake(0.5f, 0.5f);
+        
+        layout.footerReferenceSize = CGSizeMake(0.5f, 0.5f);
+        
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        
+        //2.设置表格视图
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(5,5,self.width - 10,self.height - 10) collectionViewLayout:layout];
+        
+        [collectionView setCollectionViewLayout:layout animated:YES];
+        
+        collectionView.backgroundColor = [UIColor redColor];
+        
+        [collectionView registerNib:[UINib nibWithNibName:@"STChoosePictureCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"STChoosePictureCollectionCell"];
+        
+        collectionView.delegate = self;
+        
+        collectionView.dataSource = self;
+        
+        collectionView.backgroundColor = [UIColor whiteColor];
+        
+        collectionView.showsHorizontalScrollIndicator = YES;
+        
+        [self addSubview:collectionView];
+        
+        self.collectionView = collectionView;
     }
-    
-    //1.设置FlowLayout
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    
-    layout.minimumInteritemSpacing = 0;
-    
-    layout.minimumLineSpacing = 0;
-    
-    layout.itemSize = CGSizeMake(60,60);
-    
-    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    
-    layout.headerReferenceSize = CGSizeMake(0.5f, 0.5f);
-    
-    layout.footerReferenceSize = CGSizeMake(0.5f, 0.5f);
-    
-    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    
-    //2.设置表格视图
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(5,5,self.width - 10,self.height - 10) collectionViewLayout:layout];
-    
-    [collectionView setCollectionViewLayout:layout animated:YES];
-    
-    collectionView.backgroundColor = [UIColor redColor];
-    
-    [collectionView registerNib:[UINib nibWithNibName:@"STChoosePictureCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"STChoosePictureCollectionCell"];
-    
-    collectionView.delegate = self;
-    
-    collectionView.dataSource = self;
-    
-    collectionView.backgroundColor = [UIColor whiteColor];
-    
-    collectionView.showsHorizontalScrollIndicator = YES;
-    
-    self.collectionView = collectionView;
-    
-    [self addSubview:collectionView];
 }
 
 #pragma ---
@@ -135,7 +140,6 @@
     if ([self.delegate respondsToSelector:@selector(choosePictureView:didClickCellAtIndex:)]) {
         
         [self.delegate choosePictureView:self didClickCellAtIndex:indexPath.section];
-        
     }
 }
 
@@ -145,5 +149,13 @@
     
     [self.collectionView reloadData];
 }
+
+- (void)dealloc {
+    
+    self.collectionView = nil;
+    
+    self.imageArray = nil;
+}
+
 
 @end

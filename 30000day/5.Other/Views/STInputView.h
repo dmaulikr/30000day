@@ -22,4 +22,6 @@ typedef enum {
 
 @property (nonatomic,copy) void (^buttonClickBlock)(STInputViewButtonClickType type);
 
+@property (nonatomic,assign) BOOL isShowMedia;//是否显示相机和照片，默认是显示的
+
 @end
