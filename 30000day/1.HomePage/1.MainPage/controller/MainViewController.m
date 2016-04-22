@@ -308,8 +308,6 @@
         
     } failure:^(NSError *error) {
         
-        [self showToast:@"定位失败"];
-        
     }];
 }
 
