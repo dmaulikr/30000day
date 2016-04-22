@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
 #import "QGPickerView.h"
+#import "HealthySetUpViewController.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -403,80 +404,6 @@
     
     if (indexPath.row == 1) {
         
-//        UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//        
-//        UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"剩余天龄+总天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelSurplusAgeAndAllAgeType];
-//            
-//            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelSurplusAgeAndAllAgeType];
-//            
-//            [self animationShowLabelWithTpye:ShowLabelSurplusAgeAndAllAgeType];
-//            
-//        }];
-//        UIAlertAction *action_second = [UIAlertAction actionWithTitle:@"过去天龄+总天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndAllAgeType];
-//            
-//            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndAllAgeType];
-//            
-//            [self animationShowLabelWithTpye:ShowLabelPastAgeAndAllAgeType];
-//            
-//        }];
-//        
-//        UIAlertAction *action_third = [UIAlertAction actionWithTitle:@"过去天龄+剩余天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndSurplusAgeType];
-//            
-//            [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndSurplusAgeType];
-//            
-//            [self animationShowLabelWithTpye:ShowLabelPastAgeAndSurplusAgeType];
-//        }];
-//        
-//        UIAlertAction *action_fourth = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//        
-//        [controller addAction:action_first];
-//        
-//        [controller addAction:action_second];
-//        
-//        [controller addAction:action_third];
-//        
-//        [controller addAction:action_fourth];
-        
-//        if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelSurplusAgeAndAllAgeType) {
-//            
-//            [action_first setValue:[UIColor redColor] forKey:@"_titleTextColor"];
-//            
-//            [action_second setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_third setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            
-//        } else if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndAllAgeType){
-//            
-//            [action_first setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_second setValue:[UIColor redColor] forKey:@"_titleTextColor"];
-//            
-//            [action_third setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//        } else {
-//            
-//            [action_first setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_second setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//            
-//            [action_third setValue:[UIColor redColor] forKey:@"_titleTextColor"];
-//            
-//            [action_fourth setValue:RGBACOLOR(83, 128, 196, 1) forKey:@"_titleTextColor"];
-//        }
-        
-//        [self presentViewController:controller animated:YES completion:nil];
-        
         QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
         
         picker.delegate = self;
@@ -501,6 +428,28 @@
         
         //显示QGPickerView
         [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:selectorString selectedTitle:nil selectedTitle:nil];
+        
+    } else if (indexPath.row == 2) {
+        
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+                UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"提升天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+ 
+                    HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
+                    
+                    controller.hidesBottomBarWhenPushed = YES;
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+        
+                }];
+        
+                UIAlertAction *action_fourth = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+                [controller addAction:action_first];
+        
+                [controller addAction:action_fourth];
+        
+                [self presentViewController:controller animated:YES completion:nil];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
