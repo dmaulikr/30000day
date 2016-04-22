@@ -119,4 +119,6 @@
 //刷新menu
 - (void)reloadData;
 
+- (void)hideMenuView;
+
 @end

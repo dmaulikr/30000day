@@ -180,22 +180,19 @@ struct {
 //刷新menu
 - (void)reloadData {
     
-    if (_currentSelectedMenudIndex > -1) {
-        
-        [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView tableView:_leftTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
-            
-            _currentSelectedMenudIndex = -1;
-            
-            _show = NO;
-            
-            self.switchButtonIndex = 0;
-            
-            [self.switchHeadView becomeFirst];//恢复到之前
-        }];
-        
-    }
+    [self hideMenuView];
+    
+    _currentSelectedMenudRow = 0;
+    
+    [_rightTableView reloadData];
+    
+    [_leftTableView reloadData];
 }
 
+- (void)hideMenuView {
+
+    [self backgroundTapped:nil];
+}
 
 #pragma mark - setter
 - (void)setDataSource:(id<DOPDropDownMenuDataSource>)dataSource {
@@ -322,7 +319,7 @@ struct {
     
     if (self) {
         _origin = origin;
-        _currentSelectedMenudIndex = -1;
+        _currentSelectedMenudIndex = 0;
         _show = NO;
         _fontSize = 14;
         _separatorColor = kSeparatorColor;

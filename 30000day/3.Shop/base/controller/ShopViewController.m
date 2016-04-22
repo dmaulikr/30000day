@@ -200,31 +200,8 @@
         self.tableView.delegate = self;
         
         self.isShowMapView = NO;
-        
-        //初始化搜索界面
-        for (UIView *view in self.view.subviews) {
-            
-            if ([view isKindOfClass:[DOPDropDownMenu class]]) {
-                
-                [view removeFromSuperview];
-            }
-        }
-        
-        self.menuView = nil;
-        
-        DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
-        
-        menuView.dataSource = self;
-        
-        menuView.delegate = self;
-        
-        menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
-        
-        menuView.isClickHaveItemValid = NO;
-        
-        self.menuView = menuView;
-        
-        [self.view addSubview:menuView];
+    
+        [self.menuView reloadData];
 
     } failure:^(NSError *error) {
         
@@ -254,7 +231,7 @@
     
     CityViewController *controller = [[CityViewController alloc] init];
     
-    [_menuView reloadData];
+    [_menuView hideMenuView];//隐藏视图
     
     controller.hidesBottomBarWhenPushed = YES;
     
@@ -302,6 +279,24 @@
     _mapView.hidden = YES;
     
     [self.view addSubview:_mapView];
+    
+    //初始化搜索界面
+    if (!self.menuView) {
+        
+        DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+        
+        menuView.dataSource = self;
+        
+        menuView.delegate = self;
+        
+        menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
+        
+        menuView.isClickHaveItemValid = NO;
+        
+        self.menuView = menuView;
+        
+        [self.view addSubview:menuView];
+    }
     
     //初始化rightButton
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
