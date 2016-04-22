@@ -49,7 +49,7 @@
                 <outlet property="willShowImageView" destination="7YZ-lN-tYP" id="wWP-ag-gKE"/>
                 <outlet property="writerName" destination="dIZ-qN-K0F" id="Ygn-NQ-ZC4"/>
             </connections>
-            <point key="canvasLocation" x="102" y="251.5"/>
+            <point key="canvasLocation" x="253" y="207.5"/>
         </tableViewCell>
     </objects>
     <resources>

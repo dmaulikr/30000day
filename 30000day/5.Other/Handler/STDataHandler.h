@@ -30,6 +30,12 @@ static NSString *const STDidSuccessCancelOrderSendNotification = @"STDidSuccessC
 //成功支付会发出通知
 static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNotification";
 
+//成功订阅发出的通知
+static NSString *const STDidSuccessSubscribeSendNotification = @"STDidSuccessSubscribeSendNotification";
+
+//取消订阅发送的通知
+static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSuccessCancelSubscribeSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
@@ -417,4 +423,9 @@ static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNo
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure;
 
+//*****************************************根据类型获取订阅作者*********************/
+- (void)sendWriterListWithUserId:(NSNumber *)userId
+                    suscribeType:(NSString *)suscribeType
+                         success:(void (^)(NSMutableArray *dataArray))success
+                         failure:(void (^)(NSError *error))failure;
 @end

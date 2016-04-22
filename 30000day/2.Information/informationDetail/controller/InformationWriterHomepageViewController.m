@@ -180,6 +180,8 @@
                         
                         weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
                         
+                        [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:nil];
+                        
                     }
                     
                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -204,6 +206,8 @@
                         self.isSubscription = self.isSubscription + 1;
                         
                         weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
+                        
+                        [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:nil];
                         
                     }
                     

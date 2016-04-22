@@ -17,5 +17,5 @@
 @property (nonatomic,copy) NSString *writerName;
 @property (nonatomic,copy) NSArray *infomationList;
 @property (nonatomic,copy) NSString *writerId;
-
+@property (nonatomic,copy) NSString *memo;
 @end

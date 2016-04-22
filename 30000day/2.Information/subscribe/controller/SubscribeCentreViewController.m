@@ -10,6 +10,8 @@
 #import "SubscribeTableViewCell.h"
 #import "SearchWriterViewController.h"
 #import "UIImage+WF.h"
+#import "InformationWriterModel.h"
+#import "InformationWriterHomepageViewController.h"
 
 @interface SubscribeCentreViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -21,7 +23,9 @@
 
 @property (nonatomic,strong) NSArray *titleArray;
 
-@property (nonatomic,assign) BOOL flag;//标志
+@property (nonatomic,copy) NSString  *suscribeType;//类型
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
 
@@ -51,83 +55,23 @@
     [button addTarget:self action:@selector(rightClickAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = rightItem;
+    
+    //默认是下载热门的
+    self.suscribeType = @"00";
+    
+    [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+    
+    //监听通知
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessSubscribeSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessCancelSubscribeSendNotification object:nil];
 }
 
-//*****************************************根据类型获取订阅作者*********************/
-//- (void)sendWriterListWithUserId:(NSNumber *)userId
-//                    suscribeType:(NSNumber *)suscribeType
-//                         success:(void (^)(NSMutableArray *success))success
-//                         failure:(void (^)(NSError *error))failure {
-//    
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    
-//    [params setObject:userId forKey:@"userId"];
-//    
-//    [params setObject:suscribeType forKey:@"suscribeType"];
-//    
-//    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-//                                                        url:GET_INFOMATION_DETAIL
-//                                                 parameters:params
-//                                                    success:^(id responseObject) {
-//                                                        
-//                                                        NSError *localError = nil;
-//                                                        
-//                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-//                                                        
-//                                                        if (localError == nil) {
-//                                                            
-//                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-//                                                            
-//                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-//                                                                
-//                                                                NSDictionary *dictionary = recvDic[@"value"];
-//                                                                
-//                                                                InformationDetails *model = [[InformationDetails alloc] init];
-//                                                                
-//                                                                [model setValuesForKeysWithDictionary:dictionary];
-//                                                                
-//                                                                dispatch_async(dispatch_get_main_queue(), ^{
-//                                                                    
-//                                                                    success(model);
-//                                                                    
-//                                                                });
-//                                                                
-//                                                            } else {
-//                                                                
-//                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-//                                                                
-//                                                                dispatch_async(dispatch_get_main_queue(), ^{
-//                                                                    
-//                                                                    failure(failureError);
-//                                                                    
-//                                                                });
-//                                                                
-//                                                            }
-//                                                            
-//                                                        } else {
-//                                                            
-//                                                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                                                
-//                                                                failure(localError);
-//                                                                
-//                                                            });
-//                                                            
-//                                                        }
-//                                                        
-//                                                    } failure:^(STNetError *error) {
-//                                                        
-//                                                        dispatch_async(dispatch_get_main_queue(), ^{
-//                                                            
-//                                                            failure(error.error);
-//                                                        });
-//                                                        
-//                                                    }];
-//    request.needHeaderAuthorization = NO;
-//    
-//    request.requestSerializerType = STRequestSerializerTypeJSON;
-//    
-//    [self startRequest:request];
-//}
+//监听通知的方法
+- (void)reloadSubscribeList {
+    
+    [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+}
 
 - (void)rightClickAction {
     
@@ -136,6 +80,19 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)loadDataWithUserId:(NSNumber *)userId suscribeType:(NSString *)suscribeType {
+    
+    [self.dataHandler sendWriterListWithUserId:userId suscribeType:suscribeType success:^(NSMutableArray *dataArray) {
+       
+        self.dataArray = dataArray;
+        
+        [self.rightTableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,7 +110,7 @@
         
     } else {
         
-        return 10;
+        return self.dataArray.count;
     }
 }
 
@@ -204,22 +161,45 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeTableViewCell" owner:self options:nil] lastObject];
             
         }
+        
+        InformationWriterModel *model = self.dataArray[indexPath.row];
+        
         //点击订阅回调
         [cell setClickActionBlock:^(UIButton *subcribeButton) {
             
-            if (self.flag) {
+            if (model.isMineSubscribe == 0) {//订阅操作
                 
-                [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
-                
-                self.flag = NO;
+                [self.dataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                    
+                    model.isMineSubscribe = 1;
+                    
+                    [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                    
+                } failure:^(NSError *error) {
+                    
+                    [self showToast:@"订阅失败"];
+                    
+                }];
                 
             } else {
-            
-                [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
                 
-                self.flag = YES;
+                [self.dataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+
+                    model.isMineSubscribe = 0;
+                    
+                    [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                    
+                } failure:^(NSError *error) {
+                   
+                    [self showToast:@"取消失败"];
+                    
+                }];
             }
+            
         }];
+
+        cell.writerModel = model;
+        
         return cell;
     }
 }
@@ -232,7 +212,7 @@
         
     } else {
     
-        return 72.0f;
+        return 90.0f;
     }
 }
 
@@ -243,11 +223,43 @@
         self.selectRow = indexPath.row;
         
         [tableView reloadData];
-    
+        
+        if (indexPath.row == 0) {//热门
+            
+            self.suscribeType = @"00";
+            
+            [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+            
+        } else {//非热门
+            
+            self.suscribeType = [NSString stringWithFormat:@"%d",(int)indexPath.row + 9];
+            
+            [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+        }
+
     } else {
+        
+        InformationWriterModel *writerModel = self.dataArray[indexPath.row];
+        
+        InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+        
+        controller.writerId = writerModel.writerId;
+        
+        [self.navigationController pushViewController:controller animated:YES];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessSubscribeSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessCancelSubscribeSendNotification object:nil];
+    
+    self.titleArray = nil;
+    
+    self.dataArray = nil;
 }
 
 /*

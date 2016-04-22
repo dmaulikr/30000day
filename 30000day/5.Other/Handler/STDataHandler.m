@@ -33,6 +33,7 @@
 #import "InformationModel.h"
 #import "SubscriptionModel.h"
 #import "STHealthyManager.h"
+#import "InformationWriterModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -4382,6 +4383,7 @@
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
+
                                                                 });
                                                                 
                                                             } else {
@@ -4452,6 +4454,7 @@
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
+
                                                                 });
                                                                 
                                                             } else {
@@ -4523,9 +4526,11 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    InformationMySubscribeModel *informationModel = [[InformationMySubscribeModel alloc] init];
+                                                                    InformationWriterModel *informationModel = [[InformationWriterModel alloc] init];
                                                                     
                                                                     [informationModel setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    informationModel.isMineSubscribe = 1;
                                                                     
                                                                     [dataArray addObject:informationModel];
                                                                     
@@ -4984,8 +4989,92 @@
     
     [self startRequest:request];
 
+}
 
+//*****************************************根据类型获取订阅作者*********************/
+- (void)sendWriterListWithUserId:(NSNumber *)userId
+                    suscribeType:(NSString *)suscribeType
+                         success:(void (^)(NSMutableArray *dataArray))success
+                         failure:(void (^)(NSError *error))failure {
 
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    if (![Common isObjectNull:userId]) {
+        
+        [params setObject:userId forKey:@"userId"];
+    }
+
+    [params setObject:suscribeType forKey:@"suscribeType"];
+
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:GET_WRITER_LIST
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+
+                                                        NSError *localError = nil;
+
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+
+                                                        if (localError == nil) {
+
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    InformationWriterModel *model = [InformationWriterModel yy_modelWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:model];
+                                                                }
+
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                                    success(dataArray);
+
+                                                                });
+
+                                                            } else {
+
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                                    failure(failureError);
+
+                                                                });
+
+                                                            }
+
+                                                        } else {
+
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                                failure(localError);
+
+                                                            });
+
+                                                        }
+
+                                                    } failure:^(STNetError *error) {
+
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                            failure(error.error);
+                                                        });
+
+                                                    }];
+    request.needHeaderAuthorization = NO;
+
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+
+    [self startRequest:request];
 }
 
 @end

@@ -11,11 +11,11 @@
 #import "InformationListTableViewCell.h"
 #import "MTProgressHUD.h"
 #import "MJRefresh.h"
-#import "SubscribeListTableViewCell.h"
 #import "InformationDetailWebViewController.h"
 #import "InformationWriterHomepageViewController.h"
-#import "InformationMySubscribeModel.h"
 #import "SubscribeCentreViewController.h"
+#import "InformationWriterModel.h"
+#import "SubscribeTableViewCell.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -50,7 +50,7 @@
 
 @property (nonatomic,assign) NSInteger orderByIndex; //记录排序类型
 
-@property (nonatomic,strong) NSString *typeIndex; //记录
+@property (nonatomic,copy) NSString *typeIndex; //记录
 
 @property (nonatomic,strong) NSArray *mySubscribeArray;
 
@@ -89,8 +89,24 @@
 
     [self loadMySubscribeData];
     
+    //监听通知
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessSubscribeSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessCancelSubscribeSendNotification object:nil];
 }
 
+//监听通知
+- (void)reloadSubscribeList {
+    
+    [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+        
+        self.mySubscribeArray = [NSArray arrayWithArray:success];
+        [self.tableViewSubscription reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)loadMySubscribeData {
 
@@ -119,7 +135,6 @@
     [self.scrollView setPagingEnabled:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.view addSubview:self.scrollView];
-
 }
 
 - (void)createTableView {
@@ -144,7 +159,6 @@
     self.tableViewSubscription.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     
     [self.tableViewSubscription.mj_footer setAutomaticallyHidden:YES];
-    
     
     //加载资讯数据
     [self loadDataWithCode:@""];
@@ -189,13 +203,8 @@
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             [self.tableViewSubscription.mj_header endRefreshing];
-            
         }];
-    
-        
-    
     }
-    
 }
 
 - (void)footerRereshing {
@@ -207,9 +216,7 @@
     } else {
     
         [self.tableViewSubscription.mj_footer endRefreshing];
-    
     }
-    
 }
 
 
@@ -232,8 +239,6 @@
         return self.mySubscribeArray.count;
     
     }
-    
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -252,25 +257,52 @@
         cell.informationModel = informationModel;
         
         return cell;
-
-    
+        
     } else {
         
-        InformationMySubscribeModel *mySubscribeModel = self.mySubscribeArray[indexPath.row];
-        
-        SubscribeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeListTableViewCell"];
+        SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeListTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SubscribeTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        cell.informationMySubscribeModel = mySubscribeModel;
+        InformationWriterModel *model = self.mySubscribeArray[indexPath.row];
+        
+        cell.writerModel = model;
+        
+        //点击订阅回调
+        [cell setClickActionBlock:^(UIButton *subcribeButton) {
+            
+            if (model.isMineSubscribe == 0) {//订阅操作
+                
+                [self.dataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                    
+                    model.isMineSubscribe = 1;
+                    
+                    [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                    
+                } failure:^(NSError *error) {
+                    
+                }];
+                
+            } else {
+                
+                [self.dataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                    
+                    model.isMineSubscribe = 0;
+                    
+                    [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                    
+                } failure:^(NSError *error) {
+                    
+                }];
+            }
+            
+        }];
         
         return cell;
-        
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -278,7 +310,6 @@
     if ([tableView isEqual:self.tableViewInformation]){
     
         return 100;
-    
     }
     
     return 81;
@@ -312,12 +343,15 @@
         
     } else {
     
-        InformationMySubscribeModel *mySubscribeModel = self.mySubscribeArray[indexPath.row];
+        InformationWriterModel *writerModel = self.mySubscribeArray[indexPath.row];
         
-        InformationWriterHomepageViewController *informationWriterHomepageViewController = [[InformationWriterHomepageViewController alloc] init];
-        informationWriterHomepageViewController.writerId = mySubscribeModel.writerId;
-        informationWriterHomepageViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:informationWriterHomepageViewController animated:YES];
+        InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+        
+        controller.writerId = writerModel.writerId;
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -370,7 +404,7 @@
             
         } else {
         
-            code = [NSString stringWithFormat:@"%ld",indexPath.row + 9];
+            code = [NSString stringWithFormat:@"%d",(int)indexPath.row + 9];
         }
         
         self.typeIndex = code;
@@ -409,7 +443,6 @@
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     
     }];
-
 }
 
 - (void)createButton {
@@ -554,8 +587,29 @@
         [self buttonTitleChange:curPageNo];
 
     }
-    
 }
 
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessSubscribeSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessCancelSubscribeSendNotification object:nil];
+    
+    self.titleArray = nil;
+    
+    self.sortArray = nil;
+    
+    self.scrollView = nil;
+    
+    self.informationButton = nil;
+    
+    self.subscriptionButton = nil;
+    
+    self.buttonParentView = nil;
+    
+    self.bottomScrollView = nil;
+    
+    self.mySubscribeArray = nil;
+}
 
 @end
