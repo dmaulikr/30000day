@@ -402,6 +402,7 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
 - (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
                             busiType:(NSInteger)busiType
                                  pid:(NSInteger)pid
+                              userId:(NSInteger)userId
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure;
 

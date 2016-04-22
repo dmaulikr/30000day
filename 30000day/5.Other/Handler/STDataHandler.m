@@ -4219,6 +4219,8 @@
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
     
     [params setObject:@(busiType) forKey:@"busiType"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_POINT];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_POINT
@@ -4740,6 +4742,7 @@
 - (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
                             busiType:(NSInteger)busiType
                                  pid:(NSInteger)pid
+                              userId:(NSInteger)userId
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure {
 
@@ -4750,6 +4753,8 @@
     [params setObject:@(busiType) forKey:@"busiType"];
     
     [params setObject:@(pid) forKey:@"pid"];
+    
+    [params setObject:@(userId) forKey:@"userId"];
     
     [Common urlStringWithDictionary:params withString:GET_COMMENTS];
     
@@ -4840,6 +4845,8 @@
     [params setObject:infoId forKey:@"infoId"];
     
     [params setObject:userId forKey:@"userId"];
+    
+    [Common urlStringWithDictionary:params withString:GET_INFOMATION_DETAIL];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_INFOMATION_DETAIL

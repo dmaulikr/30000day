@@ -60,7 +60,7 @@
         
         informationCommentViewController.hidesBottomBarWhenPushed = YES;
         
-        informationCommentViewController.productId = self.infoId.integerValue;
+        informationCommentViewController.infoId = self.infoId.integerValue;
         
         [self.navigationController pushViewController:informationCommentViewController animated:YES];
         

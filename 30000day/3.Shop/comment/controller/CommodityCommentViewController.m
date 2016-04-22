@@ -74,6 +74,7 @@
             imgView.image = [self imageCompressForSize:selectPhotos[i] targetSize:CGSizeMake(width, 60)];
             [weakSelf.baseView addSubview:imgView];
         }
+        
     }];
 }
 

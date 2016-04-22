@@ -49,7 +49,7 @@
     
     [self.synopsisLable setText:informationWriterModel.writerDescription];
     
-    [self.subscriptionCountLable setText:[NSString stringWithFormat:@"%ld人已订阅",informationWriterModel.subscribeCount]];
+    [self.subscriptionCountLable setText:[NSString stringWithFormat:@"%ld人已订阅",(long)informationWriterModel.subscribeCount]];
 
 }
 

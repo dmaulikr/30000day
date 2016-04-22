@@ -11,7 +11,7 @@
 @interface InformationCommentModel : NSObject
 
 @property (nonatomic,copy) NSString *busiType;
-@property (nonatomic,copy) NSString *clickLike;
+@property (nonatomic,copy) NSString *isClickLike;
 @property (nonatomic,copy) NSString *countCommentNum;
 @property (nonatomic,copy) NSString *createTime;
 @property (nonatomic,copy) NSString *defaultShowCount;
