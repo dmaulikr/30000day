@@ -46,7 +46,7 @@
     [self addSubview:secondButton];
     
     //设置两个底部view
-    UIView *firstView = [self createViewWithFrame:CGRectMake(0, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
+    UIView *firstView = [self createViewWithFrame:CGRectMake(0.7f, self.height - 3.0f, self.width/2.0f - 1.4f, 2.0f) backgroundColor:LOWBLUECOLOR];
     
     _view_1 = firstView;
     
@@ -55,7 +55,7 @@
     [self addSubview:firstView];
     
 
-    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f + 1.0f, self.height - 4.0f, self.width/2.0f, 3) backgroundColor:RGBACOLOR(0, 93, 193, 1)];
+    UIView *secondView = [self createViewWithFrame:CGRectMake(self.width/2.0f + 0.7f, self.height - 3.0f, self.width/2.0f - 1.40f, 2.0f) backgroundColor:LOWBLUECOLOR];
     
     secondView.hidden = YES;
     

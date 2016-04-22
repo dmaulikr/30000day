@@ -252,6 +252,8 @@
     
     CityViewController *controller = [[CityViewController alloc] init];
     
+    [_menuView reloadData];
+    
     controller.hidesBottomBarWhenPushed = YES;
     
     //点击了市cell回调

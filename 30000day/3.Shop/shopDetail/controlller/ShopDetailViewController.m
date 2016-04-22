@@ -108,7 +108,7 @@
         //商品详情评论
         [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
             
-            if (success > 0) {
+            if (success.count > 0) {
                 
                 self.commentModel = success[0];
                 self.commitPhotos = [self.commentModel.commentPhotos componentsSeparatedByString:@","];
