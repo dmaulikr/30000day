@@ -4745,7 +4745,8 @@
     [params setObject:@(busiType) forKey:@"busiType"];
     
     [params setObject:@(pid) forKey:@"pid"];
-        
+    
+    //[Common urlStringWithDictionary:params withString:GET_COMMENTS];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMMENTS
@@ -4925,6 +4926,8 @@
     [params setObject:@(pid) forKey:@"pid"];
     
     [params setObject:@(isHideName) forKey:@"isHideName"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_COMMENT_SUM
