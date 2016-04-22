@@ -210,6 +210,8 @@
             }
         }
         
+        self.menuView = nil;
+        
         DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
         
         menuView.dataSource = self;
@@ -223,7 +225,7 @@
         self.menuView = menuView;
         
         [self.view addSubview:menuView];
-        
+
     } failure:^(NSError *error) {
         
         //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
@@ -262,7 +264,6 @@
         _isFromCityController = YES;
         
         [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:provinceName withCityName:cityName isFromCityController:_isFromCityController];
-        
     }];
     
     [self.navigationController pushViewController:controller animated:YES];

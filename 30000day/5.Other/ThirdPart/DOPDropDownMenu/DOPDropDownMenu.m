@@ -180,17 +180,20 @@ struct {
 //刷新menu
 - (void)reloadData {
     
-    [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView tableView:_leftTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
+    if (_currentSelectedMenudIndex > -1) {
         
-        _currentSelectedMenudIndex = 0;
+        [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView tableView:_leftTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
+            
+            _currentSelectedMenudIndex = -1;
+            
+            _show = NO;
+            
+            self.switchButtonIndex = 0;
+            
+            [self.switchHeadView becomeFirst];//恢复到之前
+        }];
         
-        _show = NO;
-        
-        self.switchButtonIndex = 0;
-        
-        [self.switchHeadView becomeFirst];//恢复到之前
-    }];
-
+    }
 }
 
 
