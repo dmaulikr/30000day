@@ -145,7 +145,7 @@
                 <outlet property="replyLable" destination="uKY-yo-WWL" id="5CQ-RG-w3F"/>
                 <outlet property="replyNameLable" destination="hSt-q7-QOe" id="kKE-CP-7Ik"/>
             </connections>
-            <point key="canvasLocation" x="-94.5" y="357"/>
+            <point key="canvasLocation" x="-148.5" y="369"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MTProgressHUD.h"
 
-@interface InformationCommentViewController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UITextFieldDelegate>
+@interface InformationCommentViewController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
 
@@ -33,6 +33,8 @@
     
     //self.save = NO;
     
+    [self searchCommentsWithPid:-1];
+    
     self.tableViewStyle = STRefreshTableViewGroup;
     
     [self.tableView setDataSource:self];
@@ -49,20 +51,28 @@
     
     self.isShowMedio = NO;
     
-    //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:-1 success:^(NSMutableArray *success) {
+}
+
+- (void)searchCommentsWithPid:(NSInteger)pid {
+
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
         [self.tableView reloadData];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     } failure:^(NSError *error) {
         
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         [self showToast:@"数据加载失败"];
         
     }];
-    
+
+
 }
+
 
 #pragma mark --- 上啦刷新和下拉刷新
 
@@ -146,28 +156,32 @@
     
     [informationCommentTableViewCell setZanButtonBlock:^(UIButton *zanButton) {
         
-        BOOL clickLike;
-        if ([zanButton.titleLabel.text isEqualToString:@"赞"]) {
+        BOOL isClickLike;
+        if (zanButton.selected) {
             
-            clickLike = YES;
+            isClickLike = NO;
             
         } else {
             
-            clickLike = NO;
+            isClickLike = YES;
             
         }
         
-        [self.dataHandler sendPointPraiseOrCancelWithCommentId:commentModel.commentId isClickLike:clickLike Success:^(BOOL success) {
+        InformationCommentModel *model = self.commentModelArray[indexPath.row];
+        
+        [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:1 success:^(BOOL success) {
             
             if (success) {
                 
-                if ([zanButton.titleLabel.text isEqualToString:@"赞"]) {
+                if (isClickLike) {
                     
-                    [zanButton setTitle:@"已赞" forState:UIControlStateNormal];
+                    [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                    zanButton.selected = YES;
                     
                 } else {
-                    
-                    [zanButton setTitle:@"赞" forState:UIControlStateNormal];
+                
+                    [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                    zanButton.selected = NO;
                     
                 }
                 
@@ -175,9 +189,10 @@
             
         } failure:^(NSError *error) {
             
-            [self showToast:@"未知错误"];
+            [self showToast:@"服务器游神了"];
             
         }];
+        
         
     }];
     
@@ -217,7 +232,7 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
 
@@ -291,20 +306,7 @@
                     
                     [self showToast:@"回复成功"];
                     
-                    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:-1 success:^(NSMutableArray *success) {
-                        
-                        self.commentModelArray = [NSMutableArray arrayWithArray:success];
-                        
-                        [self.tableView reloadData];
-                        
-                    } failure:^(NSError *error) {
-                        
-                        [self showToast:@"数据加载失败"];
-                        
-                    }];
-                } else {
-                    
-                    [self showToast:@"回复失败"];
+                    [self searchCommentsWithPid:-1];
                     
                 }
                 
@@ -325,14 +327,6 @@
         
     }];
     
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
-    
-    
-    return YES;
-
 }
 
 - (void)didReceiveMemoryWarning {

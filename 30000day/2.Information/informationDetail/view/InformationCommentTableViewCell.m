@@ -98,6 +98,20 @@
     self.commentContentLable.text = informationCommentModel.remark;
 
     self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
+    
+    if (informationCommentModel.isClickLike.integerValue) {
+        
+        [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+        self.commentZambiaButton.selected = YES;
+        
+    } else {
+    
+        [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+        self.commentZambiaButton.selected = NO;
+        
+    }
+    
+    
 
 }
 

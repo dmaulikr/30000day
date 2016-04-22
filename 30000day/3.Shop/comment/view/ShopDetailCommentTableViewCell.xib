@@ -28,12 +28,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc5-k0-4EY">
-                        <rect key="frame" x="72" y="42" width="28" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.43137254901960786" green="0.43137254901960786" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="环境挺不错，装修也很考究，就是人太多了，需要排队，下次提前预约好了.好好好好好好好好好好好好好好好好好好好好好好好好好" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7q-JM-kKD">
                         <rect key="frame" x="14" y="69" width="347" height="54"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -58,7 +52,7 @@
                         <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-qQ-RLg">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAC-qQ-RLg">
                         <rect key="frame" x="256" y="255" width="50" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="kGH-XD-wfZ"/>
@@ -118,10 +112,8 @@
                     <constraint firstItem="U6t-Uy-ZVb" firstAttribute="centerY" secondItem="2nP-xv-pcf" secondAttribute="centerY" id="78D-hQ-wNU"/>
                     <constraint firstItem="H7q-JM-kKD" firstAttribute="top" secondItem="doY-NR-ZtX" secondAttribute="bottom" constant="8" id="82e-33-MJC"/>
                     <constraint firstItem="V1M-MM-41Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="8Nj-VT-Obf"/>
-                    <constraint firstItem="Nc5-k0-4EY" firstAttribute="leading" secondItem="doY-NR-ZtX" secondAttribute="trailing" constant="13" id="9au-ck-8nG"/>
                     <constraint firstItem="a1U-oO-JRc" firstAttribute="bottom" secondItem="ytx-xR-8ux" secondAttribute="bottom" id="Fmt-fv-GNJ"/>
                     <constraint firstItem="UUT-Pf-nDU" firstAttribute="centerY" secondItem="V1M-MM-41Q" secondAttribute="centerY" id="Gl5-AQ-f2E"/>
-                    <constraint firstItem="Nc5-k0-4EY" firstAttribute="top" secondItem="ytx-xR-8ux" secondAttribute="bottom" constant="6" id="I5K-AG-o1X"/>
                     <constraint firstItem="ytx-xR-8ux" firstAttribute="leading" secondItem="doY-NR-ZtX" secondAttribute="trailing" constant="13" id="JUP-un-bdn"/>
                     <constraint firstAttribute="trailing" secondItem="ude-95-mr0" secondAttribute="trailing" constant="14" id="Oqw-Ib-BcP"/>
                     <constraint firstItem="ude-95-mr0" firstAttribute="width" secondItem="2nP-xv-pcf" secondAttribute="width" id="YNO-IA-i4o"/>
@@ -156,7 +148,7 @@
                 <outlet property="commentZambiaButton" destination="TAC-qQ-RLg" id="9pa-K9-Yrh"/>
                 <outlet property="commentZambiaCountLable" destination="UUT-Pf-nDU" id="kYK-QQ-KuC"/>
             </connections>
-            <point key="canvasLocation" x="-19.5" y="375"/>
+            <point key="canvasLocation" x="-121.5" y="400"/>
         </tableViewCell>
     </objects>
     <resources>
