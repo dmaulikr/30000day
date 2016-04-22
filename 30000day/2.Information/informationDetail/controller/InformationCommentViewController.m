@@ -47,6 +47,8 @@
     
     self.isShowBackItem = YES;
     
+    self.isShowMedio = NO;
+    
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
     [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
         
