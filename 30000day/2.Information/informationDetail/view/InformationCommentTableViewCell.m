@@ -13,6 +13,10 @@
 
 - (void)awakeFromNib {
     
+    self.checkReply.layer.borderWidth = 1.0;
+    self.checkReply.layer.borderColor = [UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:1/255.0].CGColor;
+    self.checkReply.layer.cornerRadius = 10.0;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -52,18 +56,29 @@
 
 - (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
     
-    if (informationCommentModel.pId.integerValue != 0) {
+    if (informationCommentModel.pId.integerValue != -1) {
         
         self.replyLable.hidden = NO;
         self.replyNameLable.hidden = NO;
         self.replyNameLable.text = informationCommentModel.parentUserName;
+        
+    } else {
+    
+        self.replyLable.hidden = YES;
+        self.replyNameLable.hidden = YES;
         
     }
     
     if (!informationCommentModel.selected) {
         
         [self.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+        informationCommentModel.selected = NO;
         
+    } else {
+    
+        [self.checkReply setTitle:@"收起回复" forState:UIControlStateNormal];
+        informationCommentModel.selected = YES;
+    
     }
 
     [self.headPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
@@ -81,7 +96,7 @@
     
     self.commentContentLable.text = informationCommentModel.remark;
 
-    //self.commentCountLable.text = informationCommentModel.countCommentNum;
+    self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
 
 }
 

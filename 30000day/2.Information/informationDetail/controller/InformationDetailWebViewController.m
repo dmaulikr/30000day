@@ -58,6 +58,8 @@
         
         informationCommentViewController.hidesBottomBarWhenPushed = YES;
         
+        informationCommentViewController.productId = self.infoId.integerValue;
+        
         [self.navigationController pushViewController:informationCommentViewController animated:YES];
         
     }];
@@ -166,6 +168,30 @@
     
     [self refreshControllerInputViewShowWithFlag:@0 sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
         
+        if (message == nil) {
+            
+            [self refreshControllerInputViewHide];
+            
+        }
+        
+        [self.dataHandler sendSaveCommentWithBusiId:self.infoId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 success:^(BOOL success) {
+            
+            if (success) {
+
+                [self showToast:@"回复成功"];
+                
+            } else {
+                
+                [self showToast:@"回复失败"];
+                
+            }
+            
+        } failure:^(NSError *error) {
+            
+            [self showToast:@"回复失败"];
+            
+        }];
+
         
     }];
 }

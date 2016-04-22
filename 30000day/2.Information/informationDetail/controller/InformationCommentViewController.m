@@ -48,7 +48,7 @@
     self.isShowBackItem = YES;
     
     //STUserAccountHandler.userProfile.userId.integerValue   //self.productId
-    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:-1 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -215,7 +215,7 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:1 busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:model.commentId.integerValue success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
 
@@ -279,7 +279,7 @@
         
         if (message != nil) {
             
-            InformationCommentModel *commentModel = self.commentModelArray[flag.integerValue];
+            InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
             
             [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 success:^(BOOL success) {
                 
@@ -289,7 +289,7 @@
                     
                     [self showToast:@"回复成功"];
                     
-                    [self.dataHandler sendSearchCommentsWithBusiId:8 busiType:1 pid:-1 success:^(NSMutableArray *success) {
+                    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:1 pid:-1 success:^(NSMutableArray *success) {
                         
                         self.commentModelArray = [NSMutableArray arrayWithArray:success];
                         

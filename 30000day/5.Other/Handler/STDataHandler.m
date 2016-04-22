@@ -4746,7 +4746,7 @@
     
     [params setObject:@(pid) forKey:@"pid"];
     
-    //[Common urlStringWithDictionary:params withString:GET_COMMENTS];
+    [Common urlStringWithDictionary:params withString:GET_COMMENTS];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMMENTS
