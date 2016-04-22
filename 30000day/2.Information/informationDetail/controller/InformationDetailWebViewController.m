@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet CommentView *praiseView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
+@property (nonatomic,assign) NSInteger commentCount;
+
 @end
 
 @implementation InformationDetailWebViewController
@@ -147,6 +149,7 @@
         
         self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
         
+        self.commentCount = [success.commentCount integerValue];
         self.comment_view.showLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
         
     } failure:^(NSError *error) {
@@ -178,17 +181,19 @@
             
             if (success) {
 
-                [self showToast:@"回复成功"];
+                [self showToast:@"评论成功"];
+                
+                self.comment_view.showLabel.text = [NSString stringWithFormat:@"%d跟帖",self.commentCount + 1];
                 
             } else {
                 
-                [self showToast:@"回复失败"];
+                [self showToast:@"评论失败"];
                 
             }
             
         } failure:^(NSError *error) {
             
-            [self showToast:@"回复失败"];
+            [self showToast:@"评论失败"];
             
         }];
 

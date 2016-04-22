@@ -13,8 +13,9 @@
 
 - (void)awakeFromNib {
     
+    self.checkReply.layer.masksToBounds = YES;
     self.checkReply.layer.borderWidth = 1.0;
-    self.checkReply.layer.borderColor = [UIColor colorWithRed:1/255.0 green:1/255.0 blue:1/255.0 alpha:1/255.0].CGColor;
+    self.checkReply.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
     self.checkReply.layer.cornerRadius = 10.0;
     
 }
