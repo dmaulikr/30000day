@@ -23,7 +23,7 @@
 #import "MTProgressHUD.h"
 #import "CommentView.h"
 
-@interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate,UITextFieldDelegate>
+@interface InformationDetailWebViewController () <UMSocialUIDelegate,UIWebViewDelegate>
 
 @property (nonatomic,copy) NSString *writerId;
 
@@ -31,7 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet CommentView *comment_view;
 @property (weak, nonatomic) IBOutlet CommentView *praiseView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end
 
@@ -44,7 +44,8 @@
     self.isShowHeadRefresh = NO;
     self.isShowBackItem = YES;
     [self.tableView removeFromSuperview];
-    
+    self.isShowInputView = YES;
+    self.isShowMedio = NO;
     //跟帖
     self.comment_view.layer.cornerRadius = 5;
     self.comment_view.layer.masksToBounds = YES;
@@ -150,6 +151,23 @@
         
         
     }];
+    
+    //弹出键盘
+    self.textLabel.layer.cornerRadius = 5;
+    self.textLabel.layer.masksToBounds = YES;
+    self.textLabel.layer.borderColor = RGBACOLOR(190, 190, 190, 1).CGColor;
+    self.textLabel.layer.borderWidth = 1.0f;
+    self.textLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTextLabel)];
+    [self.textLabel addGestureRecognizer:tapGesture];
+}
+
+- (void)tapTextLabel {
+    
+    [self refreshControllerInputViewShowWithFlag:@0 sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
+        
+        
+    }];
 }
 
 - (void)loadWebView:(NSString *)url {
@@ -160,23 +178,14 @@
 }
 
 
-#pragma ---
-#pragma mark ---UITextFieldDelegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    
-}
-
-
-
-
 #pragma --
 #pragma mark -- UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 
-    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
 
     InformationWebJSObject *webJSObject = [InformationWebJSObject new];
+    
     context[@"clientObj"] = webJSObject;
     
     __weak typeof(webJSObject) weakCell = webJSObject;
@@ -186,8 +195,12 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [self refreshControllerInputViewHide];//隐藏键盘
+            
             InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
+            
             controller.writerId = weakCell.writerId;
+            
             [self.navigationController pushViewController:controller animated:YES];
             
         });

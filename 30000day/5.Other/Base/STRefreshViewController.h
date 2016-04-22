@@ -39,6 +39,8 @@ typedef enum {
 //是否有键盘 默认是没键盘的
 @property (nonatomic,assign) BOOL isShowInputView;
 
+@property (nonatomic,assign) BOOL isShowMedio;//是否显示相机和照片按钮，默认是显示
+
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 
