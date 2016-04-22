@@ -31,7 +31,6 @@
 #import "MyOrderModel.h"
 #import "MyOrderDetailModel.h"
 #import "InformationModel.h"
-#import "SubscriptionModel.h"
 #import "STHealthyManager.h"
 #import "InformationWriterModel.h"
 
@@ -4687,7 +4686,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    SubscriptionModel *informationModel = [[SubscriptionModel alloc] init];
+                                                                    InformationWriterModel *informationModel = [[InformationWriterModel alloc] init];
                                                                     
                                                                     [informationModel setValuesForKeysWithDictionary:dictionary];
                                                                     

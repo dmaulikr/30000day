@@ -7,9 +7,9 @@
 //
 
 #import "SearchWriterViewController.h"
-#import "SubscribeListTableViewCell.h"
-#import "InformationMySubscribeModel.h"
 #import "InformationWriterHomepageViewController.h"
+#import "SubscribeTableViewCell.h"
+#import "InformationWriterModel.h"
 
 @interface SearchWriterViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -92,32 +92,73 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *searchResultIdentifier = @"SubscribeListTableViewCell";
+    static NSString *searchResultIdentifier = @"SubscribeTableViewCell";
     
-    SubscribeListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:searchResultIdentifier];
+    SubscribeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:searchResultIdentifier];
     
     if (cell == nil) {
         
         cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
     }
     
-    cell.subscriptionModel = self.searchResultArray[indexPath.row];
+    InformationWriterModel *model = self.searchResultArray[indexPath.row];
     
+    //点击订阅回调
+    [cell setClickActionBlock:^(UIButton *subcribeButton) {
+        
+        if (model.isMineSubscribe == 0) {//订阅操作
+            
+            [self.dataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                
+                model.isMineSubscribe = 1;
+                
+                [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                
+                [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"订阅失败"];
+                
+            }];
+            
+        } else {
+            
+            [self.dataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                
+                model.isMineSubscribe = 0;
+                
+                [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                
+                [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"取消失败"];
+                
+            }];
+        }
+        
+    }];
+    
+    cell.writerModel = model;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 81;
+    return 90;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    SubscriptionModel *subscriptionModel = self.searchResultArray[indexPath.row];
+    InformationWriterModel *model = self.searchResultArray[indexPath.row];
     
     InformationWriterHomepageViewController *controller = [[InformationWriterHomepageViewController alloc] init];
-    controller.writerId = subscriptionModel.writerId;
+    
+    controller.writerId = model.writerId;
+    
     [self.navigationController pushViewController:controller animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -11,7 +11,6 @@
 #import "CompanyModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "InformationWriterModel.h"
-#import "InformationMySubscribeModel.h"
 #import "InformationDetails.h"
 #import "InformationCommentModel.h"
 
