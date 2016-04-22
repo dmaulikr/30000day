@@ -180,7 +180,7 @@
                         
                         weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
                         
-                        [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:nil];
+                        [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
                         
                     }
                     
@@ -207,7 +207,7 @@
                         
                         weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%ld人已订阅",self.isSubscription];
                         
-                        [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:nil];
+                        [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
                         
                     }
                     

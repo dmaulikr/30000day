@@ -90,22 +90,25 @@
     [self loadMySubscribeData];
     
     //监听通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessSubscribeSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList:) name:STDidSuccessSubscribeSendNotification object:nil];
     
-    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessCancelSubscribeSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList:) name:STDidSuccessCancelSubscribeSendNotification object:nil];
 }
 
 //监听通知
-- (void)reloadSubscribeList {
+- (void)reloadSubscribeList:(NSNotification *)notification {
     
-    [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+    if (![notification.object isEqualToString:NSStringFromClass([self class])]) {//不是本控制器发出的就要监听
         
-        self.mySubscribeArray = [NSArray arrayWithArray:success];
-        [self.tableViewSubscription reloadData];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+        [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+            
+            self.mySubscribeArray = [NSArray arrayWithArray:success];
+            [self.tableViewSubscription reloadData];
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 
 - (void)loadMySubscribeData {
@@ -218,7 +221,6 @@
         [self.tableViewSubscription.mj_footer endRefreshing];
     }
 }
-
 
 #pragma ----
 #pragma mark --- UITableViewDataSource/UITableViewDelegate

@@ -62,15 +62,18 @@
     [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
     
     //监听通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessSubscribeSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList:) name:STDidSuccessSubscribeSendNotification object:nil];
     
-    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList) name:STDidSuccessCancelSubscribeSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadSubscribeList:) name:STDidSuccessCancelSubscribeSendNotification object:nil];
 }
 
 //监听通知的方法
-- (void)reloadSubscribeList {
+- (void)reloadSubscribeList:(NSNotification *)notification {
     
-    [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+    if (![notification.object isEqualToString:NSStringFromClass([self class])]) {//不是本控制器发出的就要监听
+        
+        [self loadDataWithUserId:STUserAccountHandler.userProfile.userId suscribeType:self.suscribeType];
+    }
 }
 
 - (void)rightClickAction {
@@ -175,6 +178,8 @@
                     
                     [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
                     
+                    [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
+                    
                 } failure:^(NSError *error) {
                     
                     [self showToast:@"订阅失败"];
@@ -188,6 +193,8 @@
                     model.isMineSubscribe = 0;
                     
                     [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                    
+                    [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
                     
                 } failure:^(NSError *error) {
                    
