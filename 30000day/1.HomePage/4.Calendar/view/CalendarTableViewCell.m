@@ -64,6 +64,8 @@
     
     calendar.appearance.headerTitleFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
     
+    calendar.appearance.todayColor = LOWBLUECOLOR;
+    
     calendar.appearance.caseOptions = FSCalendarCaseOptionsHeaderUsesUpperCase|FSCalendarCaseOptionsWeekdayUsesSingleUpperCase;
     
     self.calendar = calendar;
@@ -157,8 +159,6 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date {
     
-    NSLog(@"did select date %@",[calendar stringFromDate:date format:@"yyyy/MM/dd"]);
-    
     NSMutableArray *selectedDates = [NSMutableArray arrayWithCapacity:calendar.selectedDates.count];
     
     [calendar.selectedDates enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -188,30 +188,45 @@
 #pragma mark ---
 #pragma mark --- FSCalendarDelegateAppearance
 
-- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleDefaultColorForDate:(NSDate *)date {
-    
-    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
-        
-        return LOWBLUECOLOR;
-    }
-    return appearance.borderDefaultColor;
-}
-
-/**
- * Asks the delegate for subtitle text color in unselected state for the specific date.
- */
-- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance subtitleDefaultColorForDate:(NSDate *)date {
-
-    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
-        
-        return LOWBLUECOLOR;
-    }
-    return appearance.borderDefaultColor;
-}
-
+//- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleDefaultColorForDate:(NSDate *)date {
+//    
+//    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
+//        
+////        if ([[[Common dateFormatterWithFormatterString:@"hhhh-MM-dd"] stringFromDate:date] isEqualToString:[[Common dateFormatterWithFormatterString:@"hhhh-MM-dd"] stringFromDate:[NSDate date]]]) {
+////            
+////            return [UIColor whiteColor];
+////        }
+//        
+//        return LOWBLUECOLOR;
+//    }
+//    return appearance.borderDefaultColor;
+//}
+//
+///**
+// * Asks the delegate for subtitle text color in unselected state for the specific date.
+// */
+//- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance subtitleDefaultColorForDate:(NSDate *)date {
+//
+//    if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
+//        
+////        if ([[[Common dateFormatterWithFormatterString:@"hhhh-MM-dd"] stringFromDate:date] isEqualToString:[[Common dateFormatterWithFormatterString:@"hhhh-MM-dd"] stringFromDate:[NSDate date]]]) {
+////            
+////            return [UIColor whiteColor];
+////        }
+//        
+//        return LOWBLUECOLOR;
+//    }
+//    return appearance.borderDefaultColor;
+//}
+//
 - (FSCalendarCellShape)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance cellShapeForDate:(NSDate *)date {
     
     return FSCalendarCellShapeRectangle;
+}
+//
+- (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance selectionColorForDate:(NSDate *)date {
+    
+    return LOWBLUECOLOR;
 }
 
 @end

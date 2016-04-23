@@ -233,7 +233,7 @@
             
         } else if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
-            return 72.1f;
+            return 86.0f;
             
         }
         
