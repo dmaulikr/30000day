@@ -289,7 +289,7 @@
         
         menuView.delegate = self;
         
-        menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
+        menuView.textSelectedColor = LOWBLUECOLOR;
         
         menuView.isClickHaveItemValid = NO;
         
