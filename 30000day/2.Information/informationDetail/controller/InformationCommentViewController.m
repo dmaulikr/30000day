@@ -55,7 +55,7 @@
 - (void)searchCommentsWithPid:(NSInteger)pid {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue success:^(NSMutableArray *success) {
+    [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
@@ -231,7 +231,7 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue success:^(NSMutableArray *success) {
+        [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
 

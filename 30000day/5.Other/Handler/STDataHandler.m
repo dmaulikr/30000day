@@ -4742,6 +4742,7 @@
                             busiType:(NSInteger)busiType
                                  pid:(NSInteger)pid
                               userId:(NSInteger)userId
+                         commentType:(NSInteger)commentType
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure {
 
@@ -4754,6 +4755,8 @@
     [params setObject:@(pid) forKey:@"pid"];
     
     [params setObject:@(userId) forKey:@"userId"];
+    
+    [params setObject:@(commentType) forKey:@"commentType"];
     
     [Common urlStringWithDictionary:params withString:GET_COMMENTS];
     
@@ -5081,6 +5084,17 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
 
     [self startRequest:request];
+}
+
+//*****************************************上传商品评论图片*********************/
+- (void)sendUploadImagesWithUserId:(NSInteger)userId
+                              type:(NSInteger)type
+                              file:(NSDictionary *)file
+                           success:(void (^)(BOOL success))success
+                           failure:(void (^)(NSError *error))failure {
+    
+    
+
 }
 
 @end

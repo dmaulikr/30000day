@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CommentModel.h"
+#import "InformationCommentModel.h"
 
 @interface ShopDetailCommentTableViewCell : UITableViewCell
 
@@ -25,8 +25,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *commentContentImageViewThree;
 
-@property (weak, nonatomic) IBOutlet UILabel *commentZambiaCountLable;
-
 @property (weak, nonatomic) IBOutlet UILabel *commentCountLable;
 
 @property (weak, nonatomic) IBOutlet UIButton *commentZambiaButton;
@@ -35,15 +33,23 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 
-@property (nonatomic,strong) CommentModel *commentModel;
+@property (weak, nonatomic) IBOutlet UILabel *replyLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *zanLable;
+
+@property (nonatomic,strong) InformationCommentModel *informationCommentModel;
 
 @property (nonatomic,copy) NSArray *commentPhotosArray;
 
-@property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
+@property (nonatomic,assign) BOOL isHideBelowView;
+
+@property (nonatomic,copy) void (^(replyBlock))(UIButton *replyBtn);
 
 @property (nonatomic,copy) void (^(commentBlock))(UIButton *commentButton);
 
-@property (nonatomic,copy) void (^(commentZambiaButtonBlock))(UIButton *ZambiaButton);
+@property (nonatomic,copy) void (^(zanButtonBlock))(UIButton *ZambiaButton);
 
 @property (nonatomic,copy) void (^(lookPhoto))(UIImageView *imageView);
 

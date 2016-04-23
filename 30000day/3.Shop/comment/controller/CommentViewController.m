@@ -7,10 +7,9 @@
 //
 
 #import "CommentViewController.h"
-#import "InformationCommentTableViewCell.h"
 #import "ShopDetailCommentTableViewCell.h"
 #import "AppointmentConfirmViewController.h"
-#import "CommentModel.h"
+#import "InformationCommentModel.h"
 #import "CommentDetailsTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MWPhoto.h"
@@ -27,6 +26,8 @@
 
 @property (nonatomic,strong) NSMutableArray *photos;
 
+@property (nonatomic,assign) NSInteger commentType;
+
 @end
 
 @implementation CommentViewController
@@ -34,11 +35,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"全部评论";
+    self.title = @"评论列表";
+    
+    self.commentType = 0;
+    
+    [self searchCommentsWithPid:-1];
     
     [self loadOptionsView];
-    
-//    self.save = NO;
    
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -46,7 +49,7 @@
     
     [self.tableView setDelegate:self];
     
-    self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
     
     self.isShowHeadRefresh = YES;
     
@@ -54,13 +57,14 @@
     
     self.isShowBackItem = YES;
     
-//    //STUserAccountHandler.userProfile.userId.integerValue
 
 }
 
 - (void)loadOptionsView {
 
     UIView *optionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)];
+    optionsView.layer.borderWidth = 0.1;
+    optionsView.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
     [optionsView setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *allButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -85,7 +89,7 @@
     [commonlyBtton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     [badButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     
-    [allButton setTag:-1];
+    [allButton setTag:0];
     [allButton setBackgroundImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
     [allButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -114,7 +118,9 @@
 
 - (void)buttonClick:(UIButton *)sender {
     
-    NSLog(@"%ld",sender.tag);
+    self.commentType = sender.tag;
+    
+    [self searchCommentsWithPid:-1];
     
 }
 
@@ -129,53 +135,37 @@
 
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    if (self.commentModelArray.count == 0) {
+        
+        return 0;
+        
+    }
+    
+    return 1;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 0) {
-        
-        return 1;
-        
-    } else {
-        
-        return self.commentModelArray.count;
-        
-    }
+    return self.commentModelArray.count;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 0) {
+    InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
+
+    if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@""]) {
         
-        return 44;
+        return 129 + (([UIScreen mainScreen].bounds.size.width - 58) / 3) + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
         
     } else {
-        
-        CommentModel *commentModel = self.commentModelArray[indexPath.row];
-        
-        if (commentModel.level == 1) {
-
-            return 238 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
-            
-        } else {
-        
-            if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@"test.img"] && ![commentModel.commentPhotos isEqualToString:@"/img.img"]) {
-                
-                return 90 + (([UIScreen mainScreen].bounds.size.width - 106) / 3) + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
-                
-            } else {
-            
-                return 90 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
-                
-            }
-        
-        }
+    
+        return 105 + [Common heightWithText:commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+  
     }
     
 }
@@ -194,113 +184,39 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    CommentModel *commentModel = self.commentModelArray[indexPath.row];
     
-    if (commentModel.level == 1) {
+    InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
+    
+    ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
+    
+    if (shopDetailCommentTableViewCell == nil) {
         
-        ShopDetailCommentTableViewCell *shopDetailCommentTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
-        
-        if (shopDetailCommentTableViewCell == nil) {
-            
-            shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
-            
-        }
-        
-        if (self.save) {
-            
-            [shopDetailCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
-        }
-        
-        [shopDetailCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
-            
-            [self commentWithIndexPathRow:indexPath];
-            
-        }];
-        
-        
-        [shopDetailCommentTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
-            
-            [self cellDataProcessing:changeStatusButton commentModel:commentModel index:indexPath];
-
-        }];
-        
-        [shopDetailCommentTableViewCell setCommentZambiaButtonBlock:^(UIButton *ZambiaButton) {
-           
-            BOOL clickLike;
-            if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
-                
-                clickLike = YES;
-                
-            } else {
-            
-                clickLike = NO;
-                
-            }
-            
-            [self.dataHandler sendPointPraiseOrCancelWithCommentId:commentModel.commentId isClickLike:clickLike Success:^(BOOL success) {
-                
-                if (success) {
-                    
-                    if ([ZambiaButton.titleLabel.text isEqualToString:@"赞"]) {
-                        
-                        [ZambiaButton setTitle:@"已赞" forState:UIControlStateNormal];
-                        
-                    } else {
-                        
-                        [ZambiaButton setTitle:@"赞" forState:UIControlStateNormal];
-                        
-                    }
-
-                }
-                
-            } failure:^(NSError *error) {
-                
-                [self showToast:@"未知错误"];
-                
-            }];
-            
-        }];
-        
-        shopDetailCommentTableViewCell.commentModel = commentModel;
-        
-        [shopDetailCommentTableViewCell setLookPhoto:^(UIImageView *imageView){
-
-            [self browserImage:indexPath atIndex:imageView.tag];
-            
-        }];
-        
-        return shopDetailCommentTableViewCell;
-        
-    } else {
-        
-        CommentDetailsTableViewCell *commentDetailsTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommentDetailsTableViewCell"];
-        
-        if (commentDetailsTableViewCell == nil) {
-            
-            commentDetailsTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommentDetailsTableViewCell" owner:nil options:nil] lastObject];
-            
-        }
-        
-        [commentDetailsTableViewCell setCommentBlock:^(UIButton *commentButton) {
-            
-            [self commentWithIndexPathRow:indexPath];
-            
-        }];
-
-        [commentDetailsTableViewCell setChangeStateBlock:^(UIButton *changeStatusButton) {
-            
-            [self cellDataProcessing:changeStatusButton commentModel:commentModel index:indexPath];
-            
-        }];
-
-        commentDetailsTableViewCell.commentModel = commentModel;
-        
-        return commentDetailsTableViewCell;
+        shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
         
     }
     
-    return nil;
+    [shopDetailCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
+        
+        [self commentWithIndexPathRow:indexPath];
+        
+    }];
+    
+    
+    [shopDetailCommentTableViewCell setReplyBlock:^(UIButton *replyButton) {
+        
+        [self cellDataProcessing:replyButton index:indexPath];
+        
+    }];
+    
+    [shopDetailCommentTableViewCell setZanButtonBlock:^(UIButton *zanButton) {
+        
+        [self zanCLick:indexPath.row button:zanButton];
+        
+    }];
+    
+    shopDetailCommentTableViewCell.informationCommentModel = commentModel;
+    
+    return shopDetailCommentTableViewCell;
 }
 
 #pragma mark - Table view data delegate
@@ -310,11 +226,34 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+- (void)searchCommentsWithPid:(NSInteger)pid {
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+
+    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
+        
+        self.commentModelArray = [NSMutableArray arrayWithArray:success];
+        
+        [self.tableView reloadData];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [self showToast:@"数据加载失败"];
+        
+    }];
+    
+    
+}
+
+
 - (void)removeDataWithPId:(NSInteger)willRemoveId {
     
     for (int i = 0; i < self.commentModelArray.count; i++) {
         
-        CommentModel *model = self.commentModelArray[i];
+        InformationCommentModel *model = self.commentModelArray[i];
         
         if ([model.pId integerValue] == willRemoveId) {
             
@@ -327,46 +266,45 @@
 
 //查看回复
 - (void)cellDataProcessing:(UIButton *)changeStatusButton
-              commentModel:(CommentModel *)commentModel
                      index:(NSIndexPath *)indexPath{
     
-    self.save = NO;
+    InformationCommentModel *model = self.commentModelArray[indexPath.row];
     
-    if (changeStatusButton.tag == 1) {
+    if (!model.selected) {
         
-        [self.dataHandler sendfindCommentListWithProductId:8 type:-1 pId:[commentModel.commentId integerValue] userId:-1 Success:^(NSMutableArray *success) {
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
                 
-                changeStatusButton.tag = 2;
-                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
-                
                 for (int i = 0; i < success.count; i++) {
                     
-                    CommentModel *comment = success[i];
-                    comment.level = 0;
-                    comment.pName = commentModel.userName;
+                    InformationCommentModel *comment = success[i];
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     
                 }
                 
-                [self.tableView reloadData];
+                model.selected = YES;
+                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
                 
+                [self.tableView reloadData];
             }
             
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
         } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:@"服务器繁忙"];
             
         }];
         
     } else {
         
-        changeStatusButton.tag = 1;
-        
-        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
-        
         self.willRemoveArray = [NSMutableArray array];
         
-        [self removeDataWithPId:[commentModel.commentId integerValue]];
+        [self removeDataWithPId:[model.commentId integerValue]];
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
         
@@ -380,9 +318,98 @@
         
         [self.commentModelArray removeObjectsInArray:array];
         
+        model.selected = NO;
+        
+        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+        
         [self.tableView reloadData];
     }
 }
+
+// 点赞
+- (void)zanCLick:(NSInteger)row button:(UIButton *)zanButton {
+    
+    InformationCommentModel *model = self.commentModelArray[row];
+    
+    BOOL isClickLike;
+    if (zanButton.selected) {
+        
+        isClickLike = NO;
+        
+    } else {
+        
+        isClickLike = YES;
+        
+    }
+    
+    [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:0 success:^(BOOL success) {
+        
+        if (success) {
+            
+            if (isClickLike) {
+                
+                [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                zanButton.selected = YES;
+                
+            } else {
+                
+                [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                zanButton.selected = NO;
+                
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        [self showToast:@"服务器游神了"];
+        
+    }];
+    
+    
+}
+
+//点击评论
+- (void)commentWithIndexPathRow:(NSIndexPath *)indexPath {
+    
+    [self refreshControllerInputViewHide];
+    
+    self.isShowInputView = YES;
+    
+    [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
+        
+        if (message != nil) {
+            
+            InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
+            
+            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 success:^(BOOL success) {
+                
+                if (success) {
+                    
+                    [self showToast:@"回复成功"];
+                    
+                    [self searchCommentsWithPid:-1];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"回复失败"];
+                
+            }];
+            
+            
+        } else {
+            
+            
+            [self refreshControllerInputViewHide];
+            
+        }
+        
+    }];
+    
+}
+
 
 - (void)commentType:(UIButton *)changeStatusButton {
 
@@ -418,68 +445,11 @@
 }
 
 
-
-//点击评论
-- (void)commentWithIndexPathRow:(NSIndexPath *)indexPath {
-
-    [self refreshControllerInputViewHide];
-    
-    self.isShowInputView = YES;
-    
-    [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
-        
-        if (message != nil) {
-            
-            CommentModel *commentModel = self.commentModelArray[flag.integerValue];
-            
-            [self.dataHandler sendsaveCommentWithProductId:commentModel.productId
-                                                      type:commentModel.type.integerValue
-                                                    userId:[NSString stringWithFormat:@"%ld",(long)STUserAccountHandler.userProfile.userId.integerValue]
-                                                    remark:message numberStar:-1
-                                                    picUrl:nil
-                                                       pId:commentModel.commentId
-                                                   Success:^(BOOL success) {
-                                                       
-                                                       if (success) {
-                                                           
-                                                           self.save = YES;
-                                                           
-                                                           [self showToast:@"回复成功"];
-                                                           
-                                                           [self.dataHandler sendfindCommentListWithProductId:8 type:3 pId:0 userId:-1 Success:^(NSMutableArray *success) {
-                                                               
-                                                               self.commentModelArray = [NSMutableArray arrayWithArray:success];
-                                                               
-                                                               [self.tableView reloadData];
-                                                               
-                                                           } failure:^(NSError *error) {
-                                                               
-                                                               [self showToast:@"刷新失败"];
-                                                               
-                                                           }];
-                                                           
-                                                       } else {
-                                                           
-                                                           [self showToast:@"回复失败"];
-                                                           
-                                                       }
-                                                       
-                                                   } failure:^(NSError *error) {
-                                                       
-                                                       [self showToast:@"回复失败"];
-                                                       
-                                                   }];
-            
-        }
-        
-    }];
-
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)browserImage:(NSIndexPath *)indexPath atIndex:(NSInteger)index{
 

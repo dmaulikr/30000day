@@ -25,6 +25,7 @@
 #import "CDChatVC.h"
 #import "CDIMService.h"
 #import "MTProgressHUD.h"
+#import "InformationCommentModel.h"
 
 #define SECTIONSCOUNT 5
 
@@ -34,11 +35,10 @@
 @property (nonatomic,strong) ShopDetailModel *shopDetailModel;
 @property (nonatomic,strong) NSArray *sourceArray;
 @property (nonatomic,strong) NSMutableArray *photos;
-@property (nonatomic,strong) NSArray *commitPhotos;
-@property (nonatomic,strong) CommentModel *commentModel;
+@property (nonatomic,strong) InformationCommentModel *commentModel;
 @property (nonatomic,strong) NSArray *shopModelKeeperArray;   //店长推荐
 @property (nonatomic,strong) NSArray *shopModelTerraceArray;  //平台推荐
-@property (nonatomic,strong)UserInformationModel *ownerInformationModel;//店主的个人信息
+@property (nonatomic,strong) UserInformationModel *ownerInformationModel;//店主的个人信息
 
 @end
 
@@ -111,7 +111,6 @@
             if (success.count > 0) {
                 
                 self.commentModel = success[0];
-                self.commitPhotos = [self.commentModel.commentPhotos componentsSeparatedByString:@","];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
                 
@@ -241,6 +240,16 @@
     } else if (indexPath.section == 3) {
         
         if (indexPath.row == 1) {
+            
+            if (self.commentModel.commentPhotos != nil && ![self.commentModel.commentPhotos isEqualToString:@""]) {
+                
+                return 95 + (([UIScreen mainScreen].bounds.size.width - 58) / 3) + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                
+            } else {
+                
+                return 75 + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                
+            }
             
             return 228 + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
             
@@ -400,11 +409,8 @@
                 
             }
             
-            cell.checkReply.hidden = YES;
-            cell.commentZambiaButton.hidden = YES;
-            cell.commentButton.hidden = YES;
-            cell.commentModel = self.commentModel;
-            cell.commentPhotosArray = self.commitPhotos;
+            cell.isHideBelowView = YES;
+            cell.informationCommentModel = self.commentModel;
             
             return cell;
             

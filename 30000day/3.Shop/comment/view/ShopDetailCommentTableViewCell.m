@@ -13,6 +13,11 @@
 
 - (void)awakeFromNib {
     
+    self.checkReply.layer.masksToBounds = YES;
+    self.checkReply.layer.borderWidth = 1.0;
+    self.checkReply.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
+    self.checkReply.layer.cornerRadius = 10.0;
+    
     self.commentContentImageViewOne.userInteractionEnabled = YES;
     self.commentContentImageViewTwo.userInteractionEnabled = YES;
     self.commentContentImageViewThree.userInteractionEnabled = YES;
@@ -27,6 +32,8 @@
     [self.commentContentImageViewThree addGestureRecognizer:portraitTapThree];
     
     [self.commentButton addTarget:self action:@selector(commentClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.commentZambiaButton addTarget:self action:@selector(commentZambiaButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.checkReply addTarget:self action:@selector(checkReply:) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -45,42 +52,84 @@
 
 }
 
-- (IBAction)commentZambiaButtonClick:(id)sender {
+- (void)commentZambiaButtonClick:(id)sender {
     
-    if (self.commentZambiaButtonBlock) {
-        self.commentZambiaButtonBlock((UIButton *)sender);
+    if (self.zanButtonBlock) {
+        self.zanButtonBlock((UIButton *)sender);
     }
     
 }
 
 
-- (IBAction)checkReply:(UIButton *)sender {
+- (void)checkReply:(UIButton *)sender {
     
-    if (self.changeStateBlock) {
-        self.changeStateBlock((UIButton *)sender);
+    if (self.replyBlock) {
+        self.replyBlock((UIButton *)sender);
     }
     
 }
 
-- (void)setCommentModel:(CommentModel *)commentModel {
-
-    _commentModel = commentModel;
+- (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
     
-    if (commentModel.clickLike.intValue) {
+    if (self.isHideBelowView) {
         
-        self.commentContentLable.text = @"已赞";
+        self.checkReply.hidden = YES;
+        self.commentZambiaButton.hidden = YES;
+        self.commentButton.hidden = YES;
+        self.commentCountLable.hidden = YES;
+        self.zanLable.hidden = YES;
         
     } else {
     
-        self.commentContentLable.text = @"赞";
+        if (informationCommentModel.pId.integerValue != -1) {
+            
+            self.replyLable.hidden = NO;
+            self.replyNameLable.hidden = NO;
+            self.replyNameLable.text = informationCommentModel.parentUserName;
+            
+        } else {
+            
+            self.replyLable.hidden = YES;
+            self.replyNameLable.hidden = YES;
+            
+        }
+        
+        if (!informationCommentModel.selected) {
+            
+            [self.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+            informationCommentModel.selected = NO;
+            
+        } else {
+            
+            [self.checkReply setTitle:@"收起回复" forState:UIControlStateNormal];
+            informationCommentModel.selected = YES;
+            
+        }
     
+        if (informationCommentModel.isClickLike.integerValue) {
+            
+            [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+            self.commentZambiaButton.selected = YES;
+            
+        } else {
+            
+            [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+            self.commentZambiaButton.selected = NO;
+            
+        }
+        
+        self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
     }
+
+    _informationCommentModel = informationCommentModel;
     
-    self.commentContentLable.text = commentModel.remark;
+    self.commentContentLable.text = informationCommentModel.remark;
     
-    self.commentNameLable.text = [commentModel.userName isEqualToString:@""] ? commentModel.userName:@"错误数据";
+    self.commentNameLable.text = informationCommentModel.userName;
     
-    NSString *str = [NSString stringWithFormat:@"%@",commentModel.createTime];//时间戳
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
+    
+    NSString *str = [NSString stringWithFormat:@"%@",informationCommentModel.createTime];//时间戳
     NSTimeInterval time = [str doubleValue]/(double)1000;
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -89,57 +138,38 @@
     
     self.commentTimeLable.text = currentDateStr;
     
-    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:commentModel.headImg]];
     
-    
-    if (self.commentPhotosArray > 0) {
+    if (informationCommentModel.commentPhotos != nil && ![informationCommentModel.commentPhotos isEqualToString:@""]) {
         
-        if (self.commentPhotosArray.count == 1) {
+        NSArray *photoUrl = [informationCommentModel.commentPhotos componentsSeparatedByString:@","];
+        
+        if (photoUrl.count == 1) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
+            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
             
-        } else if (self.commentPhotosArray.count == 2) {
+        } else if (photoUrl.count == 2) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
-            [self.commentContentImageViewTwo sd_setImageWithURL:self.commentPhotosArray[1]];
+            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
             
-        } else if (self.commentPhotosArray.count == 3) {
+        } else if (photoUrl.count == 3) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:self.commentPhotosArray[0]];
-            [self.commentContentImageViewTwo sd_setImageWithURL:self.commentPhotosArray[1]];
-            [self.commentContentImageViewThree sd_setImageWithURL:self.commentPhotosArray[2]];
+            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
+            [self.commentContentImageViewThree sd_setImageWithURL:photoUrl[2]];
+            
         }
-
         
     } else {
-    
-        if (commentModel.commentPhotos != nil && ![commentModel.commentPhotos isEqualToString:@""]) {
-            
-            NSArray *photoUrl = [commentModel.commentPhotos componentsSeparatedByString:@","];
-            
-            if (photoUrl.count == 1) {
-                
-                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
-                
-            } else if (photoUrl.count == 2) {
-                
-                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
-                [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
-                
-            } else if (photoUrl.count == 3) {
-                
-                [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
-                [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
-                [self.commentContentImageViewThree sd_setImageWithURL:photoUrl[2]];
-            }
-            
-        }
-    
+        
+        self.commentContentImageViewOne.hidden = YES;
+        self.commentContentImageViewTwo.hidden = YES;
+        self.commentContentImageViewThree.hidden = YES;
+        
     }
-    
-    
-    
+
 }
+
 
 - (void)lookImage:(UITapGestureRecognizer *)tap {
     

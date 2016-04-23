@@ -402,6 +402,7 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
                             busiType:(NSInteger)busiType
                                  pid:(NSInteger)pid
                               userId:(NSInteger)userId
+                         commentType:(NSInteger)commentType
                              success:(void (^)(NSMutableArray *success))success
                              failure:(void (^)(NSError *error))failure;
 
@@ -428,4 +429,11 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
                     suscribeType:(NSString *)suscribeType
                          success:(void (^)(NSMutableArray *dataArray))success
                          failure:(void (^)(NSError *error))failure;
+
+//*****************************************上传商品评论图片*********************/
+- (void)sendUploadImagesWithUserId:(NSInteger)userId
+                              type:(NSInteger)type
+                              file:(NSDictionary *)file
+                           success:(void (^)(BOOL success))success
+                           failure:(void (^)(NSError *error))failure;
 @end
