@@ -128,7 +128,7 @@
         
     } else {
         
-        return 81;
+        return 72.1f;
     }
 }
 
