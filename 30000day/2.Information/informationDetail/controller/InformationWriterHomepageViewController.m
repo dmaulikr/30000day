@@ -143,8 +143,7 @@
         
     }
     
-    return 100;
-
+    return 72.1f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

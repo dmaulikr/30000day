@@ -11,7 +11,10 @@
 @implementation myFriendsTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
+    self.iconImg.layer.cornerRadius = 3;
+    
+    self.iconImg.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

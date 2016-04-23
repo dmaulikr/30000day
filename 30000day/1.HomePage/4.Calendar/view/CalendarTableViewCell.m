@@ -56,9 +56,9 @@
     
     calendar.appearance.titleFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
     
-    calendar.appearance.weekdayTextColor = RGBACOLOR(0, 111, 225, 1);
+    calendar.appearance.weekdayTextColor = LOWBLUECOLOR;
     
-    calendar.appearance.headerTitleColor = RGBACOLOR(0, 111, 225, 1);
+    calendar.appearance.headerTitleColor = LOWBLUECOLOR;
     
     calendar.appearance.weekdayFont = [UIFont fontWithName:@"ArialMT" size:18.0f];
     
@@ -176,29 +176,19 @@
 
 - (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date {
     
-//    NSInteger day = [_lunarCalendar components:NSCalendarUnitDay fromDate:date].day;
-//    
-//    return _lunarChars[day-1];
-    
     return [Common getChineseCalendarWithDate:date];
 }
 
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar {
     
-    NSLog(@"%s %@", __FUNCTION__, [calendar stringFromDate:calendar.currentPage]);
+//    NSLog(@"%s %@", __FUNCTION__, [calendar stringFromDate:calendar.currentPage]);
 }
 
 
 #pragma mark ---
 #pragma mark --- FSCalendarDelegateAppearance
 
-
 - (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleDefaultColorForDate:(NSDate *)date {
-    
-//    if ([@[@17,@18,@19] containsObject:@([calendar dayOfDate:date])]) {
-//        
-//        return RGBACOLOR(0, 111, 225, 1);
-//    }
     
     if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
         
@@ -211,12 +201,6 @@
  * Asks the delegate for subtitle text color in unselected state for the specific date.
  */
 - (nullable UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance subtitleDefaultColorForDate:(NSDate *)date {
-    
-//    if ([@[@17,@18,@19] containsObject:@([calendar dayOfDate:date])]) {
-//        
-//        return RGBACOLOR(0, 111, 225, 1);
-//    }
-//    return appearance.borderDefaultColor;
 
     if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
         
@@ -229,6 +213,5 @@
     
     return FSCalendarCellShapeRectangle;
 }
-
 
 @end

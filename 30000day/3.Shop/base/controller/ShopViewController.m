@@ -289,7 +289,7 @@
         
         menuView.delegate = self;
         
-        menuView.textSelectedColor = RGBACOLOR(0, 93, 193, 1);
+        menuView.textSelectedColor = LOWBLUECOLOR;
         
         menuView.isClickHaveItemValid = NO;
         
@@ -832,7 +832,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 113;
+    return 72.1f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

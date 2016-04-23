@@ -477,6 +477,11 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self];
+    self.remindDataArray = nil;
+    self.selectorDate = nil;
+    self.birthdayCell = nil;
+    self.ageCell = nil;
+    self.calendarCell = nil;
 
 }
 

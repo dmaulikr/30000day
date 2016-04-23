@@ -49,6 +49,8 @@
     
     self.isShowBackItem = YES;
     
+    self.isShowInputView = YES;
+    
     self.isShowMedio = NO;
 }
 
@@ -288,9 +290,7 @@
 - (void)commentWithIndexPathRow:(NSIndexPath *)indexPath {
     
     [self refreshControllerInputViewHide];
-    
-    self.isShowInputView = YES;
-    
+
     [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
         
         if (message != nil) {

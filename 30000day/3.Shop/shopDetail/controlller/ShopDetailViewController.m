@@ -233,7 +233,7 @@
             
         } else if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             
-            return 110;
+            return 72.1f;
             
         }
         
@@ -269,7 +269,6 @@
     }
     
     return 44;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

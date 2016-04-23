@@ -219,7 +219,7 @@
         
     } else {
     
-        return 90.0f;
+        return 72.1f;
     }
 }
 

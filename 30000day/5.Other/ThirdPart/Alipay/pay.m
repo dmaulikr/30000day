@@ -134,7 +134,7 @@
     
     NSString *seller = @"hr@countdaystech.com";
     
-    NSString *notifyurl = @"http://192.168.1.101:8081/stapi/alipay/asyncNotify";
+    NSString *notifyurl = @"http://121.196.223.175:8081/stapi/alipay/asyncNotify";
     
     NSString *privateKey = @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMIc797RW76UmjfwVrRZonJb4+FHgqOQoqSeTsIFGujqg/UFGyH4o+EuS7FT1iSwbw8+3cv1eILivacoZW6Lroq2n4WIrF3TCRj8oKX96PeFKXY0dFhLt0wGhSL+RSb4LsGu1or7WSJ7nihbo+h6ksjD5NkXzL6vuT96L/o7tQmjAgMBAAECgYA7sZ5qjUODdjt+3GAtkisMtAl+K/mWx1HdAfoCXIOMASKXZPyVE9uB0jTg0YFXQxLEQ3b90/09cvETyK54smf4IiFS75oUfkGnXhK0UPX9cXAQEgYf42UbORmG8s7OAgSPzmy93akRyuwmFbzfA2efEcGK5ZPky5V5LvB0ciGu4QJBAP63v5qqMBDWUTOkPAPZokqb6v14Mqae9e5VpbsF9f1ku3zjXkdqOJsKXlpiL+IKCx9DaUopl3amNJB4hUEqNnsCQQDDFxaGrQwk8X70Ri7w9hNpyTMV+2/U8b070X4SRTOpfOYSSgDMickhj/20S3EAtZ/ThPM7OMfCiLs9U7olumT5AkBBYXznAEQyLjDNppxZCKXlrLvWr+GgbzEFKirOJKuNjSuq1NnATv2Unka1wHo19QoBzlXaWW6tX+AiLS1XGrS9AkBvuZ0w65F05sip5Delz4c2of8bq69T6E1TIJpupCr9+YVZHABxIseI7QmCY2IH4fvyCsWxOMdN5Tg12ulUCfchAkEAgdMdGrqpicF0YGzL4kYoUXwbUaLfjdhgJxFEFi24CbrIHT6YWQ3lw4lBYlxOZtAqN5v/eLGDFRLZwNZCPSH0oA==";
     /*============================================================================*/
