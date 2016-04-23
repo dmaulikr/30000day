@@ -71,6 +71,10 @@
 
 - (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
     
+    self.commentContentImageViewOne.hidden = NO;
+    self.commentContentImageViewTwo.hidden = NO;
+    self.commentContentImageViewThree.hidden = NO;
+    
     if (self.isHideBelowView) {
         
         self.checkReply.hidden = YES;
