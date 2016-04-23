@@ -54,7 +54,6 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-        
     }
 }
 
@@ -70,7 +69,6 @@
         
         [self.view addSubview:self.tableView];
     
-        
     } else {
         
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStyleGrouped];
@@ -280,6 +278,8 @@
     _flag = nil;
     
     [_inputView.textView resignFirstResponder];
+    
+    _inputView.textView.text = nil;
 }
 
 //键盘显示
@@ -295,10 +295,10 @@
 
 //键盘出现发出的通知
 - (void)keyboardShow:(NSNotification *)notification {
-    
-    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    if (animateDuration <= 0.25) {//这是防止相应莫名的发出的通知
+        
+        CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        
+        if (animateDuration <= 0.25) {//这是防止相应莫名的发出的通知
             
             CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
             
@@ -311,25 +311,25 @@
                 _choosePictureView.y = _inputView.y - 10 - 60;
                 
             } completion:nil];
-    }
+        }
 }
 
 - (void)keyboardHide:(NSNotification *)notification {
     
-    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
+        CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
         
-        return;
-    }
-    
-    [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
+            
+            return;
+        }
         
-        _inputView.y = SCREEN_HEIGHT;
-        
-        _choosePictureView.y = _inputView.y - 10 - 60;
-        
-    } completion:nil];
+        [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            
+            _inputView.y = SCREEN_HEIGHT;
+            
+            _choosePictureView.y = _inputView.y - 10 - 60;
+            
+        } completion:nil];
 }
 
 //隐藏avatarImage发出的通知

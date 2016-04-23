@@ -238,8 +238,6 @@
       completion:(void (^)(BOOL success))success
          failure:(void (^)(NSError *))failure {
     
-    [CDChatManager manager].userDelegate = [CDIMService service];
-
 #ifdef DEBUG
     //使用开发证书来推送，方便调试，具体可看这个变量的定义处
     [CDChatManager manager].useDevPushCerticate = YES;

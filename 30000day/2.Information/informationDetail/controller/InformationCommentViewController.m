@@ -50,7 +50,6 @@
     self.isShowBackItem = YES;
     
     self.isShowMedio = NO;
-    
 }
 
 - (void)searchCommentsWithPid:(NSInteger)pid {

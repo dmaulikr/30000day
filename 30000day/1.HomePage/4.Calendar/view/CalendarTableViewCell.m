@@ -202,7 +202,7 @@
     
     if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
         
-        return RGBACOLOR(0, 111, 225, 1);
+        return LOWBLUECOLOR;
     }
     return appearance.borderDefaultColor;
 }
@@ -220,7 +220,7 @@
 
     if ([[Common weekdayStringFromDate:date] isEqualToString:@"周日"] || [[Common weekdayStringFromDate:date] isEqualToString:@"周六"]) {
         
-        return RGBACOLOR(0, 111, 225, 1);
+        return LOWBLUECOLOR;
     }
     return appearance.borderDefaultColor;
 }
