@@ -10,6 +10,7 @@
 #import "GJTextView.h"
 #import "ZLPhotoActionSheet.h"
 #import "DYRateView.h"
+#import "MTProgressHUD.h"
 
 @interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,DYRateViewDelegate>
 {
@@ -167,13 +168,18 @@
 
 - (void)subMitClick:(UIButton *)sender {
 
-    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(BOOL success) {
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(NSArray *success) {
         
-        NSLog(@"%d",success);
+        NSLog(@"%@",success);
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [self showToast:@"上传成功"];
         
     } failure:^(NSError *error) {
-        
-        
+    
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [self showToast:@"上传失败"];
+        NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
         
     }];
 
