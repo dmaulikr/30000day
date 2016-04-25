@@ -23,6 +23,8 @@
     if (self = [super init]) {
 
         self.selected = NO;
+        
+        self.nickName = @"";
     }
     return self;
 }

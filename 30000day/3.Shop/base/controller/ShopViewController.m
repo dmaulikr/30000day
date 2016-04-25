@@ -303,6 +303,8 @@
     self.tableView.delegate = self;
     
     self.isShowMapView = NO;
+    
+    self.isShowBackItem = NO;
 }
 
 - (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
@@ -846,8 +848,6 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma ---

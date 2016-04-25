@@ -281,7 +281,7 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
 
 
 //*********************************商品详情评论*************************/
-- (void)sendsaveCommentWithDefaultShowCount:(NSInteger)sendsaveComment
+- (void)sendDefaultCommentWithBusiId:(NSNumber *)busiId
                                      Success:(void (^)(NSMutableArray *success))success
                                      failure:(void (^)(NSError *error))failure;
 
