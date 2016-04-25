@@ -36,15 +36,18 @@ typedef enum {
 
 - (void)footerRereshing;
 
+#pragma mark --- 关于键盘的一些设置
 //是否有键盘 默认是没键盘的
 @property (nonatomic,assign) BOOL isShowInputView;
 
 @property (nonatomic,assign) BOOL isShowMedio;//是否显示相机和照片按钮，默认是显示
 
+@property (nonatomic,copy)   NSString *placeholder;//如果显示了键盘可以，自定义键盘的placeholder
+
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 
-//隐藏键盘，会清除之前的所设置的东西
+//刷新，会清除输入的文本、已经textView的高度、flag等等。
 - (void)refreshControllerInputViewHide;
 
 @end

@@ -35,6 +35,9 @@ static NSString *const STDidSuccessSubscribeSendNotification = @"STDidSuccessSub
 //取消订阅发送的通知
 static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSuccessCancelSubscribeSendNotification";
 
+//当开始pop控制器的时候发出的通知
+static NSString *const STWillPopViewControllerSendNotification = @"STWillPopViewControllerSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;

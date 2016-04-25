@@ -22,7 +22,6 @@
 
 @implementation STInputView
 
-
 - (void)drawRect:(CGRect)rect {
     
 }
@@ -83,21 +82,21 @@
     if (!self.textView) {
         
         //1.设置textView
-        UITextView *textView = [[UITextView alloc] init];
+        GJTextView *textView = [[GJTextView alloc] init];
         
         textView.font = [UIFont systemFontOfSize:17.0f];
         
         textView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        textView.layer.cornerRadius = 3;
+        textView.layer.cornerRadius = 5;
         
         textView.layer.masksToBounds = YES;
         
-        textView.layer.borderColor = RGBACOLOR(230, 230, 230, 1).CGColor;
+        textView.layer.borderColor = RGBACOLOR(180, 180, 180, 1).CGColor;
         
         textView.layer.borderWidth = 0.5f;
         
-        textView.returnKeyType = UIReturnKeyDone;
+        textView.returnKeyType = UIReturnKeySend;
         
         [self addSubview:textView];
         
@@ -145,6 +144,14 @@
         //3.设置发送图片
         UIButton *picture_button = [UIButton buttonWithType:UIButtonTypeCustom];
         
+//        picture_button.layer.cornerRadius = 3;
+//        
+//        picture_button.layer.masksToBounds = YES;
+//        
+//        picture_button.layer.borderColor = RGBACOLOR(180, 180, 180, 1).CGColor;
+//        
+//        picture_button.layer.borderWidth = 0.4f;
+        
         [picture_button setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
         
         picture_button.translatesAutoresizingMaskIntoConstraints = NO;
@@ -158,7 +165,15 @@
         //4.设置拍照
         UIButton *photo_button = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        [photo_button setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+//        photo_button.layer.cornerRadius = 3;
+//        
+//        photo_button.layer.masksToBounds = YES;
+//        
+//        photo_button.layer.borderColor = RGBACOLOR(180, 180, 180, 1).CGColor;
+//        
+//        photo_button.layer.borderWidth = 0.4f;
+        
+        [photo_button setImage:[UIImage imageNamed:@"video"] forState:UIControlStateNormal];
         
         photo_button.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -166,11 +181,11 @@
         
         [self addSubview:photo_button];
         
-        NSArray *constraint_H_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[picture_button(29)]-4-[photo_button(29)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button,photo_button)];
+        NSArray *constraint_H_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[picture_button(30)]-4-[photo_button(30)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button,photo_button)];
         
-        NSArray *constraint_V_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[picture_button(20)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button)];
+        NSArray *constraint_V_picture_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[picture_button(30)]-7.5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(picture_button)];
         
-        NSArray *constraint_V_picture_photo_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo_button(20)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(photo_button)];
+        NSArray *constraint_V_picture_photo_button = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo_button(30)]-7.5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(photo_button)];
         
         [self addConstraints:constraint_H_picture_button];
         

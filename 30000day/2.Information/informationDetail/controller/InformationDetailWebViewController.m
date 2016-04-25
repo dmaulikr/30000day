@@ -35,6 +35,8 @@
 
 @property (nonatomic,assign) NSInteger commentCount;
 
+@property (nonatomic,copy) NSString *urlString;//保存的string
+
 @end
 
 @implementation InformationDetailWebViewController
@@ -48,6 +50,7 @@
     [self.tableView removeFromSuperview];
     self.isShowInputView = YES;
     self.isShowMedio = NO;
+    self.placeholder = @"输入评论";
     //跟帖
     self.comment_view.layer.cornerRadius = 5;
     self.comment_view.layer.masksToBounds = YES;
@@ -132,6 +135,8 @@
        
         [self loadWebView:success.linkUrl];
         
+        self.urlString = success.linkUrl;
+        
         if ([success.isClickLike isEqualToString:@"1"]) {
             
             self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
@@ -183,7 +188,7 @@
 
                 [self showToast:@"评论成功"];
                 
-                self.comment_view.showLabel.text = [NSString stringWithFormat:@"%d跟帖",self.commentCount + 1];
+                self.comment_view.showLabel.text = [NSString stringWithFormat:@"%d跟帖",(int)self.commentCount + 1];
                 
             } else {
                 
@@ -199,6 +204,14 @@
 
         
     }];
+}
+
+//适配IOS7以上的
+- (void)viewWillLayoutSubviews {
+    
+    [super viewWillLayoutSubviews];
+    
+    [self.informationWebView.scrollView setContentInset:UIEdgeInsetsZero];
 }
 
 - (void)loadWebView:(NSString *)url {

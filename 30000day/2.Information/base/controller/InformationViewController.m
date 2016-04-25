@@ -205,6 +205,7 @@
         } failure:^(NSError *error) {
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
             [self.tableViewSubscription.mj_header endRefreshing];
         }];
     }
