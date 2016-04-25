@@ -3136,13 +3136,13 @@
 }
 
 //*********************************商品详情评论*************************/
-- (void)sendsaveCommentWithDefaultShowCount:(NSInteger)sendsaveComment
-                                    Success:(void (^)(NSMutableArray *success))success
-                                    failure:(void (^)(NSError *error))failure {
+- (void)sendDefaultCommentWithBusiId:(NSNumber *)busiId
+                             Success:(void (^)(NSMutableArray *success))success
+                             failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
-    [params setObject:@(sendsaveComment) forKey:@"sendsaveComment"];
+    [params setObject:busiId forKey:@"busiId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_FINDDEFAUITCOMMWNT_COUNT

@@ -26,6 +26,7 @@
 #import "CDIMService.h"
 #import "MTProgressHUD.h"
 #import "InformationCommentModel.h"
+#import "CommentModel.h"
 
 #define SECTIONSCOUNT 5
 
@@ -35,7 +36,7 @@
 @property (nonatomic,strong) ShopDetailModel *shopDetailModel;
 @property (nonatomic,strong) NSArray *sourceArray;
 @property (nonatomic,strong) NSMutableArray *photos;
-@property (nonatomic,strong) InformationCommentModel *commentModel;
+@property (nonatomic,strong) NSMutableArray  *commentArray;//评论列表
 @property (nonatomic,strong) NSArray *shopModelKeeperArray;   //店长推荐
 @property (nonatomic,strong) NSArray *shopModelTerraceArray;  //平台推荐
 @property (nonatomic,strong) UserInformationModel *ownerInformationModel;//店主的个人信息
@@ -106,20 +107,17 @@
             
         }];
         //商品详情评论
-        [self.dataHandler sendsaveCommentWithDefaultShowCount:1 Success:^(NSMutableArray *success) {
+        [self.dataHandler sendDefaultCommentWithBusiId:[NSNumber numberWithInteger:[self.productId integerValue]] Success:^(NSMutableArray *success) {
+           
+            self.commentArray = success;
             
-            if (success.count > 0) {
-                
-                self.commentModel = success[0];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-                
-            }
+            [self.tableView.mj_header endRefreshing];
+            
+            [self.tableView reloadData];
             
         } failure:^(NSError *error) {
             
             [self.tableView.mj_header endRefreshing];
-            
         }];
         
         //下载店主的个人信息
@@ -171,6 +169,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
     return SECTIONSCOUNT;
 }
 
@@ -197,7 +196,14 @@
         
     } else if (section == 3) {
         
-        return 3;
+        if (self.commentArray.count) {
+            
+            return self.commentArray.count + 2;
+            
+        } else {
+            
+            return 0;
+        }
         
     } else if (section == 4) {
         
@@ -239,19 +245,32 @@
         
     } else if (indexPath.section == 3) {
         
-        if (indexPath.row == 1) {
+        
+        if (indexPath.row == 0) {
             
-            if (self.commentModel.commentPhotos != nil && ![self.commentModel.commentPhotos isEqualToString:@""]) {
+            return 44.0f;
+            
+        } else if (indexPath.row == self.commentArray.count) {
+            
+            CommentModel *model = self.commentArray[indexPath.row - 1];
+            
+            if (![Common isObjectNull:model.commentPhotos]) {//不为空
                 
-                return 95 + (([UIScreen mainScreen].bounds.size.width - 58) / 3) + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                return 95 + ((SCREEN_WIDTH - 58) / 3) + [Common heightWithText:model.remark width:SCREEN_WIDTH fontSize:15.0];
                 
             } else {
                 
-                return 75 + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+                return 75 + [Common heightWithText:model.remark width:SCREEN_WIDTH fontSize:15.0];
                 
             }
             
-            return 228 + [Common heightWithText:self.commentModel.remark width:[UIScreen mainScreen].bounds.size.width fontSize:15.0];
+            return 228 + [Common heightWithText:model.remark width:SCREEN_WIDTH fontSize:15.0];
+            
+            
+        } else {
+            
+            
+            return 44.0f;
             
         }
         
@@ -398,7 +417,7 @@
             
             return cell;
             
-        } else if (indexPath.row == 1){
+        } else if (indexPath.row == self.commentArray.count){
             
             ShopDetailCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailCommentTableViewCell"];
             
@@ -409,7 +428,8 @@
             }
             
             cell.isHideBelowView = YES;
-            cell.informationCommentModel = self.commentModel;
+            
+            cell.informationCommentModel = self.commentArray[indexPath.row - 1];
             
             return cell;
             
