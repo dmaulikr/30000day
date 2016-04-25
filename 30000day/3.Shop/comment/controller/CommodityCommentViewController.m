@@ -28,7 +28,6 @@
 
 @property (weak, nonatomic) IBOutlet DYRateView *rateView;
 
-
 @property (nonatomic,strong) NSMutableArray *imageArray;
 
 @end
@@ -44,6 +43,7 @@
     [self.textView setBackgroundColor:[UIColor whiteColor]];
     self.submit.layer.cornerRadius = 6;
     self.submit.layer.masksToBounds = YES;
+    [self.submit addTarget:self action:@selector(subMitClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.rateView.rate = 1;
     
@@ -163,6 +163,20 @@
 
     NSLog(@"%ld",rate.integerValue);
     
+}
+
+- (void)subMitClick:(UIButton *)sender {
+
+    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(BOOL success) {
+        
+        NSLog(@"%d",success);
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
