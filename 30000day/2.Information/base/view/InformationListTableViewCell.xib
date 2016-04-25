@@ -3,24 +3,20 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InformationListTableViewCell" rowHeight="109" id="KGk-i7-Jjw" customClass="InformationListTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InformationListTableViewCell" rowHeight="114" id="KGk-i7-Jjw" customClass="InformationListTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一个小区的价格，低得上中国一个排名靠前的机场" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CW-Tr-qrK">
-                        <rect key="frame" x="95" y="6" width="268" height="36"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000评" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6OG-UC-L8U">
-                        <rect key="frame" x="319" y="45" width="48" height="21"/>
+                        <rect key="frame" x="319" y="55" width="48" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="c5C-Lv-xUE"/>
                             <constraint firstAttribute="width" constant="48" id="h34-1T-QVl"/>
@@ -30,30 +26,47 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="饮食" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uT6-MP-SPe">
-                        <rect key="frame" x="95" y="48" width="26" height="16"/>
+                        <rect key="frame" x="105" y="58" width="26" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="InformationListTableViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="nsD-eZ-yUW">
-                        <rect key="frame" x="15" y="9" width="70" height="53"/>
+                        <rect key="frame" x="15" y="12" width="80" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="K7P-mJ-3MP"/>
+                            <constraint firstAttribute="width" constant="80" id="K7P-mJ-3MP"/>
                             <constraint firstAttribute="height" constant="53" id="Lpb-K6-B3P"/>
+                            <constraint firstAttribute="width" secondItem="nsD-eZ-yUW" secondAttribute="height" multiplier="4:3" id="u1d-Uh-2Vt"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Lpb-K6-B3P"/>
+                            </mask>
+                        </variation>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一个小区的价格，低得上中国一个排名靠前的机场" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CW-Tr-qrK">
+                        <rect key="frame" x="105" y="10" width="258" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="6OG-UC-L8U" secondAttribute="trailing" constant="8" id="1au-Rm-cRv"/>
                     <constraint firstAttribute="trailing" secondItem="2CW-Tr-qrK" secondAttribute="trailing" constant="12" id="4a2-WU-lht"/>
-                    <constraint firstAttribute="bottom" secondItem="6OG-UC-L8U" secondAttribute="bottom" constant="5" id="9wb-M0-QLu"/>
-                    <constraint firstItem="6OG-UC-L8U" firstAttribute="centerY" secondItem="uT6-MP-SPe" secondAttribute="centerY" id="HLj-pv-3IK"/>
-                    <constraint firstItem="2CW-Tr-qrK" firstAttribute="top" secondItem="nsD-eZ-yUW" secondAttribute="top" constant="-3" id="cQf-Gl-N7t"/>
+                    <constraint firstAttribute="bottom" secondItem="6OG-UC-L8U" secondAttribute="bottom" constant="9" id="9wb-M0-QLu"/>
+                    <constraint firstItem="6OG-UC-L8U" firstAttribute="centerY" secondItem="uT6-MP-SPe" secondAttribute="centerY" constant="-0.5" id="HLj-pv-3IK"/>
+                    <constraint firstItem="nsD-eZ-yUW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cB4-d1-Bq4"/>
+                    <constraint firstItem="2CW-Tr-qrK" firstAttribute="top" secondItem="nsD-eZ-yUW" secondAttribute="top" constant="-2" id="cQf-Gl-N7t"/>
                     <constraint firstItem="nsD-eZ-yUW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="eXn-hE-9N3"/>
                     <constraint firstItem="2CW-Tr-qrK" firstAttribute="leading" secondItem="nsD-eZ-yUW" secondAttribute="trailing" constant="10" id="ghK-ZH-Cel"/>
                     <constraint firstItem="uT6-MP-SPe" firstAttribute="leading" secondItem="2CW-Tr-qrK" secondAttribute="leading" id="heE-Ia-xwe"/>
                     <constraint firstItem="nsD-eZ-yUW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hxQ-cJ-xh8"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="eXn-hE-9N3"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="infoCategoryLable" destination="uT6-MP-SPe" id="we2-Gy-Pfz"/>
@@ -61,7 +74,7 @@
                 <outlet property="infoPhotosImageView" destination="nsD-eZ-yUW" id="blN-Fj-YYb"/>
                 <outlet property="infoTitleLable" destination="2CW-Tr-qrK" id="TnA-Az-K7g"/>
             </connections>
-            <point key="canvasLocation" x="212.5" y="200.5"/>
+            <point key="canvasLocation" x="339.5" y="193"/>
         </tableViewCell>
     </objects>
 </document>

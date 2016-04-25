@@ -141,7 +141,7 @@
         
     } else if (indexPath.section > 2 && indexPath.section < 4 + self.productTypeModelArray.count - 1) {
         
-        return 72.1f;
+        return 86.0f;
         
     }
     
