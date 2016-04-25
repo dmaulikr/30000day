@@ -5093,7 +5093,44 @@
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure {
     
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
+    [params setObject:@(userId) forKey:@"userId"];
+    
+    [params setObject:@(type) forKey:@"type"];
+    
+    //[params setObject:file forKey:@"file"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager POST:SAVE_COMMENT_SUM parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        NSInteger imgCount = 0;
+        
+        for (NSData *imageData in imageDatas) {
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SSS";
+            
+            NSString *fileName = [NSString stringWithFormat:@"%@%@.png",[formatter stringFromDate:[NSDate date]],@(imgCount)];
+            
+            [formData appendPartWithFileData:imageData name:[NSString stringWithFormat:@"uploadFile%@",@(imgCount)] fileName:fileName mimeType:@"image/png"];
+            
+            imgCount++;
+            
+        }
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        completion(responseObject,nil);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        completion(nil,error);
+        
+    }];
+
 
 }
 
