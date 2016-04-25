@@ -63,8 +63,8 @@
 - (void)loadOptionsView {
 
     UIView *optionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)];
-    optionsView.layer.borderWidth = 0.1;
-    optionsView.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
+    //optionsView.layer.borderWidth = 0.1;
+    //optionsView.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
     [optionsView setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *allButton = [UIButton buttonWithType:UIButtonTypeCustom];
