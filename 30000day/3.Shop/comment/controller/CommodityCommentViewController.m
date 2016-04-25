@@ -28,7 +28,6 @@
 
 @property (weak, nonatomic) IBOutlet DYRateView *rateView;
 
-
 @property (nonatomic,strong) NSMutableArray *imageArray;
 
 @end
@@ -56,7 +55,7 @@
     actionSheet.maxPreviewCount = 20;
 
 }
-//sendUploadImagesWithUserId
+
 - (IBAction)choiceImage:(UIButton *)sender {
     
     __weak typeof(self) weakSelf = self;
@@ -164,6 +163,20 @@
 
     NSLog(@"%ld",rate.integerValue);
     
+}
+
+- (void)subMitClick:(UIButton *)sender {
+
+    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(BOOL success) {
+        
+        NSLog(@"%d",success);
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
