@@ -433,7 +433,7 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
 //*****************************************上传商品评论图片*********************/
 - (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
-                              file:(NSDictionary *)file
+                        imageArray:(NSArray *)imageArray
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure;
 @end

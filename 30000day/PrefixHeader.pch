@@ -207,7 +207,9 @@
 
 #define  SAVE_COMMENT_SUM             @"/stapi/user/saveComment"                //获取资讯资讯详情
 
-#define  GET_WRITER_LIST              @"/stapi/info/searchWriterListByType"      //根据类型获取作家列表
+#define  GET_WRITER_LIST              @"/stapi/info/searchWriterListByType"     //根据类型获取作家列表
+
+#define  UPLOAD_IMAGES                @"/stapi/upload/uploadImages"             //上传图片
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"

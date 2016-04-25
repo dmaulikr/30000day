@@ -44,6 +44,7 @@
     [self.textView setBackgroundColor:[UIColor whiteColor]];
     self.submit.layer.cornerRadius = 6;
     self.submit.layer.masksToBounds = YES;
+    [self.submit addTarget:self action:@selector(subMitClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.rateView.rate = 1;
     
@@ -55,7 +56,7 @@
     actionSheet.maxPreviewCount = 20;
 
 }
-
+//sendUploadImagesWithUserId
 - (IBAction)choiceImage:(UIButton *)sender {
     
     __weak typeof(self) weakSelf = self;

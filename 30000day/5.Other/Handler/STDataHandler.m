@@ -5089,7 +5089,7 @@
 //*****************************************上传商品评论图片*********************/
 - (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
-                              file:(NSDictionary *)file
+                        imageArray:(NSArray *)imageArray
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure {
     
@@ -5099,38 +5099,86 @@
     
     [params setObject:@(type) forKey:@"type"];
     
-    //[params setObject:file forKey:@"file"];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableDictionary *base64ImageDic = [NSMutableDictionary dictionary];
     
-    [manager POST:SAVE_COMMENT_SUM parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    for (int i = 0; i < imageArray.count; i++) {
         
-        NSInteger imgCount = 0;
+        UIImage *image = [UIImage imageNamed:imageArray[i]];
+        NSData *data = UIImageJPEGRepresentation(image, 0.7f);
+        NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        [base64ImageDic setObject:encodedImageStr forKey:@"base64Str"];
         
-        for (NSData *imageData in imageDatas) {
-            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            
-            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SSS";
-            
-            NSString *fileName = [NSString stringWithFormat:@"%@%@.png",[formatter stringFromDate:[NSDate date]],@(imgCount)];
-            
-            [formData appendPartWithFileData:imageData name:[NSString stringWithFormat:@"uploadFile%@",@(imgCount)] fileName:fileName mimeType:@"image/png"];
-            
-            imgCount++;
-            
-        }
-        
-    } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        
-        completion(responseObject,nil);
-        
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
-        completion(nil,error);
-        
-    }];
-
+    }
+    
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:base64ImageDic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    NSString *file = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"图片上传error：%@",parseError.userInfo);
+    
+    [params setObject:file forKey:@"file"];
+    
+    
+    
+    [Common urlStringWithDictionary:params withString:UPLOAD_IMAGES];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:UPLOAD_IMAGES
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
 
 }
 
