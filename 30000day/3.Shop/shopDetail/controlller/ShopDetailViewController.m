@@ -599,6 +599,8 @@
             
             CommodityCommentViewController *commodityCommentViewController = [[CommodityCommentViewController alloc] init];
             
+            commodityCommentViewController.productId = self.productId;
+            
             commodityCommentViewController.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:commodityCommentViewController animated:YES];

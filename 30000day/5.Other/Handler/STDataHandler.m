@@ -4924,6 +4924,7 @@
                               pid:(NSInteger)pid
                        isHideName:(BOOL)isHideName
                        numberStar:(NSInteger)numberStar
+                    commentPhotos:(NSString *)commentPhotos
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure {
 
@@ -4940,6 +4941,8 @@
     [params setObject:@(pid) forKey:@"pid"];
     
     [params setObject:@(isHideName) forKey:@"isHideName"];
+    
+    [params setObject:commentPhotos forKey:@"commentPhotos"];
     
     [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
@@ -5090,7 +5093,7 @@
 - (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
                         imageArray:(NSArray *)imageArray
-                           success:(void (^)(NSArray *success))success
+                           success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -5140,11 +5143,11 @@
 
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
 
-            NSArray *array = [NSArray arrayWithArray:recvDic[@"value"]];
+            NSString *imageUrl = recvDic[@"value"];
             
             dispatch_async(dispatch_get_main_queue(), ^{
 
-                success(array);
+                success(imageUrl);
             });
 
         } else {
