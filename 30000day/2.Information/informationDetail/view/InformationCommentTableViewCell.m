@@ -78,20 +78,27 @@
     } else {
     
         [self.checkReply setTitle:@"收起回复" forState:UIControlStateNormal];
+        
         informationCommentModel.selected = YES;
     
     }
 
     [self.headPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
     
-    self.commentNameLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.userName];
+    if ([Common isObjectNull:informationCommentModel.nickName]) {
+        
+        self.commentNameLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.userName];
+        
+    } else {
+        
+        self.commentNameLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.nickName];
+    }
     
     NSString *str = [NSString stringWithFormat:@"%@",informationCommentModel.createTime];//时间戳
-    NSTimeInterval time = [str doubleValue]/(double)1000;
-    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    
+    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:[str doubleValue]/(double)1000];
+
+    NSString *currentDateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate: detaildate];
     
     self.commentTimeLable.text = currentDateStr;
     
@@ -102,17 +109,15 @@
     if (informationCommentModel.isClickLike.integerValue) {
         
         [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+        
         self.commentZambiaButton.selected = YES;
         
     } else {
     
         [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-        self.commentZambiaButton.selected = NO;
         
+        self.commentZambiaButton.selected = NO;
     }
-    
-    
-
 }
 
 

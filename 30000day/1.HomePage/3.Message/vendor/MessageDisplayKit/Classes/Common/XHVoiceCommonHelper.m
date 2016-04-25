@@ -27,9 +27,11 @@
     [XHVoiceCommonHelper removeRecordedFile:fileName type:@"amr"];
     
     NSString *originWavFile = [fileName stringByReplacingOccurrencesOfString:@"wavToAmr" withString:@""];
+    
     [XHVoiceCommonHelper removeRecordedFile:originWavFile type:@"wav"];
     
     NSString *convertedWavFile = [originWavFile stringByAppendingString:@"amrToWav"];
+    
     [XHVoiceCommonHelper removeRecordedFile:convertedWavFile type:@"amr"];
     
     if (block) {
@@ -43,22 +45,32 @@
  *  @param exception 有包含些字符串就不删除（为空表示全部删除）
  *  @param block     删除成功后的回调
  */
-+ (void)removeAudioFile:(NSString*)exception block:(DidDeleteAudioFileBlock)block {
++ (void)removeAudioFile:(NSString *)exception block:(DidDeleteAudioFileBlock)block {
+    
     NSString *path = [XHVoiceCommonHelper getCacheDirectory];
     
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    
     NSEnumerator *e = [contents objectEnumerator];
+    
     NSString *filename;
+    
     while ((filename = [e nextObject])) {
+        
         if (exception && ![exception isEqual:[NSNull null]] && exception.length > 0) {//包含exception字符串的文件不删除
             if ([filename rangeOfString:AUDIO_LOCAL_FILE].length <= 0) {
+                
                 [[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingPathComponent:filename] error:NULL];
             }
+            
         } else {
+            
             [[NSFileManager defaultManager] removeItemAtPath:[path stringByAppendingPathComponent:filename] error:NULL];
         }
     }
+    
     if (block) {
+        
         block();
     }
 }
@@ -68,11 +80,16 @@
  *
  *  @return 当前时间字符串
  */
-+ (NSString*)getCurrentTimeString {
-    NSDateFormatter *dateformat = [[NSDateFormatter  alloc]init];
++ (NSString *)getCurrentTimeString {
+    
+    NSDateFormatter *dateformat = [[NSDateFormatter  alloc] init];
+    
     [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    
     NSString *dateStr = [dateformat stringFromDate:[NSDate date]];
+    
     dateStr = [dateStr stringByAppendingString:AUDIO_LOCAL_FILE];
+    
     return dateStr;
 }
 
@@ -109,8 +126,8 @@
  *
  *  @return 存在返回YES
  */
-+ (BOOL)fileExistsAtPath:(NSString*)_path
-{
++ (BOOL)fileExistsAtPath:(NSString*)_path {
+    
     return [[NSFileManager defaultManager] fileExistsAtPath:_path];
 }
 
@@ -121,8 +138,8 @@
  *
  *  @return 成功返回YES
  */
-+ (BOOL)deleteFileAtPath:(NSString*)_path
-{
++ (BOOL)deleteFileAtPath:(NSString*)_path {
+    
     return [[NSFileManager defaultManager] removeItemAtPath:_path error:nil];
 }
 
@@ -132,9 +149,10 @@
  *  @param _fileName 文件名
  *  @return 文件路径
  */
-+ (NSString*)getPathByFileName:(NSString *)_fileName ofType:(NSString *)_type
-{
-    NSString* fileDirectory = [[[XHVoiceCommonHelper getCacheDirectory] stringByAppendingPathComponent:_fileName] stringByAppendingPathExtension:_type];
++ (NSString *)getPathByFileName:(NSString *)_fileName ofType:(NSString *)_type {
+    
+    NSString *fileDirectory = [[[XHVoiceCommonHelper getCacheDirectory] stringByAppendingPathComponent:_fileName] stringByAppendingPathExtension:_type];
+    
     return fileDirectory;
 }
 
@@ -145,7 +163,7 @@
  *  @param _type 文件类型
  *  @return 文件路径
  */
-+ (NSString*)getPathByFileName:(NSString *)_fileName {
++ (NSString *)getPathByFileName:(NSString *)_fileName {
     
     NSString *fileDirectory = [[XHVoiceCommonHelper getCacheDirectory]stringByAppendingPathComponent:_fileName];
     
@@ -178,7 +196,7 @@
  *  @param fileName 文件名字（不包含后缀）
  *  @param type     文件后缀
  */
-+ (void)removeRecordedFile:(NSString*)fileName type:(NSString*)type {
++ (void)removeRecordedFile:(NSString*)fileName type:(NSString *)type {
     
     NSString *path = [XHVoiceCommonHelper getPathByFileName:fileName ofType:type];
     

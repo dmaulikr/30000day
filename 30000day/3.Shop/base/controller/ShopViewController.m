@@ -191,15 +191,6 @@
         
         //保存数据
         self.subwayArray = dataArray;
-        
-        //配置界面
-        self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
-        
-        self.tableView.dataSource = self;
-        
-        self.tableView.delegate = self;
-        
-        self.isShowMapView = NO;
     
         [self.menuView reloadData];
 
@@ -303,6 +294,15 @@
                                                                                                                               style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
     
     self.navigationItem.rightBarButtonItem = rightButton;
+    
+    //配置界面
+    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
+    self.isShowMapView = NO;
 }
 
 - (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
@@ -836,9 +836,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [self.searchBar resignFirstResponder];
-    
+
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     ShopModel *model = self.shopListArray[indexPath.row];
@@ -849,7 +847,7 @@
     
     [self.navigationController pushViewController:controller animated:YES];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma ---
