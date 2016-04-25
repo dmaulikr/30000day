@@ -71,6 +71,8 @@
 
 - (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
     
+    _informationCommentModel = informationCommentModel;
+    
     self.commentContentImageViewOne.hidden = NO;
     self.commentContentImageViewTwo.hidden = NO;
     self.commentContentImageViewThree.hidden = NO;
@@ -125,23 +127,29 @@
         self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
     }
 
-    _informationCommentModel = informationCommentModel;
+    
     
     self.commentContentLable.text = informationCommentModel.remark;
     
-    self.commentNameLable.text = informationCommentModel.userName;
+    
+    if ([Common isObjectNull:_informationCommentModel.nickName]) {
+        
+       self.commentNameLable.text = _informationCommentModel.userName;
+        
+    } else {
+        
+        self.commentNameLable.text = _informationCommentModel.nickName;
+    }
     
     [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
     
     NSString *str = [NSString stringWithFormat:@"%@",informationCommentModel.createTime];//时间戳
-    NSTimeInterval time = [str doubleValue]/(double)1000;
-    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    
+    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:[str doubleValue]/(double)1000];
+    
+    NSString *currentDateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate: detaildate];
     
     self.commentTimeLable.text = currentDateStr;
-    
     
     if (informationCommentModel.commentPhotos != nil && ![informationCommentModel.commentPhotos isEqualToString:@""]) {
         
@@ -161,7 +169,6 @@
             [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
             [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
             [self.commentContentImageViewThree sd_setImageWithURL:photoUrl[2]];
-            
         }
         
     } else {
@@ -171,9 +178,7 @@
         self.commentContentImageViewThree.hidden = YES;
         
     }
-
 }
-
 
 - (void)lookImage:(UITapGestureRecognizer *)tap {
     
