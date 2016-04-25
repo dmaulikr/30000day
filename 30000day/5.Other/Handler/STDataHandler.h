@@ -424,6 +424,7 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
                               pid:(NSInteger)pid
                        isHideName:(BOOL)isHideName
                        numberStar:(NSInteger)numberStar
+                    commentPhotos:(NSString *)commentPhotos
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure;
 
@@ -437,6 +438,6 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
 - (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
                         imageArray:(NSArray *)imageArray
-                           success:(void (^)(BOOL success))success
+                           success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure;
 @end

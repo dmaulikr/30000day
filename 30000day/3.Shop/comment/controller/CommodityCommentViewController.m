@@ -10,6 +10,7 @@
 #import "GJTextView.h"
 #import "ZLPhotoActionSheet.h"
 #import "DYRateView.h"
+#import "MTProgressHUD.h"
 
 @interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,DYRateViewDelegate>
 {
@@ -27,6 +28,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *submit;
 
 @property (weak, nonatomic) IBOutlet DYRateView *rateView;
+
+@property (weak, nonatomic) IBOutlet UIButton *isHideButton;
+
+@property (nonatomic,assign) NSInteger rate; //星星数量
 
 @property (nonatomic,strong) NSMutableArray *imageArray;
 
@@ -46,6 +51,8 @@
     [self.submit addTarget:self action:@selector(subMitClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.rateView.rate = 1;
+    
+    self.rate =  1;
     
     // Do any additional setup after loading the view, typically from a nib.
     actionSheet = [[ZLPhotoActionSheet alloc] init];
@@ -161,19 +168,38 @@
 
 - (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate {
 
-    NSLog(@"%ld",rate.integerValue);
+    self.rate = rate.integerValue;
     
 }
 
 - (void)subMitClick:(UIButton *)sender {
 
-    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(BOOL success) {
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(NSString *success) {
         
-        NSLog(@"%d",success);
+        NSString * encodingString = [success stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [self.dataHandler sendSaveCommentWithBusiId:self.productId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:self.textView.text pid:-1 isHideName:self.isHideButton.tag numberStar:self.rate commentPhotos:encodingString success:^(BOOL success) {
+            
+            if (success) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                [self showToast:@"评论成功"];
+                
+            }
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:@"评论失败"];
+            
+        }];
+        
         
     } failure:^(NSError *error) {
-        
-        
+    
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
         
     }];
 

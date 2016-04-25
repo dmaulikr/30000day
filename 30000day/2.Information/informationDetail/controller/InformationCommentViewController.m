@@ -297,7 +297,7 @@
             
             InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
             
-            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 success:^(BOOL success) {
+            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
                 
                 if (success) {
                     

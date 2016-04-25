@@ -153,7 +153,7 @@
     
     if (informationCommentModel.commentPhotos != nil && ![informationCommentModel.commentPhotos isEqualToString:@""]) {
         
-        NSArray *photoUrl = [informationCommentModel.commentPhotos componentsSeparatedByString:@","];
+        NSArray *photoUrl = [informationCommentModel.commentPhotos componentsSeparatedByString:@";"];
         
         if (photoUrl.count == 1) {
             

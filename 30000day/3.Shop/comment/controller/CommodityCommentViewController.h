@@ -14,4 +14,6 @@
 
 @property (nonatomic,copy) NSString *productName;//订单名字
 
+@property (nonatomic,copy) NSString *productId;
+
 @end

@@ -4924,6 +4924,7 @@
                               pid:(NSInteger)pid
                        isHideName:(BOOL)isHideName
                        numberStar:(NSInteger)numberStar
+                    commentPhotos:(NSString *)commentPhotos
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure {
 
@@ -4940,6 +4941,8 @@
     [params setObject:@(pid) forKey:@"pid"];
     
     [params setObject:@(isHideName) forKey:@"isHideName"];
+    
+    [params setObject:commentPhotos forKey:@"commentPhotos"];
     
     [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
@@ -5090,7 +5093,7 @@
 - (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
                         imageArray:(NSArray *)imageArray
-                           success:(void (^)(BOOL success))success
+                           success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -5099,21 +5102,26 @@
     
     [params setObject:@(type) forKey:@"type"];
     
-    
-    NSMutableDictionary *base64ImageDic = [NSMutableDictionary dictionary];
+    NSMutableArray *base64ImageArray = [NSMutableArray array];
     
     for (int i = 0; i < imageArray.count; i++) {
         
-        UIImage *image = [UIImage imageNamed:imageArray[i]];
-        NSData *data = UIImageJPEGRepresentation(image, 0.7f);
-        NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSMutableDictionary *base64ImageDic = [NSMutableDictionary dictionary];
+        UIImage *image = imageArray[i];
+        NSData *data = UIImageJPEGRepresentation(image, 0.3f);
+        NSString *encodedImageStr = [data base64Encoding];
         [base64ImageDic setObject:encodedImageStr forKey:@"base64Str"];
+        [base64ImageArray addObject:base64ImageDic];
         
     }
     
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setObject:base64ImageArray forKey:@"json"];
+    
     NSError *parseError = nil;
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:base64ImageDic options:NSJSONWritingPrettyPrinted error:&parseError];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     
     NSString *file = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
@@ -5121,64 +5129,48 @@
     
     [params setObject:file forKey:@"file"];
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    NSString *url = @"http://121.196.223.175:8081/stapi/upload/uploadImages";
     
-    [Common urlStringWithDictionary:params withString:UPLOAD_IMAGES];
-    
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:UPLOAD_IMAGES
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    
-    [self startRequest:request];
+    [manager POST:url parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+
+            NSString *imageUrl = recvDic[@"value"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                success(imageUrl);
+            });
+
+        } else {
+
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                failure(failureError);
+
+            });
+            
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            failure(error);
+
+        });
+        
+    }];
 
 }
 

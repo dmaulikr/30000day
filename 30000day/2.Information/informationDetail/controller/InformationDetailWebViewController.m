@@ -182,7 +182,7 @@
             
         }
         
-        [self.dataHandler sendSaveCommentWithBusiId:self.infoId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 success:^(BOOL success) {
+        [self.dataHandler sendSaveCommentWithBusiId:self.infoId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
             
             if (success) {
 
