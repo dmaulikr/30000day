@@ -113,12 +113,12 @@
     }
     {
         XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:2 name:@"兔斯基" maxIndex:15 prefix:@"tusiji"];
-        emotionManager.emotionBottomButtonImageName = @"close";
+        emotionManager.emotionBottomButtonImageName = @"tusiji_5_cover";
         [emotionManagers addObject:emotionManager];
     }
     {
         XHEmotionManager *emotionManager = [self emotionManagerWithSize:55 pages:3 name:@"玉兔" maxIndex:22 prefix:@"rabbit"];
-        emotionManager.emotionBottomButtonImageName = @"close";
+        emotionManager.emotionBottomButtonImageName = @"rabbit_19_cover@2x";
         [emotionManagers addObject:emotionManager];
     }
     return emotionManagers;

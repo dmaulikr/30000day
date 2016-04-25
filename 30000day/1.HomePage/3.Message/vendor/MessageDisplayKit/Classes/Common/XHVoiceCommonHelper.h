@@ -22,17 +22,13 @@ typedef void(^DidDeleteAudioFileBlock)();
  */
 + (void)removeRecordedFileWithOnlyName:(NSString*)fileName block:(DidDeleteAudioFileBlock)block;
 
-
 /**
  *  删除/documents/Audio下的文件
  *
  *  @param exception 有包含些字符串就不删除（为空表示全部删除）
  *  @param block     删除成功后的回调
  */
-+ (void)removeAudioFile:(NSString*)exception block:(DidDeleteAudioFileBlock)block;
-
-
-
++ (void)removeAudioFile:(NSString *)exception block:(DidDeleteAudioFileBlock)block;
 
 /**
  *  根据当前时间生成字符串
@@ -41,13 +37,12 @@ typedef void(^DidDeleteAudioFileBlock)();
  */
 + (NSString*)getCurrentTimeString;
 
-
 /**
  *  获取缓存路径
  *
  *  @return 缓存路径
  */
-+ (NSString*)getCacheDirectory;
++ (NSString *)getCacheDirectory;
 
 
 /**
@@ -59,7 +54,6 @@ typedef void(^DidDeleteAudioFileBlock)();
  */
 + (BOOL)fileExistsAtPath:(NSString*)_path;
 
-
 /**
  *  删除文件
  *
@@ -67,8 +61,7 @@ typedef void(^DidDeleteAudioFileBlock)();
  *
  *  @return 成功返回YES
  */
-+ (BOOL)deleteFileAtPath:(NSString*)_path;
-
++ (BOOL)deleteFileAtPath:(NSString *)_path;
 
 /**
  *  生成文件路径
@@ -79,7 +72,6 @@ typedef void(^DidDeleteAudioFileBlock)();
  */
 + (NSString*)getPathByFileName:(NSString *)_fileName;
 + (NSString*)getPathByFileName:(NSString *)_fileName ofType:(NSString *)_type;
-
 
 /**
  *  获取录音设置
