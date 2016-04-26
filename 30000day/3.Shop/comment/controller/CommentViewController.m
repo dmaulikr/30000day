@@ -411,40 +411,6 @@
 }
 
 
-- (void)commentType:(UIButton *)changeStatusButton {
-
-    self.save = NO;
-    
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendfindCommentListWithProductId:8 type:changeStatusButton.tag pId:0 userId:-1 Success:^(NSMutableArray *success) {
-            
-        if (success.count > 0) {
-            
-            [self.commentModelArray removeAllObjects];
-            
-            for (int i = 0; i < success.count; i++) {
-                
-                CommentModel *comment = success[i];
-                comment.level = 1;
-                [self.commentModelArray addObject:comment];
-                
-            }
-            
-            [self.tableView reloadData];
-            
-        }
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-    } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        [self showToast:@"数据加载失败"];
-        
-    }];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
