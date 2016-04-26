@@ -12,7 +12,7 @@
 #import "DYRateView.h"
 #import "MTProgressHUD.h"
 
-@interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,DYRateViewDelegate>
+@interface CommodityCommentViewController () <UIAlertViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,DYRateViewDelegate,UITextViewDelegate>
 {
     ZLPhotoActionSheet *actionSheet;
 }
@@ -61,6 +61,15 @@
     //设置照片最大预览数
     actionSheet.maxPreviewCount = 20;
 
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        return NO;
+    }
+    return YES;
 }
 
 - (IBAction)choiceImage:(UIButton *)sender {
