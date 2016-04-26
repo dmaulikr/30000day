@@ -30,11 +30,13 @@
     
     [self.view addSubview:lineView];
     
+    self.tableViewStyle = STRefreshTableViewPlain;
+    
     self.tableView.delegate = self;
     
     self.tableView.dataSource = self;
     
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     [self loadDataFromServerWith:_type];
 

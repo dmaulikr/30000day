@@ -31,25 +31,23 @@
     [super viewDidLoad];
     
     self.title = @"我的";
-    
-    [self loadEmail];
-    
+
     self.tableViewStyle = STRefreshTableViewGroup;
     
     [self.tableView setDataSource:self];
     
     [self.tableView setDelegate:self];
     
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
-    self.isShowHeadRefresh = YES;
-    
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     self.isShowBackItem = NO;
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [self loadEmail];
 
 }
 

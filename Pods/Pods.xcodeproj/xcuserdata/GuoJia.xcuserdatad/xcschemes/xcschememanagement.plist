@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CXPhotoBrowser.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>DACircularProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,17 +92,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2D193EF4A7BB6D4CDA804A4E0CF04E54</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>438F1E537A84CD7C63E0E83F1F70DD13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,11 +147,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC0F1FF925D7B281F7EB27A988D24A32</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
 		<dict>
 			<key>primary</key>
@@ -177,7 +157,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E53358E207D73AA80DE05DC67C738CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E63EA3FC3E0A88A11341641DBAC04F9F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB4BAD90D911FE839B843B0B21C2472B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -19,23 +19,21 @@ typedef enum {
 
 @interface STRefreshViewController : STBaseViewController
 
+//若需要UITableView必须调用
+@property (nonatomic,assign) STRefreshTableViewStyle tableViewStyle;
 @property (nonatomic,strong) UITableView *tableView;
 
-//必须调用
-@property (nonatomic,assign) STRefreshTableViewStyle tableViewStyle;
 
-//是否显示下拉刷新，默认是Yes
-@property (nonatomic,assign) BOOL isShowHeadRefresh;
+//是否显示MJRefresh，不调用没有刷新
+- (void)showHeadRefresh:(BOOL)isShowHeadRefresh showFooterRefresh:(BOOL)isShowFooterRefresh;
+- (void)headerRefreshing;//有下拉刷新该方法才会被调用
+- (void)footerRereshing;//有上刷新该方法才会被调用
 
-//是否显示上拉刷新，默认是YES
-@property (nonatomic,assign) BOOL isShowFootRefresh;
 
 //是否显示 " <-返回 "这种类型的返回按钮,默认是不显示
 @property (nonatomic,assign) BOOL isShowBackItem;
+- (void)backClick;
 
-- (void)headerRefreshing;
-
-- (void)footerRereshing;
 
 #pragma mark --- 关于键盘的一些设置
 //是否有键盘 默认是没键盘的
@@ -50,7 +48,7 @@ typedef enum {
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 
-//刷新，会清除输入的文本、已经textView的高度、flag、图片等等。
+//刷新键盘，【会清除输入的文本、textView的高度、flag、图片】。
 - (void)refreshControllerInputViewHide;
 
 @end

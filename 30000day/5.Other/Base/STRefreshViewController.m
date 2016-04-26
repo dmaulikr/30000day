@@ -123,47 +123,31 @@
         
         [self.view addSubview:self.tableView];
     }
-    
-    [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
 }
 
 #pragma mark - 集成刷新控件
-/**
- *  集成刷新控件
- */
-- (void)setupRefreshIsShowHeadRefresh:(BOOL)isShowHeadRefresh isShowFootRefresh:(BOOL)isShowFootRefresh {
+- (void)showHeadRefresh:(BOOL)isShowHeadRefresh showFooterRefresh:(BOOL)isShowFooterRefresh {
     
-    _isShowFootRefresh = isShowFootRefresh;
-    
-    _isShowHeadRefresh = isShowHeadRefresh;
-    
-    if (_isShowHeadRefresh) {
+    if (isShowHeadRefresh) {
         
-        if (!self.tableView.mj_header) {
-            
-            self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-        }
-    
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+        
     } else {
         
         self.tableView.mj_header = nil;
         
         [self.tableView.mj_header removeFromSuperview];
-        
     }
     
-    if (_isShowFootRefresh) {
+    if (isShowFooterRefresh) {
         
-        if (!self.tableView.mj_footer) {
-            
-            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-            
-            [self.tableView.mj_footer setAutomaticallyHidden:YES];
-        }
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        
+        [self.tableView.mj_footer setAutomaticallyHidden:YES];
         
     } else {
         
-         self.tableView.mj_footer = nil;
+        self.tableView.mj_footer = nil;
         
         [self.tableView.mj_footer removeFromSuperview];
     }
@@ -333,20 +317,6 @@
     _inputView.isShowMedia = _isShowMedio;
 }
 
-- (void)setIsShowFootRefresh:(BOOL)isShowFootRefresh {
-    
-    _isShowFootRefresh = isShowFootRefresh;
-    
-    [self setupRefreshIsShowHeadRefresh:_isShowHeadRefresh isShowFootRefresh:_isShowFootRefresh];
-}
-
-- (void)setIsShowHeadRefresh:(BOOL)isShowHeadRefresh {
-    
-    _isShowHeadRefresh = isShowHeadRefresh;
-    
-    [self setupRefreshIsShowHeadRefresh:_isShowHeadRefresh isShowFootRefresh:_isShowFootRefresh];
-}
-
 - (void)setIsShowBackItem:(BOOL)isShowBackItem {
     
     _isShowBackItem = isShowBackItem;
@@ -377,7 +347,7 @@
 //手动显示键盘并赋值
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block {
     
-//    if (![self audioRecordingShouldBegin]) {
+//    if (![self keyboardButtonShouldBegin]) {
 //        return;
 //    }
     
@@ -522,12 +492,6 @@
     } else {
         
         self.navigationItem.leftBarButtonItem = leftButton;
-        
-    }
-    
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
         
     }
 }

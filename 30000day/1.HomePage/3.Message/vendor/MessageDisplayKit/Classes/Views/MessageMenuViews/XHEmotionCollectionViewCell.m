@@ -16,6 +16,12 @@
 @property (nonatomic, weak) UIImageView *emotionImageView;
 
 /**
+ * 显示表情的名字
+ */
+@property (nonatomic, weak) UILabel *emotionLabel;
+
+
+/**
  *  配置默认控件和参数
  */
 - (void)setup;
@@ -30,17 +36,36 @@
     
     // TODO:
     self.emotionImageView.image = emotion.emotionConverPhoto;
+    
+    self.emotionLabel.text = emotion.emotionName;
 }
 
 #pragma mark - Life cycle
 
 - (void)setup {
+    
     if (!_emotionImageView) {
-//        UIImageView *emotionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        
         UIImageView *emotionImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        //emotionImageView.backgroundColor = [UIColor blackColor];
+        
         [self.contentView addSubview:emotionImageView];
+        
         self.emotionImageView = emotionImageView;
+    }
+    
+    if (!_emotionLabel) {
+        
+        UILabel *label = [[UILabel alloc] init];
+    
+        label.textAlignment = NSTextAlignmentCenter;
+        
+        label.font = [UIFont systemFontOfSize:12.0f];
+        
+        label.textColor = [UIColor lightGrayColor];
+        
+        [self.contentView addSubview:label];
+        
+        _emotionLabel = label;
     }
 }
 
@@ -59,7 +84,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.emotionImageView.frame = CGRectMake(0, 0, self.emotionSize.width, self.emotionSize.height);
+    
+    self.emotionLabel.frame = CGRectMake(0, self.height  + 4,self.width , 10.0f);
 }
 
 - (void)dealloc {

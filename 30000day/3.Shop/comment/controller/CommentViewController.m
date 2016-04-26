@@ -15,7 +15,7 @@
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
 #import "MTProgressHUD.h"
-#import "CXPhotoBrowser.h"
+//#import "CXPhotoBrowser.h"
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
@@ -52,9 +52,7 @@
     
     self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
     
-    self.isShowHeadRefresh = YES;
-    
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     self.isShowBackItem = YES;
     

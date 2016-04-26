@@ -59,7 +59,7 @@
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     

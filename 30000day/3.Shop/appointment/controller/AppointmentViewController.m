@@ -59,7 +59,7 @@
     
     self.isShowBackItem = YES;
     
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     self.tableView.delegate = self;
     

@@ -44,12 +44,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"详情";
-    self.isShowFootRefresh = NO;
-    self.isShowHeadRefresh = NO;
+
+    [self showHeadRefresh:NO showFooterRefresh:NO];
+    
     self.isShowBackItem = YES;
-    [self.tableView removeFromSuperview];
+    
     self.isShowInputView = YES;
+    
     self.isShowMedio = NO;
+    
     self.placeholder = @"输入评论";
     //跟帖
     self.comment_view.layer.cornerRadius = 5;

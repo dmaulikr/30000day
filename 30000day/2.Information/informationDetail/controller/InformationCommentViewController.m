@@ -43,9 +43,7 @@
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     
-    self.isShowHeadRefresh = YES;
-    
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     self.isShowBackItem = YES;
     

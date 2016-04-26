@@ -94,7 +94,7 @@
     
     [_mapView viewWillAppear];
     
-     _mapView.delegate = self; //不用时，置nil
+    _mapView.delegate = self; //不用时，置nil
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -105,30 +105,99 @@
     _mapView.delegate = nil; //不用时，置nil
 }
 
-- (void)dealloc {
+- (void)configUI {
     
-    if (_mapView) {
+    //配置界面
+    self.tableViewStyle = STRefreshTableViewPlain;
+    
+    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
+    self.isShowMapView = NO;
+    
+    self.isShowBackItem = NO;
+    
+    [self showHeadRefresh:YES showFooterRefresh:YES];
+    
+    //初始化searchBar
+    UISearchBar *searchBar = [[UISearchBar alloc] init];
+    
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    
+    searchBar.placeholder = @"搜索";
+    
+    searchBar.delegate = self;
+    
+    searchBar.translucent = YES;
+    
+    self.searchBar = searchBar;
+    
+    self.navigationItem.titleView = searchBar;
+    
+    //初始化百度地图
+    _mapView = [[BMKMapView alloc] init];
+    
+    _mapView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64- 50);
+    
+    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(31.19,121.70)];
+    
+    _mapView.showsUserLocation = NO;
+    
+    _mapView.zoomLevel = 15;//地图等级
+    
+    _mapView.delegate = self;
+    
+    _mapView.hidden = YES;
+    
+    [self.view addSubview:_mapView];
+    
+    //初始化搜索界面
+    if (!self.menuView) {
         
-        _mapView = nil;
+        DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
+        
+        menuView.dataSource = self;
+        
+        menuView.delegate = self;
+        
+        menuView.textSelectedColor = LOWBLUECOLOR;
+        
+        menuView.isClickHaveItemValid = NO;
+        
+        self.menuView = menuView;
+        
+        [self.view addSubview:menuView];
     }
     
-    self.searchBar = nil;
+    //初始化rightButton
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
     
-    self.subwayArray = nil;
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+- (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
     
-    self.placeArray = nil;
-    
-    self.menuView = nil;
-    
-    [self.menuView removeFromSuperview];
-    
-    self.shopListArray = nil;
-    
-    self.locationArray = nil;
-    
-    self.conditionModel = nil;
-    
-    self.provinceModel = nil;
+    if (self.isShowMapView ) {
+        
+        _mapView.hidden = YES;
+        
+        self.tableView.hidden = NO;
+        
+        rightButton.image = [[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+    } else {
+        
+        _mapView.hidden = NO;
+        
+        self.tableView.hidden = YES;
+        
+        rightButton.image = [[UIImage imageNamed:@"icon_list"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    self.isShowMapView = !self.isShowMapView;
 }
 
  //3.获取列表数据源数组
@@ -235,99 +304,6 @@
     }];
     
     [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)configUI {
-    
-    //配置界面
-    self.tableViewStyle = STRefreshTableViewPlain;
-    
-    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
-    
-    self.tableView.dataSource = self;
-    
-    self.tableView.delegate = self;
-    
-    self.isShowMapView = NO;
-    
-    self.isShowBackItem = NO;
-    
-    //初始化searchBar
-    UISearchBar *searchBar = [[UISearchBar alloc] init];
-    
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    
-    searchBar.placeholder = @"搜索";
-    
-    searchBar.delegate = self;
-    
-    searchBar.translucent = YES;
-    
-    self.searchBar = searchBar;
-    
-    self.navigationItem.titleView = searchBar;
-
-    //初始化百度地图
-    _mapView = [[BMKMapView alloc] init];
-    
-    _mapView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64- 50);
-    
-    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(31.19,121.70)];
-    
-    _mapView.showsUserLocation = NO;
-    
-    _mapView.zoomLevel = 15;//地图等级
-    
-    _mapView.delegate = self;
-    
-    _mapView.hidden = YES;
-    
-    [self.view addSubview:_mapView];
-    
-    //初始化搜索界面
-    if (!self.menuView) {
-        
-        DOPDropDownMenu *menuView = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:44];
-        
-        menuView.dataSource = self;
-        
-        menuView.delegate = self;
-        
-        menuView.textSelectedColor = LOWBLUECOLOR;
-        
-        menuView.isClickHaveItemValid = NO;
-        
-        self.menuView = menuView;
-        
-        [self.view addSubview:menuView];
-    }
-    
-    //初始化rightButton
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
-    
-    self.navigationItem.rightBarButtonItem = rightButton;
-}
-
-- (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
-    
-    if (self.isShowMapView ) {
-        
-        _mapView.hidden = YES;
-        
-        self.tableView.hidden = NO;
-        
-        rightButton.image = [[UIImage imageNamed:@"icon_map"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-  
-    } else {
-    
-        _mapView.hidden = NO;
-        
-        self.tableView.hidden = YES;
-        
-        rightButton.image = [[UIImage imageNamed:@"icon_list"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    }
-    self.isShowMapView = !self.isShowMapView;
 }
 
 - (SearchConditionModel *)conditionModel {
@@ -937,6 +913,32 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     NSLog(@"收到内存警告");
+}
+
+- (void)dealloc {
+    
+    if (_mapView) {
+        
+        _mapView = nil;
+    }
+    
+    self.searchBar = nil;
+    
+    self.subwayArray = nil;
+    
+    self.placeArray = nil;
+    
+    self.menuView = nil;
+    
+    [self.menuView removeFromSuperview];
+    
+    self.shopListArray = nil;
+    
+    self.locationArray = nil;
+    
+    self.conditionModel = nil;
+    
+    self.provinceModel = nil;
 }
 
 /*

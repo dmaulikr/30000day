@@ -218,9 +218,16 @@
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
-    
-    return emotionManager.emotionSize;
+    if (self.selectedIndex) {//特殊表情
+        
+        return CGSizeMake(45.0f,45.0f);
+        
+    } else {//普通表情
+        
+        XHEmotionManager *emotionManager = [self.dataSource emotionManagerForColumn:self.selectedIndex];
+        
+        return emotionManager.emotionSize;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -235,13 +242,13 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
         
-    return self.selectedIndex ? UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 220) / 5.0f, 0, (SCREEN_WIDTH - 220) / 5.0f)  :UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 245) / 8.0f, 0, (SCREEN_WIDTH - 245) / 8.0f);
+    return self.selectedIndex ? UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 180) / 5.0f, kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 180) / 5.0f)  :UIEdgeInsetsMake(kXHEmotionCollectionViewSectionInset, (SCREEN_WIDTH - 245) / 8.0f, 0, (SCREEN_WIDTH - 245) / 8.0f);
     
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     
-    return self.selectedIndex ? (SCREEN_WIDTH - 220) / 5.0f  :(SCREEN_WIDTH - 245) / 8.0f;
+    return self.selectedIndex ? (SCREEN_WIDTH - 180) / 5.0f :(SCREEN_WIDTH - 245) / 8.0f;
 }
 
 @end

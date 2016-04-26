@@ -42,15 +42,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableViewStyle = STRefreshTableViewPlain;
+    
     self.tableView.dataSource = self;
     
     self.tableView.delegate = self;
-    
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
-    
+
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
     
-    self.isShowFootRefresh = NO;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
