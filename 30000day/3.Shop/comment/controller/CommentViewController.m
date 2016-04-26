@@ -23,8 +23,6 @@
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
-@property (nonatomic,assign) BOOL save;
-
 @property (nonatomic,strong) NSMutableArray *photos;
 
 @property (nonatomic,assign) NSInteger commentType;
@@ -194,7 +192,6 @@
     if (shopDetailCommentTableViewCell == nil) {
         
         shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
-        
         
     }
     
@@ -366,6 +363,8 @@
                 zanButton.selected = NO;
                 
             }
+            
+            [self searchCommentsWithPid:-1];
             
         }
         
