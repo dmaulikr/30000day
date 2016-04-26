@@ -73,10 +73,6 @@
     
     _informationCommentModel = informationCommentModel;
     
-    self.commentContentImageViewOne.hidden = NO;
-    self.commentContentImageViewTwo.hidden = NO;
-    self.commentContentImageViewThree.hidden = NO;
-    
     if (self.isHideBelowView) {
         
         self.checkReply.hidden = YES;
@@ -193,6 +189,20 @@
     if (self.lookPhoto) {
         self.lookPhoto(picView);
     }
+}
+
+//tableview 重用时自动调用该方法
+- (void)prepareForReuse {
+    [super prepareForReuse];
+
+    [self.commentContentImageViewOne sd_setImageWithURL:nil];
+    [self.commentContentImageViewTwo sd_setImageWithURL:nil];
+    [self.commentContentImageViewThree sd_setImageWithURL:nil];
+    
+    self.commentContentImageViewOne.hidden = NO;
+    self.commentContentImageViewTwo.hidden = NO;
+    self.commentContentImageViewThree.hidden = NO;
+
 }
 
 @end
