@@ -4844,9 +4844,15 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:infoId forKey:@"infoId"];
+    if (![Common isObjectNull:infoId]) {
+        
+        [params setObject:infoId forKey:@"infoId"];
+    }
     
-    [params setObject:userId forKey:@"userId"];
+    if (![Common isObjectNull:userId]) {
+        
+       [params setObject:userId forKey:@"userId"];
+    }
     
     [Common urlStringWithDictionary:params withString:GET_INFOMATION_DETAIL];
     

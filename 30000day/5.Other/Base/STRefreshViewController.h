@@ -21,6 +21,7 @@ typedef enum {
 
 @property (nonatomic,strong) UITableView *tableView;
 
+//必须调用
 @property (nonatomic,assign) STRefreshTableViewStyle tableViewStyle;
 
 //是否显示下拉刷新，默认是Yes
