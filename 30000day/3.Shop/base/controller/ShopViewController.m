@@ -240,6 +240,8 @@
 - (void)configUI {
     
     //配置界面
+    self.tableViewStyle = STRefreshTableViewPlain;
+    
     self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
     
     self.tableView.dataSource = self;
@@ -814,7 +816,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.shopListArray.count;
+    return self.shopListArray.count;;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -848,6 +850,8 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma ---

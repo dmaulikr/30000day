@@ -43,6 +43,11 @@
 
 @property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
 
+/**
+ *  记录每次弹出键盘的开始时间，防止用户疯狂点击。
+ */
+@property (nonatomic, assign, readwrite) CFTimeInterval lastAudioRecordingTime;
+
 @end
 
 @implementation STRefreshViewController {
@@ -62,18 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (!self.tableView) {
         
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
-        
-        [self.tableView setTableFooterView:[[UIView alloc] init]];
-        
-        [self.view addSubview:self.tableView];
-    }
-    
-    [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
-    
     self.isShowBackItem = NO;
     
     _imageArray = [[NSMutableArray alloc] init];
@@ -194,7 +188,6 @@
         _choosePictureView.imageArray = _imageArray;
         
         _choosePictureView.width =  61 * _imageArray.count + 10;
-        
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -310,7 +303,6 @@
             _choosePictureView.delegate = self;
             
             [self.view addSubview:_choosePictureView];
-            
         }
     }
 }
@@ -365,8 +357,29 @@
     }
 }
 
+/**
+ *  防止用户疯狂点击弹出键盘按钮。
+ */
+- (BOOL)keyboardButtonShouldBegin {
+    BOOL result = YES;
+    
+    CFTimeInterval now = CACurrentMediaTime();
+    
+    if (self.lastAudioRecordingTime > 0 && now - self.lastAudioRecordingTime < 1) {
+        result = NO;
+    }
+    
+    self.lastAudioRecordingTime = now;
+    
+    return result;
+}
+
 //手动显示键盘并赋值
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block {
+    
+//    if (![self audioRecordingShouldBegin]) {
+//        return;
+//    }
     
     self.inputViewBlock =  block;
     
@@ -387,6 +400,16 @@
     _inputView.textView.text = nil;
     
     _inputView.height = 47;
+    
+    _imageArray = [[NSMutableArray alloc] init];
+    
+    _choosePictureView.imageArray = _imageArray;
+    
+    _choosePictureView.width = 10;
+    
+    _choosePictureView.imageArray = _imageArray;
+    
+     _choosePictureView.hidden = YES;
 }
 
 //键盘显示
@@ -416,23 +439,24 @@
             return;
         }
         
+        //首先就弹出来
+        [self.view bringSubviewToFront:_inputBackgroundView];
+        
         [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-           
+        
             _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - _inputView.height;
             
             _choosePictureView.y = _inputView.y - 10 - 60;
             
         } completion:^(BOOL finished) {
             
-            [self.view bringSubviewToFront:_inputBackgroundView];
-    
             if (_choosePictureView.isHidden) {//如果之前是_choosePicture隐藏状态，那么让_choosePictureView去后面
-                
-                [self.view sendSubviewToBack:_choosePictureView];
+
+                [self.view insertSubview:_choosePictureView belowSubview:_inputBackgroundView];
                 
             } else {//如果_choosePicture显示状态，那么让_choosePictureView去前面，响应点击事件，增加体验
                 
-                [self.view bringSubviewToFront:_choosePictureView];
+                [self.view insertSubview:_choosePictureView aboveSubview:_inputBackgroundView];
             }
         }];
     }
@@ -447,12 +471,7 @@
         return;
     }
     
-    if ((_choosePictureView.y == _inputView.y - 10 - 60) && (_inputView.y == SCREEN_HEIGHT)) {
-        
-        return;
-    }
-    
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         _inputView.y = SCREEN_HEIGHT;
         
