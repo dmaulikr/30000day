@@ -8,6 +8,7 @@
 
 #import "STBaseViewController.h"
 #import "STNetworkAgent.h"
+#import "JZNavigationExtension.h"
 
 @interface STBaseViewController ()
 //{
@@ -29,6 +30,8 @@
     self.dataHandler = [[STDataHandler alloc] init];
     
     self.dataHandler.delegate = self;
+    
+    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;
     
 //    //IOS8吧导航栏设置透明的话会有一条黑线，，这个方法就是隐藏的
 //    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];

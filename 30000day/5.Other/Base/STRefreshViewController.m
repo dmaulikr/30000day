@@ -9,7 +9,6 @@
 #import "STRefreshViewController.h"
 #import "STChoosePictureView.h"
 #import "STAvatarBrowser.h"
-#import "JZNavigationExtension.h"
 
 /**
  *
@@ -363,7 +362,6 @@
     if (_isShowBackItem) {
         
         [self backBarButtonItem];
-        self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;
     }
 }
 
@@ -427,12 +425,12 @@
         } completion:^(BOOL finished) {
             
             [self.view bringSubviewToFront:_inputBackgroundView];
-            
-            if (_choosePictureView.isHidden) {//如果_choosePicture隐藏的
+    
+            if (_choosePictureView.isHidden) {//如果之前是_choosePicture隐藏状态，那么让_choosePictureView去后面
                 
                 [self.view sendSubviewToBack:_choosePictureView];
                 
-            } else {//如果_choosePicture显示的
+            } else {//如果_choosePicture显示状态，那么让_choosePictureView去前面，响应点击事件，增加体验
                 
                 [self.view bringSubviewToFront:_choosePictureView];
             }
