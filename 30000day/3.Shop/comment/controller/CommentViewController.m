@@ -57,6 +57,9 @@
     
     self.isShowBackItem = YES;
     
+    self.maxPhoto = 3;//最大显示图片的个数
+    
+    self.placeholder = @"输入回复";
     
 }
 

@@ -182,10 +182,10 @@
     
     UIImage *image = info[UIImagePickerControllerEditedImage];
     
-    if (_imageArray.count  >= self.maxPhoto) {
+    if (_imageArray.count  >= self.maxPhoto) {//超过限制了
         
         
-        
+
     } else {
         
         [_imageArray addObject:image];
@@ -195,11 +195,12 @@
         _choosePictureView.imageArray = _imageArray;
         
         _choosePictureView.width =  61 * _imageArray.count + 10;
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-        [self inputViewMakeVisible];//让键盘弹出来
+    
     }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self inputViewMakeVisible];//让键盘弹出来
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -310,6 +311,7 @@
             _choosePictureView.delegate = self;
             
             [self.view addSubview:_choosePictureView];
+            
         }
     }
 }
