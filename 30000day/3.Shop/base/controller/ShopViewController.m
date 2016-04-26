@@ -239,6 +239,17 @@
 
 - (void)configUI {
     
+    //配置界面
+    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
+    self.isShowMapView = NO;
+    
+    self.isShowBackItem = NO;
+    
     //初始化searchBar
     UISearchBar *searchBar = [[UISearchBar alloc] init];
     
@@ -294,17 +305,6 @@
                                                                                                                               style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAcion:)];
     
     self.navigationItem.rightBarButtonItem = rightButton;
-    
-    //配置界面
-    self.tableView.frame = CGRectMake(0,44, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
-    
-    self.tableView.dataSource = self;
-    
-    self.tableView.delegate = self;
-    
-    self.isShowMapView = NO;
-    
-    self.isShowBackItem = NO;
 }
 
 - (void)rightBarButtonAcion:(UIBarButtonItem *)rightButton {
