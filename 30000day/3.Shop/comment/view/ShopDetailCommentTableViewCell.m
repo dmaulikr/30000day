@@ -157,18 +157,18 @@
         
         if (photoUrl.count == 1) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
+            [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:photoUrl[0]]];
             
         } else if (photoUrl.count == 2) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
-            [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
+            [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:photoUrl[0]]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:photoUrl[1]]];
             
         } else if (photoUrl.count == 3) {
             
-            [self.commentContentImageViewOne sd_setImageWithURL:photoUrl[0]];
-            [self.commentContentImageViewTwo sd_setImageWithURL:photoUrl[1]];
-            [self.commentContentImageViewThree sd_setImageWithURL:photoUrl[2]];
+            [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:photoUrl[0]]];
+            [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:photoUrl[1]]];
+            [self.commentContentImageViewThree sd_setImageWithURL:[NSURL URLWithString:photoUrl[2]]];
         }
         
     } else {
