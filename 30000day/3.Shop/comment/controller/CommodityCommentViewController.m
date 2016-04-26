@@ -189,9 +189,17 @@
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(NSString *success) {
         
-        NSString *imgStr = [success substringToIndex:([success length]-1)];
-        
-        NSString *encodingString = [imgStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
+        NSString *encodingString;
+        if (self.imageArray.count > 0) {
+            
+            NSString *imgStr = [success substringToIndex:([success length]-1)];
+            encodingString = [imgStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
+            
+        } else {
+            
+            encodingString = nil;
+            
+        }
         
         [self.dataHandler sendSaveCommentWithBusiId:self.productId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:self.textView.text pid:-1 isHideName:self.isHideButton.tag numberStar:self.rate commentPhotos:encodingString success:^(BOOL success) {
             
