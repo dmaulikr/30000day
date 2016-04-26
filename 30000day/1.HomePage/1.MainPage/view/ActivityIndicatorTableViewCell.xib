@@ -61,6 +61,7 @@
                 <outlet property="label_1" destination="daL-GT-LmA" id="go1-Ub-B0u"/>
                 <outlet property="label_2" destination="Sdp-yn-4zJ" id="GCh-OH-NlZ"/>
                 <outlet property="lableCenterY" destination="cbt-AQ-ose" id="FM0-4b-jBS"/>
+                <outlet property="titleLabel" destination="RAm-ci-nK9" id="NQN-gs-rST"/>
             </connections>
             <point key="canvasLocation" x="263" y="312"/>
         </tableViewCell>

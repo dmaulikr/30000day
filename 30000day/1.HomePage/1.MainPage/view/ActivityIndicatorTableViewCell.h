@@ -23,4 +23,6 @@ typedef NS_ENUM(NSInteger,ShowLabelType) {
 
 @property (nonatomic,assign) ShowLabelType type;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

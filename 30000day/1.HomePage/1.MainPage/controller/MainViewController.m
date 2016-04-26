@@ -98,7 +98,9 @@
     
     //获取用户的天龄
     [self getUserLifeList];
-
+    
+    //获取用户击败的用户
+    [self GetDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
 }
 
 //登录获取个人信息
@@ -311,6 +313,17 @@
     }];
 }
 
+//根据用户id去获取打败的数据
+- (void)GetDefeatDataWithUserId:(NSNumber *)userId {
+    
+    [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
+        
+        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"当前您已经击败%.1f%%用户",[dataString floatValue] * 100];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 #pragma ---
 #pragma mark --- UITableViewDataSource / UITableViewDelegate

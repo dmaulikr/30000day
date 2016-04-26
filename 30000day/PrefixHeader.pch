@@ -211,6 +211,8 @@
 
 #define  UPLOAD_IMAGES                @"/stapi/upload/uploadImages"             //上传图片
 
+#define  GET_DEFEAT_DATA              @"/stapi/life/getDefeatData"              //获取击败人数接口
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"
