@@ -42,6 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.insertImageButton.layer.masksToBounds = YES;
+    self.insertImageButton.layer.borderWidth = 1.0;
+    self.insertImageButton.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
+    self.insertImageButton.layer.cornerRadius = 10.0;
+    
     self.rateView.editable = YES;
     [self.rateView setDelegate:self];
     

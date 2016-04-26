@@ -153,22 +153,22 @@
     
     if (informationCommentModel.commentPhotos != nil && ![informationCommentModel.commentPhotos isEqualToString:@""]) {
         
-        NSArray *photoUrl = [informationCommentModel.commentPhotos componentsSeparatedByString:@";"];
+        NSString *str = [informationCommentModel.commentPhotos stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSArray *photoUrl = [str componentsSeparatedByString:@";"];
         
         for (int i = 0; i < photoUrl.count; i++) {
-            
-            NSString *str = [photoUrl[i] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            
+
             if (i == 0) {
-                [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:str]];
+                [self.commentContentImageViewOne sd_setImageWithURL:[NSURL URLWithString:photoUrl[i]]];
             }
             
             if (i == 1) {
-                [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:str]];
+                [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:photoUrl[i]]];
             }
             
             if (i == 2) {
-                [self.commentContentImageViewTwo sd_setImageWithURL:[NSURL URLWithString:str]];
+                [self.commentContentImageViewThree sd_setImageWithURL:[NSURL URLWithString:photoUrl[i]]];
             }
             
         }
