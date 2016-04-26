@@ -195,7 +195,7 @@
         _choosePictureView.imageArray = _imageArray;
         
         _choosePictureView.width =  61 * _imageArray.count + 10;
-    
+        
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -427,6 +427,15 @@
         } completion:^(BOOL finished) {
             
             [self.view bringSubviewToFront:_inputBackgroundView];
+            
+            if (_choosePictureView.isHidden) {//如果_choosePicture隐藏的
+                
+                [self.view sendSubviewToBack:_choosePictureView];
+                
+            } else {//如果_choosePicture显示的
+                
+                [self.view bringSubviewToFront:_choosePictureView];
+            }
         }];
     }
 }
