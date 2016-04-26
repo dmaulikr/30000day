@@ -23,8 +23,6 @@
 
 @property (nonatomic,strong) NSMutableArray *willRemoveArray;
 
-@property (nonatomic,assign) BOOL save;
-
 @property (nonatomic,strong) NSMutableArray *photos;
 
 @property (nonatomic,assign) NSInteger commentType;
@@ -197,7 +195,6 @@
         
         shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
         
-        
     }
     
     [shopDetailCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
@@ -368,6 +365,8 @@
                 zanButton.selected = NO;
                 
             }
+            
+            [self searchCommentsWithPid:-1];
             
         }
         

@@ -137,11 +137,6 @@
         
     }
     
-//    if (self.save) {
-//        
-//        [informationCommentTableViewCell.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
-//    }
-    
     [informationCommentTableViewCell setCommentBlock:^(UIButton *commentButton) {
         
         [self commentWithIndexPathRow:indexPath];
