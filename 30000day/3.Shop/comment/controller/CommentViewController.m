@@ -392,9 +392,17 @@
             [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:imageArray success:^(NSString *success) {
                 
-                NSString *imgStr = [success substringToIndex:([success length]-1)];
+                NSString *encodingString;
+                if (imageArray.count > 0) {
+                    
+                    NSString *imgStr = [success substringToIndex:([success length]-1)];
+                    encodingString = [imgStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
+                    
+                } else {
                 
-                NSString *encodingString = [imgStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
+                    encodingString = nil;
+                
+                }
                 
                 InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
                 
