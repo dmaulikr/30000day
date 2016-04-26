@@ -4936,7 +4936,11 @@
     
     [params setObject:@(userId) forKey:@"userId"];
     
-    [params setObject:remark forKey:@"remark"];
+    if (![Common isObjectNull:remark]) {
+        
+        [params setObject:remark forKey:@"remark"];
+        
+    }
     
     [params setObject:@(pid) forKey:@"pid"];
     

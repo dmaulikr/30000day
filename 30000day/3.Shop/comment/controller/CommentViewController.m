@@ -214,6 +214,12 @@
         
     }];
     
+    [shopDetailCommentTableViewCell setLookPhoto:^(UIImageView *imageView) {
+        
+        [self browserImage:indexPath atIndex:imageView.tag];
+        
+    }];
+    
     shopDetailCommentTableViewCell.informationCommentModel = commentModel;
     
     return shopDetailCommentTableViewCell;
@@ -378,29 +384,42 @@
     
     [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
         
-        if (message != nil) {
-            
-            InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
-            
-            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+        if (message != nil || imageArray != nil) {
+        
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+            [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:imageArray success:^(NSString *success) {
                 
-                if (success) {
+                NSString *imgStr = [success substringToIndex:([success length]-1)];
+                
+                NSString *encodingString = [imgStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
+                
+                InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
+                
+                [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:encodingString success:^(BOOL success) {
                     
-                    [self showToast:@"回复成功"];
+                    if (success) {
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        [self showToast:@"评论成功"];
+                        
+                    }
                     
-                    [self searchCommentsWithPid:-1];
+                } failure:^(NSError *error) {
                     
-                }
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [self showToast:@"评论失败"];
+                    
+                }];
+                
                 
             } failure:^(NSError *error) {
                 
-                [self showToast:@"回复失败"];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
                 
             }];
             
-            
         } else {
-            
             
             [self refreshControllerInputViewHide];
             
@@ -423,7 +442,13 @@
     
     self.photos = [NSMutableArray array];
     
-    NSArray *photoUrl = [commentModel.commentPhotos componentsSeparatedByString:@","];
+    NSMutableArray *photoUrl = [NSMutableArray arrayWithArray:[commentModel.commentPhotos componentsSeparatedByString:@";"]];
+    
+//    if (photoUrl.count >= 2) {
+//        
+//        [photoUrl removeLastObject];
+//        
+//    }
 
     for (int i = 0; i < photoUrl.count; i++) {
         
