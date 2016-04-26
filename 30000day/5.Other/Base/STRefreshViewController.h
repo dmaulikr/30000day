@@ -44,6 +44,8 @@ typedef enum {
 
 @property (nonatomic,copy)   NSString *placeholder;//如果显示了键盘可以，自定义键盘的placeholder
 
+@property (nonatomic,assign) NSUInteger maxPhoto;//最大所允许的选择的图片，默认无限制
+
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 

@@ -64,17 +64,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
-    
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
-    
-    [self.view addSubview:self.tableView];
+    if (!self.tableView) {
+        
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
+        
+        [self.tableView setTableFooterView:[[UIView alloc] init]];
+        
+        [self.view addSubview:self.tableView];
+    }
     
     [self setupRefreshIsShowHeadRefresh:YES isShowFootRefresh:YES];
     
     self.isShowBackItem = NO;
     
     _imageArray = [[NSMutableArray alloc] init];
+    
+    self.maxPhoto = NSUIntegerMax;//默认是最大
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -177,17 +182,24 @@
     
     UIImage *image = info[UIImagePickerControllerEditedImage];
     
-    [_imageArray addObject:image];
-    
-    _choosePictureView.hidden = NO;
-    
-    _choosePictureView.imageArray = _imageArray;
-    
-    _choosePictureView.width =  61 * _imageArray.count + 10;
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [self inputViewMakeVisible];//让键盘弹出来
+    if (_imageArray.count  >= self.maxPhoto) {
+        
+        
+        
+    } else {
+        
+        [_imageArray addObject:image];
+        
+        _choosePictureView.hidden = NO;
+        
+        _choosePictureView.imageArray = _imageArray;
+        
+        _choosePictureView.width =  61 * _imageArray.count + 10;
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        [self inputViewMakeVisible];//让键盘弹出来
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
