@@ -44,8 +44,11 @@
     
     self.rateView.editable = YES;
     [self.rateView setDelegate:self];
+    
     self.textView.placeholder = @"合作很愉快，期待下次继续合作";
     [self.textView setBackgroundColor:[UIColor whiteColor]];
+    [self.textView setDelegate:self];
+    
     self.submit.layer.cornerRadius = 6;
     self.submit.layer.masksToBounds = YES;
     [self.submit addTarget:self action:@selector(subMitClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -66,7 +69,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if ([text isEqualToString:@"\n"]) {
-        
+        [textView resignFirstResponder];
         return NO;
     }
     return YES;
