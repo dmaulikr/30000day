@@ -52,6 +52,8 @@
     self.isShowInputView = YES;
     
     self.isShowMedio = NO;
+    
+    self.placeholder = @"输入回复";
 }
 
 - (void)searchCommentsWithPid:(NSInteger)pid {
@@ -70,8 +72,6 @@
         [self showToast:@"数据加载失败"];
         
     }];
-
-
 }
 
 

@@ -11,6 +11,35 @@
 #import "STAvatarBrowser.h"
 #import "JZNavigationExtension.h"
 
+/**
+ *
+ * 键盘上面的模态背景视图
+ */
+@interface STView : UIView
+
+@property (nonatomic,copy) void (^touchBlock)();
+
+@end
+
+@implementation STView
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    if (self.touchBlock) {
+        
+        self.touchBlock();
+    }
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.touchBlock) {
+        
+        self.touchBlock();
+    }
+}
+
+@end
+
 @interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
@@ -28,6 +57,8 @@
     float _keyBoardHeight;
     
     NSNumber *_flag;
+    
+    STView *_inputBackgroundView;//输入键盘的背景视图
 }
 
 - (void)viewDidLoad {
@@ -53,8 +84,27 @@
     //开启ios右滑返回
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+        self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     }
+    //这地方必须加上，否则会出现bug
+    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
+    
+    [self inputViewHide];
+}
+
+//监听屏幕的滑动事件
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    
+    [self inputViewHide];
+    
+    return YES;
 }
 
 - (void)setTableViewStyle:(STRefreshTableViewStyle)tableViewStyle {
@@ -91,8 +141,14 @@
     
     if (_isShowHeadRefresh) {
         
+        if (!self.tableView.mj_header) {
+            
             self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+        }
+    
     } else {
+        
+        self.tableView.mj_header = nil;
         
         [self.tableView.mj_header removeFromSuperview];
         
@@ -100,12 +156,16 @@
     
     if (_isShowFootRefresh) {
         
-        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-
-        
-        [self.tableView.mj_footer setAutomaticallyHidden:YES];
+        if (!self.tableView.mj_footer) {
+            
+            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+            
+            [self.tableView.mj_footer setAutomaticallyHidden:YES];
+        }
         
     } else {
+        
+         self.tableView.mj_footer = nil;
         
         [self.tableView.mj_footer removeFromSuperview];
     }
@@ -152,6 +212,8 @@
             
             _inputView.isShowMedia = YES;//默认是YES
             
+            _inputView.textView.placeholder = _placeholder;//显示placeholder
+            
             __weak typeof(self) weakSelf = self;
             
             __weak typeof(_inputView) weakInputView = _inputView;
@@ -194,13 +256,33 @@
                 }
             }];
             
-            [self.view addSubview:_inputView];
+            [[UIApplication sharedApplication].keyWindow addSubview:_inputView];
             
             [STNotificationCenter addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
             
             [STNotificationCenter addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
             
             [STNotificationCenter addObserver:self selector:@selector(keyBoardShouldShow) name:STAvatarBrowserDidHideAvatarImage object:nil];
+            
+            [STNotificationCenter addObserver:self selector:@selector(inputViewHide) name:STWillPopViewControllerSendNotification object:nil];
+            
+            //输入键盘的背景视图
+            if (!_inputBackgroundView) {
+                
+                _inputBackgroundView = [[STView alloc] initWithFrame:CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - _keyBoardHeight - _inputView.height - 64)];
+                
+                __weak typeof(self) weakSelf = self;
+                
+                [_inputBackgroundView setTouchBlock:^{//设置点击回调
+                    
+                    [weakSelf inputViewHide];
+                    
+                }];
+                
+                [self.view addSubview:_inputBackgroundView];
+                
+                [self.view sendSubviewToBack:_inputBackgroundView];
+            }
         }
     
         if (!_choosePictureView) {
@@ -217,6 +299,17 @@
             
             [self.view addSubview:_choosePictureView];
         }
+    }
+}
+
+//显示占位符
+- (void)setPlaceholder:(NSString *)placeholder {
+    
+    _placeholder = placeholder;
+    
+    if (_inputView) {
+        
+        _inputView.textView.placeholder = _placeholder;
     }
 }
 
@@ -280,6 +373,8 @@
     [_inputView.textView resignFirstResponder];
     
     _inputView.textView.text = nil;
+    
+    _inputView.height = 47;
 }
 
 //键盘显示
@@ -296,40 +391,56 @@
 //键盘出现发出的通知
 - (void)keyboardShow:(NSNotification *)notification {
         
-        CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-        
-        if (animateDuration <= 0.25) {//这是防止相应莫名的发出的通知
-            
-            CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-            
-            _keyBoardHeight = keyboardFrame.size.height;
-            
-            [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-                
-                _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - _inputView.height;
-                
-                _choosePictureView.y = _inputView.y - 10 - 60;
-                
-            } completion:nil];
-        }
-}
+    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
 
-- (void)keyboardHide:(NSNotification *)notification {
-    
-        CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (animateDuration <= 0.25) {//这是防止相应莫名的发出的通知
         
-        if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
+        CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        
+        _keyBoardHeight = keyboardFrame.size.height;
+        
+        if ((_inputView.y == SCREEN_HEIGHT - _keyBoardHeight - _inputView.height) && _choosePictureView.y == _inputView.y - 10 - 60) {
             
             return;
         }
         
         [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-            
-            _inputView.y = SCREEN_HEIGHT;
+           
+            _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - _inputView.height;
             
             _choosePictureView.y = _inputView.y - 10 - 60;
             
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            
+            [self.view bringSubviewToFront:_inputBackgroundView];
+        }];
+    }
+}
+
+- (void)keyboardHide:(NSNotification *)notification {
+
+    CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
+        
+        return;
+    }
+    
+    if ((_choosePictureView.y == _inputView.y - 10 - 60) && (_inputView.y == SCREEN_HEIGHT)) {
+        
+        return;
+    }
+    
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        _inputView.y = SCREEN_HEIGHT;
+        
+        _choosePictureView.y = _inputView.y - 10 - 60;
+        
+    } completion:^(BOOL finished) {
+        
+        [self.view sendSubviewToBack:_inputBackgroundView];
+    }];
 }
 
 //隐藏avatarImage发出的通知
@@ -382,14 +493,6 @@
 }
 
 - (void)backClick {
-    
-    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.inputView.y = SCREEN_HEIGHT;
-        
-        _choosePictureView.y = self.inputView.y - 10 - 60;
-        
-    } completion:nil];
 
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -401,7 +504,12 @@
     
     if ([text isEqualToString:@"\n"]) {
         
-        [textView resignFirstResponder];
+        if (self.inputViewBlock) {
+            
+            self.inputViewBlock(textView.text,_imageArray,_flag);
+        }
+        
+        [self refreshControllerInputViewHide];
         
         return NO;
     }
@@ -517,6 +625,8 @@
     
     [STNotificationCenter removeObserver:self name:STAvatarBrowserDidHideAvatarImage object:nil];
     
+    [STNotificationCenter removeObserver:self name:STWillPopViewControllerSendNotification object:nil];
+    
     _inputView = nil;
     
     _imageArray = nil;
@@ -524,6 +634,8 @@
     _choosePictureView = nil;
     
     _tableView = nil;
+    
+    _inputBackgroundView = nil;
 }
 
 /*
@@ -537,3 +649,6 @@
 */
 
 @end
+
+
+

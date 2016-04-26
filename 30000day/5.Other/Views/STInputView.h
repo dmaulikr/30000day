@@ -7,6 +7,7 @@
 //  封装的自定义键盘
 
 #import <UIKit/UIKit.h>
+#import "GJTextView.h"
 
 typedef enum {
     
@@ -18,7 +19,7 @@ typedef enum {
 
 @interface STInputView : UIView
 
-@property (nonatomic,strong) UITextView *textView;
+@property (nonatomic,strong) GJTextView *textView;
 
 @property (nonatomic,copy) void (^buttonClickBlock)(STInputViewButtonClickType type);
 

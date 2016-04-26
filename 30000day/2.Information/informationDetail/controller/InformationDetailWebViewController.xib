@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouL-es-Bz0">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="CVr-9t-iVi"/>
@@ -76,7 +76,7 @@
                 <constraint firstItem="NWh-XE-9YT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XJh-cB-6UA"/>
                 <constraint firstAttribute="trailing" secondItem="NWh-XE-9YT" secondAttribute="trailing" id="d9E-Hn-jNE"/>
                 <constraint firstAttribute="trailing" secondItem="ouL-es-Bz0" secondAttribute="trailing" id="ekT-l6-qbx"/>
-                <constraint firstItem="ouL-es-Bz0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hgv-lH-i8t"/>
+                <constraint firstItem="ouL-es-Bz0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="hgv-lH-i8t"/>
                 <constraint firstItem="ouL-es-Bz0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rQe-sR-84f"/>
                 <constraint firstItem="NWh-XE-9YT" firstAttribute="top" secondItem="ouL-es-Bz0" secondAttribute="bottom" id="yKa-Hy-PTB"/>
             </constraints>
