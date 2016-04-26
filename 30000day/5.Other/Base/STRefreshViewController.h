@@ -50,7 +50,7 @@ typedef enum {
 //显示键盘
 - (void)refreshControllerInputViewShowWithFlag:(NSNumber *)flag sendButtonDidClick:(void (^)(NSString *message,NSMutableArray *imageArray,NSNumber *flag))block;
 
-//刷新，会清除输入的文本、已经textView的高度、flag等等。
+//刷新，会清除输入的文本、已经textView的高度、flag、图片等等。
 - (void)refreshControllerInputViewHide;
 
 @end

@@ -358,9 +358,9 @@
 }
 
 /**
- *  防止用户疯狂点击录音按钮。
+ *  防止用户疯狂点击弹出键盘按钮。
  */
-- (BOOL)audioRecordingShouldBegin {
+- (BOOL)keyboardButtonShouldBegin {
     BOOL result = YES;
     
     CFTimeInterval now = CACurrentMediaTime();
@@ -400,6 +400,16 @@
     _inputView.textView.text = nil;
     
     _inputView.height = 47;
+    
+    _imageArray = [[NSMutableArray alloc] init];
+    
+    _choosePictureView.imageArray = _imageArray;
+    
+    _choosePictureView.width = 10;
+    
+    _choosePictureView.imageArray = _imageArray;
+    
+     _choosePictureView.hidden = YES;
 }
 
 //键盘显示
@@ -441,12 +451,12 @@
         } completion:^(BOOL finished) {
             
             if (_choosePictureView.isHidden) {//如果之前是_choosePicture隐藏状态，那么让_choosePictureView去后面
-                
-                [self.view sendSubviewToBack:_choosePictureView];
+
+                [self.view insertSubview:_choosePictureView belowSubview:_inputBackgroundView];
                 
             } else {//如果_choosePicture显示状态，那么让_choosePictureView去前面，响应点击事件，增加体验
                 
-                [self.view bringSubviewToFront:_choosePictureView];
+                [self.view insertSubview:_choosePictureView aboveSubview:_inputBackgroundView];
             }
         }];
     }

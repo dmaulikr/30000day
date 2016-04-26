@@ -91,7 +91,15 @@
         [self addSubview:collectionView];
         
         self.collectionView = collectionView;
+        
+        self.imageArray = [[NSMutableArray alloc] init];
     }
+    
+    if (!self.imageArray) {
+        
+        self.imageArray = [[NSMutableArray alloc] init];
+    }
+    
 }
 
 #pragma ---
