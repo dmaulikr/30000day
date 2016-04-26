@@ -440,4 +440,10 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
                         imageArray:(NSArray *)imageArray
                            success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure;
+
+//*****************************************获取击败人数数据*********************/
+- (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
+                           success:(void (^)(NSString *dataString))success
+                           failure:(void (^)(NSError *error))failure;
+
 @end

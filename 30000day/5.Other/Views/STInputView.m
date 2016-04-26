@@ -18,6 +18,10 @@
 
 @property (nonatomic,strong) UIButton *sendButton;
 
+@property (nonatomic,strong) UIView *line_view_first;
+
+@property (nonatomic,strong) UIView *line_view_second;
+
 @end
 
 @implementation STInputView
@@ -78,6 +82,28 @@
 - (void)configUI {
     
     self.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+    
+    if (!self.line_view_first) {
+        
+        UIView *line_view_first = [[UIView alloc] init];
+        
+        line_view_first.backgroundColor = RGBACOLOR(180, 180, 180, 1);
+        
+        [self addSubview:line_view_first];
+        
+        self.line_view_first = line_view_first;
+    }
+    
+    if (!self.line_view_second) {
+        
+        UIView *line_view_second = [[UIView alloc] init];
+        
+        line_view_second.backgroundColor = RGBACOLOR(180, 180, 180, 1);
+        
+        [self addSubview:line_view_second];
+        
+        self.line_view_second = line_view_second;
+    }
     
     if (!self.textView) {
         
@@ -231,6 +257,10 @@
     self.textView.layer.masksToBounds = YES;
     
     self.textView.enablesReturnKeyAutomatically = NO;
+    
+    self.line_view_first.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0.5f);
+    
+    self.line_view_second.frame = CGRectMake(0, self.height - 0.5f, SCREEN_WIDTH, 0.5f);
 }
 
 - (void)dealloc {
