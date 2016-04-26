@@ -15,6 +15,7 @@
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
 #import "MTProgressHUD.h"
+#import "CXPhotoBrowser.h"
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
@@ -195,6 +196,7 @@
     if (shopDetailCommentTableViewCell == nil) {
         
         shopDetailCommentTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailCommentTableViewCell" owner:nil options:nil] lastObject];
+        
         
     }
     
@@ -448,18 +450,20 @@
 
 
 - (void)browserImage:(NSIndexPath *)indexPath atIndex:(NSInteger)index{
-
+    
     CommentModel *commentModel = self.commentModelArray[indexPath.row];
     
     self.photos = [NSMutableArray array];
     
-    NSMutableArray *photoUrl = [NSMutableArray arrayWithArray:[commentModel.commentPhotos componentsSeparatedByString:@";"]];
+    NSString *str = [commentModel.commentPhotos stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-//    if (photoUrl.count >= 2) {
-//        
-//        [photoUrl removeLastObject];
-//        
-//    }
+    if ([[str substringFromIndex:str.length - 1 ] isEqualToString:@";"]) {
+        
+        str = [str substringToIndex:([commentModel.commentPhotos length] - 1)];
+        
+    }
+    
+    NSMutableArray *photoUrl = [NSMutableArray arrayWithArray:[str componentsSeparatedByString:@";"]];
 
     for (int i = 0; i < photoUrl.count; i++) {
         
