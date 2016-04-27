@@ -10,12 +10,20 @@
 
 @implementation ShopModel
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
++ (NSDictionary *)modelContainerPropertyGenericClass {
     
-    if ([key isEqualToString:@"id"]) {
-        
-        self.productId = value;
-    }
+    return @{ @"activityList" : [ActivityModel class]};
 }
+
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
+    
+    return @{@"productId":@"id"};
+}
+
+@end
+
+
+@implementation ActivityModel
+
 
 @end

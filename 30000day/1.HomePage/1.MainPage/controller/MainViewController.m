@@ -318,7 +318,7 @@
     
     [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"当前您已经击败%.1f%%用户",[dataString floatValue] * 100];
+        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的总天龄已经击败%.1f%%用户",[dataString floatValue] * 100];
         
     } failure:^(NSError *error) {
         

@@ -2770,9 +2770,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    ShopModel *model = [[ShopModel alloc] init];
-                                                                    
-                                                                    [model setValuesForKeysWithDictionary:dictionary];
+                                                                    ShopModel *model = [ShopModel yy_modelWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:model];
                                                                     
@@ -3336,9 +3334,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
-
-                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];
                                                                     
@@ -3423,9 +3419,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
-                                                                    
-                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];
                                                                     
@@ -3585,9 +3579,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    ShopModel *commentModel = [[ShopModel alloc] init];
-                                                                    
-                                                                    [commentModel setValuesForKeysWithDictionary:dictionary];
+                                                                    ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
                                                                     
                                                                     [dataArray addObject:commentModel];
                                                                     
