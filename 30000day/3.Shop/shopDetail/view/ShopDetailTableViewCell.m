@@ -25,7 +25,9 @@
     _shopDetailModel = shopDetailModel;
 
     self.storeLable.text = shopDetailModel.productName;
+    
     self.positionLable.text = shopDetailModel.productKeyword;
+    
     self.businessHoursLable.text = shopDetailModel.businessTime;
 }
 
@@ -47,7 +49,7 @@
         
         self.label_third.text = activityModel.activityDesc;
         
-         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 }
 

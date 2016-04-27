@@ -31,7 +31,7 @@
     
     self.dataHandler.delegate = self;
     
-    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;
+//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;//开启这个会和百度地图造成冲突
     
 //    //IOS8吧导航栏设置透明的话会有一条黑线，，这个方法就是隐藏的
 //    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];

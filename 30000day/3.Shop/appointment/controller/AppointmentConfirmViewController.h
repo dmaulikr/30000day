@@ -16,6 +16,6 @@
 
 @property (nonatomic,strong) NSNumber *productId;//商品id
 
-@property (nonatomic,copy) NSString *productName;//订单编号
+@property (nonatomic,copy) NSString *productName;//商品的名字
 
 @end

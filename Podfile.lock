@@ -25,7 +25,6 @@ PODS:
     - AVOSCloud
   - AVOSCloudIM (3.2.6):
     - AVOSCloud
-  - BaiduMapKit (2.10.2)
   - DACircularProgress (2.3.1)
   - FMDB (2.6):
     - FMDB/standard (= 2.6)
@@ -53,7 +52,6 @@ DEPENDENCIES:
   - AVOSCloud
   - AVOSCloudCrashReporting
   - AVOSCloudIM
-  - BaiduMapKit
   - FMDB
   - FSCalendar
   - iRate (= 1.11.4)
@@ -73,7 +71,6 @@ SPEC CHECKSUMS:
   AVOSCloud: 08ba88573fca8559dfc658942b391c4568fabfc0
   AVOSCloudCrashReporting: e5adfdfbfe683cb9097daa1723732b269e8b8d08
   AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
-  BaiduMapKit: b1706a062597c70ec62a0cca93212cba1d3017e1
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   FSCalendar: 18117308f5876a8f6f0fe572085d543580c2c5e5

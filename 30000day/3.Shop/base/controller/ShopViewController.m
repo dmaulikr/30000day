@@ -23,6 +23,7 @@
 #import "MTProgressHUD.h"
 #import "MapShowTitleAnnotationView.h"
 #import "ShopAnnotation.h"
+#import "JZNavigationExtension.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 
@@ -89,21 +90,25 @@
     [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [_mapView viewWillAppear];
-    
-    _mapView.delegate = self; //不用时，置nil
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [_mapView viewWillDisappear];
-    
-    _mapView.delegate = nil; //不用时，置nil
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    
+//    [_mapView viewWillAppear];
+//    
+//    _mapView.delegate = self; //不用时，置nil
+//    
+//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;//开启这个会和百度地图造成冲突
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    
+//    [_mapView viewWillDisappear];
+//    
+//    _mapView.delegate = nil; //不用时，置nil
+//    
+//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = NO;//开启这个会和百度地图造成冲突
+//}
 
 - (void)configUI {
     
@@ -144,11 +149,11 @@
     
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(31.19,121.70)];
     
-    _mapView.showsUserLocation = NO;
-    
-    _mapView.zoomLevel = 15;//地图等级
+    _mapView.showsUserLocation = YES;
     
     _mapView.delegate = self;
+    
+    _mapView.zoomLevel = 15;//地图等级
     
     _mapView.hidden = YES;
     
@@ -917,10 +922,9 @@
 
 - (void)dealloc {
     
-    if (_mapView) {
-        
-        _mapView = nil;
-    }
+    _mapView = nil;
+    
+    _mapView.delegate = self; //不用时，置nil
     
     self.searchBar = nil;
     

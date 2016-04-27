@@ -6,7 +6,6 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 
 @interface MapShowTitleAnnotationView : BMKAnnotationView
