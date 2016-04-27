@@ -3162,13 +3162,7 @@
                                                                     
                                                                     NSDictionary *dictionary = array[i];
                                                                     
-                                                                    CommentModel *commentModel = [[CommentModel alloc] init];
-                                                                    
-                                                                    if ([dictionary[@"pId"] integerValue]== 0) {
-                                                                        
-                                                                        commentModel.level = 1;
-                                                                        
-                                                                    }
+                                                                    InformationCommentModel *commentModel = [[InformationCommentModel alloc] init];
                                                                     
                                                                     [commentModel setValuesForKeysWithDictionary:dictionary];
                                                                     

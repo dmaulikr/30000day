@@ -73,6 +73,16 @@
     
     _informationCommentModel = informationCommentModel;
     
+    if (informationCommentModel.commentPid.integerValue == informationCommentModel.pId.integerValue) {
+        
+        [self setBackgroundColor:VIEWBORDERLINECOLOR];
+        
+    } else {
+    
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+    
+    
     if (self.isHideBelowView) {
         
         self.checkReply.hidden = YES;
@@ -87,7 +97,7 @@
             
             self.replyLable.hidden = NO;
             self.replyNameLable.hidden = NO;
-            self.replyNameLable.text = informationCommentModel.parentUserName;
+            self.replyNameLable.text = informationCommentModel.parentNickName;
             
         } else {
             

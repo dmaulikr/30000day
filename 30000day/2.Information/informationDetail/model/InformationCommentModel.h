@@ -26,9 +26,11 @@
 @property (nonatomic,copy) NSString *userId;
 @property (nonatomic,copy) NSString *userName;
 @property (nonatomic,copy) NSString *parentUserName;
+@property (nonatomic,copy) NSString *parentNickName;
 @property (nonatomic,copy) NSString *commentPhotos;
 @property (nonatomic,copy) NSString *nickName;
 @property (nonatomic,assign) NSInteger clickLikeCount;
+@property (nonatomic,copy) NSString *commentPid;
 @property (nonatomic,assign) BOOL selected;//是否被选中的
 
 @end

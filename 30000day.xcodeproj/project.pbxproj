@@ -88,6 +88,7 @@
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
 		B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */; };
 		B6C73B1A1C9000D20041ED65 /* AccountNumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */; };
+		B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */; };
 		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
 		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
 		B6D59D541C8EAAAC0082BCAC /* JinSuoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D521C8EAAAC0082BCAC /* JinSuoDetailsViewController.m */; };
@@ -742,6 +743,8 @@
 		B6C73B161C9000D20041ED65 /* AccountNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNumberTableViewCell.h; sourceTree = "<group>"; };
 		B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNumberTableViewCell.m; sourceTree = "<group>"; };
 		B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountNumberTableViewCell.xib; sourceTree = "<group>"; };
+		B6D50A571CD070DF00CAD470 /* CommentOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOptionsView.h; sourceTree = "<group>"; };
+		B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOptionsView.m; sourceTree = "<group>"; };
 		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
 		B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionMethodViewController.m; sourceTree = "<group>"; };
 		B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionMethodViewController.xib; sourceTree = "<group>"; };
@@ -1793,6 +1796,8 @@
 				B6114CA81CA27FE60088EED2 /* CommentDetailsLastTableViewCell.h */,
 				B6114CA91CA27FE60088EED2 /* CommentDetailsLastTableViewCell.m */,
 				B6114CAA1CA27FE60088EED2 /* CommentDetailsLastTableViewCell.xib */,
+				B6D50A571CD070DF00CAD470 /* CommentOptionsView.h */,
+				B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4726,6 +4731,7 @@
 				B665F8D31CC4BF5200070458 /* ZLBigImageCell.m in Sources */,
 				B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */,
 				B6114CA61CA2785E0088EED2 /* ShopDetailCommentTableViewCell.m in Sources */,
+				B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */,
 				B665F8DA1CC4BF5200070458 /* ZLProgressHUD.m in Sources */,
 				B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */,
 				B8FD3E041C8A7903007BCA6B /* SEConstants.m in Sources */,

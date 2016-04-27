@@ -15,7 +15,10 @@
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
 #import "MTProgressHUD.h"
-//#import "CXPhotoBrowser.h"
+#import "CommentOptionsView.h"
+
+#define SELECTEDBTNCOLOR [UIColor colorWithRed:244.0/255.0 green:185.0/255.0 blue:121.0/255.0 alpha:1.0]
+#define BTNCOLOR [UIColor colorWithRed:252.0/255.0 green:232.0/255.0 blue:209.0/255.0 alpha:1.0]
 
 @interface CommentViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MWPhotoBrowserDelegate>
 
@@ -26,6 +29,11 @@
 @property (nonatomic,strong) NSMutableArray *photos;
 
 @property (nonatomic,assign) NSInteger commentType;
+
+@property (nonatomic,strong) UIButton *buttonAll;
+@property (nonatomic,strong) UIButton *buttonPraise;
+@property (nonatomic,strong) UIButton *buttonCommonly;
+@property (nonatomic,strong) UIButton *buttonBad;
 
 @end
 
@@ -38,9 +46,21 @@
     
     self.commentType = 0;
     
-    [self searchCommentsWithPid:-1];
+    CommentOptionsView *view = [[CommentOptionsView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)];
     
-    [self loadOptionsView];
+    [view setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:view];
+    
+    [view setChangeStateBlock:^(UIButton *button) {
+        
+        self.commentType = button.tag;
+        
+        [self searchCommentsWithPid:-1];
+        
+    }];
+    
+    [self searchCommentsWithPid:-1];
    
     self.tableViewStyle = STRefreshTableViewGroup;
     
@@ -57,70 +77,6 @@
     self.maxPhoto = 3;//最大显示图片的个数
     
     self.placeholder = @"输入回复";
-    
-}
-
-- (void)loadOptionsView {
-
-    UIView *optionsView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)];
-    //optionsView.layer.borderWidth = 0.1;
-    //optionsView.layer.borderColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0].CGColor;
-    [optionsView setBackgroundColor:[UIColor whiteColor]];
-    
-    UIButton *allButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIButton *praiseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIButton *commonlyBtton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIButton *badButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    CGFloat with = (SCREEN_WIDTH - 65 * 4 - 30) / 3;
-    
-    [allButton setFrame:CGRectMake(15, 10, 65, 24)];
-    [praiseButton setFrame:CGRectMake(15 + 65 + with, 10, 65, 24)];
-    [commonlyBtton setFrame:CGRectMake(15 + 65 * 2 + with * 2, 10, 65, 24)];
-    [badButton setFrame:CGRectMake(15 + 65 * 3 + with * 3, 10, 65, 24)];
-    
-    [allButton setTitle:@"全部" forState:UIControlStateNormal];
-    [praiseButton setTitle:@"好评" forState:UIControlStateNormal];
-    [commonlyBtton setTitle:@"中评" forState:UIControlStateNormal];
-    [badButton setTitle:@"差评" forState:UIControlStateNormal];
-    
-    [allButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    [praiseButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    [commonlyBtton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    [badButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    
-    [allButton setTag:0];
-    [allButton setBackgroundImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
-    [allButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [praiseButton setTag:1];
-    [praiseButton setBackgroundImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
-    [praiseButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [commonlyBtton setTag:2];
-    [commonlyBtton setBackgroundImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
-    [commonlyBtton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [badButton setTag:3];
-    [badButton setBackgroundImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
-    [badButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [self.view addSubview:optionsView];
-    
-    [optionsView addSubview:allButton];
-    [optionsView addSubview:praiseButton];
-    [optionsView addSubview:commonlyBtton];
-    [optionsView addSubview:badButton];
-
-}
-
-
-- (void)buttonClick:(UIButton *)sender {
-    
-    self.commentType = sender.tag;
-    
-    [self searchCommentsWithPid:-1];
     
 }
 
@@ -286,6 +242,7 @@
                 for (int i = 0; i < success.count; i++) {
                     
                     InformationCommentModel *comment = success[i];
+                    comment.commentPid = model.commentId;
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     
                 }
@@ -348,7 +305,7 @@
         
     }
     
-    [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:0 success:^(BOOL success) {
+    [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:2 success:^(BOOL success) {
         
         if (success) {
             
