@@ -97,7 +97,7 @@
             
             self.replyLable.hidden = NO;
             self.replyNameLable.hidden = NO;
-            self.replyNameLable.text = informationCommentModel.parentUserName;
+            self.replyNameLable.text = informationCommentModel.parentNickName;
             
         } else {
             
