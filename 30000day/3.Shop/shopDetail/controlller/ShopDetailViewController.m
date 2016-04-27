@@ -315,7 +315,7 @@
     
     if (indexPath.section == 0) {
         
-        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_first"];
         
         if (cell == nil) {
             
@@ -332,7 +332,7 @@
     
     } else if (indexPath.section == 1) {
         
-        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_second"];
         
         if (cell == nil) {
             
@@ -359,7 +359,7 @@
         
     } else if (indexPath.section == 2){
         
-        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_third"];
         
         if (cell == nil) {
             
