@@ -13,6 +13,8 @@
 #import "ChooseVerifyWayViewController.h"
 #import "UserProfile.h"
 #import "AppDelegate.h"
+#import <UMSocialSnsPlatformManager.h>
+#import <UMSocialAccountManager.h>
 
 @interface SignInViewController () {
     
@@ -77,9 +79,18 @@
     
     [self.lockPassWord addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.sina addTarget:self action:@selector(thirdPartyLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.qq addTarget:self action:@selector(thirdPartyLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.water addTarget:self action:@selector(thirdPartyLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     _userNameTF.tag = 1;
     
     _userPwdTF.tag = 2;
+    
+    
     
     [self textFielddidload];
 }
@@ -149,6 +160,62 @@
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
     [self beginSignIn];
+}
+
+- (void)thirdPartyLogin:(UIButton *)button {
+
+    if (button.tag == 0) {
+        
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+        
+        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                
+                NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
+                
+            }
+            
+        });
+
+    
+    } else if (button.tag == 1) {
+        
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
+        
+        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            //          获取微博用户名、uid、token等
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
+                //qq昵称，uid，令牌，头像图片URL
+                NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
+                
+            }});
+        
+        
+    } else if (button.tag == 2) {
+        
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+        
+        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                
+                NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
+                
+            }
+            
+        });
+    
+    }
+
 }
 
 //开始登录
