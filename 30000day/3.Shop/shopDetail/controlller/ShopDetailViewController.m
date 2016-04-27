@@ -7,11 +7,9 @@
 //
 
 #import "ShopDetailViewController.h"
-#import "ShopDetailHeadTableViewCell.h"
-#import "ShopDetailOneLineDataTableViewCell.h"
+#import "ShopDetailTableViewCell.h"
 #import "ShopListTableViewCell.h"
 #import "ShopDetailCommentTableViewCell.h"
-#import "ShopDetailOneLineDataNoImageViewTableViewCell.h"
 #import "CommentViewController.h"
 #import "AppointmentViewController.h"
 #import "ShopDetailModel.h"
@@ -27,8 +25,9 @@
 #import "MTProgressHUD.h"
 #import "InformationCommentModel.h"
 #import "CommentModel.h"
+#import "DiscountCouponViewController.h"
 
-#define SECTIONSCOUNT 5
+#define SECTIONSCOUNT 6
 
 
 @interface ShopDetailViewController () <UITableViewDataSource,UITableViewDelegate,MTImagePlayerViewDelegate,MWPhotoBrowserDelegate>
@@ -185,7 +184,11 @@
         
     } else if (section == 2) {
         
-        if (self.shopModelKeeperArray.count == 0 || self.shopModelKeeperArray == nil) {
+        return self.shopDetailModel.activityList.count;
+        
+    } else if (section == 3) {
+        
+        if (self.shopModelKeeperArray.count == 0) {
             
             return 0;
             
@@ -194,7 +197,7 @@
             return self.shopModelKeeperArray.count + 2;
         }
         
-    } else if (section == 3) {
+    } else if (section == 4) {
         
         if (self.commentArray.count) {
             
@@ -205,9 +208,9 @@
             return 0;
         }
         
-    } else if (section == 4) {
+    } else if (section == 5) {
         
-        if (self.shopModelTerraceArray.count == 0 || self.shopModelTerraceArray == nil) {
+        if (self.shopModelTerraceArray.count == 0) {
             
             return 0;
             
@@ -232,8 +235,12 @@
         return 44;
         
     } else if (indexPath.section == 2) {
+        
+        return 44;
+        
+    } else if (indexPath.section == 3) {
 
-        if (self.shopModelKeeperArray == nil || self.shopModelKeeperArray.count == 0) {
+        if ( self.shopModelKeeperArray.count == 0) {
             
             return 0;
             
@@ -243,8 +250,7 @@
             
         }
         
-    } else if (indexPath.section == 3) {
-        
+    } else if (indexPath.section == 4) {
         
         if (indexPath.row == 0) {
             
@@ -274,9 +280,9 @@
             
         }
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 5) {
         
-        if (self.shopModelKeeperArray == nil || self.shopModelKeeperArray.count == 0) {
+        if (self.shopModelKeeperArray.count == 0) {
             
             return 0;
             
@@ -292,7 +298,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 4) {
+    if (section == 5) {
         
         return 0.5f;
         
@@ -300,39 +306,37 @@
     return 10.f;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     return 0.5f;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         
-        ShopDetailHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailHeadTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailHeadTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] firstObject];
         }
         
         [cell.rollImageView setMTImagePlayerViewDelegate:self];
+        
         cell.rollImageView.sourceArray = self.sourceArray;
+        
         cell.shopDetailModel = self.shopDetailModel;
         
         return cell;
-        
-        
+    
     } else if (indexPath.section == 1) {
         
-        ShopDetailOneLineDataTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataTableViewCell" owner:nil options:nil] lastObject];
-            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][1];
         }
         
         if (indexPath.row == 0) {
@@ -353,14 +357,26 @@
         
         return cell;
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 2){
         
-        ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] lastObject];
+        }
+        
+        cell.activityModel = self.shopDetailModel.activityList[indexPath.row];
+        
+        return cell;
+        
+    } else if (indexPath.section == 3) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+        
+        if (cell == nil) {
             
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
         }
         
         if (indexPath.row == 0) {
@@ -380,9 +396,7 @@
             return cell;
             
         } else {
-            
-            ShopModel *shopModel = self.shopModelKeeperArray[indexPath.row - 1];
-            
+    
             ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
             if (cell == nil) {
@@ -390,23 +404,20 @@
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            cell.shopModel = shopModel;
+            cell.shopModel = self.shopModelKeeperArray[indexPath.row - 1];
             
             return cell;
-
         }
-        
-        
-    } else if (indexPath.section == 3) {
+
+    } else if (indexPath.section == 4) {
         
         if (indexPath.row == 0) {
-            
-            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+  
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
             
             if (cell == nil) {
                 
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
-                
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             }
             
             [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -435,11 +446,11 @@
             
         } else {
             
-            ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
             
             if (cell == nil) {
                 
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             }
             
             cell.textLabel.text = @"查看全部评论";
@@ -447,14 +458,13 @@
             return cell;
         }
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 5) {
         
-        ShopDetailOneLineDataNoImageViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailOneLineDataNoImageViewTableViewCell"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailOneLineDataNoImageViewTableViewCell" owner:nil options:nil] lastObject];
-            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
         }
         
         if (indexPath.row == 0) {
@@ -469,8 +479,6 @@
             
         } else {
             
-            ShopModel *shopModel = self.shopModelTerraceArray[indexPath.row - 1];
-            
             ShopListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopListTableViewCell"];
             
             if (cell == nil) {
@@ -478,11 +486,10 @@
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopListTableViewCell" owner:nil options:nil] lastObject];
             }
             
-            cell.shopModel = shopModel;
+            cell.shopModel = self.shopModelTerraceArray[indexPath.row - 1];
         }
         
         return cell;
-        
     }
     
     return nil;
@@ -561,6 +568,17 @@
         
     } else if (indexPath.section == 2) {
         
+        ActivityModel *model = self.shopDetailModel.activityList[indexPath.row];
+        
+        if ([model.activityType isEqualToString:@"02"]) {
+            
+            DiscountCouponViewController *controller = [[DiscountCouponViewController alloc] init];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    
+    } else if (indexPath.section == 3) {
+        
         if (indexPath.row == self.shopModelKeeperArray.count + 1) {
             
             CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
@@ -568,7 +586,6 @@
             companyViewController.productId = self.productId;
             
             [self.navigationController pushViewController:companyViewController animated:YES];
-            
         }
         
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
@@ -583,7 +600,7 @@
             
         }
         
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 4) {
         
         if (indexPath.row != 0) {
             
@@ -607,7 +624,7 @@
         
         }
         
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 5) {
     
         if (indexPath.row != 0 && indexPath.row != self.shopModelKeeperArray.count + 1) {
             

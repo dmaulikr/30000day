@@ -10,6 +10,13 @@
 #import "ShopModel.h"
 #import "DYRateView.h"
 
+typedef NS_ENUM(NSInteger,ActivityType) {
+    
+    ActivityDiscountCouponType,//优惠券
+    
+    ActivityFullReduceType,//满减
+};
+
 @interface ShopListTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *willShowImageView;
@@ -22,8 +29,8 @@
 
 @property (nonatomic,strong) ShopModel *shopModel;
 
-@property (weak, nonatomic) IBOutlet UILabel *discountLabel;//优惠label
-
 @property (weak, nonatomic) IBOutlet DYRateView *rateView;
+
++ (CGFloat)heightWithShopModel:(ShopModel *)shopModel;
 
 @end

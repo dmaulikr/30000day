@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopDetailHeadTableViewCell" rowHeight="347" id="KGk-i7-Jjw" customClass="ShopDetailHeadTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopDetailTableViewCell" rowHeight="347" id="KGk-i7-Jjw" customClass="ShopDetailTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="355"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -75,7 +75,75 @@
                 <outlet property="rollImageView" destination="1wd-X1-heM" id="JhZ-3A-DU4"/>
                 <outlet property="storeLable" destination="NRS-mN-yhJ" id="nTg-S5-8OO"/>
             </connections>
-            <point key="canvasLocation" x="335.5" y="233.5"/>
+            <point key="canvasLocation" x="171.5" y="186.5"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShopDetailTableViewCell" id="ef5-Ia-biO" customClass="ShopDetailTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ef5-Ia-biO" id="LC1-x2-8x2">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9DL-0h-rAn">
+                        <rect key="frame" x="14" y="13" width="16" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="aDX-Dx-a1l"/>
+                            <constraint firstAttribute="height" constant="18" id="buk-H0-8Lk"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTL-iq-XeV">
+                        <rect key="frame" x="40" y="13" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9DL-0h-rAn" firstAttribute="centerY" secondItem="LC1-x2-8x2" secondAttribute="centerY" id="dL5-sS-CyL"/>
+                    <constraint firstItem="JTL-iq-XeV" firstAttribute="centerY" secondItem="LC1-x2-8x2" secondAttribute="centerY" id="lb4-IG-Iki"/>
+                    <constraint firstItem="9DL-0h-rAn" firstAttribute="leading" secondItem="LC1-x2-8x2" secondAttribute="leading" constant="14" id="noh-nk-hYs"/>
+                    <constraint firstItem="JTL-iq-XeV" firstAttribute="leading" secondItem="9DL-0h-rAn" secondAttribute="trailing" constant="10" id="wQA-vE-nSt"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="leftImageView" destination="9DL-0h-rAn" id="1P9-2F-yua"/>
+                <outlet property="leftTitleLable" destination="JTL-iq-XeV" id="RFq-5D-wBn"/>
+            </connections>
+            <point key="canvasLocation" x="144" y="445"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopDetailTableViewCell" id="eKL-Wm-51M" customClass="ShopDetailTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eKL-Wm-51M" id="jZL-9B-bwR">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vo8-8J-Zyn">
+                        <rect key="frame" x="14" y="13" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="ggV-HY-CY4"/>
+                            <constraint firstAttribute="height" constant="17" id="mI4-Xa-bdU"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jz2-wt-fas">
+                        <rect key="frame" x="41" y="13" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vo8-8J-Zyn" firstAttribute="leading" secondItem="jZL-9B-bwR" secondAttribute="leading" constant="14" id="6ky-Rg-bDn"/>
+                    <constraint firstItem="vo8-8J-Zyn" firstAttribute="centerY" secondItem="jZL-9B-bwR" secondAttribute="centerY" id="OBZ-Lm-6EM"/>
+                    <constraint firstItem="Jz2-wt-fas" firstAttribute="centerY" secondItem="jZL-9B-bwR" secondAttribute="centerY" id="eOD-eV-sNO"/>
+                    <constraint firstItem="Jz2-wt-fas" firstAttribute="leading" secondItem="vo8-8J-Zyn" secondAttribute="trailing" constant="10" id="iS0-Oe-dot"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageView_third" destination="vo8-8J-Zyn" id="P7S-VS-gNQ"/>
+                <outlet property="label_third" destination="Jz2-wt-fas" id="5AO-k2-oBm"/>
+            </connections>
+            <point key="canvasLocation" x="144" y="550"/>
         </tableViewCell>
     </objects>
 </document>

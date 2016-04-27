@@ -24,7 +24,7 @@
     
     self.tableViewStyle = STRefreshTableViewGroup;
     
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     self.isShowBackItem = YES;
     

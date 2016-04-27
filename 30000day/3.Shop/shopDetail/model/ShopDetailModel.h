@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ShopModel.h"
 
 @interface ShopDetailModel : NSObject
 
@@ -39,5 +40,7 @@
 @property (nonatomic,strong) NSNumber *longitude;          //经度
 @property (nonatomic,strong) NSNumber *latitude;           //维度
 @property (nonatomic,strong) NSNumber *ownerId;           //店主的id
+
+@property (nonatomic,strong) NSMutableArray *activityList;
 
 @end

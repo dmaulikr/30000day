@@ -2548,10 +2548,7 @@
                                                                 
                                                                 NSDictionary * dataDictionary = recvDic[@"value"];
                                                                 
-                                                                ShopDetailModel *model = [[ShopDetailModel alloc] init];
-                                                                
-                                                                [model setValuesForKeysWithDictionary:dataDictionary];
-                                                                
+                                                                ShopDetailModel *model = [ShopDetailModel yy_modelWithDictionary:dataDictionary];
 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
