@@ -125,22 +125,45 @@
 }
 
 + (XHEmotionManager *)emotionManagerWithSize:(CGFloat)size pages:(NSInteger)pages name:(NSString *)name maxIndex:(NSInteger)maxIndex prefix:(NSString *)prefix {
+    
     XHEmotionManager *emotionManager = [[XHEmotionManager alloc] init];
+    
     emotionManager.emotionSize = CGSizeMake(size, size);
+    
     emotionManager.estimatedPages = pages;
+    
     emotionManager.emotionName = name;
+    
     NSMutableArray *emotions = [NSMutableArray array];
+    
     for (NSInteger j = 0; j <= maxIndex; j ++) {
+        
         XHEmotion *emotion = [[XHEmotion alloc] init];
+        
         NSString *imageName = [self coverPathOfIndex:j prefix:prefix];
+        
         NSString *gifPath = [self gifPathOfIndex:j prefix:prefix];
+        
         emotion.emotionPath = gifPath;
+        
         emotion.emotionConverPhoto = [UIImage imageNamed:imageName];
-        emotion.emotionName = name;
+        
+        emotion.emotionName = [[CDEmotionUtils plistWithName] objectForKey:[NSString stringWithFormat:@"tusiji_%d",(int)j]];
+        
         [emotions addObject:emotion];
+        
     }
+    
     emotionManager.emotions = emotions;
+    
     return emotionManager;
+}
+
++ (NSDictionary *)plistWithName {
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"tusiji" ofType:@"plist"];
+
+    return [[NSDictionary alloc] initWithContentsOfFile:plistPath];
 }
 
 + (NSString *)emojiStringFromString:(NSString *)text {

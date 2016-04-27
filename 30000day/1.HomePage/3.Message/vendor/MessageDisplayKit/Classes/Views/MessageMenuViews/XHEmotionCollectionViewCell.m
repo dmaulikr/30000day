@@ -59,7 +59,7 @@
     
         label.textAlignment = NSTextAlignmentCenter;
         
-        label.font = [UIFont systemFontOfSize:12.0f];
+        label.font = [UIFont systemFontOfSize:10.0f];
         
         label.textColor = [UIColor lightGrayColor];
         

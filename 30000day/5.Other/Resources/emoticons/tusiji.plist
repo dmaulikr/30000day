@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>tusiji_0</key>
+	<string>哎呀</string>
+	<key>tusiji_1</key>
+	<string>悠悠哉</string>
+	<key>tusiji_2</key>
+	<string>跳舞</string>
+	<key>tusiji_3</key>
+	<string>睡觉</string>
+	<key>tusiji_4</key>
+	<string>你醒醒</string>
+	<key>tusiji_5</key>
+	<string>你不行</string>
+	<key>tusiji_6</key>
+	<string>春心荡漾</string>
+	<key>tusiji_7</key>
+	<string>爱死你了</string>
+	<key>tusiji_8</key>
+	<string>奋发向上</string>
+	<key>tusiji_9</key>
+	<string>挥泪送别</string>
+	<key>tusiji_10</key>
+	<string>抖胸</string>
+	<key>tusiji_11</key>
+	<string>生日快乐</string>
+	<key>tusiji_12</key>
+	<string>嘚瑟</string>
+	<key>tusiji_13</key>
+	<string>泪流满面</string>
+	<key>tusiji_14</key>
+	<string>抖手</string>
+	<key>tusiji_15</key>
+	<string>哼</string>
+</dict>
+</plist>
