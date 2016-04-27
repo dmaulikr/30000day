@@ -73,6 +73,16 @@
     
     _informationCommentModel = informationCommentModel;
     
+    if (informationCommentModel.commentPid.integerValue == informationCommentModel.pId.integerValue) {
+        
+        [self setBackgroundColor:VIEWBORDERLINECOLOR];
+        
+    } else {
+    
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+    
+    
     if (self.isHideBelowView) {
         
         self.checkReply.hidden = YES;
