@@ -34,4 +34,11 @@
 
 @property (nonatomic,strong) NSNumber *latitude;//维度
 
+@property (nonatomic,strong) NSMutableDictionary *activityList;
+
+@end
+
+@interface ActivityModel : NSObject
+
+
 @end
