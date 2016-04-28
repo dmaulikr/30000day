@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 
 @interface ShopViewController : STRefreshViewController <BMKMapViewDelegate> {

@@ -161,21 +161,23 @@
 
 #define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/stapi/user/findDefaultCommentList"   //商品详情评论
 
-#define  GET_SEARCHTABLEVERSIION     @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
+#define  GET_SEARCHTABLEVERSIION      @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
 
-#define  GET_SHOPOWNERRECOMMEND      @"/stapi/market/shopOwnerRecommend"    //店长推荐
+#define  GET_SHOPOWNERRECOMMEND       @"/stapi/market/shopOwnerRecommend"    //店长推荐
 
-#define  GET_PLATFORMRECOMMEND       @"/stapi/market/platformRecommend"    //平台推荐
+#define  GET_PLATFORMRECOMMEND        @"/stapi/market/platformRecommend"    //平台推荐
 
-#define  GET_FINDCOMOANYINFO         @"/stapi/market/findCompanyInfoById"    //商店
+#define  GET_FINDCOMOANYINFO          @"/stapi/market/findCompanyInfoById"    //商店
 
-#define  GET_FINDPRODUCTSBYIDS       @"/stapi/market/findProductsByIds"      //商店下的商品
+#define  GET_FINDPRODUCTSBYIDS        @"/stapi/market/findProductsByIds"      //商店下的商品
 
-#define  GET_ORDER_SEARCH_COUNT      @"/stapi/order/searchCourts"            //获取产品
+#define  GET_ORDER_SEARCH_COUNT       @"/stapi/order/searchCourts"            //获取产品
 
 #define  COMMIT_ORDER_COURTS          @"/stapi/order/commitReservedCourts"    //提交订单
 
-#define  GET_ORDER_LIST              @"/stapi/order/searchUserOrders"       //获取订单
+#define  CALCULATE_PRICE              @"/stapi/order/calculateFee"            //计算价格
+
+#define  GET_ORDER_LIST               @"/stapi/order/searchUserOrders"       //获取订单
 
 #define  GET_ORDER_DETAIL             @"/stapi/order/getOrderDetail"         //获取订单详情
 

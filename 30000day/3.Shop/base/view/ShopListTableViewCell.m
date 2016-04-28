@@ -16,10 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIView *backgroundLineView_second;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *activityNameLabel_first;
+@property (weak, nonatomic) IBOutlet UIImageView *activityImageView_first;
 @property (weak, nonatomic) IBOutlet UILabel *activityDescLabel_first;
 
-@property (weak, nonatomic) IBOutlet UILabel *activityNameLabel_second;
+@property (weak, nonatomic) IBOutlet UIImageView *activityImageView_second;
 @property (weak, nonatomic) IBOutlet UILabel *activityDescLabel_second;
 
 @end
@@ -29,13 +29,13 @@
 
 - (void)awakeFromNib {
     
-    self.activityNameLabel_first.layer.cornerRadius = 3;
+    self.activityImageView_first.layer.cornerRadius = 3;
     
-    self.activityNameLabel_first.layer.masksToBounds = YES;
+    self.activityImageView_first.layer.masksToBounds = YES;
     
-    self.activityNameLabel_second.layer.cornerRadius = 3;
+    self.activityImageView_second.layer.cornerRadius = 3;
     
-    self.activityNameLabel_second.layer.masksToBounds = YES;
+    self.activityImageView_second.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -61,7 +61,6 @@
     } else {
         
         self.addressLabel.text = [NSString stringWithFormat:@"%.2fkm  %@",[_shopModel.twoPointsDistance doubleValue],_shopModel.address];
-        
     }
     
     self.rateView.rate = [_shopModel.avgNumberStar doubleValue] > 5.0 ? 5.0 : [_shopModel.avgNumberStar doubleValue];
@@ -75,37 +74,29 @@
         
         self.activityDescLabel_first.hidden = NO;
         
-        self.activityNameLabel_first.hidden = NO;
+        self.activityImageView_first.hidden = NO;
         
         self.activityDescLabel_second.hidden = NO;
         
-        self.activityNameLabel_second.hidden = NO;
-        
-        self.activityNameLabel_first.backgroundColor = RGBACOLOR(71, 182, 0, 1);//绿色
-        
-        self.activityNameLabel_second.backgroundColor = RGBACOLOR(255, 139, 19, 1);//棕色
+        self.activityImageView_second.hidden = NO;
         
         ActivityModel *model_first = [_shopModel.activityList firstObject];
         
         ActivityModel *model_second = [_shopModel.activityList lastObject];
         
-        if ([model_first.activityType isEqualToString:@"01"]) {//满减
-            
-            self.activityNameLabel_first.text = @"惠";
-            
-            self.activityDescLabel_first.text = model_first.activityDesc;
+        self.activityImageView_first.image = [UIImage imageNamed:@"detail_cell_hui"];
+
+        self.activityImageView_second.image = [UIImage imageNamed:@"detail_cell_quan"];
         
-            self.activityNameLabel_second.text = @"券";
-            
+        if ([model_first.activityType isEqualToString:@"01"]) {//满减
+    
+            self.activityDescLabel_first.text = model_first.activityDesc;
+    
             self.activityDescLabel_second.text = model_second.activityDesc;
     
         } else if ([model_first.activityType isEqualToString:@"02"]) {//优惠券
             
-            self.activityNameLabel_first.text = @"惠";
-            
             self.activityDescLabel_first.text = model_second.activityDesc;
-            
-            self.activityNameLabel_second.text = @"券";
             
             self.activityDescLabel_second.text = model_first.activityDesc;
         }
@@ -118,29 +109,25 @@
         
         self.activityDescLabel_first.hidden = NO;
         
-        self.activityNameLabel_first.hidden = NO;
+        self.activityImageView_first.hidden = NO;
         
         self.activityDescLabel_second.hidden = YES;
         
-        self.activityNameLabel_second.hidden = YES;
+        self.activityImageView_second.hidden = YES;
         
         ActivityModel *model = [_shopModel.activityList firstObject];
         
         if ([model.activityType isEqualToString:@"01"]) {//满减
             
-            self.activityNameLabel_first.text = @"惠";
+            self.activityImageView_first.image = [UIImage imageNamed:@"detail_cell_hui"];
             
             self.activityDescLabel_first.text = model.activityDesc;
-            
-            self.activityNameLabel_first.backgroundColor = RGBACOLOR(71, 182, 0, 1);//绿色
             
         } else if ([model.activityType isEqualToString:@"02"]) {//优惠券
          
-            self.activityNameLabel_first.text = @"券";
+            self.activityImageView_first.image = [UIImage imageNamed:@"detail_cell_quan"];
             
             self.activityDescLabel_first.text = model.activityDesc;
-            
-            self.activityNameLabel_first.backgroundColor = RGBACOLOR(255, 139, 19, 1);//棕色
         }
         
     } else  {//目前默认是没活动，以后会扩展
@@ -151,11 +138,11 @@
         
         self.activityDescLabel_first.hidden = YES;
         
-        self.activityNameLabel_first.hidden = YES;
+        self.activityImageView_first.hidden = YES;
         
         self.activityDescLabel_second.hidden = YES;
         
-        self.activityNameLabel_second.hidden = YES;
+        self.activityImageView_second.hidden = YES;
     }
 }
 

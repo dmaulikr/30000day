@@ -3719,35 +3719,33 @@
                              date:(NSString *)date
                            remark:(NSString *)remark
                         uniqueKeyArray:(NSMutableArray *)timeModelArray
+                    payableAmount:(NSString *)price
                           Success:(void (^)(NSString *orderNumber))success
                           failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:productId forKey:@"productId"];
+    [params addParameter:productId forKey:@"productId"];
     
-    [params setObject:date forKey:@"date"];
+    [params addParameter:date forKey:@"date"];
     
-    [params setObject:contactName forKey:@"reserverName"];
+    [params addParameter:contactName forKey:@"reserverName"];
     
-    [params setObject:contactPhoneNumber forKey:@"reserverContactNo"];
+    [params addParameter:contactPhoneNumber forKey:@"reserverContactNo"];
     
-    if (![Common isObjectNull:remark]) {
-        
-        [params setObject:remark forKey:@"memo"];
-    }
+    [params addParameter:remark forKey:@"memo"];
     
     if (timeModelArray.count) {
         
         NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
         
-        [params setObject:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
+        [params addParameter:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
         
     }
     
-    [Common urlStringWithDictionary:params withString:COMMIT_ORDER_COURTS];
+    [params addParameter:price forKey:@"payableAmount"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_ORDER_COURTS
@@ -3854,6 +3852,84 @@
     
     return [NSString stringWithFormat:@"{\"json\":%@}",key];
 }
+
+//*********************************计算价格*************************/
+- (void)sendCalculateWithProductId:(NSNumber *)productId
+                    uniqueKeyArray:(NSMutableArray *)timeModelArray
+                           Success:(void (^)(NSString *price))success
+                           failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+
+    [params addParameter:productId forKey:@"productId"];
+    
+    if (timeModelArray.count) {
+        
+        NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
+        
+        [params setObject:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
+        
+    }
+    
+    [Common urlStringWithDictionary:params withString:CALCULATE_PRICE];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:CALCULATE_PRICE
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+}
+
 
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/
 - (void)sendFindOrderUserId:(NSNumber *)userId

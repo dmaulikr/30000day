@@ -23,7 +23,10 @@
 
 @end
 
-@implementation AppointmentConfirmViewController
+@implementation AppointmentConfirmViewController {
+    
+    NSString *_price;//保存的价格
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +39,9 @@
     [STNotificationCenter addObserver:self selector:@selector(judgeConformButton) name:UITextFieldTextDidChangeNotification object:nil];
     
     [self judgeConformButton];
+    
+    //计算价格
+    [self calculatePrice];
 }
 
 //判断确认订单是否可用
@@ -81,7 +87,7 @@
 - (void)rightButtonAction {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
+    //提交订单
     [self.dataHandler sendCommitOrderWithUserId:STUserAccountHandler .userProfile.userId
                                       productId:self.productId
                                     contactName:self.informationCell.contactTextField.text
@@ -89,6 +95,7 @@
                                            date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate]
                                          remark:self.remarkCell.remarkTextView.text
                                  uniqueKeyArray:self.timeModelArray
+                                payableAmount:_price
                                         Success:^(NSString *orderNumber) {
                                             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                             PaymentViewController *controller = [[PaymentViewController alloc] init];
@@ -111,6 +118,20 @@
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+    }];
+}
+
+//计算价格
+- (void)calculatePrice {
+    
+    [self.dataHandler sendCalculateWithProductId:self.productId uniqueKeyArray:self.timeModelArray Success:^(NSString *price) {
+       
+        _price = price;
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
     }];
 }
 
@@ -188,19 +209,19 @@
                 
                 [cell configOrderWithAppointmentTimeModel:timeModel];
             }
-            
         }
  
     } else if (indexPath.section == 3) {
  
-        
         if (cell == nil) {
             
             cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
         }
         
-        //配置总价格
-        [cell configTotalPriceWith:self.timeModelArray];
+        //配置总价格        
+        cell.totalPriceLabel.text = [NSString stringWithFormat:@"￥: %.2f",[_price floatValue]];
+        
+        cell.totalPriceLabel.textColor = [UIColor redColor];
     }
     
     return cell;

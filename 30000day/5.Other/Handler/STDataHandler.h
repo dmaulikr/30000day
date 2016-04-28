@@ -332,8 +332,15 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
                              date:(NSString *)date
                            remark:(NSString *)remark
                    uniqueKeyArray:(NSMutableArray *)timeModelArray
+                    payableAmount:(NSString *)price
                           Success:(void (^)(NSString *orderNumber))success
                           failure:(void (^)(NSError *error))failure;
+
+//*********************************计算价格*************************/
+- (void)sendCalculateWithProductId:(NSNumber *)productId
+                    uniqueKeyArray:(NSMutableArray *)timeModelArray
+                           Success:(void (^)(NSString *price))success
+                           failure:(void (^)(NSError *error))failure;
 
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/
 - (void)sendFindOrderUserId:(NSNumber *)userId
