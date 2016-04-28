@@ -389,19 +389,30 @@ static NSInteger const kOnePageSize = 10;
 
 // 配置Cell的样式或者字体
 - (void)configureCell:(XHMessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
     XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
+    
     if ([self shouldDisplayTimestampForRowAtIndexPath:indexPath]) {
+        
         NSDate *ts = msg.timestamp;
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
         [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+        
         NSString *str = [dateFormatter stringFromDate:ts];
+        
         cell.timestampLabel.text = str;
     }
+    
     SETextView *textView = cell.messageBubbleView.displayTextView;
+    
     if (msg.bubbleMessageType == XHBubbleMessageTypeSending) {
+        
         [textView setTextColor:[UIColor whiteColor]];
-    }
-    else {
+        
+    } else {
+        
         [textView setTextColor:[UIColor blackColor]];
     }
 }

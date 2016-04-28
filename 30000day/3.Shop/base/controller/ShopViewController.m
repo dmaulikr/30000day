@@ -90,25 +90,21 @@
     [self chooseCityFromLocationArray:[STLocationMananger shareManager].locationArray withProvinceName:self.conditionModel.provinceName withCityName:self.conditionModel.cityName isFromCityController:_isFromCityController];
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    
-//    [_mapView viewWillAppear];
-//    
-//    _mapView.delegate = self; //不用时，置nil
-//    
-//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;//开启这个会和百度地图造成冲突
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    
-//    [_mapView viewWillDisappear];
-//    
-//    _mapView.delegate = nil; //不用时，置nil
-//    
-//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = NO;//开启这个会和百度地图造成冲突
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [_mapView viewWillAppear];
+    
+    _mapView.delegate = self; //不用时，置nil
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [_mapView viewWillDisappear];
+    
+    _mapView.delegate = nil; //不用时，置nil
+}
 
 - (void)configUI {
     

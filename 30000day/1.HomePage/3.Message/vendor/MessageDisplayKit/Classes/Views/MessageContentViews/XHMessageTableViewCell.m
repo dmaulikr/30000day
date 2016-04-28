@@ -182,8 +182,11 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 }
 
 - (void)configureTimestamp:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message {
+    
     self.displayTimestamp = displayTimestamp;
+    
     self.timestampLabel.hidden = !self.displayTimestamp;
+    
     if (displayTimestamp) {
         self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:message.timestamp
                                                                   dateStyle:NSDateFormatterMediumStyle
@@ -192,51 +195,83 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 }
 
 - (void)configAvatorWithMessage:(id <XHMessageModel>)message {
+    
     if (message.avator) {
+        
         [self.avatorButton setImage:message.avator forState:UIControlStateNormal];
+        
     } else if(message.avatorUrl){
-        [self.avatorButton setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholer:[UIImage imageNamed:@"avator"]];
-    }else{
-        [self.avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatorType:XHMessageAvatorTypeSquare] forState:UIControlStateNormal];
+        
+        [self.avatorButton setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholer:[UIImage imageNamed:@"placeholder"]];
+        
+    } else {
+        
+        [self.avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"placeholder"] messageAvatorType:XHMessageAvatorTypeSquare] forState:UIControlStateNormal];
     }
 }
 
 - (void)configUserNameWithMessage:(id <XHMessageModel>)message {
+    
     self.userNameLabel.text = [message sender];
 }
 
 - (void)configureMessageBubbleViewWithMessage:(id <XHMessageModel>)message {
+    
     XHBubbleMessageMediaType currentMediaType = message.messageMediaType;
+    
     for (UIGestureRecognizer *gesTureRecognizer in self.messageBubbleView.bubbleImageView.gestureRecognizers) {
+        
         [self.messageBubbleView.bubbleImageView removeGestureRecognizer:gesTureRecognizer];
+        
     }
+    
     for (UIGestureRecognizer *gesTureRecognizer in self.messageBubbleView.bubblePhotoImageView.gestureRecognizers) {
+        
         [self.messageBubbleView.bubblePhotoImageView removeGestureRecognizer:gesTureRecognizer];
     }
+    
     switch (currentMediaType) {
+            
         case XHBubbleMessageMediaTypePhoto:
+            
         case XHBubbleMessageMediaTypeVideo:
+            
         case XHBubbleMessageMediaTypeLocalPosition: {
+            
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
+            
             [self.messageBubbleView.bubblePhotoImageView addGestureRecognizer:tapGestureRecognizer];
+            
             break;
         }
+            
         case XHBubbleMessageMediaTypeText:
+            
         case XHBubbleMessageMediaTypeVoice:
+            
         case XHBubbleMessageMediaTypeEmotion: {
+            
             UITapGestureRecognizer *tapGestureRecognizer;
+            
             if (currentMediaType == XHBubbleMessageMediaTypeText) {
+                
                 tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGestureRecognizerHandle:)];
+                
             } else {
+                
                 tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTapGestureRecognizerHandle:)];
             }
+            
             tapGestureRecognizer.numberOfTapsRequired = (currentMediaType == XHBubbleMessageMediaTypeText ? 2 : 1);
+            
             [self.messageBubbleView.bubbleImageView addGestureRecognizer:tapGestureRecognizer];
+            
             break;
         }
         default:
             break;
     }
+    
     [self.messageBubbleView configureCellWithMessage:message];
 }
 
