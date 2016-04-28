@@ -36,5 +36,5 @@
  
  @param supportQzoneSSO 是否用手机QQ授权
  */
-//+ (void)setSupportQzoneSSO:(BOOL)supportQzoneSSO;
++ (void)setSupportQzoneSSO:(BOOL)supportQzoneSSO;
 @end
