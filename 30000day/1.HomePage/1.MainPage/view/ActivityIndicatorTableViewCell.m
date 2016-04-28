@@ -68,8 +68,18 @@
     
     NSTimeInterval interval = [newToday timeIntervalSinceDate:birthdayDate];
     
-    int dayNumber = interval/86400.0f;
-
+    int dayNumber = 0;
+    
+    if ([Common isObjectNull:birthdayString]) {//表示没设置生日
+        
+        dayNumber = 0;
+        
+    } else {//有设置了生日
+        
+        dayNumber = interval/86400.0f;
+        
+    }
+    
     self.indicatiorView.progressCounter = dayNumber;
     
     self.indicatiorView.progressTotal = totalLifeDayNumber;

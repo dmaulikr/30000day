@@ -48,6 +48,8 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
 
 @class UserInformationModel;
 
+@class PriceModel;
+
 @interface STDataHandler : NSObject
 
 @property (nonatomic, weak) id delegate;
@@ -339,7 +341,7 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
 //*********************************计算价格*************************/
 - (void)sendCalculateWithProductId:(NSNumber *)productId
                     uniqueKeyArray:(NSMutableArray *)timeModelArray
-                           Success:(void (^)(NSString *price))success
+                           Success:(void (^)(PriceModel *model))success
                            failure:(void (^)(NSError *error))failure;
 
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/

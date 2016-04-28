@@ -33,6 +33,8 @@
 #import "InformationModel.h"
 #import "STHealthyManager.h"
 #import "InformationWriterModel.h"
+#import "PriceModel.h"
+
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -158,7 +160,7 @@
                                                                     success(recvDic[@"value"]);
                                                                 });
                                                                 
-                                                            } else if ([recvDic[@"code"] isEqualToNumber:@1100]){
+                                                            } else {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -3856,7 +3858,7 @@
 //*********************************计算价格*************************/
 - (void)sendCalculateWithProductId:(NSNumber *)productId
                     uniqueKeyArray:(NSMutableArray *)timeModelArray
-                           Success:(void (^)(NSString *price))success
+                           Success:(void (^)(PriceModel *model))success
                            failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -3888,9 +3890,11 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
+                                                                PriceModel *model = [PriceModel yy_modelWithDictionary:recvDic[@"value"]];
+                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    success(recvDic[@"value"]);
+                                                                    success(model);
                                                                 });
                                                                 
                                                             } else {
@@ -3939,15 +3943,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (![Common isObjectNull:userId]) {
-        
-        [params setObject:userId forKey:@"userId"];
-    }
+    [params addParameter:userId forKey:@"userId"];
     
-    if (![type isEqual:@0]) {
-        
-        [params setObject:type forKey:@"orderStatus"];
-    }
+    [params addParameter:type forKey:@"orderStatus"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_LIST

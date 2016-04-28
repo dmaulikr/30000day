@@ -17,6 +17,7 @@
 #import "MyOrderViewController.h"
 #import "STTabBarViewController.h"
 #import "AppointmentViewController.h"
+#import "DuplicationTableViewCell.h"
 
 @interface OrderDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -181,13 +182,13 @@
         
         PaymentViewController *controller = [[PaymentViewController alloc] init];
         
-        controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
-        
-        controller.timeModelArray = self.detailModel.orderCourtList;
-        
-        controller.productId = self.detailModel.productId;
-        
-        controller.productName = self.detailModel.productName;
+//        controller.selectorDate = [NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.0000000];
+//        
+//        controller.timeModelArray = self.detailModel.orderCourtList;
+//        
+//        controller.productId = self.detailModel.productId;
+//        
+//        controller.productName = self.detailModel.productName;
         
         controller.orderNumber = self.detailModel.orderNo;
         
@@ -327,8 +328,11 @@
         
     } else if (section == 2) {
         
-        return 2 + self.detailModel.orderCourtList.count;
+        return 1 + self.detailModel.orderCourtList.count;
         
+    } else if (section == 3) {
+        
+        return self.detailModel.prodActivity.activityList.count + 2;
     }
     return 0;
 }
@@ -360,7 +364,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -476,61 +480,69 @@
         
     } else if (indexPath.section == 2) {
         
-         PersonInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonInformationTableViewCell"];
+        DuplicationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DuplicationTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DuplicationTableViewCell" owner:nil options:nil] firstObject];
+        }
         
         if (indexPath.row == 0) {
             
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
-            }
-            cell.firstTitleLabel.text = @"预约日期";
+            cell.titleLabel_first.text = @"预约日期";
             
-            cell.firstTitleLabel.hidden = NO;
+            cell.titleLabel_first.hidden = NO;
             
-            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000]];
+            cell.contentLabel_first.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000]];
             
         } else if (indexPath.row == 1) {
             
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
-            }
-            
             AppointmentTimeModel *timeModel = self.detailModel.orderCourtList[0];
             
-            cell.firstTitleLabel.text = @"场次";
+            cell.titleLabel_first.text = @"场次";
             
-            cell.firstTitleLabel.hidden = NO;
+            cell.titleLabel_first.hidden = NO;
             
-            [cell configOrderWithAppointmentTimeModel:timeModel];
-            
-        } else if  (indexPath.row == 1 + self.detailModel.orderCourtList.count) {//总计
-            
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
-            }
-            
-            cell.titleLabel.text = @"支付总额";
-            
-            //配置总价格
-            [cell configTotalPriceWith:self.detailModel.orderCourtList];
-            
-            return cell;
+            [cell configCellWithAppointmentTimeModel:timeModel];
             
         } else {
             
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
-            }
-            
             AppointmentTimeModel *timeModel = self.detailModel.orderCourtList[indexPath.row - 1];
             
-            cell.firstTitleLabel.hidden = YES;
+            cell.titleLabel_first.hidden = YES;
             
-            [cell configOrderWithAppointmentTimeModel:timeModel];
+            [cell configCellWithAppointmentTimeModel:timeModel];
+        }
+        
+        return cell;
+    } else if (indexPath.section == 3) {
+        
+        DuplicationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DuplicationTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DuplicationTableViewCell" owner:nil options:nil] firstObject];
+        }
+        
+        if (indexPath.row == 0) {
+            
+            cell.titleLabel_first.text = @"原价";
+            
+            cell.contentLabel_first.textColor = [UIColor redColor];
+            
+            cell.contentLabel_first.text =[NSString stringWithFormat:@"￥: %.2f",[self.detailModel.prodActivity.originalPrice floatValue]];//原价
+            
+        } else if (indexPath.row == self.detailModel.prodActivity.activityList.count + 1) {
+            
+            cell.titleLabel_first.text = @"应付金额";
+            
+            cell.contentLabel_first.textColor = [UIColor redColor];
+            
+            cell.contentLabel_first.text = [NSString stringWithFormat:@"￥: %.2f",[self.detailModel.prodActivity.currentPrice floatValue]];//现价
+            
+        } else {
+            
+            [cell configCellWithActivityModel:self.detailModel.prodActivity.activityList[indexPath.row - 1]];
         }
         
         return cell;

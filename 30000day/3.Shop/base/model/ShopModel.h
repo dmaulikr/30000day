@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ActivityModel;
+#import "ActivityModel.h"
 
 @interface ShopModel : NSObject
 
@@ -39,12 +39,3 @@
 
 @end
 
-@interface ActivityModel : NSObject
-
-@property (nonatomic,copy) NSString *activityDesc;//活动描述
-
-@property (nonatomic,copy) NSString *activityName;//活动名称
-
-@property (nonatomic,copy) NSString *activityType;//活动类型,"01"-> 满减  "02" -> "优惠券"
-
-@end

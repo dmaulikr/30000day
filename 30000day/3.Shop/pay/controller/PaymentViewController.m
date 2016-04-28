@@ -7,16 +7,20 @@
 //
 
 #import "PaymentViewController.h"
-#import "CommodityNameTableViewCell.h"
 #import "PayTableViewCell.h"
 #import "PersonInformationTableViewCell.h"
 #import "AppointmentViewController.h"
 #import "pay.h"
 #import "OrderDetailViewController.h"
+#import "DuplicationTableViewCell.h"
+#import "MyOrderDetailModel.h"
+#import "MTProgressHUD.h"
 
 @interface PaymentViewController () <UITableViewDataSource,UITableViewDelegate,payResultStatusDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic,strong) MyOrderDetailModel *detailModel;
 
 @end
 
@@ -25,11 +29,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单支付";
-    [STNotificationCenter addObserver:self selector:@selector(alipaySuccess) name:STDidSuccessPaySendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(alipaySuccessAction) name:STDidSuccessPaySendNotification object:nil];
+    
+    //从服务器下载数据
+    [self loadDataFromServer];
+}
+
+//从服务器下载订单的所有的数据
+- (void)loadDataFromServer {
+    
+    //下载数据
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
+    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
+        
+        self.detailModel = detailModel;
+        
+        [self.tableView reloadData];
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    }];
 }
 
 //支付宝支付成功的回调
-- (void)alipaySuccess {
+- (void)alipaySuccessAction {
     
     OrderDetailViewController *controller = [[OrderDetailViewController alloc] init];
     
@@ -47,7 +75,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 4;
     
 }
 
@@ -55,11 +83,14 @@
     
     if (section == 0) {
         
-        return 4 + self.timeModelArray.count;
+        return 2 + self.detailModel.orderCourtList.count;
+        
+    } else if (section == 1) {
+        
+        return 2 + self.detailModel.prodActivity.activityList.count;
     }
     
-    return 1.0f;
-    
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,91 +114,88 @@
     
     if (indexPath.section == 0) {
         
-        PersonInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonInformationTableViewCell"];
-        
         if (indexPath.row == 0) {
             
-            CommodityNameTableViewCell *commodityNameTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"CommodityNameTableViewCell"];
+            PayTableViewCell *cell_first = [tableView dequeueReusableCellWithIdentifier:@"PayTableViewCell"];
             
-            if (commodityNameTableViewCell == nil) {
+            if (cell_first == nil) {
                 
-                commodityNameTableViewCell = [[[NSBundle mainBundle] loadNibNamed:@"CommodityNameTableViewCell" owner:nil options:nil] lastObject];
-                
+                cell_first = [[[NSBundle mainBundle] loadNibNamed:@"PayTableViewCell" owner:nil options:nil] firstObject];
             }
             
-            commodityNameTableViewCell.commodityNameLable.text = self.productName;
+            cell_first.titleLabel_first.text = self.detailModel.productName;
             
-            return commodityNameTableViewCell;
-            
-        } else if  (indexPath.row == 1) {
-            
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
-            }
-            cell.firstTitleLabel.text = @"日期";
-            
-            cell.firstTitleLabel.hidden = NO;
-            
-            cell.contentLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate];
-            
-        } else if (indexPath.row == 2) {
-            
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
-            }
-            
-            AppointmentTimeModel *timeModel = self.timeModelArray[0];
-            
-            cell.firstTitleLabel.text = @"场次";
-            
-            cell.firstTitleLabel.hidden = NO;
-            
-            [cell configOrderWithAppointmentTimeModel:timeModel];
-            
-        } else if  (indexPath.row == 2 + self.timeModelArray.count) {//总计
-            
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
-            }
-            
-            cell.titleLabel.text = @"总计";
-            
-            //配置总价格
-            [cell configTotalPriceWith:self.timeModelArray];
-            
-        } else if  (indexPath.row == 3 + self.timeModelArray.count) {//总额
-            
-            if (cell == nil) {
-                
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][3];
-            }
-            
-            cell.titleLabel.text = @"支付总额";
-            
-            //配置总价格
-            [cell configTotalPriceWith:self.timeModelArray];
+            return cell_first;
             
         } else {
             
+            DuplicationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DuplicationTableViewCell"];
+            
             if (cell == nil) {
                 
-                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonInformationTableViewCell" owner:nil options:nil][2];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"DuplicationTableViewCell" owner:nil options:nil] firstObject];
             }
             
-            AppointmentTimeModel *timeModel = self.timeModelArray[indexPath.row - 2];
+            if (indexPath.row == 1) {
+                
+                cell.titleLabel_first.text = @"日期";
+                
+                cell.titleLabel_first.hidden = NO;
+                
+                cell.contentLabel_first.text = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.detailModel.orderDate doubleValue]/1000.000000]];
+                
+            } else if (indexPath.row == 2) {
+                
+                cell.titleLabel_first.text = @"场次";
+                
+                cell.titleLabel_first.hidden = NO;
+                
+                [cell configCellWithAppointmentTimeModel:self.detailModel.orderCourtList[0]];
+                
+            } else {
+ 
+                cell.titleLabel_first.hidden = YES;
+                
+                [cell configCellWithAppointmentTimeModel:self.detailModel.orderCourtList[indexPath.row - 2]];
+                
+            }
+            return cell;
+        }
+        
+    } else if (indexPath.section == 1 ) {
+    
+        DuplicationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DuplicationTableViewCell"];
+        
+        if (cell == nil) {
             
-            cell.firstTitleLabel.hidden = YES;
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DuplicationTableViewCell" owner:nil options:nil] firstObject];
+        }
+        
+        if (indexPath.row == 0) {
             
-            [cell configOrderWithAppointmentTimeModel:timeModel];
+            cell.titleLabel_first.text = @"原价";
+            
+            cell.contentLabel_first.textColor = [UIColor redColor];
+            
+            cell.contentLabel_first.text =[NSString stringWithFormat:@"￥: %.2f",[self.detailModel.prodActivity.originalPrice floatValue]];//原价
+            
+        } else if (indexPath.row == self.detailModel.prodActivity.activityList.count + 1) {
+            
+            cell.titleLabel_first.text = @"应付金额";
+            
+            cell.contentLabel_first.textColor = [UIColor redColor];
+            
+            cell.contentLabel_first.text = [NSString stringWithFormat:@"￥: %.2f",[self.detailModel.prodActivity.currentPrice floatValue]];//现价
+            
+        } else {
+            
+            [cell configCellWithActivityModel:self.detailModel.prodActivity.activityList[indexPath.row - 1]];
         }
         
         return cell;
         
-    } else {
-    
+    } else if (indexPath.section == 2 ) {
+        
         PayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayTableViewCell"];
         
         if (cell == nil) {
@@ -176,20 +204,25 @@
             
         }
         
-        if (indexPath.section == 1) {
-            
-            cell.titleLabel.text = @"微信支付";
-            
-            cell.backgroundColor = RGBACOLOR(71, 182, 0, 1);
-            
-        } else if (indexPath.section == 2) {
+        cell.titleLabel_second.text = @"微信支付";
         
-          cell.titleLabel.text = @"支付宝支付";
+        cell.backgroundColor = RGBACOLOR(71, 182, 0, 1);
+        
+        return cell;
+        
+    } else if (indexPath.section == 3) {
+        
+        PayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayTableViewCell"];
+        
+        if (cell == nil) {
             
-          cell.backgroundColor = RGBACOLOR(0, 169, 244, 1);
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"PayTableViewCell" owner:nil options:nil] lastObject];
             
         }
+        cell.titleLabel_second.text = @"支付宝支付";
         
+        cell.backgroundColor = RGBACOLOR(0, 169, 244, 1);
+            
         return cell;
     }
     return nil;
@@ -199,13 +232,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 2 ) {
+    if (indexPath.section == 3 ) {
         
         pay *p = [[pay alloc] init];
         
         p.delegate = self;
         
-        [p payWithOrderID:self.orderNumber goodTtitle:self.productName goodPrice:@"0.01"];
+        [p payWithOrderID:self.orderNumber goodTtitle:self.detailModel.productName goodPrice:@"0.01"];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

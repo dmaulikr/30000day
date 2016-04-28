@@ -10,6 +10,12 @@
 
 @interface PayTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+//******* 第一个xib ************//
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel_first;
+
+
+//********第二个xib*************//
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel_second;
+
 
 @end

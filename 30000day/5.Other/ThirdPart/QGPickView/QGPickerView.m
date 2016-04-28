@@ -262,9 +262,15 @@
     
     datePicker.datePickerMode = datePickerMode;
     
-    datePicker.minimumDate = minimumDate;
+    if (![Common isObjectNull:minimumDate]) {
+        
+        datePicker.minimumDate = minimumDate;
+    }
     
-    datePicker.maximumDate = maximumDate;
+    if (![Common isObjectNull:maximumDate]) {
+        
+        datePicker.maximumDate = maximumDate;
+    }
     
 //  [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
     
@@ -272,7 +278,10 @@
     
     datePicker.frame = CGRectMake(0, 44, (float)self.bounds.size.width, self.bounds.size.height-44);
     
-    datePicker.date = willShowDate;
+    if (![Common isObjectNull:willShowDate]) {
+        
+        datePicker.date = willShowDate;
+    }
     
     [superView addSubview:self.maskView];
     
