@@ -167,13 +167,6 @@
 }
 
 - (void)thirdPartyLogin:(UIButton *)button {
-
-    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://www.umeng.com/social"];
-    
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    
-    [UMSocialQQHandler  setQQWithAppId:@"1105117617" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
-    
     
     if (button.tag == 0) {
         
@@ -183,7 +176,7 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToSina];
                 
                 NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
@@ -212,7 +205,6 @@
     } else if (button.tag == 2) {
         
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
-        
         snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
             //  获取微博用户名、uid、token等
             if (response.responseCode == UMSResponseCodeSuccess) {
@@ -220,7 +212,8 @@
                 NSLog(@"username is %@, uid is %@, token is %@ iconUrl is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
             }
         });
-    
+        
+        
     }
 
 }
