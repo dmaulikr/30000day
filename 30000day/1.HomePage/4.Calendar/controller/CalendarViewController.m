@@ -14,6 +14,9 @@
 #import "AgeTableViewCell.h"
 #import "CalendarTableViewCell.h"
 
+
+#define  CHOOSE_AGE_STRING    [Common isObjectNull:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]] ? @"80" : [Common readAppDataForKey:USER_CHOOSE_AGENUMBER] //用户所选择的年龄比如:100、90、80
+
 @interface CalendarViewController () < QGPickerViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *remindDataArray;
@@ -28,7 +31,6 @@
 
 @property (nonatomic,copy) NSString *chooseDateString;//比如2015-05-12等等
 
-@property (nonatomic,copy) NSString *chooseAgeString;//比如100，90，80，70等等
 
 @end
 
@@ -42,8 +44,6 @@
     [STNotificationCenter addObserver:self selector:@selector(reloadDate) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     self.selectorDate = [NSDate date];//默认选中的日期是今天
-    
-    self.chooseAgeString = @"80";
     
     self.remindDataArray = [[NSMutableArray alloc] init];
     
@@ -107,7 +107,7 @@
         
         NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
         
-        NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[self.chooseAgeString doubleValue]*365*24*60*60 sinceDate:birthdayDate];
+        NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[CHOOSE_AGE_STRING  doubleValue]*365*24*60*60 sinceDate:birthdayDate];
         
         NSTimeInterval interval = [chooseAgeDate timeIntervalSinceDate:selectorNewDate];
         
@@ -121,6 +121,8 @@
         
         self.birthdayCell.titleLabel.text = [NSString stringWithFormat:@"您出生到这天过去了%d天。",birthdayNumber];
     }
+    
+    [self.ageCell.ageButton setTitle:[NSString stringWithFormat:@"%@岁",CHOOSE_AGE_STRING] forState:UIControlStateNormal];//显示用户选择的年龄
     
     [self.tableView reloadData];
 }
@@ -167,7 +169,7 @@
             }
             
             //显示QGPickerView
-            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:@"80岁" selectedTitle:nil selectedTitle:nil];
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",CHOOSE_AGE_STRING] selectedTitle:nil selectedTitle:nil];
             
         } else {//user生日设置了
             
@@ -193,7 +195,7 @@
             }
             
             //显示QGPickerView
-            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",weakSelf.chooseAgeString] selectedTitle:nil selectedTitle:nil];
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[NSString stringWithFormat:@"%@岁",CHOOSE_AGE_STRING] selectedTitle:nil selectedTitle:nil];
         }
     }];
     
@@ -259,10 +261,8 @@
 #pragma mark -- QGPickerViewDelegate
 
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
-    
-    [self.ageCell.ageButton setTitle:value forState:UIControlStateNormal];
-    
-    self.chooseAgeString = [[value componentsSeparatedByString:@"岁"] firstObject];
+
+    [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:[[value componentsSeparatedByString:@"岁"] firstObject]];//保存到沙盒里
     
     [self reloadShowCalendarDateWith:self.selectorDate];
 }
