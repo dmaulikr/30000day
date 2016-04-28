@@ -65,7 +65,7 @@
     //根据网络链接去下载图片
     [self.willShowImageView sd_setImageWithURL:[NSURL URLWithString:_orderModel.productPhoto] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    [_priceLabel setAttributedText:[Common attributedStringWithPrice:[_orderModel.totalPrice floatValue]]];
+    [_priceLabel setAttributedText:[Common attributedStringWithPrice:[_orderModel.currentPrice floatValue]]];
 }
 
 - (void)countNumberOfData {

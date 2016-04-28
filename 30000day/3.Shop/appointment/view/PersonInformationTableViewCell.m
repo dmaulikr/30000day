@@ -26,19 +26,6 @@
     self.remarkTextView.layer.borderWidth = 1.0f;
 }
 
-- (void)configTotalPriceWith:(NSMutableArray *)timeModelArray {
-    
-    //设置价格
-    float price = 0.00f;
-    
-    for (AppointmentTimeModel *time_model  in timeModelArray) {
-        
-        price += [time_model.price floatValue];
-    }
-    
-    [_totalPriceLabel setAttributedText:[PersonInformationTableViewCell priceAttributeString:price]];
-}
-
 + (NSMutableAttributedString *)priceAttributeString:(float)price {
     
     NSString *priceString = [NSString stringWithFormat:@"%.2f",price];
@@ -50,17 +37,6 @@
     return string;
 }
 
-- (void)configOrderWithAppointmentTimeModel:(AppointmentTimeModel *)timeModel {
-
-    if ([Common isObjectNull:timeModel.uniqueKey] && ![Common isObjectNull:timeModel.courtName]) {//订单详情使用
-        
-        _contentLabel.text = [NSString stringWithFormat:@"%@ %@ %@元",timeModel.timeRange,timeModel.courtName,timeModel.price];
-        
-    } else {//提交订单的时候使用
-        
-        _contentLabel.text = [NSString stringWithFormat:@"%@ %@号场 %@元",timeModel.timeRange,[timeModel.uniqueKey substringWithRange:NSMakeRange(8, 1)],timeModel.price];
-    }
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

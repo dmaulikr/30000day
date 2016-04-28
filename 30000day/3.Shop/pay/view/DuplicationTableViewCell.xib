@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="C1K-zx-KKu" customClass="DuplicationTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1K-zx-KKu" id="JwS-Xg-Cp2">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSU-Eu-3PL">
+                        <rect key="frame" x="14" y="13" width="60" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="nhr-tN-mke"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooV-xr-XIt">
+                        <rect key="frame" x="94" y="13" width="216" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ooV-xr-XIt" firstAttribute="leading" secondItem="GSU-Eu-3PL" secondAttribute="trailing" constant="20" id="7By-nP-nht"/>
+                    <constraint firstItem="GSU-Eu-3PL" firstAttribute="leading" secondItem="JwS-Xg-Cp2" secondAttribute="leading" constant="14" id="HJx-wg-wrU"/>
+                    <constraint firstItem="GSU-Eu-3PL" firstAttribute="centerY" secondItem="JwS-Xg-Cp2" secondAttribute="centerY" id="R5j-zt-uQH"/>
+                    <constraint firstAttribute="trailing" secondItem="ooV-xr-XIt" secondAttribute="trailing" constant="10" id="Xk0-vf-ig6"/>
+                    <constraint firstItem="ooV-xr-XIt" firstAttribute="centerY" secondItem="JwS-Xg-Cp2" secondAttribute="centerY" id="i7A-N7-JO2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentLabel_first" destination="ooV-xr-XIt" id="iu6-Cy-gKW"/>
+                <outlet property="titleLabel_first" destination="GSU-Eu-3PL" id="bza-Ym-GfR"/>
+            </connections>
+            <point key="canvasLocation" x="211" y="273"/>
+        </tableViewCell>
+    </objects>
+</document>

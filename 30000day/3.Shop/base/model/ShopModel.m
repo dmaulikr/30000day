@@ -21,8 +21,3 @@
 }
 
 @end
-
-@implementation ActivityModel
-
-
-@end

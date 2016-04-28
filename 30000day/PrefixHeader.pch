@@ -24,6 +24,9 @@
 #import "QGPickerView.h"
 
 #import "STRemindManager.h"
+#import "PriceModel.h"//价格模型
+#import "ActivityModel.h"//活动模型
+
 
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudIM.h>

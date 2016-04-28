@@ -31,7 +31,11 @@
 
 @property (nonatomic,copy) NSString *status;//商品状态
 
-@property (nonatomic,copy) NSString *totalPrice;//价格
+@property (nonatomic,copy) NSString *totalPrice;//总价格
+
+@property (nonatomic,copy) NSString *currentPrice;//当前价格
+
+@property (nonatomic,strong) PriceModel *prodActivity;
 
 @end
 

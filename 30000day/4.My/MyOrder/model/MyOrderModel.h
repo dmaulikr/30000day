@@ -28,4 +28,6 @@
 
 @property (nonatomic,strong) NSNumber *quantity;//数量
 
+@property (nonatomic,copy) NSString *currentPrice;//当前价格
+
 @end
