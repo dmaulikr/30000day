@@ -3725,32 +3725,27 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:productId forKey:@"productId"];
+    [params addParameter:productId forKey:@"productId"];
     
-    [params setObject:date forKey:@"date"];
+    [params addParameter:date forKey:@"date"];
     
-    [params setObject:contactName forKey:@"reserverName"];
+    [params addParameter:contactName forKey:@"reserverName"];
     
-    [params setObject:contactPhoneNumber forKey:@"reserverContactNo"];
+    [params addParameter:contactPhoneNumber forKey:@"reserverContactNo"];
     
-    if (![Common isObjectNull:remark]) {
-        
-        [params setObject:remark forKey:@"memo"];
-    }
+    [params addParameter:remark forKey:@"memo"];
     
     if (timeModelArray.count) {
         
         NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
         
-        [params setObject:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
+        [params addParameter:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
         
     }
     
     [params addParameter:price forKey:@"payableAmount"];
-    
-    [params addParameter:@"3" forKey:@"activityIds"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_ORDER_COURTS

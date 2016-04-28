@@ -84,17 +84,23 @@
         
         self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     }
-    //这地方必须加上，否则会出现bug
-    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
+    
+    if (_inputView) {
+        
+        //这地方必须加上，否则会出现bug
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
+        
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
     
-    [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
-    
-    [self inputViewHide];
+    if (_inputView) {
+        
+        [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
+    }
 }
 
 //监听屏幕的滑动事件
