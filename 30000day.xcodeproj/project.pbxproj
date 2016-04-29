@@ -386,10 +386,8 @@
 		B8F2D9501C5C4685002C7712 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D94F1C5C4685002C7712 /* CoreLocation.framework */; };
 		B8F2D9521C5C46BA002C7712 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F2D9511C5C46BA002C7712 /* libc++.tbd */; };
 		B8F2D96E1C5C6924002C7712 /* STNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9681C5C6924002C7712 /* STNetworkCache.m */; };
-		B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */; };
-		B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */; };
-		B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */; };
-		B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */; };
+		B8F2D9C51C5F0439002C7712 /* PersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D9C31C5F0439002C7712 /* PersonTableViewCell.m */; };
+		B8F2D9C61C5F0439002C7712 /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D9C41C5F0439002C7712 /* PersonTableViewCell.xib */; };
 		B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA141C5F3448002C7712 /* STBaseViewController.m */; };
 		B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA1C1C5F3D04002C7712 /* ChooseVerifyWayViewController.m */; };
 		B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA1D1C5F3D04002C7712 /* ChooseVerifyWayViewController.xib */; };
@@ -1188,12 +1186,9 @@
 		B8F2D9511C5C46BA002C7712 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B8F2D9671C5C6924002C7712 /* STNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNetworkCache.h; sourceTree = "<group>"; };
 		B8F2D9681C5C6924002C7712 /* STNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STNetworkCache.m; sourceTree = "<group>"; };
-		B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myFriendsTableViewCell.h; sourceTree = "<group>"; };
-		B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myFriendsTableViewCell.m; sourceTree = "<group>"; };
-		B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myFriendsTableViewCell.xib; sourceTree = "<group>"; };
-		B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFriendsBigIMGTableViewCell.h; sourceTree = "<group>"; };
-		B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFriendsBigIMGTableViewCell.m; sourceTree = "<group>"; };
-		B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFriendsBigIMGTableViewCell.xib; sourceTree = "<group>"; };
+		B8F2D9C21C5F0439002C7712 /* PersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableViewCell.h; sourceTree = "<group>"; };
+		B8F2D9C31C5F0439002C7712 /* PersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableViewCell.m; sourceTree = "<group>"; };
+		B8F2D9C41C5F0439002C7712 /* PersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonTableViewCell.xib; sourceTree = "<group>"; };
 		B8F2DA131C5F3448002C7712 /* STBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBaseViewController.h; sourceTree = "<group>"; };
 		B8F2DA141C5F3448002C7712 /* STBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBaseViewController.m; sourceTree = "<group>"; };
 		B8F2DA1B1C5F3D04002C7712 /* ChooseVerifyWayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseVerifyWayViewController.h; sourceTree = "<group>"; };
@@ -2544,12 +2539,9 @@
 		B88C91761C5A07630089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2D9C21C5F0439002C7712 /* myFriendsTableViewCell.h */,
-				B8F2D9C31C5F0439002C7712 /* myFriendsTableViewCell.m */,
-				B8F2D9C41C5F0439002C7712 /* myFriendsTableViewCell.xib */,
-				B8F2D9D11C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.h */,
-				B8F2D9D21C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m */,
-				B8F2D9D31C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib */,
+				B8F2D9C21C5F0439002C7712 /* PersonTableViewCell.h */,
+				B8F2D9C31C5F0439002C7712 /* PersonTableViewCell.m */,
+				B8F2D9C41C5F0439002C7712 /* PersonTableViewCell.xib */,
 				B8695ABE1C755975001B4B95 /* PersonHeadView.h */,
 				B8695ABF1C755975001B4B95 /* PersonHeadView.m */,
 				B8695AC11C755981001B4B95 /* PersonHeadView.xib */,
@@ -4399,7 +4391,6 @@
 				B804FD9A1C8AC9A900DFD1CF /* RecordingSignal006@2x.png in Resources */,
 				B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */,
 				B80B55921CD053B2003E2C36 /* tusiji.plist in Resources */,
-				B8F2D9D51C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.xib in Resources */,
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B81306C51CB50F930051C4BA /* OrderDetailViewController.xib in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
@@ -4557,7 +4548,7 @@
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B665F8C91CC4BF5200070458 /* navBackBtn@2x.png in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
-				B8F2D9C61C5F0439002C7712 /* myFriendsTableViewCell.xib in Resources */,
+				B8F2D9C61C5F0439002C7712 /* PersonTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
@@ -4640,7 +4631,7 @@
 				B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */,
 				B8FD3E9A1C8A8408007BCA6B /* MCPhotographyHelper.m in Sources */,
 				B8FD3E131C8A7903007BCA6B /* XHViewState.m in Sources */,
-				B8F2D9C51C5F0439002C7712 /* myFriendsTableViewCell.m in Sources */,
+				B8F2D9C51C5F0439002C7712 /* PersonTableViewCell.m in Sources */,
 				B8FD3DE31C8A7903007BCA6B /* XHPhotographyHelper.m in Sources */,
 				B8FD3DEB1C8A7903007BCA6B /* XHDisplayLocationViewController.m in Sources */,
 				B8F6E3851CB91BEE000CC117 /* MD5DataSigner.m in Sources */,
@@ -4996,7 +4987,6 @@
 				B8FD3DF71C8A7903007BCA6B /* XHVideoOutputSampleBufferFactory.m in Sources */,
 				B8FD3E1D1C8A7903007BCA6B /* XHMessageStatusView.m in Sources */,
 				B8FD3CBE1C8A77EB007BCA6B /* CDChatManager.m in Sources */,
-				B8F2D9D41C5F26BB002C7712 /* MyFriendsBigIMGTableViewCell.m in Sources */,
 				B665F8D51CC4BF5200070458 /* ZLNoAuthorityViewController.m in Sources */,
 				B665F8DD1CC4BF5200070458 /* ZLThumbnailViewController.m in Sources */,
 				B8FD3DE51C8A7903007BCA6B /* XHVoiceRecordHelper.m in Sources */,

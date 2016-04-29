@@ -8,10 +8,9 @@
 
 #import "PersonViewController.h"
 #import "PersonHeadView.h"
-#import "myFriendsTableViewCell.h"
+#import "PersonTableViewCell.h"
 #import "UserInformationModel.h"
 #import "PersonDetailViewController.h"
-
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -138,7 +137,7 @@
     
     if (self.state) {
         
-        return 425;
+        return 430;
         
     } else {
         
@@ -147,37 +146,37 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UserInformationModel *informationModel = _dataArray[indexPath.row];
-    
-    myFriendsTableViewCell *cell;
-    
-    if (self.state) {
+
+    if (self.state == 0) {//小图
         
-        static NSString *ID = @"friendsBigIMGCell";
+        static NSString *identifier = @"PersonTableViewCell";
         
-        cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyFriendsBigIMGTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] firstObject];
         }
         
-    } else {
+        cell.informationModel = _dataArray[indexPath.row];
         
-        static NSString *ID = @"myFriendsCell";
+        return cell;
         
-        cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    } else {//大图
+        
+        static NSString *identifier_big = @"PersonTableViewCell_big";
+        
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier_big];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"myFriendsTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil] lastObject];
         }
+        cell.informationModel_second = _dataArray[indexPath.row];
+        
+        return cell;
     }
     
-    cell.informationModel = informationModel;
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
