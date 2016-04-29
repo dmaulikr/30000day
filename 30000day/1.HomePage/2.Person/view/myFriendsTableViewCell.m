@@ -7,6 +7,7 @@
 //
 
 #import "myFriendsTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation myFriendsTableViewCell
 
@@ -85,6 +86,12 @@
         self.upDownImg.image = [UIImage imageNamed:@"lower"];
         
     }
+    
+    [self.iconImg sd_setImageWithURL:[NSURL URLWithString:informationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    self.nameLab.text = informationModel.nickName;
+    
+    self.logName.text = [Common isObjectNull:informationModel.memo] ? @"暂无简介" :informationModel.memo;
 }
 
 - (int)getDays:(NSString *)dateString {

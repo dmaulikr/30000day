@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PersonViewController : STBaseViewController
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface PersonViewController : STRefreshViewController
 
 @end
