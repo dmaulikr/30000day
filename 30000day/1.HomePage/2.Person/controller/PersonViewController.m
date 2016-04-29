@@ -42,7 +42,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     //监听成功添加好友发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUseDidSuccessDeleteFriendSendNotification object:nil];
 }
 
 - (void)reloadData {
@@ -149,16 +151,16 @@
 
     if (self.state == 0) {//小图
         
-        static NSString *identifier = @"PersonTableViewCell";
+        static NSString *identifier = @"PersonTableViewCell_third";
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] firstObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         }
         
-        cell.informationModel = _dataArray[indexPath.row];
+        cell.informationModel_third = _dataArray[indexPath.row];
         
         return cell;
         
@@ -176,7 +178,6 @@
         
         return cell;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -197,7 +198,11 @@
 
 - (void)dealloc {
     
-    [STNotificationCenter removeObserver:self];
+    [STNotificationCenter removeObserver:self name:STUserAddFriendsSuccessPostNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STUseDidSuccessDeleteFriendSendNotification object:nil];
+    
+    _dataArray = nil;
 }
 
 

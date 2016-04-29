@@ -31,7 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_second;
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
 
-
+//第三个xib
+@property (nonatomic,strong)UserInformationModel *informationModel_third;
 
 
 

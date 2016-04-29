@@ -23,6 +23,9 @@ static NSString *const STUserAccountHandlerUseProfileDidChangeNotification = @"S
 //成功获取好友的时候发送的通知
 static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuccessGetFriendsSendNotification";
 
+//成功移除好友的时候发送的通知
+static NSString *const STUseDidSuccessDeleteFriendSendNotification = @"STUseDidSuccessDeleteFriendSendNotification";
+
 //成功取消订单会发出通知
 static NSString *const STDidSuccessCancelOrderSendNotification = @"STDidSuccessCancelOrderSendNotification";
 
@@ -106,6 +109,12 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
 - (void)getMyFriendsWithUserId:(NSString *)userId
                                 success:(void (^)(NSMutableArray * dataArray))success
                                 failure:(void (^)(NSError *))failure;
+
+//************************ 删除好友 **********/
+- (void)sendDeleteFriendWithUserId:(NSNumber *)userId
+                      friendUserId:(NSNumber *)friendId
+                       success:(void (^)(BOOL  success))success
+                       failure:(void (^)(NSError *))failure;
 
 
 //**********搜索某一个用户（里面装的UserInformationModel）**********************/

@@ -695,6 +695,79 @@
     [self startRequest:request];
 }
 
+//************************ 删除好友 **********/
+- (void)sendDeleteFriendWithUserId:(NSNumber *)userId
+                      friendUserId:(NSNumber *)friendId
+                           success:(void (^)(BOOL  success))success
+                           failure:(void (^)(NSError *))failure {
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    [parameters addParameter:userId forKey:@"curUserId"];
+    
+    [parameters addParameter:friendId forKey:@"fUserId"];
+    
+    [Common urlStringWithDictionary:parameters withString:DELETE_FRIEND];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:DELETE_FRIEND
+                                                 parameters:parameters
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                    
+                                                                    [STNotificationCenter postNotificationName:STUseDidSuccessDeleteFriendSendNotification object:nil];
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                            
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+}
+
+
 //***** 更新个人信息 *****/
 - (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
                                    nickName:(NSString *)nickName

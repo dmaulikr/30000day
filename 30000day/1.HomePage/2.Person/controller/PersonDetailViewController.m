@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserInformationModel.h"
 #import "UIImage+WF.h"
+#import "MTProgressHUD.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -78,8 +79,15 @@
         
        UIAlertAction *action_alert_first = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
           
-           
-           
+           [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId success:^(BOOL success) {
+              
+               [self.navigationController popViewControllerAnimated:YES];
+               
+           } failure:^(NSError *error) {
+               
+               [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+               
+           }];
        }];
         
         [controller_alert addAction:action_alert_first];
@@ -213,20 +221,21 @@
     
     if (indexPath.section == 0) {
       
-        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonTableViewCell"];
+        static NSString *identifier = @"PersonTableViewCell_third";
+        
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:self options:nil] firstObject];
-        
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         }
         
         cell.imageRight_first.hidden = YES;
         
         cell.progressView.hidden = YES;
         
-        cell.informationModel = self.informationModel;
-
+        cell.informationModel_third = self.informationModel;
+        
         return cell;
         
     } else if (indexPath.section == 1) {
@@ -270,7 +279,7 @@
     
     if (indexPath.section == 0) {
         
-        return 80;
+        return 72.1f;
         
     } else if ( indexPath.section == 1) {
         
