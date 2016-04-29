@@ -10,6 +10,7 @@
 #import "SignOutViewController.h"
 #import "AFNetworking.h"
 #import "NewPasswordViewController.h"
+#import "UIImageView+WebCache.h"
 
 #define IdentityCount 60
 
@@ -36,6 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
+
 @property (weak, nonatomic) IBOutlet UILabel *loginTypeLable;
 
 @property (weak, nonatomic) IBOutlet UIImageView *loginImageView;
@@ -43,7 +45,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *loginName;
 
 @property (weak, nonatomic) IBOutlet UIView *loginSupView;
-
 
 @end
 
@@ -54,6 +55,24 @@
     [super viewDidLoad];
     
     self.title = @"手机验证";
+    
+    if (self.isSignOut == 1 || self.isSignOut == 2) {
+        
+        self.loginSupView.hidden = YES;
+        
+    } else {
+        
+        self.loginSupView.hidden = NO;
+        
+        [self.nextBtn setTitle:@"完成" forState:UIControlStateNormal];
+        
+        self.loginTypeLable.text = self.type;
+        
+        [self.loginImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
+        
+        self.loginName.text = self.name;
+        
+    }
     
     [self.phoneNumber setDelegate:self];
     
@@ -104,7 +123,7 @@
     //调用验证接口
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
        
-        if (self.isSignOut) {
+        if (self.isSignOut == 1) {
             
             SignOutViewController *controller = [[SignOutViewController alloc] init];
             
@@ -116,7 +135,7 @@
             
             [self.navigationController pushViewController:controller animated:YES];
             
-        } else {
+        } else if(self.isSignOut == 2){
             
             NewPasswordViewController *controller = [[NewPasswordViewController alloc] init];
             
@@ -130,6 +149,11 @@
             
             [self.navigationController pushViewController:controller animated:YES];
             
+        } else {
+        
+            
+            
+        
         }
         
     } failure:^(NSError *error) {

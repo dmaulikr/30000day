@@ -5311,5 +5311,159 @@
     [self startRequest:request];
 }
 
+//*****************************************检查是否已绑定*********************/
+- (void)sendcheckBindWithAccountNo:(NSString *)accountNo
+                              type:(NSString *)type
+                           success:(void (^)(NSString *success))success
+                           failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:accountNo forKey:@"accountNo"];
+    
+    [params setObject:type forKey:@"type"];
+    
+    [Common urlStringWithDictionary:params withString:GET_CHECKBIND];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:GET_CHECKBIND
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                                                                    success(recvDic[@"value"]);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+
+}
+
+//*****************************************绑定注册*********************/
+- (void)sendBindRegisterWithMobile:(NSString *)mobile
+                          nickName:(NSString *)nickName
+                         accountNo:(NSString *)accountNo
+                           headImg:(NSString *)headImg
+                              type:(NSString *)type
+                           success:(void (^)(NSString *success))success
+                           failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:mobile forKey:@"mobile"];
+    
+    [params setObject:nickName forKey:@"nickName"];
+    
+    [params setObject:accountNo forKey:@"accountNo"];
+    
+    [params setObject:headImg forKey:@"headImg"];
+    
+    [params setObject:type forKey:@"type"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_BIND_REGISTER];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:SAVE_BIND_REGISTER
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+}
+
 
 @end

@@ -177,6 +177,8 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToSina];
+
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"Sina" name:snsAccount.userName url:snsAccount.iconURL];
                 
                 NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
@@ -191,12 +193,12 @@
         
         snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
             
-            //          获取微博用户名、uid、token等
-            
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
-                //qq昵称，uid，令牌，头像图片URL
+                
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"QQ" name:snsAccount.userName url:snsAccount.iconURL];
+
                 NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
             }});
@@ -205,16 +207,50 @@
     } else if (button.tag == 2) {
         
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+        
         snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            //  获取微博用户名、uid、token等
+            
             if (response.responseCode == UMSResponseCodeSuccess) {
+                
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"WeChat" name:snsAccount.userName url:snsAccount.iconURL];
+                
                 NSLog(@"username is %@, uid is %@, token is %@ iconUrl is %@  unionId is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL,snsAccount.unionId);
             }
         });
         
         
     }
+
+}
+
+- (void)sendcheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL {
+    
+    [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
+        
+        NSLog(@"%@",success);
+        
+        if (success.integerValue) {
+            
+            
+            
+        } else {
+        
+            SMSVerificationViewController *controller =  [[SMSVerificationViewController alloc] init];
+            controller.isSignOut = 3;
+            controller.type = type;
+            controller.name = userName;
+            controller.url = iconURL;
+            [self.navigationController pushViewController:controller animated:YES];
+        
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+        
+    }];
 
 }
 

@@ -69,7 +69,7 @@
     if (indexPath.row == 0) {
         
         SMSVerificationViewController *controller = [[SMSVerificationViewController alloc]init];
-
+        
         controller.isSignOut = 2;
         
         [self.navigationController pushViewController:controller animated:YES];

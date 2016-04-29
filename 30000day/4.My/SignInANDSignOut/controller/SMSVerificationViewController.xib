@@ -143,7 +143,7 @@
                         <action selector="nextBtn:" destination="-1" eventType="touchUpInside" id="DhT-zh-FWk"/>
                     </connections>
                 </button>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-kw-qUW">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-kw-qUW">
                     <rect key="frame" x="15" y="274" width="290" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将使用下列账号登陆：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOT-lP-oSq">
@@ -199,7 +199,7 @@
                 <constraint firstItem="h3H-3l-mFF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="sGs-wc-ocO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="242" y="16"/>
+            <point key="canvasLocation" x="40" y="5"/>
         </view>
     </objects>
 </document>

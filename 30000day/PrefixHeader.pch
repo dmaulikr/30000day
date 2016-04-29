@@ -220,6 +220,10 @@
 
 #define  GET_DEFEAT_DATA              @"/stapi/life/getDefeatData"              //获取击败人数接口
 
+#define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
+
+#define  SAVE_BIND_REGISTER           @"/stapi/user/checkBind"                  //绑定注册
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"

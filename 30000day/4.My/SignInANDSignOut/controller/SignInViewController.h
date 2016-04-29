@@ -25,6 +25,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
+@property (weak, nonatomic) IBOutlet UIView *loginSupView;
+
 - (IBAction)regitView:(UIButton *)sender;
 
 @end

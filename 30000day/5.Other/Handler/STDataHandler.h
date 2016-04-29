@@ -456,4 +456,19 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
                            success:(void (^)(NSString *dataString))success
                            failure:(void (^)(NSError *error))failure;
 
+//*****************************************检查是否已绑定*********************/
+- (void)sendcheckBindWithAccountNo:(NSString *)accountNo
+                              type:(NSString *)type
+                           success:(void (^)(NSString *success))success
+                           failure:(void (^)(NSError *error))failure;
+
+//*****************************************绑定注册*********************/
+- (void)sendBindRegisterWithMobile:(NSString *)mobile
+                          nickName:(NSString *)nickName
+                         accountNo:(NSString *)accountNo
+                           headImg:(NSString *)headImg
+                              type:(NSString *)type
+                           success:(void (^)(NSString *success))success
+                           failure:(void (^)(NSError *error))failure;
+
 @end
