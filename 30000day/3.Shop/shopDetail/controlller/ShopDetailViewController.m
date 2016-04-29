@@ -331,31 +331,50 @@
         return cell;
     
     } else if (indexPath.section == 1) {
-        
-        ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_second"];
-        
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][1];
-        }
-        
+    
         if (indexPath.row == 0) {
             
+            ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_second"];
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][1];
+            }
+            
             cell.leftTitleLable.text = self.shopDetailModel.address == nil || [self.shopDetailModel.address isEqualToString:@""] ? @"地址不详":self.shopDetailModel.address;
-            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_location"]];
+            [cell.leftImageView setImage:[UIImage imageNamed:@"point"]];
+            return cell;
             
         } else if (indexPath.row == 1){
             
-            cell.leftTitleLable.text = self.shopDetailModel.telephone;
-            [cell.leftImageView setImage:[UIImage imageNamed:@"icon_phone"]];
+            ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_third"];
+            
+            if (cell == nil) {
+                
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] lastObject];
+            }
+            
+            [cell.imageView_third setImage:[UIImage imageNamed:@"phone"]];
+            
+            cell.label_third.text = self.shopDetailModel.telephone;
+        
+            return cell;
             
         } else if (indexPath.row == 2) {
             
-            cell.leftTitleLable.text = @"联系商家";
-            [cell.leftImageView setImage:[UIImage imageNamed:@"shortMessage"]];
+            ShopDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShopDetailTableViewCell_third"];
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] [3];
+            }
+            
+            cell.label_fourth.text = @"联系商家";
+            
+            [cell.imageView_fourth setImage:[UIImage imageNamed:@"shortMessage"]];
+            
+            return cell;
         }
-        
-        return cell;
         
     } else if (indexPath.section == 2){
         

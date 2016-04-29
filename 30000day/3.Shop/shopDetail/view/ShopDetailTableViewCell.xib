@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -85,14 +86,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9DL-0h-rAn">
-                        <rect key="frame" x="14" y="13" width="16" height="18"/>
+                        <rect key="frame" x="14" y="10" width="17" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="aDX-Dx-a1l"/>
-                            <constraint firstAttribute="height" constant="18" id="buk-H0-8Lk"/>
+                            <constraint firstAttribute="width" secondItem="9DL-0h-rAn" secondAttribute="height" multiplier="50:67" id="Hbr-6Z-1vb"/>
+                            <constraint firstAttribute="width" constant="17" id="aDX-Dx-a1l"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTL-iq-XeV">
-                        <rect key="frame" x="40" y="13" width="60" height="18"/>
+                        <rect key="frame" x="41" y="13" width="60" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -144,6 +145,40 @@
                 <outlet property="label_third" destination="Jz2-wt-fas" id="5AO-k2-oBm"/>
             </connections>
             <point key="canvasLocation" x="144" y="550"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopDetailTableViewCell" id="h9j-od-6hd" customClass="ShopDetailTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9j-od-6hd" id="gMT-8X-8Mu">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mH7-cN-RrE">
+                        <rect key="frame" x="14" y="14" width="17" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="1Uw-Fg-J7H"/>
+                            <constraint firstAttribute="width" secondItem="mH7-cN-RrE" secondAttribute="height" multiplier="74:62" id="YgR-g8-6ay"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浦东大道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-ll-LSG">
+                        <rect key="frame" x="41" y="13" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IO8-ll-LSG" firstAttribute="centerY" secondItem="gMT-8X-8Mu" secondAttribute="centerY" id="1LR-5S-tBW"/>
+                    <constraint firstItem="IO8-ll-LSG" firstAttribute="leading" secondItem="mH7-cN-RrE" secondAttribute="trailing" constant="10" id="6ya-hJ-jU5"/>
+                    <constraint firstItem="mH7-cN-RrE" firstAttribute="centerY" secondItem="gMT-8X-8Mu" secondAttribute="centerY" id="O3c-b1-Qg5"/>
+                    <constraint firstItem="mH7-cN-RrE" firstAttribute="leading" secondItem="gMT-8X-8Mu" secondAttribute="leading" constant="14" id="gYI-aU-QCf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageView_fourth" destination="mH7-cN-RrE" id="nO8-Ka-uHs"/>
+                <outlet property="label_fourth" destination="IO8-ll-LSG" id="WPq-LC-vDE"/>
+            </connections>
+            <point key="canvasLocation" x="149" y="644"/>
         </tableViewCell>
     </objects>
 </document>

@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "HeadViewTableViewCell.h"
 #import "AccountNumberTableViewCell.h"
-
+#import "MTProgressHUD.h"
 
 #define ORIGINAL_MAX_WIDTH 640.0f
 
@@ -34,6 +34,10 @@
 
 @property (nonatomic,copy) NSString *lastBirthdayString;//用来比较用户是否修改了生日
 @property (nonatomic,copy) NSString *currentChooseBirthdayString;//当前选择的生日
+
+@property (nonatomic,copy) NSString *memo;//上次的简介
+@property (nonatomic,copy) NSString *currentChooseMemo;//当前用户修改的简介
+
 
 @property (nonatomic ,strong) UIBarButtonItem *saveButton;
 
@@ -63,11 +67,18 @@
     self.currentChooseGender = STUserAccountHandler.userProfile.gender;
     
     
+    
     self.lastBirthdayString = STUserAccountHandler.userProfile.birthday;
     self.currentChooseBirthdayString = STUserAccountHandler.userProfile.birthday;
     
     
+    
     self.headImageURLString = STUserAccountHandler.userProfile.headImg;
+    
+    
+    
+    self.memo = STUserAccountHandler.userProfile.memo;
+    self.currentChooseMemo = STUserAccountHandler.userProfile.memo;
     
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
@@ -97,24 +108,31 @@
         return;
     }
     
-    [self showHUDWithContent:@"正在保存" animated:YES];
-    
     //上传服务器
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] nickName:self.currentChooseNickName gender:self.currentChooseGender birthday:self.currentChooseBirthdayString headImageUrlString:self.headImageURLString success:^(BOOL success) {
-        
-        [self hideHUD:YES];
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
+    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                                 nickName:self.currentChooseNickName
+                                                   gender:self.currentChooseGender
+                                                 birthday:self.currentChooseBirthdayString
+                                       headImageUrlString:self.headImageURLString
+                                                     memo:self.currentChooseMemo
+                                                  success:^(BOOL success) {
         
         [self showToast:@"个人信息保存成功"];
         
         [self.navigationController popViewControllerAnimated:YES];
         
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                      
+        
     } failure:^(STNetError *error) {
         
-        [self hideHUD:YES];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self showToast:@"个人信息保存失败"];
     }];
-    
 }
 
 - (void)updateImage:(UIImage *)image {
@@ -128,7 +146,6 @@
         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
 
     }];
-    
 }
 
 #pragma ---
@@ -143,7 +160,7 @@
     
     if (section == 0) {
         
-        return 4;
+        return 5;
         
     } else {
         
@@ -226,19 +243,25 @@
         
             }
             
-            if ( indexPath.row == 1) {
+            if (indexPath.row == 1) {
+              
+                cell.detailTextLabel.text = self.currentChooseMemo;
+                
+                cell.textLabel.text = @"个性签名";
+                
+            } else if ( indexPath.row == 2) {
                 
                 cell.detailTextLabel.text = self.currentChooseNickName;
                 
                 cell.textLabel.text = @"昵称";
             
-            } else if ( indexPath.row == 2) {
+            } else if ( indexPath.row == 3) {
                 
                 cell.detailTextLabel.text = [self.currentChooseGender isEqual:@1] ? @"男" : @"女";
                 
                 cell.textLabel.text = @"性别";
                 
-            } else if ( indexPath.row == 3) {
+            } else if ( indexPath.row == 4) {
                 
                 cell.detailTextLabel.text = self.currentChooseBirthdayString;
                 
@@ -287,7 +310,19 @@
             
             [self chooseActionSheet];
             
-        }else if(indexPath.row == 1){
+        } else if (indexPath.row == 1) {
+          
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"修改简介" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            
+            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+            
+            UITextField *textfile = [alert textFieldAtIndex:0];
+            
+            [textfile setText:self.currentChooseMemo];
+            
+            [alert show];
+            
+        } else if(indexPath.row == 2){
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.currentChooseNickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             
@@ -299,13 +334,13 @@
             
             [alert show];
             
-        } else if(indexPath.row == 2) {
+        } else if(indexPath.row == 3) {
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"选择性别"message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"男",@"女", nil];
             
             [alertView show];
             
-        } else if(indexPath.row == 3) {
+        } else if(indexPath.row == 4) {
             
             [self chooseBirthday];
         }
@@ -354,13 +389,21 @@
     
     if ( self.selectorIndexPath.section == 0 && buttonIndex != 0 ) {
         
+        
         if (self.selectorIndexPath.row == 1 ) {
+            
+            UITextField *textfield = [alertView textFieldAtIndex:0];
+            
+            self.currentChooseMemo = textfield.text;
+        }
+        
+        if (self.selectorIndexPath.row == 2 ) {
             
             UITextField *textfield = [alertView textFieldAtIndex:0];
             
             self.currentChooseNickName = textfield.text;
         }
-        if (self.selectorIndexPath.row == 2 ) {
+        if (self.selectorIndexPath.row == 3 ) {
             
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"男"]) {
                 
@@ -454,7 +497,7 @@
     
     if ([self.nickName isEqualToString:self.currentChooseNickName] &&
         [self.gender isEqual:self.currentChooseGender] &&
-        [self.lastBirthdayString isEqualToString:self.currentChooseBirthdayString] && [self.editorImage isEqual:self.portraitImageView.image]) {
+        [self.lastBirthdayString isEqualToString:self.currentChooseBirthdayString] && [self.editorImage isEqual:self.portraitImageView.image] && [self.memo isEqualToString:self.currentChooseMemo]) {
         
         self.saveButton.enabled = NO;
         

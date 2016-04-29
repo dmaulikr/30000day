@@ -404,7 +404,6 @@
 		B8F2DA4D1C5F3D04002C7712 /* SMSVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA2F1C5F3D04002C7712 /* SMSVerificationViewController.xib */; };
 		B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */; };
 		B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */; };
-		B8F2DA531C5F3D04002C7712 /* security.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2DA3A1C5F3D04002C7712 /* security.m */; };
 		B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F648271C92DA63001A3119 /* SearchViewController.m */; };
 		B8F6482A1C92DA63001A3119 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F648281C92DA63001A3119 /* SearchViewController.xib */; };
 		B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6482C1C93A9C3001A3119 /* ShopDetailViewController.m */; };
@@ -452,7 +451,6 @@
 		B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C571C968CC20063CC60 /* ReportViewController.m */; };
 		B8F73C5A1C968CC20063CC60 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C581C968CC20063CC60 /* ReportViewController.xib */; };
 		B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */; };
-		B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880121C8FF31600B5DA18 /* UserInformationManager.m */; };
 		B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */; };
 		B8F880301C901A0700B5DA18 /* RemindObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802E1C901A0700B5DA18 /* RemindObject.m */; };
 		B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */; };
@@ -1218,8 +1216,6 @@
 		B8F2DA331C5F3D04002C7712 /* NewPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPasswordViewController.h; sourceTree = "<group>"; };
 		B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPasswordViewController.m; sourceTree = "<group>"; };
 		B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
-		B8F2DA391C5F3D04002C7712 /* security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = security.h; sourceTree = "<group>"; };
-		B8F2DA3A1C5F3D04002C7712 /* security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = security.m; sourceTree = "<group>"; };
 		B8F648261C92DA63001A3119 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		B8F648271C92DA63001A3119 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		B8F648281C92DA63001A3119 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -1370,8 +1366,6 @@
 		B8F73C581C968CC20063CC60 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
 		B8F880051C8EDC6500B5DA18 /* CDSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSettingVC.h; sourceTree = "<group>"; };
 		B8F880061C8EDC6500B5DA18 /* CDSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSettingVC.m; sourceTree = "<group>"; };
-		B8F880111C8FF31600B5DA18 /* UserInformationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationManager.h; sourceTree = "<group>"; };
-		B8F880121C8FF31600B5DA18 /* UserInformationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationManager.m; sourceTree = "<group>"; };
 		B8F8802B1C901A0700B5DA18 /* RemindObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RemindObject+CoreDataProperties.h"; sourceTree = "<group>"; };
 		B8F8802C1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RemindObject+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B8F8802D1C901A0700B5DA18 /* RemindObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindObject.h; sourceTree = "<group>"; };
@@ -3138,8 +3132,6 @@
 		B8F2D9C11C5EFE8A002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F880111C8FF31600B5DA18 /* UserInformationManager.h */,
-				B8F880121C8FF31600B5DA18 /* UserInformationManager.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3185,8 +3177,6 @@
 		B8F2DA361C5F3D04002C7712 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F2DA391C5F3D04002C7712 /* security.h */,
-				B8F2DA3A1C5F3D04002C7712 /* security.m */,
 				B89216BB1C6045070023F8A8 /* UserProfile.h */,
 				B89216BC1C6045070023F8A8 /* UserProfile.m */,
 			);
@@ -4712,7 +4702,6 @@
 				B8FD3DF91C8A7903007BCA6B /* XHAnnotation.m in Sources */,
 				B8FD3DFE1C8A7903007BCA6B /* XHShareMenuItem.m in Sources */,
 				B665F8D11CC4BF5200070458 /* ToastUtils.m in Sources */,
-				B8F2DA531C5F3D04002C7712 /* security.m in Sources */,
 				B6171DBF1C8D208600116B13 /* WeatherTableViewCell.m in Sources */,
 				B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */,
 				B8FD3E241C8A7903007BCA6B /* XHEmotionCollectionViewFlowLayout.m in Sources */,
@@ -4729,7 +4718,6 @@
 				B83B7A5D1CAD01F000D2CC6A /* STChoosePictureCollectionCell.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailTableViewCell.m in Sources */,
 				B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */,
-				B8F880131C8FF31600B5DA18 /* UserInformationManager.m in Sources */,
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
 				B60D858D1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.m in Sources */,
 				B8FD3E281C8A7903007BCA6B /* XHLoadMoreView.m in Sources */,

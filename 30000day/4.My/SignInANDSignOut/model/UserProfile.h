@@ -73,4 +73,6 @@
 
 @property (nonatomic,copy) NSString *email;
 
+@property (nonatomic,copy) NSString *memo;//个人简介
+
 @end
