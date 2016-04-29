@@ -209,5 +209,79 @@
     return iDays;
 }
 
+- (void)setInformationModel_third:(UserInformationModel *)informationModel_third {
+    
+    _informationModel_third = informationModel_third;
+    
+    int hasbeen;
+    
+    int count = 0;
+    
+    if ([Common isObjectNull:informationModel_third.birthday]) {
+        
+        hasbeen = 0;
+        
+    } else {
+        
+        hasbeen = [self getDays:informationModel_third.birthday];
+    }
+    
+    NSArray *array = [informationModel_third.birthday componentsSeparatedByString:@"-"];
+    
+    int year = [array[0] intValue];
+    
+    for (int i = year; i < year + 80; i++) {
+        
+        if (i % 400 == 0 || ( i % 4 == 0 && i % 100 != 0)) {
+            
+            count += 366;
+            
+        } else {
+            
+            count += 365;
+        }
+    }
+    
+    //第一个xib
+    self.progressView.progressCounter = hasbeen;
+    
+    self.progressView.progressTotal = [informationModel_third.curLife floatValue];
+    
+    self.progressView.theme.sliceDividerHidden = YES;//部分分开是否隐藏
+    
+    self.progressView.theme.incompletedColor = RGBACOLOR(230, 230, 230, 1);
+    
+    self.progressView.theme.thickness = 10.0;//粗细
+    self.progressView_second.progressCounter = hasbeen;
+    
+    
+    if (hasbeen == 0) {
+        
+        self.progressView.theme.completedColor = RGBACOLOR(230, 230, 230, 1);
+        
+    } else {
+        
+        self.progressView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
+    }
+    
+    //设置升降image
+    if ([_informationModel.chgLife floatValue] > 0 ) {
+        
+        self.imageRight_first.image = [UIImage imageNamed:@"up"];
+        
+    } else {
+        
+        self.imageRight_first.image = [UIImage imageNamed:@"lower"];
+        
+    }
+    
+    [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:informationModel_third.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    self.labelFirst_first.text = informationModel_third.nickName;
+    
+    //个性签名
+    self.labelThird_first.text = [NSString stringWithFormat:@"%@",[Common isObjectNull:informationModel_third.memo] ? @"" : informationModel_third.memo];
+}
+
 
 @end

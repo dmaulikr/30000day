@@ -170,7 +170,74 @@
                 <outlet property="labelThird_second" destination="94G-nN-VSh" id="uOC-Aw-e4s"/>
                 <outlet property="progressView_second" destination="LaN-F9-v54" id="cyh-bq-8rm"/>
             </connections>
-            <point key="canvasLocation" x="317" y="402"/>
+            <point key="canvasLocation" x="305" y="355"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_third" id="pde-jG-6ip" customClass="PersonTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pde-jG-6ip" id="cYj-V5-rN9">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znz-iJ-cFR">
+                        <rect key="frame" x="77" y="16" width="165" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="tYZ-so-YgZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个性签名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6b-R0-XMa">
+                        <rect key="frame" x="77" y="35" width="173" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="rGE-Md-cME">
+                        <rect key="frame" x="290" y="25" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="ZEF-wT-HUd"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YeR-ol-YZI" customClass="MDRadialProgressView">
+                        <rect key="frame" x="252" y="21" width="30" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-2v-tDG">
+                        <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="y17-6c-NvC"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="rGE-Md-cME" firstAttribute="centerY" secondItem="YeR-ol-YZI" secondAttribute="centerY" id="14K-C1-m2j"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="l6b-R0-XMa" secondAttribute="bottom" constant="8" id="3iA-Kc-2xp"/>
+                    <constraint firstItem="YeR-ol-YZI" firstAttribute="centerY" secondItem="cYj-V5-rN9" secondAttribute="centerY" id="5HJ-pN-Hxc"/>
+                    <constraint firstItem="znz-iJ-cFR" firstAttribute="leading" secondItem="1iA-2v-tDG" secondAttribute="trailing" constant="10" id="6va-Gd-Djx"/>
+                    <constraint firstItem="rGE-Md-cME" firstAttribute="trailing" secondItem="cYj-V5-rN9" secondAttribute="trailingMargin" id="8Ux-rU-dLW"/>
+                    <constraint firstItem="1iA-2v-tDG" firstAttribute="top" secondItem="cYj-V5-rN9" secondAttribute="topMargin" constant="1" id="9kw-ef-PTk"/>
+                    <constraint firstItem="rGE-Md-cME" firstAttribute="leading" secondItem="l6b-R0-XMa" secondAttribute="trailing" constant="40" id="COA-qW-CHD"/>
+                    <constraint firstItem="1iA-2v-tDG" firstAttribute="centerY" secondItem="YeR-ol-YZI" secondAttribute="centerY" id="JKD-pM-M2u"/>
+                    <constraint firstItem="YeR-ol-YZI" firstAttribute="leading" secondItem="znz-iJ-cFR" secondAttribute="trailing" constant="10" id="P2b-lg-3No"/>
+                    <constraint firstItem="l6b-R0-XMa" firstAttribute="top" secondItem="znz-iJ-cFR" secondAttribute="bottom" constant="1" id="S2p-v5-Ig2"/>
+                    <constraint firstItem="znz-iJ-cFR" firstAttribute="top" secondItem="cYj-V5-rN9" secondAttribute="topMargin" constant="8" id="TKe-fH-9xa"/>
+                    <constraint firstItem="znz-iJ-cFR" firstAttribute="leading" secondItem="l6b-R0-XMa" secondAttribute="leading" id="bUM-lc-MCd"/>
+                    <constraint firstItem="1iA-2v-tDG" firstAttribute="leading" secondItem="cYj-V5-rN9" secondAttribute="leadingMargin" constant="6" id="hhV-4b-6rP"/>
+                    <constraint firstItem="rGE-Md-cME" firstAttribute="leading" secondItem="YeR-ol-YZI" secondAttribute="trailing" constant="8" symbolic="YES" id="j8K-Rc-5Bb"/>
+                    <constraint firstItem="znz-iJ-cFR" firstAttribute="centerX" secondItem="cYj-V5-rN9" secondAttribute="centerX" id="kA5-fE-Rfe"/>
+                    <constraint firstItem="YeR-ol-YZI" firstAttribute="top" secondItem="cYj-V5-rN9" secondAttribute="topMargin" constant="13" id="vp2-Sy-xc7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageRight_first" destination="rGE-Md-cME" id="80F-vO-dKb"/>
+                <outlet property="imageView_first" destination="1iA-2v-tDG" id="8Yi-WC-QJ1"/>
+                <outlet property="labelFirst_first" destination="znz-iJ-cFR" id="6Dy-K9-ehJ"/>
+                <outlet property="labelThird_first" destination="l6b-R0-XMa" id="Cpp-FG-qtG"/>
+                <outlet property="progressView" destination="YeR-ol-YZI" id="Zdg-OY-bZ9"/>
+            </connections>
+            <point key="canvasLocation" x="270" y="680"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -151,16 +151,16 @@
 
     if (self.state == 0) {//小图
         
-        static NSString *identifier = @"PersonTableViewCell";
+        static NSString *identifier = @"PersonTableViewCell_third";
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] firstObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         }
         
-        cell.informationModel = _dataArray[indexPath.row];
+        cell.informationModel_third = _dataArray[indexPath.row];
         
         return cell;
         

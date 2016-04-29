@@ -221,20 +221,21 @@
     
     if (indexPath.section == 0) {
       
-        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonTableViewCell"];
+        static NSString *identifier = @"PersonTableViewCell_third";
+        
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:self options:nil] firstObject];
-        
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         }
         
         cell.imageRight_first.hidden = YES;
         
         cell.progressView.hidden = YES;
         
-        cell.informationModel = self.informationModel;
-
+        cell.informationModel_third = self.informationModel;
+        
         return cell;
         
     } else if (indexPath.section == 1) {
