@@ -17,4 +17,15 @@
     
 }
 
+- (id)init {
+    
+    if (self = [super init]) {
+        
+        self.memo = @"";
+        
+    }
+    
+    return self;
+}
+
 @end

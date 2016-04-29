@@ -127,6 +127,7 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
                                     gender:(NSNumber *)gender
                                   birthday:(NSString *)birthday
                         headImageUrlString:(NSString *)headImageUrlString
+                                      memo:(NSString *)memo//个人简介
                                   success:(void (^)(BOOL))success
                                   failure:(void (^)(STNetError *))failure;
 

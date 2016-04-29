@@ -32,7 +32,7 @@
 
 @property (nonatomic,copy) NSString *birthday;//生日
 
-@property (nonatomic,copy) NSString *remark;//备注
+@property (nonatomic,copy) NSString *memo;//备注
 
 /**
  *  @return @{@"xxx":@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"yyy":@{@"nickName":@"guojia",@"userId":@"100000016",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"type":0}

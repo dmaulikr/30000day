@@ -165,12 +165,11 @@
     
     cell.nameLab.text = informationModel.nickName;
     
-    cell.logName.text = [Common isObjectNull:informationModel.remark] ? @"暂无简介" :informationModel.remark;
+    cell.logName.text = [Common isObjectNull:informationModel.memo] ? @"暂无简介" :informationModel.memo;
     
     cell.informationModel = informationModel;
     
     return cell;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -183,12 +182,10 @@
     [self.navigationController pushViewController:controller animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)dealloc {

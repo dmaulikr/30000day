@@ -28,8 +28,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_third;
 @property (weak, nonatomic) IBOutlet UILabel *label_third;
-
 @property (nonatomic,strong)ActivityModel *activityModel;
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView_fourth;
+@property (weak, nonatomic) IBOutlet UILabel *label_fourth;
 
 @end

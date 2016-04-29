@@ -137,7 +137,6 @@
         [self showToast:@"验证失败"];
         
     }];
-
 }
 
 #pragma mark - 短信验证 smsBtn倒计时
@@ -168,7 +167,6 @@
         [self showToast:error];
         
     }];
-
 }
 
 - (void)CountDown {

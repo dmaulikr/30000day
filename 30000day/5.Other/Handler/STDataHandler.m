@@ -18,7 +18,6 @@
 #import "UserInformationModel.h"
 #import "UserLifeModel.h"
 #import "GetFactorModel.h"
-#import "UserInformationManager.h"
 #import "MJExtension.h"
 
 #import "ShopModel.h"
@@ -665,9 +664,6 @@
                                                                 
                                                                 NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
                                                                 
-                                                                //赋值
-                                                                [UserInformationManager shareUserInformationManager].userInformationArray = array;
-
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(array);
@@ -705,6 +701,7 @@
                                      gender:(NSNumber *)gender
                                    birthday:(NSString *)birthday
                          headImageUrlString:(NSString *)headImageUrlString
+                                       memo:(NSString *)memo
                                     success:(void (^)(BOOL))success
                                     failure:(void (^)(STNetError *))failure {
     
@@ -713,13 +710,15 @@
     
     [parameters addParameter:userId forKey:@"userId"];
     
-    [parameters addParameter:nickName forKey:@"nickName"];
+    [parameters addParameter:nickName forKey:@"nickName"];//昵称
 
-    [parameters addParameter:birthday forKey:@"birthday"];
+    [parameters addParameter:birthday forKey:@"birthday"];//生日
     
-    [parameters addParameter:headImageUrlString forKey:@"headImg"];
+    [parameters addParameter:headImageUrlString forKey:@"headImg"];//头像
     
-    [parameters addParameter:gender forKey:@"gender"];
+    [parameters addParameter:gender forKey:@"gender"];//性别
+    
+    [parameters addParameter:memo forKey:@"memo"];//个人简介
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_INFORMATION
@@ -748,6 +747,7 @@
                                                                     
                                                                     STUserAccountHandler.userProfile.nickName = nickName;
                                                                     
+                                                                    STUserAccountHandler.userProfile.memo = memo;
                                                                     //发出通知
                                                                     [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                 });

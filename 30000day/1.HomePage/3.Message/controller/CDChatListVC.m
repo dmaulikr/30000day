@@ -19,7 +19,6 @@
 #import "CDChatManager_Internal.h"
 #import "CDMacros.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "UserInformationManager.h"
 #import "CDChatRoomVC.h"
 
 @interface CDChatListVC ()
