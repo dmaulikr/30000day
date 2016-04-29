@@ -351,7 +351,7 @@
             
             if (cell == nil) {
                 
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] lastObject];
+                cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][2];
             }
             
             [cell.imageView_third setImage:[UIImage imageNamed:@"phone"]];
@@ -366,7 +366,7 @@
             
             if (cell == nil) {
                 
-                cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] [3];
+                cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][3];
             }
             
             cell.label_fourth.text = @"联系商家";
@@ -382,7 +382,7 @@
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"ShopDetailTableViewCell" owner:nil options:nil][2];
         }
         
         cell.activityModel = self.shopDetailModel.activityList[indexPath.row];

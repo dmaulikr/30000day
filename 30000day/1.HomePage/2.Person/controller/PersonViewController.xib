@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonViewController">
             <connections>
-                <outlet property="tableView" destination="hik-4X-fi1" id="5Kp-Ct-LqB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,23 +14,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hik-4X-fi1">
-                    <rect key="frame" x="0.0" y="64" width="320" height="454"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="ypg-5x-K96"/>
-                        <outlet property="delegate" destination="-1" id="AJO-Mx-edH"/>
-                    </connections>
-                </tableView>
-            </subviews>
             <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="hik-4X-fi1" secondAttribute="trailing" id="N2w-vr-mMR"/>
-                <constraint firstItem="hik-4X-fi1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NGq-QF-EXM"/>
-                <constraint firstAttribute="bottom" secondItem="hik-4X-fi1" secondAttribute="bottom" constant="50" id="a9v-Ww-iYn"/>
-                <constraint firstItem="hik-4X-fi1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="jRh-2g-ZfB"/>
-            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="199" y="162"/>
         </view>

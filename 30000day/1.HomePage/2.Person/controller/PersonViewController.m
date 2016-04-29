@@ -8,10 +8,9 @@
 
 #import "PersonViewController.h"
 #import "PersonHeadView.h"
-#import "myFriendsTableViewCell.h"
+#import "PersonTableViewCell.h"
 #import "UserInformationModel.h"
 #import "PersonDetailViewController.h"
-#import "UIImageView+WebCache.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -27,12 +26,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.state = 0;//列表
-
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    self.tableViewStyle = STRefreshTableViewPlain;
     
-    //获取我的好友
-    [self getMyFriends];
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
+    
+    [self showHeadRefresh:YES showFooterRefresh:NO];
+    
+    self.state = 0;//列表
     
     //监听个人信息管理模型发出的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
@@ -46,6 +50,11 @@
     [self getMyFriends];
 }
 
+- (void)headerRefreshing {
+    
+    [self getMyFriends];
+}
+
 //获取我的好友
 - (void)getMyFriends {
     
@@ -55,7 +64,11 @@
         
         [self.tableView reloadData];
         
+        [self.tableView.mj_header endRefreshing];
+        
     } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
         
     }];
 }
@@ -124,7 +137,7 @@
     
     if (self.state) {
         
-        return 425;
+        return 430;
         
     } else {
         
@@ -133,43 +146,37 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UserInformationModel *informationModel = _dataArray[indexPath.row];
-    
-    myFriendsTableViewCell *cell;
-    
-    if (self.state) {
+
+    if (self.state == 0) {//小图
         
-        static NSString *ID = @"friendsBigIMGCell";
+        static NSString *identifier = @"PersonTableViewCell";
         
-        cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyFriendsBigIMGTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] firstObject];
         }
         
-    } else {
+        cell.informationModel = _dataArray[indexPath.row];
         
-        static NSString *ID = @"myFriendsCell";
+        return cell;
         
-        cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    } else {//大图
+        
+        static NSString *identifier_big = @"PersonTableViewCell_big";
+        
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier_big];
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"myFriendsTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil] lastObject];
         }
+        cell.informationModel_second = _dataArray[indexPath.row];
+        
+        return cell;
     }
     
-    [cell.iconImg sd_setImageWithURL:[NSURL URLWithString:informationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
-    cell.nameLab.text = informationModel.nickName;
-    
-    cell.logName.text = [Common isObjectNull:informationModel.memo] ? @"暂无简介" :informationModel.memo;
-    
-    cell.informationModel = informationModel;
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
