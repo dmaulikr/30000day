@@ -169,12 +169,9 @@
     [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:informationModel_second.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     self.labelFirst_second.text = informationModel_second.nickName;
-    
-    //账户
-    self.labelSecond_second.text = [NSString stringWithFormat:@"账户: %@",[Common isObjectNull:informationModel_second.memo] ? @"" : informationModel_second.userName];
-    
+ 
     //个性签名
-    self.labelThird_second.text = [NSString stringWithFormat:@"个性签名: %@",[Common isObjectNull:informationModel_second.memo] ? @"" : informationModel_second.memo];
+    self.labelThird_second.text = [Common isObjectNull:informationModel_second.memo] ? @"" : informationModel_second.memo;
 }
 
 - (int)getDays:(NSString *)dateString {

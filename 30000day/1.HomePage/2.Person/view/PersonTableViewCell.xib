@@ -88,21 +88,12 @@
             <point key="canvasLocation" x="277" y="67"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_big" rowHeight="449" id="HeU-XA-PcM" customClass="PersonTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="425"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HeU-XA-PcM" id="hPV-jO-BkO">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="429"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="424"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmw-YR-hlX">
-                        <rect key="frame" x="15" y="381" width="293" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="JdU-fg-zIX"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LaN-F9-v54" customClass="MDRadialProgressView">
                         <rect key="frame" x="328" y="374" width="30" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,15 +117,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94G-nN-VSh">
-                        <rect key="frame" x="15" y="406" width="325" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="ihm-Uw-LDS"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lower" translatesAutoresizingMaskIntoConstraints="NO" id="2ky-R3-gkg">
                         <rect key="frame" x="366" y="378" width="22" height="22"/>
                         <constraints>
@@ -142,23 +124,29 @@
                             <constraint firstAttribute="width" constant="22" id="YwF-Tx-YjG"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94G-nN-VSh">
+                        <rect key="frame" x="15" y="394" width="325" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="V99-WA-8H5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2ky-R3-gkg" firstAttribute="leading" secondItem="LaN-F9-v54" secondAttribute="trailing" constant="8" id="2sZ-Df-9G2"/>
-                    <constraint firstItem="Zmw-YR-hlX" firstAttribute="leading" secondItem="hPV-jO-BkO" secondAttribute="leading" constant="15" id="2x0-Nk-egw"/>
+                    <constraint firstItem="2ky-R3-gkg" firstAttribute="leading" secondItem="94G-nN-VSh" secondAttribute="trailing" constant="26" id="7IR-wN-8T8"/>
                     <constraint firstAttribute="trailing" secondItem="26e-9V-y16" secondAttribute="trailing" id="GQF-Qu-QIO"/>
-                    <constraint firstAttribute="bottom" secondItem="LaN-F9-v54" secondAttribute="bottom" constant="25" id="GaV-54-KMc"/>
+                    <constraint firstAttribute="bottom" secondItem="LaN-F9-v54" secondAttribute="bottom" constant="20" id="GaV-54-KMc"/>
                     <constraint firstItem="dF9-EC-RLk" firstAttribute="leading" secondItem="hPV-jO-BkO" secondAttribute="leading" constant="15" id="JNj-Sx-fde"/>
-                    <constraint firstItem="Zmw-YR-hlX" firstAttribute="top" secondItem="dF9-EC-RLk" secondAttribute="bottom" constant="8" id="MUk-OY-RLe"/>
-                    <constraint firstItem="LaN-F9-v54" firstAttribute="leading" secondItem="Zmw-YR-hlX" secondAttribute="trailing" constant="20" id="N3w-wo-Szx"/>
-                    <constraint firstAttribute="trailing" secondItem="94G-nN-VSh" secondAttribute="trailing" constant="60" id="YWJ-ZE-tPc"/>
+                    <constraint firstAttribute="bottom" secondItem="94G-nN-VSh" secondAttribute="bottom" constant="13" id="RIo-ns-n6a"/>
                     <constraint firstItem="dF9-EC-RLk" firstAttribute="top" secondItem="26e-9V-y16" secondAttribute="bottom" constant="8" id="bgP-hP-Zuq"/>
-                    <constraint firstItem="94G-nN-VSh" firstAttribute="leading" secondItem="hPV-jO-BkO" secondAttribute="leading" constant="15" id="mUr-Uz-PG5"/>
-                    <constraint firstItem="94G-nN-VSh" firstAttribute="top" secondItem="Zmw-YR-hlX" secondAttribute="bottom" constant="8" id="oZP-DM-DDp"/>
                     <constraint firstItem="26e-9V-y16" firstAttribute="top" secondItem="hPV-jO-BkO" secondAttribute="top" id="od0-66-KMA"/>
                     <constraint firstAttribute="trailing" secondItem="2ky-R3-gkg" secondAttribute="trailing" constant="12" id="pNK-AI-mzh"/>
+                    <constraint firstItem="94G-nN-VSh" firstAttribute="leading" secondItem="hPV-jO-BkO" secondAttribute="leading" constant="15" id="r7R-S2-yOv"/>
                     <constraint firstItem="26e-9V-y16" firstAttribute="leading" secondItem="hPV-jO-BkO" secondAttribute="leading" id="rKc-Sg-uNC"/>
-                    <constraint firstAttribute="bottom" secondItem="2ky-R3-gkg" secondAttribute="bottom" constant="29" id="re0-Am-LAy"/>
+                    <constraint firstAttribute="bottom" secondItem="2ky-R3-gkg" secondAttribute="bottom" constant="24" id="re0-Am-LAy"/>
                     <constraint firstAttribute="trailing" secondItem="dF9-EC-RLk" secondAttribute="trailing" constant="60" id="vu6-6U-cdY"/>
                 </constraints>
             </tableViewCellContentView>
@@ -166,7 +154,6 @@
                 <outlet property="imageBig_second" destination="26e-9V-y16" id="8Wy-TF-ahw"/>
                 <outlet property="imageRight_second" destination="2ky-R3-gkg" id="qf8-y8-zwV"/>
                 <outlet property="labelFirst_second" destination="dF9-EC-RLk" id="TD2-bN-5UJ"/>
-                <outlet property="labelSecond_second" destination="Zmw-YR-hlX" id="Bjb-g8-eqM"/>
                 <outlet property="labelThird_second" destination="94G-nN-VSh" id="uOC-Aw-e4s"/>
                 <outlet property="progressView_second" destination="LaN-F9-v54" id="cyh-bq-8rm"/>
             </connections>

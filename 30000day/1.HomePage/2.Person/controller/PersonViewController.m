@@ -139,7 +139,7 @@
     
     if (self.state) {
         
-        return 430;
+        return 425;
         
     } else {
         
@@ -172,7 +172,7 @@
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][1];
         }
         cell.informationModel_second = _dataArray[indexPath.row];
         
