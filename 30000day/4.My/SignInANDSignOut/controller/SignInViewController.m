@@ -19,6 +19,9 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialSnsService.h"
+#import "STTabBarViewController.h"
+#import "MTProgressHUD.h"
+
 
 @interface SignInViewController () {
     
@@ -178,7 +181,7 @@
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToSina];
 
-                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"Sina" name:snsAccount.userName url:snsAccount.iconURL];
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"Sina" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
                 
                 NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
@@ -197,7 +200,7 @@
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
                 
-                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"QQ" name:snsAccount.userName url:snsAccount.iconURL];
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"QQ" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
 
                 NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
@@ -214,7 +217,7 @@
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
                 
-                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"WeChat" name:snsAccount.userName url:snsAccount.iconURL];
+                [self sendcheckBindWithAccountNo:snsAccount.usid type:@"WeChat" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
                 
                 NSLog(@"username is %@, uid is %@, token is %@ iconUrl is %@  unionId is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL,snsAccount.unionId);
             }
@@ -225,7 +228,7 @@
 
 }
 
-- (void)sendcheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL {
+- (void)sendcheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL uid:(NSString *)uid {
     
     [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
@@ -233,7 +236,40 @@
         
         if (success.integerValue) {
             
-            
+            [self.dataHandler postSignInWithPassword:@"123456"
+                                           loginName:uid
+                                  isPostNotification:YES
+                                             success:^(BOOL success) {
+                                                 
+                                                 [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
+                                                              completion:^(BOOL success) {
+
+                                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                  
+                                                                  UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                                  
+                                                                  STTabBarViewController *controller = [board instantiateInitialViewController];
+                                                                  
+                                                                  [controller setSelectedIndex:0];
+                                                                  
+                                                                  UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                                                  
+                                                                  window.rootViewController = controller;
+                                                                  
+                                                                  
+                                                              } failure:^(NSError *error) {
+                                                                  
+                                                              }];
+                                                 
+                                                 
+                                             } failure:^(NSError *error) {
+                                                 
+                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                 
+                                                 [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                 
+                                             }];
+
             
         } else {
         
@@ -242,6 +278,7 @@
             controller.type = type;
             controller.name = userName;
             controller.url = iconURL;
+            controller.uid = uid;
             [self.navigationController pushViewController:controller animated:YES];
         
         }

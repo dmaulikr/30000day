@@ -11,6 +11,9 @@
 #import "AFNetworking.h"
 #import "NewPasswordViewController.h"
 #import "UIImageView+WebCache.h"
+#import "AppDelegate.h"
+#import "STTabBarViewController.h"
+#import "MTProgressHUD.h"
 
 #define IdentityCount 60
 
@@ -121,9 +124,13 @@
     }
     
     //调用验证接口
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
        
         if (self.isSignOut == 1) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
             SignOutViewController *controller = [[SignOutViewController alloc] init];
             
@@ -136,6 +143,8 @@
             [self.navigationController pushViewController:controller animated:YES];
             
         } else if(self.isSignOut == 2){
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
             NewPasswordViewController *controller = [[NewPasswordViewController alloc] init];
             
@@ -151,9 +160,69 @@
             
         } else {
         
-            
-            
-        
+            [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid headImg:self.url type:self.type success:^(NSString *success) {
+                
+                if (success.integerValue) {
+                    
+                    [self.dataHandler postSignInWithPassword:@"123456"
+                                                   loginName:self.phoneNumber.text
+                                          isPostNotification:YES
+                                                     success:^(BOOL success) {
+                                                        
+                                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
+                                                                      completion:^(BOOL success) {
+                                                                        
+                                                              [self.phoneNumber resignFirstResponder];
+                                                                          
+                                                              [self.sms resignFirstResponder];
+                                                                          
+                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                          
+                                                              UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                              
+                                                              STTabBarViewController *controller = [board instantiateInitialViewController];
+                                                              
+                                                              [controller setSelectedIndex:0];
+                                                              
+                                                              UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                                              
+                                                              window.rootViewController = controller;
+                                                            
+                                                                          
+                                                         } failure:^(NSError *error) {
+                                                             
+                                                         }];
+ 
+                                                         
+                                                     } failure:^(NSError *error) {
+                                                         
+                                                         [self.phoneNumber resignFirstResponder];
+                                                         
+                                                         [self.sms resignFirstResponder];
+                                                         
+                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                         
+                                                         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                         
+                                                     }];
+                    
+                } else {
+                    
+                    [self.phoneNumber resignFirstResponder];
+                    
+                    [self.sms resignFirstResponder];
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                    [self showToast:@"绑定注册出错"];
+                
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [self showToast:@"服务器繁忙"];
+                
+            }];
         }
         
     } failure:^(NSError *error) {
