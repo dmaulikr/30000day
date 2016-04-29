@@ -10,6 +10,6 @@
 
 @interface SMSVerificationViewController : ShowBackItemViewController
 
-@property (nonatomic,assign) BOOL isSignOut;//YES:表示是注册的，NO:表示是寻找密码的
+@property (nonatomic,assign) NSInteger isSignOut;//1:表示是注册的，2:表示是寻找密码的, 3:验证号码是否存在
 
 @end

@@ -36,6 +36,15 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *loginTypeLable;
+
+@property (weak, nonatomic) IBOutlet UIImageView *loginImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *loginName;
+
+@property (weak, nonatomic) IBOutlet UIView *loginSupView;
+
+
 @end
 
 @implementation SMSVerificationViewController
@@ -143,7 +152,7 @@
 
     //调用短信验证接口
     [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
-                                          type:self.isSignOut ? @1 : @2
+                                          type:@(self.isSignOut)
                                        success:^(NSString *responseObject) {
         
         count = IdentityCount;

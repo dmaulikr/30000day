@@ -443,7 +443,7 @@
     
     SMSVerificationViewController *controller = [[SMSVerificationViewController alloc] init];
     
-    controller.isSignOut = YES;
+    controller.isSignOut = 1;
     
     [self.navigationController pushViewController:controller animated:YES];
     

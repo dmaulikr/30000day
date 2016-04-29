@@ -70,7 +70,7 @@
         
         SMSVerificationViewController *controller = [[SMSVerificationViewController alloc]init];
 
-        controller.isSignOut = NO;
+        controller.isSignOut = 2;
         
         [self.navigationController pushViewController:controller animated:YES];
         

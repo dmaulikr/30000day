@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -7,6 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSVerificationViewController">
             <connections>
+                <outlet property="loginImageView" destination="I02-F7-yYd" id="YqD-rN-rjD"/>
+                <outlet property="loginName" destination="vcO-jj-LLG" id="igB-Ki-J0g"/>
+                <outlet property="loginSupView" destination="RpZ-kw-qUW" id="j4l-ze-f2G"/>
+                <outlet property="loginTypeLable" destination="nWu-Nc-WQN" id="uLO-9W-d3x"/>
                 <outlet property="nextBtn" destination="KJF-sK-YZp" id="Q3s-OM-usx"/>
                 <outlet property="phoneNumber" destination="hes-2S-O0L" id="N0v-b3-3tG"/>
                 <outlet property="sms" destination="6E2-DN-Kf7" id="4Gd-yl-EXV"/>
@@ -139,18 +143,63 @@
                         <action selector="nextBtn:" destination="-1" eventType="touchUpInside" id="DhT-zh-FWk"/>
                     </connections>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpZ-kw-qUW">
+                    <rect key="frame" x="15" y="274" width="290" height="100"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将使用下列账号登陆：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOT-lP-oSq">
+                            <rect key="frame" x="8" y="8" width="154" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I02-F7-yYd">
+                            <rect key="frame" x="8" y="33" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="HCJ-c9-LmH"/>
+                                <constraint firstAttribute="width" constant="60" id="nxc-Bd-dTi"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWu-Nc-WQN">
+                            <rect key="frame" x="164" y="8" width="22" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="高富帅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcO-jj-LLG">
+                            <rect key="frame" x="76" y="53" width="48" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="iOT-lP-oSq" firstAttribute="top" secondItem="RpZ-kw-qUW" secondAttribute="top" constant="8" id="4ML-kR-DWU"/>
+                        <constraint firstItem="nWu-Nc-WQN" firstAttribute="leading" secondItem="iOT-lP-oSq" secondAttribute="trailing" constant="2" id="7c8-sK-Ua6"/>
+                        <constraint firstItem="I02-F7-yYd" firstAttribute="leading" secondItem="iOT-lP-oSq" secondAttribute="leading" id="B3U-th-xsd"/>
+                        <constraint firstItem="I02-F7-yYd" firstAttribute="top" secondItem="iOT-lP-oSq" secondAttribute="bottom" constant="8" id="J5i-8r-g8O"/>
+                        <constraint firstItem="vcO-jj-LLG" firstAttribute="centerY" secondItem="I02-F7-yYd" secondAttribute="centerY" id="KJM-6z-BCI"/>
+                        <constraint firstItem="iOT-lP-oSq" firstAttribute="leading" secondItem="RpZ-kw-qUW" secondAttribute="leading" constant="8" id="PI1-Yh-3Jp"/>
+                        <constraint firstAttribute="height" constant="100" id="S1f-6s-UlM"/>
+                        <constraint firstItem="nWu-Nc-WQN" firstAttribute="top" secondItem="RpZ-kw-qUW" secondAttribute="top" constant="8" id="eZG-NE-xyI"/>
+                        <constraint firstItem="vcO-jj-LLG" firstAttribute="leading" secondItem="I02-F7-yYd" secondAttribute="trailing" constant="8" id="z7t-HM-Yn4"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="KJF-sK-YZp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="1Jz-Sm-Jrf"/>
                 <constraint firstItem="h3H-3l-mFF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Gcl-Bc-q8u"/>
                 <constraint firstItem="KJF-sK-YZp" firstAttribute="top" secondItem="h3H-3l-mFF" secondAttribute="bottom" constant="25" id="Mgt-dC-emJ"/>
+                <constraint firstItem="RpZ-kw-qUW" firstAttribute="trailing" secondItem="KJF-sK-YZp" secondAttribute="trailing" id="Qtu-i7-QzI"/>
                 <constraint firstAttribute="trailing" secondItem="h3H-3l-mFF" secondAttribute="trailing" id="Sbi-ej-zam"/>
                 <constraint firstAttribute="trailing" secondItem="KJF-sK-YZp" secondAttribute="trailing" constant="15" id="YLc-GG-mQ4"/>
+                <constraint firstItem="RpZ-kw-qUW" firstAttribute="leading" secondItem="KJF-sK-YZp" secondAttribute="leading" id="bVm-8N-DNE"/>
+                <constraint firstItem="RpZ-kw-qUW" firstAttribute="top" secondItem="KJF-sK-YZp" secondAttribute="bottom" constant="40" id="rBK-QX-esf"/>
                 <constraint firstItem="h3H-3l-mFF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="sGs-wc-ocO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="450" y="15"/>
+            <point key="canvasLocation" x="242" y="16"/>
         </view>
     </objects>
 </document>
