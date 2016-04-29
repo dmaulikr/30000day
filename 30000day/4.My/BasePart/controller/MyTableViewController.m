@@ -48,7 +48,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     [self loadEmail];
-
 }
 
 #pragma ---
@@ -56,12 +55,56 @@
 
 - (void)headerRefreshing {
     
-    [self loadEmail];
+    [self loadUserInformation];
 }
 
 - (void)reloadData:(NSNotification *)notification {
     
     [self.tableView reloadData];
+}
+
+- (void)loadUserInformation {
+    
+    [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
+                                   loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
+                          isPostNotification:YES
+                                     success:^(BOOL success) {
+                                         
+                                         //获取用户的email
+                                         [self loadEmail];
+                                         
+                                         [self.tableView.mj_header endRefreshing];
+                                         
+                                     }
+                                     failure:^(NSError *error) {
+                                         
+                                         NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
+                                         
+                                         if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
+                                             
+                                             [self showToast:@"账户无效"];
+                                             
+                                             [self jumpToSignInViewController];
+                                             
+                                         } else  {
+                                             
+                                             [self showToast:@"网络繁忙，请再次刷新"];
+                                         }
+                                         
+                                         [self.tableView.mj_header endRefreshing];
+                                     }];
+    
+}
+
+
+//跳到登录控制器
+- (void)jumpToSignInViewController {
+    
+    SignInViewController *logview = [[SignInViewController alloc] init];
+    
+    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)loadEmail {

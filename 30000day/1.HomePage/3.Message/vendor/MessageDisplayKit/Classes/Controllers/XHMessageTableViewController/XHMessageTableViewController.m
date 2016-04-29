@@ -615,7 +615,7 @@ static CGPoint  delayOffset = {0.0};
     inputView.delegate = self;
     [self.view addSubview:inputView];
     [self.view bringSubviewToFront:inputView];
-    
+    inputView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
     _messageInputView = inputView;
     
     

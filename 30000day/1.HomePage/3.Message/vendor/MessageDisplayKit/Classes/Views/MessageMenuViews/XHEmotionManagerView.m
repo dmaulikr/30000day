@@ -72,10 +72,12 @@
 #pragma mark - Life cycle
 
 - (void)setup {
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
-    self.isShowEmotionStoreButton = YES;
     
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    self.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
+    
+    self.isShowEmotionStoreButton = YES;
     
     if (!_emotionCollectionView) {
         UICollectionView *emotionCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - kXHEmotionPageControlHeight - kXHEmotionSectionBarHeight) collectionViewLayout:[[XHEmotionCollectionViewFlowLayout alloc] init]];

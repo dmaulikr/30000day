@@ -65,6 +65,8 @@
 
 #define SHOWLABLETYPE   @"ShowLabelType"   //表示用户当前显示的是那种天龄
 
+#define USER_CHOOSE_AGENUMBER   @"userChooseAgeNumber" //当前用户所选择的年龄
+
 #define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
 
 #define SCREEN_HEIGHT           [[UIScreen mainScreen] bounds].size.height
