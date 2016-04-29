@@ -224,6 +224,8 @@
 
 #define  SAVE_BIND_REGISTER           @"/stapi/user/checkBind"                  //绑定注册
 
+#define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"

@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserInformationModel.h"
 #import "UIImage+WF.h"
+#import "MTProgressHUD.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -78,8 +79,15 @@
         
        UIAlertAction *action_alert_first = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
           
-           
-           
+           [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId success:^(BOOL success) {
+              
+               [self.navigationController popViewControllerAnimated:YES];
+               
+           } failure:^(NSError *error) {
+               
+               [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+               
+           }];
        }];
         
         [controller_alert addAction:action_alert_first];
@@ -270,7 +278,7 @@
     
     if (indexPath.section == 0) {
         
-        return 80;
+        return 72.1f;
         
     } else if ( indexPath.section == 1) {
         

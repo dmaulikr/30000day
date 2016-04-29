@@ -42,7 +42,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     //监听成功添加好友发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUseDidSuccessDeleteFriendSendNotification object:nil];
 }
 
 - (void)reloadData {
@@ -176,7 +178,6 @@
         
         return cell;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -197,7 +198,11 @@
 
 - (void)dealloc {
     
-    [STNotificationCenter removeObserver:self];
+    [STNotificationCenter removeObserver:self name:STUserAddFriendsSuccessPostNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STUseDidSuccessDeleteFriendSendNotification object:nil];
+    
+    _dataArray = nil;
 }
 
 

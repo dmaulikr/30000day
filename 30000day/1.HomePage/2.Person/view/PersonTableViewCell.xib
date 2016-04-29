@@ -22,7 +22,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个性签名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlU-gP-mTG">
-                        <rect key="frame" x="77" y="50" width="203" height="14"/>
+                        <rect key="frame" x="77" y="51" width="203" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmD-BK-7nT">
-                        <rect key="frame" x="78" y="31" width="164" height="16"/>
+                        <rect key="frame" x="78" y="30" width="164" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="d0U-kx-IXn"/>
                         </constraints>
@@ -62,14 +62,14 @@
                 <constraints>
                     <constraint firstItem="PdU-Jb-4ba" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="FYg-nD-X24"/>
                     <constraint firstItem="wGC-Kf-xOb" firstAttribute="leading" secondItem="BjT-Ng-mto" secondAttribute="trailing" constant="8" id="HfE-fJ-JR9"/>
-                    <constraint firstItem="jlU-gP-mTG" firstAttribute="top" secondItem="jmD-BK-7nT" secondAttribute="bottom" constant="3" id="JDF-Af-4ho"/>
+                    <constraint firstItem="jlU-gP-mTG" firstAttribute="top" secondItem="jmD-BK-7nT" secondAttribute="bottom" constant="5" id="JDF-Af-4ho"/>
                     <constraint firstAttribute="trailing" secondItem="jlU-gP-mTG" secondAttribute="trailing" constant="40" id="KlD-Na-EbB"/>
                     <constraint firstItem="wGC-Kf-xOb" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Ptf-Zh-393"/>
                     <constraint firstItem="nqB-s6-aks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="RNK-4o-wlb"/>
                     <constraint firstItem="jmD-BK-7nT" firstAttribute="leading" secondItem="PdU-Jb-4ba" secondAttribute="trailing" constant="11" id="Tha-ik-aHD"/>
                     <constraint firstItem="PdU-Jb-4ba" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uy8-rS-YnT"/>
                     <constraint firstItem="BjT-Ng-mto" firstAttribute="leading" secondItem="jmD-BK-7nT" secondAttribute="trailing" constant="10" id="ZVd-Ej-dxj"/>
-                    <constraint firstItem="jmD-BK-7nT" firstAttribute="top" secondItem="nqB-s6-aks" secondAttribute="bottom" constant="5" id="dAC-0p-m71"/>
+                    <constraint firstItem="jmD-BK-7nT" firstAttribute="top" secondItem="nqB-s6-aks" secondAttribute="bottom" constant="4" id="dAC-0p-m71"/>
                     <constraint firstItem="nqB-s6-aks" firstAttribute="leading" secondItem="PdU-Jb-4ba" secondAttribute="trailing" constant="10" id="dnu-qy-Yhm"/>
                     <constraint firstItem="jlU-gP-mTG" firstAttribute="leading" secondItem="PdU-Jb-4ba" secondAttribute="trailing" constant="10" id="hs8-QE-r1O"/>
                     <constraint firstItem="BjT-Ng-mto" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ogl-RA-zZT"/>
