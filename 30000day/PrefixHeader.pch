@@ -222,7 +222,7 @@
 
 #define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
 
-#define  SAVE_BIND_REGISTER           @"/stapi/user/checkBind"                  //绑定注册
+#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegister"               //绑定注册
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
