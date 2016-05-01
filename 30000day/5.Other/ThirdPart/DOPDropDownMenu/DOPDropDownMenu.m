@@ -520,15 +520,20 @@ struct {
 
 #pragma mark - gesture handle
 - (void)menuTapped:(UITapGestureRecognizer *)paramSender {
+    
     if (_dataSource == nil) {
+        
         return;
     }
+    
     CGPoint touchPoint = [paramSender locationInView:self];
     //calculate index
     NSInteger tapIndex = touchPoint.x / (self.frame.size.width / _numOfMenu);
- 
+    
     for (int i = 0; i < _numOfMenu; i++) {
+        
         if (i != tapIndex) {
+            
             [self animateIndicator:_indicators[i] Forward:NO complete:^{
                 
                 if (self.switchButtonIndex == 0) {
@@ -577,6 +582,11 @@ struct {
         [self animateIdicator:_indicators[tapIndex] background:_backGroundView tableView:_leftTableView title:_titles[tapIndex] forward:YES complecte:^{
             _show = YES;
         }];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(guoJiaMenu:didSelectMenuAtIndex:)]) {
+        
+        [self.delegate guoJiaMenu:self didSelectMenuAtIndex:tapIndex];
     }
 }
 

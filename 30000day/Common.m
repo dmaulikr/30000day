@@ -198,7 +198,7 @@
 }
 
 //返回星期几
-+ (NSString*)weekdayStringFromDate:(NSDate*)inputDate {
++ (NSString *)weekdayStringFromDate:(NSDate*)inputDate {
     
     NSArray *chs_weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
     

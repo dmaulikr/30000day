@@ -79,6 +79,8 @@
 
 - (void)guoJiaMenu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath;
 
+- (void)guoJiaMenu:(DOPDropDownMenu *)menu didSelectMenuAtIndex:(NSInteger)index;
+
 @end
 
 #pragma mark - interface

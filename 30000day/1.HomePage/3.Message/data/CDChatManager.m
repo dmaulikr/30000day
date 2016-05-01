@@ -398,21 +398,32 @@ static CDChatManager *instance;
 #pragma mark - receive message handle
 
 - (void)receiveMessage:(AVIMTypedMessage *)message conversation:(AVIMConversation *)conversation{
+    
     [[CDConversationStore store] insertConversation:conversation];
+    
     if (![self.chattingConversationId isEqualToString:conversation.conversationId]) {
+        
         // 没有在聊天的时候才增加未读数和设置mentioned
         [[CDConversationStore store] increaseUnreadCountWithConversation:conversation];
+        
         if ([self isMentionedByMessage:message]) {
+            
             [[CDConversationStore store] updateMentioned:YES conversation:conversation];
         }
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationUnreadsUpdated object:nil];
     }
+    
     if (!self.chattingConversationId) {
+        
         if (!conversation.muted) {
+            
             [[CDSoundManager manager] playLoudReceiveSoundIfNeed];
+            
             [[CDSoundManager manager] vibrateIfNeed];
         }
     }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationMessageReceived object:message];
 }
 

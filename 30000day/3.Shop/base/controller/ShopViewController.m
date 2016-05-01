@@ -738,6 +738,11 @@
     }
 }
 
+- (void)guoJiaMenu:(DOPDropDownMenu *)menu didSelectMenuAtIndex:(NSInteger)index {
+    
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
     
     if (indexPath.column == 0 ) {//点击商圈
@@ -817,7 +822,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    [self.searchBar resignFirstResponder];
+    
     ShopDetailViewController *controller = [[ShopDetailViewController alloc] init];
     
     ShopModel *model = self.shopListArray[indexPath.row];

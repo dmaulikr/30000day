@@ -17,22 +17,19 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_first;
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_first;
 @property (weak, nonatomic) IBOutlet UILabel *labelFirst_first;
-@property (weak, nonatomic) IBOutlet UILabel *labelThird_first;
-@property (weak, nonatomic) IBOutlet MDRadialProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UILabel *labelSecond_first;//第二个label
+@property (weak, nonatomic) IBOutlet MDRadialProgressView *progressView;
 @property (nonatomic,strong)UserInformationModel *informationModel;
+
 
 //第二个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageBig_second;
 @property (weak, nonatomic) IBOutlet MDRadialProgressView *progressView_second;
 @property (weak, nonatomic) IBOutlet UILabel *labelFirst_second;
 @property (weak, nonatomic) IBOutlet UILabel *labelSecond_second;
-@property (weak, nonatomic) IBOutlet UILabel *labelThird_second;
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_second;
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
 
-//第三个xib
-@property (nonatomic,strong)UserInformationModel *informationModel_third;
 
 
 
