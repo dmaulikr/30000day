@@ -18,6 +18,7 @@
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
 #import "PersonSettingViewController.h"
+#import "PersonInformationsManager.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -66,6 +67,8 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     [self reloadData];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadTableViewData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
 }
 
 - (ActivityIndicatorTableViewCell *)indicatorCell {
@@ -82,11 +85,17 @@
     
     PersonSettingViewController *controller = [[PersonSettingViewController alloc] init];
     
-    controller.informationModel = self.informationModel;
+    controller.friendUserId = self.friendUserId;
     
     controller.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)reloadTableViewData {
+    
+    [self.tableView reloadData];
+    
 }
 
 - (void)reloadData {
@@ -101,7 +110,7 @@
 - (void)getUserLifeList {
     
     //1.获取用户的天龄
-    [self.dataHandler sendUserLifeListWithCurrentUserId:self.informationModel.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
+    [self.dataHandler sendUserLifeListWithCurrentUserId:self.friendUserId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray lastObject];
         
@@ -173,7 +182,7 @@
     
     [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",self.informationModel.nickName,[dataString floatValue] * 100];
+        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",[[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName],[dataString floatValue] * 100];
         
     } failure:^(NSError *error) {
         
@@ -186,10 +195,10 @@
     
     if (button.tag == 1) {//右按钮
         
-        if (self.informationModel.userId) {//这个userId存在的时候才进行push
+        if (self.friendUserId) {//这个userId存在的时候才进行push
 
             //查询conversation
-            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:self.informationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                 
                 if ([self filterError:error]) {
                     
@@ -239,14 +248,14 @@
         
         cell.progressView.hidden = YES;
         
-        cell.informationModel = self.informationModel;
+        cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId];
         
         return cell;
         
     } else if (indexPath.section == 1) {
         
         //刷新数据
-        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
+        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
         return self.indicatorCell;
         
@@ -300,6 +309,17 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
+    self.allDayArray = nil;
+    
+    self.dayNumberArray = nil;
+    
+    self.indicatorCell = nil;
 }
 
 /*

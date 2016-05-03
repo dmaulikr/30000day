@@ -124,8 +124,9 @@
 		B801378D1CD89AE300ED0566 /* DuplicationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B801378B1CD89AE300ED0566 /* DuplicationTableViewCell.m */; };
 		B801378E1CD89AE300ED0566 /* DuplicationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B801378C1CD89AE300ED0566 /* DuplicationTableViewCell.xib */; };
 		B80137911CD89B4000ED0566 /* UserInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137901CD89B4000ED0566 /* UserInformationModel.m */; };
-		B80137951CD89B9400ED0566 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137931CD89B9400ED0566 /* SettingViewController.m */; };
-		B80137961CD89B9400ED0566 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137941CD89B9400ED0566 /* SettingViewController.xib */; };
+		B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137981CD8AC1100ED0566 /* SettingViewController.m */; };
+		B801379B1CD8AC1100ED0566 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137991CD8AC1100ED0566 /* SettingViewController.xib */; };
+		B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */; };
 		B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */; };
 		B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */; };
 		B804FD561C8AC9A900DFD1CF /* tusiji_0_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */; };
@@ -811,9 +812,11 @@
 		B801378C1CD89AE300ED0566 /* DuplicationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DuplicationTableViewCell.xib; sourceTree = "<group>"; };
 		B801378F1CD89B4000ED0566 /* UserInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationModel.h; sourceTree = "<group>"; };
 		B80137901CD89B4000ED0566 /* UserInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationModel.m; sourceTree = "<group>"; };
-		B80137921CD89B9400ED0566 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		B80137931CD89B9400ED0566 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		B80137941CD89B9400ED0566 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		B80137971CD8AC1100ED0566 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		B80137981CD8AC1100ED0566 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		B80137991CD8AC1100ED0566 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		B801379D1CD8B1F700ED0566 /* PersonInformationsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInformationsManager.h; sourceTree = "<group>"; };
+		B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInformationsManager.m; sourceTree = "<group>"; };
 		B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultSettings.plist; sourceTree = "<group>"; };
 		B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tusiji_0.gif; sourceTree = "<group>"; };
 		B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tusiji_0_cover@2x.png"; sourceTree = "<group>"; };
@@ -2050,9 +2053,9 @@
 		B80137871CD89ACB00ED0566 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B80137921CD89B9400ED0566 /* SettingViewController.h */,
-				B80137931CD89B9400ED0566 /* SettingViewController.m */,
-				B80137941CD89B9400ED0566 /* SettingViewController.xib */,
+				B80137971CD8AC1100ED0566 /* SettingViewController.h */,
+				B80137981CD8AC1100ED0566 /* SettingViewController.m */,
+				B80137991CD8AC1100ED0566 /* SettingViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2074,6 +2077,15 @@
 				B801378C1CD89AE300ED0566 /* DuplicationTableViewCell.xib */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		B801379C1CD8B1C300ED0566 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B801379D1CD8B1F700ED0566 /* PersonInformationsManager.h */,
+				B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		B804FC751C8AC9A900DFD1CF /* Resources */ = {
@@ -2507,6 +2519,7 @@
 		B88C915F1C59F96D0089BEAE /* 2.Person */ = {
 			isa = PBXGroup;
 			children = (
+				B801379C1CD8B1C300ED0566 /* model */,
 				B88C91751C5A07630089BEAE /* controller */,
 				B88C91761C5A07630089BEAE /* view */,
 			);
@@ -4544,7 +4557,7 @@
 				B665F8CA1CC4BF5200070458 /* ZLBigImageCell.xib in Resources */,
 				B804FD901C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				B804FDA21C8AC9A900DFD1CF /* SenderVoiceNodePlaying002@2x.png in Resources */,
-				B80137961CD89B9400ED0566 /* SettingViewController.xib in Resources */,
+				B801379B1CD8AC1100ED0566 /* SettingViewController.xib in Resources */,
 				B804FD871C8AC9A900DFD1CF /* msg_chat_voice_unread@2x.png in Resources */,
 				B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */,
 				B804FDB21C8AC9A900DFD1CF /* VoiceBtn_BlackHL@2x.png in Resources */,
@@ -4821,7 +4834,7 @@
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
-				B80137951CD89B9400ED0566 /* SettingViewController.m in Sources */,
+				B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */,
 				B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */,
 				B8F880071C8EDC6500B5DA18 /* CDSettingVC.m in Sources */,
 				B8B3F4E51C9A546200834533 /* CityHeadView.m in Sources */,
@@ -4992,6 +5005,7 @@
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
 				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
+				B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,
