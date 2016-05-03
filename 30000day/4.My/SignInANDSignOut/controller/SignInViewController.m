@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TextFieldCellTableViewCell.h"
 #import "SMSVerificationViewController.h"
+#import "ThirdPartyLandingViewController.h"
 #import "ChooseVerifyWayViewController.h"
 #import "UserProfile.h"
 #import "AppDelegate.h"
@@ -182,9 +183,6 @@
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToSina];
 
                 [self sendcheckBindWithAccountNo:snsAccount.usid type:@"Sina" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
-                
-                NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
-                
             }
             
         });
@@ -201,8 +199,6 @@
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
                 
                 [self sendcheckBindWithAccountNo:snsAccount.usid type:@"QQ" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
-
-                NSLog(@"username is %@, uid is %@, token is %@ url is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL);
                 
             }});
         
@@ -219,7 +215,6 @@
                 
                 [self sendcheckBindWithAccountNo:snsAccount.usid type:@"WeChat" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
                 
-                NSLog(@"username is %@, uid is %@, token is %@ iconUrl is %@  unionId is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL,snsAccount.unionId);
             }
         });
         
@@ -230,13 +225,12 @@
 
 - (void)sendcheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL uid:(NSString *)uid {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
-        
-        NSLog(@"%@",success);
         
         if (success.integerValue) {
             
-            [self.dataHandler postSignInWithPassword:@"123456"
+            [self.dataHandler postSignInWithPassword:nil
                                            loginName:uid
                                   isPostNotification:YES
                                              success:^(BOOL success) {
@@ -273,8 +267,8 @@
             
         } else {
         
-            SMSVerificationViewController *controller =  [[SMSVerificationViewController alloc] init];
-            controller.isSignOut = 3;
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
             controller.type = type;
             controller.name = userName;
             controller.url = iconURL;
@@ -285,7 +279,7 @@
         
     } failure:^(NSError *error) {
         
-        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     }];
 
