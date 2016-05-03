@@ -14,4 +14,6 @@
 
 @property (nonatomic ,copy) NSString *headImageViewURLString;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

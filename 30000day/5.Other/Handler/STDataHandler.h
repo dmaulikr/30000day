@@ -44,6 +44,9 @@ static NSString *const STWillPopViewControllerSendNotification = @"STWillPopView
 //当成功的链接凌云聊天服务器发出的通知
 static NSString *const STDidSuccessConnectLeanCloudViewSendNotification = @"STDidSuccessConnectLeanCloudViewSendNotification";
 
+//当成功的更新好友的信息（好友的昵称、备注头像）所发出的通知
+static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"STDidSuccessUpdateFriendInformationSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
@@ -482,5 +485,13 @@ static NSString *const STDidSuccessConnectLeanCloudViewSendNotification = @"STDi
                               type:(NSString *)type
                            success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure;
+
+//*****************************************更新好友好友信息*********************/
+- (void)sendUpdateFriendInformationWithUserId:(NSNumber *)userId
+                                 friendUserId:(NSNumber *)friendUserId
+                               friendNickName:(NSString *)friendNickName
+                     friendHeadImageUrlString:(NSString *)friendHeadImageUrlString
+                                      success:(void (^)(BOOL success))success
+                                      failure:(void (^)(NSError *error))failure;
 
 @end

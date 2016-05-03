@@ -117,6 +117,8 @@
 		B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
 		B6F8CE661CAB9D6C00218046 /* SearchTableVersion.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6F8CE651CAB9D6B00218046 /* SearchTableVersion.mm */; };
+		B80137841CD8499B00ED0566 /* PersonSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137821CD8499B00ED0566 /* PersonSettingViewController.m */; };
+		B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */; };
 		B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */; };
 		B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */; };
 		B804FD561C8AC9A900DFD1CF /* tusiji_0_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */; };
@@ -794,6 +796,9 @@
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
 		B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableVersion.h; sourceTree = "<group>"; };
 		B6F8CE651CAB9D6B00218046 /* SearchTableVersion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchTableVersion.mm; sourceTree = "<group>"; };
+		B80137811CD8499B00ED0566 /* PersonSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonSettingViewController.h; sourceTree = "<group>"; };
+		B80137821CD8499B00ED0566 /* PersonSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonSettingViewController.m; sourceTree = "<group>"; };
+		B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonSettingViewController.xib; sourceTree = "<group>"; };
 		B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultSettings.plist; sourceTree = "<group>"; };
 		B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tusiji_0.gif; sourceTree = "<group>"; };
 		B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tusiji_0_cover@2x.png"; sourceTree = "<group>"; };
@@ -2532,6 +2537,9 @@
 				B8FD3ACF1C83EDA3007BCA6B /* PersonDetailViewController.h */,
 				B8FD3AD01C83EDA3007BCA6B /* PersonDetailViewController.m */,
 				B8FD3AD11C83EDA3007BCA6B /* PersonDetailViewController.xib */,
+				B80137811CD8499B00ED0566 /* PersonSettingViewController.h */,
+				B80137821CD8499B00ED0566 /* PersonSettingViewController.m */,
+				B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4553,6 +4561,7 @@
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
 				B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */,
+				B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
 				B804FDB41C8AC9A900DFD1CF /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
 				B804FDA11C8AC9A900DFD1CF /* SenderVoiceNodePlaying001@2x.png in Resources */,
@@ -4929,6 +4938,7 @@
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */,
+				B80137841CD8499B00ED0566 /* PersonSettingViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,

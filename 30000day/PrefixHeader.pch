@@ -226,6 +226,8 @@
 
 #define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
 
+#define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"

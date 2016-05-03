@@ -100,7 +100,7 @@
     [self getUserLifeList];
     
     //获取用户击败的用户
-    [self GetDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
+    [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
 }
 
 //登录获取个人信息
@@ -314,7 +314,7 @@
 }
 
 //根据用户id去获取打败的数据
-- (void)GetDefeatDataWithUserId:(NSNumber *)userId {
+- (void)getDefeatDataWithUserId:(NSNumber *)userId {
     
     [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         

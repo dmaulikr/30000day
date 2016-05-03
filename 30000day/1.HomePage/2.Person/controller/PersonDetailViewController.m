@@ -17,6 +17,7 @@
 #import "UserInformationModel.h"
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
+#import "PersonSettingViewController.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -33,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
+
+@property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
 
 @end
 
@@ -65,46 +68,37 @@
     [self reloadData];
 }
 
+- (ActivityIndicatorTableViewCell *)indicatorCell {
+    
+    if (!_indicatorCell) {
+        
+        _indicatorCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorTableViewCell" owner:nil options:nil] lastObject];
+    }
+    
+    return _indicatorCell;
+}
+
 - (void)rightButtonAction {
     
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil
- message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    PersonSettingViewController *controller = [[PersonSettingViewController alloc] init];
     
-     UIAlertAction *action_cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    controller.informationModel = self.informationModel;
     
-    UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"删除好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        UIAlertController *controller_alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定删除: %@?",self.informationModel.nickName]
-                                                                            message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-       UIAlertAction *action_alert_first = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-          
-           [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId success:^(BOOL success) {
-              
-               [self.navigationController popViewControllerAnimated:YES];
-               
-           } failure:^(NSError *error) {
-               
-               [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-               
-           }];
-       }];
-        
-        [controller_alert addAction:action_alert_first];
-        
-        [controller_alert addAction:action_cancel];
-        
-        [self presentViewController:controller_alert animated:YES completion:nil];
-    }];
+    controller.hidesBottomBarWhenPushed = YES;
     
-    [controller addAction:action_first];
-    
-    [controller addAction:action_cancel];
-    
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)reloadData {
+
+    //获取用户天龄
+    [self getUserLifeList];
+    
+    //获取用户击败的用户
+    [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
+}
+
+- (void)getUserLifeList {
     
     //1.获取用户的天龄
     [self.dataHandler sendUserLifeListWithCurrentUserId:self.informationModel.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
@@ -174,6 +168,17 @@
     }];
 }
 
+//根据用户id去获取打败的数据
+- (void)getDefeatDataWithUserId:(NSNumber *)userId {
+    
+    [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
+        
+        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",self.informationModel.nickName,[dataString floatValue] * 100];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (IBAction)buttonClickAction:(id)sender {
     
@@ -240,17 +245,10 @@
         
     } else if (indexPath.section == 1) {
         
-        ActivityIndicatorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActivityIndicatorTableViewCell"];
-        
-        if (cell == nil) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorTableViewCell" owner:nil options:nil] lastObject];
-        }
-        
         //刷新数据
-        [cell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
+        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
-        return cell;
+        return self.indicatorCell;
         
     } else if (indexPath.section == 2) {
      

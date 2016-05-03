@@ -28,10 +28,7 @@
     
     _headImageViewURLString = headImageViewURLString;
     
-    if (![Common isObjectNull:_headImageViewURLString]) {
-        
-        [self.headImageView  sd_setImageWithURL:[NSURL URLWithString:_headImageViewURLString]];
-    }
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:headImageViewURLString] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
 }
 

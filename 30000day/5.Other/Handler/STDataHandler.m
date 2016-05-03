@@ -1850,7 +1850,7 @@
     
     [request setHTTPMethod:@"POST"];
     
-    [request setURL:[NSURL URLWithString:@"http://192.168.1.101:8081/stapi/upload/uploadFile"]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/stapi/upload/uploadFile",ST_API_SERVER]]];
     
     NSString *BoundaryConstant = [NSString stringWithFormat:@"V2ymHFg03ehbqgZCaKO6jy"];
     
@@ -5453,8 +5453,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-
-
 }
 
 //*****************************************绑定注册*********************/
@@ -5535,7 +5533,86 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
+}
 
+//*****************************************更新好友好友信息*********************/
+- (void)sendUpdateFriendInformationWithUserId:(NSNumber *)userId
+                                   friendUserId:(NSNumber *)friendUserId
+                               friendNickName:(NSString *)friendNickName
+                     friendHeadImageUrlString:(NSString *)friendHeadImageUrlString
+                                        success:(void (^)(BOOL success))success
+                                        failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params addParameter:userId forKey:@"curUserId"];
+    
+    [params addParameter:friendUserId forKey:@"fUserId"];
+    
+    [params addParameter:friendNickName forKey:@"nickName"];
+    
+    [params addParameter:friendHeadImageUrlString forKey:@"headImg"];
+    
+    [Common urlStringWithDictionary:params withString:UPDATE_FRIEND];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:UPDATE_FRIEND
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(YES);
+                                                                    
+                                                                    //成功的更新好友信息发出的通知
+                                                                    [STNotificationCenter postNotificationName:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
 }
 
 
