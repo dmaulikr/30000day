@@ -408,7 +408,11 @@
     
     [parameters addParameter:loginName forKey:@"userName"];
     
-    [parameters addParameter:password forKey:@"password"];
+    if (password != nil) {
+        
+        [parameters addParameter:password forKey:@"password"];
+        
+    }
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:LOGIN_WITH_PASSWORD

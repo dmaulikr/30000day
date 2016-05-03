@@ -11,7 +11,6 @@
 #import "AFNetworking.h"
 #import "NewPasswordViewController.h"
 #import "UIImageView+WebCache.h"
-#import "AppDelegate.h"
 #import "STTabBarViewController.h"
 #import "MTProgressHUD.h"
 
@@ -41,14 +40,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *loginTypeLable;
-
-@property (weak, nonatomic) IBOutlet UIImageView *loginImageView;
-
-@property (weak, nonatomic) IBOutlet UILabel *loginName;
-
-@property (weak, nonatomic) IBOutlet UIView *loginSupView;
-
 @end
 
 @implementation SMSVerificationViewController
@@ -58,24 +49,6 @@
     [super viewDidLoad];
     
     self.title = @"手机验证";
-    
-    if (self.isSignOut == 1 || self.isSignOut == 2) {
-        
-        self.loginSupView.hidden = YES;
-        
-    } else {
-        
-        self.loginSupView.hidden = NO;
-        
-        [self.nextBtn setTitle:@"完成" forState:UIControlStateNormal];
-        
-        self.loginTypeLable.text = self.type;
-        
-        [self.loginImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
-        
-        self.loginName.text = self.name;
-        
-    }
     
     [self.phoneNumber setDelegate:self];
     
@@ -157,80 +130,18 @@
             controller.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:controller animated:YES];
-            
-        } else {
-        
-            [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid headImg:self.url type:self.type success:^(NSString *success) {
-                
-                if (success.integerValue) {
-                    
-                    [self.dataHandler postSignInWithPassword:@"123456"
-                                                   loginName:self.phoneNumber.text
-                                          isPostNotification:YES
-                                                     success:^(BOOL success) {
-                                                        
-                                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                                      completion:^(BOOL success) {
-                                                                        
-                                                              [self.phoneNumber resignFirstResponder];
-                                                                          
-                                                              [self.sms resignFirstResponder];
-                                                                          
-                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                          
-                                                              UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                                                              
-                                                              STTabBarViewController *controller = [board instantiateInitialViewController];
-                                                              
-                                                              [controller setSelectedIndex:0];
-                                                              
-                                                              UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                                                              
-                                                              window.rootViewController = controller;
-                                                            
-                                                                          
-                                                         } failure:^(NSError *error) {
-                                                             
-                                                         }];
- 
-                                                         
-                                                     } failure:^(NSError *error) {
-                                                         
-                                                         [self.phoneNumber resignFirstResponder];
-                                                         
-                                                         [self.sms resignFirstResponder];
-                                                         
-                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                         
-                                                         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-                                                         
-                                                     }];
-                    
-                } else {
-                    
-                    [self.phoneNumber resignFirstResponder];
-                    
-                    [self.sms resignFirstResponder];
-                    
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-                    [self showToast:@"绑定注册出错"];
-                
-                }
-                
-            } failure:^(NSError *error) {
-                
-                [self showToast:@"服务器繁忙"];
-                
-            }];
+
         }
         
     } failure:^(NSError *error) {
-
-        [self showToast:@"验证失败"];
-        
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:@"验证失败"];
+            
     }];
 }
+
 
 #pragma mark - 短信验证 smsBtn倒计时
 - (IBAction)smsVerificationBtn:(id)sender {

@@ -88,6 +88,8 @@
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
 		B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */; };
 		B6C73B1A1C9000D20041ED65 /* AccountNumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */; };
+		B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C9BD611CD84F8A00172B6C /* ThirdPartyLandingViewController.m */; };
+		B6C9BD641CD84F8A00172B6C /* ThirdPartyLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C9BD621CD84F8A00172B6C /* ThirdPartyLandingViewController.xib */; };
 		B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */; };
 		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
 		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
@@ -747,6 +749,9 @@
 		B6C73B161C9000D20041ED65 /* AccountNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNumberTableViewCell.h; sourceTree = "<group>"; };
 		B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNumberTableViewCell.m; sourceTree = "<group>"; };
 		B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountNumberTableViewCell.xib; sourceTree = "<group>"; };
+		B6C9BD601CD84F8A00172B6C /* ThirdPartyLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyLandingViewController.h; sourceTree = "<group>"; };
+		B6C9BD611CD84F8A00172B6C /* ThirdPartyLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyLandingViewController.m; sourceTree = "<group>"; };
+		B6C9BD621CD84F8A00172B6C /* ThirdPartyLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdPartyLandingViewController.xib; sourceTree = "<group>"; };
 		B6D50A571CD070DF00CAD470 /* CommentOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOptionsView.h; sourceTree = "<group>"; };
 		B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOptionsView.m; sourceTree = "<group>"; };
 		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
@@ -3159,6 +3164,9 @@
 				B8F2DA2D1C5F3D04002C7712 /* SMSVerificationViewController.h */,
 				B8F2DA2E1C5F3D04002C7712 /* SMSVerificationViewController.m */,
 				B8F2DA2F1C5F3D04002C7712 /* SMSVerificationViewController.xib */,
+				B6C9BD601CD84F8A00172B6C /* ThirdPartyLandingViewController.h */,
+				B6C9BD611CD84F8A00172B6C /* ThirdPartyLandingViewController.m */,
+				B6C9BD621CD84F8A00172B6C /* ThirdPartyLandingViewController.xib */,
 				B8F2DA331C5F3D04002C7712 /* NewPasswordViewController.h */,
 				B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */,
 				B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */,
@@ -4432,6 +4440,7 @@
 				B804FD8A1C8AC9A900DFD1CF /* MultiSelectedPanelBkg@2x.png in Resources */,
 				B804FD9B1C8AC9A900DFD1CF /* RecordingSignal007@2x.png in Resources */,
 				B85294491CD1E4650034B5F0 /* DuplicationTableViewCell.xib in Resources */,
+				B6C9BD641CD84F8A00172B6C /* ThirdPartyLandingViewController.xib in Resources */,
 				B6DB85CE1CC762A00088F867 /* InformationCommentTableViewCell.xib in Resources */,
 				B804FD921C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				B804FD6D1C8AC9A900DFD1CF /* tusiji_6.gif in Resources */,
@@ -4911,6 +4920,7 @@
 				B8FD3E0D1C8A7903007BCA6B /* SETextMagnifierCaret.m in Sources */,
 				B8FD3EBB1C8A8440007BCA6B /* CDImageLabelTableCell.m in Sources */,
 				B612DD8E1CAD36C4004C428C /* CompanyCommodityViewController.m in Sources */,
+				B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */,
 				B8FD3CA41C8A7763007BCA6B /* CDChatListVC.m in Sources */,
 				B86A10471CC8755E00D3E01B /* SubscribeTableViewCell.m in Sources */,
 				B8FD3EC11C8A8440007BCA6B /* CDPopMenuItemCell.m in Sources */,
