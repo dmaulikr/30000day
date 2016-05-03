@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUZ-b8-QZ4">
-                    <rect key="frame" x="0.0" y="86" width="320" height="134"/>
+                    <rect key="frame" x="0.0" y="96" width="320" height="134"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s80-Zh-70l">
                             <rect key="frame" x="15" y="44" width="305" height="1"/>
@@ -88,7 +88,7 @@
                                 <constraint firstAttribute="height" constant="1" id="Pgn-MT-wwc"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="voh-Db-v6T">
+                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="voh-Db-v6T">
                             <rect key="frame" x="15" y="90" width="305" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="xoX-7k-ysu"/>
@@ -143,7 +143,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7u-xA-NW9">
-                    <rect key="frame" x="15" y="339" width="290" height="100"/>
+                    <rect key="frame" x="15" y="349" width="290" height="100"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将使用下列账号登陆：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75j-tI-R6x">
                             <rect key="frame" x="8" y="8" width="154" height="17"/>
@@ -185,7 +185,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1KT-2j-jn6">
-                    <rect key="frame" x="15" y="245" width="290" height="44"/>
+                    <rect key="frame" x="15" y="255" width="290" height="44"/>
                     <color key="backgroundColor" red="0.26274509800000001" green="0.41568627450000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="GIS-uN-Ksl"/>
@@ -210,13 +210,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="为了您的账号安全，建议您绑定手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-U8-AFb">
-                    <rect key="frame" x="15" y="64" width="238" height="17"/>
+                    <rect key="frame" x="15" y="74" width="238" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-sR-dim">
-                    <rect key="frame" x="253" y="294" width="52" height="28"/>
+                    <rect key="frame" x="253" y="304" width="52" height="28"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="暂不绑定"/>
                     <connections>
@@ -232,7 +232,7 @@
                 <constraint firstItem="kUZ-b8-QZ4" firstAttribute="top" secondItem="rJL-U8-AFb" secondAttribute="bottom" constant="5" id="PB8-jb-nSB"/>
                 <constraint firstItem="1KT-2j-jn6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="UuA-S6-CYt"/>
                 <constraint firstAttribute="trailing" secondItem="dCe-sR-dim" secondAttribute="trailing" constant="15" id="Vj3-n7-9x2"/>
-                <constraint firstItem="rJL-U8-AFb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="cV7-7B-qgq"/>
+                <constraint firstItem="rJL-U8-AFb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="cV7-7B-qgq"/>
                 <constraint firstItem="Y7u-xA-NW9" firstAttribute="leading" secondItem="1KT-2j-jn6" secondAttribute="leading" id="dQf-CM-Csn"/>
                 <constraint firstItem="Y7u-xA-NW9" firstAttribute="top" secondItem="1KT-2j-jn6" secondAttribute="bottom" constant="50" id="eqA-bT-ro9"/>
                 <constraint firstItem="rJL-U8-AFb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="fUh-eg-LMf"/>

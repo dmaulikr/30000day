@@ -61,6 +61,8 @@
     
     [self.sms setDelegate:self];
     
+    [self.passWord setDelegate:self];
+    
     self.textSubView.layer.borderWidth = 1.0;
     
     self.textSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
@@ -88,6 +90,13 @@
     if ([self.sms.text isEqualToString:@""]) {
         
         [self showToast:@"验证码不能为空"];
+        
+        return;
+    }
+    
+    if ([self.passWord.text isEqualToString:@""]) {
+        
+        [self showToast:@"密码不能为空"];
         
         return;
     }
@@ -169,7 +178,32 @@
     
 }
 
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField.tag == 1) {
+        
+        [self.phoneNumber resignFirstResponder];
+        [self.passWord resignFirstResponder];
+        [self.sms becomeFirstResponder];
+        
+    } else if(textField.tag == 2) {
+        
+        [self.phoneNumber resignFirstResponder];
+        [self.passWord becomeFirstResponder];
+        [self.sms resignFirstResponder];
+        
+    } else {
+        
+        [self.phoneNumber resignFirstResponder];
+        [self.passWord resignFirstResponder];
+        [self.sms resignFirstResponder];
+        
+        [self nextBtn:nil];
+    
+    }
+    
+    return YES;
+}
 
 #pragma mark - 短信验证 smsBtn倒计时
 - (IBAction)smsVerificationBtn:(id)sender {
