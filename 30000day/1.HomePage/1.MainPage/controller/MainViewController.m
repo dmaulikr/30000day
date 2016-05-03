@@ -106,9 +106,13 @@
 //登录获取个人信息
 - (void)getUserInformation {
     
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
+    
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:NO
+                            isFromThirdParty:isThirdParty
                                      success:^(BOOL success) {
                                          
                                          //获取用户的天龄

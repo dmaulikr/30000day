@@ -401,6 +401,7 @@
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
+                    isFromThirdParty:(BOOL)isFromThirdParty
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
     
@@ -413,6 +414,8 @@
         [parameters addParameter:password forKey:@"password"];
         
     }
+    
+    [Common urlStringWithDictionary:parameters withString:LOGIN_WITH_PASSWORD];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:LOGIN_WITH_PASSWORD
@@ -5619,5 +5622,148 @@
     [self startRequest:request];
 }
 
+//*****************************************检查是否已注册*********************/
+- (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                           success:(void (^)(NSString *success))success
+                                           failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:accountNo forKey:@"accountNo"];
+    
+    [Common urlStringWithDictionary:params withString:CHECK_REGISTER];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:CHECK_REGISTER
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+}
+
+//*****************************************注册第三方登录账号*********************/
+- (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                     nickName:(NSString *)nickName
+                                      headImg:(NSString *)headImg
+                                      success:(void (^)(NSString *success))success
+                                      failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:accountNo forKey:@"accountNo"];
+    
+    [params setObject:nickName forKey:@"nickName"];
+    
+    [params setObject:headImg forKey:@"headImg"];
+    
+    [Common urlStringWithDictionary:params withString:REGIST_THIRDPARY];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:REGIST_THIRDPARY
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+}
 
 @end

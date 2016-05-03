@@ -110,6 +110,7 @@
             [self.dataHandler postSignInWithPassword:nil
                                            loginName:self.phoneNumber.text
                                   isPostNotification:YES
+                                    isFromThirdParty:YES
                                              success:^(BOOL success) {
                                                  
                                                  [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
@@ -174,9 +175,95 @@
 #pragma mark - 暂不绑定
 - (IBAction)notBind:(UIButton *)sender {
     
-    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [self.dataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid success:^(NSString *success) {
+        
+        if (success.integerValue) {
+            
+            [self regist:self.uid];
+
+        } else {
+            
+            [self.dataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
+                
+                if (success.integerValue) {
+                    
+                    [self regist:self.uid];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self ShowAlert:@"aa"];
+                
+            }];
+        
+        }
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    }];
     
 }
+
+- (void)regist:(NSString *)loginName {
+
+    [self.dataHandler postSignInWithPassword:nil
+                                   loginName:loginName
+                          isPostNotification:YES
+                            isFromThirdParty:YES
+                                     success:^(BOOL success) {
+                                         
+                                         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+                                         [userDefaults setBool:YES forKey:@"isFromThirdParty"];
+  
+                                         [userDefaults synchronize];
+                                         
+                                         
+                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
+                                                      completion:^(BOOL success) {
+                                                          
+                                                          [self.phoneNumber resignFirstResponder];
+                                                          
+                                                          [self.sms resignFirstResponder];
+                                                          
+                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                          
+                                                          UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                          
+                                                          STTabBarViewController *controller = [board instantiateInitialViewController];
+                                                          
+                                                          [controller setSelectedIndex:0];
+                                                          
+                                                          UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                                                          
+                                                          window.rootViewController = controller;
+                                                          
+                                                          
+                                                      } failure:^(NSError *error) {
+                                                          
+                                                      }];
+                                         
+                                         
+                                     } failure:^(NSError *error) {
+                                         
+                                         [self.phoneNumber resignFirstResponder];
+                                         
+                                         [self.sms resignFirstResponder];
+                                         
+                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                         
+                                         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                         
+                                     }];
+    
+}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     

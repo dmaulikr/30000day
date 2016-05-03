@@ -228,6 +228,10 @@
 
 #define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
 
+#define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdPary"    //检查是否已注册
+
+#define  REGIST_THIRDPARY             @"/stapi/user/registForThirdPary"         //注册第三方登录账号
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"

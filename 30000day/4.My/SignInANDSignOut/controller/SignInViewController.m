@@ -233,6 +233,7 @@
             [self.dataHandler postSignInWithPassword:nil
                                            loginName:uid
                                   isPostNotification:YES
+                                    isFromThirdParty:YES
                                              success:^(BOOL success) {
                                                  
                                                  [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
@@ -324,6 +325,7 @@
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
                                    loginName:_userNameTF.text
                           isPostNotification:YES
+                            isFromThirdParty:YES
                                      success:^(BOOL success) {
                                          
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId

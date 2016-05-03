@@ -65,9 +65,13 @@
 
 - (void)loadUserInformation {
     
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
+    
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:YES
+                            isFromThirdParty:isThirdParty
                                      success:^(BOOL success) {
                                          
                                          //获取用户的email

@@ -96,6 +96,7 @@ static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"S
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
+                    isFromThirdParty:(BOOL)isFromThirdParty
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;
 
@@ -492,6 +493,18 @@ static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"S
                                friendNickName:(NSString *)friendNickName
                      friendHeadImageUrlString:(NSString *)friendHeadImageUrlString
                                       success:(void (^)(BOOL success))success
+                                      failure:(void (^)(NSError *error))failure;
+
+//*****************************************检查是否已注册*********************/
+- (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                           success:(void (^)(NSString *success))success
+                                           failure:(void (^)(NSError *error))failure;
+
+//*****************************************注册第三方登录账号*********************/
+- (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                     nickName:(NSString *)nickName
+                                      headImg:(NSString *)headImg
+                                      success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
 
 @end
