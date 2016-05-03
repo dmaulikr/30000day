@@ -51,7 +51,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        cell.headImageViewURLString = self.informationModel.headImg;
+        cell.headImageViewURLString = [self.informationModel showHeadImageUrlString];
         
         cell.titleLabel.text = @"备注头像";
         
@@ -71,7 +71,7 @@
         
         cell.textLabel.text = @"备注";
         
-        cell.detailTextLabel.text = self.informationModel.nickName;
+        cell.detailTextLabel.text = [self.informationModel showNickName];
         
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         

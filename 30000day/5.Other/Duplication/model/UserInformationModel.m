@@ -91,4 +91,30 @@
     return  @{[model.userId stringValue]:@{@"userId":[model.userId stringValue],@"imgUrl":model.headImg,@"nickName":model.nickName},[userProfile.userId stringValue]:@{@"userId":[userProfile.userId stringValue],@"imgUrl":userProfile.headImg,@"nickName":userProfile.nickName},@"type":@0};
 }
 
+//获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
+- (NSString *)showNickName {
+    
+    if ([Common isObjectNull:self.nickName]) {
+        
+        return self.originalNickName;
+        
+    } else {
+        
+        return self.nickName;
+    }
+}
+
+//获取要显示的头像【如果当前用户已经设置了备注，获取的是headImg，反之originalHeadImg】
+- (NSString *)showHeadImageUrlString {
+    
+    if ([Common isObjectNull:self.headImg]) {
+        
+        return self.originalHeadImg;
+        
+    } else {
+        
+        return self.headImg;
+    }
+}
+
 @end
