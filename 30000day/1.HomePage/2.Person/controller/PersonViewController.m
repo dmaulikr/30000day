@@ -139,7 +139,7 @@
     
     if (self.state) {
         
-        return 430;
+        return 425;
         
     } else {
         
@@ -151,16 +151,16 @@
 
     if (self.state == 0) {//小图
         
-        static NSString *identifier = @"PersonTableViewCell_third";
+        static NSString *identifier = @"PersonTableViewCell";
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][0];
         }
         
-        cell.informationModel_third = _dataArray[indexPath.row];
+        cell.informationModel = _dataArray[indexPath.row];
         
         return cell;
         
@@ -172,7 +172,7 @@
         
         if (cell == nil) {
             
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil] lastObject];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][1];
         }
         cell.informationModel_second = _dataArray[indexPath.row];
         

@@ -56,8 +56,6 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [LZConversationCell registerCellToTableView:self.tableView];
     
-//    self.refreshControl = [self getRefreshControl];
-    
     //添加头部刷新
     [self addHeadRefresh];
     
@@ -68,10 +66,8 @@ static NSString *cellIdentifier = @"ContactCell";
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
     
-    //当成功的从数天服务器获取到好友的时候发送的通知
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:STUseDidSuccessGetFriendsSendNotification object:nil];
-    
-//    [self updateStatusView];
+    //成功的链接上凌云聊天服务器
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
@@ -82,17 +78,6 @@ static NSString *cellIdentifier = @"ContactCell";
     [super viewDidAppear:animated];
     // 刷新 unread badge 和新增的对话
     [self performSelector:@selector(headerRefreshing) withObject:nil afterDelay:0];
-}
-
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:STUseDidSuccessGetFriendsSendNotification object:nil];
 }
 
 - (void)addHeadRefresh {
@@ -456,6 +441,17 @@ static NSString *cellIdentifier = @"ContactCell";
     
     return [LZConversationCell heightOfCell];
     
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 @end

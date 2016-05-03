@@ -41,6 +41,9 @@ static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSucc
 //当开始pop控制器的时候发出的通知
 static NSString *const STWillPopViewControllerSendNotification = @"STWillPopViewControllerSendNotification";
 
+//当成功的链接凌云聊天服务器发出的通知
+static NSString *const STDidSuccessConnectLeanCloudViewSendNotification = @"STDidSuccessConnectLeanCloudViewSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;

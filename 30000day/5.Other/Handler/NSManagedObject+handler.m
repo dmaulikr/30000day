@@ -10,14 +10,14 @@
 
 @implementation NSManagedObject (handler)
 
-+ (id)createNew {
++ (id)createNewObject {
     
     NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
     
     return [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext];
 }
 
-+ (NSError*)save:(OperationResult)handler {
++ (NSError *)save:(OperationResult)handler {
     
     return [[STCoreDataHandler shareCoreDataHandler] save:handler];
 }

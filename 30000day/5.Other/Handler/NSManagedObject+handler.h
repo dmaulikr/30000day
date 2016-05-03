@@ -17,7 +17,7 @@ typedef id(^AsyncProcess)(NSManagedObjectContext *ctx, NSString *className);
 
 @interface NSManagedObject (handler)
 
-+ (id)createNew;
++ (id)createNewObject;
 
 + (NSError *)save:(OperationResult)handler;
 

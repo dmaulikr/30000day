@@ -94,25 +94,18 @@
     
     [iVersion sharedInstance].previewMode = NO;
     
-    [AVOSCloud setLastModifyEnabled:YES];
+//    [AVOSCloud setLastModifyEnabled:YES];
     
     [[LZPushManager manager] registerForRemoteNotification];//配置推送
-    
-    [CDAddRequest registerSubclass];
-    
-    [CDAbuseReport registerSubclass];
 
 #ifdef DEBUG
     [AVPush setProductionMode:NO];  //如果要测试申请好友是否有推送，请设置为 YES
 //    [AVOSCloud setAllLogsEnabled:YES];
 #endif
-    
-    [self initAnalytics];
-    
-    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
-    _mapManager = [[BMKMapManager alloc]init];
+    _mapManager = [[BMKMapManager alloc] init];
     BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];//
     if (!ret) {
         NSLog(@"manager start failed!");
@@ -222,18 +215,6 @@
     return YES;
 }
 
-- (void)initAnalytics {
-    [AVAnalytics setAnalyticsEnabled:YES];
-#ifdef DEBUG
-    [AVAnalytics setChannel:@"Debug"];
-#else
-    [AVAnalytics setChannel:@"App Store"];
-#endif
-    // 应用每次启动都会去获取在线参数，这里同步获取即可。可能是上一次启动获取得到的在线参数。不过没关系。
-    NSDictionary *configParams = [AVAnalytics getConfigParams];
-    DLog(@"configParams: %@", configParams);
-}
-
 - (void)openChat:(NSNumber *)userId
       completion:(void (^)(BOOL success))success
          failure:(void (^)(NSError *))failure {
@@ -249,6 +230,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 success(YES);
+                
+                [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
                 
             });
             
@@ -300,8 +283,6 @@
         //            convid = 55bae86300b0efdcbe3e742e;
         //        }
         [[CDChatManager manager] didReceiveRemoteNotification:userInfo];
-        
-        [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
         
         DLog(@"receiveRemoteNotification");
     }
