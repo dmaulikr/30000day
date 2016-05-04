@@ -102,6 +102,8 @@
         return;
     }
     
+    //该手机号已经绑定，继续将绑定当前账号
+    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
     //[self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
