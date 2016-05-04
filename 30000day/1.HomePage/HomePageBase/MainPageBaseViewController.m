@@ -58,9 +58,13 @@
         
     } else {//过去有登录
         
+        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+        BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
+        
         [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                        loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                               isPostNotification:YES
+                                isFromThirdParty:isThirdParty
                                          success:^(BOOL success) {
                                              
                                              [STAppDelegate openChat:STUserAccountHandler.userProfile.userId

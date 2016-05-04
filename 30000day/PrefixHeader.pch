@@ -222,13 +222,18 @@
 
 #define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
 
-#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegister"               //绑定注册
+#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegistForThirdPary"     //绑定注册
 
 #define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
 
 #define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
 
 #define  DELETE_FRIEND_MEMO           @"/stapi/friend/delFriendMemo"            //删除好友
+
+#define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdPary"    //检查是否已注册
+
+#define  REGIST_THIRDPARY             @"/stapi/user/registForThirdPary"         //注册第三方登录账号
+
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
