@@ -78,6 +78,7 @@
     self.loginName.text = self.name;
 }
 
+#pragma mark - 绑定
 - (IBAction)nextBtn:(UIButton *)sender {
     
     if ([self.phoneNumber.text isEqualToString:@""]) {
@@ -103,9 +104,9 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
+    //[self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
-        [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid headImg:self.url type:self.type success:^(NSString *success) {
+        [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid password:self.passWord.text headImg:self.url type:self.type success:^(NSString *success) {
             
             if (success.integerValue) {
                 
@@ -124,9 +125,7 @@
                                                      [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                                   completion:^(BOOL success) {
                                                                       
-                                                                      [self.phoneNumber resignFirstResponder];
-                                                                      
-                                                                      [self.sms resignFirstResponder];
+                                                                      [self textFiledResignFirst];
                                                                       
                                                                       [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                       
@@ -148,9 +147,7 @@
                                                      
                                                  } failure:^(NSError *error) {
                                                      
-                                                     [self.phoneNumber resignFirstResponder];
-                                                     
-                                                     [self.sms resignFirstResponder];
+                                                     [self textFiledResignFirst];
                                                      
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      
@@ -160,13 +157,11 @@
                 
             } else {
                 
-                [self.phoneNumber resignFirstResponder];
-                
-                [self.sms resignFirstResponder];
+                [self textFiledResignFirst];
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self showToast:@"绑定注册出错"];
+                [self showToast:@"绑定/注册失败"];
                 
             }
             
@@ -178,13 +173,13 @@
             
         }];
         
-    } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self ShowAlert:@"验证出错"];
-        
-    }];
+//    } failure:^(NSError *error) {
+//        
+//        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+//        
+//        [self showToast:@"验证失败"];
+//        
+//    }];
 
 }
 
@@ -244,9 +239,7 @@
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
                                                           
-                                                          [self.phoneNumber resignFirstResponder];
-                                                          
-                                                          [self.sms resignFirstResponder];
+                                                          [self textFiledResignFirst];
                                                           
                                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                           
@@ -268,9 +261,7 @@
                                          
                                      } failure:^(NSError *error) {
                                          
-                                         [self.phoneNumber resignFirstResponder];
-                                         
-                                         [self.sms resignFirstResponder];
+                                         [self textFiledResignFirst];
                                          
                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                          
@@ -365,6 +356,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+
+    [self textFiledResignFirst];
+
+}
+
+- (void)textFiledResignFirst {
+
+    [self.phoneNumber resignFirstResponder];
+    
+    [self.sms resignFirstResponder];
+    
+    [self.passWord resignFirstResponder];
+
 }
 
 /*

@@ -482,6 +482,7 @@ static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"S
 - (void)sendBindRegisterWithMobile:(NSString *)mobile
                           nickName:(NSString *)nickName
                          accountNo:(NSString *)accountNo
+                          password:(NSString *)password
                            headImg:(NSString *)headImg
                               type:(NSString *)type
                            success:(void (^)(NSString *success))success

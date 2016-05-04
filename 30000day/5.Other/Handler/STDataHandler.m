@@ -206,6 +206,8 @@
     
     [parameters addParameter:smsCode forKey:@"code"];
     
+    [Common urlStringWithDictionary:parameters withString:VALIDATE_SMS_CODE];
+    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:VALIDATE_SMS_CODE
                                                  parameters:parameters
@@ -225,6 +227,19 @@
                                                                     
                                                                     success(recvDic[@"value"]);
                                                                 });
+                                                                
+                                                            } else {
+                                                            
+                                                                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:recvDic[@"msg"]                                                                     forKey:NSLocalizedDescriptionKey];
+
+                                                               localError = [NSError errorWithDomain:@"com.sms.validate" code:[recvDic[@"code"] integerValue] userInfo:userInfo];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(localError);
+                                                                    
+                                                                });
+                                                                
                                                             }
                                                             
                                                         } else {
@@ -497,7 +512,7 @@
     
     [Common saveAppDataForKey:KEY_SIGNIN_USER_NAME withObject:userName];
     
-    [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:password];
+    if (password != nil) [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:password];
     
     NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
@@ -508,7 +523,7 @@
         
         [userAccountDictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
         
-        [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
+        if (password != nil) [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
         
         [userAccountArray addObject:userAccountDictionary];
         
@@ -533,7 +548,7 @@
                 
                 [dictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
                 
-                [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                if (password != nil) [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
                 
                 [userAccountArray insertObject:dictionary atIndex:i];
                 
@@ -546,7 +561,7 @@
             
             [dictionary setValue:userName forKey:KEY_SIGNIN_USER_NAME];
             
-            [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
+            if (password != nil) [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
             
             [userAccountArray insertObject:dictionary atIndex:0];
             
@@ -5468,6 +5483,7 @@
 - (void)sendBindRegisterWithMobile:(NSString *)mobile
                           nickName:(NSString *)nickName
                          accountNo:(NSString *)accountNo
+                          password:(NSString *)password
                            headImg:(NSString *)headImg
                               type:(NSString *)type
                            success:(void (^)(NSString *success))success
@@ -5480,6 +5496,8 @@
     [params setObject:nickName forKey:@"nickName"];
     
     [params setObject:accountNo forKey:@"accountNo"];
+    
+    [params setObject:password forKey:@"password"];
     
     [params setObject:headImg forKey:@"headImg"];
     
