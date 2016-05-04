@@ -90,18 +90,10 @@
         
     }
     
-    //头像
-    if ([Common isObjectNull:informationModel.headImg]) {
-        
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:informationModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        
-    } else {
-        
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:informationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    }
+    [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:[informationModel showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     //昵称
-    self.labelFirst_first.text = informationModel.nickName;
+    self.labelFirst_first.text = [informationModel showNickName];
     
     //个性签名
     self.labelSecond_first.text = [NSString stringWithFormat:@"%@",[Common isObjectNull:informationModel.memo] ? @"" : informationModel.memo];
@@ -173,17 +165,10 @@
     }
     
     //头像
-    if ([Common isObjectNull:informationModel_second.headImg]) {
-        
-        [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:informationModel_second.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        
-    } else {
-        
-        [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:informationModel_second.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    }
+    [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:[informationModel_second showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    //昵称
-    self.labelFirst_second.text = informationModel_second.nickName;
+    self.labelFirst_second.text = [informationModel_second showNickName];
+    
     //个性签名
     self.labelSecond_second.text = [Common isObjectNull:informationModel_second.memo] ? @"" : informationModel_second.memo;
 }

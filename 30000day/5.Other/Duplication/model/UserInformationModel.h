@@ -4,7 +4,7 @@
 //  当前用户、当前用户的好友、搜索到的用户模型
 //  Created by GuoJia on 16/2/19.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  该模型被多处用到
 
 #import <Foundation/Foundation.h>
 
@@ -44,5 +44,11 @@
  *  @return @{@"xxx":@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"yyy":@{@"nickName":@"guojia",@"userId":@"100000016",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"type":0}
  */
 + (NSDictionary *)attributesDictionay:(UserInformationModel *)model userProfile:(UserProfile *)userProfile;
+
+//获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
+- (NSString *)showNickName;
+
+//获取要显示的头像【如果当前用户已经设置了备注，获取的是headImg，反之originalHeadImg】
+- (NSString *)showHeadImageUrlString;
 
 @end

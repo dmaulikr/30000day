@@ -11,6 +11,7 @@
 #import "PersonTableViewCell.h"
 #import "UserInformationModel.h"
 #import "PersonDetailViewController.h"
+#import "PersonInformationsManager.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -65,6 +66,9 @@
     [self.dataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
         
         _dataArray = dataArray;
+        
+        //给这个好友管理器赋值
+        [PersonInformationsManager shareManager].informationsArray = dataArray;
         
         [self.tableView reloadData];
         
@@ -187,7 +191,9 @@
     
     controller.hidesBottomBarWhenPushed = YES;
     
-    controller.informationModel = _dataArray[indexPath.row];
+    UserInformationModel *model = _dataArray[indexPath.row];
+    
+    controller.friendUserId = model.userId;
     
     [self.navigationController pushViewController:controller animated:YES];
     

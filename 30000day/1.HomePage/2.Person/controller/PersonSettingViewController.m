@@ -10,8 +10,12 @@
 #import "HeadViewTableViewCell.h"
 #import "PayTableViewCell.h"
 #import "MTProgressHUD.h"
+#import "SettingViewController.h"
+#import "PersonInformationsManager.h"
 
 @interface PersonSettingViewController () <UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -51,7 +55,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:nil options:nil] lastObject];
         }
         
-        cell.headImageViewURLString = self.informationModel.headImg;
+        cell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
         
         cell.titleLabel.text = @"备注头像";
         
@@ -71,7 +75,7 @@
         
         cell.textLabel.text = @"备注";
         
-        cell.detailTextLabel.text = self.informationModel.nickName;
+        cell.detailTextLabel.text = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName];
         
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         
@@ -149,11 +153,15 @@
         
         UIAlertAction *action_third = [UIAlertAction actionWithTitle:@"清除备注头像" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId friendNickName:self.informationModel.nickName friendHeadImageUrlString:@"" success:^(BOOL success) {
+            [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:@"" success:^(BOOL success) {
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 
+                [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = @"";
+                
                 [self showToast:@"清除备注头像成功"];
+                
+                
                 
             } failure:^(NSError *error) {
                 
@@ -176,20 +184,49 @@
         
     } else if (indexPath.section == 1) {
         
+        SettingViewController *controller  = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+    
+        controller.showTitle = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName];
         
+        //修改昵称
+        [controller setDoneBlock:^(NSString *changedTitle) {
+           
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:changedTitle friendHeadImageUrlString:nil success:^(BOOL success) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"设置昵称成功"];
+                
+                //给管理器赋值
+                [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].nickName = changedTitle;
+                
+                [self.tableView reloadData];
+                
+            } failure:^(NSError *error) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            }];
+            
+        }];
         
+        controller.hidesBottomBarWhenPushed = YES;
         
+        [self.navigationController pushViewController:controller animated:YES];
         
     } else {
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定要删除%@吗",self.informationModel.nickName]
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定要删除%@吗",[[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName]]
      message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
          UIAlertAction *action_cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
         UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"删除好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId success:^(BOOL success) {
+            [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId success:^(BOOL success) {
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
@@ -245,11 +282,16 @@
     
     [self.dataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
         
-        [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.informationModel.userId friendNickName:self.informationModel.nickName friendHeadImageUrlString:imageUrl success:^(BOOL success) {
+        [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:imageUrl success:^(BOOL success) {
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
             [self showToast:@"设置备注头像成功"];
+            
+            //给管理器赋值
+            [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = imageUrl;
+            
+            [self.tableView reloadData];
             
         } failure:^(NSError *error) {
             

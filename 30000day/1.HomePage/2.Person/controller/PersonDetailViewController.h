@@ -13,6 +13,8 @@
 
 @interface PersonDetailViewController : CDBaseVC
 
-@property (nonatomic,strong) UserInformationModel *informationModel;
+//@property (nonatomic,strong) UserInformationModel *informationModel;
+
+@property (nonatomic,strong) NSNumber *friendUserId;//好友的ID
 
 @end
