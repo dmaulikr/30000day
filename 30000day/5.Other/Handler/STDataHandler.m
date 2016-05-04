@@ -409,6 +409,8 @@
     
     [parameters addParameter:loginName forKey:@"userName"];
     
+    [parameters addParameter:@(isFromThirdParty) forKey:@"isFromThirdParty"];
+    
     if (password != nil) {
         
         [parameters addParameter:password forKey:@"password"];

@@ -236,6 +236,12 @@
                                     isFromThirdParty:YES
                                              success:^(BOOL success) {
                                                  
+                                                 NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
+                                                 
+                                                 [userDefaulst setBool:YES forKey:@"isFromThirdParty"];
+                                                 
+                                                 [userDefaulst synchronize];
+                                                 
                                                  [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                               completion:^(BOOL success) {
 
@@ -325,8 +331,14 @@
     [self.dataHandler postSignInWithPassword:_userPwdTF.text
                                    loginName:_userNameTF.text
                           isPostNotification:YES
-                            isFromThirdParty:YES
+                            isFromThirdParty:NO
                                      success:^(BOOL success) {
+                                         
+                                         NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
+                                         
+                                         [userDefaulst setBool:NO forKey:@"isFromThirdParty"];
+                                         
+                                         [userDefaulst synchronize];
                                          
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
