@@ -20,6 +20,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "QGPickerView.h"
 #import "HealthySetUpViewController.h"
+#import "SettingBirthdayView.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -34,6 +35,8 @@
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
 
 @property (nonatomic,strong) UIView *indicationView;//指示view
+
+@property (nonatomic,strong) SettingBirthdayView *birthdayView;
 
 @end
 
@@ -52,17 +55,11 @@
     
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
-    //监听个人信息管理模型发出的通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-
-    //更新个人运动信息
-    [self uploadMotionData];
-    
     //定位并获取天气
     [self startFindLocationSucess];
-    
-    //获取用户天龄
-    [self getUserLifeList];
+
+    //监听个人信息管理模型发出的通知
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (ActivityIndicatorTableViewCell *)indicatorCell {
@@ -99,8 +96,14 @@
     //获取用户的天龄
     [self getUserLifeList];
     
+    //更新个人运动信息
+    [self uploadMotionData];
+    
     //获取用户击败的用户
     [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
+    
+    //显示设置生日的视图
+    [self showSettingBirthdayView];
 }
 
 //登录获取个人信息
@@ -118,8 +121,10 @@
                                          //获取用户的天龄
                                          [self getUserLifeList];
                                          
-                                         [self.tableView.mj_header endRefreshing];
+                                         //显示设置生日视图
+                                         [self showSettingBirthdayView];
                                          
+                                         [self.tableView.mj_header endRefreshing];
                                      }
                                      failure:^(NSError *error) {
                                          
@@ -216,7 +221,6 @@
             
             [self.tableView.mj_header endRefreshing];
         }];
-        
     }
 }
 
@@ -698,6 +702,51 @@
         
         self.indicationView = nil;
     }];
+}
+
+//显示设置生日的视图
+- (void)showSettingBirthdayView {
+    
+    if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {
+        
+        if (!self.birthdayView) {
+            
+            SettingBirthdayView *view = [[SettingBirthdayView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            
+            view.backgroundColor = RGBACOLOR(230, 230, 230,1);
+            
+            __weak typeof(view) weakView = view;
+    
+            //按钮点击回调
+            [view setSaveBlock:^(NSDate *selectorDate, NSNumber *gentNumber) {
+                
+                [self.dataHandler sendUpdateUserInformationWithUserId:STUserAccountHandler.userProfile.userId
+                                                             nickName:STUserAccountHandler.userProfile.nickName
+                                                               gender:gentNumber
+                                                             birthday:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:selectorDate]
+                                                   headImageUrlString:nil
+                                                                 memo:nil
+                                                              success:^(BOOL success) {
+                                                                  
+                                                                  [weakView removeBirthdayView];
+                                                                  
+                                                                  self.birthdayView = nil;
+                                                              }
+                                                              failure:^(STNetError *error) {
+                                                                  
+                                                                  [weakView removeBirthdayView];
+                                                                  
+                                                                  self.birthdayView = nil;
+                                                                  
+                                                              }];
+                
+            }];
+            
+            [[UIApplication sharedApplication].keyWindow addSubview:view];
+            
+            self.birthdayView = view;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {

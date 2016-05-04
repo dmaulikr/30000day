@@ -5706,7 +5706,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-
 }
 
 //*****************************************注册第三方登录账号*********************/
@@ -5781,7 +5780,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-
 }
 
 @end
