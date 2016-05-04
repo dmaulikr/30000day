@@ -346,15 +346,14 @@
 
 #pragma mark ---- MFMessageComposeViewControllerDelegate
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     
     [controller dismissViewControllerAnimated:NO completion:nil];
     
     switch ( result ) {
             
-        case MessageComposeResultCancelled:
-        {
+        case MessageComposeResultCancelled: {
+            
             [controller dismissViewControllerAnimated:YES completion:nil];
         }
             break;
@@ -367,8 +366,8 @@
             
             break;
             
-        case MessageComposeResultSent:
-        {
+        case MessageComposeResultSent: {
+            
             [self showToast:@"短信发送成功"];
             
             [controller dismissViewControllerAnimated:YES completion:nil];
@@ -379,14 +378,13 @@
             
             break;
     }
-    
 }
 
 #pragma mark ---- MFMailComposeViewControllerDelegate
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError*)error;
-{
+                        error:(NSError*)error {
+    
     [controller dismissViewControllerAnimated:NO completion:nil];
     
     if (result == MFMailComposeResultSent) {
@@ -411,17 +409,14 @@
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
-
 
 #pragma mark --- UMSocialUIDelegate
 
 - (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
     
     //根据`responseCode`得到发送结果,如果分享成功
-    if(response.responseCode == UMSResponseCodeSuccess)
-    {
+    if(response.responseCode == UMSResponseCodeSuccess) {
         //得到分享到的微博平台名
         NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
     }
