@@ -5557,8 +5557,6 @@
     
     [params addParameter:friendHeadImageUrlString forKey:@"headImg"];
     
-    [Common urlStringWithDictionary:params withString:UPDATE_FRIEND];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_FRIEND
                                                  parameters:params

@@ -69,6 +69,8 @@ static NSString *cellIdentifier = @"ContactCell";
     //成功的链接上凌云聊天服务器
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
     
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     self.tableView.contentInset =  UIEdgeInsetsMake(64, 0, 0, 0);
@@ -351,7 +353,7 @@ static NSString *cellIdentifier = @"ContactCell";
             
         } else {
             
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"avator"]];
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
         }
         
     } else {
@@ -452,6 +454,8 @@ static NSString *cellIdentifier = @"ContactCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
     
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
 }
 
 @end

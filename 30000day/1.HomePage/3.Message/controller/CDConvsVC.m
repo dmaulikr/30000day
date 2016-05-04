@@ -67,10 +67,10 @@
     }
 }
 
-- (UIImage *)defaultAvatarImageView {
-    UIImage *defaultAvatarImageView = [UIImage imageNamed:@"avator"];
-    defaultAvatarImageView = [CDUtils roundImage:defaultAvatarImageView toSize:CGSizeMake(100, 100) radius:5];
-    return defaultAvatarImageView;
-}
+//- (UIImage *)defaultAvatarImageView {
+//    UIImage *defaultAvatarImageView = [UIImage imageNamed:@"avator"];
+//    defaultAvatarImageView = [CDUtils roundImage:defaultAvatarImageView toSize:CGSizeMake(100, 100) radius:5];
+//    return defaultAvatarImageView;
+//}
 
 @end

@@ -17,6 +17,10 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic,strong) HeadViewTableViewCell *headViewCell;
+
+@property (nonatomic,strong) UITableViewCell *cell;
+
 @end
 
 @implementation PersonSettingViewController
@@ -30,6 +34,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (HeadViewTableViewCell *)headViewCell {
+    
+    if (!_headViewCell) {
+        
+        _headViewCell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:nil options:nil] lastObject];
+        
+    }
+    return _headViewCell;
+}
+
+- (UITableViewCell *)cell {
+    
+    if (!_cell) {
+        
+        _cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
+    }
+    
+    return _cell;
+}
+
 
 #pragma ---
 #pragma mark --- UITableViewDelegate / UITableViewDatasource
@@ -47,41 +72,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
+
+        self.headViewCell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
         
-        HeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HeadViewTableViewCell"];
+        self.headViewCell.titleLabel.text = @"备注头像";
         
-        if (!cell) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadViewTableViewCell" owner:nil options:nil] lastObject];
-        }
-        
-        cell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
-        
-        cell.titleLabel.text = @"备注头像";
-        
-        return cell;
+        return self.headViewCell;
         
     } else if (indexPath.section == 1) {
         
-        UITableViewCell *cell = cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+        self.cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        if (!cell) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
-            
-        }
+        self.cell.textLabel.text = @"备注";
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.cell.detailTextLabel.text = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName];
         
-        cell.textLabel.text = @"备注";
+        self.cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         
-        cell.detailTextLabel.text = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName];
+        self.cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0f];
         
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
-        
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0f];
-        
-        return cell;
+        return self.cell;
         
     } else {
         
@@ -161,7 +171,7 @@
                 
                 [self showToast:@"清除备注头像成功"];
                 
-                
+                self.headViewCell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
                 
             } failure:^(NSError *error) {
                 
@@ -196,13 +206,12 @@
             [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:changedTitle friendHeadImageUrlString:nil success:^(BOOL success) {
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-                [self showToast:@"设置昵称成功"];
-                
                 //给管理器赋值
                 [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].nickName = changedTitle;
                 
-                [self.tableView reloadData];
+                [self showToast:@"设置昵称成功"];
+                
+                self.cell.detailTextLabel.text = changedTitle;
                 
             } failure:^(NSError *error) {
                 
@@ -286,12 +295,12 @@
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
-            [self showToast:@"设置备注头像成功"];
-            
             //给管理器赋值
             [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = imageUrl;
             
-            [self.tableView reloadData];
+            [self showToast:@"设置备注头像成功"];
+            
+            self.headViewCell.headImageView.image = image;
             
         } failure:^(NSError *error) {
             

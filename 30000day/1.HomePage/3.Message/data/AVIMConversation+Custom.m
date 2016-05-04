@@ -10,6 +10,7 @@
 #import "CDChatManager.h"
 #import "UIImage+Icon.h"
 #import <objc/runtime.h>
+#import "PersonInformationsManager.h"
 
 @implementation AVIMConversation (Custom)
 
@@ -60,7 +61,14 @@
         
         NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
         
-        return [newDictionay objectForKey:NICK_NAME];
+        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].nickName]) {
+            
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].nickName;
+            
+        } else {
+            
+            return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+        }
         
     } else {
         
@@ -78,7 +86,14 @@
         
         NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
         
-        return [newDictionay objectForKey:IMG_URL];
+        if ([[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]] && ![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].headImg]) {
+            
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].headImg;
+            
+        } else {
+            
+            return [newDictionay objectForKey:ORIGINAL_IMG_URL];
+        }
         
     } else {
         

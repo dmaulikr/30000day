@@ -228,10 +228,14 @@
 
 #define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
 
+#define  DELETE_FRIEND_MEMO           @"/stapi/friend/delFriendMemo"            //删除好友
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"
 #define IMG_URL               @"imgUrl"
+#define ORIGINAL_NICK_NAME    @"originalNickName"
+#define ORIGINAL_IMG_URL      @"originalHeadImg"
 
 
 #define WX_APP_ID          @"wx75e720a9c37aa258"

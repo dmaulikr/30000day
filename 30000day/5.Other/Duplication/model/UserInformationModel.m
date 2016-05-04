@@ -88,7 +88,7 @@
         return nil;
     }
     
-    return  @{[model.userId stringValue]:@{@"userId":[model.userId stringValue],@"imgUrl":model.headImg,@"nickName":model.nickName},[userProfile.userId stringValue]:@{@"userId":[userProfile.userId stringValue],@"imgUrl":userProfile.headImg,@"nickName":userProfile.nickName},@"type":@0};
+    return  @{[model.userId stringValue]:@{@"userId":[model.userId stringValue],@"originalNickName":model.originalNickName,@"originalHeadImg":model.originalHeadImg},[userProfile.userId stringValue]:@{@"userId":[userProfile.userId stringValue],@"originalNickName":userProfile.nickName,@"originalHeadImg":model.originalHeadImg},@"type":@0};
 }
 
 //获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
