@@ -127,6 +127,7 @@
 		B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137981CD8AC1100ED0566 /* SettingViewController.m */; };
 		B801379B1CD8AC1100ED0566 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137991CD8AC1100ED0566 /* SettingViewController.xib */; };
 		B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */; };
+		B80137A21CD9D68100ED0566 /* SettingBirthdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137A11CD9D68100ED0566 /* SettingBirthdayView.m */; };
 		B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */; };
 		B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */; };
 		B804FD561C8AC9A900DFD1CF /* tusiji_0_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */; };
@@ -817,6 +818,8 @@
 		B80137991CD8AC1100ED0566 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		B801379D1CD8B1F700ED0566 /* PersonInformationsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInformationsManager.h; sourceTree = "<group>"; };
 		B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInformationsManager.m; sourceTree = "<group>"; };
+		B80137A01CD9D68100ED0566 /* SettingBirthdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBirthdayView.h; sourceTree = "<group>"; };
+		B80137A11CD9D68100ED0566 /* SettingBirthdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBirthdayView.m; sourceTree = "<group>"; };
 		B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultSettings.plist; sourceTree = "<group>"; };
 		B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tusiji_0.gif; sourceTree = "<group>"; };
 		B804FCB41C8AC9A900DFD1CF /* tusiji_0_cover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tusiji_0_cover@2x.png"; sourceTree = "<group>"; };
@@ -2586,6 +2589,8 @@
 				B6D59D561C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.h */,
 				B6D59D571C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m */,
 				B6D59D581C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib */,
+				B80137A01CD9D68100ED0566 /* SettingBirthdayView.h */,
+				B80137A11CD9D68100ED0566 /* SettingBirthdayView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4998,6 +5003,7 @@
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
+				B80137A21CD9D68100ED0566 /* SettingBirthdayView.m in Sources */,
 				B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */,
 				B665F8DB1CC4BF5200070458 /* ZLSelectPhotoModel.m in Sources */,
 				B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */,
