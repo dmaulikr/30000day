@@ -107,10 +107,11 @@
                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                               }];
             
-            
         } failure:^(NSError *error) {
             
             [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         }];
         

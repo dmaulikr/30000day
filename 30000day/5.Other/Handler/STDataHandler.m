@@ -1986,7 +1986,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    params[@"userId"] = userId;
+    [params addParameter:userId forKey:@"userId"];
+    
+    [Common urlStringWithDictionary:params withString:GET_SECURITY_QUESTION];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION
