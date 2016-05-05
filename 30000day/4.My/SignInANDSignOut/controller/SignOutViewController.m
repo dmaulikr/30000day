@@ -129,9 +129,7 @@
                                             [self showToast:@"注册失败"];
                                             
                                             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                            
                                         }];
-    
 }
 
 

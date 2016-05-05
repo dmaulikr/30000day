@@ -92,15 +92,19 @@
                                                   controller.hidesBottomBarWhenPushed = YES;
 
                                                   if ([Common isObjectNull:success]) {
-                                                      controller.isSet=NO;
-                                                  }else{
-                                                      controller.isSet=YES;
+                                                      
+                                                      controller.isSet = NO;
+                                                      
+                                                  } else {
+                                                      
+                                                      controller.isSet = YES;
                                                   }
                                                   
                                                   [self.navigationController pushViewController:controller animated:YES];
                                                   
                                               } failure:^(STNetError *error) {
                                                   
+                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                               }];
             
             
