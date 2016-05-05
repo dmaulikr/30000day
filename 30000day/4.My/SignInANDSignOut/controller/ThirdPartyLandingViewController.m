@@ -48,6 +48,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *loginSupView;
 
+@property (weak, nonatomic) IBOutlet UILabel *promptLable;
+
+
 @end
 
 @implementation ThirdPartyLandingViewController
@@ -116,11 +119,14 @@
                                                loginName:self.phoneNumber.text
                                       isPostNotification:YES
                                         isFromThirdParty:NO
+                                                    type:nil
                                                  success:^(BOOL success) {
                                                      
                                                      NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
                                                      
                                                      [userDefaulst setBool:NO forKey:@"isFromThirdParty"];
+                                                     
+                                                     [userDefaulst removeObjectForKey:@"type"];
                                                      
                                                      [userDefaulst synchronize];
                                                      
@@ -209,8 +215,6 @@
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self ShowAlert:@"aa"];
-                
             }];
         
         }
@@ -229,11 +233,14 @@
                                    loginName:loginName
                           isPostNotification:YES
                             isFromThirdParty:YES
+                                        type:self.type
                                      success:^(BOOL success) {
                                          
                                          NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
                                          [userDefaults setBool:YES forKey:@"isFromThirdParty"];
+                                         
+                                         [userDefaults setObject:self.type forKey:@"type"];
   
                                          [userDefaults synchronize];
                                          
@@ -310,7 +317,7 @@
         
         return;
     }
-    
+
     //调用短信验证接口
     [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
                                           type:@(3)
@@ -323,6 +330,26 @@
                                            [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
                                            
                                            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
+                                           
+                                           //检查手机号是否已经注册
+                                           [self.dataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
+                                               
+                                               if (success.integerValue) {
+                                                   
+                                                   [self.promptLable setText:@"该手机号已被注册，继续操作将绑定至当前账号"];
+                                                   [self.promptLable setTextColor:[UIColor redColor]];
+                                                   
+                                               } else {
+                                                   
+                                                   [self.promptLable setText:@"为了您的账号安全，建议您绑定手机号"];
+                                                   [self.promptLable setTextColor:[UIColor blackColor]];
+                                                   
+                                               }
+                                               
+                                           } failure:^(NSError *error) {
+
+                                           }];
+                                           
                                            
                                        } failure:^(NSString *error) {
                                            

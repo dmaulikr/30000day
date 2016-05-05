@@ -14,6 +14,7 @@
                 <outlet property="nextBtn" destination="1KT-2j-jn6" id="vsu-yO-VCz"/>
                 <outlet property="passWord" destination="voh-Db-v6T" id="wby-3q-FIl"/>
                 <outlet property="phoneNumber" destination="Wcd-XB-vbe" id="AY7-VG-nxY"/>
+                <outlet property="promptLable" destination="rJL-U8-AFb" id="Lnu-yO-N6Y"/>
                 <outlet property="sms" destination="Xwf-L6-opE" id="Wtz-8Q-JFI"/>
                 <outlet property="smsBtn" destination="9Is-OL-d2b" id="1UL-jw-4jt"/>
                 <outlet property="textSubView" destination="kUZ-b8-QZ4" id="wnO-Cb-qLq"/>

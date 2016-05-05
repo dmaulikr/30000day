@@ -417,6 +417,7 @@
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
                     isFromThirdParty:(BOOL)isFromThirdParty
+                                type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
     
@@ -431,6 +432,13 @@
         [parameters addParameter:password forKey:@"password"];
         
     }
+    
+    if (type != nil) {
+        
+        [parameters addParameter:type forKey:@"type"];
+        
+    }
+    
     
     [Common urlStringWithDictionary:parameters withString:LOGIN_WITH_PASSWORD];
     
@@ -5780,6 +5788,76 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
+}
+
+//*****************************************检查手机号是否已经注册*********************/
+- (void)sendcheckRegisterForMobileWithmobile:(NSString *)mobile
+                                     success:(void (^)(NSString *success))success
+                                     failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params setObject:mobile forKey:@"mobile"];
+    
+    [Common urlStringWithDictionary:params withString:CHECK_MOBILE];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:CHECK_MOBILE
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(recvDic[@"value"]);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+
+    
 }
 
 @end

@@ -232,6 +232,8 @@
 
 #define  REGIST_THIRDPARY             @"/stapi/user/registForThirdPary"         //注册第三方登录账号
 
+#define  CHECK_MOBILE                 @"/stapi/user/checkRegisterForMobile"     //检查手机号是否已经注册
+
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"

@@ -234,11 +234,14 @@
                                            loginName:uid
                                   isPostNotification:YES
                                     isFromThirdParty:YES
+                                                type:type
                                              success:^(BOOL success) {
                                                  
                                                  NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
                                                  
                                                  [userDefaulst setBool:YES forKey:@"isFromThirdParty"];
+                                                 
+                                                 [userDefaulst setObject:type forKey:@"type"];
                                                  
                                                  [userDefaulst synchronize];
                                                  
@@ -332,11 +335,14 @@
                                    loginName:_userNameTF.text
                           isPostNotification:YES
                             isFromThirdParty:NO
+                                        type:nil
                                      success:^(BOOL success) {
                                          
                                          NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
                                          
                                          [userDefaulst setBool:NO forKey:@"isFromThirdParty"];
+                                         
+                                         [userDefaulst removeObjectForKey:@"type"];
                                          
                                          [userDefaulst synchronize];
                                          
