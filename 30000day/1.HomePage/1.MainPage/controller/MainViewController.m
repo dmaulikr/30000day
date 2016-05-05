@@ -123,9 +123,6 @@
                                          //获取用户的天龄
                                          [self getUserLifeList];
                                          
-                                         //显示设置生日视图
-                                         [self showSettingBirthdayView];
-                                         
                                          [self.tableView.mj_header endRefreshing];
                                      }
                                      failure:^(NSError *error) {
@@ -519,7 +516,9 @@
 - (NSInteger)daysToYear {
     
     NSInteger day = [[self.allDayArray lastObject] integerValue];
+    
     NSNumber *year = [NSNumber numberWithFloat:day/365];
+    
     NSInteger yearInt = [year integerValue];
     
     return yearInt;
