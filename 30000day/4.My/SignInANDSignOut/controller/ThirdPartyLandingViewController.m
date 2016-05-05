@@ -84,36 +84,44 @@
 #pragma mark - 绑定
 - (IBAction)nextBtn:(UIButton *)sender {
     
-    if ([self.phoneNumber.text isEqualToString:@""]) {
+    if ([Common isObjectNull:self.phoneNumber.text]) {
         
         [self showToast:@"手机号码不能为空"];
         
         return;
     }
     
-    if ([self.sms.text isEqualToString:@""]) {
+    if ([Common isObjectNull:self.sms.text]) {
         
         [self showToast:@"验证码不能为空"];
         
         return;
     }
     
-    if ([self.passWord.text isEqualToString:@""]) {
+    if ([Common isObjectNull:self.passWord.text]) {
         
         [self showToast:@"密码不能为空"];
         
         return;
     }
     
-    //该手机号已经绑定，继续将绑定当前账号
+    if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+        
+        [self showToast:@"第三方信息获取失败，请重新授权"];
+        
+        return;
+        
+    }
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    //[self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
+    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
         [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid password:self.passWord.text headImg:self.url type:self.type success:^(NSString *success) {
             
-            if (success.integerValue) {
+            NSLog(@"%d",success.boolValue);
+            
+            if (success.boolValue) {
                 
                 [self.dataHandler postSignInWithPassword:self.passWord.text
                                                loginName:self.phoneNumber.text
@@ -122,14 +130,10 @@
                                                     type:nil
                                                  success:^(BOOL success) {
                                                      
-                                                     NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
+                                                     [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:NO];
                                                      
-                                                     [userDefaulst setBool:NO forKey:@"isFromThirdParty"];
-                                                     
-                                                     [userDefaulst removeObjectForKey:@"type"];
-                                                     
-                                                     [userDefaulst synchronize];
-                                                     
+                                                     [Common removeAppDataForKey:@"type"];
+
                                                      [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                                   completion:^(BOOL success) {
                                                                       
@@ -137,15 +141,9 @@
                                                                       
                                                                       [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                       
-                                                                      UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                                      [self.tabBarController setSelectedIndex:0];
                                                                       
-                                                                      STTabBarViewController *controller = [board instantiateInitialViewController];
-                                                                      
-                                                                      [controller setSelectedIndex:0];
-                                                                      
-                                                                      UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                                                                      
-                                                                      window.rootViewController = controller;
+                                                                      [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                                       
                                                                       
                                                                   } failure:^(NSError *error) {
@@ -181,13 +179,13 @@
             
         }];
         
-//    } failure:^(NSError *error) {
-//        
-//        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-//        
-//        [self showToast:@"验证失败"];
-//        
-//    }];
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self showToast:@"验证失败"];
+        
+    }];
 
 }
 
@@ -197,15 +195,25 @@
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid success:^(NSString *success) {
         
-        if (success.integerValue) {
+        if (success.boolValue) {
             
             [self regist:self.uid];
 
         } else {
             
+            if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"第三方信息获取失败，请重新授权"];
+                
+                return;
+                
+            }
+            
             [self.dataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
                 
-                if (success.integerValue) {
+                if (success.boolValue) {
                     
                     [self regist:self.uid];
                     
@@ -236,14 +244,9 @@
                                         type:self.type
                                      success:^(BOOL success) {
                                          
-                                         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-                                         [userDefaults setBool:YES forKey:@"isFromThirdParty"];
+                                         [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:YES];
                                          
-                                         [userDefaults setObject:self.type forKey:@"type"];
-  
-                                         [userDefaults synchronize];
-                                         
+                                         [Common saveAppDataForKey:@"type" withObject:self.type];
                                          
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
@@ -252,16 +255,9 @@
                                                           
                                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                           
-                                                          UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                          [self.tabBarController setSelectedIndex:0];
                                                           
-                                                          STTabBarViewController *controller = [board instantiateInitialViewController];
-                                                          
-                                                          [controller setSelectedIndex:0];
-                                                          
-                                                          UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                                                          
-                                                          window.rootViewController = controller;
-                                                          
+                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                           
                                                       } failure:^(NSError *error) {
                                                           
@@ -334,7 +330,7 @@
                                            //检查手机号是否已经注册
                                            [self.dataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
                                                
-                                               if (success.integerValue) {
+                                               if (success.boolValue) {
                                                    
                                                    [self.promptLable setText:@"该手机号已被注册，继续操作将绑定至当前账号"];
                                                    [self.promptLable setTextColor:[UIColor redColor]];
