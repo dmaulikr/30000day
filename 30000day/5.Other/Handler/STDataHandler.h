@@ -47,6 +47,9 @@ static NSString *const STDidSuccessConnectLeanCloudViewSendNotification = @"STDi
 //当成功的更新好友的信息（好友的昵称、备注头像）所发出的通知
 static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"STDidSuccessUpdateFriendInformationSendNotification";
 
+//当成功的更新自己的信息发出通知
+static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STUserDidSuccessUpdateInformationSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
@@ -102,7 +105,7 @@ static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"S
 
 
 //***** 用户注册 *****/
-//提醒:注册成功会获取用户的个人信息，首界面应刷新，所以注册成功会发出一个通知
+//提醒:注册成功会发通知
 //提醒:并且会循环设置个人健康因素，直到成功
 - (void)postRegesiterWithPassword:(NSString *)password
                       phoneNumber:(NSString *)phoneNumber

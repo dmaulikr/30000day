@@ -61,6 +61,15 @@
     self.nextBtn.layer.cornerRadius = 6;
     
     self.nextBtn.layer.masksToBounds = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)tapAction {
+    
+    [self.view endEditing:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -130,7 +139,6 @@
             controller.hidesBottomBarWhenPushed = YES;
             
             [self.navigationController pushViewController:controller animated:YES];
-
         }
         
     } failure:^(NSError *error) {
@@ -138,7 +146,6 @@
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
             [self showToast:@"验证失败"];
-            
     }];
 }
 
@@ -164,7 +171,7 @@
         
         [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
         
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
         
     } failure:^(NSString *error) {
         
@@ -173,21 +180,18 @@
     }];
 }
 
-- (void)CountDown {
+- (void)repeatAction {
     
-    count = IdentityCount;
-    [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",IdentityCount] forState:UIControlStateNormal];
-    _smsBtn.enabled = NO;
-    _timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
-    [_timer fire];
-}
-
-- (void)Down {
     [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
+    
     if (count == -1) {
+        
         _smsBtn.enabled = YES;
+        
         [_smsBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+        
         count = IdentityCount;
+        
         [_timer invalidate];
     }
 }

@@ -172,7 +172,7 @@
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                failure(@"发生了未知错误");
+                                                                failure(localError.userInfo[NSLocalizedDescriptionKey]);
                                                             });
                                                             
                                                         }
@@ -181,7 +181,7 @@
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
-                                                            failure(@"发生了未知错误");
+                                                            failure(error.error.userInfo[NSLocalizedDescriptionKey]);
                                                             
                                                         });
                                                         
@@ -191,7 +191,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
 }
 
 //*********** 核对短信验证码是否正确 ********/
@@ -584,7 +583,7 @@
     [[STHealthyManager shareManager] synchronizedHealthyDataFromServer];
 }
 
-//********** 用户注册 ************/
+//********** 用户注册-不发通知 ************/
 - (void)postRegesiterWithPassword:(NSString *)password
                       phoneNumber:(NSString *)phoneNumber
                          nickName:(NSString *)nickName
@@ -832,19 +831,20 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
+                                                                STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                                                                
+                                                                STUserAccountHandler.userProfile.gender = gender;
+                                                                
+                                                                STUserAccountHandler.userProfile.birthday = birthday;
+                                                                
+                                                                STUserAccountHandler.userProfile.nickName = nickName;
+                                                                
+                                                                STUserAccountHandler.userProfile.memo = memo;
+                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
                                                                     
-                                                                    STUserAccountHandler.userProfile.headImg = headImageUrlString;
-                                                                    
-                                                                    STUserAccountHandler.userProfile.gender = gender;
-                                                                    
-                                                                    STUserAccountHandler.userProfile.birthday = birthday;
-                                                                    
-                                                                    STUserAccountHandler.userProfile.nickName = nickName;
-                                                                    
-                                                                    STUserAccountHandler.userProfile.memo = memo;
                                                                     //发出通知
                                                                     [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                 });
