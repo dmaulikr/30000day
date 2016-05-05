@@ -14,7 +14,7 @@
 
 @property (nonatomic,copy) NSString *answerString;//问题的答案
 
-//输入的Model里面的2个属性不能全部为空
+//输入的Model里面属性都不为空返回YES，否则返回NO
 + (BOOL)questionAnswerModelIslegal:(QuestionAnswerModel *)model;
 
 

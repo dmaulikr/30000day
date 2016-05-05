@@ -9,6 +9,7 @@
 #import "ChangePasswordProtectViewController.h"
 #import "DOPDropDownMenu.h"
 #import "QuestionAnswerModel.h"
+#import "MTProgressHUD.h"
 
 @interface ChangePasswordProtectViewController ()<DOPDropDownMenuDelegate,DOPDropDownMenuDataSource>
 
@@ -44,17 +45,17 @@
     
     self.title = @"密保设置";
     
-//    if (self.isSet) {
-//        
-//        self.backgroudView.hidden = NO;
-//        
-//        return;
-//        
-//    } else {
-//        
-//        self.backgroudView.hidden = YES;
-//        
-//    }
+    if (self.isSet) {
+        
+        self.backgroudView.hidden = NO;
+        
+        return;
+        
+    } else {
+        
+        self.backgroudView.hidden = YES;
+        
+    }
     
     self.questionStringArray = @[@"请选择问题 ",@"您配偶的生日是? ",@"您的学号或工号? ",@"您母亲的生日是? ",@"您目前的姓名是? ",@"您高中班主任的名字是? ",@"您父亲的姓名是? ",@"您小学班主任的姓名是? ",@"您父亲的生日是? ",@"您初中班主任的名字是? ",@"您最熟悉的童年好友名字是? ",@"您最熟悉的学校宿舍舍友名字是? ",@"对您影响最大的人名字是? "];
     
@@ -174,6 +175,8 @@
     
     button.enabled = NO;
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [self.dataHandler sendChangeSecurityWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] qidArray:mutableQidArray answerArray:mutableAnswerArray success:^(BOOL success) {
         
         if (success) {
@@ -183,6 +186,8 @@
             button.enabled = YES;
             
             [self.navigationController popViewControllerAnimated:YES];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }
         
     } failure:^(NSError *error) {
@@ -191,6 +196,8 @@
         
         [self showToast:@"添加密保失败"];
         
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
     }];
     
 }
@@ -198,9 +205,119 @@
 //判断保存按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
+    QuestionAnswerModel *firsModel = self.dataArray[0];
     
+    QuestionAnswerModel *secondModel = self.dataArray[1];
     
+    QuestionAnswerModel *thirdModel = self.dataArray[2];
     
+    if ([QuestionAnswerModel questionAnswerMIsNull:firsModel] && [QuestionAnswerModel questionAnswerMIsNull:secondModel] && [QuestionAnswerModel questionAnswerMIsNull:thirdModel]) {//三个模型都为空
+        
+        self.nextButton.enabled = NO;
+    
+    } else {//三个之中有的模型不为空
+     
+        int a = 0;
+        
+        int b = 0;
+        
+        int c = 0;
+        
+        if (![QuestionAnswerModel questionAnswerMIsNull:firsModel]) {
+            
+            a = 1;
+        }
+        
+        if (![QuestionAnswerModel questionAnswerMIsNull:secondModel]) {
+            
+            b = 10;
+        }
+        
+        if (![QuestionAnswerModel questionAnswerMIsNull:thirdModel]) {
+            
+            c = 100;
+        }
+        
+        int d = a + b + c;
+        
+        if (d == 111) {//表示三个都不为空
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:firsModel] && [QuestionAnswerModel questionAnswerModelIslegal:secondModel] && [QuestionAnswerModel questionAnswerModelIslegal:thirdModel]) {
+                
+                self.nextButton.enabled = YES;
+            
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 1) {
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:firsModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 10) {
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:secondModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 100) {
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:thirdModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 11) { //1、2不为空
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:firsModel] && [QuestionAnswerModel questionAnswerModelIslegal:secondModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 101) {//1、3不为空
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:firsModel] && [QuestionAnswerModel questionAnswerModelIslegal:thirdModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+            
+        } else if (d == 110) {//2、3不为空
+            
+            if ([QuestionAnswerModel questionAnswerModelIslegal:secondModel] && [QuestionAnswerModel questionAnswerModelIslegal:thirdModel]) {
+                
+                self.nextButton.enabled = YES;
+                
+            } else {
+                
+                self.nextButton.enabled = NO;
+            }
+        }
+    }
 }
 
 #pragma mark - menu data source
