@@ -228,7 +228,7 @@
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
-        if (success.integerValue) {
+        if (success.boolValue) {
             
             [self.dataHandler postSignInWithPassword:nil
                                            loginName:uid
@@ -237,29 +237,19 @@
                                                 type:type
                                              success:^(BOOL success) {
                                                  
-                                                 NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
+                                                 [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:YES];
                                                  
-                                                 [userDefaulst setBool:YES forKey:@"isFromThirdParty"];
-                                                 
-                                                 [userDefaulst setObject:type forKey:@"type"];
-                                                 
-                                                 [userDefaulst synchronize];
+                                                 [Common saveAppDataForKey:@"type" withObject:type];
                                                  
                                                  [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                               completion:^(BOOL success) {
 
                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                   
-                                                                  UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                                  [self.tabBarController setSelectedIndex:0];
                                                                   
-                                                                  STTabBarViewController *controller = [board instantiateInitialViewController];
-                                                                  
-                                                                  [controller setSelectedIndex:0];
-                                                                  
-                                                                  UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                                                                  
-                                                                  window.rootViewController = controller;
-                                                                  
+                                                                  [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                                
                                                                   
                                                               } failure:^(NSError *error) {
                                                                   
@@ -338,13 +328,9 @@
                                         type:nil
                                      success:^(BOOL success) {
                                          
-                                         NSUserDefaults *userDefaulst = [NSUserDefaults standardUserDefaults];
+                                         [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:NO];
                                          
-                                         [userDefaulst setBool:NO forKey:@"isFromThirdParty"];
-                                         
-                                         [userDefaulst removeObjectForKey:@"type"];
-                                         
-                                         [userDefaulst synchronize];
+                                         [Common removeAppDataForKey:@"type"];
                                          
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
