@@ -89,7 +89,7 @@
                                 <constraint firstAttribute="height" constant="1" id="Pgn-MT-wwc"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="voh-Db-v6T">
+                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="voh-Db-v6T">
                             <rect key="frame" x="15" y="90" width="305" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="xoX-7k-ysu"/>
