@@ -9,6 +9,7 @@
 #import "SignOutViewController.h"
 #import "SignInViewController.h"
 #import "STTabBarViewController.h"
+#import "MTProgressHUD.h"
 
 @interface SignOutViewController () <QGPickerViewDelegate>
 
@@ -71,6 +72,12 @@
 #pragma mark - 注册验证
 - (IBAction)regitF:(UIButton *)sender {
     
+    [self willBeginRegisterUser];
+}
+
+#pragma mark - 注册
+- (void)willBeginRegisterUser {
+    
     if( [_userPwdTxt.text isEqualToString:@""] ) {
         
         [self showToast:@"密码不能为空"];
@@ -78,26 +85,29 @@
         return;
     }
     
-   if (![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
-       
+    if (![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
+        
         [self showToast:@"密码不一致，请重新确认"];
         
         return;
     }
     
-    BOOL ok= [self isIncludeSpecialCharact:self.userNickNameTxt.text];
+    BOOL ok = [self isIncludeSpecialCharact:self.userNickNameTxt.text];
     
     if (ok == YES) {
+        
         [self showToast:@"昵称不允许包含特殊字符，请重新输入！"];
+        
     } else {
+        
         [self registerUser];
     }
 }
 
-#pragma mark - 注册
 - (void)registerUser {
     
     [self.view endEditing:YES];
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
     //调用注册接口
     [self.dataHandler postRegesiterWithPassword:_userPwdTxt.text
@@ -111,17 +121,21 @@
                                            [self.tabBarController setSelectedIndex:0];
                                             
                                            [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                            
+                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                         }
                                         failure:^(NSError *error) {
                                             
                                             [self showToast:@"注册失败"];
+                                            
+                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                             
                                         }];
     
 }
 
 
-- (BOOL) isIncludeSpecialCharact: (NSString *)str {
+- (BOOL)isIncludeSpecialCharact:(NSString *)str {
     NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: @"~￥#&*<>《》()[]{}【】^@/￡¤￥|§¨「」『』￠￢￣~@#￥&*（）——+|《》$_€"]];
     if (urgentRange.location == NSNotFound){
         return NO;
@@ -134,6 +148,18 @@
     
     [textField resignFirstResponder];
     
+    if (textField == self.userPwdTxt) {
+        
+        [self.ConfirmPasswordTxt becomeFirstResponder];
+        
+    } else if (textField == self.ConfirmPasswordTxt) {
+        
+        [self.userNickNameTxt becomeFirstResponder];
+        
+    } else {
+        
+        [self willBeginRegisterUser];//开始注册
+    }
     return YES;
 }
 

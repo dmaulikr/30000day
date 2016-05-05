@@ -127,11 +127,11 @@
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                       
         
-    } failure:^(STNetError *error) {
+    } failure:^(NSError *error) {
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self showToast:@"个人信息保存失败"];
+        [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
     }];
 }
 

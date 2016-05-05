@@ -39,9 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    //监听通知
-    [STNotificationCenter addObserver:self selector:@selector(reloadDate) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     self.selectorDate = [NSDate date];//默认选中的日期是今天
     
@@ -52,6 +49,9 @@
     
     //下载提醒数据
     [self loadTableViewData];
+    
+    //监听通知
+    [STNotificationCenter addObserver:self selector:@selector(reloadDate) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)reloadDate {

@@ -109,15 +109,11 @@
 //登录获取个人信息
 - (void)getUserInformation {
     
-    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
-    BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
-    NSString *type = [userDefaultes stringForKey:@"type"];
-    
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:NO
-                            isFromThirdParty:isThirdParty
-                                        type:type
+                            isFromThirdParty:[Common readAppIntegerDataForKey:@"isFromThirdParty"]
+                                        type:[Common readAppDataForKey:@"type"]
                                      success:^(BOOL success) {
                                          
                                          //获取用户的天龄
@@ -733,7 +729,7 @@
                                                                   
                                                                   self.birthdayView = nil;
                                                               }
-                                                              failure:^(STNetError *error) {
+                                                              failure:^(NSError *error) {
                                                                   
                                                                   [weakView removeBirthdayView];
                                                                   

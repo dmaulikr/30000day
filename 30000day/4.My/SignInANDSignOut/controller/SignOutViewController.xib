@@ -30,7 +30,7 @@
                                 <constraint firstAttribute="height" constant="44" id="Xe9-a4-d0o"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="Xe9-a4-d0o"/>
@@ -55,7 +55,7 @@
                                 <constraint firstAttribute="height" constant="44" id="pfT-Ti-cDt"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="pfT-Ti-cDt"/>
@@ -93,7 +93,7 @@
                                 <constraint firstAttribute="height" constant="44" id="a3A-YL-Qsb"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="a3A-YL-Qsb"/>

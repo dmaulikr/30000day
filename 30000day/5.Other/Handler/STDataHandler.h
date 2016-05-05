@@ -148,8 +148,8 @@ static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STU
                                   birthday:(NSString *)birthday
                         headImageUrlString:(NSString *)headImageUrlString
                                       memo:(NSString *)memo//个人简介
-                                  success:(void (^)(BOOL))success
-                                  failure:(void (^)(STNetError *))failure;
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *))failure;
 
 //************获取通讯录好友************//
 - (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;

@@ -16,8 +16,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前您已经击败9999个用户!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAm-ci-nK9">
-                        <rect key="frame" x="64" y="104" width="192" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAm-ci-nK9">
+                        <rect key="frame" x="20" y="104" width="280" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="x2M-FX-4oM"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -50,6 +53,7 @@
                 <constraints>
                     <constraint firstItem="1zk-SB-zfl" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.43" id="6aV-Iq-l0N"/>
                     <constraint firstItem="RAm-ci-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="105:60" id="D5D-Rm-Prq"/>
+                    <constraint firstItem="RAm-ci-nK9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Rf4-Ng-hKR"/>
                     <constraint firstItem="RAm-ci-nK9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="V7K-pq-Lyd"/>
                     <constraint firstItem="1zk-SB-zfl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="50:60" constant="1" id="nNR-PF-pDm"/>
                     <constraint firstItem="1zk-SB-zfl" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="og3-tO-NSA"/>

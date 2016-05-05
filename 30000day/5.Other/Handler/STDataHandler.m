@@ -591,7 +591,7 @@
     [[STHealthyManager shareManager] synchronizedHealthyDataFromServer];
 }
 
-//********** 用户注册-不发通知 ************/
+//********** 用户注册************/
 - (void)postRegesiterWithPassword:(NSString *)password
                       phoneNumber:(NSString *)phoneNumber
                          nickName:(NSString *)nickName
@@ -806,10 +806,9 @@
                                    birthday:(NSString *)birthday
                          headImageUrlString:(NSString *)headImageUrlString
                                        memo:(NSString *)memo
-                                    success:(void (^)(BOOL))success
-                                    failure:(void (^)(STNetError *))failure {
-    
-    //内部测试接口
+                                    success:(void (^)(BOOL success))success
+                                    failure:(void (^)(NSError *))failure {
+
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:userId forKey:@"userId"];
@@ -823,6 +822,8 @@
     [parameters addParameter:gender forKey:@"gender"];//性别
     
     [parameters addParameter:memo forKey:@"memo"];//个人简介
+    
+    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_INFORMATION
@@ -839,16 +840,31 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
-                                                                STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                                                                if (![Common isObjectNull:headImageUrlString]) {
+                                                                    
+                                                                    STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                                                                }
                                                                 
-                                                                STUserAccountHandler.userProfile.gender = gender;
+                                                                if (![Common isObjectNull:gender]) {
+                                                                    
+                                                                    STUserAccountHandler.userProfile.gender = gender;
+                                                                }
                                                                 
-                                                                STUserAccountHandler.userProfile.birthday = birthday;
+                                                                if (![Common isObjectNull:birthday]) {
+                                                                    
+                                                                    STUserAccountHandler.userProfile.birthday = birthday;
+                                                                }
                                                                 
-                                                                STUserAccountHandler.userProfile.nickName = nickName;
+                                                                if (![Common isObjectNull:nickName]) {
+                                                                    
+                                                                    STUserAccountHandler.userProfile.nickName = nickName;
+                                                                }
                                                                 
-                                                                STUserAccountHandler.userProfile.memo = memo;
-                                                                
+                                                                if (![Common isObjectNull:memo]) {
+                                                                    
+                                                                    STUserAccountHandler.userProfile.memo = memo;
+                                                                }
+
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
@@ -859,32 +875,29 @@
                                                                 
                                                             } else {
                                                                 
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
-                                                                    failure(error);
+                                                                    failure(failureError);
                                                                     
                                                                 });
                                                             }
                                                             
                                                         } else {
                                                             
-                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 
-                                                                failure(error);
+                                                                failure(localError);
                                                                 
                                                             });
-                                                            
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
-                                                            failure(error);
+                                                            failure(error.error);
                                                             
                                                         });
                                                         
@@ -894,7 +907,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
 }
 
 //************获取通讯录好友************/
