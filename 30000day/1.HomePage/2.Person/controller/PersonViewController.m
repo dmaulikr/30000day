@@ -18,8 +18,6 @@
     NSMutableArray *_dataArray;
 }
 
-@property (nonatomic,assign) NSInteger state;
-
 @end
 
 @implementation PersonViewController
@@ -37,11 +35,8 @@
     
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
-    self.state = 0;//列表
-    
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-    
     //监听成功添加好友发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
     
@@ -99,21 +94,28 @@
     
     [view setChangeStateBlock:^(UIButton *changeStatusButton){
        
-        self.state = self.state ? 0 : 1 ;
+        if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+            
+            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:0];
+            
+        } else {
+            
+            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:1];
+        }
         
         [self.tableView reloadData];
         
     }];
     
-    if (self.state == 1) {
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
-        [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
         
         [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
         
     } else {
         
-        [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
         
         [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
     }
@@ -143,7 +145,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.state) {
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
         return 425;
         
@@ -155,7 +157,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (self.state == 0) {//小图
+    if (![Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {//小图
         
         static NSString *identifier = @"PersonTableViewCell";
         
@@ -187,6 +189,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
     
     controller.hidesBottomBarWhenPushed = YES;

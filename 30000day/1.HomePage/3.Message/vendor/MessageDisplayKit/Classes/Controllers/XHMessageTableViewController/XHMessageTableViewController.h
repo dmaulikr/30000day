@@ -258,6 +258,13 @@
 - (void)setBackgroundImage:(UIImage *)backgroundImage;
 
 /**
+ *  设置消息列表的背景图片
+ *
+ *  @param backgroundImageURL 目标背景图片URL
+ */
+- (void)setBackgroundImageURL:(NSURL *)backgroundImageURL;
+
+/**
  *  是否滚动到底部
  *
  *  @param animated YES Or NO

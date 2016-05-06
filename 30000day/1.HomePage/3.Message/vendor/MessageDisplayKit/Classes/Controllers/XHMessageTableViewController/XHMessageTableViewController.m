@@ -8,6 +8,7 @@
 
 #import "XHMessageTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "UIImageView+WebCache.h"
 
 static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextViewContext;
 
@@ -427,8 +428,27 @@ static CGPoint  delayOffset = {0.0};
 }
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage {
+    
     self.messageTableView.backgroundView = nil;
-    self.messageTableView.backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
+    
+    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    self.messageTableView.backgroundView = backgroundView;
+}
+
+- (void)setBackgroundImageURL:(NSURL *)backgroundImageURL {
+    
+    self.messageTableView.backgroundView = nil;
+    
+    UIImageView *backgroundView = [[UIImageView alloc] init];
+    
+    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [backgroundView sd_setImageWithURL:backgroundImageURL];
+    
+    self.messageTableView.backgroundView = backgroundView;
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
@@ -1237,7 +1257,7 @@ static CGPoint  delayOffset = {0.0};
     
     messageTableViewCell.indexPath = indexPath;
     [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
-    [messageTableViewCell setBackgroundColor:tableView.backgroundColor];
+//    [messageTableViewCell setBackgroundColor:tableView.backgroundColor];
     
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
