@@ -4764,7 +4764,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_USER_INFORMATION
