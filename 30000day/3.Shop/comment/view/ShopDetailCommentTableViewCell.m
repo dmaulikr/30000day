@@ -147,7 +147,7 @@
         self.commentNameLable.text = _informationCommentModel.nickName;
     }
     
-    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
+    [self.commentHeadPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     NSString *str = [NSString stringWithFormat:@"%@",informationCommentModel.createTime];//时间戳
     

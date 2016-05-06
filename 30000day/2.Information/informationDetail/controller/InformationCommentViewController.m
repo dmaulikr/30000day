@@ -229,10 +229,11 @@
         [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
-
+                
                 for (int i = 0; i < success.count; i++) {
                     
                     InformationCommentModel *comment = success[i];
+                    comment.commentPid = model.commentId;
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     
                 }
