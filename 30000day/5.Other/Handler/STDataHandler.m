@@ -2137,11 +2137,12 @@
                             failure:(void (^)(STNetError *error))failure{
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:userId forKey:@"userId"];
+    
+    [params addParameter:userId forKey:@"userId"];
     
     for (int i=0; i<answerArr.count; i++) {
         
-        [params setObject:answerArr[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
+        [params addParameter:answerArr[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
     }
     
     
@@ -2216,9 +2217,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:token forKey:@"token"];
-    [params setObject:userId forKey:@"userId"];
-    [params setObject:password forKey:@"password"];
+    [params addParameter:token forKey:@"token"];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:password forKey:@"password"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION_UPTUSERPWDBYSECU
@@ -2293,11 +2294,11 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:oldPassword forKey:@"oldPwd"];
+    [params addParameter:oldPassword forKey:@"oldPwd"];
     
-    [params setObject:newPassword forKey:@"newPwd"];
+    [params addParameter:newPassword forKey:@"newPwd"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:CHANGE_PASSWORD
@@ -2442,9 +2443,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:data forKey:@"data"];
+    [params addParameter:data forKey:@"data"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_STAT_USERLLFE
@@ -2512,9 +2513,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:email forKey:@"email"];
+    [params addParameter:email forKey:@"email"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_SENDEMAIL
@@ -2582,7 +2583,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_USER_VERIFICATION_EMAIL
@@ -2650,12 +2651,8 @@
                                     failure:(void (^)(NSError *error))failure{
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    if (![Common isObjectNull:productId]) {
-        
-        [params setObject:productId forKey:@"productId"];
-        
-    }
+
+    [params addParameter:productId forKey:@"productId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMPANYDETAILS
@@ -2722,11 +2719,8 @@
                          failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    if (![Common isObjectNull:cityId]) {
         
-        [params setObject:cityId forKey:@"citySign"];
-    }
+    [params addParameter:cityId forKey:@"citySign"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_LINE_LIST
@@ -3065,29 +3059,17 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (productId != nil) {
-        
-        [params setObject:productId forKey:@"productId"];
-        
-    }
+    [params addParameter:productId forKey:@"productId"];
     
     if (type != -1) {
         
         [params setObject:@(type) forKey:@"type"];
         
     }
-    
-    if (userId != nil) {
-        
-        [params setObject:userId forKey:@"userId"];
-        
-    }
-    
-    if (remark != nil) {
-        
-        [params setObject:remark forKey:@"remark"];
-        
-    }
+
+    [params addParameter:userId forKey:@"userId"];
+
+    [params addParameter:remark forKey:@"remark"];
     
     if (numberStar != -1) {
         
@@ -3095,17 +3077,9 @@
         
     }
     
-    if (picUrl != nil) {
-        
-        [params setObject:picUrl forKey:@"picUrl"];
-        
-    }
-    
-    if (pId != nil) {
-        
-        [params setObject:pId forKey:@"pId"];
-        
-    }
+    [params addParameter:picUrl forKey:@"picUrl"];
+
+    [params addParameter:pId forKey:@"pId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_COMMENT
@@ -3182,11 +3156,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (commentId != nil) {
-        
-        [params setObject:commentId forKey:@"commentId"];
-        
-    }
+    [params addParameter:commentId forKey:@"commentId"];
     
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
     
@@ -3430,7 +3400,7 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:companyId forKey:@"companyId"];
+    [params addParameter:companyId forKey:@"companyId"];
     
     [params setObject:@(count) forKey:@"count"];
     
@@ -3515,7 +3485,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:ProductTypeId forKey:@"productTypeId"];
+    [params addParameter:ProductTypeId forKey:@"productTypeId"];
     
     [params setObject:@(count) forKey:@"count"];
     
@@ -3600,7 +3570,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:companyId forKey:@"companyId"];
+    [params addParameter:companyId forKey:@"companyId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FINDCOMOANYINFO
@@ -3675,9 +3645,9 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:companyId forKey:@"companyId"];
+    [params addParameter:companyId forKey:@"companyId"];
     
-    [params setObject:productTypeId forKey:@"productTypeId"];
+    [params addParameter:productTypeId forKey:@"productTypeId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_FINDPRODUCTSBYIDS
@@ -3763,7 +3733,7 @@
     
     [params setObject:@8 forKey:@"productId"];
     
-    [params setObject:date forKey:@"date"];
+    [params addParameter:date forKey:@"date"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_ORDER_SEARCH_COUNT
@@ -4227,9 +4197,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:writerId forKey:@"writerId"];
+    [params addParameter:writerId forKey:@"writerId"];
     
-    [params setObject:infoTypeCode forKey:@"infoTypeCode"];
+    [params addParameter:infoTypeCode forKey:@"infoTypeCode"];
     
     [params setObject:@(sortType) forKey:@"sortType"];
     
@@ -4394,7 +4364,7 @@
     
     [params setObject:userId forKey:@"userId"];
     
-    [params setObject:busiId forKey:@"busiId"];
+    [params addParameter:busiId forKey:@"busiId"];
     
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
     
@@ -4467,9 +4437,9 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    [params setObject:writerId forKey:@"writerId"];
+    [params addParameter:writerId forKey:@"writerId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_WRITER
@@ -4543,9 +4513,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:writerId forKey:@"writerId"];
+    [params addParameter:writerId forKey:@"writerId"];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_SUBSCRIBE
@@ -4614,9 +4584,9 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:writerId forKey:@"writerId"];
+    [params addParameter:writerId forKey:@"writerId"];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:COMMIT_CANCEL_SUBSCRIBE
@@ -4683,7 +4653,7 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_MY_SUBSCRIBE
@@ -4840,9 +4810,9 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:writerName forKey:@"writerName"];
+    [params addParameter:writerName forKey:@"writerName"];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_WRITER_LIST
@@ -5024,16 +4994,10 @@
                               failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    if (![Common isObjectNull:infoId]) {
+
+    [params addParameter:infoId forKey:@"infoId"];
         
-        [params setObject:infoId forKey:@"infoId"];
-    }
-    
-    if (![Common isObjectNull:userId]) {
-        
-       [params setObject:userId forKey:@"userId"];
-    }
+    [params addParameter:userId forKey:@"userId"];
     
     [Common urlStringWithDictionary:params withString:GET_INFOMATION_DETAIL];
     
@@ -5122,22 +5086,15 @@
     [params setObject:@(busiType) forKey:@"busiType"];
     
     [params setObject:@(userId) forKey:@"userId"];
-    
-    if (![Common isObjectNull:remark]) {
-        
-        [params setObject:remark forKey:@"remark"];
-        
-    }
+
+    [params addParameter:remark forKey:@"remark"];
     
     [params setObject:@(pid) forKey:@"pid"];
     
     [params setObject:@(isHideName) forKey:@"isHideName"];
-    
-    if (![Common isObjectNull:commentPhotos]) {
-        
-        [params setObject:commentPhotos forKey:@"commentPhotos"];
-    }
 
+    [params addParameter:commentPhotos forKey:@"commentPhotos"];
+    
     [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -5205,12 +5162,9 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (![Common isObjectNull:userId]) {
-        
-        [params setObject:userId forKey:@"userId"];
-    }
+    [params addParameter:userId forKey:@"userId"];
 
-    [params setObject:suscribeType forKey:@"suscribeType"];
+    [params addParameter:suscribeType forKey:@"suscribeType"];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_WRITER_LIST
@@ -5374,10 +5328,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    if (![Common isObjectNull:userId]) {
-        
-        [params setObject:userId forKey:@"userId"];
-    }
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_DEFEAT_DATA
@@ -5443,9 +5394,9 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:accountNo forKey:@"accountNo"];
+    [params addParameter:accountNo forKey:@"accountNo"];
     
-    [params setObject:type forKey:@"type"];
+    [params addParameter:type forKey:@"type"];
     
     [Common urlStringWithDictionary:params withString:GET_CHECKBIND];
     
@@ -5518,17 +5469,17 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:mobile forKey:@"mobile"];
+    [params addParameter:mobile forKey:@"mobile"];
     
-    [params setObject:nickName forKey:@"nickName"];
+    [params addParameter:nickName forKey:@"nickName"];
     
-    [params setObject:accountNo forKey:@"accountNo"];
+    [params addParameter:accountNo forKey:@"accountNo"];
     
-    [params setObject:password forKey:@"password"];
+    [params addParameter:password forKey:@"password"];
     
-    [params setObject:headImg forKey:@"headImg"];
+    [params addParameter:headImg forKey:@"headImg"];
     
-    [params setObject:type forKey:@"type"];
+    [params addParameter:type forKey:@"type"];
     
     [Common urlStringWithDictionary:params withString:SAVE_BIND_REGISTER];
     
@@ -5674,7 +5625,7 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:accountNo forKey:@"accountNo"];
+    [params addParameter:accountNo forKey:@"accountNo"];
     
     [Common urlStringWithDictionary:params withString:CHECK_REGISTER];
     
@@ -5744,11 +5695,11 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:accountNo forKey:@"accountNo"];
+    [params addParameter:accountNo forKey:@"accountNo"];
     
-    [params setObject:nickName forKey:@"nickName"];
+    [params addParameter:nickName forKey:@"nickName"];
     
-    [params setObject:headImg forKey:@"headImg"];
+    [params addParameter:headImg forKey:@"headImg"];
     
     [Common urlStringWithDictionary:params withString:REGIST_THIRDPARY];
     
@@ -5816,7 +5767,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:mobile forKey:@"mobile"];
+    [params addParameter:mobile forKey:@"mobile"];
     
     [Common urlStringWithDictionary:params withString:CHECK_MOBILE];
     
