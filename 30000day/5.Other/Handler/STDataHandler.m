@@ -459,7 +459,7 @@
                                                                 NSDictionary *jsonDictionary = recvDictionary[@"value"];
                                                                 
                                                                 //设置个人信息
-                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password postNotification:isPostNotification];
+                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password isFromThirdParty:isFromThirdParty postNotification:isPostNotification];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
@@ -508,7 +508,7 @@
 
 
 //私有api设置个人信息
-- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password postNotification:(BOOL)isPostNotification {
+- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(BOOL)isFromThirdParty postNotification:(BOOL)isPostNotification {
     
     UserProfile *userProfile = [[UserProfile alloc] init];
     
@@ -523,60 +523,64 @@
     
     NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
-    //从磁盘中读取上次存储的数组
-    NSMutableArray *userAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
-    
-    if (userAccountArray.count == 0 ) {
+    if (!isFromThirdParty) {
         
-        [userAccountDictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
+        //从磁盘中读取上次存储的数组
+        NSMutableArray *userAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
         
-        if (password != nil) [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
-        
-        [userAccountArray addObject:userAccountDictionary];
-        
-        [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
-        
-    } else {
-        
-        BOOL isExist = NO;//默认是不存在的
-        
-        for (NSInteger i = 0; i < userAccountArray.count; i++) {
+        if (userAccountArray.count == 0 ) {
             
-            NSDictionary *oldDictionary = userAccountArray[i];
+            [userAccountDictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
             
-            if ([[oldDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:userName]) {
-                
-                isExist = YES;
-                
-                //进行覆盖操作
-                [userAccountArray removeObjectAtIndex:i];
-                
-                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                
-                [dictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
-                
-                if (password != nil) [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
-                
-                [userAccountArray insertObject:dictionary atIndex:i];
-                
-                [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
-            }
-        }
-        if (isExist == NO) {//如果不存在，就要保存
+            if (password != nil) [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
             
-            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            
-            [dictionary setValue:userName forKey:KEY_SIGNIN_USER_NAME];
-            
-            if (password != nil) [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
-            
-            [userAccountArray insertObject:dictionary atIndex:0];
+            [userAccountArray addObject:userAccountDictionary];
             
             [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
             
+        } else {
+            
+            BOOL isExist = NO;//默认是不存在的
+            
+            for (NSInteger i = 0; i < userAccountArray.count; i++) {
+                
+                NSDictionary *oldDictionary = userAccountArray[i];
+                
+                if ([[oldDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:userName]) {
+                    
+                    isExist = YES;
+                    
+                    //进行覆盖操作
+                    [userAccountArray removeObjectAtIndex:i];
+                    
+                    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                    
+                    [dictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
+                    
+                    if (password != nil) [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                    
+                    [userAccountArray insertObject:dictionary atIndex:i];
+                    
+                    [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
+                }
+            }
+            if (isExist == NO) {//如果不存在，就要保存
+                
+                NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+                
+                [dictionary setValue:userName forKey:KEY_SIGNIN_USER_NAME];
+                
+                if (password != nil) [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
+                
+                [userAccountArray insertObject:dictionary atIndex:0];
+                
+                [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
+                
+            }
         }
+        
     }
-    
+
   //设置用户信息
    STUserAccountHandler.userProfile = userProfile;
     
@@ -627,7 +631,7 @@
                                                                 NSDictionary *jsonDictionary = recvDictionary[@"value"];
                                                                 
                                                                 //设置个人信息
-                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password postNotification:YES];
+                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     

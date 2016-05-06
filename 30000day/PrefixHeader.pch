@@ -83,6 +83,8 @@
 
 #define KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
 
+#define KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登陆
+
 #define  KEY_SIGNIN_USER_UID          @"uid"                 //用户登录的UID
 
 #define  USER_ACCOUNT_ARRAY           @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)

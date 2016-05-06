@@ -115,7 +115,7 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    //[self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
+    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
         [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid password:self.passWord.text headImg:self.url type:self.type success:^(NSString *success) {
             
@@ -179,13 +179,13 @@
             
         }];
         
-    //} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
         
-    //    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
-    //    [self showToast:@"验证失败"];
+        [self showToast:@"验证失败"];
         
-    //}];
+    }];
 
 }
 
