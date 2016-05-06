@@ -99,7 +99,6 @@
                                          
                                          [self.tableView.mj_header endRefreshing];
                                      }];
-    
 }
 
 
@@ -119,23 +118,26 @@
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
         
-        if ([Common isObjectNull:verificationDictionary]){
+        if ([Common isObjectNull:verificationDictionary]) {
+            
             [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+            
         } else {
+            
             [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
         }
         
         [self.tableView.mj_header endRefreshing];
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        NSLog(@"获取绑定邮箱出错");
+        
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {

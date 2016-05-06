@@ -237,8 +237,7 @@ static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STU
 
 //***********************************添加密保*********************/
 - (void)sendChangeSecurityWithUserId:(NSNumber *)userId
-                         qidArray:(NSArray *)qidArray
-                         answerArray:(NSArray *)answerArray
+                 questionAnswerArray:(NSMutableArray *)modelArray
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
 

@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.selectionFactorArray = [NSArray arrayWithObjects:@"绑定邮箱",@"绑定QQ",@"绑定微信",@"绑定微博", nil];
+    self.selectionFactorArray = [NSArray arrayWithObjects:@"绑定邮箱", nil];
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
 

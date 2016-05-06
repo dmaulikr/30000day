@@ -30,7 +30,7 @@
     
     [self.tableView setTableFooterView:footerview];
     
-    self.titleCellArray = [NSArray arrayWithObjects:@"设置密保",@"修改密码",@"修改手机号码",@"账号绑定", nil];
+    self.titleCellArray = [NSArray arrayWithObjects:@"设置密保",@"修改密码",@"账号绑定", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +47,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 4;
+    return self.titleCellArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -123,14 +123,13 @@
         
         [self.navigationController pushViewController:controller animated:YES];
         
-    } else if (indexPath.row == 3){
+    } else if (indexPath.row == 2) {
         
         SelectionMethodViewController *controller = [[SelectionMethodViewController alloc]init];
         
         controller.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:controller animated:YES];
-        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
