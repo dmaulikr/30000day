@@ -22,6 +22,7 @@
 #import "CDConversationStore.h"
 #import "CDFailedMessageStore.h"
 #import "AVIMEmotionMessage.h"
+#import "UIImageView+WebCache.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -37,8 +38,6 @@ static NSInteger const kOnePageSize = 10;
 @property (nonatomic, strong) XHMessageTableViewCell *currentSelectedCell;
 
 @property (nonatomic, strong) NSArray *emotionManagers;
-
-//@property (nonatomic, strong) LZStatusView *clientStatusView;
 
 @end
 
@@ -74,12 +73,19 @@ static NSInteger const kOnePageSize = 10;
     
     self.title = self.conversation.displayName;
     
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+        
+        [self setBackgroundImageURL:[NSURL URLWithString:self.conversation.otherHeadUrl]];
+        
+    } else {
+        
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+    
     [self initBarButton];
     
     [self initBottomMenuAndEmotionView];
-    
-//    [self.view addSubview:self.clientStatusView];
-    
+
     // 设置自身用户名
     self.messageSender = STUserAccountHandler.userProfile.nickName;
     
@@ -87,13 +93,9 @@ static NSInteger const kOnePageSize = 10;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshConv) name:kCDNotificationConversationUpdated object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
-    
-//    [self refreshConv];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
+
     [self loadMessagesWhenInit];
-//    [self updateStatusView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -155,24 +157,6 @@ static NSInteger const kOnePageSize = 10;
 - (void)refreshConv {
     self.title = self.conversation.title;
 }
-
-#pragma mark - connect status view
-//
-//- (LZStatusView *)clientStatusView {
-//    if (_clientStatusView == nil) {
-//        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 64, self.messageTableView.frame.size.width, kLZStatusViewHight)];
-//        _clientStatusView.hidden = YES;
-//    }
-//    return _clientStatusView;
-//}
-//
-//- (void)updateStatusView {
-//    if ([CDChatManager manager].connect) {
-//        self.clientStatusView.hidden = YES;
-//    } else {
-//        self.clientStatusView.hidden = NO;
-//    }
-//}
 
 #pragma mark - XHMessageTableViewCell delegate
 

@@ -63,19 +63,21 @@
 
 #define minSelectDateTime 1900
 
-#define SHOWLABLETYPE   @"ShowLabelType"   //表示用户当前显示的是那种天龄
+#define SHOWLABLETYPE                 @"ShowLabelType"       //表示用户当前显示的是那种天龄
 
-#define USER_CHOOSE_AGENUMBER   @"userChooseAgeNumber" //当前用户所选择的年龄
+#define IS_BIG_PICTUREMODEL           @"isBigPictureModel"   //是否是大图模式,0列表,1大图
 
-#define SCREEN_WIDTH            [[UIScreen mainScreen] bounds].size.width
+#define USER_CHOOSE_AGENUMBER         @"userChooseAgeNumber"  //当前用户所选择的年龄
 
-#define SCREEN_HEIGHT           [[UIScreen mainScreen] bounds].size.height
+#define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 
-#define RGBACOLOR(R,G,B,A)      [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+#define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height
 
-#define VIEWBORDERLINECOLOR     [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
+#define RGBACOLOR(R,G,B,A)            [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
 
-#define LOWBLUECOLOR             RGBACOLOR(104,149,232,1)
+#define VIEWBORDERLINECOLOR           [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
+
+#define LOWBLUECOLOR                  RGBACOLOR(104,149,232,1)
 
 #define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
 
