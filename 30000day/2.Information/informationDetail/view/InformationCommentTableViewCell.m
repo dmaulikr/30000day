@@ -57,6 +57,15 @@
 
 - (void)setInformationCommentModel:(InformationCommentModel *)informationCommentModel {
     
+    if (informationCommentModel.commentPid.integerValue == informationCommentModel.pId.integerValue) {
+        
+        [self setBackgroundColor:VIEWBORDERLINECOLOR];
+        
+    } else {
+        
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+    
     if (informationCommentModel.pId.integerValue != -1) {
         
         self.replyLable.hidden = NO;
