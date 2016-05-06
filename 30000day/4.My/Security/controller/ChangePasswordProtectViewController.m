@@ -141,43 +141,15 @@
 
 - (IBAction)nextAction:(id)sender {
     
-
-    NSMutableArray *mutableQidArray = [NSMutableArray array];
-    
-    NSMutableArray *mutableAnswerArray = [NSMutableArray array];
-    
-    for (int i = 1; i < self.questionStringArray.count; i++) {
-        
-        if ([self.firstQuestingSting isEqualToString:self.questionStringArray[i]]) {
-            
-            [mutableQidArray addObject:[NSNumber numberWithInt:i]];
-            
-            [mutableAnswerArray addObject:self.firstAnswerTextField.text];
-        }
-        
-        if ([self.secondQuestingSting isEqualToString:self.questionStringArray[i]]) {
-            
-            [mutableQidArray addObject:[NSNumber numberWithInt:i]];
-            
-            [mutableAnswerArray addObject:self.secondAnswerTextField.text];
-            
-        }
-        
-        if ([self.thirdQuestingSting isEqualToString:self.questionStringArray[i]]) {
-            
-            [mutableQidArray addObject:[NSNumber numberWithInt:i]];
-            
-            [mutableAnswerArray addObject:self.thirdAnswerTextField.text];
-        }
-    }
-    
     UIButton *button = (UIButton *)sender;
     
     button.enabled = NO;
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler sendChangeSecurityWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] qidArray:mutableQidArray answerArray:mutableAnswerArray success:^(BOOL success) {
+    [self.dataHandler sendChangeSecurityWithUserId:STUserAccountHandler.userProfile.userId
+                               questionAnswerArray:self.dataArray
+                                           success:^(BOOL success) {
         
         if (success) {
             
@@ -197,9 +169,7 @@
         [self showToast:@"添加密保失败"];
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
     }];
-    
 }
 
 //判断保存按钮是否可用

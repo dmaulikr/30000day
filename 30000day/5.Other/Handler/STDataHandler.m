@@ -33,7 +33,7 @@
 #import "STHealthyManager.h"
 #import "InformationWriterModel.h"
 #import "PriceModel.h"
-
+#import "QuestionAnswerModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -2359,20 +2359,21 @@
 }
 
 - (void)sendChangeSecurityWithUserId:(NSNumber *)userId
-                            qidArray:(NSArray *)qidArray
-                         answerArray:(NSArray *)answerArray
+                 questionAnswerArray:(NSMutableArray *)modelArray
                              success:(void (^)(BOOL success))success
-                             failure:(void (^)(NSError *error))failure{
+                             failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
-    for (int i = 0; i < answerArray.count; i++) {
+    for (int i = 0; i < modelArray.count; i++) {
         
-        [params setObject:qidArray[i] forKey:[NSString stringWithFormat:@"q%d",i+1]];
+        QuestionAnswerModel *model = modelArray[i];
         
-        [params setObject:answerArray[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
+        [params addParameter:model.questionId forKey:[NSString stringWithFormat:@"q%d",i+1]];
+        
+        [params addParameter:model.answerString forKey:[NSString stringWithFormat:@"a%d",i+1]];
     }
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -4767,7 +4768,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    [params setObject:userId forKey:@"userId"];
+    [params addParameter:userId forKey:@"userId"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_USER_INFORMATION

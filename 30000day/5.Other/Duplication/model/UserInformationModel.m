@@ -88,8 +88,46 @@
         return nil;
     }
     
-    return  @{[model.userId stringValue]:@{@"userId":[model.userId stringValue],@"originalNickName":model.originalNickName,@"originalHeadImg":model.originalHeadImg},[userProfile.userId stringValue]:@{@"userId":[userProfile.userId stringValue],@"originalNickName":userProfile.nickName,@"originalHeadImg":model.originalHeadImg},@"type":@0};
+    NSMutableDictionary *dictionary_first = [[NSMutableDictionary alloc] init];
+    
+    NSMutableDictionary *dictionay_second = [[NSMutableDictionary alloc] init];
+    
+    if (![Common isObjectNull:model.userId] && ![Common isObjectNull:([Common isObjectNull:model.originalNickName] ? model.nickName : model.originalNickName)] && ![Common isObjectNull:([Common isObjectNull:model.originalHeadImg] ? model.headImg : model.originalHeadImg)]) {
+        
+        [dictionary_first setObject:[model.userId stringValue] forKey:USER_ID];
+        
+        [dictionary_first setObject:([Common isObjectNull:model.originalNickName] ? model.nickName : model.originalNickName) forKey:ORIGINAL_NICK_NAME];
+        
+        [dictionary_first setObject:([Common isObjectNull:model.originalHeadImg] ? model.headImg : model.originalHeadImg) forKey:ORIGINAL_IMG_URL];
+        
+    } else {
+        
+        dictionary_first = [NSMutableDictionary dictionaryWithDictionary:@{USER_ID:@"",ORIGINAL_NICK_NAME:@"",ORIGINAL_IMG_URL:@""}];
+    }
+    
+    if (![Common isObjectNull:[userProfile.userId stringValue]] && ![Common isObjectNull:userProfile.nickName] && ![Common isObjectNull:userProfile.headImg]) {
+        
+        [dictionay_second setObject:[userProfile.userId stringValue] forKey:USER_ID];
+        
+        [dictionay_second setObject:userProfile.nickName forKey:ORIGINAL_NICK_NAME];
+        
+        [dictionay_second setObject:userProfile.headImg forKey:ORIGINAL_IMG_URL];
+        
+    } else {
+        
+        dictionay_second = [NSMutableDictionary dictionaryWithDictionary:@{USER_ID:@"",ORIGINAL_NICK_NAME:@"",ORIGINAL_IMG_URL:@""}];
+    }
+    
+    if (![Common isObjectNull:[model.userId stringValue]] && ![Common isObjectNull:[userProfile.userId stringValue]]) {
+        
+        return @{[model.userId stringValue]:dictionary_first,[userProfile.userId stringValue]:dictionay_second,@"type":@0};
+        
+    } else {
+        
+        return @{@"":dictionary_first,userProfile.userId:dictionay_second};
+    }
 }
+
 
 //获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
 - (NSString *)showNickName {

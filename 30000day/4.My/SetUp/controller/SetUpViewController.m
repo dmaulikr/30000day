@@ -156,7 +156,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:sw attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeRight multiplier:1.0 constant:-28]];
         
         return cell;
-
         
     } else {
         
