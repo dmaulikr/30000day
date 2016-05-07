@@ -281,6 +281,8 @@
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
+        [self showToast:@"请求超时，请重新登录"];
+        
     }];
 
 }
