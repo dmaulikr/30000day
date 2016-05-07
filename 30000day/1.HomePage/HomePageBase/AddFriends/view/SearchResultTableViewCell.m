@@ -21,7 +21,7 @@
     
     self.addButton.layer.masksToBounds = YES;
     
-    self.addButton.layer.borderColor =LOWBLUECOLOR.CGColor;
+    self.addButton.layer.borderColor = LOWBLUECOLOR.CGColor;
     
     self.addButton.layer.borderWidth = 0.5f;
 
@@ -39,10 +39,12 @@
     
     _userInformationModel = userInformationModel;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userInformationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:userInformationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    self.nickName.text = _userInformationModel.nickName;
+    self.nickName.text = userInformationModel.nickName;
   
+    self.detailTitleLabel.text = userInformationModel.memo;
+    
     if ([_userInformationModel.flag isEqual:@0]) {
         
         self.addButton.hidden = NO;
@@ -51,7 +53,6 @@
         
         self.addButton.hidden = YES;
     }
-    
 }
 
 - (IBAction)addUserAction:(id)sender {

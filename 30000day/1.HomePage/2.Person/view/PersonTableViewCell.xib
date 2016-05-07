@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znz-iJ-cFR">
-                        <rect key="frame" x="77" y="16" width="165" height="18"/>
+                        <rect key="frame" x="77" y="15" width="165" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="tYZ-so-YgZ"/>
                         </constraints>
@@ -59,8 +59,8 @@
                     <constraint firstItem="rGE-Md-cME" firstAttribute="leading" secondItem="l6b-R0-XMa" secondAttribute="trailing" constant="40" id="COA-qW-CHD"/>
                     <constraint firstItem="1iA-2v-tDG" firstAttribute="centerY" secondItem="YeR-ol-YZI" secondAttribute="centerY" id="JKD-pM-M2u"/>
                     <constraint firstItem="YeR-ol-YZI" firstAttribute="leading" secondItem="znz-iJ-cFR" secondAttribute="trailing" constant="10" id="P2b-lg-3No"/>
-                    <constraint firstItem="l6b-R0-XMa" firstAttribute="top" secondItem="znz-iJ-cFR" secondAttribute="bottom" constant="5" id="S2p-v5-Ig2"/>
-                    <constraint firstItem="znz-iJ-cFR" firstAttribute="top" secondItem="cYj-V5-rN9" secondAttribute="topMargin" constant="8" id="TKe-fH-9xa"/>
+                    <constraint firstItem="l6b-R0-XMa" firstAttribute="top" secondItem="znz-iJ-cFR" secondAttribute="bottom" constant="6" id="S2p-v5-Ig2"/>
+                    <constraint firstItem="znz-iJ-cFR" firstAttribute="top" secondItem="cYj-V5-rN9" secondAttribute="topMargin" constant="7" id="TKe-fH-9xa"/>
                     <constraint firstItem="znz-iJ-cFR" firstAttribute="leading" secondItem="l6b-R0-XMa" secondAttribute="leading" id="bUM-lc-MCd"/>
                     <constraint firstItem="1iA-2v-tDG" firstAttribute="leading" secondItem="cYj-V5-rN9" secondAttribute="leadingMargin" constant="6" id="hhV-4b-6rP"/>
                     <constraint firstItem="rGE-Md-cME" firstAttribute="leading" secondItem="YeR-ol-YZI" secondAttribute="trailing" constant="8" symbolic="YES" id="j8K-Rc-5Bb"/>

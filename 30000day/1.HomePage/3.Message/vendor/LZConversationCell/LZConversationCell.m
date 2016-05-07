@@ -158,8 +158,11 @@ static CGFloat kLZLittleBadgeSize = 10;
 }
 
 - (JSBadgeView *)badgeView {
+    
     if (_badgeView == nil) {
-        _badgeView = [[JSBadgeView alloc] initWithParentView:_avatarImageView alignment:JSBadgeViewAlignmentTopRight];
+        
+        _badgeView = [[JSBadgeView alloc] initWithParentView:self.nameLabel alignment:JSBadgeViewAlignmentTopLeft];
+
     }
     return _badgeView;
 }

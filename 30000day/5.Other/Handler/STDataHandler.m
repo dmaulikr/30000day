@@ -1033,7 +1033,7 @@
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters addParameter:nickName forKey:@"nickName"];
+    [parameters addParameter:nickName forKey:@"keyWord"];
     
     [parameters addParameter:curUserId forKey:@"curUserId"];
     

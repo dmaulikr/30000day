@@ -10,6 +10,7 @@
 #import "SearchResultTableViewCell.h"
 #import "UserInformationModel.h"
 #import "NSString+URLEncoding.h"
+#import "MTProgressHUD.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -157,19 +158,19 @@
     //点击添加按钮回调
     [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
         
-        [self showHUDWithContent:@"正在添加" animated:YES];
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口
         [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] success:^(BOOL success) {
             
             [self showToast:@"添加成功"];
             
-            [self hideHUD:YES];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         } failure:^(NSError *error) {
             
             [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
             
-            [self hideHUD:YES];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
         
     }];
@@ -179,7 +180,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 70;
+    return 72.1f;
 }
 
 - (void)dealloc {

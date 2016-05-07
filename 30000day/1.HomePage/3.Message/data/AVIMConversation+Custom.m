@@ -15,39 +15,51 @@
 @implementation AVIMConversation (Custom)
 
 - (AVIMTypedMessage *)lastMessage {
+    
     return objc_getAssociatedObject(self, @selector(lastMessage));
 }
 
 - (void)setLastMessage:(AVIMTypedMessage *)lastMessage {
+    
     objc_setAssociatedObject(self, @selector(lastMessage), lastMessage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSInteger)unreadCount {
+    
     return [objc_getAssociatedObject(self, @selector(unreadCount)) intValue];
 }
 
 - (void)setUnreadCount:(NSInteger)unreadCount {
+    
     objc_setAssociatedObject(self, @selector(unreadCount), @(unreadCount), OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (BOOL)mentioned {
+    
     return [objc_getAssociatedObject(self, @selector(mentioned)) boolValue];
 }
 
 - (void)setMentioned:(BOOL)mentioned {
+    
     objc_setAssociatedObject(self, @selector(mentioned), @(mentioned), OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (CDConversationType)type {
+    
     return [[self.attributes objectForKey:CONVERSATION_TYPE] intValue];
 }
 
 + (NSString *)nameOfUserIds:(NSArray *)userIds {
+    
     NSMutableArray *names = [NSMutableArray array];
+    
     for (int i = 0; i < userIds.count; i++) {
+        
         id<CDUserModelDelegate> user = [[CDChatManager manager].userDelegate getUserById:[userIds objectAtIndex:i]];
+        
         [names addObject:user.username];
     }
+    
     return [names componentsJoinedByString:@","];
 }
 
