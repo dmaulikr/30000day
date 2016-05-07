@@ -50,6 +50,10 @@ static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"S
 //当成功的更新自己的信息发出通知
 static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STUserDidSuccessUpdateInformationSendNotification";
 
+//当成功的切换显示好友模式
+static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification = @"STUserDidSuccessChangeBigOrSmallPictureSendNotification";
+
+
 @class STNetError;
 
 @class WeatherInformationModel;

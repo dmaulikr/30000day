@@ -11,7 +11,7 @@
 #import "CDIMService.h"
 #import "CDChatVC.h"
 
-@interface CDConvsVC ()<CDChatListVCDelegate>
+@interface CDConvsVC () <CDChatListVCDelegate>
 
 @end
 
@@ -27,7 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.chatListDelegate = self;
+    
+    self.tableView.contentInset =  UIEdgeInsetsMake(64, 0, 50, 0);
 }
 
 #pragma mark - CDChatListVCDelegate
@@ -66,6 +69,8 @@
         self.unreadMessageChange(totalUnreadCount);
     }
 }
+
+
 
 //- (UIImage *)defaultAvatarImageView {
 //    UIImage *defaultAvatarImageView = [UIImage imageNamed:@"avator"];

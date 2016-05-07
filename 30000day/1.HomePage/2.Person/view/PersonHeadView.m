@@ -22,6 +22,15 @@
     
     if (self.changeStateBlock) {
         
+        if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+            
+            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:0];
+            
+        } else {
+            
+            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:1];
+        }
+        
         self.changeStateBlock((UIButton *)sender);
         
     }

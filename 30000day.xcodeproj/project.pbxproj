@@ -248,6 +248,7 @@
 		B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5A1C71DFA000063269 /* AddressBookModel.m */; };
 		B8365A5F1C71E08200063269 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5D1C71E08200063269 /* pinyin.c */; };
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
+		B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */; };
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A511CAD01F000D2CC6A /* GJTextView.m */; };
 		B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */; };
@@ -955,6 +956,8 @@
 		B8365A5E1C71E08200063269 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		B8365A601C71E0BC00063269 /* ChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseString.h; sourceTree = "<group>"; };
 		B8365A611C71E0BC00063269 /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
+		B8381DD11CDC9F4F00E3AC08 /* STConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STConversationCell.h; sourceTree = "<group>"; };
+		B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STConversationCell.m; sourceTree = "<group>"; };
 		B83B7A301CAA848E00D2CC6A /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B83B7A501CAD01F000D2CC6A /* GJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJTextView.h; sourceTree = "<group>"; };
@@ -3705,6 +3708,8 @@
 			children = (
 				B8FD3CE21C8A7903007BCA6B /* LZConversationCell.h */,
 				B8FD3CE31C8A7903007BCA6B /* LZConversationCell.m */,
+				B8381DD11CDC9F4F00E3AC08 /* STConversationCell.h */,
+				B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */,
 			);
 			path = LZConversationCell;
 			sourceTree = "<group>";
@@ -5036,6 +5041,7 @@
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B8FD3DCF1C8A7903007BCA6B /* LZConversationCell.m in Sources */,
 				B8FD3CBC1C8A77EB007BCA6B /* AVIMConversation+Custom.m in Sources */,
+				B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B8FD3E751C8A8353007BCA6B /* CDBaseVC.m in Sources */,
 				B8FD3E731C8A8353007BCA6B /* CDBaseNavC.m in Sources */,

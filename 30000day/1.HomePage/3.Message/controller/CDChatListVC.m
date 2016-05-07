@@ -20,10 +20,10 @@
 #import "CDMacros.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CDChatRoomVC.h"
+#import "STConversationCell.h"
+#import "PersonHeadView.h"
 
 @interface CDChatListVC ()
-
-//@property (nonatomic, strong) LZStatusView *clientStatusView;
 
 @property (nonatomic, strong) NSMutableArray *conversations;
 
@@ -42,8 +42,8 @@ static NSString *cellIdentifier = @"ContactCell";
  *
  *  @return NSMutableArray
  */
-- (NSMutableArray *)conversations
-{
+- (NSMutableArray *)conversations {
+    
     if (_conversations == nil) {
         
         _conversations = [[NSMutableArray alloc] init];
@@ -71,9 +71,10 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
     
-    self.tableView.tableFooterView = [[UIView alloc] init];
+    //成功的切换模式
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
-    self.tableView.contentInset =  UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -147,29 +148,6 @@ static NSString *cellIdentifier = @"ContactCell";
 
 #pragma mark - client status view
 
-//- (LZStatusView *)clientStatusView {
-//    
-//    if (_clientStatusView == nil) {
-//        
-//        _clientStatusView = [[LZStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), kLZStatusViewHight)];
-//        
-//    }
-//    
-//    return _clientStatusView;
-//}
-//
-//- (void)updateStatusView {
-//    
-//    if ([CDChatManager manager].connect) {
-//        
-//        self.tableView.tableHeaderView = nil ;
-//        
-//    } else {
-//        
-//        self.tableView.tableHeaderView = self.clientStatusView;
-//    }
-//}
-
 - (UIRefreshControl *)getRefreshControl {
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -180,82 +158,6 @@ static NSString *cellIdentifier = @"ContactCell";
     
     return refreshControl;
 }
-
-#pragma mark - refresh
-
-//- (void)refresh {
-//    [self refresh:nil];
-//}
-
-//- (void)refresh:(UIRefreshControl *)refreshControl {
-//    
-//    if (self.isRefreshing) {
-//        
-//        return;
-//    }
-//    
-//    self.isRefreshing = YES;
-//    
-//    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
-//        
-//        dispatch_block_t finishBlock = ^{
-//            
-//            [self stopRefreshControl:refreshControl];
-//            
-//            if ([self filterError:error]) {
-//                
-//                self.conversations = [NSMutableArray arrayWithArray:conversations];
-//                
-//                for (int i = 0; i < self.conversations.count; i++) {
-//                    
-//                    AVIMConversation *conversation = [self.conversations objectAtIndex:i];
-//                    
-//                     UserInformationModel *model = [[UserInformationManager shareUserInformationManager] informationModelWithUserId:conversation.otherId];
-//                    
-//                    if (!model) {
-//                        
-//                        [[CDConversationStore store] deleteConversation:conversation];
-//                    }
-//                    
-//                }
-//                
-//                [self.tableView reloadData];
-//                
-//                if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
-//                    
-//                    [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
-//                    
-//                }
-//                
-//                [self selectConversationIfHasRemoteNotificatoinConvid];
-//            }
-//            
-//            self.isRefreshing = NO;
-//        };
-//        
-//        if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
-//            
-//            [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
-//                
-//                if ([self filterError:error]) {
-//                    
-//                    finishBlock();
-//                    
-//                } else {
-//                    
-//                    [self stopRefreshControl:refreshControl];
-//                    
-//                    self.isRefreshing = NO;
-//                }
-//            }];
-//            
-//        } else {
-//            
-//            finishBlock();
-//            
-//        }
-//    }];
-//}
 
 - (void)selectConversationIfHasRemoteNotificatoinConvid {
     
@@ -310,6 +212,51 @@ static NSString *cellIdentifier = @"ContactCell";
 
 #pragma mark - table view
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    static NSString *headViewIndentifier = @"PersonHeadView";
+    
+    PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
+    
+    view.titleLabel.hidden = YES;
+    
+    if (view == nil) {
+        
+        view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
+    }
+    
+    [view setChangeStateBlock:^(UIButton *changeStatusButton) {
+        
+        [self.tableView reloadData];
+        
+        [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    }];
+    
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+        
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+        
+        [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
+        
+    } else {
+        
+        [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
+        
+        [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
+    }
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        return 44;
+    }
+    return 0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [self.conversations count];
@@ -317,84 +264,154 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    LZConversationCell *cell = [LZConversationCell dequeueOrCreateCellByTableView:tableView];
-    
-    AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
-    
-    if (conversation.type == CDConversationTypeSingle) {
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
-        cell.nameLabel.text = conversation.displayName;
+        STConversationCell *cell = [STConversationCell dequeueOrCreateCellByTableView:tableView];
         
-        //长按手势，长按后删除该cell
-        [cell setLongPressBlock:^{
-    
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+        AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+        
+        if (conversation.type == CDConversationTypeSingle) {
             
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            cell.nameLabel.text = conversation.displayName;
+            
+            //长按手势，长按后删除该cell
+            [cell setLongPressBlock:^{
                 
-                [[CDConversationStore store] deleteConversation:conversation];
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
                 
-                [self headerRefreshing];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [[CDConversationStore store] deleteConversation:conversation];
+                    
+                    [self headerRefreshing];
+                    
+                }];
                 
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                
+                [controller addAction:cancelAction];
+                
+                [controller addAction:action];
+                
+                [self presentViewController:controller animated:YES completion:nil];
             }];
-
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            
-            [controller addAction:cancelAction];
-            
-            [controller addAction:action];
-            
-            [self presentViewController:controller animated:YES completion:nil];
-        }];
-        
-        if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)]) {
-            
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
-            
-        } else {
             
             [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        }
-        
-    } else {
-        
-        [cell.avatarImageView setImage:conversation.icon];
-        
-        cell.nameLabel.text = conversation.displayName;
-    }
-    
-    if (conversation.lastMessage) {
-        
-        cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
-        
-        cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
-    }
-    
-    if (conversation.unreadCount > 0) {
-        
-        if (conversation.muted) {
-            
-            cell.litteBadgeView.hidden = NO;
-            
+
         } else {
             
-            if (conversation.unreadCount >= 100) {
-                
-                cell.badgeView.badgeText = @"99+";
+            [cell.avatarImageView setImage:conversation.icon];
+            
+            cell.nameLabel.text = conversation.displayName;
+        }
+        
+        if (conversation.lastMessage) {
+            
+            cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
+            
+            cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
+        }
+        
+        if (conversation.unreadCount > 0) {
+            
+            if (conversation.muted) {
                 
             } else {
                 
-                cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+                if (conversation.unreadCount >= 100) {
+                    
+                    cell.badgeView.badgeText = @"99+";
+                    
+                } else {
+                    
+                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+                }
             }
         }
-    }
-    
-    if ([self.chatListDelegate respondsToSelector:@selector(configureCell:atIndexPath:withConversation:)]) {
+        return cell;
         
-        [self.chatListDelegate configureCell:cell atIndexPath:indexPath withConversation:conversation];
+    } else {
         
+        LZConversationCell *cell = [LZConversationCell dequeueOrCreateCellByTableView:tableView];
+        
+        AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+        
+        if (conversation.type == CDConversationTypeSingle) {
+            
+            cell.nameLabel.text = conversation.displayName;
+            
+            //长按手势，长按后删除该cell
+            [cell setLongPressBlock:^{
+                
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [[CDConversationStore store] deleteConversation:conversation];
+                    
+                    [self headerRefreshing];
+                    
+                }];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                
+                [controller addAction:cancelAction];
+                
+                [controller addAction:action];
+                
+                [self presentViewController:controller animated:YES completion:nil];
+            }];
+            
+            if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)]) {
+                
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
+                
+            } else {
+                
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            }
+            
+        } else {
+            
+            [cell.avatarImageView setImage:conversation.icon];
+            
+            cell.nameLabel.text = conversation.displayName;
+        }
+        
+        if (conversation.lastMessage) {
+            
+            cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
+            
+            cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
+        }
+        
+        if (conversation.unreadCount > 0) {
+            
+            if (conversation.muted) {
+                
+                cell.litteBadgeView.hidden = NO;
+                
+            } else {
+                
+                if (conversation.unreadCount >= 100) {
+                    
+                    cell.badgeView.badgeText = @"99+";
+                    
+                } else {
+                    
+                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+                }
+            }
+        }
+        
+        if ([self.chatListDelegate respondsToSelector:@selector(configureCell:atIndexPath:withConversation:)]) {
+            
+            [self.chatListDelegate configureCell:cell atIndexPath:indexPath withConversation:conversation];
+            
+        }
+        
+        return cell;
     }
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -426,36 +443,36 @@ static NSString *cellIdentifier = @"ContactCell";
     if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
         
         [self.chatListDelegate viewController:self didSelectConv:conversation];
-        
     }
-    
-    //push到聊天界面
-//    CDChatRoomVC *controller = [[CDChatRoomVC alloc] initWithConversation:conversation];
-//    
-//    controller.hidesBottomBarWhenPushed = YES;
-//    
-//    [self.navigationController pushViewController:controller animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return [LZConversationCell heightOfCell];
-    
+    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+        
+        return [STConversationCell heightOfCell];
+        
+    } else {
+        
+       return [LZConversationCell heightOfCell];
+    }
 }
 
 - (void)dealloc {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
+    [STNotificationCenter removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
+    [STNotificationCenter removeObserver:self name:kCDNotificationMessageReceived object:nil];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
+    [STNotificationCenter removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
     
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
 }
 
 @end

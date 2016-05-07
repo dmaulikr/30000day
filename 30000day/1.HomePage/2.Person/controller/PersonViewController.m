@@ -43,6 +43,9 @@
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUseDidSuccessDeleteFriendSendNotification object:nil];
     
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
+    //成功的切换模式
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
 }
 
 - (void)reloadData {
@@ -92,18 +95,13 @@
 
     view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
     
-    [view setChangeStateBlock:^(UIButton *changeStatusButton){
-       
-        if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
-            
-            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:0];
-            
-        } else {
-            
-            [Common saveAppIntegerDataForKey:IS_BIG_PICTUREMODEL withObject:1];
-        }
+    view.titleLabel.hidden = NO;
+    
+    [view setChangeStateBlock:^(UIButton *changeStatusButton) {
         
         [self.tableView reloadData];
+        
+        [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
         
     }];
     
@@ -147,7 +145,7 @@
     
     if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
-        return 425;
+        return SCREEN_WIDTH + 75.0f;
         
     } else {
         
@@ -214,6 +212,8 @@
     [STNotificationCenter removeObserver:self name:STUseDidSuccessDeleteFriendSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
     _dataArray = nil;
 }
