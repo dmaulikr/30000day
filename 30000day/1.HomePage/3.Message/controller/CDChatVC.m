@@ -7,11 +7,7 @@
 //
 
 #import "CDChatVC.h"
-//#import "CDConvDetailVC.h"
-//#import "CDUserInfoVC.h"
-//#import "CDSelectMemberVC.h"
 #import "CDBaseNavC.h"
-
 #import "CDCacheManager.h"
 #import "AVIMCustomMessage.h"
 
