@@ -21,7 +21,7 @@
     
     self.addButton.layer.masksToBounds = YES;
     
-    self.addButton.layer.borderColor = RGBACOLOR(75, 136, 247, 1).CGColor;
+    self.addButton.layer.borderColor =LOWBLUECOLOR.CGColor;
     
     self.addButton.layer.borderWidth = 0.5f;
 
