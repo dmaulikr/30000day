@@ -50,7 +50,6 @@
     self.noResultView.hidden = YES;
     
     [self.textField becomeFirstResponder];
-    
 }
 
 //点击事件
@@ -155,6 +154,8 @@
     
     cell.userInformationModel = self.searchResultArray[indexPath.row];
     
+    __weak typeof(cell) weakCell = cell;
+    
     //点击添加按钮回调
     [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
         
@@ -164,15 +165,18 @@
             
             [self showToast:@"添加成功"];
             
+            weakCell.addButton.hidden = YES;
+            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         } failure:^(NSError *error) {
             
             [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
             
+            weakCell.addButton.hidden = NO;
+            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
-        
     }];
     
     return cell;

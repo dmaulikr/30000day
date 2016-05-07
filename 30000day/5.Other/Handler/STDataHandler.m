@@ -1066,15 +1066,22 @@
                         
                     });
                     
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:dictionary[@"msg"]}];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        failure(failureError);
+                        
+                    });
                 }
               
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:dictionary[@"msg"]}];
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    failure(failureError);
+                    failure(firstError);
                     
                 });
             }

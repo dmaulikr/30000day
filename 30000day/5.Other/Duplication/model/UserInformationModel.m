@@ -102,7 +102,7 @@
         
     } else {
         
-        dictionary_first = [NSMutableDictionary dictionaryWithDictionary:@{USER_ID:@"",ORIGINAL_NICK_NAME:@"",ORIGINAL_IMG_URL:@""}];
+        return nil;
     }
     
     if (![Common isObjectNull:[userProfile.userId stringValue]] && ![Common isObjectNull:userProfile.nickName] && ![Common isObjectNull:userProfile.headImg]) {
@@ -115,7 +115,7 @@
         
     } else {
         
-        dictionay_second = [NSMutableDictionary dictionaryWithDictionary:@{USER_ID:@"",ORIGINAL_NICK_NAME:@"",ORIGINAL_IMG_URL:@""}];
+        return nil;
     }
     
     if (![Common isObjectNull:[model.userId stringValue]] && ![Common isObjectNull:[userProfile.userId stringValue]]) {
@@ -124,7 +124,7 @@
         
     } else {
         
-        return @{@"":dictionary_first,userProfile.userId:dictionay_second};
+        return nil;
     }
 }
 
