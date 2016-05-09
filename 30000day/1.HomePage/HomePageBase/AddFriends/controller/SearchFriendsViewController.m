@@ -110,7 +110,6 @@
             self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
             
             [self.tableView reloadData];
-            
         }];
         
     } else {
@@ -123,6 +122,8 @@
     }
     
     [self.tableView reloadData];
+    
+    [textField resignFirstResponder];
     
     return YES;
 }
