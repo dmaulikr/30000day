@@ -10,6 +10,10 @@
 
 @interface DaysOfAgeOption : UIView
 
+@property (weak, nonatomic) IBOutlet UIView *perfectImageView;
+
+@property (weak, nonatomic) IBOutlet UIView *promoteImageView;
+
 @property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger ,DaysOfAgeOption *);
 
 //类方法，动画般的把ShareAnimatonView从父视图上移除

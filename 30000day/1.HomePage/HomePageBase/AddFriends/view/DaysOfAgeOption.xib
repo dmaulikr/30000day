@@ -56,7 +56,11 @@
                 <constraint firstItem="utd-mU-7LL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="70" id="o81-Ph-J8S"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="83.5" y="222.5"/>
+            <connections>
+                <outlet property="perfectImageView" destination="t00-tg-1RV" id="bXx-cF-Lgg"/>
+                <outlet property="promoteImageView" destination="utd-mU-7LL" id="o0W-y7-wq7"/>
+            </connections>
+            <point key="canvasLocation" x="-176.5" y="215.5"/>
         </view>
     </objects>
 </document>

@@ -28,10 +28,16 @@
 
 
 + (void)annimateRemoveFromSuperView:(DaysOfAgeOption *)animationview {
+ 
+    animationview.perfectImageView.frame = CGRectMake(SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 50, 100, 100);
     
-    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH / 2 + 70, SCREEN_HEIGHT / 2 - 50, 100, 100);
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        //animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH,SCREEN_WIDTH * 50/75);
+        animationview.perfectImageView.frame = CGRectMake(-100, SCREEN_HEIGHT / 2 - 50, 100, 100);
+        
+        animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT / 2 - 50, 100, 100);
         
     } completion:^(BOOL finished) {
         
@@ -45,13 +51,17 @@
     
     [animationview setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-    //animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+    animationview.perfectImageView.frame = CGRectMake(0, SCREEN_HEIGHT / 2 - 50, 100, 100);
+    
+    animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT / 2 - 50, 100, 100);
     
     [[[UIApplication sharedApplication].delegate window] addSubview:animationview];
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        //animationview.backgroudView.frame = CGRectMake(0, SCREEN_HEIGHT - SCREEN_WIDTH * 50/75, SCREEN_WIDTH, SCREEN_WIDTH * 50/75);
+        animationview.perfectImageView.frame = CGRectMake(SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 50, 100, 100);
+        
+        animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH / 2 + 70, SCREEN_HEIGHT / 2 - 50, 100, 100);
         
     } completion:nil];
     
