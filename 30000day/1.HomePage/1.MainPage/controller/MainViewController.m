@@ -21,6 +21,7 @@
 #import "QGPickerView.h"
 #import "HealthySetUpViewController.h"
 #import "SettingBirthdayView.h"
+#import "DaysOfAgeOption.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -445,25 +446,28 @@
         
     } else if (indexPath.row == 2) {
         
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [self loadDaysOfAgeOptionView];
         
-                UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"提升天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
- 
-                    HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
-                    
-                    controller.hidesBottomBarWhenPushed = YES;
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
         
-                }];
-        
-                UIAlertAction *action_fourth = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        
-                [controller addAction:action_first];
-        
-                [controller addAction:action_fourth];
-        
-                [self presentViewController:controller animated:YES completion:nil];
+//                UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//        
+//                UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"提升天龄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+// 
+//                    HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
+//                    
+//                    controller.hidesBottomBarWhenPushed = YES;
+//                    
+//                    [self.navigationController pushViewController:controller animated:YES];
+//        
+//                }];
+//        
+//                UIAlertAction *action_fourth = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//        
+//                [controller addAction:action_first];
+//        
+//                [controller addAction:action_fourth];
+//        
+//                [self presentViewController:controller animated:YES completion:nil];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -760,6 +764,15 @@
             self.birthdayView = view;
         }
     }
+}
+
+- (void)loadDaysOfAgeOptionView {
+
+    DaysOfAgeOption *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"DaysOfAgeOption" owner:self options:nil] lastObject];
+    
+    //封装的动画般推出视图
+    [DaysOfAgeOption animateWindowsAddSubView:shareAnimationView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
