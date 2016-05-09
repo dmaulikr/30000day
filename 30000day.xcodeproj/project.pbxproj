@@ -251,6 +251,8 @@
 		B8365A5F1C71E08200063269 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = B8365A5D1C71E08200063269 /* pinyin.c */; };
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */; };
+		B8381DD81CE0609700E3AC08 /* jpush-ios-2.1.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8381DD61CE0609700E3AC08 /* jpush-ios-2.1.6.a */; };
+		B8381DDB1CE06E9D00E3AC08 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */; };
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A511CAD01F000D2CC6A /* GJTextView.m */; };
 		B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */; };
@@ -963,6 +965,9 @@
 		B8365A611C71E0BC00063269 /* ChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseString.m; sourceTree = "<group>"; };
 		B8381DD11CDC9F4F00E3AC08 /* STConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STConversationCell.h; sourceTree = "<group>"; };
 		B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STConversationCell.m; sourceTree = "<group>"; };
+		B8381DD61CE0609700E3AC08 /* jpush-ios-2.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.6.a"; sourceTree = "<group>"; };
+		B8381DD71CE0609700E3AC08 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		B83B7A301CAA848E00D2CC6A /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B83B7A501CAD01F000D2CC6A /* GJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJTextView.h; sourceTree = "<group>"; };
@@ -1743,6 +1748,7 @@
 				B80B55A71CD10196003E2C36 /* libstdc++.6.0.9.tbd in Frameworks */,
 				B80B55A51CD10176003E2C36 /* libsqlite3.0.tbd in Frameworks */,
 				B80B55A31CD1015B003E2C36 /* Security.framework in Frameworks */,
+				B8381DD81CE0609700E3AC08 /* jpush-ios-2.1.6.a in Frameworks */,
 				B80B55A11CD1013C003E2C36 /* OpenGLES.framework in Frameworks */,
 				B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */,
 				B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */,
@@ -2241,6 +2247,15 @@
 			path = chineseSorting;
 			sourceTree = "<group>";
 		};
+		B8381DD51CE05FAB00E3AC08 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				B8381DD61CE0609700E3AC08 /* jpush-ios-2.1.6.a */,
+				B8381DD71CE0609700E3AC08 /* JPUSHService.h */,
+			);
+			path = JPush;
+			sourceTree = "<group>";
+		};
 		B83B7A4F1CAD01F000D2CC6A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2427,6 +2442,7 @@
 				B88C91991C5A0B620089BEAE /* PrefixHeader.pch */,
 				B89216B51C603C060023F8A8 /* Common.h */,
 				B89216B61C603C060023F8A8 /* Common.m */,
+				B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2720,6 +2736,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B8381DD51CE05FAB00E3AC08 /* JPush */,
 				B80B559B1CD0FFD8003E2C36 /* BaiduMap */,
 				B665F88A1CC4BF5200070458 /* PhotoBrowser */,
 				B8F6E0E21CB915B6000CC117 /* Alipay */,
@@ -4397,6 +4414,11 @@
 					B88C912A1C59F2260089BEAE = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = TTA54FV6AY;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -4439,6 +4461,7 @@
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
 				B804FD951C8AC9A900DFD1CF /* RecordingSignal001@2x.png in Resources */,
 				B665F8C51CC4BF5200070458 /* btn_unselected@2x.png in Resources */,
+				B8381DDB1CE06E9D00E3AC08 /* PushConfig.plist in Resources */,
 				B804FD911C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				B804FD5C1C8AC9A900DFD1CF /* tusiji_12.gif in Resources */,
 				B804FDAF1C8AC9A900DFD1CF /* voice@2x.png in Resources */,
@@ -5244,6 +5267,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JHAPISDK",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
+					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5298,6 +5322,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JHAPISDK",
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/Alipay",
+					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
 				PRODUCT_NAME = "$(TARGET_NAME)";

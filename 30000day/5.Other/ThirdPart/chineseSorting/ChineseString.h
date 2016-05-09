@@ -12,11 +12,11 @@
 
 @interface ChineseString : NSObject
 
-@property(strong,nonatomic)NSString *string;
+@property(nonatomic,copy)   NSString *string;
 
-@property(strong,nonatomic)NSString *pinYin;
+@property(nonatomic,strong) NSString *pinYin;
 
-@property(strong,nonatomic)NSString *phoneNumber;
+@property(nonatomic,strong) NSString *phoneNumber;
 
 //-----  返回tableview右方indexArray
 + (NSMutableArray*)IndexArray:(NSArray *)addressBookArray;

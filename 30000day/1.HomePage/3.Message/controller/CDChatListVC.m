@@ -64,8 +64,6 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationUnreadsUpdated object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusView) name:kCDNotificationConnectivityUpdated object:nil];
-    
     //成功的链接上凌云聊天服务器
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
     
@@ -412,24 +410,6 @@ static NSString *cellIdentifier = @"ContactCell";
         
         return cell;
     }
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
-        
-        [[CDConversationStore store] deleteConversation:conversation];
-        
-        [self headerRefreshing];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return true;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

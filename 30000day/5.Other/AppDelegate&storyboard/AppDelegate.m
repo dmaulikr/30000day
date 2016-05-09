@@ -15,6 +15,7 @@
 #import "UMSocialQQHandler.h"
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import "JPUSHService.h"
 
 #import "CDAbuseReport.h"
 #import "CDCacheManager.h"
@@ -67,6 +68,14 @@
         }];
     }
     
+    //***********************************配置JPush*******************************//
+    //可以添加自定义categories
+    [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                      UIUserNotificationTypeSound |
+                                                      UIUserNotificationTypeAlert)
+                                          categories:nil];
+    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO];
+    
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
@@ -94,16 +103,6 @@
     
     [iVersion sharedInstance].previewMode = NO;
     
-//    [AVOSCloud setLastModifyEnabled:YES];
-    
-    [[LZPushManager manager] registerForRemoteNotification];//配置推送
-
-#ifdef DEBUG
-    [AVPush setProductionMode:NO];  //如果要测试申请好友是否有推送，请设置为 YES
-//    [AVOSCloud setAllLogsEnabled:YES];
-#endif
-
-    
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
     BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];//
@@ -112,7 +111,6 @@
     }
 
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
-
     
     STDataHandler *dataHandler = [[STDataHandler alloc] init];
     [dataHandler sendSearchTableVersion:^(NSMutableArray *success) {
@@ -232,7 +230,6 @@
                 success(YES);
                 
                 [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-                
             });
             
         } else {
@@ -243,7 +240,6 @@
                 
             });
         }
-        
     }];
 }
 
@@ -264,27 +260,12 @@
                                                   cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil];
             
-            
-            
-        
             [alert show];
-            
         }
         
-    } else {//系统的通知，或者推送
+    } else {
         
-        //  当使用 https://github.com/leancloud/leanchat-cloudcode 云代码更改推送内容的时候
-        //        {
-        //            aps =     {
-        //                alert = "lzwios : sdfsdf";
-        //                badge = 4;
-        //                sound = default;
-        //            };
-        //            convid = 55bae86300b0efdcbe3e742e;
-        //        }
-        [[CDChatManager manager] didReceiveRemoteNotification:userInfo];
         
-        DLog(@"receiveRemoteNotification");
     }
 }
 
@@ -309,7 +290,6 @@
                      
                      [STNotificationCenter postNotificationName:STDidSuccessPaySendNotification object:nil];
                  }
-                 
              }];
             
         } else {
@@ -325,13 +305,10 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     
     [[LZPushManager manager] syncBadge];
-    
 }
 
 //点击了home键,程序进入后台了
 - (void)applicationWillTerminate:(UIApplication *)application {
-    
-    [[LZPushManager manager] syncBadge];
     
     [self saveContext];//保存还未保存的变化
 }
@@ -348,7 +325,36 @@
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    [[LZPushManager manager] saveInstallationWithDeviceToken:deviceToken userId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]];
+//    rootViewController.deviceTokenValueLabel.text =
+//    [NSString stringWithFormat:@"%@", deviceToken];
+//    rootViewController.deviceTokenValueLabel.textColor =
+//    [UIColor colorWithRed:0.0 / 255
+//                    green:122.0 / 255
+//                     blue:255.0 / 255
+//                    alpha:1];
+    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    [JPUSHService handleRemoteNotification:userInfo];
+
+    if (application.applicationState == UIApplicationStateActive) {
+        
+        NSString *cancelTitle = @"取消";
+        
+        NSString *showTitle = @"去查看";
+        
+        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                                  otherButtonTitles:showTitle, nil];
+        [alertView show];
+    }
 }
 
 // Returns the types of data that Fit wishes to read from HealthKit.
