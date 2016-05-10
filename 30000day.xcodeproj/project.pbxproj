@@ -104,6 +104,8 @@
 		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
 		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
 		B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */; };
+		B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */; };
+		B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */; };
 		B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C3B1CBC90190039217D /* InformationWriterHomepageViewController.m */; };
 		B6E44C3E1CBC901A0039217D /* InformationWriterHomepageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E44C3C1CBC90190039217D /* InformationWriterHomepageViewController.xib */; };
 		B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */; };
@@ -784,6 +786,9 @@
 		B6DDB4FD1CB796800026322A /* InformationCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentViewController.h; sourceTree = "<group>"; };
 		B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentViewController.m; sourceTree = "<group>"; };
 		B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentViewController.xib; sourceTree = "<group>"; };
+		B6DFF1E61CE07158004B81A7 /* DaysOfAgeOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaysOfAgeOption.h; sourceTree = "<group>"; };
+		B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaysOfAgeOption.m; sourceTree = "<group>"; };
+		B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaysOfAgeOption.xib; sourceTree = "<group>"; };
 		B6E44C3A1CBC90190039217D /* InformationWriterHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterHomepageViewController.h; sourceTree = "<group>"; };
 		B6E44C3B1CBC90190039217D /* InformationWriterHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterHomepageViewController.m; sourceTree = "<group>"; };
 		B6E44C3C1CBC90190039217D /* InformationWriterHomepageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationWriterHomepageViewController.xib; sourceTree = "<group>"; };
@@ -2895,6 +2900,9 @@
 				B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */,
 				B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */,
 				B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */,
+				B6DFF1E61CE07158004B81A7 /* DaysOfAgeOption.h */,
+				B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */,
+				B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4513,6 +4521,7 @@
 				B804FD5E1C8AC9A900DFD1CF /* tusiji_13.gif in Resources */,
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
+				B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */,
 				B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */,
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F6E24E1CB919E1000CC117 /* AlipaySDK.bundle in Resources */,
@@ -4808,6 +4817,7 @@
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
 				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
 				B83B7A5D1CAD01F000D2CC6A /* STChoosePictureCollectionCell.m in Sources */,
+				B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailTableViewCell.m in Sources */,
 				B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */,
 				B8FD3DE81C8A7903007BCA6B /* XHPullRefreshTableViewController.m in Sources */,
