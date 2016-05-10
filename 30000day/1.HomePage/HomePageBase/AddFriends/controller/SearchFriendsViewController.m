@@ -11,6 +11,7 @@
 #import "UserInformationModel.h"
 #import "NSString+URLEncoding.h"
 #import "MTProgressHUD.h"
+#import "LZPushManager.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -178,6 +179,12 @@
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
+        
+        [[LZPushManager manager] pushMessage:@"干" userIds:@[userInformationModel.userId] block:^(BOOL succeeded, NSError *error) {
+          
+            
+        }];
+        
     }];
     
     return cell;

@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_second;
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
 
-
+//第三个xib
 
 
 @end

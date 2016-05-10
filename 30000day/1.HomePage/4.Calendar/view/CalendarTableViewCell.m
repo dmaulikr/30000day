@@ -89,6 +89,8 @@
     
     self.todayButton = todayButton;
     
+    [calendar setCurrentPage:[NSDate date] animated:NO];//设置
+    
     [self addSubview:todayButton];
     
     //选择日期

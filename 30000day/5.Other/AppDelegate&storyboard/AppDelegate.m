@@ -16,6 +16,8 @@
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "JPUSHService.h"
+#import <AdSupport/AdSupport.h>
+
 
 #import "CDAbuseReport.h"
 #import "CDCacheManager.h"
@@ -69,12 +71,15 @@
     }
     
     //***********************************配置JPush*******************************//
-    //可以添加自定义categories
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                       UIUserNotificationTypeSound |
                                                       UIUserNotificationTypeAlert)
                                           categories:nil];
-    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO];
+    
+     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
+    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO advertisingIdentifier:advertisingId];
+    
     
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
@@ -102,6 +107,8 @@
     [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
     [iVersion sharedInstance].previewMode = NO;
+    
+    [[LZPushManager manager] registerForRemoteNotification];
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -213,6 +220,7 @@
     return YES;
 }
 
+
 - (void)openChat:(NSNumber *)userId
       completion:(void (^)(BOOL success))success
          failure:(void (^)(NSError *))failure {
@@ -304,7 +312,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    [[LZPushManager manager] syncBadge];
+    
 }
 
 //点击了home键,程序进入后台了
@@ -334,6 +342,8 @@
 //                    alpha:1];
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [JPUSHService registerDeviceToken:deviceToken];
+    
+    [[LZPushManager manager] saveInstallationWithDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

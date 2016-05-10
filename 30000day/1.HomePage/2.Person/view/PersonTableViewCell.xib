@@ -151,8 +151,40 @@
             </connections>
             <point key="canvasLocation" x="305" y="375.5"/>
         </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_third" id="4VU-8G-5uL" customClass="PersonTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4VU-8G-5uL" id="Fr1-M1-FhN">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新的朋友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF0-vy-qty">
+                        <rect key="frame" x="77" y="27" width="223" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plugins_FriendNotify" translatesAutoresizingMaskIntoConstraints="NO" id="KdX-94-yAK">
+                        <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="7Aq-1n-6bK"/>
+                            <constraint firstAttribute="height" constant="53" id="Dp1-1t-55Y"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="KdX-94-yAK" firstAttribute="leading" secondItem="Fr1-M1-FhN" secondAttribute="leadingMargin" constant="6" id="O0I-5j-PWk"/>
+                    <constraint firstItem="iF0-vy-qty" firstAttribute="leading" secondItem="KdX-94-yAK" secondAttribute="trailing" constant="10" id="OtA-Fa-9kw"/>
+                    <constraint firstAttribute="trailing" secondItem="iF0-vy-qty" secondAttribute="trailing" constant="20" id="UeR-iM-zQW"/>
+                    <constraint firstItem="KdX-94-yAK" firstAttribute="centerY" secondItem="Fr1-M1-FhN" secondAttribute="centerY" id="lJL-gT-rG3"/>
+                    <constraint firstItem="iF0-vy-qty" firstAttribute="centerY" secondItem="Fr1-M1-FhN" secondAttribute="centerY" id="x4r-Ex-GeR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="281" y="715"/>
+        </tableViewCell>
     </objects>
     <resources>
         <image name="lower" width="22" height="22"/>
+        <image name="plugins_FriendNotify" width="36" height="36"/>
     </resources>
 </document>

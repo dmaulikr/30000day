@@ -89,6 +89,17 @@ static CDChatManager *instance;
         }
         [CDEmotionUtils saveEmotions];
     }];
+    
+    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    
+    if (clientId) {
+        
+        [currentInstallation addUniqueObject:clientId forKey:@"channels"];
+    }
+    
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)closeWithCallback:(AVBooleanResultBlock)callback {
