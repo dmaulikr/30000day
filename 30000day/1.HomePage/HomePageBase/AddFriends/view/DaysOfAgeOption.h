@@ -10,9 +10,9 @@
 
 @interface DaysOfAgeOption : UIView
 
-@property (weak, nonatomic) IBOutlet UIView *perfectImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *perfectImageView;
 
-@property (weak, nonatomic) IBOutlet UIView *promoteImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *promoteImageView;
 
 @property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger ,DaysOfAgeOption *);
 

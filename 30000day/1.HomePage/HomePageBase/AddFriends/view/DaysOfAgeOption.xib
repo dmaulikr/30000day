@@ -11,56 +11,38 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t00-tg-1RV">
-                    <rect key="frame" x="68" y="284" width="100" height="100"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完善信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="196-cD-PZ0">
-                            <rect key="frame" x="20" y="41" width="60" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_edit_info" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-fu-H2F">
+                    <rect key="frame" x="68" y="417" width="100" height="100"/>
                     <constraints>
-                        <constraint firstItem="196-cD-PZ0" firstAttribute="centerX" secondItem="t00-tg-1RV" secondAttribute="centerX" id="7wg-vb-kck"/>
-                        <constraint firstAttribute="height" constant="100" id="Oyi-r3-7Um"/>
-                        <constraint firstItem="196-cD-PZ0" firstAttribute="centerY" secondItem="t00-tg-1RV" secondAttribute="centerY" id="f5o-Nd-GfL"/>
-                        <constraint firstAttribute="width" constant="100" id="jQy-4J-R0X"/>
+                        <constraint firstAttribute="width" constant="100" id="Idx-Xw-Z5N"/>
+                        <constraint firstAttribute="height" constant="100" id="ezt-VV-vLX"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utd-mU-7LL">
-                    <rect key="frame" x="208" y="284" width="100" height="100"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提升天龄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0q-s9-G1Q">
-                            <rect key="frame" x="20" y="41" width="60" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_age" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-Fl-7kN">
+                    <rect key="frame" x="208" y="417" width="100" height="100"/>
                     <constraints>
-                        <constraint firstItem="K0q-s9-G1Q" firstAttribute="centerX" secondItem="utd-mU-7LL" secondAttribute="centerX" id="NJ7-y9-T4Z"/>
-                        <constraint firstItem="K0q-s9-G1Q" firstAttribute="centerY" secondItem="utd-mU-7LL" secondAttribute="centerY" id="ZpT-YR-4ro"/>
-                        <constraint firstAttribute="width" constant="100" id="dFe-5p-hVf"/>
-                        <constraint firstAttribute="height" constant="100" id="xqM-wA-XVe"/>
+                        <constraint firstAttribute="height" constant="100" id="6bc-2W-elM"/>
+                        <constraint firstAttribute="width" constant="100" id="w19-zS-Bq8"/>
                     </constraints>
-                </view>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="utd-mU-7LL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="OQi-Xs-37h"/>
-                <constraint firstItem="t00-tg-1RV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Vf5-43-z3j"/>
-                <constraint firstItem="t00-tg-1RV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-70" id="Xa8-HS-wmU"/>
-                <constraint firstItem="utd-mU-7LL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="70" id="o81-Ph-J8S"/>
+                <constraint firstAttribute="bottom" secondItem="4Ql-fu-H2F" secondAttribute="bottom" constant="150" id="BQ0-bj-5eu"/>
+                <constraint firstItem="lbK-Fl-7kN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="70" id="P5U-gc-rbx"/>
+                <constraint firstItem="4Ql-fu-H2F" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-70" id="QzQ-Fe-Ea4"/>
+                <constraint firstItem="lbK-Fl-7kN" firstAttribute="centerY" secondItem="4Ql-fu-H2F" secondAttribute="centerY" id="sfa-ah-P5T"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="perfectImageView" destination="t00-tg-1RV" id="bXx-cF-Lgg"/>
-                <outlet property="promoteImageView" destination="utd-mU-7LL" id="o0W-y7-wq7"/>
+                <outlet property="perfectImageView" destination="4Ql-fu-H2F" id="0EC-vG-na9"/>
+                <outlet property="promoteImageView" destination="lbK-Fl-7kN" id="jox-8N-5o2"/>
             </connections>
             <point key="canvasLocation" x="-176.5" y="215.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_add_age" width="90" height="90"/>
+        <image name="icon_edit_info" width="90" height="90"/>
+    </resources>
 </document>
