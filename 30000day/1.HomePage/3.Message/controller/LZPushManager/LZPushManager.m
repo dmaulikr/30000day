@@ -27,10 +27,32 @@
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+         NSLog(@"---%@",currentInstallation.deviceToken);
+        
+    }];
+}
+
+- (void)saveInstallationWithChannel:(NSString *)channels {
+    
+    if (![Common isObjectNull:channels]) {
+        
+        AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    
+        [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+
+            
+        }];
+    }
+    //1000000098
 }
 
 - (void)unsubscribeUserChannelWithBlock:(AVBooleanResultBlock)block userId:(NSString *)userId {
+    
     if (userId) {
+        
         [AVPush unsubscribeFromChannelInBackground:userId block:block];
     }
 }
@@ -41,11 +63,15 @@
     
     [AVPush setProductionMode:NO];
     
-    [push setChannels:userIds];
+    AVQuery *pushQuery = [AVInstallation query];
+    
+    [pushQuery whereKey:@"userId" equalTo:[userIds firstObject]];
+    
+    [push setQuery:pushQuery]; // Set our Installation query
     
     [push setMessage:message];
     
-    [push sendPushInBackgroundWithBlock:block];
+    [push sendPushInBackground];
 }
 
 - (void)cleanBadge {

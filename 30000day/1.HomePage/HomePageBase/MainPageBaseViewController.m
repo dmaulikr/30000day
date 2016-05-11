@@ -16,7 +16,6 @@
 #import "SignInViewController.h"
 #import "AppDelegate.h"
 #import "JSBadgeView.h"
-#import "JPUSHService.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
@@ -78,11 +77,6 @@
                                                  
                                              }];
                                              
-                                             [JPUSHService setTags:nil alias:@"123456" fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                                                 
-                                                 NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
-                                                 
-                                             }];
                                          }
                                          failure:^(NSError *error) {
                                              

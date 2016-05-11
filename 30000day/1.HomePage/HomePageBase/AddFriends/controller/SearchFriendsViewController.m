@@ -163,7 +163,10 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口
-        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] userId:[userInformationModel.userId stringValue] success:^(BOOL success) {
+        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                                       userId:[userInformationModel.userId stringValue]
+                                                    messageType:@1
+                                                      success:^(BOOL success) {
             
             [self showToast:@"添加成功"];
             
@@ -178,11 +181,6 @@
             weakCell.addButton.hidden = NO;
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        }];
-        
-        [[LZPushManager manager] pushMessage:@"干" userIds:@[userInformationModel.userId] block:^(BOOL succeeded, NSError *error) {
-          
-            
         }];
         
     }];

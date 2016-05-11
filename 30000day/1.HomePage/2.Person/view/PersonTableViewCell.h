@@ -32,5 +32,13 @@
 
 //第三个xib
 
+//第四个xib
+@property (weak, nonatomic) IBOutlet UIImageView *imageView_fourth;
+@property (weak, nonatomic) IBOutlet UILabel *labelFirst_fourth;
+@property (weak, nonatomic) IBOutlet UILabel *labelSecond_fourth;
+@property (weak, nonatomic) IBOutlet UIButton *button_fourth;
+
+
+
 
 @end

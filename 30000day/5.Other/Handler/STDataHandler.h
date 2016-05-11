@@ -139,9 +139,10 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                   failure:(void (^)(NSError *))failure;
 
 
-//************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
+//************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型*************/
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
+                                messageType:(NSNumber *)messageType
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(NSError *error))failure;
 //***** 更新个人信息 *****/
@@ -519,5 +520,6 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 - (void)sendcheckRegisterForMobileWithmobile:(NSString *)mobile
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
+
 
 @end

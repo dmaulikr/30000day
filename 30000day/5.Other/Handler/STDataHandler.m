@@ -50,6 +50,8 @@
 #import "JHOpenidSupplier.h"
 #import "APIStoreSDK.h"
 
+//极光推送
+#import "JPUSHService.h"
 
 @interface NSMutableDictionary (Parameter)
 
@@ -467,6 +469,8 @@
                                                                    
                                                                 });
                                                                 
+                                                                
+                                                                
                                                             } else {
                                                                 
                                                                 NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"账户无效"}];
@@ -593,6 +597,13 @@
     
     //设置个人健康模型
     [[STHealthyManager shareManager] synchronizedHealthyDataFromServer];
+    
+    //设置推送别名
+    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",userProfile.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+        
+        NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
+        
+    }];
 }
 
 //********** 用户注册************/
@@ -1094,22 +1105,23 @@
                 
             });
         }
-        
     });;
- 
 }
 
-//************添加一个好友(currentUserId:当前用户的userId,nickName:待添加的userId,nickName:待添加的昵称)*************/
+//************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型*************/
 - (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
                                      userId:(NSString *)userId
+                                messageType:(NSNumber *)messageType
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(NSError *error))failure {
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters addParameter:currentUserId forKey:@"curUserId"];
+    [parameters addParameter:currentUserId forKey:@"mobileOwnerId"];
     
-    [parameters addParameter:userId forKey:@"fUserId"];
+    [parameters addParameter:userId forKey:@"friendOwnerId"];
+    
+    [parameters addParameter:messageType forKey:@"message"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:ADD_USER
@@ -1133,7 +1145,7 @@
                                                                          success(YES);
                                                                         
                                                                         //发出通知
-                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
+//                                                                        [[NSNotificationCenter defaultCenter] postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
                                                                         
                                                                     }
                                                                     
@@ -1174,7 +1186,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
 }
 
 

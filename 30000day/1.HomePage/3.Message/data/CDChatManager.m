@@ -13,6 +13,7 @@
 #import "CDFailedMessageStore.h"
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
+#import "LZPushManager.h"
 
 static CDChatManager *instance;
 
@@ -88,17 +89,6 @@ static CDChatManager *instance;
             
         }
         [CDEmotionUtils saveEmotions];
-    }];
-    
-    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
-    
-    if (clientId) {
-        
-        [currentInstallation addUniqueObject:clientId forKey:@"channels"];
-    }
-    
-    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"%@", error);
     }];
 }
 

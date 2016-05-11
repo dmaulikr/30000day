@@ -16,6 +16,12 @@
     self.imageView_first.layer.cornerRadius = 3;
     
     self.imageView_first.layer.masksToBounds = YES;
+    
+    self.button_fourth.layer.cornerRadius = 3;
+    
+    self.button_fourth.layer.masksToBounds = YES;
+    
+    self.button_fourth.backgroundColor = LOWBLUECOLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

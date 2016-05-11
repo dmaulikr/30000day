@@ -24,8 +24,8 @@
 #import "CDUtils.h"
 #import "CDAddRequest.h"
 #import "LZPushManager.h"
-#import <iRate/iRate.h>
-#import <iVersion/iVersion.h>
+//#import <iRate/iRate.h>
+//#import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "CDIMService.h"
 #import <AVOSCloudCrashReporting/AVOSCloudCrashReporting.h>
@@ -75,8 +75,7 @@
                                                       UIUserNotificationTypeSound |
                                                       UIUserNotificationTypeAlert)
                                           categories:nil];
-    
-     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
     [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO advertisingIdentifier:advertisingId];
     
@@ -98,17 +97,15 @@
     
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
     
-    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-    
-    [iRate sharedInstance].previewMode = NO;
-    
-    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iVersion sharedInstance].previewMode = NO;
-    
-    [[LZPushManager manager] registerForRemoteNotification];
+//    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
+//    
+//    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+//    
+//    [iRate sharedInstance].previewMode = NO;
+//    
+//    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+//    
+//    [iVersion sharedInstance].previewMode = NO;
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -139,7 +136,6 @@
                 [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
                 
                 [successArray addObject:successDictionary];
-                
             }
             
             //同步省-城市-区、县的数据
@@ -312,7 +308,6 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    
 }
 
 //点击了home键,程序进入后台了
@@ -341,9 +336,8 @@
 //                     blue:255.0 / 255
 //                    alpha:1];
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
-    [JPUSHService registerDeviceToken:deviceToken];
     
-    [[LZPushManager manager] saveInstallationWithDeviceToken:deviceToken];
+    [JPUSHService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
