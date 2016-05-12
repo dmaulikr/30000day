@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PromoteAgeTableViewCell" rowHeight="79" id="KGk-i7-Jjw" customClass="PromoteAgeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aik-fJ-tej">
+                        <rect key="frame" x="14" y="9" width="347" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Aik-fJ-tej" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="FZU-hn-I6A"/>
+                    <constraint firstItem="Aik-fJ-tej" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="VEp-bU-VOf"/>
+                    <constraint firstAttribute="trailing" secondItem="Aik-fJ-tej" secondAttribute="trailing" constant="14" id="cBZ-OU-Lin"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="sportTextLable" destination="Aik-fJ-tej" id="BCa-Ci-NTo"/>
+            </connections>
+            <point key="canvasLocation" x="2.5" y="297"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Sleep" id="KCj-iM-y4E">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KCj-iM-y4E" id="2GJ-Od-G8V">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="健康作息提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnC-QS-sAS">
+                        <rect key="frame" x="14" y="11" width="102" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8la-IM-wiz">
+                        <rect key="frame" x="312" y="6" width="51" height="31"/>
+                        <connections>
+                            <action selector="sleepSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="u8i-cD-eWN"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hnC-QS-sAS" firstAttribute="leading" secondItem="2GJ-Od-G8V" secondAttribute="leading" constant="14" id="Ejo-7G-bxO"/>
+                    <constraint firstAttribute="trailing" secondItem="8la-IM-wiz" secondAttribute="trailing" constant="14" id="QyQ-tU-eGr"/>
+                    <constraint firstItem="hnC-QS-sAS" firstAttribute="centerY" secondItem="2GJ-Od-G8V" secondAttribute="centerY" id="akT-ko-gCY"/>
+                    <constraint firstItem="8la-IM-wiz" firstAttribute="centerY" secondItem="2GJ-Od-G8V" secondAttribute="centerY" id="iwc-dN-fAC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="2.5" y="420"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhysicalExamination" id="CkK-Ra-JGK">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CkK-Ra-JGK" id="0JP-NT-pBk">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体检提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKn-mK-qXW">
+                        <rect key="frame" x="14" y="11" width="68" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BKn-mK-qXW" firstAttribute="centerY" secondItem="0JP-NT-pBk" secondAttribute="centerY" id="8D7-pC-i6Z"/>
+                    <constraint firstItem="BKn-mK-qXW" firstAttribute="leading" secondItem="0JP-NT-pBk" secondAttribute="leading" constant="14" id="9ni-7a-Bxs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="2.5" y="531"/>
+        </tableViewCell>
+    </objects>
+</document>

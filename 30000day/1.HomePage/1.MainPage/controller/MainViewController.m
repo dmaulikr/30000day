@@ -22,6 +22,7 @@
 #import "HealthySetUpViewController.h"
 #import "SettingBirthdayView.h"
 #import "DaysOfAgeOption.h"
+#import "PromoteAgeViewController.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -767,7 +768,13 @@
         
         } else {
             
+            PromoteAgeViewController *controller = [[PromoteAgeViewController alloc] init];
             
+            controller.sportText = self.informationModel.sport;
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
         
         }
         
