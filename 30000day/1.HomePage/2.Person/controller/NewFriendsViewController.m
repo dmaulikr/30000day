@@ -108,24 +108,26 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-     
+        
         NewFriendModel *model = self.dataArray[indexPath.row];
         
-        [self.dataHandler sendDeleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
-                                                friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]]
-                                                     success:^(BOOL success) {
-            
-                                                         [self showToast:@"删除成功"];
-                                                         
-                                                         [self.dataArray removeObject:model];
-                                                         
-                                                         [self.tableView reloadData];
-            
-        } failure:^(NSError *error) {
-           
-            [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-            
-        }];
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [[NewFriendManager shareManager] deleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
+                                                          friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]]
+                                                                success:^(NSMutableArray *dataArray) {
+        
+                                                                    self.dataArray = dataArray;
+                                                                    
+                                                                    [self.tableView reloadData];
+                                                                    
+                                                                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+    } failure:^(NSError *error) {
+       
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+    }];
+        
     }
 }
 
