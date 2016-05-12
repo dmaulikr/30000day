@@ -120,7 +120,7 @@
                              
                              self.physicalExaminationView = [[[NSBundle mainBundle] loadNibNamed:@"PhysicalExaminationView" owner:self options:nil]lastObject];
                              
-                             [self.physicalExaminationView setFrame:CGRectMake(100, 300, 200, 100)];
+                             [self.physicalExaminationView setFrame:CGRectMake(SCREEN_WIDTH / 2 - 200 / 2, 300, 200, 135)];
                              
                              [self.view addSubview:self.physicalExaminationView];
 
@@ -132,8 +132,6 @@
                          }];
         
     }
-    
-    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

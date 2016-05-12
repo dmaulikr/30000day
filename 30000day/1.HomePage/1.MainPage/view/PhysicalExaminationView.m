@@ -18,4 +18,11 @@
 }
 */
 
+- (IBAction)closeClick:(UIButton *)sender {
+    
+    [self removeFromSuperview];
+    
+}
+
+
 @end
