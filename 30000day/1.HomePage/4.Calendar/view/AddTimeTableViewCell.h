@@ -10,8 +10,8 @@
 
 @interface AddTimeTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) void (^(addTimeAction))();
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *addTimeButton;
+@property (weak, nonatomic) IBOutlet UILabel *detailTitleLabel;
 
 @end

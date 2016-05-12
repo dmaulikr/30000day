@@ -340,14 +340,6 @@
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-//    rootViewController.deviceTokenValueLabel.text =
-//    [NSString stringWithFormat:@"%@", deviceToken];
-//    rootViewController.deviceTokenValueLabel.textColor =
-//    [UIColor colorWithRed:0.0 / 255
-//                    green:122.0 / 255
-//                     blue:255.0 / 255
-//                    alpha:1];
-    
     [JPUSHService registerDeviceToken:deviceToken];
 }
 
@@ -374,18 +366,18 @@
             
         }
         
-        NSString *cancelTitle = @"取消";
-        
-        NSString *showTitle = @"去查看";
-        
-        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:message
-                                                           delegate:self
-                                                  cancelButtonTitle:cancelTitle
-                                                  otherButtonTitles:showTitle, nil];
-        [alertView show];
+//        NSString *cancelTitle = @"取消";
+//        
+//        NSString *showTitle = @"去查看";
+//        
+//        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+//        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                            message:message
+//                                                           delegate:self
+//                                                  cancelButtonTitle:cancelTitle
+//                                                  otherButtonTitles:showTitle, nil];
+//        [alertView show];
     }
 }
 

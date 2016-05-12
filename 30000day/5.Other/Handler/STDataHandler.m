@@ -5851,149 +5851,149 @@
     [self startRequest:request];
 }
 
-//**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
-- (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
-                                    success:(void (^)(NSMutableArray *dataArray))success
-                                    failure:(void (^)(NSError *error))failure {
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    [params addParameter:userId forKey:@"userId"];
-    
-    [Common urlStringWithDictionary:params withString:FIND_APPLY_ALL_ADD_FRIEND];
-    
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:FIND_APPLY_ALL_ADD_FRIEND
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                                                                
-                                                                NSArray *array = recvDic[@"value"];
-                                                                
-                                                                for (int i = 0; i < array.count; i++) {
-                                                                    
-                                                                    NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
-                                                                    
-                                                                    [dataArray addObject:model];
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                      
-                                                                    success(dataArray);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    
-    [self startRequest:request];
-}
-
-//*********************删除某一条请求加为好友记录*******************//
-- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
-                              friendUserId:(NSNumber *)friendId
-                                   success:(void (^)(BOOL))success
-                                   failure:(void (^)(NSError *))failure {
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    [params addParameter:userId forKey:@"userId"];
-    
-    [params addParameter:friendId forKey:@"friendId"];
-    
-    [Common urlStringWithDictionary:params withString:DELETE_APPLY_ADD_FRIEND];
-    
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:DELETE_APPLY_ADD_FRIEND
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                            
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    
-    [self startRequest:request];
-}
+////**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
+//- (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
+//                                    success:(void (^)(NSMutableArray *dataArray))success
+//                                    failure:(void (^)(NSError *error))failure {
+//    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    
+//    [params addParameter:userId forKey:@"userId"];
+//    
+//    [Common urlStringWithDictionary:params withString:FIND_APPLY_ALL_ADD_FRIEND];
+//    
+//    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+//                                                        url:FIND_APPLY_ALL_ADD_FRIEND
+//                                                 parameters:params
+//                                                    success:^(id responseObject) {
+//                                                        
+//                                                        NSError *localError = nil;
+//                                                        
+//                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+//                                                        
+//                                                        if (localError == nil) {
+//                                                            
+//                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+//                                                            
+//                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+//                                                                
+//                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+//                                                                
+//                                                                NSArray *array = recvDic[@"value"];
+//                                                                
+//                                                                for (int i = 0; i < array.count; i++) {
+//                                                                    
+//                                                                    NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
+//                                                                    
+//                                                                    [dataArray addObject:model];
+//                                                                }
+//                                                                
+//                                                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                      
+//                                                                    success(dataArray);
+//                                                                });
+//                                                                
+//                                                            } else {
+//                                                                
+//                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+//                                                                
+//                                                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                    
+//                                                                    failure(failureError);
+//                                                                    
+//                                                                });
+//                                                            }
+//                                                            
+//                                                        } else {
+//                                                            
+//                                                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                
+//                                                                failure(localError);
+//                                                                
+//                                                            });
+//                                                        }
+//                                                        
+//                                                    } failure:^(STNetError *error) {
+//                                                        
+//                                                        dispatch_async(dispatch_get_main_queue(), ^{
+//                                                            
+//                                                            failure(error.error);
+//                                                        });
+//                                                        
+//                                                    }];
+//    request.needHeaderAuthorization = NO;
+//    
+//    request.requestSerializerType = STRequestSerializerTypeJSON;
+//    
+//    [self startRequest:request];
+//}
+//
+////*********************删除某一条请求加为好友记录*******************//
+//- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
+//                              friendUserId:(NSNumber *)friendId
+//                                   success:(void (^)(BOOL))success
+//                                   failure:(void (^)(NSError *))failure {
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    
+//    [params addParameter:userId forKey:@"userId"];
+//    
+//    [params addParameter:friendId forKey:@"friendId"];
+//    
+//    [Common urlStringWithDictionary:params withString:DELETE_APPLY_ADD_FRIEND];
+//    
+//    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+//                                                        url:DELETE_APPLY_ADD_FRIEND
+//                                                 parameters:params
+//                                                    success:^(id responseObject) {
+//                                                        
+//                                                        NSError *localError = nil;
+//                                                        
+//                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+//                                                        
+//                                                        if (localError == nil) {
+//                                                            
+//                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+//                                                            
+//                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+//                                                            
+//                                                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                    
+//                                                                    success(YES);
+//                                                                });
+//                                                                
+//                                                            } else {
+//                                                                
+//                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+//                                                                
+//                                                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                    
+//                                                                    failure(failureError);
+//                                                                    
+//                                                                });
+//                                                            }
+//                                                            
+//                                                        } else {
+//                                                            
+//                                                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                                                
+//                                                                failure(localError);
+//                                                                
+//                                                            });
+//                                                        }
+//                                                        
+//                                                    } failure:^(STNetError *error) {
+//                                                        
+//                                                        dispatch_async(dispatch_get_main_queue(), ^{
+//                                                            
+//                                                            failure(error.error);
+//                                                        });
+//                                                        
+//                                                    }];
+//    request.needHeaderAuthorization = NO;
+//    
+//    request.requestSerializerType = STRequestSerializerTypeJSON;
+//    
+//    [self startRequest:request];
+//}
 
 @end

@@ -20,12 +20,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)addTimeButtonAction:(id)sender {
-    
-    if (self.addTimeAction) {
-        
-        self.addTimeAction();
-    }
-}
-
 @end

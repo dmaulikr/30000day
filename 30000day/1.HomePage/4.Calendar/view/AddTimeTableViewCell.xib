@@ -16,32 +16,32 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提醒时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3X-vY-Rxg">
                         <rect key="frame" x="15" y="13" width="65" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="syI-RO-i6f"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZk-94-eQ0">
-                        <rect key="frame" x="95" y="0.0" width="210" height="44"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PY1-er-uxe">
+                        <rect key="frame" x="95" y="0.0" width="210" height="43"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <state key="normal">
-                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="addTimeButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g1P-5l-OMs"/>
-                        </connections>
-                    </button>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="TZk-94-eQ0" secondAttribute="trailing" constant="15" id="9oX-EK-pnN"/>
-                    <constraint firstItem="TZk-94-eQ0" firstAttribute="leading" secondItem="b3X-vY-Rxg" secondAttribute="trailing" constant="15" id="EEh-OX-h9N"/>
+                    <constraint firstItem="PY1-er-uxe" firstAttribute="leading" secondItem="b3X-vY-Rxg" secondAttribute="trailing" constant="15" id="5be-8Y-YZ2"/>
+                    <constraint firstAttribute="bottom" secondItem="PY1-er-uxe" secondAttribute="bottom" id="6SN-mO-9PE"/>
                     <constraint firstItem="b3X-vY-Rxg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PNI-w6-KJz"/>
                     <constraint firstItem="b3X-vY-Rxg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="PZS-ca-Ede"/>
-                    <constraint firstItem="TZk-94-eQ0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kWp-40-vYA"/>
-                    <constraint firstItem="TZk-94-eQ0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oR2-rL-S9i"/>
+                    <constraint firstAttribute="trailing" secondItem="PY1-er-uxe" secondAttribute="trailing" constant="15" id="gsZ-uQ-ci3"/>
+                    <constraint firstItem="PY1-er-uxe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yY5-7C-nQE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addTimeButton" destination="TZk-94-eQ0" id="Xdj-eR-n8Y"/>
+                <outlet property="detailTitleLabel" destination="PY1-er-uxe" id="qq0-Vg-6Jx"/>
+                <outlet property="titleLabel" destination="b3X-vY-Rxg" id="ya1-tQ-SaV"/>
             </connections>
         </tableViewCell>
     </objects>

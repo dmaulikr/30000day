@@ -54,6 +54,8 @@
     
     object.dateString = newModel.dateString;
     
+    object.calenderNumber = newModel.calenderNumber;
+    
     NSError *error;
     
     BOOL success = [self.managedObjectContext save:&error];
@@ -80,6 +82,8 @@
     newObject.date = model.date;
     
     newObject.dateString = model.dateString;
+    
+    newObject.calenderNumber = model.calenderNumber;
     
     NSError *error;
     
@@ -154,6 +158,8 @@
         
         model.date = object.date;
         
+        model.calenderNumber = object.calenderNumber;
+        
         [dataArray addObject:model];
     }
     
@@ -206,6 +212,8 @@
         
         model.dateString = object.dateString;
         
+        model.calenderNumber = object.calenderNumber;
+        
         [dataArray addObject:model];
     }
     
@@ -232,7 +240,6 @@
     return [array firstObject];
 }
 
-
 //*************************************对本地通知的一些操作***********************************//
 //增加一个本地通知
 - (void)addLocaleNotification:(RemindModel *)model {
@@ -249,6 +256,31 @@
     
     notification.alertBody = model.content;
     
+    if ([model.calenderNumber isEqual:@1]) {
+    
+        notification.repeatInterval = NSCalendarUnitMinute;
+        
+    } else if ([model.calenderNumber isEqual:@2]) {
+        
+        notification.repeatInterval = NSCalendarUnitHour;
+        
+    } else if ([model.calenderNumber isEqual:@3]) {
+        
+        notification.repeatInterval = NSCalendarUnitDay;
+        
+    } else if ([model.calenderNumber isEqual:@4]) {
+        
+       notification.repeatInterval = NSCalendarUnitWeekday;
+        
+    } else if ([model.calenderNumber isEqual:@5]) {
+        
+        notification.repeatInterval = NSCalendarUnitMonth;
+        
+    } else if ([model.calenderNumber isEqual:@6]) {
+        
+         notification.repeatInterval = NSCalendarUnitYear;
+    }
+
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
     dictionary[@"alertTitle"] = model.title;
@@ -258,7 +290,6 @@
     notification.userInfo = dictionary; //添加额外的信息
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    
 }
 
 //修改本地通知
