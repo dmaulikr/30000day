@@ -163,6 +163,24 @@ static NewFriendManager *manager;
 //清除申请好友的角标
 - (void)cleanApplyFiendBadgeNumber:(void (^)(NSInteger badgerNumber))success {
     
+   [self cleanBadgeNumber];
+   
+    //在从服务器去拉取
+   [self sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
+       
+       [self cleanBadgeNumber];
+       
+       success(0);
+       
+    } failure:^(NSError *error) {
+       
+    }];
+    
+    success(0);
+}
+
+- (void)cleanBadgeNumber {
+    
     NSMutableArray *oldArray = [self decodeObject];
     
     for (int i = 0; i < oldArray.count; i++) {
@@ -174,17 +192,20 @@ static NewFriendManager *manager;
     
     //清除完后归档
     [self encodeDataObject:oldArray];
-    
-    success(0);
 }
 
 //获取角标
 - (void)getBadgeNumber:(void (^)(NSInteger badgeNumber))success {
     
-     NSMutableArray *oldArray = [self decodeObject];
-    
     //保存角标的代码块
     self.getBadgeNumberBlock = success;
+    
+    success([self badgeNumber]);
+}
+
+- (NSInteger)badgeNumber {
+    
+    NSMutableArray *oldArray = [self decodeObject];
     
     //先获取本地的角标
     int badgeNumber = 0;
@@ -196,7 +217,7 @@ static NewFriendManager *manager;
         badgeNumber += oldModel.badgeNumber;
     }
     
-    success(badgeNumber);
+    return badgeNumber;
 }
 
 //获取所有的数据
@@ -204,35 +225,18 @@ static NewFriendManager *manager;
     
     //保存获取数据的代码块
     self.getDataBlock = success;
-    
-    success([self decodeObject]);
-    
+    //从服务器去下载
     [self sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
                                       success:^(NSMutableArray *dataArray) {
                                           
-                                          int badgeNumber = 0;
-                                          
-                                          for (int i = 0; i < dataArray.count; i++) {
-                                              
-                                              NewFriendModel *oldModel = dataArray[i];
-                                              
-                                              badgeNumber += oldModel.badgeNumber;
-                                          }
-                                          
-                                          if (self.getBadgeNumberBlock) {
-                                              
-                                              self.getBadgeNumberBlock(badgeNumber);
-                                          }
-                                          
-                                          if (self.getDataBlock) {
-                                              
-                                              self.getDataBlock(dataArray);
-                                          }
+                                          success(dataArray);
                                           
                                       } failure:^(NSError *error) {
                                           
                                           
                                       }];
+    
+    success([self decodeObject]);
 }
 
 - (void)dealloc {

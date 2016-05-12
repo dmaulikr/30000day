@@ -370,7 +370,7 @@
             
             
         } else if ([type isEqualToString:@"3"]) {//拒绝
-
+            
             
         }
         
