@@ -180,6 +180,9 @@
                     <constraint firstItem="iF0-vy-qty" firstAttribute="centerY" secondItem="Fr1-M1-FhN" secondAttribute="centerY" id="x4r-Ex-GeR"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="imageView_third" destination="KdX-94-yAK" id="SnC-IT-THe"/>
+            </connections>
             <point key="canvasLocation" x="265" y="715"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_fourth" id="2J0-wJ-w7a" customClass="PersonTableViewCell">

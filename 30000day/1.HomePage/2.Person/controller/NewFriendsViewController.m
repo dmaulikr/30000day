@@ -9,6 +9,7 @@
 #import "NewFriendsViewController.h"
 #import "PersonTableViewCell.h"
 #import "MTProgressHUD.h"
+#import "NewFriendManager.h"
 
 @interface NewFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -26,36 +27,12 @@
     self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self showHeadRefresh:YES showFooterRefresh:NO];
-    
-    [self loadData];
-}
-
--(void)headerRefreshing {
-    
-    [self loadData];
-}
-
-- (void)loadData {
-    
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
-    [self.dataHandler sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
-       
+    //获取数据
+    [[NewFriendManager shareManager] getDataArray:^(NSMutableArray *dataArray) {
+        
         self.dataArray = dataArray;
         
         [self.tableView reloadData];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self.tableView.mj_header endRefreshing];
-        
-    } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self.tableView.mj_header endRefreshing];
-        
     }];
 }
 

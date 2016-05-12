@@ -69,6 +69,8 @@
 
 #define USER_CHOOSE_AGENUMBER         @"userChooseAgeNumber"  //当前用户所选择的年龄
 
+#define BADGE_NUMBER                  @"badge_number"        //自己人的角标
+
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height

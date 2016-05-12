@@ -13,11 +13,14 @@
 #import "PersonDetailViewController.h"
 #import "PersonInformationsManager.h"
 #import "NewFriendsViewController.h"
+#import "NewFriendManager.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
     NSMutableArray *_dataArray;
 }
+
+@property (nonatomic,strong) PersonTableViewCell *firstCell;
 
 @end
 
@@ -47,6 +50,25 @@
     
     //成功的切换模式
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    //获取角标
+    [[NewFriendManager shareManager] getBadgeNumber:^(NSInteger badgeNumber) {
+        
+        if (badgeNumber <= 99) {
+            
+            if (badgeNumber == 0) {
+                
+                self.firstCell.badgeView.badgeText = @"";
+                
+            } else {
+                
+               self.firstCell.badgeView.badgeText = [NSString stringWithFormat:@"%d",(int)badgeNumber];
+            }
+            
+        } else {
+            
+            self.firstCell.badgeView.badgeText = @"99+";
+        }
+    }];
 }
 
 - (void)reloadData {
@@ -78,6 +100,16 @@
         [self.tableView.mj_header endRefreshing];
         
     }];
+}
+
+- (PersonTableViewCell *)firstCell {
+    
+    if (!_firstCell) {
+        
+        _firstCell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
+        
+    }
+    return _firstCell;
 }
 
 #pragma ---
@@ -178,17 +210,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        
-        static NSString *identifier = @"PersonTableViewCell_third";
-        
-        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
-        }
-        
-        return cell;
+
+        return self.firstCell;
         
     } else {
         
@@ -233,6 +256,11 @@
         controller.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:controller animated:YES];
+        //清除badgeNumber
+        [[NewFriendManager shareManager] cleanApplyFiendBadgeNumber:^(NSInteger badgerNumber) {
+           
+            self.firstCell.badgeView.badgeText = @"";
+        }];
         
     } else {
         
