@@ -12,6 +12,7 @@
 #import "UserInformationModel.h"
 #import "PersonDetailViewController.h"
 #import "PersonInformationsManager.h"
+#import "NewFriendsViewController.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -25,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableViewStyle = STRefreshTableViewPlain;
+    self.tableViewStyle = STRefreshTableViewGroup;
     
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     
@@ -84,41 +85,48 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    static NSString *headViewIndentifier = @"PersonHeadView";
-    
-    PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
-    
-    if (view == nil) {
+    if (section == 0) {
+     
+        static NSString *headViewIndentifier = @"PersonHeadView";
         
-        view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
-    }
-
-    view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
-    
-    view.titleLabel.hidden = NO;
-    
-    [view setChangeStateBlock:^(UIButton *changeStatusButton) {
+        PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
         
-        [self.tableView reloadData];
+        if (view == nil) {
+            
+            view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
+        }
         
-        [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+        view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
         
-    }];
-    
-    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+        view.titleLabel.hidden = NO;
         
-        [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+        [view setChangeStateBlock:^(UIButton *changeStatusButton) {
+            
+            [self.tableView reloadData];
+            
+            [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+            
+        }];
         
-        [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
+        if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+            
+            [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
+            
+            [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
+            
+        } else {
+            
+            [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
+            
+            [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
+        }
+        
+        return view;
         
     } else {
         
-        [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
-        
-        [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
+        return nil;
     }
-    
-    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -127,76 +135,117 @@
         
         return 44;
     }
-    return 0;
+    
+    return 0.01f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _dataArray.count;
-    
+    if (section == 0) {
+        
+        return 1;
+        
+    } else {
+        
+       return _dataArray.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+    if (indexPath.section == 0) {
         
-        return SCREEN_WIDTH + 75.0f;
+        return 72.1f;
         
     } else {
         
-        return 72.1f;
+        if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
+            
+            return SCREEN_WIDTH + 75.0f;
+            
+        } else {
+            
+            return 72.1f;
+        }
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (![Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {//小图
+    
+    if (indexPath.section == 0) {
         
-        static NSString *identifier = @"PersonTableViewCell";
+        static NSString *identifier = @"PersonTableViewCell_third";
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][0];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         }
-        
-        cell.informationModel = _dataArray[indexPath.row];
         
         return cell;
         
-    } else {//大图
+    } else {
         
-        static NSString *identifier_big = @"PersonTableViewCell_big";
-        
-        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier_big];
-        
-        if (cell == nil) {
+        if (![Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {//小图
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][1];
+            static NSString *identifier = @"PersonTableViewCell";
+            
+            PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][0];
+            }
+            
+            cell.informationModel = _dataArray[indexPath.row];
+            
+            return cell;
+            
+        } else {//大图
+            
+            static NSString *identifier_big = @"PersonTableViewCell_big";
+            
+            PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier_big];
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][1];
+            }
+            cell.informationModel_second = _dataArray[indexPath.row];
+            
+            return cell;
         }
-        cell.informationModel_second = _dataArray[indexPath.row];
-        
-        return cell;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
-    
-    controller.hidesBottomBarWhenPushed = YES;
-    
-    UserInformationModel *model = _dataArray[indexPath.row];
-    
-    controller.friendUserId = model.userId;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    if (indexPath.section == 0) {
+        
+        NewFriendsViewController *controller = [[NewFriendsViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else {
+        
+        PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        UserInformationModel *model = _dataArray[indexPath.row];
+        
+        controller.friendUserId = model.userId;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -16,14 +16,16 @@
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "JPUSHService.h"
+#import <AdSupport/AdSupport.h>
+
 
 #import "CDAbuseReport.h"
 #import "CDCacheManager.h"
 #import "CDUtils.h"
 #import "CDAddRequest.h"
 #import "LZPushManager.h"
-#import <iRate/iRate.h>
-#import <iVersion/iVersion.h>
+//#import <iRate/iRate.h>
+//#import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "CDIMService.h"
 #import <AVOSCloudCrashReporting/AVOSCloudCrashReporting.h>
@@ -69,12 +71,14 @@
     }
     
     //***********************************配置JPush*******************************//
-    //可以添加自定义categories
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                       UIUserNotificationTypeSound |
                                                       UIUserNotificationTypeAlert)
                                           categories:nil];
-    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO];
+    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    
+    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO advertisingIdentifier:advertisingId];
+    
     
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
@@ -93,15 +97,15 @@
     
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
     
-    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-    
-    [iRate sharedInstance].previewMode = NO;
-    
-    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
-    [iVersion sharedInstance].previewMode = NO;
+//    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
+//    
+//    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+//    
+//    [iRate sharedInstance].previewMode = NO;
+//    
+//    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+//    
+//    [iVersion sharedInstance].previewMode = NO;
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -132,7 +136,6 @@
                 [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
                 
                 [successArray addObject:successDictionary];
-                
             }
             
             //同步省-城市-区、县的数据
@@ -212,6 +215,7 @@
     
     return YES;
 }
+
 
 - (void)openChat:(NSNumber *)userId
       completion:(void (^)(BOOL success))success
@@ -304,7 +308,6 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    [[LZPushManager manager] syncBadge];
 }
 
 //点击了home键,程序进入后台了
@@ -333,6 +336,7 @@
 //                     blue:255.0 / 255
 //                    alpha:1];
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
+    
     [JPUSHService registerDeviceToken:deviceToken];
 }
 

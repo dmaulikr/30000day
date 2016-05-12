@@ -163,6 +163,11 @@
         
     }
     
+    if ([Common isObjectNull:keyValueString]) {
+        
+        return nil;
+    }
+    
     keyValueString = [keyValueString substringToIndex:keyValueString.length - 1];
     
     url = [NSString stringWithFormat:@"%@%@",url,keyValueString];

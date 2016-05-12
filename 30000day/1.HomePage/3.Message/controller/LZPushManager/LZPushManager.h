@@ -22,7 +22,9 @@ static NSString *const kAVIMInstallationKeyChannels = @"channels";
 - (void)unsubscribeUserChannelWithBlock:(AVBooleanResultBlock)block userId:(NSString *)userId;
 
 // please call in application:didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-- (void)saveInstallationWithDeviceToken:(NSData *)deviceToken userId:(NSString *)userId;
+- (void)saveInstallationWithDeviceToken:(NSData *)deviceToken;
+
+- (void)saveInstallationWithChannel:(NSString *)channels;
 
 // push message
 - (void)pushMessage:(NSString *)message userIds:(NSArray *)userIds block:(AVBooleanResultBlock)block;

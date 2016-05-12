@@ -10,6 +10,16 @@
 #import "MDRadialProgressView.h"
 #import "MDRadialProgressTheme.h"
 #import "UserInformationModel.h"
+#import "NewFriendModel.h"
+
+typedef NS_ENUM(NSInteger,ButtonType) {
+    
+    ButtonTypeAccept,
+    
+    ButtonTypeRequest,
+    
+    ButtonTypeReject
+};
 
 @interface PersonTableViewCell : UITableViewCell
 
@@ -30,7 +40,16 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_second;
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
 
+//第三个xib
 
 
+//第四个xib
+@property (weak, nonatomic) IBOutlet UIImageView *imageView_fourth;
+@property (weak, nonatomic) IBOutlet UILabel *labelFirst_fourth;
+@property (weak, nonatomic) IBOutlet UILabel *labelSecond_fourth;
+@property (weak, nonatomic) IBOutlet UIButton *button_fourth;
+@property (nonatomic,strong) NewFriendModel *friendModel;
+@property (nonatomic,copy) void (^buttonAction)(NewFriendModel *friendModel);
+@property (nonatomic,assign) ButtonType type;//
 
 @end

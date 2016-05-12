@@ -260,7 +260,7 @@
 		B8365A621C71E0BC00063269 /* ChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A611C71E0BC00063269 /* ChineseString.m */; };
 		B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */; };
 		B8381DD81CE0609700E3AC08 /* jpush-ios-2.1.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8381DD61CE0609700E3AC08 /* jpush-ios-2.1.6.a */; };
-		B8381DDB1CE06E9D00E3AC08 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */; };
+		B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8381DDE1CE0C13100E3AC08 /* NewFriendsViewController.m */; };
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A511CAD01F000D2CC6A /* GJTextView.m */; };
 		B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */; };
@@ -641,6 +641,7 @@
 		B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB21C8A8440007BCA6B /* CDResizableButton.m */; };
 		B8FD3EC31C8A8440007BCA6B /* CDSNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB41C8A8440007BCA6B /* CDSNSView.m */; };
 		B8FD3EC41C8A8440007BCA6B /* CDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB61C8A8440007BCA6B /* CDTextField.m */; };
+		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -987,7 +988,8 @@
 		B8381DD21CDC9F4F00E3AC08 /* STConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STConversationCell.m; sourceTree = "<group>"; };
 		B8381DD61CE0609700E3AC08 /* jpush-ios-2.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.6.a"; sourceTree = "<group>"; };
 		B8381DD71CE0609700E3AC08 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
-		B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		B8381DDD1CE0C13100E3AC08 /* NewFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsViewController.h; sourceTree = "<group>"; };
+		B8381DDE1CE0C13100E3AC08 /* NewFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendsViewController.m; sourceTree = "<group>"; };
 		B83B7A301CAA848E00D2CC6A /* CalendarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewCell.h; sourceTree = "<group>"; };
 		B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B83B7A501CAD01F000D2CC6A /* GJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJTextView.h; sourceTree = "<group>"; };
@@ -1756,6 +1758,8 @@
 		B8FD3EB51C8A8440007BCA6B /* CDTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTextField.h; sourceTree = "<group>"; };
 		B8FD3EB61C8A8440007BCA6B /* CDTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTextField.m; sourceTree = "<group>"; };
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
+		B8FFBF041CE30F72009AA425 /* NewFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendModel.h; sourceTree = "<group>"; };
+		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1765,6 +1769,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F2D94E1C5C467D002C7712 /* AdSupport.framework in Frameworks */,
 				B80B55A71CD10196003E2C36 /* libstdc++.6.0.9.tbd in Frameworks */,
 				B80B55A51CD10176003E2C36 /* libsqlite3.0.tbd in Frameworks */,
 				B80B55A31CD1015B003E2C36 /* Security.framework in Frameworks */,
@@ -1785,7 +1790,6 @@
 				B8F2D9521C5C46BA002C7712 /* libc++.tbd in Frameworks */,
 				B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */,
 				B8F2D9501C5C4685002C7712 /* CoreLocation.framework in Frameworks */,
-				B8F2D94E1C5C467D002C7712 /* AdSupport.framework in Frameworks */,
 				B8F2D94C1C5C466D002C7712 /* CoreTelephony.framework in Frameworks */,
 				69AC72980754A4DC6CAF3D29 /* libPods.a in Frameworks */,
 				B8F2D94A1C5C4599002C7712 /* JuheApisSDK.a in Frameworks */,
@@ -2121,6 +2125,8 @@
 			children = (
 				B801379D1CD8B1F700ED0566 /* PersonInformationsManager.h */,
 				B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */,
+				B8FFBF041CE30F72009AA425 /* NewFriendModel.h */,
+				B8FFBF051CE30F72009AA425 /* NewFriendModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2462,7 +2468,6 @@
 				B88C91991C5A0B620089BEAE /* PrefixHeader.pch */,
 				B89216B51C603C060023F8A8 /* Common.h */,
 				B89216B61C603C060023F8A8 /* Common.m */,
-				B8381DDA1CE06E9D00E3AC08 /* PushConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2663,6 +2668,8 @@
 				B80137811CD8499B00ED0566 /* PersonSettingViewController.h */,
 				B80137821CD8499B00ED0566 /* PersonSettingViewController.m */,
 				B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */,
+				B8381DDD1CE0C13100E3AC08 /* NewFriendsViewController.h */,
+				B8381DDE1CE0C13100E3AC08 /* NewFriendsViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4493,7 +4500,6 @@
 				B89216E81C634E650023F8A8 /* AddFriendsViewController.xib in Resources */,
 				B804FD951C8AC9A900DFD1CF /* RecordingSignal001@2x.png in Resources */,
 				B665F8C51CC4BF5200070458 /* btn_unselected@2x.png in Resources */,
-				B8381DDB1CE06E9D00E3AC08 /* PushConfig.plist in Resources */,
 				B804FD911C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				B804FD5C1C8AC9A900DFD1CF /* tusiji_12.gif in Resources */,
 				B804FDAF1C8AC9A900DFD1CF /* voice@2x.png in Resources */,
@@ -4866,6 +4872,7 @@
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
 				B612DD811CACFE21004C428C /* ShopOneLineDataTableViewCell.m in Sources */,
+				B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */,
 				B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				B8FD3E201C8A7903007BCA6B /* XHMessageInputView.m in Sources */,
@@ -5060,6 +5067,7 @@
 				B8FD3CA41C8A7763007BCA6B /* CDChatListVC.m in Sources */,
 				B86A10471CC8755E00D3E01B /* SubscribeTableViewCell.m in Sources */,
 				B8FD3EC11C8A8440007BCA6B /* CDPopMenuItemCell.m in Sources */,
+				B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */,
 				B89216B11C5F3EEA0023F8A8 /* STDataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
 				B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */,
