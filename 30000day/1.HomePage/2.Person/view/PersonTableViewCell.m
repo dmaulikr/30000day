@@ -211,5 +211,72 @@
     return iDays;
 }
 
+- (void)setFriendModel:(NewFriendModel *)friendModel {
+    
+    _friendModel = friendModel;
+    
+    [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:friendModel.friendHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    self.labelFirst_fourth.text = friendModel.friendNickName;
+    
+    self.labelSecond_fourth.text = friendModel.friendMemo;
+    
+    if ([friendModel.status isEqualToString:@"1"]) {//请求
+        
+        [self setType:ButtonTypeRequest];
+        
+    } else if ([friendModel.status isEqualToString:@"2"]) {//已经接受
+        
+        [self setType:ButtonTypeAccept];
+        
+    } else if ([friendModel.status isEqualToString:@"3"]) {//拒绝
+        
+        [self setType:ButtonTypeReject];
+    }
+}
+
+- (IBAction)buttonClickAction:(id)sender {
+ 
+    if (self.buttonAction) {
+        
+        self.buttonAction(_friendModel);
+    }
+}
+
+- (void)setType:(ButtonType)type {
+    
+    _type = type;
+    
+    if (type == ButtonTypeAccept) {
+        
+        [self.button_fourth setTitle:@"已同意" forState:UIControlStateNormal];
+        
+        self.button_fourth.enabled = NO;
+        
+        [self.button_fourth setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
+        self.button_fourth.backgroundColor = [UIColor whiteColor];
+        
+    } else if (type == ButtonTypeRequest) {
+        
+        [self.button_fourth setTitle:@"接受" forState:UIControlStateNormal];
+        
+        self.button_fourth.enabled = YES;
+        
+        [self.button_fourth setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        self.button_fourth.backgroundColor = LOWBLUECOLOR;
+        
+    } else if (type == ButtonTypeReject) {
+        
+        [self.button_fourth setTitle:@"已拒绝" forState:UIControlStateNormal];
+        
+        self.button_fourth.enabled = NO;
+        
+        [self.button_fourth setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
+        self.button_fourth.backgroundColor = [UIColor whiteColor];
+    }
+}
 
 @end

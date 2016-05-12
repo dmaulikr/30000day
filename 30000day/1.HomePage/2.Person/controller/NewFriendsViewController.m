@@ -8,8 +8,11 @@
 
 #import "NewFriendsViewController.h"
 #import "PersonTableViewCell.h"
+#import "MTProgressHUD.h"
 
 @interface NewFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
 
@@ -23,6 +26,37 @@
     self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self showHeadRefresh:YES showFooterRefresh:NO];
+    
+    [self loadData];
+}
+
+-(void)headerRefreshing {
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
+    [self.dataHandler sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
+       
+        self.dataArray = dataArray;
+        
+        [self.tableView reloadData];
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self.tableView.mj_header endRefreshing];
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [self.tableView.mj_header endRefreshing];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,9 +73,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return self.dataArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -54,7 +87,69 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:self options:nil][3];
     }
     
+    cell.friendModel = self.dataArray[indexPath.row];
+    
+    __weak typeof(cell) weakCell = cell;
+    
+    [cell setButtonAction:^(NewFriendModel *friendModel) {
+       
+        [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                                                    userId:[NSNumber numberWithLongLong:[friendModel.userId longLongValue]]
+                                               messageType:@2
+                                                   success:^(BOOL success) {
+                                                       
+                                                       [weakCell setType:ButtonTypeAccept];
+                                                       
+                                                       //发出通知
+                                                       [STNotificationCenter postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
+                                                   }
+                                                   failure:^(NSError *error) {
+                                                       
+                                                       [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                       
+                                                   }];
+    }];
+    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+     
+        NewFriendModel *model = self.dataArray[indexPath.row];
+        
+        [self.dataHandler sendDeleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
+                                                friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]]
+                                                     success:^(BOOL success) {
+            
+                                                         [self showToast:@"删除成功"];
+                                                         
+                                                         [self.dataArray removeObject:model];
+                                                         
+                                                         [self.tableView reloadData];
+            
+        } failure:^(NSError *error) {
+           
+            [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+            
+        }];
+    }
 }
 
 /*

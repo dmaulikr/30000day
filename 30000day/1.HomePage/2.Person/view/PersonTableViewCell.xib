@@ -73,7 +73,6 @@
             <connections>
                 <outlet property="imageRight_first" destination="rGE-Md-cME" id="80F-vO-dKb"/>
                 <outlet property="imageView_first" destination="1iA-2v-tDG" id="8Yi-WC-QJ1"/>
-                <outlet property="imageView_fourth" destination="DgB-w9-v2f" id="p1c-bR-z2t"/>
                 <outlet property="labelFirst_first" destination="znz-iJ-cFR" id="6Dy-K9-ehJ"/>
                 <outlet property="labelSecond_first" destination="l6b-R0-XMa" id="Ldm-uv-PxH"/>
                 <outlet property="progressView" destination="YeR-ol-YZI" id="Zdg-OY-bZ9"/>
@@ -213,15 +212,18 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvv-XH-Pcg">
-                        <rect key="frame" x="245" y="16" width="60" height="40"/>
+                        <rect key="frame" x="245" y="18" width="60" height="35"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="IUV-jJ-UN0"/>
+                            <constraint firstAttribute="height" constant="35" id="IUV-jJ-UN0"/>
                             <constraint firstAttribute="width" constant="60" id="JiR-33-gGZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="接受">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="buttonClickAction:" destination="2J0-wJ-w7a" eventType="touchUpInside" id="OVF-C2-nMV"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -238,6 +240,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="button_fourth" destination="hvv-XH-Pcg" id="806-5h-CkH"/>
+                <outlet property="imageView_fourth" destination="DgB-w9-v2f" id="qME-h6-gjU"/>
                 <outlet property="labelFirst_fourth" destination="Ybx-LO-S4r" id="q8q-5Q-8Gp"/>
                 <outlet property="labelSecond_first" destination="IqE-59-w7G" id="0SY-bB-pDp"/>
                 <outlet property="labelSecond_fourth" destination="IqE-59-w7G" id="mhZ-9L-Vlw"/>

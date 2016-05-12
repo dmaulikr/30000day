@@ -238,6 +238,9 @@
 
 #define  CHECK_MOBILE                 @"/stapi/user/checkRegisterForMobile"     //检查手机号是否已经注册
 
+#define  FIND_APPLY_ALL_ADD_FRIEND        @"/stapi/user/findApplyAddFriend"         //查找所有申请加我为好友记录
+
+#define  DELETE_APPLY_ADD_FRIEND          @"/stapi/user/rmvApplyAddFriend"          //删除一条申请加我为好友记录
 
 //凌云用到的宏
 #define NICK_NAME             @"nickName"

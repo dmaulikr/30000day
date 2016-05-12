@@ -162,15 +162,13 @@
     [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        //添加好友,接口
-        [self.dataHandler sendAddUserRequestWithcurrentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
-                                                       userId:[userInformationModel.userId stringValue]
+        //添加好友,接口, @1请求   @2接受   @3拒绝
+        [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                                                       userId:userInformationModel.userId
                                                     messageType:@1
                                                       success:^(BOOL success) {
             
-            [self showToast:@"添加成功"];
-            
-            weakCell.addButton.hidden = YES;
+            [self showToast:@"请求发送成功"];
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             

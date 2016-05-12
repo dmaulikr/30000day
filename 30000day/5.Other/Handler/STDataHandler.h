@@ -139,9 +139,10 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                   failure:(void (^)(NSError *))failure;
 
 
-//************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型*************/
-- (void)sendAddUserRequestWithcurrentUserId:(NSString *)currentUserId
-                                     userId:(NSString *)userId
+//************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型 @1请求;@2接受;@3拒绝*************/
+//添加好友会发送一个极光推送
+- (void)sendPushMessageWithCurrentUserId:(NSNumber *)currentUserId
+                                     userId:(NSNumber *)userId
                                 messageType:(NSNumber *)messageType
                                     success:(void(^)(BOOL success))success
                                     failure:(void (^)(NSError *error))failure;
@@ -520,6 +521,18 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 - (void)sendcheckRegisterForMobileWithmobile:(NSString *)mobile
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
+
+
+//**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
+- (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
+                                 success:(void (^)(NSMutableArray *dataArray))success
+                                failure:(void (^)(NSError *error))failure;
+
+//*********************删除某一条请求加为好友记录*******************//
+- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
+                              friendUserId:(NSNumber *)friendId
+                                   success:(void (^)(BOOL))success
+                                   failure:(void (^)(NSError *))failure;
 
 
 @end
