@@ -22,4 +22,6 @@
 
 @property (nonatomic,copy) NSString *friendMemo;
 
+@property (nonatomic,assign) NSInteger badgeNumber;//角标
+
 @end

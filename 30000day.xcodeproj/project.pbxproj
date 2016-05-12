@@ -640,6 +640,7 @@
 		B8FD3EC31C8A8440007BCA6B /* CDSNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB41C8A8440007BCA6B /* CDSNSView.m */; };
 		B8FD3EC41C8A8440007BCA6B /* CDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB61C8A8440007BCA6B /* CDTextField.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
+		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1755,6 +1756,8 @@
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
 		B8FFBF041CE30F72009AA425 /* NewFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendModel.h; sourceTree = "<group>"; };
 		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
+		B8FFBF071CE4588E009AA425 /* NewFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendManager.h; sourceTree = "<group>"; };
+		B8FFBF081CE4588E009AA425 /* NewFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendManager.m; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2122,6 +2125,8 @@
 				B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */,
 				B8FFBF041CE30F72009AA425 /* NewFriendModel.h */,
 				B8FFBF051CE30F72009AA425 /* NewFriendModel.m */,
+				B8FFBF071CE4588E009AA425 /* NewFriendManager.h */,
+				B8FFBF081CE4588E009AA425 /* NewFriendManager.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5064,6 +5069,7 @@
 				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
+				B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,

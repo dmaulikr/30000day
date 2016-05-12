@@ -53,6 +53,9 @@ static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STU
 //当成功的切换显示好友模式
 static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification = @"STUserDidSuccessChangeBigOrSmallPictureSendNotification";
 
+//有人申请加为好友
+ static NSString *const STDidApplyAddFriendSendNotification = @"STDidApplyAddFriendSendNotification";
+
 
 @class STNetError;
 

@@ -34,7 +34,7 @@
 #import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
 #import "SearchTableVersion.h"
-
+#import "NewFriendManager.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -64,7 +64,9 @@
         [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
             
             if (!success) {
-                NSLog(@"You didn't allow HealthKit to access these read/write data types. In your app, try to handle this error gracefully when a user decides not to provide access. The error was: %@. If you're using a simulator, try it on a device.", error);
+                
+                NSLog(@"error = %@", error);
+                
                 return;
             }
         }];
@@ -109,11 +111,16 @@
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
-    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];//
+    
+    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
+    
     if (!ret) {
         NSLog(@"manager start failed!");
     }
 
+    //*********初始化申请好友管理***************************//
+    [[NewFriendManager shareManager] synchronizedDataFromServer];
+    
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
     
     STDataHandler *dataHandler = [[STDataHandler alloc] init];
@@ -168,10 +175,13 @@
                         for (int i = 0; i < success.count; i++) {
                             
                             NSMutableDictionary *successDictionary = [NSMutableDictionary dictionary];
+                            
                             SearchTableVersion *searchTableVersionSuccess = success[i];
                             
                             [successDictionary setObject:searchTableVersionSuccess.searchTableVersionId forKey:@"searchTableVersionId"];
+                            
                             [successDictionary setObject:searchTableVersionSuccess.tableName forKey:@"tableName"];
+                            
                             [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
                             
                             [successArray addObject:successDictionary];
@@ -179,7 +189,9 @@
                         }
                         
                         NSArray *array = [NSArray arrayWithArray:successArray];
+                        
                         [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
+                        
                         [defaults synchronize];
 
                     } else {
@@ -335,7 +347,6 @@
 //                    green:122.0 / 255
 //                     blue:255.0 / 255
 //                    alpha:1];
-    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     
     [JPUSHService registerDeviceToken:deviceToken];
 }
@@ -343,8 +354,25 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [JPUSHService handleRemoteNotification:userInfo];
-
+    
+    [JPUSHService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    
+    [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+    
     if (application.applicationState == UIApplicationStateActive) {
+        
+        NSString *type = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        
+        if ([type isEqualToString:@"1"]) {//正在等待验证
+            
+            
+        } else if ([type isEqualToString:@"2"]) {//接受
+            
+            
+        } else if ([type isEqualToString:@"3"]) {//拒绝
+
+            
+        }
         
         NSString *cancelTitle = @"取消";
         

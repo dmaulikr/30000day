@@ -19,6 +19,7 @@
 #import "CDChatManager.h"
 #import "MTProgressHUD.h"
 #import "MyOrderViewController.h"
+#import "JPUSHService.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -45,7 +46,7 @@
     self.isShowBackItem = NO;
     
     //监听个人信息管理模型发出的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
     [self loadEmail];
 }
@@ -81,8 +82,7 @@
                                          
                                          [self.tableView.mj_header endRefreshing];
                                          
-                                     }
-                                     failure:^(NSError *error) {
+                                     } failure:^(NSError *error) {
                                          
                                          NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
                                          
@@ -367,7 +367,6 @@
         [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
             
         }];
-        
     }]];
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -376,7 +375,7 @@
 
 - (void)dealloc {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 /*

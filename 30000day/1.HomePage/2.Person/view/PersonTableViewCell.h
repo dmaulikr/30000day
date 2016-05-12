@@ -11,6 +11,7 @@
 #import "MDRadialProgressTheme.h"
 #import "UserInformationModel.h"
 #import "NewFriendModel.h"
+#import "JSBadgeView.h"
 
 typedef NS_ENUM(NSInteger,ButtonType) {
     
@@ -41,7 +42,8 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
 
 //第三个xib
-
+@property (weak, nonatomic) IBOutlet UIImageView *imageView_third;
+@property (nonatomic,strong) JSBadgeView *badgeView;
 
 //第四个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_fourth;
