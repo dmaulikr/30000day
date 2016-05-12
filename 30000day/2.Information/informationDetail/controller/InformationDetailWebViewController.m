@@ -272,7 +272,7 @@
         
         if (tag == 1) {
             
-            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"30000天";
+            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"守护我爱的人，30000天。人生短暂，快来加入吧! ";
             [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             

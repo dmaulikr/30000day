@@ -82,5 +82,55 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="2.5" y="531"/>
         </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pm25" id="Yzi-1z-iuY">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yzi-1z-iuY" id="ruu-8H-A3c">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pm2.5预警" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Y-so-NYf">
+                        <rect key="frame" x="14" y="11" width="83" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBU-Vb-ohO">
+                        <rect key="frame" x="312" y="6" width="51" height="31"/>
+                        <connections>
+                            <action selector="sleepSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="YrX-6w-PVM"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="A3Y-so-NYf" firstAttribute="leading" secondItem="ruu-8H-A3c" secondAttribute="leading" constant="14" id="6k8-bo-HkB"/>
+                    <constraint firstItem="UBU-Vb-ohO" firstAttribute="centerY" secondItem="ruu-8H-A3c" secondAttribute="centerY" id="crm-RI-EDO"/>
+                    <constraint firstAttribute="trailing" secondItem="UBU-Vb-ohO" secondAttribute="trailing" constant="14" id="p2y-8A-zGr"/>
+                    <constraint firstItem="A3Y-so-NYf" firstAttribute="centerY" secondItem="ruu-8H-A3c" secondAttribute="centerY" id="vK2-T6-ruK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="2.5" y="642"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhysicalExamination" id="Vi3-hp-yzU">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vi3-hp-yzU" id="dog-k4-e46">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天龄下降因素" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COC-95-usU">
+                        <rect key="frame" x="14" y="11" width="102" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="COC-95-usU" firstAttribute="centerY" secondItem="dog-k4-e46" secondAttribute="centerY" id="a78-zt-X02"/>
+                    <constraint firstItem="COC-95-usU" firstAttribute="leading" secondItem="dog-k4-e46" secondAttribute="leading" constant="14" id="nV4-Tu-mr9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="2.5" y="745"/>
+        </tableViewCell>
     </objects>
 </document>

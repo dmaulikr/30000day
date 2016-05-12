@@ -16,8 +16,6 @@
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606AE671CBCF97300830D28 /* JavaScriptCore.framework */; };
 		B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */; };
-		B60A6B891CE32D0A00A481EC /* PhysicalExaminationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B60A6B871CE32D0A00A481EC /* PhysicalExaminationViewController.m */; };
-		B60A6B8A1CE32D0B00A481EC /* PhysicalExaminationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60A6B881CE32D0A00A481EC /* PhysicalExaminationViewController.xib */; };
 		B60A6B8D1CE331C700A481EC /* PhysicalExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B60A6B8C1CE331C700A481EC /* PhysicalExaminationView.m */; };
 		B60A6B911CE3320900A481EC /* PhysicalExaminationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60A6B901CE3320900A481EC /* PhysicalExaminationView.xib */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
@@ -661,9 +659,6 @@
 		B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWebJSObject.h; sourceTree = "<group>"; };
 		B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWebJSObject.m; sourceTree = "<group>"; };
-		B60A6B861CE32D0A00A481EC /* PhysicalExaminationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationViewController.h; sourceTree = "<group>"; };
-		B60A6B871CE32D0A00A481EC /* PhysicalExaminationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationViewController.m; sourceTree = "<group>"; };
-		B60A6B881CE32D0A00A481EC /* PhysicalExaminationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationViewController.xib; sourceTree = "<group>"; };
 		B60A6B8B1CE331C700A481EC /* PhysicalExaminationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationView.h; sourceTree = "<group>"; };
 		B60A6B8C1CE331C700A481EC /* PhysicalExaminationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationView.m; sourceTree = "<group>"; };
 		B60A6B901CE3320900A481EC /* PhysicalExaminationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationView.xib; sourceTree = "<group>"; };
@@ -2627,9 +2622,6 @@
 				B6E30CA41CE1CB2400C510A5 /* PromoteAgeViewController.h */,
 				B6E30CA51CE1CB2500C510A5 /* PromoteAgeViewController.m */,
 				B6E30CA61CE1CB2500C510A5 /* PromoteAgeViewController.xib */,
-				B60A6B861CE32D0A00A481EC /* PhysicalExaminationViewController.h */,
-				B60A6B871CE32D0A00A481EC /* PhysicalExaminationViewController.m */,
-				B60A6B881CE32D0A00A481EC /* PhysicalExaminationViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4705,7 +4697,6 @@
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
 				B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */,
 				B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */,
-				B60A6B8A1CE32D0B00A481EC /* PhysicalExaminationViewController.xib in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
 				B804FDB41C8AC9A900DFD1CF /* weChatBubble_Receiving_LeanChat@2x.png in Resources */,
 				B804FDA11C8AC9A900DFD1CF /* SenderVoiceNodePlaying001@2x.png in Resources */,
@@ -4786,7 +4777,6 @@
 				B8FD3E131C8A7903007BCA6B /* XHViewState.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* PersonTableViewCell.m in Sources */,
 				B8FD3DE31C8A7903007BCA6B /* XHPhotographyHelper.m in Sources */,
-				B60A6B891CE32D0A00A481EC /* PhysicalExaminationViewController.m in Sources */,
 				B8FD3DEB1C8A7903007BCA6B /* XHDisplayLocationViewController.m in Sources */,
 				B8F6E3851CB91BEE000CC117 /* MD5DataSigner.m in Sources */,
 				B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */,
