@@ -282,7 +282,7 @@
                 
                 picker.recipients = [NSArray arrayWithObject:chineseSting.phoneNumber];
                 
-                picker.body = @"我们正在玩30000天,你也来玩吧http://www.baidu.com";
+                picker.body = @"守护我爱的人，30000天。人生短暂，快来加入吧!http://www.baidu.com";
                 
                 if (picker) {
                     
@@ -304,7 +304,7 @@
                 
                 [controller setSubject:@"My Subject"];
                 
-                [controller setMessageBody:@"我们正在玩30000day，你也来玩吧" isHTML:NO];
+                [controller setMessageBody:@"守护我爱的人，30000天。人生短暂，快来加入吧! " isHTML:NO];
                 
                 if (controller) {
                     
@@ -318,27 +318,32 @@
             
         } else if (tag == 5) {
             
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            //[UMSocialData defaultData].extConfig.sinaData.title
+            [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
         }  else if (tag == 4) {
             
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
+            [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
         } else if (tag == 3) {
             
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialData defaultData].extConfig.qzoneData.title = @"30000天";
+            [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQzone].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
         } else if (tag == 2 ) {
             
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialData defaultData].extConfig.wechatSessionData.title = @"30000天";
+            [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
         } else if (tag == 1 ) {
             
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"30000天";
+            [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
         }
     }];

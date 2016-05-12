@@ -1313,6 +1313,7 @@
                 
                 NSDictionary *now = sumDictionary[@"now"];
                 NSDictionary *aqi = sumDictionary[@"aqi"][@"city"];
+                NSDictionary *suggestion = sumDictionary[@"suggestion"];
                 
 //              NSDictionary *basic = sumDictionary[@"basic"];
 //              NSDictionary *suggestion = sumDictionary[@"suggestion"];
@@ -1324,6 +1325,8 @@
                 NSString *code = now[@"cond"][@"code"];
                 NSString *tmp = now[@"tmp"];
                 NSString *qlty = aqi[@"qlty"];
+                NSString *sport = suggestion[@"sport"][@"txt"];
+                
                 
                 WeatherInformationModel *informationModel = [[WeatherInformationModel alloc] init];
 
@@ -1334,6 +1337,8 @@
                 informationModel.pm25Quality = qlty;
 
                 informationModel.weatherShowImageString = [NSString stringWithFormat:@"%@.png",code];
+                
+                informationModel.sport = sport;
                         
                 dispatch_async(dispatch_get_main_queue(), ^{
                             
