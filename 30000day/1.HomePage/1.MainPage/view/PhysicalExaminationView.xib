@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PhysicalExaminationView">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-oX-tmb">
@@ -19,16 +19,20 @@
                     <rect key="frame" x="40" y="62" width="120" height="30"/>
                     <state key="normal" title="选择体检间隔时间"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="720-oZ-7Zs">
+                    <rect key="frame" x="77" y="112" width="46" height="30"/>
+                    <state key="normal" title="关闭"/>
+                </button>
             </subviews>
-            <color key="backgroundColor" red="0.98039215690000003" green="0.90588235289999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="n3o-oX-tmb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="854-tM-NTs"/>
                 <constraint firstItem="n3o-oX-tmb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="U9b-0g-0pu"/>
+                <constraint firstItem="tJi-M8-Je9" firstAttribute="top" secondItem="n3o-oX-tmb" secondAttribute="bottom" constant="24" id="UjN-ow-3nc"/>
                 <constraint firstItem="tJi-M8-Je9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="pms-Tg-wB1"/>
-                <constraint firstAttribute="bottom" secondItem="tJi-M8-Je9" secondAttribute="bottom" constant="8" id="t1f-cF-eP3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="138" y="-105"/>
+            <point key="canvasLocation" x="145" y="-105"/>
         </view>
     </objects>
 </document>

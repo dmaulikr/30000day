@@ -113,8 +113,8 @@
         
         [UIView animateWithDuration:2.0 // 动画时长
                               delay:0.0 // 动画延迟
-             usingSpringWithDamping:1.0 // 类似弹簧振动效果 0~1
-              initialSpringVelocity:10.0 // 初始速度
+             usingSpringWithDamping:0.5 // 类似弹簧振动效果 0~1  它的范围为 0.0f 到 1.0f ，数值越小「弹簧」的振动效果越明显。
+              initialSpringVelocity:20.0 // 初始速度   初始的速度，数值越大一开始移动越快。值得注意的是，初始速度取值较高而时间较短时，也会出现反弹情况。
                             options:UIViewAnimationOptionCurveEaseInOut // 动画过渡效果
                          animations:^{
                              
