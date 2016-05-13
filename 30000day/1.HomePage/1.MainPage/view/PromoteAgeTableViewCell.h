@@ -12,5 +12,18 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *sportTextLable;
 
+@property (weak, nonatomic) IBOutlet UILabel *sleepLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *physicalExaminationLable;
+
+
+
+
+
+
++ (instancetype)tempTableViewCellWith:(UITableView *)tableView
+                            indexPath:(NSIndexPath *)indexPath;
+
+- (void)configTempCellWith:(NSIndexPath *)indexPath;
 
 @end

@@ -45,7 +45,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 3;
+    return 5;
 
 }
 
@@ -62,47 +62,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (indexPath.row == 0) {
-        
-        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromoteAgeTableViewCell"];
-        
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:self options:nil][0];
-        }
-        
-        cell.sportTextLable.text = self.sportText;
-        
-        return cell;
-        
-    } else if (indexPath.row == 1) {
-        
-        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Sleep"];
-        
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:self options:nil][1];
-        }
-        
-        return cell;
-
     
-    } else if (indexPath.row == 2) {
-        
-        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PhysicalExamination"];
-        
-        if (cell == nil) {
-            
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:self options:nil][2];
-        }
-        
-        return cell;
-
-    }
+    PromoteAgeTableViewCell *cell = [PromoteAgeTableViewCell tempTableViewCellWith:tableView indexPath:indexPath];
     
-    return nil;
-
+    cell.sportTextLable.text = self.sportText;
+    
+    //[cell configTempCellWith:indexPath];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

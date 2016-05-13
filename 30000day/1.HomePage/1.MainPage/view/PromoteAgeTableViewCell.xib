@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PromoteAgeTableViewCell" rowHeight="79" id="KGk-i7-Jjw" customClass="PromoteAgeTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sportsRemind" rowHeight="79" id="KGk-i7-Jjw" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -28,11 +28,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="sportTextLable" destination="Aik-fJ-tej" id="BCa-Ci-NTo"/>
+                <outlet property="sportTextLable" destination="Aik-fJ-tej" id="Gqo-wk-PSX"/>
             </connections>
-            <point key="canvasLocation" x="2.5" y="297"/>
+            <point key="canvasLocation" x="-197.5" y="294"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Sleep" id="KCj-iM-y4E">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sleep" id="KCj-iM-y4E" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KCj-iM-y4E" id="2GJ-Od-G8V">
@@ -42,7 +42,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="健康作息提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnC-QS-sAS">
                         <rect key="frame" x="14" y="11" width="102" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8la-IM-wiz">
@@ -59,78 +59,34 @@
                     <constraint firstItem="8la-IM-wiz" firstAttribute="centerY" secondItem="2GJ-Od-G8V" secondAttribute="centerY" id="iwc-dN-fAC"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="2.5" y="420"/>
+            <connections>
+                <outlet property="sleepLable" destination="hnC-QS-sAS" id="V3B-1q-yzC"/>
+            </connections>
+            <point key="canvasLocation" x="-197.5" y="419"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhysicalExamination" id="CkK-Ra-JGK">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ageDecline" id="H3h-Hr-nQ5" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CkK-Ra-JGK" id="0JP-NT-pBk">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H3h-Hr-nQ5" id="kN1-3q-KWo">
                 <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体检提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKn-mK-qXW">
-                        <rect key="frame" x="14" y="11" width="68" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="BKn-mK-qXW" firstAttribute="centerY" secondItem="0JP-NT-pBk" secondAttribute="centerY" id="8D7-pC-i6Z"/>
-                    <constraint firstItem="BKn-mK-qXW" firstAttribute="leading" secondItem="0JP-NT-pBk" secondAttribute="leading" constant="14" id="9ni-7a-Bxs"/>
-                </constraints>
-            </tableViewCellContentView>
-            <point key="canvasLocation" x="2.5" y="531"/>
-        </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pm25" id="Yzi-1z-iuY">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yzi-1z-iuY" id="ruu-8H-A3c">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pm2.5预警" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Y-so-NYf">
-                        <rect key="frame" x="14" y="11" width="83" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBU-Vb-ohO">
-                        <rect key="frame" x="312" y="6" width="51" height="31"/>
-                        <connections>
-                            <action selector="sleepSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="YrX-6w-PVM"/>
-                        </connections>
-                    </switch>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="A3Y-so-NYf" firstAttribute="leading" secondItem="ruu-8H-A3c" secondAttribute="leading" constant="14" id="6k8-bo-HkB"/>
-                    <constraint firstItem="UBU-Vb-ohO" firstAttribute="centerY" secondItem="ruu-8H-A3c" secondAttribute="centerY" id="crm-RI-EDO"/>
-                    <constraint firstAttribute="trailing" secondItem="UBU-Vb-ohO" secondAttribute="trailing" constant="14" id="p2y-8A-zGr"/>
-                    <constraint firstItem="A3Y-so-NYf" firstAttribute="centerY" secondItem="ruu-8H-A3c" secondAttribute="centerY" id="vK2-T6-ruK"/>
-                </constraints>
-            </tableViewCellContentView>
-            <point key="canvasLocation" x="2.5" y="642"/>
-        </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhysicalExamination" id="Vi3-hp-yzU">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vi3-hp-yzU" id="dog-k4-e46">
-                <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天龄下降因素" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COC-95-usU">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天龄下降因素" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7q9-d9-nnA">
                         <rect key="frame" x="14" y="11" width="102" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="COC-95-usU" firstAttribute="centerY" secondItem="dog-k4-e46" secondAttribute="centerY" id="a78-zt-X02"/>
-                    <constraint firstItem="COC-95-usU" firstAttribute="leading" secondItem="dog-k4-e46" secondAttribute="leading" constant="14" id="nV4-Tu-mr9"/>
+                    <constraint firstItem="7q9-d9-nnA" firstAttribute="leading" secondItem="kN1-3q-KWo" secondAttribute="leading" constant="14" id="fgS-vb-Bfh"/>
+                    <constraint firstItem="7q9-d9-nnA" firstAttribute="centerY" secondItem="kN1-3q-KWo" secondAttribute="centerY" id="onY-u5-cZr"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="2.5" y="745"/>
+            <connections>
+                <outlet property="physicalExaminationLable" destination="7q9-d9-nnA" id="ncm-YY-5DN"/>
+            </connections>
+            <point key="canvasLocation" x="-197.5" y="524"/>
         </tableViewCell>
     </objects>
 </document>
