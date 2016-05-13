@@ -85,6 +85,8 @@
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
+    
+    
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     
@@ -93,6 +95,7 @@
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117619" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
+    
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
