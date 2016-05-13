@@ -312,7 +312,6 @@
 		B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91581C59F9010089BEAE /* AppDelegate.m */; };
 		B88C916A1C59F9AF0089BEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */; };
 		B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B88C91681C59F9AF0089BEAE /* Main.storyboard */; };
-		B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B88C91941C5A09790089BEAE /* InfoPlist.strings */; };
 		B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91B21C5B00500089BEAE /* MyTableViewController.m */; };
 		B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D31C5B05FC0089BEAE /* NSObject+SBJson.m */; };
 		B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B88C91D61C5B05FC0089BEAE /* SBJsonParser.m */; };
@@ -380,8 +379,6 @@
 		B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8C91C5B390E002C7712 /* securityTableViewCell.xib */; };
 		B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8D31C5B3996002C7712 /* SetUpViewController.m */; };
 		B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8D41C5B3996002C7712 /* SetUpViewController.xib */; };
-		B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8D81C5B399D002C7712 /* setUpTableViewCell.m */; };
-		B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8D91C5B399D002C7712 /* setUpTableViewCell.xib */; };
 		B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8E51C5B3A5D002C7712 /* HealthySetUpViewController.m */; };
 		B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8E61C5B3A5D002C7712 /* HealthySetUpViewController.xib */; };
 		B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8EA1C5B3A67002C7712 /* HealthyTableViewCell.m */; };
@@ -1077,7 +1074,6 @@
 		B88C91581C59F9010089BEAE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B88C91671C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B88C91691C59F9AF0089BEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		B88C91941C5A09790089BEAE /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B88C91991C5A0B620089BEAE /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B88C91B11C5B00500089BEAE /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
 		B88C91B21C5B00500089BEAE /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
@@ -1197,9 +1193,6 @@
 		B8F2D8D21C5B3996002C7712 /* SetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetUpViewController.h; sourceTree = "<group>"; };
 		B8F2D8D31C5B3996002C7712 /* SetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpViewController.m; sourceTree = "<group>"; };
 		B8F2D8D41C5B3996002C7712 /* SetUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetUpViewController.xib; sourceTree = "<group>"; };
-		B8F2D8D71C5B399D002C7712 /* setUpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setUpTableViewCell.h; sourceTree = "<group>"; };
-		B8F2D8D81C5B399D002C7712 /* setUpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setUpTableViewCell.m; sourceTree = "<group>"; };
-		B8F2D8D91C5B399D002C7712 /* setUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = setUpTableViewCell.xib; sourceTree = "<group>"; };
 		B8F2D8E41C5B3A5D002C7712 /* HealthySetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthySetUpViewController.h; sourceTree = "<group>"; };
 		B8F2D8E51C5B3A5D002C7712 /* HealthySetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthySetUpViewController.m; sourceTree = "<group>"; };
 		B8F2D8E61C5B3A5D002C7712 /* HealthySetUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HealthySetUpViewController.xib; sourceTree = "<group>"; };
@@ -2462,7 +2455,6 @@
 		B88C912E1C59F2260089BEAE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B88C91941C5A09790089BEAE /* InfoPlist.strings */,
 				B88C913F1C59F2260089BEAE /* Info.plist */,
 				B88C912F1C59F2260089BEAE /* main.m */,
 				B88C91991C5A0B620089BEAE /* PrefixHeader.pch */,
@@ -3081,7 +3073,6 @@
 			isa = PBXGroup;
 			children = (
 				B8F2D8D01C5B3982002C7712 /* controller */,
-				B8F2D8D11C5B3982002C7712 /* view */,
 			);
 			path = SetUp;
 			sourceTree = "<group>";
@@ -3094,16 +3085,6 @@
 				B8F2D8D41C5B3996002C7712 /* SetUpViewController.xib */,
 			);
 			path = controller;
-			sourceTree = "<group>";
-		};
-		B8F2D8D11C5B3982002C7712 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				B8F2D8D71C5B399D002C7712 /* setUpTableViewCell.h */,
-				B8F2D8D81C5B399D002C7712 /* setUpTableViewCell.m */,
-				B8F2D8D91C5B399D002C7712 /* setUpTableViewCell.xib */,
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		B8F2D8DC1C5B39D3002C7712 /* model */ = {
@@ -4532,7 +4513,6 @@
 				B804FD5D1C8AC9A900DFD1CF /* tusiji_12_cover@2x.png in Resources */,
 				B81306C51CB50F930051C4BA /* OrderDetailViewController.xib in Resources */,
 				B804FD8C1C8AC9A900DFD1CF /* placeholderImage@2x.png in Resources */,
-				B8F2D8DB1C5B399D002C7712 /* setUpTableViewCell.xib in Resources */,
 				B804FD8F1C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */,
 				B804FD5B1C8AC9A900DFD1CF /* tusiji_11_cover@2x.png in Resources */,
@@ -4562,7 +4542,6 @@
 				B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */,
 				B804FD781C8AC9A900DFD1CF /* Fav_Cell_Loc@2x.png in Resources */,
 				B804FDB51C8AC9A900DFD1CF /* weChatBubble_Receiving_Solid@2x.png in Resources */,
-				B88C91951C5A09790089BEAE /* InfoPlist.strings in Resources */,
 				B804FDB31C8AC9A900DFD1CF /* weChatBubble_Receiving_Cavern@2x.png in Resources */,
 				B60D858E1C81B0F90091F4EE /* PasswordVerifiedTableViewSecondCell.xib in Resources */,
 				B8F2DA491C5F3D04002C7712 /* PasswordVerifiedViewController.xib in Resources */,
@@ -5037,7 +5016,6 @@
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
-				B8F2D8DA1C5B399D002C7712 /* setUpTableViewCell.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
 				B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */,
