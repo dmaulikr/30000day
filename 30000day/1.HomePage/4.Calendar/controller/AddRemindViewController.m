@@ -58,7 +58,7 @@
     }
     
     //循环数据源
-    _dataArray = [NSMutableArray arrayWithArray:@[@"不循环",@"分",@"每小时",@"每天",@"每星期",@"每月",@"每年"]];
+    _dataArray = [NSMutableArray arrayWithArray:@[@"不循环",@"每分钟",@"每小时",@"每天",@"每星期",@"每月",@"每年"]];
     
     UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction)];
     

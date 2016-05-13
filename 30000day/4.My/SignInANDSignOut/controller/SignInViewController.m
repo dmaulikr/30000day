@@ -226,6 +226,7 @@
 - (void)sendcheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL uid:(NSString *)uid {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
         if (success.boolValue) {
@@ -247,12 +248,12 @@
                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                   
                                                                   [self.tabBarController setSelectedIndex:0];
-                                                                  
+
                                                                   [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                                
                                                                   
                                                               } failure:^(NSError *error) {
                                                                   
+                                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                               }];
                                                  
                                                  
@@ -264,17 +265,21 @@
                                                  
                                              }];
 
-            
         } else {
         
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
             ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
+            
             controller.type = type;
+            
             controller.name = userName;
+            
             controller.url = iconURL;
+            
             controller.uid = uid;
-            [self.navigationController pushViewController:controller animated:YES];
-        
+            
+            [self.navigationController pushViewController:controller animated:NO];
         }
         
     } failure:^(NSError *error) {
@@ -282,9 +287,7 @@
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         [self showToast:@"请求超时，请重新登录"];
-        
     }];
-
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
