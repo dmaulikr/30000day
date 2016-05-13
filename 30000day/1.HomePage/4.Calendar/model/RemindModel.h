@@ -20,4 +20,6 @@
 
 @property (nullable, nonatomic, copy) NSString *dateString;//格式2016-01-12用来查询某一天的提醒
 
+@property (nullable,nonatomic,strong) NSNumber *calenderNumber;//@0:不重复  @1:秒 @2:分  @3:时。。。。
+
 @end

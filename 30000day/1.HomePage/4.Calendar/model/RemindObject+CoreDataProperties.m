@@ -18,5 +18,6 @@
 @dynamic dateString;
 @dynamic title;
 @dynamic userId;
+@dynamic calenderNumber;
 
 @end

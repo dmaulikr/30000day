@@ -56,6 +56,8 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //有人申请加为好友
  static NSString *const STDidApplyAddFriendSendNotification = @"STDidApplyAddFriendSendNotification";
 
+//别人同意加为好友
+ static NSString *const STDidApplyAddFriendSuccessSendNotification = @"STDidApplyAddFriendSuccessSendNotification";
 
 @class STNetError;
 
@@ -526,16 +528,16 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                       failure:(void (^)(NSError *error))failure;
 
 
-//**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
-- (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
-                                 success:(void (^)(NSMutableArray *dataArray))success
-                                failure:(void (^)(NSError *error))failure;
-
-//*********************删除某一条请求加为好友记录*******************//
-- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
-                              friendUserId:(NSNumber *)friendId
-                                   success:(void (^)(BOOL))success
-                                   failure:(void (^)(NSError *))failure;
+////**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
+//- (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
+//                                 success:(void (^)(NSMutableArray *dataArray))success
+//                                failure:(void (^)(NSError *error))failure;
+//
+////*********************删除某一条请求加为好友记录*******************//
+//- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
+//                              friendUserId:(NSNumber *)friendId
+//                                   success:(void (^)(BOOL))success
+//                                   failure:(void (^)(NSError *))failure;
 
 
 @end

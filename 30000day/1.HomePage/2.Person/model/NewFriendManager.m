@@ -163,6 +163,24 @@ static NewFriendManager *manager;
 //清除申请好友的角标
 - (void)cleanApplyFiendBadgeNumber:(void (^)(NSInteger badgerNumber))success {
     
+   [self cleanBadgeNumber];
+   
+    //在从服务器去拉取
+   [self sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
+       
+       [self cleanBadgeNumber];
+       
+       success(0);
+       
+    } failure:^(NSError *error) {
+       
+    }];
+    
+    success(0);
+}
+
+- (void)cleanBadgeNumber {
+    
     NSMutableArray *oldArray = [self decodeObject];
     
     for (int i = 0; i < oldArray.count; i++) {
@@ -174,17 +192,20 @@ static NewFriendManager *manager;
     
     //清除完后归档
     [self encodeDataObject:oldArray];
-    
-    success(0);
 }
 
 //获取角标
 - (void)getBadgeNumber:(void (^)(NSInteger badgeNumber))success {
     
-     NSMutableArray *oldArray = [self decodeObject];
-    
     //保存角标的代码块
     self.getBadgeNumberBlock = success;
+    
+    success([self badgeNumber]);
+}
+
+- (NSInteger)badgeNumber {
+    
+    NSMutableArray *oldArray = [self decodeObject];
     
     //先获取本地的角标
     int badgeNumber = 0;
@@ -196,7 +217,7 @@ static NewFriendManager *manager;
         badgeNumber += oldModel.badgeNumber;
     }
     
-    success(badgeNumber);
+    return badgeNumber;
 }
 
 //获取所有的数据
@@ -204,35 +225,106 @@ static NewFriendManager *manager;
     
     //保存获取数据的代码块
     self.getDataBlock = success;
-    
-    success([self decodeObject]);
-    
+    //从服务器去下载
     [self sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
                                       success:^(NSMutableArray *dataArray) {
                                           
-                                          int badgeNumber = 0;
-                                          
-                                          for (int i = 0; i < dataArray.count; i++) {
-                                              
-                                              NewFriendModel *oldModel = dataArray[i];
-                                              
-                                              badgeNumber += oldModel.badgeNumber;
-                                          }
-                                          
-                                          if (self.getBadgeNumberBlock) {
-                                              
-                                              self.getBadgeNumberBlock(badgeNumber);
-                                          }
-                                          
-                                          if (self.getDataBlock) {
-                                              
-                                              self.getDataBlock(dataArray);
-                                          }
+                                          success(dataArray);
                                           
                                       } failure:^(NSError *error) {
                                           
                                           
                                       }];
+    
+    success([self decodeObject]);
+}
+
+//*********************删除某一条请求加为好友记录*******************//
+- (void)deleteApplyAddFriendWithUserId:(NSNumber *)userId
+                          friendUserId:(NSNumber *)friendId
+                               success:(void (^)(NSMutableArray *dataArray))action
+                               failure:(void (^)(NSError *error))failure {
+    
+    [self sendDeleteApplyAddFriendWithUserId:userId friendUserId:friendId success:^(BOOL success) {
+        
+        NSMutableArray *oldArray = [self decodeObject];
+        
+        for (int i = 0; i < oldArray.count; i++) {
+            
+            NewFriendModel *oldModel = oldArray[i];
+            
+            if ([[NSString stringWithFormat:@"%@",friendId] isEqualToString:oldModel.userId]) {
+                
+                [oldArray removeObject:oldModel];
+            }
+        }
+        
+        //清除完后归档
+        [self encodeDataObject:oldArray];
+        
+        action(oldArray);
+        
+    } failure:^(NSError *error) {
+        
+        failure(error);
+        
+    }];
+}
+
+//*********************删除某一条请求加为好友记录*******************//
+- (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
+                              friendUserId:(NSNumber *)friendId
+                                   success:(void (^)(BOOL))success
+                                   failure:(void (^)(NSError *))failure {
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?userId=%@&friendId=%@",ST_API_SERVER,DELETE_APPLY_ADD_FRIEND,userId,friendId]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    
+    request.HTTPMethod = @"GET";
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        if (connectionError) {//链接出现问题
+            
+            failure(connectionError);
+            
+        } else {//链接没有问题
+            
+            NSError *localError = nil;
+            
+            id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+            
+            if (localError == nil) {
+                
+                NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                
+                if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(YES);
+                    });
+                    
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        failure(failureError);
+                        
+                    });
+                }
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure(localError);
+                    
+                });
+            }
+        }
+    }];
 }
 
 - (void)dealloc {
