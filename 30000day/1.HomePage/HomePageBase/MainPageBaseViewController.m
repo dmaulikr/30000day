@@ -220,6 +220,7 @@
     [self.addFriendsButton setImage:[UIImage imageNamed:@"addFriends.png"] forState:UIControlStateNormal];
     [self.addFriendsButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
     [self.buttonParentView addSubview:self.addFriendsButton];
+    self.addFriendsButton.hidden = YES;
     self.addFriendsButton.translatesAutoresizingMaskIntoConstraints=NO;
     
     [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton

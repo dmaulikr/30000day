@@ -54,7 +54,9 @@ static NSString *cellIdentifier = @"ContactCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
+    self.tableViewStyle =  STRefreshTableViewPlain;
+    
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     self.tableView.dataSource = self;
     
@@ -65,10 +67,12 @@ static NSString *cellIdentifier = @"ContactCell";
     //添加头部刷新
     [self addHeadRefresh];
     
-    // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationMessageReceived object:nil];
+    [self headerRefreshing];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationUnreadsUpdated object:nil];
+    // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationMessageReceived object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationUnreadsUpdated object:nil];
     
     //成功的链接上凌云聊天服务器
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
@@ -151,17 +155,6 @@ static NSString *cellIdentifier = @"ContactCell";
 }
 
 #pragma mark - client status view
-
-- (UIRefreshControl *)getRefreshControl {
-    
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    
-    refreshControl.tintColor = RGBACOLOR(200, 200, 200, 1);
-    
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    
-    return refreshControl;
-}
 
 - (void)selectConversationIfHasRemoteNotificatoinConvid {
     

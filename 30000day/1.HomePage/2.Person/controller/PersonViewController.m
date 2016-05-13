@@ -14,11 +14,13 @@
 #import "PersonInformationsManager.h"
 #import "NewFriendsViewController.h"
 #import "NewFriendManager.h"
+#import "AddFriendsViewController.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
     NSMutableArray *_dataArray;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) PersonTableViewCell *firstCell;
 
@@ -29,15 +31,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableViewStyle = STRefreshTableViewGroup;
+//    self.tableViewStyle = STRefreshTableViewGroup;
     
-    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
+//    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
     
-    self.tableView.dataSource = self;
+//    self.tableView.dataSource = self;
+//    
+//    self.tableView.delegate = self;
     
-    self.tableView.delegate = self;
+//    [self showHeadRefresh:YES showFooterRefresh:NO];
     
-    [self showHeadRefresh:YES showFooterRefresh:NO];
+    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
@@ -69,6 +75,21 @@
             self.firstCell.badgeView.badgeText = @"99+";
         }
     }];
+    
+    [self reloadData];
+    //设置右面的按钮
+    UIBarButtonItem *addFriendItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addFriends"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addFriendsAction)];
+    
+    self.navigationItem.rightBarButtonItem = addFriendItem;
+}
+
+- (void)addFriendsAction {
+    
+    AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
+    
+    addfvc.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:addfvc animated:YES];
 }
 
 - (void)reloadData {
