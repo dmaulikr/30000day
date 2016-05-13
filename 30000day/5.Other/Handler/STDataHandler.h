@@ -321,12 +321,6 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                      Success:(void (^)(NSMutableArray *success))success
                                      failure:(void (^)(NSError *error))failure;
 
-
-//*********************************获取后台数据表格跟新版本信息*************************/
-- (void)sendSearchTableVersion:(void (^)(NSMutableArray *success))success
-                       failure:(void (^)(NSError *error))failure;
-
-
 //*********************************店长推荐*************************/
 - (void)sendShopOwnerRecommendWithCompanyId:(NSString *)companyId
                                       count:(NSInteger)count

@@ -43,7 +43,7 @@
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
@@ -56,6 +56,9 @@
     
     //成功的切换模式
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidApplyAddFriendSuccessSendNotification object:nil];
+    
     //获取角标
     [[NewFriendManager shareManager] getBadgeNumber:^(NSInteger badgeNumber) {
         
@@ -65,14 +68,20 @@
                 
                 self.firstCell.badgeView.badgeText = @"";
                 
+                [[self navigationController] tabBarItem].badgeValue = nil;
+        
             } else {
                 
                self.firstCell.badgeView.badgeText = [NSString stringWithFormat:@"%d",(int)badgeNumber];
+                
+               [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%d", (int)badgeNumber];
             }
             
         } else {
             
             self.firstCell.badgeView.badgeText = @"99+";
+            
+            [[self navigationController] tabBarItem].badgeValue = @"99+";
         }
     }];
     
@@ -281,6 +290,8 @@
         [[NewFriendManager shareManager] cleanApplyFiendBadgeNumber:^(NSInteger badgerNumber) {
            
             self.firstCell.badgeView.badgeText = @"";
+            
+            [[self navigationController] tabBarItem].badgeValue = nil;
         }];
         
     } else {
@@ -305,6 +316,8 @@
 
 - (void)dealloc {
     
+    [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
     [STNotificationCenter removeObserver:self name:STUserAddFriendsSuccessPostNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STUseDidSuccessDeleteFriendSendNotification object:nil];
@@ -312,6 +325,8 @@
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidApplyAddFriendSuccessSendNotification object:nil];
     
     _dataArray = nil;
 }

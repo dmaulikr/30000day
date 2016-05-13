@@ -29,11 +29,11 @@
             
         } else if (i == 1) {
             
-            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"selectInformation"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_messages"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
         } else if (i == 2) {
             
-            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"selectMall"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_txl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
         } else if (i == 3) {
             

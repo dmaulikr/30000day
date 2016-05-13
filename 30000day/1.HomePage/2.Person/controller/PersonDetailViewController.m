@@ -61,8 +61,16 @@
     self.rightButton.layer.cornerRadius = 5;
     self.rightButton.layer.masksToBounds = YES;
     
-    //又部分按钮
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[[UIImage imageNamed:@"icon_more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  imageWithTintColor:LOWBLUECOLOR] style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
+    //右边按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setImage:[[UIImage imageNamed:@"icon_more"] imageWithTintColor:LOWBLUECOLOR] forState:UIControlStateNormal];
+    
+    button.frame = CGRectMake(0, 0, 28.0f, 22.0f);
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    [button addTarget:self action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = rightItem;
     

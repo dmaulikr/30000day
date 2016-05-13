@@ -41,6 +41,7 @@
 }
 
 - (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {
+    
     if (totalUnreadCount > 0) {
         
         if (totalUnreadCount >= 100) {

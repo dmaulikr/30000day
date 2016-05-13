@@ -1,17 +1,27 @@
 //
-//  SearchTableVersion.h
+//  SearchVersionManager.h
 //  30000day
 //
-//  Created by wei on 16/3/30.
+//  Created by GuoJia on 16/5/13.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "STManager.h"
+
+@interface SearchVersionManager : STManager
+
++ (SearchVersionManager *)shareManager;
+
+- (void)synchronizedDataFromServer;
+
+@end
 
 @interface SearchTableVersion : NSObject
 
 @property (nonatomic,copy) NSString *searchTableVersionId;
+
 @property (nonatomic,copy) NSString *tableName;
+
 @property (nonatomic,copy) NSString *version;
 
 @end

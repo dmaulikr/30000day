@@ -126,7 +126,6 @@
 		B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */; };
 		B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
-		B6F8CE661CAB9D6C00218046 /* SearchTableVersion.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6F8CE651CAB9D6B00218046 /* SearchTableVersion.mm */; };
 		B80137841CD8499B00ED0566 /* PersonSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137821CD8499B00ED0566 /* PersonSettingViewController.m */; };
 		B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */; };
 		B801378D1CD89AE300ED0566 /* DuplicationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B801378B1CD89AE300ED0566 /* DuplicationTableViewCell.m */; };
@@ -637,6 +636,7 @@
 		B8FD3EC41C8A8440007BCA6B /* CDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB61C8A8440007BCA6B /* CDTextField.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
+		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -824,8 +824,6 @@
 		B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownView.xib; sourceTree = "<group>"; };
 		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
-		B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableVersion.h; sourceTree = "<group>"; };
-		B6F8CE651CAB9D6B00218046 /* SearchTableVersion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchTableVersion.mm; sourceTree = "<group>"; };
 		B80137811CD8499B00ED0566 /* PersonSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonSettingViewController.h; sourceTree = "<group>"; };
 		B80137821CD8499B00ED0566 /* PersonSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonSettingViewController.m; sourceTree = "<group>"; };
 		B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonSettingViewController.xib; sourceTree = "<group>"; };
@@ -1749,6 +1747,8 @@
 		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
 		B8FFBF071CE4588E009AA425 /* NewFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendManager.h; sourceTree = "<group>"; };
 		B8FFBF081CE4588E009AA425 /* NewFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendManager.m; sourceTree = "<group>"; };
+		B8FFBF0A1CE5E54F009AA425 /* SearchVersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVersionManager.h; sourceTree = "<group>"; };
+		B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVersionManager.mm; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2515,8 +2515,8 @@
 				B88C91581C59F9010089BEAE /* AppDelegate.m */,
 				B88C91661C59F9AF0089BEAE /* LaunchScreen.storyboard */,
 				B88C91681C59F9AF0089BEAE /* Main.storyboard */,
-				B6F8CE641CAB9D6B00218046 /* SearchTableVersion.h */,
-				B6F8CE651CAB9D6B00218046 /* SearchTableVersion.mm */,
+				B8FFBF0A1CE5E54F009AA425 /* SearchVersionManager.h */,
+				B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */,
 			);
 			path = "AppDelegate&storyboard";
 			sourceTree = "<group>";
@@ -5015,6 +5015,7 @@
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
 				B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */,
+				B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
 				B665F8D41CC4BF5200070458 /* ZLCollectionCell.m in Sources */,
@@ -5101,7 +5102,6 @@
 				B80B55AA1CD1B20F003E2C36 /* PriceModel.m in Sources */,
 				B8FD3E151C8A7903007BCA6B /* XHPathCover.m in Sources */,
 				B8F6E2421CB91989000CC117 /* Order.m in Sources */,
-				B6F8CE661CAB9D6C00218046 /* SearchTableVersion.mm in Sources */,
 				B8FD3EC01C8A8440007BCA6B /* CDPopMenuItem.m in Sources */,
 				B612DD871CAD1941004C428C /* CompanyModel.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,

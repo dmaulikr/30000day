@@ -115,7 +115,7 @@
                             <constraint firstItem="R02-ky-pUc" firstAttribute="leading" secondItem="Sc3-4P-Z9W" secondAttribute="leading" id="nVv-Dl-5hj"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="自己人" image="mall" id="6xW-dd-PhV"/>
+                    <tabBarItem key="tabBarItem" title="自己人" image="icon_txl_gray" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" title="自己人" id="fwf-QA-afC"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -159,7 +159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="消息" image="information" id="z1L-MA-CDe"/>
+                    <tabBarItem key="tabBarItem" title="消息" image="icon_messages_gray" id="z1L-MA-CDe"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="消息" id="a9b-r1-c8g"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -214,8 +214,8 @@
     </scenes>
     <resources>
         <image name="homePage" width="25" height="25"/>
-        <image name="information" width="25" height="25"/>
-        <image name="mall" width="25" height="25"/>
+        <image name="icon_messages_gray" width="25" height="25"/>
+        <image name="icon_txl_gray" width="25" height="25"/>
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
     </resources>

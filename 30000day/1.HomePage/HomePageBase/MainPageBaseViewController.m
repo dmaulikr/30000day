@@ -170,7 +170,7 @@
     [calendarViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:calendarViewController.view];
     
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 4, 0)];
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 2, 0)];
 }
 
 - (JSBadgeView *)badgeView {
@@ -211,7 +211,7 @@
     [self.buttonParentView addSubview:_moreAgeButton];
     
     
-    _bottomScrollView = [[UIView alloc]initWithFrame:CGRectMake(0, 42, 65, 2)];
+    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(0, 42, 65, 2)];
     [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
