@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="-340" y="950"/>
         </scene>
-        <!--商城-->
+        <!--自己人-->
         <scene sceneID="CFB-JI-aAs">
             <objects>
-                <viewController id="lnE-H1-1lk" customClass="ShopViewController" sceneMemberID="viewController">
+                <viewController id="lnE-H1-1lk" customClass="PersonViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hxW-Q2-gNO"/>
                         <viewControllerLayoutGuide type="bottom" id="PVk-vr-CH6"/>
@@ -101,19 +101,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="商城" image="mall" id="6xW-dd-PhV"/>
-                    <navigationItem key="navigationItem" id="fwf-QA-afC">
-                        <barButtonItem key="leftBarButtonItem" title="上海市" style="plain" id="nzT-aj-7BJ">
-                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="leftBarButtonAcion:" destination="lnE-H1-1lk" id="foV-LF-Yf8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="自己人" id="fwf-QA-afC"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
-                    <connections>
-                        <outlet property="leftBarButton" destination="nzT-aj-7BJ" id="r2v-3q-4qW"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mt7-OT-VNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -138,10 +128,10 @@
             </objects>
             <point key="canvasLocation" x="-340" y="294"/>
         </scene>
-        <!--资讯-->
+        <!--消息-->
         <scene sceneID="oVM-q3-9WT">
             <objects>
-                <viewController id="QJm-Xh-jgR" customClass="InformationViewController" sceneMemberID="viewController">
+                <viewController id="QJm-Xh-jgR" customClass="CDConvsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yMI-ng-iiS"/>
                         <viewControllerLayoutGuide type="bottom" id="FIg-gT-d1M"/>
@@ -153,7 +143,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="资讯" image="information" id="z1L-MA-CDe"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="a9b-r1-c8g"/>
+                    <navigationItem key="navigationItem" title="消息" id="a9b-r1-c8g"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>

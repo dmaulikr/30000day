@@ -49,7 +49,7 @@
 /**
  *  最近对话页面
  */
-@interface CDChatListVC : UITableViewController
+@interface CDChatListVC : STRefreshViewController
 
 /**
  *  设置 delegate

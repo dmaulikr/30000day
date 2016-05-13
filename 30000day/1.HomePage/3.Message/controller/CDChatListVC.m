@@ -23,7 +23,7 @@
 #import "STConversationCell.h"
 #import "PersonHeadView.h"
 
-@interface CDChatListVC ()
+@interface CDChatListVC () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *conversations;
 
@@ -53,6 +53,12 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
+    
+    self.tableView.dataSource = self;
+    
+    self.tableView.delegate = self;
     
     [LZConversationCell registerCellToTableView:self.tableView];
     

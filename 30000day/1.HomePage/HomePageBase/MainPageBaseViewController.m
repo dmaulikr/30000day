@@ -126,48 +126,48 @@
     
     //设置子控制器
     MainViewController *mainPageController = [[MainViewController alloc] init];
-    PersonViewController *personViewController = [[PersonViewController alloc] init];
-    CDConvsVC *messageViewController = [[CDConvsVC alloc] init];
+//    PersonViewController *personViewController = [[PersonViewController alloc] init];
+//    CDConvsVC *messageViewController = [[CDConvsVC alloc] init];
     
     //未读消息发生改变了的回调
-    [messageViewController setUnreadMessageChange:^(NSInteger totalUnreadCount) {
-        
-        if (totalUnreadCount) {
-            
-            if (totalUnreadCount >= 100) {
-                
-                self.badgeView.badgeText = @"99+";
-                
-            } else {
-
-                self.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(totalUnreadCount)];
-                
-            }
-
-            self.badgeView.hidden = NO;
-            
-        } else {
-            
-            self.badgeView.hidden = YES;
-        }
-    }];
+//    [messageViewController setUnreadMessageChange:^(NSInteger totalUnreadCount) {
+//        
+//        if (totalUnreadCount) {
+//            
+//            if (totalUnreadCount >= 100) {
+//                
+//                self.badgeView.badgeText = @"99+";
+//                
+//            } else {
+//
+//                self.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(totalUnreadCount)];
+//                
+//            }
+//
+//            self.badgeView.hidden = NO;
+//            
+//        } else {
+//            
+//            self.badgeView.hidden = YES;
+//        }
+//    }];
     
     CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     [self addChildViewController:mainPageController];
-    [self addChildViewController:messageViewController];
-    [self addChildViewController:personViewController];
+//    [self addChildViewController:messageViewController];
+//    [self addChildViewController:personViewController];
     [self addChildViewController:calendarViewController];
    
     [mainPageController.view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:mainPageController.view];
     
-    [messageViewController.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_scrollView addSubview:messageViewController.view];
+//    [messageViewController.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    [_scrollView addSubview:messageViewController.view];
+//    
+//    [personViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    [_scrollView addSubview:personViewController.view];
     
-    [personViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [_scrollView addSubview:personViewController.view];
-    
-    [calendarViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 3, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [calendarViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:calendarViewController.view];
     
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 4, 0)];
@@ -196,18 +196,18 @@
     [self.buttonParentView addSubview:_mainPageButton];
     
     
-    _newsButton = [self buttonWithTitle:@"消息" numberAndTag:1];
-    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
-    [self.buttonParentView addSubview:_newsButton];
-
+//    _newsButton = [self buttonWithTitle:@"消息" numberAndTag:1];
+//    [_newsButton setFrame:CGRectMake(BUTTON_WIDTH, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+//    [self.buttonParentView addSubview:_newsButton];
+//
+//    
+//     _personButton = [self buttonWithTitle:@"自己人" numberAndTag:2];
+//    [_personButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+//    [self.buttonParentView addSubview:_personButton];
     
-     _personButton = [self buttonWithTitle:@"自己人" numberAndTag:2];
-    [_personButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
-    [self.buttonParentView addSubview:_personButton];
     
-    
-    _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:3];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
     
@@ -299,26 +299,31 @@
             
             break;
         case 1:
-            [_newsButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_newsButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+//            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
-            break;
-        case 2:
-            [_personButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            
-            break;
-        case 3:
             [_moreAgeButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
+//        case 2:
+//            [_personButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+//            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            
+//            break;
+//        case 3:
+//            [_moreAgeButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+//            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            
+//            break;
         default:
             
             break;
