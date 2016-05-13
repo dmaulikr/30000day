@@ -56,6 +56,8 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //有人申请加为好友
  static NSString *const STDidApplyAddFriendSendNotification = @"STDidApplyAddFriendSendNotification";
 
+//别人同意加为好友
+ static NSString *const STDidApplyAddFriendSuccessSendNotification = @"STDidApplyAddFriendSuccessSendNotification";
 
 @class STNetError;
 
