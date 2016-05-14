@@ -161,7 +161,7 @@
         
     } else if (section == 1) {
         
-        return 1;
+        return 0;
         
     } else if (section == 2) {
         
@@ -358,15 +358,23 @@
         
         [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
     
+        [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
+            
+        }];
+        
+        //清空推送别名
+        [JPUSHService setTags:nil alias:nil fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+            
+            NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
+            
+        }];
+        
         SignInViewController *logview = [[SignInViewController alloc] init];
         
         STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
         
         [self presentViewController:navigationController animated:YES completion:nil];
         
-        [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
-            
-        }];
     }]];
     
     [self presentViewController:alert animated:YES completion:nil];

@@ -98,12 +98,30 @@
                     <view key="view" contentMode="scaleToFill" id="Sc3-4P-Z9W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="R02-ky-pUc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="lnE-H1-1lk" id="OvX-gg-Wrv"/>
+                                    <outlet property="delegate" destination="lnE-H1-1lk" id="7RQ-t7-YrF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="R02-ky-pUc" firstAttribute="top" secondItem="hxW-Q2-gNO" secondAttribute="bottom" constant="-64" id="Bcv-VD-JXA"/>
+                            <constraint firstAttribute="trailing" secondItem="R02-ky-pUc" secondAttribute="trailing" id="XE5-fy-ddt"/>
+                            <constraint firstItem="PVk-vr-CH6" firstAttribute="top" secondItem="R02-ky-pUc" secondAttribute="bottom" constant="-49" id="iTF-HC-Wxb"/>
+                            <constraint firstItem="R02-ky-pUc" firstAttribute="leading" secondItem="Sc3-4P-Z9W" secondAttribute="leading" id="nVv-Dl-5hj"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="商城" image="mall" id="6xW-dd-PhV"/>
+                    <tabBarItem key="tabBarItem" title="自己人" image="icon_txl_gray" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" title="自己人" id="fwf-QA-afC"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="tableView" destination="R02-ky-pUc" id="5N1-Rt-dSo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mt7-OT-VNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -141,7 +159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="资讯" image="information" id="z1L-MA-CDe"/>
+                    <tabBarItem key="tabBarItem" title="消息" image="icon_messages_gray" id="z1L-MA-CDe"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="消息" id="a9b-r1-c8g"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -196,8 +214,8 @@
     </scenes>
     <resources>
         <image name="homePage" width="25" height="25"/>
-        <image name="information" width="25" height="25"/>
-        <image name="mall" width="25" height="25"/>
+        <image name="icon_messages_gray" width="25" height="25"/>
+        <image name="icon_txl_gray" width="25" height="25"/>
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
     </resources>

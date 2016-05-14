@@ -33,7 +33,7 @@
 #import "CDSoundManager.h"
 #import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
-#import "SearchTableVersion.h"
+#import "SearchVersionManager.h"
 #import "NewFriendManager.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
@@ -113,116 +113,20 @@
 //    [iVersion sharedInstance].previewMode = NO;
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
-    _mapManager = [[BMKMapManager alloc] init];
-    
-    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
-    
-    if (!ret) {
-        NSLog(@"manager start failed!");
-    }
+//    _mapManager = [[BMKMapManager alloc] init];
+//    
+//    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
+//    
+//    if (!ret) {
+//        
+//        NSLog(@"manager start failed!");
+//    }
 
     //*********初始化申请好友管理***************************//
     [[NewFriendManager shareManager] synchronizedDataFromServer];
     
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
-    
-    STDataHandler *dataHandler = [[STDataHandler alloc] init];
-    [dataHandler sendSearchTableVersion:^(NSMutableArray *success) {
-        
-        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-        NSArray *searchTableVersionArray = [defaults objectForKey:KEY_SEARCHTABLEVERSION];
-        
-        if (searchTableVersionArray.count == 0 || searchTableVersionArray == nil) {
-            
-            NSMutableArray *successArray = [NSMutableArray array];
-            
-            for (int i = 0; i < success.count; i++) {
-                
-                NSMutableDictionary *successDictionary = [NSMutableDictionary dictionary];
-                SearchTableVersion *searchTableVersionSuccess = success[i];
-                
-                [successDictionary setObject:searchTableVersionSuccess.searchTableVersionId forKey:@"searchTableVersionId"];
-                [successDictionary setObject:searchTableVersionSuccess.tableName forKey:@"tableName"];
-                [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
-                
-                [successArray addObject:successDictionary];
-            }
-            
-            //同步省-城市-区、县的数据
-            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
-            
-            NSArray *array = [NSArray arrayWithArray:successArray];
-            
-            [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
-            
-            [defaults synchronize];
-            
-        } else {
-        
-            if (searchTableVersionArray.count == success.count) {
-            
-            for (int i = 0; i < success.count; i++) {
-                
-                SearchTableVersion *searchTableVersionSuccess = success[i];
-                NSDictionary *searchTableVersion = searchTableVersionArray[i];
-                
-                if ([[NSString stringWithFormat:@"%@",searchTableVersionSuccess.searchTableVersionId] isEqualToString:[[searchTableVersion objectForKey:@"searchTableVersionId"] stringValue]]) {
-                    
-                    if (![[NSString stringWithFormat:@"%@",searchTableVersionSuccess.version] isEqualToString:[NSString stringWithFormat:@"%@",[searchTableVersion objectForKey:@"version"]]]) {
-                        
-                        //同步省-城市-区、县的数据
-                        [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
-                        
-                        NSMutableArray *successArray = [NSMutableArray array];
-                        
-                        for (int i = 0; i < success.count; i++) {
-                            
-                            NSMutableDictionary *successDictionary = [NSMutableDictionary dictionary];
-                            
-                            SearchTableVersion *searchTableVersionSuccess = success[i];
-                            
-                            [successDictionary setObject:searchTableVersionSuccess.searchTableVersionId forKey:@"searchTableVersionId"];
-                            
-                            [successDictionary setObject:searchTableVersionSuccess.tableName forKey:@"tableName"];
-                            
-                            [successDictionary setObject:searchTableVersionSuccess.version forKey:@"version"];
-                            
-                            [successArray addObject:successDictionary];
-                            
-                        }
-                        
-                        NSArray *array = [NSArray arrayWithArray:successArray];
-                        
-                        [defaults setObject:array forKey:KEY_SEARCHTABLEVERSION];
-                        
-                        [defaults synchronize];
-
-                    } else {
-                    
-                        NSLog(@"没有更新");
-                    
-                    }
-                    
-                } else {
-                    
-                    NSLog(@"后台数据表版本信息顺序有调整");
-                    
-                }
-            }
-                
-                } else {
-                    
-                    NSLog(@"后台数据表版本数量有改动");
-                    
-                }
-                
-            }
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"获取数据版本信息失败！！！！！！！！！！！！！！！");
-        
-    }];
+    //初始化版本控制器
+    [[SearchVersionManager shareManager] synchronizedDataFromServer];
 
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -230,6 +134,8 @@
     
     return YES;
 }
+
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
 
 - (void)openChat:(NSNumber *)userId
@@ -352,35 +258,21 @@
     
     [JPUSHService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
     
-    [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
-    
     if (application.applicationState == UIApplicationStateActive) {
         
-        NSString *type = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        NSString *type = [userInfo valueForKey:@"jpushType"];
         
         if ([type isEqualToString:@"1"]) {//正在等待验证
             
+            [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
             
         } else if ([type isEqualToString:@"2"]) {//接受
             
+            [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
             
         } else if ([type isEqualToString:@"3"]) {//拒绝
             
-            
         }
-        
-//        NSString *cancelTitle = @"取消";
-//        
-//        NSString *showTitle = @"去查看";
-//        
-//        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
-//        
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-//                                                            message:message
-//                                                           delegate:self
-//                                                  cancelButtonTitle:cancelTitle
-//                                                  otherButtonTitles:showTitle, nil];
-//        [alertView show];
     }
 }
 

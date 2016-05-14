@@ -93,6 +93,8 @@
         //只要开始搜索先隐藏backgroundView
         self.backgroundView.hidden = YES;
         
+        [self.view endEditing:YES];
+        
         //开始搜索
         [self.dataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
                                               currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
@@ -160,6 +162,8 @@
     
     //点击添加按钮回调
     [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
+        
+        [self.view endEditing:YES];
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口, @1请求   @2接受   @3拒绝

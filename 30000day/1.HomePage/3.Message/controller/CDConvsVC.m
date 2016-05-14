@@ -30,8 +30,6 @@
     [super viewDidLoad];
     
     self.chatListDelegate = self;
-    
-    self.tableView.contentInset =  UIEdgeInsetsMake(64, 0, 50, 0);
 }
 
 #pragma mark - CDChatListVCDelegate
@@ -43,6 +41,7 @@
 }
 
 - (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {
+    
     if (totalUnreadCount > 0) {
         
         if (totalUnreadCount >= 100) {

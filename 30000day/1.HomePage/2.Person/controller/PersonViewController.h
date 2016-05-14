@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PersonViewController : STRefreshViewController
+@interface PersonViewController : STBaseViewController
 
 @end
