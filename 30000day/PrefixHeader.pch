@@ -244,6 +244,8 @@
 
 #define  DELETE_APPLY_ADD_FRIEND          @"/stapi/user/rmvApplyAddFriend"          //删除一条申请加我为好友记录
 
+#define  CHECK_ADDRESS_BOOK          @"/stapi/user/checkAddressBook"            //检测通讯录
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"

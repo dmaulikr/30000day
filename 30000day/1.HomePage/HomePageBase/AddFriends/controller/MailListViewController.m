@@ -16,6 +16,7 @@
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "MTProgressHUD.h"
 
 @interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -27,6 +28,8 @@
 @property (nonatomic ,strong) NSMutableArray *cellArray;//存储的MailListTableViewCell
 
 @property (nonatomic ,strong) NSMutableArray *searchResultArray;//存储的是搜索后的MailListTableViewCell
+
+@property (nonatomic,strong) NSMutableArray *phoneNumberArray;
 
 @end
 
@@ -46,9 +49,13 @@
     self.tableView.dataSource = self;
     
     //1.下载通信录好友
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [self.dataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.cellArray = [NSMutableArray array];
+        
+        self.phoneNumberArray = [NSMutableArray array];
         
         self.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
         
@@ -58,23 +65,69 @@
             
             NSMutableArray *subDataArray = chineseStringArray[i];
             
-            NSMutableArray *subArray = [NSMutableArray array];
+            NSMutableArray *phoneArray = [NSMutableArray array];
             
             for (int j = 0; j < subDataArray.count; j++) {
                 
                 ChineseString *chineseString = subDataArray[j];
                 
-                MailListTableViewCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
+                NSString *phoneNumber = chineseString.phoneNumber;
                 
-                cell.titleLabel.text = chineseString.string;
+                if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
+                    
+                    phoneNumber = [phoneNumber substringFromIndex:4];
+                    
+                }
                 
-                [subArray addObject:cell];
+                phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                
+                NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
+                
+                [phoneNumberDictionary setObject:phoneNumber forKey:@"mobile"];
+                
+                [phoneArray addObject:phoneNumberDictionary];
             }
             
-            [self.cellArray addObject:subArray];
+            [self.phoneNumberArray addObject:phoneArray];
         }
         
-        [self.tableView reloadData];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+        [self.dataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
+            
+            for (int i = 0 ; i < addressArray.count ; i++) {
+                
+                NSMutableArray *subDataArray = chineseStringArray[i];
+                
+                NSDictionary *dictionary = addressArray[i];
+                
+                NSArray *array = dictionary[@"addressBookList"];
+                
+                for (int j = 0; j < subDataArray.count; j++) {
+                    
+                    NSDictionary *dictionary = array[j];
+                    
+                    ChineseString *chineseString = subDataArray[j];
+                    
+                    chineseString.isRegister = [dictionary[@"isRegister"] boolValue];
+
+                }
+                
+            }
+            
+            self.cellArray = chineseStringArray;
+
+            [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        }];
         
     }];
     
@@ -114,7 +167,6 @@
             }
             
         }
-        
     }
     
     [self.tableView reloadData];
@@ -211,49 +263,76 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    MailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MailListTableViewCell"];
+    
+    if (cell == nil) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
+    }
+    
+    ChineseString *chineseString;
+    
     if (self.isSearch) {
         
-        MailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MailListTableViewCell"];
-        
-        if (cell == nil) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
-        }
-        
-        ChineseString *chineseString = self.searchResultArray[indexPath.row];
-        
-        cell.titleLabel.text = chineseString.string;
-        
-        //按钮点击回调
-        [cell setInvitationButtonBlock:^{
-            
-            [self.view endEditing:YES];
-            
-            //显示分享界面
-            [self showShareAnimatonView:indexPath];
-            
-        }];
-        
-        return cell;
+        chineseString = self.searchResultArray[indexPath.row];
         
     } else {
         
         NSMutableArray *array = self.cellArray[indexPath.section];
         
-        MailListTableViewCell *cell = array[indexPath.row];
+        chineseString = array[indexPath.row];
+
+    }
+    
+    cell.titleLabel.text = chineseString.string;
+    
+    if (chineseString.isRegister) {
         
-        //按钮点击回调
-        [cell setInvitationButtonBlock:^{
-            
-            [self.view endEditing:YES];
-            
-            //显示分享界面
+        [cell.invitationButton setTitle:@"添加" forState:UIControlStateNormal];
+        [cell.invitationButton setTag:1];
+        
+    } else {
+        
+        [cell.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
+        [cell.invitationButton setTag:0];
+        
+    }
+    
+    //按钮点击回调
+    [cell setInvitationButtonBlock:^(UIButton *button){
+        
+        [self.view endEditing:YES];
+        
+        if (button.tag) {
+        
+            //添加好友
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+            //添加好友,接口, @1请求   @2接受   @3拒绝
+            [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                                                        userId:@18217243728
+                                                   messageType:@1
+                                                       success:^(BOOL success) {
+                                                           
+                                                           [self showToast:@"请求发送成功"];
+                                                           
+                                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                           
+                                                       } failure:^(NSError *error) {
+                                                           
+                                                           [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                           
+                                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                       }];
+
+        } else {
+
             [self showShareAnimatonView:indexPath];
             
-        }];
-        
-        return cell;
-    }
+        }
+
+    }];
+    
+    return cell;
 }
 
 //显示分享界面

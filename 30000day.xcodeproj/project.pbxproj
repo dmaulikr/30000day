@@ -16,8 +16,6 @@
 		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606AE671CBCF97300830D28 /* JavaScriptCore.framework */; };
 		B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */; };
-		B60A6B8D1CE331C700A481EC /* PhysicalExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B60A6B8C1CE331C700A481EC /* PhysicalExaminationView.m */; };
-		B60A6B911CE3320900A481EC /* PhysicalExaminationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60A6B901CE3320900A481EC /* PhysicalExaminationView.xib */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
 		B60D85841C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */; };
 		B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85861C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m */; };
@@ -92,6 +90,8 @@
 		B6C73B1A1C9000D20041ED65 /* AccountNumberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B181C9000D20041ED65 /* AccountNumberTableViewCell.xib */; };
 		B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C9BD611CD84F8A00172B6C /* ThirdPartyLandingViewController.m */; };
 		B6C9BD641CD84F8A00172B6C /* ThirdPartyLandingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C9BD621CD84F8A00172B6C /* ThirdPartyLandingViewController.xib */; };
+		B6CF99891CE5B6E000BD80B5 /* PhysicalExaminationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CF99871CE5B6E000BD80B5 /* PhysicalExaminationViewController.m */; };
+		B6CF998A1CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6CF99881CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib */; };
 		B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */; };
 		B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D59D4D1C8E6D7E0082BCAC /* SelectionMethodViewController.m */; };
 		B6D59D501C8E6D7E0082BCAC /* SelectionMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D59D4E1C8E6D7E0082BCAC /* SelectionMethodViewController.xib */; };
@@ -655,9 +655,6 @@
 		B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWebJSObject.h; sourceTree = "<group>"; };
 		B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWebJSObject.m; sourceTree = "<group>"; };
-		B60A6B8B1CE331C700A481EC /* PhysicalExaminationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationView.h; sourceTree = "<group>"; };
-		B60A6B8C1CE331C700A481EC /* PhysicalExaminationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationView.m; sourceTree = "<group>"; };
-		B60A6B901CE3320900A481EC /* PhysicalExaminationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationView.xib; sourceTree = "<group>"; };
 		B60D85801C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordVerifiedTableViewCell.h; sourceTree = "<group>"; };
 		B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifiedTableViewCell.m; sourceTree = "<group>"; };
 		B60D85821C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordVerifiedTableViewCell.xib; sourceTree = "<group>"; };
@@ -770,6 +767,9 @@
 		B6C9BD601CD84F8A00172B6C /* ThirdPartyLandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyLandingViewController.h; sourceTree = "<group>"; };
 		B6C9BD611CD84F8A00172B6C /* ThirdPartyLandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyLandingViewController.m; sourceTree = "<group>"; };
 		B6C9BD621CD84F8A00172B6C /* ThirdPartyLandingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdPartyLandingViewController.xib; sourceTree = "<group>"; };
+		B6CF99861CE5B6E000BD80B5 /* PhysicalExaminationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationViewController.h; sourceTree = "<group>"; };
+		B6CF99871CE5B6E000BD80B5 /* PhysicalExaminationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationViewController.m; sourceTree = "<group>"; };
+		B6CF99881CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationViewController.xib; sourceTree = "<group>"; };
 		B6D50A571CD070DF00CAD470 /* CommentOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentOptionsView.h; sourceTree = "<group>"; };
 		B6D50A581CD070DF00CAD470 /* CommentOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentOptionsView.m; sourceTree = "<group>"; };
 		B6D59D4C1C8E6D7E0082BCAC /* SelectionMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionMethodViewController.h; sourceTree = "<group>"; };
@@ -2636,9 +2636,9 @@
 				B6E30CA91CE1CF4E00C510A5 /* PromoteAgeTableViewCell.h */,
 				B6E30CAA1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m */,
 				B6E30CAB1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.xib */,
-				B60A6B8B1CE331C700A481EC /* PhysicalExaminationView.h */,
-				B60A6B8C1CE331C700A481EC /* PhysicalExaminationView.m */,
-				B60A6B901CE3320900A481EC /* PhysicalExaminationView.xib */,
+				B6CF99861CE5B6E000BD80B5 /* PhysicalExaminationViewController.h */,
+				B6CF99871CE5B6E000BD80B5 /* PhysicalExaminationViewController.m */,
+				B6CF99881CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4653,7 +4653,6 @@
 				B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */,
 				B665F8BF1CC4BF5200070458 /* btn_original_circle@2x.png in Resources */,
 				B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */,
-				B60A6B911CE3320900A481EC /* PhysicalExaminationView.xib in Resources */,
 				B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */,
 				B804FD5A1C8AC9A900DFD1CF /* tusiji_11.gif in Resources */,
 				B804FDA51C8AC9A900DFD1CF /* sharemore_friendcard@2x.png in Resources */,
@@ -4670,6 +4669,7 @@
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
 				B804FD9D1C8AC9A900DFD1CF /* SearchIcon@2x.png in Resources */,
+				B6CF998A1CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib in Resources */,
 				B886ADE11CB3C344005E262A /* MyOrderViewController.xib in Resources */,
 				B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */,
 				B804FDA41C8AC9A900DFD1CF /* SenderVoiceNodePlaying@2x.png in Resources */,
@@ -4888,7 +4888,6 @@
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
-				B60A6B8D1CE331C700A481EC /* PhysicalExaminationView.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B8FD3E781C8A8353007BCA6B /* MCMutipleSectionTC.m in Sources */,
@@ -4899,6 +4898,7 @@
 				B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
+				B6CF99891CE5B6E000BD80B5 /* PhysicalExaminationViewController.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,

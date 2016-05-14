@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sportsRemind" rowHeight="79" id="KGk-i7-Jjw" customClass="PromoteAgeTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sportsRemindCellFirst" rowHeight="79" id="KGk-i7-Jjw" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -28,11 +28,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="sportTextLable" destination="Aik-fJ-tej" id="Gqo-wk-PSX"/>
+                <outlet property="sportTextLableFirst" destination="Aik-fJ-tej" id="AQF-sv-98j"/>
             </connections>
             <point key="canvasLocation" x="-197.5" y="294"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sleep" id="KCj-iM-y4E" customClass="PromoteAgeTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sleepCellSecond" id="KCj-iM-y4E" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KCj-iM-y4E" id="2GJ-Od-G8V">
@@ -45,7 +45,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8la-IM-wiz">
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8la-IM-wiz">
                         <rect key="frame" x="312" y="6" width="51" height="31"/>
                         <connections>
                             <action selector="sleepSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="u8i-cD-eWN"/>
@@ -60,11 +60,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="sleepLable" destination="hnC-QS-sAS" id="V3B-1q-yzC"/>
+                <outlet property="sleepLableSecond" destination="hnC-QS-sAS" id="oB5-Lt-Bod"/>
             </connections>
             <point key="canvasLocation" x="-197.5" y="419"/>
         </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ageDecline" id="H3h-Hr-nQ5" customClass="PromoteAgeTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ageDeclineCellThird" id="H3h-Hr-nQ5" customClass="PromoteAgeTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H3h-Hr-nQ5" id="kN1-3q-KWo">
@@ -84,7 +84,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="physicalExaminationLable" destination="7q9-d9-nnA" id="ncm-YY-5DN"/>
+                <outlet property="physicalExaminationLableThird" destination="7q9-d9-nnA" id="Yij-qX-tDs"/>
             </connections>
             <point key="canvasLocation" x="-197.5" y="524"/>
         </tableViewCell>

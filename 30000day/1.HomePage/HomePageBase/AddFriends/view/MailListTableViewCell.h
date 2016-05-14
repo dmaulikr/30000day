@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *invitationButton;
 
-@property (nonatomic , copy) void (^(invitationButtonBlock))();
+@property (nonatomic , copy) void (^(invitationButtonBlock))(UIButton *button);
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 

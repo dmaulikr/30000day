@@ -63,32 +63,4 @@
     
 }
 
-- (void)configTempCellWith:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case 0: {
-            _sportTextLable.text = @"aaaaaaa";
-            break;
-        }
-        case 1: {
-            _sleepLable.text = @"pm2.5提醒";
-            break;
-        }
-        case 2: {
-            _sleepLable.text = @"健康作息提醒";
-            break;
-        }
-        case 3: {
-            _physicalExaminationLable.text = @"体检提醒";
-            break;
-        }
-        case 4: {
-            _physicalExaminationLable.text = @"天龄下降因素";
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-
 @end
