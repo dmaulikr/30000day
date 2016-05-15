@@ -18,6 +18,8 @@
 
 @property(nonatomic,strong) NSString *phoneNumber;
 
+@property(nonatomic,assign) BOOL isRegister;
+
 //-----  返回tableview右方indexArray
 + (NSMutableArray*)IndexArray:(NSArray *)addressBookArray;
 

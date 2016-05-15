@@ -28,7 +28,7 @@
     
     if (self.invitationButtonBlock) {
         
-        self.invitationButtonBlock();
+        self.invitationButtonBlock((UIButton *)sender);
     }
 }
 

@@ -8,11 +8,10 @@
 
 #import "PromoteAgeViewController.h"
 #import "PromoteAgeTableViewCell.h"
-#import "PhysicalExaminationView.h"
+#import "PhysicalExaminationViewController.h"
+#import "SettingBirthdayView.h"
 
 @interface PromoteAgeViewController () <UITableViewDataSource,UITableViewDelegate>
-
-@property (nonatomic,strong) PhysicalExaminationView *physicalExaminationView;
 
 @end
 
@@ -65,38 +64,40 @@
     
     PromoteAgeTableViewCell *cell = [PromoteAgeTableViewCell tempTableViewCellWith:tableView indexPath:indexPath];
     
-    cell.sportTextLable.text = self.sportText;
-    
-    //[cell configTempCellWith:indexPath];
+    switch (indexPath.row) {
+        case 0: {
+             cell.sportTextLableFirst.text = self.sportText;
+            break;
+        }
+        case 1: {
+            cell.sleepLableSecond.text = @"pm2.5提醒";
+            break;
+        }
+        case 2: {
+            cell.sleepLableSecond.text = @"健康作息提醒";
+            break;
+        }
+        case 3: {
+            cell.physicalExaminationLableThird.text = @"体检提醒";
+            break;
+        }
+        case 4: {
+            cell.physicalExaminationLableThird.text = @"天龄下降因素";
+            break;
+        }
+        default:
+            break;
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.row == 2) {
+    if (indexPath.row == 3) {
         
-        [self.physicalExaminationView removeFromSuperview];
-        
-        [UIView animateWithDuration:2.0 // 动画时长
-                              delay:0.0 // 动画延迟
-             usingSpringWithDamping:0.5 // 类似弹簧振动效果 0~1  它的范围为 0.0f 到 1.0f ，数值越小「弹簧」的振动效果越明显。
-              initialSpringVelocity:20.0 // 初始速度   初始的速度，数值越大一开始移动越快。值得注意的是，初始速度取值较高而时间较短时，也会出现反弹情况。
-                            options:UIViewAnimationOptionCurveEaseInOut // 动画过渡效果
-                         animations:^{
-                             
-                             self.physicalExaminationView = [[[NSBundle mainBundle] loadNibNamed:@"PhysicalExaminationView" owner:self options:nil]lastObject];
-                             
-                             [self.physicalExaminationView setFrame:CGRectMake(SCREEN_WIDTH / 2 - 200 / 2, 300, 200, 135)];
-                             
-                             [self.view addSubview:self.physicalExaminationView];
-
-                         } completion:^(BOOL finished) {
-                             // 动画完成后执行
-                             // code...
-                             //[_imageView setAlpha:1];
-                             
-                         }];
+        PhysicalExaminationViewController *controller =  [[PhysicalExaminationViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
         
     }
     

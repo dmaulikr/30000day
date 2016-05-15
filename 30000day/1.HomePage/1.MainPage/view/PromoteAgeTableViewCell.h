@@ -10,14 +10,14 @@
 
 @interface PromoteAgeTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *sportTextLable;
+//sportsRemindCellFirst
+@property (weak, nonatomic) IBOutlet UILabel *sportTextLableFirst;
 
-@property (weak, nonatomic) IBOutlet UILabel *sleepLable;
+//sleepCellSecond
+@property (weak, nonatomic) IBOutlet UILabel *sleepLableSecond;
 
-@property (weak, nonatomic) IBOutlet UILabel *physicalExaminationLable;
-
-
-
+//ageDeclineCellThird
+@property (weak, nonatomic) IBOutlet UILabel *physicalExaminationLableThird;
 
 
 

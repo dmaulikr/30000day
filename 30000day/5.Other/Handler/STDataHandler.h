@@ -533,5 +533,11 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //                                   success:(void (^)(BOOL))success
 //                                   failure:(void (^)(NSError *))failure;
 
+//*****************************************检测通讯录*********************/
+- (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
+                              addressBookJson:(NSString *)addressBookJson
+                                      success:(void (^)(NSArray *addressArray))success
+                                      failure:(void (^)(NSError *error))failure;
+
 
 @end
