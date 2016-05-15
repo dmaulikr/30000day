@@ -62,10 +62,9 @@ static NSString *cellIdentifier = @"ContactCell";
     
     self.tableView.delegate = self;
     
-    [LZConversationCell registerCellToTableView:self.tableView];
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
-    //添加头部刷新
-    [self addHeadRefresh];
+    [LZConversationCell registerCellToTableView:self.tableView];
     
     [self headerRefreshing];
     
@@ -91,12 +90,6 @@ static NSString *cellIdentifier = @"ContactCell";
     [self performSelector:@selector(headerRefreshing) withObject:nil afterDelay:0];
 }
 
-- (void)addHeadRefresh {
-    
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-    
-}
-
 - (void)headerRefreshing {
     
     if (self.isRefreshing) {
@@ -112,7 +105,7 @@ static NSString *cellIdentifier = @"ContactCell";
             
             [self.tableView.mj_header endRefreshing];
             
-            if ([self filterError:error]) {
+            if (!error) {
                 
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
                 
@@ -130,27 +123,7 @@ static NSString *cellIdentifier = @"ContactCell";
             self.isRefreshing = NO;
         };
         
-        if ([self.chatListDelegate respondsToSelector:@selector(prepareConversationsWhenLoad:completion:)]) {
-            
-            [self.chatListDelegate prepareConversationsWhenLoad:conversations completion:^(BOOL succeeded, NSError *error) {
-                
-                if ([self filterError:error]) {
-                    
-                    finishBlock();
-                    
-                } else {
-                    
-                    [self.tableView.mj_header endRefreshing];
-                    
-                    self.isRefreshing = NO;
-                }
-            }];
-            
-        } else {
-            
-            finishBlock();
-            
-        }
+        finishBlock();
     }];
 }
 
@@ -183,29 +156,6 @@ static NSString *cellIdentifier = @"ContactCell";
         [CDChatManager manager].remoteNotificationConvid = nil;
     }
 }
-
-#pragma mark - utils
-
-- (void)stopRefreshControl:(UIRefreshControl *)refreshControl {
-    
-    if (refreshControl != nil && [[refreshControl class] isSubclassOfClass:[UIRefreshControl class]]) {
-        
-        [refreshControl endRefreshing];
-    }
-}
-
-- (BOOL)filterError:(NSError *)error {
-    if (error) {
-        
-        [[[UIAlertView alloc]
-          initWithTitle:nil message:[NSString stringWithFormat:@"%@", error] delegate:nil
-          cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
-        
-        return NO;
-    }
-    return YES;
-}
-
 
 #pragma mark - table view
 
@@ -256,7 +206,7 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [self.conversations count];
+    return self.conversations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

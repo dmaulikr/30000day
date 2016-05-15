@@ -28,7 +28,6 @@
 //#import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "CDIMService.h"
-#import <AVOSCloudCrashReporting/AVOSCloudCrashReporting.h>
 #import "CDUserManager.h"
 #import "CDSoundManager.h"
 #import "STCoreDataHandler.h"
@@ -85,8 +84,7 @@
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
-    
-    
+
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     
@@ -96,10 +94,7 @@
     
     [UMSocialQQHandler  setQQWithAppId:@"1105117619" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
     
-    
     //***********************************初始化LeanCloud*********************************//
-    [AVOSCloudCrashReporting enable];//打开凌云崩溃报告
-    
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
     
 //    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
@@ -134,8 +129,6 @@
     
     return YES;
 }
-
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
 
 
 - (void)openChat:(NSNumber *)userId

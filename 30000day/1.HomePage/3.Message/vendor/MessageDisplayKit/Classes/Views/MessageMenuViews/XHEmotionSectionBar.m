@@ -95,6 +95,8 @@
         
         [sectionButton setImage:[[UIImage imageNamed:emotionManager.emotionBottomButtonImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         
+        sectionButton.imageEdgeInsets = UIEdgeInsetsMake(5, 12, 5, 12);
+
 //        sectionButton.titleLabel.font = [UIFont systemFontOfSize:14];
         
         CGRect sectionButtonFrame = sectionButton.frame;

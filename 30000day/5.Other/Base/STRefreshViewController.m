@@ -134,28 +134,22 @@
 #pragma mark - 集成刷新控件
 - (void)showHeadRefresh:(BOOL)isShowHeadRefresh showFooterRefresh:(BOOL)isShowFooterRefresh {
     
-    if (isShowHeadRefresh) {
+    if (isShowHeadRefresh && self.tableView) {
         
-        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
-        
-    } else {
-        
-        self.tableView.mj_header = nil;
-        
-        [self.tableView.mj_header removeFromSuperview];
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            
+            [self headerRefreshing];
+        }];
     }
     
-    if (isShowFooterRefresh) {
+    if (isShowFooterRefresh && self.tableView) {
         
-        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        self.tableView.mj_footer = [MJRefreshFooter footerWithRefreshingBlock:^{
+            
+            [self footerRereshing];
+        }];
         
         [self.tableView.mj_footer setAutomaticallyHidden:YES];
-        
-    } else {
-        
-        self.tableView.mj_footer = nil;
-        
-        [self.tableView.mj_footer removeFromSuperview];
     }
 }
 

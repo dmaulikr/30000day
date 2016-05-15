@@ -20,7 +20,6 @@
     
     NSMutableArray *_dataArray;
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) PersonTableViewCell *firstCell;
 
@@ -31,19 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.tableViewStyle = STRefreshTableViewGroup;
+    self.tableViewStyle = STRefreshTableViewGroup;
     
-//    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
+    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
     
-//    self.tableView.dataSource = self;
-//    
-//    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
-//    [self showHeadRefresh:YES showFooterRefresh:NO];
+    self.tableView.delegate = self;
     
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
-    
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    [self showHeadRefresh:YES showFooterRefresh:NO];
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];

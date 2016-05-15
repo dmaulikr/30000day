@@ -23,7 +23,6 @@
 #import "MTProgressHUD.h"
 #import "MapShowTitleAnnotationView.h"
 #import "ShopAnnotation.h"
-#import "JZNavigationExtension.h"
 
 @interface ShopViewController () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UISearchBarDelegate>
 

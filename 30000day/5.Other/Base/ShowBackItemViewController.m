@@ -22,15 +22,15 @@
     [self backBarButtonItem];
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    
-//    [super viewWillAppear:animated];
-//    
-//    //开启ios右滑返回
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    //开启ios右滑返回
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
 
 #pragma mark - 导航栏返回按钮封装
 - (void)backBarButtonItem {
@@ -68,11 +68,11 @@
         
     }
    
-//    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//        
-//    }
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+        
+    }
     
 }
 

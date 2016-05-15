@@ -22,6 +22,8 @@
     [[UINavigationBar appearance] setBarTintColor :[UIColor whiteColor]];
 }
 
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // UITextAttributeTextColor
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

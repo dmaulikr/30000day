@@ -8,7 +8,6 @@
 
 #import "STBaseViewController.h"
 #import "STNetworkAgent.h"
-#import "JZNavigationExtension.h"
 
 @interface STBaseViewController ()
 //{

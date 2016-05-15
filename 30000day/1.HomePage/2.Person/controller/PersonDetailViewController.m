@@ -32,8 +32,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
 
-@property (weak, nonatomic) IBOutlet UIButton *leftButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
@@ -51,12 +49,6 @@
     
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
-    
-    self.leftButton.layer.cornerRadius = 5;
-    self.leftButton.layer.masksToBounds = YES;
-    
-    self.leftButton.layer.borderWidth = 0.5f;
-    self.leftButton.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     
     self.rightButton.layer.cornerRadius = 5;
     self.rightButton.layer.masksToBounds = YES;

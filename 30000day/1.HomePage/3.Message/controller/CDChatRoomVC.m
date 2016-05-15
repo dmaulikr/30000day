@@ -416,33 +416,6 @@ static NSInteger const kOnePageSize = 10;
     
 }
 
-#pragma mark - alert and async utils
-
-- (void)alert:(NSString *)msg {
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:nil message:msg delegate:nil
-                              cancelButtonTitle   :@"确定" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (BOOL)alertError:(NSError *)error {
-    if (error) {
-        if (error.code == kAVIMErrorConnectionLost) {
-            [self alert:@"未能连接聊天服务"];
-        } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
-            [self alert:@"网络连接发生错误"];
-        } else {
-            [self alert:[NSString stringWithFormat:@"%@", error]];
-        }
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)filterError:(NSError *)error {
-    return [self alertError:error] == NO;
-}
-
 - (void)runInMainQueue:(void (^)())queue {
     dispatch_async(dispatch_get_main_queue(), queue);
 }
@@ -473,7 +446,7 @@ static NSInteger const kOnePageSize = 10;
         AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil attachedFilePath:path attributes:nil];
         [self sendMsg:msg];
     } else {
-        [self alert:@"write image to file error"];
+        
     }
 }
 
@@ -515,7 +488,6 @@ static NSInteger const kOnePageSize = 10;
                 // 显示失败状态。列表里就让它存在吧，反正也重发不出去
                 [self replaceMesssage:msg atIndexPath:indexPath];
             } else {
-                [self alertError:error];
                 [self replaceMesssage:msg atIndexPath:indexPath];
             }
         } else {
@@ -751,7 +723,7 @@ static NSInteger const kOnePageSize = 10;
         
         [self queryAndCacheMessagesWithTimestamp:0 block:^(NSArray *msgs, NSError *error) {
             
-            if ([self filterError:error]) {
+            if (!error) {
                 
                 // 失败消息加到末尾，因为 SDK 缓存不保存它们
                 NSArray *failedMessages = [[CDFailedMessageStore store] selectFailedMessagesByConversationId:self.conversation.conversationId];
@@ -805,7 +777,7 @@ static NSInteger const kOnePageSize = 10;
         
         [self queryAndCacheMessagesWithTimestamp:timestamp block:^(NSArray *msgs, NSError *error) {
             
-            if ([self filterError:error]) {
+            if (!error) {
                 
                 NSMutableArray *xhMsgs = [[self getXHMessages:msgs] mutableCopy];
                 
@@ -873,17 +845,7 @@ static NSInteger const kOnePageSize = 10;
                 }
             }
         }
-//        if ([[CDChatManager manager].userDelegate respondsToSelector:@selector(cacheUserByIds:block:)]) {
-//            [[CDChatManager manager].userDelegate cacheUserByIds:userIds block:^(BOOL succeeded, NSError *error) {
-//                [self runInMainQueue:^{
-//                    callback(succeeded, error);
-//                }];
-//            }];
-//        } else {
-//            [self runInMainQueue:^{
-//                callback(YES, nil);
-//            }];
-//        }
+
         [self runInMainQueue:^{
             callback(YES, nil);
         }];
@@ -903,7 +865,7 @@ static NSInteger const kOnePageSize = 10;
     
     [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
         
-        if ([self filterError:error]) {
+        if (!error) {
             
             XHMessage *xhMessage = [self getXHMessageByMsg:message];
             
