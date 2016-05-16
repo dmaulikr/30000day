@@ -23,12 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //定制网络请求
-    self.requestRecord = [[NSMutableArray alloc] init];
-    
-    self.dataHandler = [[STDataHandler alloc] init];
-    
-    self.dataHandler.delegate = self;
+    self.dataHandler = [STDataHandler sharedHandler];
     
 //    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;//开启这个会和百度地图造成冲突
     
@@ -60,59 +55,6 @@
 //    navBarHairlineImageView.hidden = NO;
 //    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
 //}
-
-
-#pragma mark -
-#pragma mark handleHTTPError
-
-- (BOOL)handleLONetError:(STNetError *)error {
-    
-    if (error.lostConnection) {
-        
-        [self showToast:@"网络连接失败"];
-        
-        return YES;
-    }
-    
-    switch (error.statusCode) {
-        case 401:
-        {
-            [self showToast:@"登录信息失效，请重新登录"];
-            
-            return YES;
-        }
-            break;
-            
-        case 410:
-        {
-            [self showToast:@"请求失败，软件版本过旧"];
-            
-            return YES;
-        }
-            break;
-            
-        case 503:
-        {
-            [self showToast:@"服务器正在维护"];
-            
-            return YES;
-        }
-            break;
-            
-        default:
-            
-            break;
-    }
-    
-    if (error.statusCode >= 500) {
-        
-        [self showToast:@"服务器开小差了"];
-        
-        return YES;
-    }
-    
-    return NO;
-}
 
 - (void)ShowAlert:(NSString *)message {
     UIAlertView *alertView = [[UIAlertView alloc]
@@ -181,7 +123,7 @@
 
 - (void)dealloc {
     
-    [[STNetworkAgent sharedAgent] cancelRequestsWithHashArray:_requestRecord];
+    self.dataHandler = nil;
 }
 
 - (void)didReceiveMemoryWarning {

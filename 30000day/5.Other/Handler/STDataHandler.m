@@ -87,15 +87,19 @@
 
 @implementation STDataHandler
 
-- (id)init {
++ (STDataHandler *)sharedHandler {
     
-    self = [super init];
+    static id handler = nil;
     
-    if (self) {
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
         
-    }
+        handler = [[self alloc] init];
+        
+    });
     
-    return self;
+    return handler;
 }
 
 // 开始一个请求，并将请求 Hash 值插入回 BaseViewController
@@ -103,28 +107,7 @@
     
     NSString *requestHash = [[STNetworkAgent sharedAgent] addRequest:request];
     
-    if ([self.delegate respondsToSelector:@selector(requestRecord)]) {
-        
-        [[self.delegate requestRecord] addObject:requestHash];
-        
-    }
-    
     return requestHash;
-}
-
-// 试图将错误交回给 BaseViewController 预处理
-- (void)preHandleLONetError:(STNetError *)error failureBlock:(void (^)(STNetError *))failure {
-    
-    if ([self.delegate respondsToSelector:@selector(handleLONetError:)]) {
-        
-        [self.delegate handleLONetError:error];
-    }
-    
-    if (failure) {
-        
-        failure(error);
-        
-    }
 }
 
 #pragma mark ---- 以下封装的是app所用到的所有接口
@@ -206,8 +189,6 @@
     [parameters addParameter:phoneNumber forKey:@"mobile"];
     
     [parameters addParameter:smsCode forKey:@"code"];
-    
-    [Common urlStringWithDictionary:parameters withString:VALIDATE_SMS_CODE];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:VALIDATE_SMS_CODE

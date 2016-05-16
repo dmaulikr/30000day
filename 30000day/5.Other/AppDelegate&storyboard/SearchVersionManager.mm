@@ -155,4 +155,28 @@ static SearchVersionManager *manager;
     }
 }
 
+#pragma mark --- NSCoding的协议
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if ([self init]) {
+        
+        self.searchTableVersionId = [aDecoder decodeObjectForKey:@"searchTableVersionId"];
+        
+        self.tableName = [aDecoder decodeObjectForKey:@"tableName"];
+        
+        self.version = [aDecoder decodeObjectForKey:@"version"];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.searchTableVersionId forKey:@"searchTableVersionId"];
+    
+    [aCoder encodeObject:self.tableName forKey:@"tableName"];
+    
+    [aCoder encodeObject:self.version forKey:@"version"];
+}
+
 @end

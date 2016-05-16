@@ -73,7 +73,7 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 
 @interface STDataHandler : NSObject
 
-@property (nonatomic, weak) id delegate;
++ (STDataHandler *)sharedHandler;
 
 //********* 发送验证请求 *************/
 - (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
