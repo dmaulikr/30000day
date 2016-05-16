@@ -22,6 +22,9 @@
 //点击日期回调
 @property (nonatomic,copy) void (^dateBlock)(NSDate *chooseDate);
 
+//点击所有的提醒回调
+@property (nonatomic,copy) void (^allBlock)();
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

@@ -160,6 +160,8 @@
         
         model.calenderNumber = object.calenderNumber;
         
+        model.dateString = object.dateString;
+        
         [dataArray addObject:model];
     }
     

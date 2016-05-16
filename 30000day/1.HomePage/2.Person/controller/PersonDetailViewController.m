@@ -191,31 +191,21 @@
 
 - (IBAction)buttonClickAction:(id)sender {
     
-    UIButton *button = (UIButton *)sender;
-    
-    if (button.tag == 1) {//右按钮
+    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile]]) {
         
-        if (self.friendUserId) {//这个userId存在的时候才进行push
-
-            //查询conversation
-            [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        //查询conversation
+        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+            
+            if ([self filterError:error]) {
                 
-                if ([self filterError:error]) {
-                    
-                    [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                    
-                }
-            }];
-            
-        } else {
-            
-            [self showToast:@"对方的id为空"];
-            
-        }
-    
-    } else {//左按钮
-
-
+                [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
+                
+            }
+        }];
+        
+    } else {
+        
+        [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile]];
     }
 }
 

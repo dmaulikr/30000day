@@ -76,17 +76,22 @@
 //    
 //}
 
-+ (NSDictionary *)attributesDictionay:(UserInformationModel *)model userProfile:(UserProfile *)userProfile {
++ (NSString *)errorStringWithModel:(UserInformationModel *)model userProfile:(UserProfile *)userProfile {
     
     if ([model.userId isEqualToNumber:userProfile.userId]) {
         
-        return nil;
+        return @"不能和自己聊天~";
     }
     
-    if ([Common isObjectNull:model.userId] || [Common isObjectNull:userProfile.userId]) {
+    if ([Common isObjectNull:[model.userId stringValue]] || [Common isObjectNull:[userProfile.userId stringValue]]) {
         
-        return nil;
+        return @"对方账号存在问题~";
     }
+    
+    return @"";
+}
+
++ (NSDictionary *)attributesDictionay:(UserInformationModel *)model userProfile:(UserProfile *)userProfile {
     
     NSMutableDictionary *dictionary_first = [[NSMutableDictionary alloc] init];
     
@@ -102,7 +107,11 @@
         
     } else {
         
-        return nil;
+        [dictionary_first setObject:[model.userId stringValue] forKey:USER_ID];
+        
+        [dictionary_first setObject:@"" forKey:ORIGINAL_NICK_NAME];
+        
+        [dictionary_first setObject:@"" forKey:ORIGINAL_IMG_URL];
     }
     
     if (![Common isObjectNull:[userProfile.userId stringValue]] && ![Common isObjectNull:userProfile.nickName] && ![Common isObjectNull:userProfile.headImg]) {
@@ -115,17 +124,14 @@
         
     } else {
         
-        return nil;
+        [dictionay_second setObject:[userProfile.userId stringValue] forKey:USER_ID];
+        
+        [dictionay_second setObject:@"" forKey:ORIGINAL_NICK_NAME];
+        
+        [dictionay_second setObject:@"" forKey:ORIGINAL_IMG_URL];
     }
     
-    if (![Common isObjectNull:[model.userId stringValue]] && ![Common isObjectNull:[userProfile.userId stringValue]]) {
-        
-        return @{[model.userId stringValue]:dictionary_first,[userProfile.userId stringValue]:dictionay_second,@"type":@0};
-        
-    } else {
-        
-        return nil;
-    }
+    return @{[model.userId stringValue]:dictionary_first,[userProfile.userId stringValue]:dictionay_second,@"type":@0};
 }
 
 

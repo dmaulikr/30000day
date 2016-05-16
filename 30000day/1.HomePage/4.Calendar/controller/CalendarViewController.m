@@ -13,7 +13,7 @@
 #import "CalendarTableViewCell.h"
 #import "AgeTableViewCell.h"
 #import "CalendarTableViewCell.h"
-
+#import "AllRemindViewController.h"
 
 #define  CHOOSE_AGE_STRING    [Common isObjectNull:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]] ? @"80" : [Common readAppDataForKey:USER_CHOOSE_AGENUMBER] //用户所选择的年龄比如:100、90、80
 
@@ -235,6 +235,17 @@
             [weakSelf loadTableViewData];
             
         }];
+        
+        //点击所有的提醒回调
+        [_calendarCell setAllBlock:^{
+           
+            AllRemindViewController *controller = [[AllRemindViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [weakSelf.navigationController pushViewController:controller animated:YES];
+        }];
+        
     }
     return _calendarCell;
 }
@@ -348,14 +359,11 @@
         if (cell == nil) {
             
             cell = [[[NSBundle mainBundle] loadNibNamed:@"RemindContentTableViewCell" owner:nil options:nil] lastObject];
-            
         }
         
         RemindModel *model = [self.remindDataArray objectAtIndex:indexPath.row];
-        
-        cell.contentLabel.text = model.title;
-        
-        cell.timeLabel.text = [self compareDateWithCurrentTodayWithDate:model.date];
+    
+        cell.model = model;
         
         cell.longPressIndexPath = indexPath;
         
@@ -437,41 +445,6 @@
     self.remindDataArray = [[STRemindManager shareRemindManager] allRemindModelWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] dateString:selectorDateString];
     
     [self.tableView reloadData];
-}
-
-/**
- * @pram date:创建提醒时候的date
- *
- * @return:比如：今天 12:12 昨天 12:12  2016-12-12 12:12
- **/
-- (NSString *)compareDateWithCurrentTodayWithDate:(NSDate *)date {
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
-    NSDateComponents *components =  [calendar components:unit fromDate:date toDate:[NSDate date] options:0];
-    
-    if (components.day == 1) {
-        
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-        
-        return [NSString stringWithFormat:@"昨天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
-        
-    } else if (components.day == 0) {
-        
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-        
-        return [NSString stringWithFormat:@"今天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
-        
-    } else {
-        
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-        
-        return [formatter stringFromDate:date];
-    }
-    
-    return @"";
 }
 
 - (void)dealloc {
