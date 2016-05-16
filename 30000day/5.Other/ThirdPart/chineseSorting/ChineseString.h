@@ -20,6 +20,8 @@
 
 @property(nonatomic,assign) BOOL isRegister;
 
+@property(nonatomic,copy) NSString *userId;
+
 //-----  返回tableview右方indexArray
 + (NSMutableArray*)IndexArray:(NSArray *)addressBookArray;
 

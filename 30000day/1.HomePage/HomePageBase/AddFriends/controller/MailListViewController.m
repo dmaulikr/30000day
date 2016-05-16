@@ -31,6 +31,8 @@
 
 @property (nonatomic,strong) NSMutableArray *phoneNumberArray;
 
+//@property (nonatomic,strong) NSMutableArray *registerArray; //已经注册了的通讯录用户数组
+
 @end
 
 @implementation MailListViewController
@@ -60,6 +62,8 @@
         self.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
         
         self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+        
+        [self.indexArray insertObject:@"添" atIndex:0];
         
         for (int i = 0 ; i < chineseStringArray.count ; i++) {
             
@@ -97,7 +101,9 @@
 
         [self.dataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
             
-            for (int i = 0 ; i < addressArray.count ; i++) {
+            NSMutableArray *registerArray = [NSMutableArray array];
+            
+            for (int i = 0 ; i < addressArray.count; i++) {
                 
                 NSMutableArray *subDataArray = chineseStringArray[i];
                 
@@ -112,12 +118,22 @@
                     ChineseString *chineseString = subDataArray[j];
                     
                     chineseString.isRegister = [dictionary[@"isRegister"] boolValue];
+                    
+                    if ([dictionary[@"isRegister"] boolValue]) {
+                        
+                        chineseString.userId = dictionary[@"userId"];
+                        
+                        [registerArray addObject:chineseString];
+                        
+                    }
 
                 }
                 
             }
             
             self.cellArray = chineseStringArray;
+            
+            [self.cellArray insertObject:registerArray atIndex:0];
 
             [self.tableView reloadData];
             
@@ -176,6 +192,34 @@
 #pragma ---
 #pragma mark --- UITableViewDelegate/UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (self.isSearch) {
+        
+        return 1;
+        
+    } else {
+        
+        return self.cellArray.count;
+    }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (self.isSearch) {
+        
+        return self.searchResultArray.count;
+        
+    }  else {
+
+        NSMutableArray *array = self.cellArray[section];
+            
+        return array.count;
+        
+    }
+}
+
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     
     if (!self.isSearch) {
@@ -197,34 +241,6 @@
     
     return @"";
 }
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    if (self.isSearch) {
-        
-        return 1;
-        
-    } else {
-        
-        return self.cellArray.count;
-    }
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (self.isSearch) {
-        
-        return self.searchResultArray.count;
-        
-    }  else {
-        
-        NSMutableArray *array = self.cellArray[section];
-        
-        return array.count;
-    }
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
@@ -289,11 +305,13 @@
     if (chineseString.isRegister) {
         
         [cell.invitationButton setTitle:@"添加" forState:UIControlStateNormal];
+        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0]];
         [cell.invitationButton setTag:1];
         
     } else {
-        
+    
         [cell.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
+        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
         [cell.invitationButton setTag:0];
         
     }
