@@ -44,7 +44,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 5;
+    return 4;
 
 }
 
@@ -70,18 +70,14 @@
             break;
         }
         case 1: {
-            cell.sleepLableSecond.text = @"pm2.5提醒";
-            break;
-        }
-        case 2: {
             cell.sleepLableSecond.text = @"健康作息提醒";
             break;
         }
-        case 3: {
-            cell.physicalExaminationLableThird.text = @"体检提醒";
+        case 2: {
+            cell.sleepLableSecond.text = @"体检提醒";
             break;
         }
-        case 4: {
+        case 3: {
             cell.physicalExaminationLableThird.text = @"天龄下降因素";
             break;
         }
@@ -94,7 +90,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         
         PhysicalExaminationViewController *controller =  [[PhysicalExaminationViewController alloc] init];
         [self.navigationController pushViewController:controller animated:YES];
