@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "RemindModel.h"
+#import "GJTextView.h"
 
 @interface AddContentTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
+@property (weak, nonatomic) IBOutlet GJTextView *contentTextView;
 
-@property (nonatomic,strong) RemindModel *remindModel;
+@property (nonatomic,strong) RemindModel *model;
 
 @end

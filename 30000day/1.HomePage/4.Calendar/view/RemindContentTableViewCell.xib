@@ -54,6 +54,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="remind" width="681" height="979"/>
+        <image name="remind" width="50" height="72"/>
     </resources>
 </document>

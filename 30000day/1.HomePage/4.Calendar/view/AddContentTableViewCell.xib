@@ -14,33 +14,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-QY-Des">
-                        <rect key="frame" x="15" y="18" width="75" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lQX-S3-GGE">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lQX-S3-GGE" customClass="GJTextView">
                         <rect key="frame" x="10" y="10" width="300" height="92"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        <connections>
-                            <outlet property="delegate" destination="KGk-i7-Jjw" id="TDN-oS-FLI"/>
-                        </connections>
                     </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="cfd-QY-Des" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="049-Xc-Ao0"/>
                     <constraint firstItem="lQX-S3-GGE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Hch-ll-UtK"/>
                     <constraint firstItem="lQX-S3-GGE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Svn-XD-dPP"/>
                     <constraint firstAttribute="trailing" secondItem="lQX-S3-GGE" secondAttribute="trailing" constant="10" id="eJT-A8-adR"/>
                     <constraint firstAttribute="bottom" secondItem="lQX-S3-GGE" secondAttribute="bottom" constant="10" id="qeO-Rj-29c"/>
-                    <constraint firstItem="cfd-QY-Des" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="yy9-st-aDv"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="contentLabel" destination="cfd-QY-Des" id="kGe-hu-yJe"/>
                 <outlet property="contentTextView" destination="lQX-S3-GGE" id="hyN-qe-XUS"/>
             </connections>
             <point key="canvasLocation" x="255" y="305.5"/>
