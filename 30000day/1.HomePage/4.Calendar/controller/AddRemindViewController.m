@@ -12,7 +12,7 @@
 #import "DeleteRemindTableViewCell.h"
 #import "AddContentTableViewCell.h"
 
-@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate> {
+@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate> {
     
     NSMutableArray *_dataArray;
 }
@@ -107,11 +107,22 @@
         
         _contentCell = [[[NSBundle mainBundle] loadNibNamed:@"AddContentTableViewCell" owner:nil options:nil] lastObject];
         
-        _contentCell.remindModel = self.oldModel;
+        _contentCell.model = self.oldModel;
         
+        _contentCell.contentTextView.delegate = self;
     }
     
     return _contentCell;
+}
+
+- (AddTimeTableViewCell *)addTimeCell {
+    
+    if (!_addTimeCell) {
+        
+        _addTimeCell = [[[NSBundle mainBundle] loadNibNamed:@"AddTimeTableViewCell" owner:nil options:nil] lastObject];
+    }
+    
+    return _addTimeCell;
 }
 
 - (void)textFieldDidChange {
@@ -174,24 +185,18 @@
     
     newModel.content = self.contentCell.contentTextView.text;
     
-    newModel.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
-    
-    NSDate *currentDate = [NSDate date];
-    
-    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
-    
-    NSString *dateString = [formatter stringFromDate:currentDate];
+    NSString *dateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
     
     newModel.dateString = dateString;
     
-    dateString = [NSString stringWithFormat:@"%@ %@",dateString,self.timeString];
+    dateString = [NSString stringWithFormat:@"%@ %@",dateString,self.addTimeCell.detailTitleLabel.text];
     
-    NSDateFormatter *newFormatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-    
-    NSDate *newDate = [newFormatter dateFromString:dateString];
+    NSDate *newDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
     
     newModel.date = newDate;
     
+    newModel.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
+
     newModel.calenderNumber = self.calenderNumber;
     
     if (self.changeORAdd) {//他是来修改的
@@ -238,6 +243,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark --- UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    [self judgeSaveButtonCanUse];
+}
+
 #pragma ---
 #pragma mark ---- UITableViewDelegate / UITableViewDatasource
 
@@ -277,17 +288,9 @@
         
     } else if (indexPath.section == 2) {
         
-        AddTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddTimeTableViewCell"];
+        self.addTimeCell.detailTitleLabel.text = self.addTimeCellShowString;
         
-        if (cell == nil) {
-            
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"AddTimeTableViewCell" owner:nil options:nil] lastObject];
-            
-        }
-        
-        cell.detailTitleLabel.text = self.addTimeCellShowString;
-        
-        return cell;
+        return self.addTimeCell;
         
     } else if (indexPath.section == 3) {
       

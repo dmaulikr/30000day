@@ -8,9 +8,7 @@
 
 #import "AddContentTableViewCell.h"
 
-@interface AddContentTableViewCell () <UITextViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@interface AddContentTableViewCell () 
 
 @end
 
@@ -18,6 +16,9 @@
 
 - (void)awakeFromNib {
     
+    self.contentTextView.placeholder = @"请输入内容";
+    
+    self.contentTextView.placeholderColor = RGBACOLOR(200, 200, 200, 1);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,68 +27,11 @@
     // Configure the view for the selected state
 }
 
-- (void)setRemindModel:(RemindModel *)remindModel {
+- (void)setModel:(RemindModel *)model {
     
-    if ([Common isObjectNull:remindModel.content]) {
+    _model = model;
     
-        self.contentLabel.text = @"请输入内容";
-        
-    } else {
-        
-        self.contentLabel.text = @"";
-    
-    }
-    
-    self.contentTextView.text = remindModel.content;
-}
-
-#pragma ---
-#pragma mark --- UITextViewDelegate
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
-    if ([Common isObjectNull:textView.text]) {
-        
-        if ([Common isObjectNull:text]) {
-            
-            self.contentLabel.text = @"请输入内容";
-            
-        } else {
-            
-            self.contentLabel.text = @"";
-            
-        }
-        
-    } else {
-        
-        if ([Common isObjectNull:text]) {
-            
-            if (self.contentTextView.text.length > 1) {
-                
-                self.contentLabel.text = @"";
-                
-            } else {
-                
-                self.contentLabel.text = @"请输入内容";
-                
-            }
-            
-        } else {
-            
-            if ([Common isObjectNull:self.contentTextView.text]) {
-                
-                 self.contentLabel.text = @"请输入内容";
-                
-            } else {
-                
-                self. self.contentLabel.text = @"";
-            }
-
-        }
-        
-    }
-    
-    return YES;
+    self.contentTextView.text = _model.content;
 }
 
 @end
