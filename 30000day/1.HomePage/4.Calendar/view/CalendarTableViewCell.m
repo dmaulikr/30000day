@@ -93,6 +93,21 @@
     
     [self addSubview:todayButton];
     
+    //所有的提醒
+    UIButton *allButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [allButton setTitle:@"所有提醒" forState:UIControlStateNormal];
+    
+    allButton.frame = CGRectMake(15.0f, 3.0f, 80.0f, 40.0f);
+    
+    [allButton setTitleColor:RGBACOLOR(0, 111, 225, 1) forState:UIControlStateNormal];
+    
+    allButton.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    
+    [allButton addTarget:self action:@selector(allButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:allButton];
+    
     //选择日期
     UIButton *chooseDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -126,6 +141,14 @@
     if (self.chooseDateBlock) {
         
         self.chooseDateBlock(button.tag);
+    }
+}
+
+- (void)allButtonClick {
+    
+    if (self.allBlock) {
+        
+        self.allBlock();
     }
 }
 

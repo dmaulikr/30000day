@@ -40,6 +40,9 @@
 
 @property (nonatomic,copy) NSString *originalHeadImg;//原来的头像
 
+
+//先判断:双方账户是否有效
++ (NSString *)errorStringWithModel:(UserInformationModel *)model userProfile:(UserProfile *)userProfile;
 /**
  *  @return @{@"xxx":@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"yyy":@{@"nickName":@"guojia",@"userId":@"100000016",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"type":0}
  */

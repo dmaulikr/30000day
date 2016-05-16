@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RemindModel.h"
 
 @interface RemindContentTableViewCell : UITableViewCell
 
@@ -17,5 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 
 @property (nonatomic,copy) void (^(longPressBlock))(NSIndexPath *longPressIndexPath);
+
+@property (nonatomic,strong) RemindModel *model;
 
 @end
