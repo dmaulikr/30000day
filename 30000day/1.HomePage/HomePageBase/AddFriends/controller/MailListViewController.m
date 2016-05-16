@@ -321,13 +321,27 @@
         
         [self.view endEditing:YES];
         
+        ChineseString *chineseString;
+        
+        if (self.isSearch) {
+            
+            chineseString = self.searchResultArray[indexPath.row];
+            
+        } else {
+            
+            NSMutableArray *array = self.cellArray[indexPath.section];
+            
+            chineseString = array[indexPath.row];
+            
+        }
+        
         if (button.tag) {
         
             //添加好友
             [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             //添加好友,接口, @1请求   @2接受   @3拒绝
             [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
-                                                        userId:@18217243728
+                                                        userId:chineseString.userId
                                                    messageType:@1
                                                        success:^(BOOL success) {
                                                            
