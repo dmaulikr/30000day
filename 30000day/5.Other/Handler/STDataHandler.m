@@ -5918,7 +5918,7 @@
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
                                       failure:(void (^)(NSError *error))failure {
-
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params addParameter:mobileOwnerId forKey:@"mobileOwnerId"];
@@ -5927,65 +5927,49 @@
     
     [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:CHECK_ADDRESS_BOOK
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSArray *array = recvDic[@"value"];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(array);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    NSString *url = @"http://121.196.223.175:8081/stapi/user/checkAddressBook";
     
-    [self startRequest:request];
+    [manager POST:url parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
 
+            NSArray *array = recvDic[@"value"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                success(array);
+                
+            });
+    
+        } else {
+            
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(failureError);
+                
+            });
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            failure(error);
+            
+        });
+        
+    }];
 }
 
 @end
