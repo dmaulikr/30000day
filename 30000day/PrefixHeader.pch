@@ -253,6 +253,12 @@
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
 
+//本地推送所用到的宏
+#define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒
+#define WORK_REST_NOTIFICATION               @"workRestNotification"   //健康作息提醒、并存储进沙河
+#define CHECK_NOTIFICATION                   @"checkNotification"      //体检提醒、并存储进沙河
+#define CHECK_DATE                           @"check_date"             //提醒所设置的时间
+#define CHECK_REPEAT                         @"check_repeat"           //@0:半年  @1:1年
 
 #define WX_APP_ID          @"wx75e720a9c37aa258"
 #define WX_APP_SECRET      @"aed80adf8eb3b5169b6cb4121058e68f"

@@ -1,4 +1,4 @@
-//
+///
 //  AppDelegate.m
 //  30000day
 //
@@ -166,24 +166,41 @@
     
     NSDictionary *userInfo = notification.userInfo;
     
-    if ([userInfo[@"myNotification"] isEqualToString:@"myNotification"]) {//表示是我们添加的提醒
+    UIApplicationState state = application.applicationState;
+    
+    if (state == UIApplicationStateActive) {
         
-        UIApplicationState state = application.applicationState;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[notification.userInfo objectForKey:@"alertTitle"]
+                                                        message:notification.alertBody
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    if ([userInfo[CALENDAR_NOTIFICATION] isEqualToString:CALENDAR_NOTIFICATION]) {//表示是我们添加的提醒
         
-        if (state == UIApplicationStateActive) {
+        
+    } else if([userInfo[WORK_REST_NOTIFICATION] isEqualToString:WORK_REST_NOTIFICATION]){//健康作息
+        
+        
+    } else if([userInfo[CHECK_NOTIFICATION] isEqualToString:CHECK_NOTIFICATION]){//体检提醒
+
+     if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
+         
+         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+         
+     } else {
+         
+         if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {//半年
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[notification.userInfo objectForKey:@"alertTitle"]
-                                                            message:notification.alertBody
-                                                           delegate:self
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-            
-            [alert show];
-        }
-        
-    } else {
-        
-        
+             [[UIApplication sharedApplication] cancelLocalNotification:notification];
+             
+         } else {//1年
+             
+             
+         }
+     }
     }
 }
 

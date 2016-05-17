@@ -44,6 +44,13 @@
     
 }
 
++ (BOOL)readAppBoolDataForkey:(NSString *)key {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults boolForKey:key];
+}
+
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

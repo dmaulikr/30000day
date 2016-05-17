@@ -340,13 +340,18 @@
                                          [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
                                                       completion:^(BOOL success) {
                                              
-                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                          
+                                             [self hideHUD:YES];
                                              
                                          } failure:^(NSError *error) {
                                              
+                                             [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                             
+                                             [self hideHUD:YES];
+                                             
+                                             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                                          }];
-                                         
-                                         [self hideHUD:YES];
                                          
                                      } failure:^(NSError *error) {
                                          
