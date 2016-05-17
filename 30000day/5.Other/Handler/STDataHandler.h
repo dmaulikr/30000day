@@ -13,6 +13,7 @@
 #import "InformationWriterModel.h"
 #import "InformationDetails.h"
 #import "InformationCommentModel.h"
+#import "LifeDescendFactorsModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -538,6 +539,11 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
                                       failure:(void (^)(NSError *error))failure;
+
+//*****************************************获取用户天龄下降因素*********************/
+- (void)sendLifeDescendFactorsWithUserId:(NSNumber *)userId
+                                 success:(void (^)(NSArray *lifeDescendFactorsArray))success
+                                 failure:(void (^)(NSError *error))failure;
 
 
 @end

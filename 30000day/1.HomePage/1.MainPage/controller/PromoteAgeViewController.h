@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LifeDescendFactorsModel.h"
 
 @interface PromoteAgeViewController : STRefreshViewController
 
 @property (nonatomic,copy) NSString *sportText;
+
+@property (nonatomic,strong) LifeDescendFactorsModel *lifeModel;
 
 @end

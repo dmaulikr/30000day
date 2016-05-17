@@ -10,6 +10,7 @@
 #import "PromoteAgeTableViewCell.h"
 #import "PhysicalExaminationViewController.h"
 #import "SettingBirthdayView.h"
+#import "LifeDescendFactorsViewController.h"
 
 @interface PromoteAgeViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -154,6 +155,11 @@
         }];
         
         [self.navigationController pushViewController:controller animated:YES];
+    } else if(indexPath.row == 3) {
+    
+        LifeDescendFactorsViewController *controller = [[LifeDescendFactorsViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -246,6 +246,8 @@
 
 #define  CHECK_ADDRESS_BOOK          @"/stapi/user/checkAddressBook"            //检测通讯录
 
+#define  GET_DESCEND_FACTORS         @"/stapi/life/getLifeDescendFactors"       //获取用户天龄下降因素
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"
