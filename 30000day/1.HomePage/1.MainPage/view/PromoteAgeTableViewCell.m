@@ -56,19 +56,11 @@
     
     if ([Common isObjectNull:[Common readAppDataForKey:CHECK_DATE]]) {//之前没存储过：默认时间是：00：00
         
-        NSString *dateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
-        
-        dateString = [NSString stringWithFormat:@"%@ 09:52",dateString];//00:01
-        
-        NSDate *newDate =  [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
-        
-        notification.fireDate = newDate;
+        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:2.000000];
         
     } else {//之前有储存了
         
         NSString *dateString = [Common readAppDataForKey:CHECK_DATE];
-        
-        dateString = [NSString stringWithFormat:@"%@ 09:52",dateString];//00:01
         
         NSDate *newDate =  [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
         
@@ -95,18 +87,18 @@
 - (void)configCheckLocaleNotification:(BOOL)addOrDelete {//YES:add NO:delete
     
     if (addOrDelete) {
-    
+        
+        UILocalNotification *notification = [self getNotication];
+        
+        NSDate *oldDate = notification.fireDate;
+        
         if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
-            
-            UILocalNotification *notification = [self getNotication];
-            
-            NSDate *oldDate = notification.fireDate;
-            
+    
             for( int i = 0; i < 10; i++ ) {//表示创建10个半年的提醒
                 
                 UILocalNotification *notification_1 = [self getNotication];
                 
-                notification_1.fireDate = [NSDate dateWithTimeInterval:i * 60.000000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.00000 *
+                notification_1.fireDate = [NSDate dateWithTimeInterval:i * 60.000000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.00000 * 60.0000000
                 
                 notification_1.repeatInterval = 0;
                 
@@ -119,24 +111,22 @@
                 
                 for( int i = 0; i < 10 ; i++ ) {//表示创建10个半年的提醒
                     
-                    UILocalNotification *notification = [self getNotication];
+                    UILocalNotification *notification_2 = [self getNotication];
+
+                    notification_2.fireDate = [NSDate dateWithTimeInterval:i * 60.00000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.000000 * 60.000000
                     
-                    NSDate *oldDate = notification.fireDate;
+                    notification_2.repeatInterval = 0;
                     
-                    notification.fireDate = [NSDate dateWithTimeInterval:i * 60.00000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.00000 *
-                    
-                    notification.repeatInterval = 0;
-                    
-                    [[UIApplication sharedApplication] scheduleLocalNotification: notification];
+                    [[UIApplication sharedApplication] scheduleLocalNotification: notification_2];
                 }
                 
             } else {//1年
                 
-                UILocalNotification *notification = [self getNotication];
+                UILocalNotification *notification_3 = [self getNotication];
                 
-                notification.repeatInterval = NSCalendarUnitYear;
+                notification_3.repeatInterval = NSCalendarUnitYear;
             
-                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification_3];
             }
         }
    
