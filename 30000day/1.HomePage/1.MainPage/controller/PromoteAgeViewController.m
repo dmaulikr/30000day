@@ -108,6 +108,7 @@
         cell.row = indexPath.row;
         cell.sleepLableSecond.text = @"健康作息提醒";
         cell.switchButton.on = [Common readAppBoolDataForkey:WORK_REST_NOTIFICATION];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
 
     } else if (indexPath.row == 2) {
@@ -117,6 +118,8 @@
         self.checkCell.sleepLableSecond.text = @"体检提醒";
         
         self.checkCell.switchButton.on = [Common readAppBoolDataForkey:CHECK_NOTIFICATION];
+        
+        self.checkCell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
         return self.checkCell;
         
@@ -147,10 +150,10 @@
            
             [self.checkCell reloadData];
             
+            [self showToast:@"修改成功"];
         }];
         
         [self.navigationController pushViewController:controller animated:YES];
-        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

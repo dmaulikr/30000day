@@ -46,7 +46,7 @@
         //把上次选择存存储进沙河
         [Common saveAppBoolDataForKey:CHECK_NOTIFICATION withObject:self.switchButton.on];
         
-        [self configLocaleNotification:self.switchButton.on];
+        [self configCheckLocaleNotification:self.switchButton.on];
     }
 }
 
@@ -56,7 +56,7 @@
     
     if ([Common isObjectNull:[Common readAppDataForKey:CHECK_DATE]]) {//之前没存储过：默认时间是：00：00
         
-        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:2.000000];
+        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60.000000];
         
     } else {//之前有储存了
         
@@ -98,7 +98,7 @@
                 
                 UILocalNotification *notification_1 = [self getNotication];
                 
-                notification_1.fireDate = [NSDate dateWithTimeInterval:i * 60.000000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.00000 * 60.0000000
+                notification_1.fireDate = [NSDate dateWithTimeInterval:i * 182.00000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];//半年
                 
                 notification_1.repeatInterval = 0;
                 
@@ -113,7 +113,7 @@
                     
                     UILocalNotification *notification_2 = [self getNotication];
 
-                    notification_2.fireDate = [NSDate dateWithTimeInterval:i * 60.00000 sinceDate:oldDate];//0.500000000 *365.00000 * 24.000000 * 60.000000 * 60.000000
+                    notification_2.fireDate = [NSDate dateWithTimeInterval:i * 182.000000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];
                     
                     notification_2.repeatInterval = 0;
                     
@@ -144,7 +144,6 @@
             if ([userInfo[CHECK_NOTIFICATION] isEqualToString:CHECK_NOTIFICATION]) {//健康提醒
                 
                 [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
-                
             }
         }
     }
@@ -158,19 +157,17 @@
         
         NSString *dateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
         
-        dateString = [NSString stringWithFormat:@"%@ 09:00",dateString];
+        dateString = [NSString stringWithFormat:@"%@ 21:30",dateString];
         
         NSDate *newDate =  [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
         
-        NSDate *nowDate = [NSDate date];
-        
-        if ([[NSDate date] compare:nowDate] == NSOrderedAscending) {
+        if ([[NSDate date] compare:newDate] == NSOrderedAscending) {
             
             notification.fireDate = newDate;
             
         } else {
             
-            notification.fireDate = [NSDate dateWithTimeInterval:24.000000*60.000000*60.000000 sinceDate:newDate];
+            notification.fireDate = [NSDate dateWithTimeInterval:24.000000 * 60.000000 * 60.000000 sinceDate:newDate];
         }
         
         notification.timeZone = [NSTimeZone defaultTimeZone];

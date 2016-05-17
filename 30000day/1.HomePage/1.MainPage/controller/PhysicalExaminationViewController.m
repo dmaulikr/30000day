@@ -30,14 +30,27 @@
     
     self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
     
-    self.physicalExaminationLastTimePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:(10*365.00000 * 24.000000 * 60.00000 * 60.00000)];
+    self.physicalExaminationLastTimePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:(10 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
     
     self.physicalExaminationLastTimePicker.minimumDate = [NSDate date];
     
     self.physicalExaminationLastTimePicker.backgroundColor = [UIColor whiteColor];
 
-    self.physicalExaminationLastTimePicker.date = [NSDate date];
-    
+    if ([Common isObjectNull:[Common readAppDataForKey:CHECK_DATE]]) {//表示之前没存储过时间
+        
+        self.physicalExaminationLastTimePicker.date = [NSDate date];
+        
+    } else {//已经有存储了时间
+        
+        if ([[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]] compare:[NSDate date]] == NSOrderedAscending) {//表示已经过时了
+            
+            self.physicalExaminationLastTimePicker.date = [NSDate date];
+            
+        } else {
+            
+            self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
+        }
+    }
     
     self.physicalExaminationIntervalPicker.showsSelectionIndicator = YES;
     
@@ -46,6 +59,20 @@
     self.physicalExaminationIntervalPicker.delegate = self;
     
     self.physicalExaminationIntervalPicker.backgroundColor = [UIColor whiteColor];
+    
+    if ([Common isObjectNull:[Common readAppDataForKey:CHECK_REPEAT]]) {
+        
+        [self.physicalExaminationIntervalPicker selectRow:0 inComponent:0 animated:NO];
+        
+    } else {
+        
+        if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {
+            
+        } else {
+            
+            [self.physicalExaminationIntervalPicker selectRow:1 inComponent:0 animated:NO];
+        }
+    }
     
     [self.completeButton addTarget:self action:@selector(commitData) forControlEvents:UIControlEventTouchUpInside];
 }
