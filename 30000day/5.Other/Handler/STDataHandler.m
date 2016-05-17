@@ -5953,4 +5953,87 @@
     }];
 }
 
+
+//*****************************************获取用户天龄下降因素*********************/
+- (void)sendLifeDescendFactorsWithUserId:(NSNumber *)userId
+                                 success:(void (^)(NSArray *addressArray))success
+                                 failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params addParameter:userId forKey:@"userId"];
+    
+    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
+                                                        url:GET_DESCEND_FACTORS
+                                                 parameters:params
+                                                    success:^(id responseObject) {
+                                                        
+                                                        NSError *localError = nil;
+                                                        
+                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                        
+                                                        if (localError == nil) {
+                                                            
+                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                            
+                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                
+                                                                NSArray *array = recvDic[@"value"];
+                                                                
+                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                                                                
+                                                                for (int i = 0; i < array.count; i++) {
+                                                                    
+                                                                    NSDictionary *dictionary = array[i];
+                                                                    
+                                                                    LifeDescendFactorsModel *model = [[LifeDescendFactorsModel alloc] init];
+                                                                    
+                                                                    [model setValuesForKeysWithDictionary:dictionary];
+                                                                    
+                                                                    [dataArray addObject:model];
+                                                                }
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    success(dataArray);
+                                                                    
+                                                                });
+                                                                
+                                                            } else {
+                                                                
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                                                                
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    
+                                                                    failure(failureError);
+                                                                    
+                                                                });
+                                                                
+                                                            }
+                                                            
+                                                        } else {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                failure(localError);
+                                                                
+                                                            });
+                                                            
+                                                        }
+                                                        
+                                                    } failure:^(STNetError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            failure(error.error);
+                                                        });
+                                                        
+                                                    }];
+    request.needHeaderAuthorization = NO;
+    
+    request.requestSerializerType = STRequestSerializerTypeJSON;
+    
+    [self startRequest:request];
+}
+
 @end

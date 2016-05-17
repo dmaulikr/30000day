@@ -117,6 +117,7 @@
 		B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */; };
 		B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */; };
 		B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C451CBC9FD50039217D /* InformationWriterModel.m */; };
+		B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */; };
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
 		B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFEA811CAE569B00777B75 /* HeaderView.m */; };
@@ -810,6 +811,8 @@
 		B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationWriterHeadTableViewCell.xib; sourceTree = "<group>"; };
 		B6E44C441CBC9FD50039217D /* InformationWriterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterModel.h; sourceTree = "<group>"; };
 		B6E44C451CBC9FD50039217D /* InformationWriterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterModel.m; sourceTree = "<group>"; };
+		B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeDescendFactorsModel.h; sourceTree = "<group>"; };
+		B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeDescendFactorsModel.m; sourceTree = "<group>"; };
 		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
 		B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityCommentViewController.m; sourceTree = "<group>"; };
 		B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommodityCommentViewController.xib; sourceTree = "<group>"; };
@@ -3196,6 +3199,8 @@
 				B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */,
 				B808FB561C7718D20000449C /* UserLifeModel.h */,
 				B808FB571C7718D20000449C /* UserLifeModel.m */,
+				B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */,
+				B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4919,6 +4924,7 @@
 				B8FD3E991C8A8408007BCA6B /* CDUtils.m in Sources */,
 				B8FD3AD71C852BE3007BCA6B /* ChangePasswordViewController.m in Sources */,
 				B89216B41C5F468C0023F8A8 /* ShowBackItemViewController.m in Sources */,
+				B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */,
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
