@@ -63,8 +63,6 @@
         
         self.indexArray = [NSMutableArray arrayWithArray:indexArray];
         
-        [self.indexArray insertObject:@"添" atIndex:0];
-        
         for (int i = 0 ; i < chineseStringArray.count ; i++) {
             
             NSMutableArray *subDataArray = chineseStringArray[i];
@@ -101,7 +99,11 @@
 
         [self.dataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
             
+            NSLog(@"%@",addressArray);
+            
             NSMutableArray *registerArray = [NSMutableArray array];
+            
+            NSMutableArray *friendArray = [NSMutableArray array];
             
             for (int i = 0 ; i < addressArray.count; i++) {
                 
@@ -117,23 +119,45 @@
                     
                     ChineseString *chineseString = subDataArray[j];
                     
-                    chineseString.isRegister = [dictionary[@"isRegister"] boolValue];
+                    chineseString.status = [dictionary[@"status"] integerValue];
                     
-                    if ([dictionary[@"isRegister"] boolValue]) {
+                    if ([dictionary[@"status"] integerValue] == 1) {
                         
                         chineseString.userId = dictionary[@"userId"];
                         
                         [registerArray addObject:chineseString];
                         
+                    } else if([dictionary[@"status"] integerValue] == 2){
+                    
+                        [friendArray addObject:chineseString];
+                    
                     }
-
                 }
-                
             }
             
             self.cellArray = chineseStringArray;
             
-            [self.cellArray insertObject:registerArray atIndex:0];
+            if (registerArray.count != 0) {
+                
+                [self.cellArray insertObject:registerArray atIndex:0];
+                
+                [self.indexArray insertObject:@"＋" atIndex:0];
+                
+            }
+            
+            if (friendArray.count != 0 && registerArray.count != 0) {
+                
+                [self.cellArray insertObject:friendArray atIndex:1];
+                
+                [self.indexArray insertObject:@"友" atIndex:1];
+                
+            } else {
+            
+                [self.cellArray insertObject:friendArray atIndex:0];
+                
+                [self.indexArray insertObject:@"友" atIndex:0];
+            
+            }
 
             [self.tableView reloadData];
             
@@ -302,18 +326,26 @@
     
     cell.titleLabel.text = chineseString.string;
     
-    if (chineseString.isRegister) {
+    if (chineseString.status == 1) {
         
-        [cell.invitationButton setTitle:@"添加" forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0]];
+        [cell.invitationButton setTitle:@"＋" forState:UIControlStateNormal];
+        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
         [cell.invitationButton setTag:1];
+        
+    } else if(chineseString.status == 2) {
+    
+        [cell.invitationButton setTitle:@"已加" forState:UIControlStateNormal];
+        [cell.invitationButton setUserInteractionEnabled:NO];
+        [cell.invitationButton setTitleColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [cell.invitationButton setBackgroundColor:[UIColor whiteColor]];
+        [cell.invitationButton setTag:2];
         
     } else {
     
         [cell.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
         [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
         [cell.invitationButton setTag:0];
-        
+    
     }
     
     //按钮点击回调

@@ -18,7 +18,7 @@
 
 @property(nonatomic,strong) NSString *phoneNumber;
 
-@property(nonatomic,assign) BOOL isRegister;
+@property(nonatomic,assign) NSInteger status;
 
 @property(nonatomic,strong) NSNumber *userId;
 
