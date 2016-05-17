@@ -20,6 +20,8 @@
 
 + (NSInteger)readAppIntegerDataForKey : (NSString *) key;
 
++ (BOOL)readAppBoolDataForkey:(NSString *)key;
+
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value;
 
 + (void)removeAppDataForKey:(NSString *)key ;

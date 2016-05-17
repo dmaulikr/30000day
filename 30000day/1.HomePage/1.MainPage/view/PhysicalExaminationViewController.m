@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *completeButton;
 
+@property (nonatomic,assign) NSInteger selectRow;
+
 
 @end
 
@@ -28,11 +30,9 @@
     
     self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDate;
     
-    self.physicalExaminationLastTimePicker.maximumDate = [NSDate date];
+    self.physicalExaminationLastTimePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:(10*365.00000 * 24.000000 * 60.00000 * 60.00000)];
     
-    self.physicalExaminationLastTimePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-(100.00000 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
-    
-    self.physicalExaminationLastTimePicker.maximumDate = [NSDate date];
+    self.physicalExaminationLastTimePicker.minimumDate = [NSDate date];
     
     self.physicalExaminationLastTimePicker.backgroundColor = [UIColor whiteColor];
 
@@ -48,8 +48,6 @@
     self.physicalExaminationIntervalPicker.backgroundColor = [UIColor whiteColor];
     
     [self.completeButton addTarget:self action:@selector(commitData) forControlEvents:UIControlEventTouchUpInside];
-
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,24 +85,22 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
-    if (row == 0) {
-    
-        
-    
-    } else if (row == 1) {
-    
-        
-    
-    }
+    self.selectRow = row;
     
 }
 
 - (void)commitData {
 
-    NSLog(@"%@",self.physicalExaminationLastTimePicker.date);
+    [Common saveAppDataForKey:CHECK_REPEAT withObject:@(self.selectRow)];
     
+    [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
+    
+    if (self.setSuccessBlock) {
+        
+        self.setSuccessBlock();
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 
 @end

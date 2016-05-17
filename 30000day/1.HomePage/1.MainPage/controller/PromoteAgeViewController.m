@@ -13,6 +13,8 @@
 
 @interface PromoteAgeViewController () <UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,strong) PromoteAgeTableViewCell *checkCell;//体检
+
 @end
 
 @implementation PromoteAgeViewController
@@ -36,6 +38,20 @@
     
 }
 
+- (PromoteAgeTableViewCell *)checkCell {
+    
+    if (!_checkCell) {
+        
+        _checkCell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][1];
+    }
+    
+    return _checkCell;
+}
+
+
+#pragma ---
+#pragma mark --- UITableViewDataSource/UITableViewDelegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return 1;
@@ -51,41 +67,74 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (indexPath.row == 0) {
-    
-       return 18.0 + [Common heightWithText:self.sportText width:SCREEN_WIDTH - 24 fontSize:17.0];
         
+        if ([Common isObjectNull:self.sportText]) {
+            
+            return 0.0f;
+            
+        } else {
+            
+            return 18.0 + [Common heightWithText:self.sportText width:SCREEN_WIDTH - 24 fontSize:17.0];
+        }
     }
     
     return 44;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    PromoteAgeTableViewCell *cell = [PromoteAgeTableViewCell tempTableViewCellWith:tableView indexPath:indexPath];
-    
-    switch (indexPath.row) {
-        case 0: {
-             cell.sportTextLableFirst.text = self.sportText;
-            break;
+    if (indexPath.row == 0) {
+        
+        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sportsRemindCellFirst"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][0];
+            
         }
-        case 1: {
-            cell.sleepLableSecond.text = @"健康作息提醒";
-            break;
+        
+        cell.sportTextLableFirst.text = self.sportText;
+        
+        return cell;
+        
+    } else if (indexPath.row == 1) {
+        
+        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sleepCellSecond"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][1];
         }
-        case 2: {
-            cell.sleepLableSecond.text = @"体检提醒";
-            break;
+        cell.row = indexPath.row;
+        cell.sleepLableSecond.text = @"健康作息提醒";
+        cell.switchButton.on = [Common readAppBoolDataForkey:WORK_REST_NOTIFICATION];
+        return cell;
+
+    } else if (indexPath.row == 2) {
+        
+        self.checkCell.row = indexPath.row;
+        
+        self.checkCell.sleepLableSecond.text = @"体检提醒";
+        
+        self.checkCell.switchButton.on = [Common readAppBoolDataForkey:CHECK_NOTIFICATION];
+        
+        return self.checkCell;
+        
+    } else if (indexPath.row == 3) {
+        
+        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ageDeclineCellThird"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][2];
         }
-        case 3: {
-            cell.physicalExaminationLableThird.text = @"天龄下降因素";
-            break;
-        }
-        default:
-            break;
+        
+        cell.physicalExaminationLableThird.text = @"天龄下降因素";
+        
+        return cell;
     }
     
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,15 +142,19 @@
     if (indexPath.row == 2) {
         
         PhysicalExaminationViewController *controller =  [[PhysicalExaminationViewController alloc] init];
+        
+        [controller setSetSuccessBlock:^{
+           
+            [self.checkCell reloadData];
+            
+        }];
+        
         [self.navigationController pushViewController:controller animated:YES];
         
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

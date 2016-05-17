@@ -287,7 +287,7 @@
     
     dictionary[@"alertTitle"] = model.title;
     
-    dictionary[@"myNotification"] = @"myNotification";
+    dictionary[CALENDAR_NOTIFICATION] = CALENDAR_NOTIFICATION;
     
     notification.userInfo = dictionary; //添加额外的信息
     
@@ -307,7 +307,7 @@
         
          NSDictionary *userInfo = localNotification.userInfo;
         
-         if ([userInfo[@"myNotification"] isEqualToString:@"myNotification"]) {//表示这个通知是我们自己注册的
+         if ([userInfo[CALENDAR_NOTIFICATION] isEqualToString:CALENDAR_NOTIFICATION]) {//表示这个通知是我们自己注册的
              
              NSDateFormatter *formattor = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm:ss"];
              

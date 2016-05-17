@@ -10,4 +10,6 @@
 
 @interface PhysicalExaminationViewController : ShowBackItemViewController
 
+@property (nonatomic,copy) void (^setSuccessBlock)();
+
 @end

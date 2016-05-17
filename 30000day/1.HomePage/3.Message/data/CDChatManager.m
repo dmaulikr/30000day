@@ -81,8 +81,6 @@ static CDChatManager *instance;
 //     self.client.signatureDataSource = self;
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
-        [self updateConnectStatus];
-        
         if (callback) {
             
             callback(succeeded, error);
