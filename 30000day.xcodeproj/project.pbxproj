@@ -368,7 +368,6 @@
 		B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */; };
 		B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */; };
 		B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */; };
-		B8F1FCBE1CE9D3A300C8A0FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCBD1CE9D3A300C8A0FA /* Default-568h@2x.png */; };
 		B8F1FCC11CE9D46B00C8A0FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCBF1CE9D46B00C8A0FA /* LaunchScreen.storyboard */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
 		B8F2D8AF1C5B36C4002C7712 /* myViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F2D8AD1C5B36C4002C7712 /* myViewCell.xib */; };
@@ -1178,7 +1177,6 @@
 		B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFriendsViewController.xib; sourceTree = "<group>"; };
 		B8F1FCB81CE9980C00C8A0FA /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
 		B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
-		B8F1FCBD1CE9D3A300C8A0FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8F1FCC01CE9D46B00C8A0FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B8F2D8AB1C5B36C4002C7712 /* myViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myViewCell.h; sourceTree = "<group>"; };
 		B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myViewCell.m; sourceTree = "<group>"; };
@@ -2135,7 +2133,6 @@
 				B804FC841C8AC9A900DFD1CF /* emoticons */,
 				B804FCD51C8AC9A900DFD1CF /* face@2x.png */,
 				B804FCD61C8AC9A900DFD1CF /* face_HL@2x.png */,
-				B8F1FCBD1CE9D3A300C8A0FA /* Default-568h@2x.png */,
 				B804FCD71C8AC9A900DFD1CF /* Fav_Cell_Loc@2x.png */,
 				B804FCDF1C8AC9A900DFD1CF /* keyborad@2x.png */,
 				B804FCE01C8AC9A900DFD1CF /* keyborad_HL@2x.png */,
@@ -4686,7 +4683,6 @@
 				B8365A581C71A53500063269 /* HeadViewTableViewCell.xib in Resources */,
 				B804FD691C8AC9A900DFD1CF /* tusiji_4.gif in Resources */,
 				B8F2DA451C5F3D04002C7712 /* InputAccountViewController.xib in Resources */,
-				B8F1FCBE1CE9D3A300C8A0FA /* Default-568h@2x.png in Resources */,
 				B8FD3E411C8A7BBA007BCA6B /* DateTools.bundle in Resources */,
 				B8F648AD1C9498F0001A3119 /* ShopListTableViewCell.xib in Resources */,
 				B6F66DA41CBB44CE0064DB11 /* InformationDetailWebViewController.xib in Resources */,

@@ -28,7 +28,7 @@
     
     self.physicalExaminationLastTimePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     
-    self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDate;
+    self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
     
     self.physicalExaminationLastTimePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:(10*365.00000 * 24.000000 * 60.00000 * 60.00000)];
     
@@ -93,7 +93,7 @@
 
     [Common saveAppDataForKey:CHECK_REPEAT withObject:@(self.selectRow)];
     
-    [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
+    [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
     
     if (self.setSuccessBlock) {
         
