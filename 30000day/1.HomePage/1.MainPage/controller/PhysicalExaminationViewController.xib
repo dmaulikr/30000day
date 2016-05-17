@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhysicalExaminationViewController">
@@ -10,34 +10,36 @@
                 <outlet property="completeButton" destination="kzf-YH-oE3" id="Bwd-oY-Ogc"/>
                 <outlet property="physicalExaminationIntervalPicker" destination="DHS-6J-TZG" id="sJO-Yd-SuA"/>
                 <outlet property="physicalExaminationLastTimePicker" destination="hdi-q3-wAh" id="Mnc-f6-rBt"/>
+                <outlet property="switchButton" destination="SL9-kB-gn7" id="bq5-82-M6v"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传体检时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo5-LH-4oO">
-                    <rect key="frame" x="8" y="72" width="102" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="8" y="125" width="90" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置体检间隔时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAd-HG-Dko">
-                    <rect key="frame" x="8" y="271" width="136" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="8" y="283" width="120" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHS-6J-TZG">
-                    <rect key="frame" x="0.0" y="300" width="375" height="150"/>
+                    <rect key="frame" x="0.0" y="311" width="320" height="120"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="SJI-dD-1jG"/>
+                        <constraint firstAttribute="height" constant="120" id="SJI-dD-1jG"/>
                     </constraints>
                 </pickerView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzf-YH-oE3">
-                    <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                     <color key="backgroundColor" red="0.33725490196078434" green="0.49803921568627452" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="mms-6r-VmM"/>
@@ -47,30 +49,51 @@
                     </state>
                 </button>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hdi-q3-wAh">
-                    <rect key="frame" x="0.0" y="101" width="375" height="150"/>
+                    <rect key="frame" x="0.0" y="153" width="320" height="120"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="dtd-qX-9kV"/>
+                        <constraint firstAttribute="height" constant="120" id="dtd-qX-9kV"/>
                     </constraints>
                     <date key="date" timeIntervalSinceReferenceDate="484816856.317231">
                         <!--2016-05-13 07:20:56 +0000-->
                     </date>
                 </datePicker>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2UF-aB-V0U">
+                    <rect key="frame" x="0.0" y="74" width="320" height="40"/>
+                    <subviews>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SL9-kB-gn7">
+                            <rect key="frame" x="255" y="5" width="51" height="31"/>
+                            <connections>
+                                <action selector="switchAction:" destination="-1" eventType="valueChanged" id="cDV-zs-JMK"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="SL9-kB-gn7" secondAttribute="trailing" constant="16" id="6hM-2H-O0l"/>
+                        <constraint firstAttribute="height" constant="40" id="77e-Yn-YhD"/>
+                        <constraint firstItem="SL9-kB-gn7" firstAttribute="top" secondItem="2UF-aB-V0U" secondAttribute="top" constant="5" id="TAk-ai-1CW"/>
+                        <constraint firstAttribute="bottom" secondItem="SL9-kB-gn7" secondAttribute="bottom" constant="4" id="yRL-ea-eEA"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.87450980392156863" green="0.8784313725490196" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="uAd-HG-Dko" firstAttribute="top" secondItem="hdi-q3-wAh" secondAttribute="bottom" constant="20" id="9by-D7-GqS"/>
+                <constraint firstAttribute="trailing" secondItem="2UF-aB-V0U" secondAttribute="trailing" id="3Xa-eh-goy"/>
+                <constraint firstItem="2UF-aB-V0U" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="3eA-we-hWa"/>
+                <constraint firstItem="2UF-aB-V0U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8Qx-de-PRp"/>
+                <constraint firstItem="uAd-HG-Dko" firstAttribute="top" secondItem="hdi-q3-wAh" secondAttribute="bottom" constant="10" id="9by-D7-GqS"/>
                 <constraint firstAttribute="bottom" secondItem="kzf-YH-oE3" secondAttribute="bottom" id="JcX-3o-gde"/>
                 <constraint firstItem="DHS-6J-TZG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jkj-1m-IlS"/>
                 <constraint firstItem="uAd-HG-Dko" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="JvP-e0-ywc"/>
-                <constraint firstItem="DHS-6J-TZG" firstAttribute="top" secondItem="uAd-HG-Dko" secondAttribute="bottom" constant="8" id="KLf-0e-rxE"/>
-                <constraint firstItem="hdi-q3-wAh" firstAttribute="top" secondItem="Oo5-LH-4oO" secondAttribute="bottom" constant="8" id="KaZ-A5-EoC"/>
+                <constraint firstItem="DHS-6J-TZG" firstAttribute="top" secondItem="uAd-HG-Dko" secondAttribute="bottom" constant="10" id="KLf-0e-rxE"/>
+                <constraint firstItem="hdi-q3-wAh" firstAttribute="top" secondItem="Oo5-LH-4oO" secondAttribute="bottom" constant="10" id="KaZ-A5-EoC"/>
                 <constraint firstAttribute="trailing" secondItem="kzf-YH-oE3" secondAttribute="trailing" id="LBi-h8-PQg"/>
                 <constraint firstAttribute="trailing" secondItem="hdi-q3-wAh" secondAttribute="trailing" id="ddW-jD-Og1"/>
                 <constraint firstAttribute="trailing" secondItem="DHS-6J-TZG" secondAttribute="trailing" id="gZv-oi-dGe"/>
                 <constraint firstItem="hdi-q3-wAh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qE5-nZ-uXE"/>
                 <constraint firstItem="kzf-YH-oE3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="shN-Af-axq"/>
                 <constraint firstItem="Oo5-LH-4oO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="tS5-Tg-2pP"/>
-                <constraint firstItem="Oo5-LH-4oO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="vc7-sq-wV8"/>
+                <constraint firstItem="Oo5-LH-4oO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="125" id="vc7-sq-wV8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="73.5" y="219.5"/>

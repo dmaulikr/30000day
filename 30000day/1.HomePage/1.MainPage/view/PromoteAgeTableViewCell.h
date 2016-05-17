@@ -14,13 +14,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *sportTextLableFirst;
 
 //sleepCellSecond
-@property (nonatomic,assign) NSInteger row;
 @property (weak, nonatomic) IBOutlet UILabel *sleepLableSecond;
 @property (weak, nonatomic) IBOutlet UISwitch *switchButton;
-- (void)reloadData;
 
 
 //ageDeclineCellThird
 @property (weak, nonatomic) IBOutlet UILabel *physicalExaminationLableThird;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel_third;
 
 @end

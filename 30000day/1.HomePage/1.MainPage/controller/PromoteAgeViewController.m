@@ -106,23 +106,29 @@
             
             cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][1];
         }
-        cell.row = indexPath.row;
-        cell.sleepLableSecond.text = @"健康作息提醒";
+        
+        cell.sleepLableSecond.text = @"健康作息提醒（21:30入睡）";
+        
         cell.switchButton.on = [Common readAppBoolDataForkey:WORK_REST_NOTIFICATION];
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cell;
 
     } else if (indexPath.row == 2) {
         
-        self.checkCell.row = indexPath.row;
+        PromoteAgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ageDeclineCellThird"];
         
-        self.checkCell.sleepLableSecond.text = @"体检提醒";
+        if (cell == nil) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][2];
+        }
         
-        self.checkCell.switchButton.on = [Common readAppBoolDataForkey:CHECK_NOTIFICATION];
+        cell.physicalExaminationLableThird.text = @"体检提醒";
+       
+        cell.detailLabel_third.text = [Common readAppBoolDataForkey:CHECK_NOTIFICATION] ? @"已开启" : @"已关闭";
         
-        self.checkCell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        
-        return self.checkCell;
+        return cell;
         
     } else if (indexPath.row == 3) {
         
@@ -147,14 +153,16 @@
         
         PhysicalExaminationViewController *controller =  [[PhysicalExaminationViewController alloc] init];
         
+        controller.hidesBottomBarWhenPushed = YES;
+        
         [controller setSetSuccessBlock:^{
            
-            [self.checkCell reloadData];
+            [self.tableView reloadData];
             
-            [self showToast:@"修改成功"];
         }];
         
         [self.navigationController pushViewController:controller animated:YES];
+        
     } else if(indexPath.row == 3) {
     
         LifeDescendFactorsViewController *controller = [[LifeDescendFactorsViewController alloc] init];
