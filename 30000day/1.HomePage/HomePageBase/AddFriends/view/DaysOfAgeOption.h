@@ -16,10 +16,17 @@
 
 @property (nonatomic , copy) void (^(shareButtonBlock))(NSInteger ,DaysOfAgeOption *);
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oneLeft;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oneRight;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *twoRight;
+
+
 //类方法，动画般的把ShareAnimatonView从父视图上移除
-+ (void)annimateRemoveFromSuperView:(DaysOfAgeOption *)animationview;
+- (void)annimateRemoveFromSuperView;
 
 //类方法，动画般的把ShareAnimatonView从加载到UIWindow上
-+ (void)animateWindowsAddSubView:(DaysOfAgeOption *)animationview;
+- (void)animateWindowsAddSubView;
 
 @end

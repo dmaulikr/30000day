@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,32 +11,36 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_edit_info" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-fu-H2F">
-                    <rect key="frame" x="68" y="417" width="100" height="100"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="100" id="Idx-Xw-Z5N"/>
-                        <constraint firstAttribute="height" constant="100" id="ezt-VV-vLX"/>
-                    </constraints>
-                </imageView>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_age" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-Fl-7kN">
-                    <rect key="frame" x="208" y="417" width="100" height="100"/>
+                    <rect key="frame" x="375" y="417" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="6bc-2W-elM"/>
                         <constraint firstAttribute="width" constant="100" id="w19-zS-Bq8"/>
                     </constraints>
                 </imageView>
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_edit_info" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-fu-H2F">
+                    <rect key="frame" x="-100" y="417" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="Idx-Xw-Z5N"/>
+                        <constraint firstAttribute="height" constant="100" id="ezt-VV-vLX"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="lbK-Fl-7kN" secondAttribute="trailing" constant="-100" id="0W6-Ww-6Iv"/>
                 <constraint firstAttribute="bottom" secondItem="4Ql-fu-H2F" secondAttribute="bottom" constant="150" id="BQ0-bj-5eu"/>
-                <constraint firstItem="lbK-Fl-7kN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="70" id="P5U-gc-rbx"/>
-                <constraint firstItem="4Ql-fu-H2F" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-70" id="QzQ-Fe-Ea4"/>
+                <constraint firstItem="4Ql-fu-H2F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="b1i-0F-mda"/>
+                <constraint firstItem="lbK-Fl-7kN" firstAttribute="leading" secondItem="4Ql-fu-H2F" secondAttribute="trailing" constant="375" id="okG-kf-LBK"/>
                 <constraint firstItem="lbK-Fl-7kN" firstAttribute="centerY" secondItem="4Ql-fu-H2F" secondAttribute="centerY" id="sfa-ah-P5T"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="oneLeft" destination="b1i-0F-mda" id="FZ1-L9-nda"/>
+                <outlet property="oneRight" destination="okG-kf-LBK" id="ey3-Uu-Swc"/>
                 <outlet property="perfectImageView" destination="4Ql-fu-H2F" id="0EC-vG-na9"/>
                 <outlet property="promoteImageView" destination="lbK-Fl-7kN" id="jox-8N-5o2"/>
+                <outlet property="twoRight" destination="0W6-Ww-6Iv" id="Hdd-4V-Bz4"/>
             </connections>
             <point key="canvasLocation" x="-176.5" y="215.5"/>
         </view>
