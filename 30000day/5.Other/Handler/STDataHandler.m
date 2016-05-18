@@ -34,6 +34,7 @@
 #import "PriceModel.h"
 #import "QuestionAnswerModel.h"
 #import "NewFriendModel.h"
+#import "MailListManager.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -53,28 +54,7 @@
 //极光推送
 #import "JPUSHService.h"
 
-@interface NSMutableDictionary (Parameter)
-
-- (void)addParameter:(id)param forKey:(NSString *)key;
-
-@end
-
-@implementation NSMutableDictionary (Parameter)
-
-- (void)addParameter:(id)param forKey:(NSString *)key {
-    
-    if (param) {
-        
-        [self setObject:param forKey:key];
-        
-    }
-}
-
-@end
-
 @interface STDataHandler () <CLLocationManagerDelegate>
-
-@property (nonatomic ,copy) void (^(addressBookBlock))(NSMutableArray *,NSMutableArray *,NSMutableArray *);//获取电话簿的回调代码块
 
 @property (nonatomic,strong)CLLocationManager *locationManager;
 
@@ -585,6 +565,9 @@
         NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
         
     }];
+    
+    //初始化通讯录
+    [[MailListManager shareManager] synchronizedMailList];
 }
 
 //********** 用户注册************/
@@ -906,10 +889,7 @@
 }
 
 //************获取通讯录好友************/
-- (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
-    
-    //保存回调代码块
-    self.addressBookBlock = handler;
++ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
     
     dispatch_async(dispatch_queue_create("AddressBookModel", DISPATCH_QUEUE_SERIAL), ^{
         
@@ -925,7 +905,7 @@
                 
                 ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error1);
                 
-                [self copyAddressBook:addressBook addressBookArray:addressBookArray];
+                [STDataHandler copyAddressBook:addressBook addressBookArray:addressBookArray completionHandler:handler];
             });
             
         } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
@@ -934,7 +914,7 @@
             
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
             
-            [self copyAddressBook:addressBook addressBookArray:addressBookArray];
+            [STDataHandler copyAddressBook:addressBook addressBookArray:addressBookArray completionHandler:handler];
             
         } else {
             
@@ -948,7 +928,7 @@
 }
 
 //私有Api
-- (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray {
++ (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray completionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
 
     CFIndex numberOfPeople = ABAddressBookGetPersonCount(addressBook);
     
@@ -1012,8 +992,7 @@
         
         NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
         
-        self.addressBookBlock(array,sortArray,indexArray);
-    
+        handler(array,sortArray,indexArray);
     });
 }
 
@@ -5895,7 +5874,7 @@
 
 
 //*****************************************检测通讯录*********************/
-- (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
++ (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
                                       failure:(void (^)(NSError *error))failure {
@@ -5909,12 +5888,12 @@
     [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSString *url = @"http://121.196.223.175:8081/stapi/user/checkAddressBook";
-    
-    [manager POST:url parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         

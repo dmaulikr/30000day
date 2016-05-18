@@ -13,37 +13,47 @@
 //自定义对象归档到文件
 - (void)encodeDataObject:(id)object {
     
-    NSMutableData *data = [[NSMutableData alloc] init];
-    
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    
-    [archiver encodeObject:object forKey:[NSString stringWithUTF8String:object_getClassName(self)]];
-    
-    [archiver finishEncoding];
-    
-    [data writeToFile:[self getFilePath] options:NSUTF8StringEncoding error:nil];
+    [self encodeDataObject:object withKey:[NSString stringWithUTF8String:object_getClassName(self)]];
 }
 
-- (NSString *)getFilePath {
+- (NSString *)getFilePath:(NSString *)key {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    return [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.src",[NSString stringWithUTF8String:object_getClassName(self)]]];
+    return [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.src",key]];
 }
 
 //自定义对象从文件解档出来
 - (id)decodeObject {
     
-    NSMutableData *data = [NSMutableData dataWithContentsOfFile:[self getFilePath]];
+    return [self decodeObjectwithKey:[NSString stringWithUTF8String:object_getClassName(self)]];
+}
+
+- (void)encodeDataObject:(id)object withKey:(NSString *)key {
+    
+    NSMutableData *data = [[NSMutableData alloc] init];
+    
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    
+    [archiver encodeObject:object forKey:key];
+    
+    [archiver finishEncoding];
+    
+    [data writeToFile:[self getFilePath:key] options:NSUTF8StringEncoding error:nil];
+}
+
+
+- (id)decodeObjectwithKey:(NSString *)key {
+    
+    NSMutableData *data = [NSMutableData dataWithContentsOfFile:[self getFilePath:key]];
     
     NSKeyedUnarchiver *unArchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     
-    id object = [unArchiver decodeObjectForKey:[NSString stringWithUTF8String:object_getClassName(self)]];
+    id object = [unArchiver decodeObjectForKey:key];
     
     return object;
 }
-
 
 @end

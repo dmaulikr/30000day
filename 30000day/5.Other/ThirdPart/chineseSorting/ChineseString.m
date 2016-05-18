@@ -15,6 +15,37 @@
 
 @synthesize pinYin;
 
+#pragma mark --- NSCoding的协议
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if ([self init]) {
+        
+        self.string = [aDecoder decodeObjectForKey:@"string"];
+        
+        self.pinYin = [aDecoder decodeObjectForKey:@"pinYin"];
+        
+        self.phoneNumber = [aDecoder decodeObjectForKey:@"phoneNumber"];
+        
+        self.status = [aDecoder decodeIntegerForKey:@"status"];
+        
+        self.userId = [aDecoder decodeObjectForKey:@"userId"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.string forKey:@"string"];
+    
+    [aCoder encodeObject:self.pinYin forKey:@"pinYin"];
+    
+    [aCoder encodeObject:self.phoneNumber forKey:@"phoneNumber"];
+    
+    [aCoder encodeInteger:self.status forKey:@"status"];
+    
+    [aCoder encodeObject:self.userId forKey:@"userId"];
+}
+
 #pragma mark - 返回tableview右方 indexArray
 + (NSMutableArray*)IndexArray:(NSArray*)addressBookArray {
     

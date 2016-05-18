@@ -60,6 +60,9 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //别人同意加为好友
  static NSString *const STDidApplyAddFriendSuccessSendNotification = @"STDidApplyAddFriendSuccessSendNotification";
 
+//通讯录成功的存入沙盒
+static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
@@ -164,7 +167,7 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                   failure:(void (^)(NSError *))failure;
 
 //************获取通讯录好友************//
-- (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
++ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
 
 
 //***********开始定位操作(sucess是城市的名字)****************/
@@ -535,7 +538,7 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //                                   failure:(void (^)(NSError *))failure;
 
 //*****************************************检测通讯录*********************/
-- (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
++ (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
                                       failure:(void (^)(NSError *error))failure;

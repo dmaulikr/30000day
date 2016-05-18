@@ -371,7 +371,6 @@
 		B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */; };
 		B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */; };
 		B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */; };
-		B8F1FCC11CE9D46B00C8A0FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCBF1CE9D46B00C8A0FA /* LaunchScreen.storyboard */; };
 		B8F1FCC51CEAF97C00C8A0FA /* PhysicalExaminationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */; };
 		B8F1FCC61CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
@@ -463,6 +462,8 @@
 		B8F6E3AA1CBCD0E8000CC117 /* MapShowTitleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3A91CBCD0E8000CC117 /* MapShowTitleAnnotationView.m */; };
 		B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */; };
 		B8F6E3B01CBCD645000CC117 /* ShopDetailMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */; };
+		B8F7198D1CEB206E000D859D /* MailListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F7198C1CEB206E000D859D /* MailListManager.m */; };
+		B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */; };
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
@@ -1187,7 +1188,6 @@
 		B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFriendsViewController.xib; sourceTree = "<group>"; };
 		B8F1FCB81CE9980C00C8A0FA /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
 		B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
-		B8F1FCC01CE9D46B00C8A0FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B8F1FCC21CEAF97C00C8A0FA /* PhysicalExaminationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationViewController.h; sourceTree = "<group>"; };
 		B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationViewController.m; sourceTree = "<group>"; };
 		B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationViewController.xib; sourceTree = "<group>"; };
@@ -1408,6 +1408,10 @@
 		B8F6E3AC1CBCD40B000CC117 /* ShopAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopAnnotation.m; sourceTree = "<group>"; };
 		B8F6E3AE1CBCD645000CC117 /* ShopDetailMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailMapViewController.h; sourceTree = "<group>"; };
 		B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailMapViewController.m; sourceTree = "<group>"; };
+		B8F7198B1CEB206E000D859D /* MailListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListManager.h; sourceTree = "<group>"; };
+		B8F7198C1CEB206E000D859D /* MailListManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListManager.m; sourceTree = "<group>"; };
+		B8F7198F1CEB2613000D859D /* NSMutableDictionary+parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+parameter.h"; sourceTree = "<group>"; };
+		B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+parameter.m"; sourceTree = "<group>"; };
 		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
@@ -2265,6 +2269,8 @@
 				B886E8661C7D5A0700E64BEC /* NSString+URLEncoding.m */,
 				B8365A4A1C70820100063269 /* UIView+Extension.h */,
 				B8365A4B1C70820100063269 /* UIView+Extension.m */,
+				B8F7198F1CEB2613000D859D /* NSMutableDictionary+parameter.h */,
+				B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2654,9 +2660,6 @@
 				B6E30CA91CE1CF4E00C510A5 /* PromoteAgeTableViewCell.h */,
 				B6E30CAA1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m */,
 				B6E30CAB1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.xib */,
-				B6CF99861CE5B6E000BD80B5 /* PhysicalExaminationViewController.h */,
-				B6CF99871CE5B6E000BD80B5 /* PhysicalExaminationViewController.m */,
-				B6CF99881CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib */,
 				B610FAC91CEAB73E00097C72 /* LifeDescendFactorsViewController.h */,
 				B610FACA1CEAB73E00097C72 /* LifeDescendFactorsViewController.m */,
 				B610FACB1CEAB73E00097C72 /* LifeDescendFactorsViewController.xib */,
@@ -2927,6 +2930,8 @@
 			children = (
 				B8365A591C71DFA000063269 /* AddressBookModel.h */,
 				B8365A5A1C71DFA000063269 /* AddressBookModel.m */,
+				B8F7198B1CEB206E000D859D /* MailListManager.h */,
+				B8F7198C1CEB206E000D859D /* MailListManager.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5025,6 +5030,7 @@
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
+				B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */,
 				B8FD3E1E1C8A7903007BCA6B /* XHMessageTableView.m in Sources */,
 				B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */,
 				B6114CAB1CA27FE60088EED2 /* CommentDetailsLastTableViewCell.m in Sources */,
@@ -5142,6 +5148,7 @@
 				B8FD3E1A1C8A7903007BCA6B /* XHBubblePhotoImageView.m in Sources */,
 				B8FD3E2C1C8A7903007BCA6B /* NSString+Emojize.m in Sources */,
 				B610FACC1CEAB73E00097C72 /* LifeDescendFactorsViewController.m in Sources */,
+				B8F7198D1CEB206E000D859D /* MailListManager.m in Sources */,
 				B8FD3DF41C8A7903007BCA6B /* XHMessageBubbleFactory.m in Sources */,
 				B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */,
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
