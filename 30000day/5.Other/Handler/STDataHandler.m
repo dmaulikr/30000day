@@ -5903,11 +5903,7 @@
 
             NSArray *array = recvDic[@"value"];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                success(array);
-                
-            });
+            success(array);
     
         } else {
             

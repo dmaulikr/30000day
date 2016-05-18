@@ -119,6 +119,7 @@
 
     //*********初始化申请好友管理***************************//
     [[NewFriendManager shareManager] synchronizedDataFromServer];
+    
     //初始化版本控制器
     [[SearchVersionManager shareManager] synchronizedDataFromServer];
 
@@ -187,7 +188,13 @@
 
      if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
          
-         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+         if (notification.repeatInterval != NSCalendarUnitYear) {//半年的提醒
+             
+             [[UIApplication sharedApplication] cancelLocalNotification:notification];
+             
+         } else {
+             
+         }
          
      } else {
          

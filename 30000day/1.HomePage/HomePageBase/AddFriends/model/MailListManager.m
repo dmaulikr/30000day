@@ -11,9 +11,7 @@
 
 @interface MailListManager ()
 
-//@property (nonatomic ,strong) NSMutableArray *chineseStringArray;//该数组里面装的是chineseString这个模型
-
-@property (nonatomic ,strong) NSMutableArray *modelArray;//存储的模型
+@property (nonatomic ,strong) NSMutableArray *modelArray;//存储的数组【数组里存储的是chineseString】模型
 
 @property (nonatomic ,strong) NSMutableArray *indexArray;//里面装的NSSting(A,B,C,D.......)
 
@@ -42,11 +40,9 @@
         
         self.modelArray = [NSMutableArray array];
         
-        NSMutableArray *phoneNumberArray = [NSMutableArray array];
-        
-//        self.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
-        
         self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+        
+        NSMutableArray *phoneNumberArray = [NSMutableArray array];
         
         for (int i = 0 ; i < chineseStringArray.count ; i++) {
             
@@ -118,18 +114,30 @@
             
             self.modelArray = chineseStringArray;
             
-            if (registerArray.count != 0) {
+//            if (registerArray.count != 0) {
+//                
+//                [self.modelArray insertObject:registerArray atIndex:0];
+//                
+//                
+//            }
+//            
+//            if (friendArray.count != 0 && registerArray.count != 0) {
+//                
+//                [self.modelArray insertObject:friendArray atIndex:1];
+//            }
+            
+            [self.modelArray insertObject:registerArray atIndex:0];
+            
+            [self.modelArray insertObject:friendArray atIndex:1];
+            
+            if (friendArray.count != 0) {
                 
-                [self.modelArray insertObject:registerArray atIndex:0];
-                
-                [self.indexArray insertObject:@"＋" atIndex:0];
+                [self.indexArray insertObject:@"友" atIndex:0];
             }
             
-            if (friendArray.count != 0 && registerArray.count != 0) {
-                
-                [self.modelArray insertObject:friendArray atIndex:1];
-                
-                [self.indexArray insertObject:@"友" atIndex:1];
+            if (registerArray.count != 0) {
+        
+                [self.indexArray insertObject:@"＋" atIndex:0];
             }
             
             //同步到沙盒
@@ -142,9 +150,7 @@
             
         } failure:^(NSError *error) {
             
-            
         }];
-        
     }];
 }
 

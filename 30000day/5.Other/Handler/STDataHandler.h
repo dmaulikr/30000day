@@ -538,6 +538,7 @@ static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNo
 //                                   failure:(void (^)(NSError *))failure;
 
 //*****************************************检测通讯录*********************/
+//该方法返回的是子线程中返回的
 + (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
