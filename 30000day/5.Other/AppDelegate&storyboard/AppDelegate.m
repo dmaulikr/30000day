@@ -90,9 +90,9 @@
     
     [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://www.umeng.com/social"];
     
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3403884903" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
-    [UMSocialQQHandler  setQQWithAppId:@"1105117619" appKey:@"XuTcDNJbNvk1LpkG" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://www.umeng.com/social"];
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
