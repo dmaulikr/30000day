@@ -120,7 +120,7 @@
             
             if (friendArray.count != 0) {
                 
-                [self.indexArray insertObject:@"已添加好友" atIndex:0];
+                [self.indexArray insertObject:@"友" atIndex:0];
                 
             } else {
                 
@@ -129,20 +129,23 @@
             
             if (registerArray.count != 0) {
         
-                [self.indexArray insertObject:@"可添加的好友" atIndex:0];
+                [self.indexArray insertObject:@"+" atIndex:0];
                 
             } else {
                 
                 [self.indexArray insertObject:@"" atIndex:0];
             }
             
-            //同步到沙盒
-            [self encodeDataObject:self.modelArray withKey:@"modelArray"];
-            
-            [self encodeDataObject:self.indexArray withKey:@"indexArray"];
-            
-            //成功的存入沙盒要发送个通知
-            [STNotificationCenter postNotificationName:STDidSaveInFileSendNotification object:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //同步到沙盒
+                [self encodeDataObject:self.modelArray withKey:@"modelArray"];
+                
+                [self encodeDataObject:self.indexArray withKey:@"indexArray"];
+                
+                //成功的存入沙盒要发送个通知
+                [STNotificationCenter postNotificationName:STDidSaveInFileSendNotification object:nil];
+            });
             
         } failure:^(NSError *error) {
             

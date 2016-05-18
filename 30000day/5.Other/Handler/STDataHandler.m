@@ -991,16 +991,13 @@
         }
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        NSMutableArray *array =  [ChineseString LetterSortArray:addressBookArray];
-        
-        NSMutableArray *sortArray = [ChineseString SortArray:addressBookArray];
-        
-        NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
-        
-        handler(array,sortArray,indexArray);
-    });
+    NSMutableArray *array =  [ChineseString LetterSortArray:addressBookArray];
+    
+    NSMutableArray *sortArray = [ChineseString SortArray:addressBookArray];
+    
+    NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
+    
+    handler(array,sortArray,indexArray);
 }
 
 //*************搜索某一个用户（里面装的SearchUserInformationModel）**********************/
@@ -1329,8 +1326,7 @@
         };
     
         callBack.onComplete = ^() {
-            
-            
+        
         };
         
         //请求API
@@ -1345,7 +1341,7 @@
                                 dayNumber:(NSString *)dayNumber
                                   success:(void (^)(NSMutableArray *dataArray))success
                                   failure:(void (^)(NSError *error))failure {
-
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:currentUserId forKey:@"userId"];
@@ -1364,7 +1360,6 @@
         NSError *localError = nil;
         
         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-        
         if (localError == nil) {
             
             NSDictionary *recvDic = (NSDictionary *)parsedObject;
@@ -5885,21 +5880,13 @@
             
             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                failure(failureError);
-                
-            });
+           failure(failureError);
             
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            failure(error);
-            
-        });
+       failure(error);
         
     }];
 }
