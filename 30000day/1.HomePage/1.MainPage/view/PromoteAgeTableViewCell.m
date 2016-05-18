@@ -29,7 +29,6 @@
     [self configLocaleNotification:switchButton.on];
 }
 
-
 - (void)configLocaleNotification:(BOOL)addOrDelete {//YES:add NO:delete
     
     if (addOrDelete) {

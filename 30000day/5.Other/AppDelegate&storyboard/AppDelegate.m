@@ -188,7 +188,13 @@
 
      if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
          
-         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+         if (notification.repeatInterval != NSCalendarUnitYear) {//半年的提醒
+             
+             [[UIApplication sharedApplication] cancelLocalNotification:notification];
+             
+         } else {
+             
+         }
          
      } else {
          

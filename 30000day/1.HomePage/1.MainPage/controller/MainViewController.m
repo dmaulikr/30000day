@@ -148,7 +148,7 @@
     
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {//表示如果账户的userId为空的话，那么就不获取用户的天龄
     
-        [self.dataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
+        [STDataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
             
             UserLifeModel *lastModel = [dataArray firstObject];
             
@@ -208,15 +208,22 @@
                 
             }
             
-            [self.tableView reloadData];
-            
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+                [self.tableView.mj_header endRefreshing];
 
-        } failure:^(STNetError *error) {
+            });
             
-            [self showToast:@"获取天龄失败，可能是网络繁忙"];
+        } failure:^(NSError *error) {
             
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self showToast:@"获取天龄失败，可能是网络繁忙"];
+                
+                [self.tableView.mj_header endRefreshing];
+            });
         }];
     }
 }
@@ -321,7 +328,7 @@
 //根据用户id去获取打败的数据
 - (void)getDefeatDataWithUserId:(NSNumber *)userId {
     
-    [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
+    [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
         self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的总天龄已经击败%.1f%%用户",[dataString floatValue] * 100];
         

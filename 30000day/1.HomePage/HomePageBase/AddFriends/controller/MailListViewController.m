@@ -17,6 +17,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "MTProgressHUD.h"
+#import "MailListManager.h"
 
 @interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -50,127 +51,19 @@
     
     self.tableView.dataSource = self;
     
-    //1.下载通信录好友
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
-    [self.dataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
-        
-        self.cellArray = [NSMutableArray array];
-        
-        self.phoneNumberArray = [NSMutableArray array];
-        
-        self.chineseStringArray = [NSMutableArray arrayWithArray:chineseStringArray];
-        
-        self.indexArray = [NSMutableArray arrayWithArray:indexArray];
-        
-        for (int i = 0 ; i < chineseStringArray.count ; i++) {
-            
-            NSMutableArray *subDataArray = chineseStringArray[i];
-            
-            NSMutableArray *phoneArray = [NSMutableArray array];
-            
-            for (int j = 0; j < subDataArray.count; j++) {
-                
-                ChineseString *chineseString = subDataArray[j];
-                
-                NSString *phoneNumber = chineseString.phoneNumber;
-                
-                if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
-                    
-                    phoneNumber = [phoneNumber substringFromIndex:4];
-                    
-                }
-                
-                phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                
-                NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
-                
-                [phoneNumberDictionary setObject:phoneNumber forKey:@"mobile"];
-                
-                [phoneArray addObject:phoneNumberDictionary];
-            }
-            
-            [self.phoneNumberArray addObject:phoneArray];
-        }
-        
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [self loadDataFromServer];
+}
 
-        [self.dataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
-            
-            NSLog(@"%@",addressArray);
-            
-            NSMutableArray *registerArray = [NSMutableArray array];
-            
-            NSMutableArray *friendArray = [NSMutableArray array];
-            
-            for (int i = 0 ; i < addressArray.count; i++) {
-                
-                NSMutableArray *subDataArray = chineseStringArray[i];
-                
-                NSDictionary *dictionary = addressArray[i];
-                
-                NSArray *array = dictionary[@"addressBookList"];
-                
-                for (int j = 0; j < subDataArray.count; j++) {
-                    
-                    NSDictionary *dictionary = array[j];
-                    
-                    ChineseString *chineseString = subDataArray[j];
-                    
-                    chineseString.status = [dictionary[@"status"] integerValue];
-                    
-                    if ([dictionary[@"status"] integerValue] == 1) {
-                        
-                        chineseString.userId = dictionary[@"userId"];
-                        
-                        [registerArray addObject:chineseString];
-                        
-                    } else if([dictionary[@"status"] integerValue] == 2){
-                    
-                        [friendArray addObject:chineseString];
-                    
-                    }
-                }
-            }
-            
-            self.cellArray = chineseStringArray;
-            
-            if (registerArray.count != 0) {
-                
-                [self.cellArray insertObject:registerArray atIndex:0];
-                
-                [self.indexArray insertObject:@"＋" atIndex:0];
-                
-            }
-            
-            if (friendArray.count != 0 && registerArray.count != 0) {
-                
-                [self.cellArray insertObject:friendArray atIndex:1];
-                
-                [self.indexArray insertObject:@"友" atIndex:1];
-                
-            } else {
-            
-                [self.cellArray insertObject:friendArray atIndex:0];
-                
-                [self.indexArray insertObject:@"友" atIndex:0];
-            
-            }
-
-            [self.tableView reloadData];
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-        } failure:^(NSError *error) {
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-        }];
-        
-    }];
+- (void)loadDataFromServer {
     
+    self.cellArray = [[MailListManager shareManager] getModelArray];
+    
+    self.indexArray = [[MailListManager shareManager] getIndexArray];
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSaveInFileSendNotification object:nil];
 }
 
 #pragma ---
@@ -205,12 +98,10 @@
                 
                 [self.searchResultArray addObject:chineseString];
             }
-            
         }
     }
     
     [self.tableView reloadData];
-    
 }
 
 #pragma ---
@@ -270,14 +161,22 @@
     
     if (self.isSearch) {
         
-        return 0;
+        return 0.0f;
         
     } else {
         
-        return 30;
+        NSMutableArray *array = self.cellArray[section];
+        
+        if (array.count) {
+            
+            return 30.0f;
+            
+        } else {
+            
+            return 0.01f;
+        }
     }
 }
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
@@ -324,29 +223,7 @@
 
     }
     
-    cell.titleLabel.text = chineseString.string;
-    
-    if (chineseString.status == 1) {
-        
-        [cell.invitationButton setTitle:@"＋" forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
-        [cell.invitationButton setTag:1];
-        
-    } else if(chineseString.status == 2) {
-    
-        [cell.invitationButton setTitle:@"已加" forState:UIControlStateNormal];
-        [cell.invitationButton setUserInteractionEnabled:NO];
-        [cell.invitationButton setTitleColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor whiteColor]];
-        [cell.invitationButton setTag:2];
-        
-    } else {
-    
-        [cell.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
-        [cell.invitationButton setTag:0];
-    
-    }
+    cell.dataModel = chineseString;
     
     //按钮点击回调
     [cell setInvitationButtonBlock:^(UIButton *button){
@@ -364,7 +241,6 @@
             NSMutableArray *array = self.cellArray[indexPath.section];
             
             chineseString = array[indexPath.row];
-            
         }
         
         if (button.tag) {
@@ -391,7 +267,6 @@
         } else {
 
             [self showShareAnimatonView:indexPath];
-            
         }
 
     }];

@@ -43,22 +43,26 @@ static SearchVersionManager *manager;
             
             if (oldArray.count == dataArray.count) {
                 
-                BOOL isChange = NO;
-                
                 for (int i = 0; i < oldArray.count; i++) {
                     
                     SearchTableVersion *oldVersion = oldArray[i];
                     
                     SearchTableVersion *newVersion = dataArray[i];
                     
-                    if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName]) {
-                        
-                        isChange = YES;
-                        
+                    if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@1]) {//城市的表
+
                         //同步省-城市-区、县的数据
                         [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
                         
                         [self encodeDataObject:dataArray];
+                        
+                    } else if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@2]) {//健康因子
+                        
+                        
+                        
+                    } else if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@3]) {//健康因子的条件
+                        
+                        
                         
                     }
                 }

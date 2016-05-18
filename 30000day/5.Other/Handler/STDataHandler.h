@@ -60,6 +60,9 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //别人同意加为好友
  static NSString *const STDidApplyAddFriendSuccessSendNotification = @"STDidApplyAddFriendSuccessSendNotification";
 
+//通讯录成功的存入沙盒
+static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
@@ -164,7 +167,7 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                                   failure:(void (^)(NSError *))failure;
 
 //************获取通讯录好友************//
-- (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
++ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
 
 
 //***********开始定位操作(sucess是城市的名字)****************/
@@ -179,11 +182,11 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 
 
 //**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
-- (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
++ (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                 success:(void (^)(NSMutableArray *dataArray))success
-                                failure:(void (^)(STNetError *error))failure;
+                                failure:(void (^)(NSError *error))failure;
 
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
@@ -477,7 +480,7 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************获取击败人数数据*********************/
-- (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
++ (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
                            success:(void (^)(NSString *dataString))success
                            failure:(void (^)(NSError *error))failure;
 
@@ -535,7 +538,8 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //                                   failure:(void (^)(NSError *))failure;
 
 //*****************************************检测通讯录*********************/
-- (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
+//该方法返回的是子线程中返回的
++ (void)sendcheckAddressBookWithMobileOwnerId:(NSString *)mobileOwnerId
                               addressBookJson:(NSString *)addressBookJson
                                       success:(void (^)(NSArray *addressArray))success
                                       failure:(void (^)(NSError *error))failure;

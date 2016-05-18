@@ -52,16 +52,19 @@ static NewFriendManager *manager;
                                               badgeNumber += oldModel.badgeNumber;
                                           }
                                           
-                                          if (self.getBadgeNumberBlock) {
+                                          dispatch_async(dispatch_get_main_queue(), ^{
                                               
-                                              self.getBadgeNumberBlock(badgeNumber);
-                                          }
-                                          
-                                          if (self.getDataBlock) {
+                                              if (self.getBadgeNumberBlock) {
+                                                  
+                                                  self.getBadgeNumberBlock(badgeNumber);
+                                              }
                                               
-                                              self.getDataBlock(dataArray);
-                                          }
-                                          
+                                              if (self.getDataBlock) {
+                                                  
+                                                  self.getDataBlock(dataArray);
+                                              }
+                                          });
+
                                       } failure:^(NSError *error) {
                                           
                                           
@@ -131,10 +134,7 @@ static NewFriendManager *manager;
                     //归档到文件
                     [self encodeDataObject:dataArray];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        success(dataArray);
-                    });
+                    success(dataArray);
                     
                 } else {
                     
@@ -170,7 +170,10 @@ static NewFriendManager *manager;
        
        [self cleanBadgeNumber];
        
-       success(0);
+       dispatch_async(dispatch_get_main_queue(), ^{
+           
+           success(0);
+       });
        
     } failure:^(NSError *error) {
        
@@ -262,7 +265,10 @@ static NewFriendManager *manager;
         //清除完后归档
         [self encodeDataObject:oldArray];
         
-        action(oldArray);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            action(oldArray);
+        });
         
     } failure:^(NSError *error) {
         
@@ -299,10 +305,7 @@ static NewFriendManager *manager;
                 
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        success(YES);
-                    });
+                    success(YES);
                     
                 } else {
                     

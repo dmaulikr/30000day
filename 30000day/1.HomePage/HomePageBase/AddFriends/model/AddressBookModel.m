@@ -10,4 +10,25 @@
 
 @implementation AddressBookModel
 
+#pragma mark --- NSCoding的协议
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if ([self init]) {
+        
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        
+        self.mobilePhone = [aDecoder decodeObjectForKey:@"mobilePhone"];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.name forKey:@"name"];
+    
+    [aCoder encodeObject:self.mobilePhone forKey:@"mobilePhone"];
+}
+
+
 @end
