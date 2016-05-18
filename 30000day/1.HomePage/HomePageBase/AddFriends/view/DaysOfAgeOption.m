@@ -50,46 +50,46 @@
 
 - (void)tapAction:(UITapGestureRecognizer *)tap {
     
-    [DaysOfAgeOption annimateRemoveFromSuperView:self];
+    [self annimateRemoveFromSuperView];
 
 }
 
 
-+ (void)annimateRemoveFromSuperView:(DaysOfAgeOption *)animationview {
- 
-    animationview.perfectImageView.frame = CGRectMake(SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT - 250, 100, 100);
-    
-    animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH / 2 + 70, SCREEN_HEIGHT - 250, 100, 100);
+- (void)annimateRemoveFromSuperView {
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        animationview.perfectImageView.frame = CGRectMake(-100, SCREEN_HEIGHT - 250, 100, 100);
+        self.oneLeft.constant = -100;
         
-        animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - 250, 100, 100);
+        self.oneRight.constant = SCREEN_WIDTH;
+        
+        self.twoRight.constant = -100;
+        
+        [self layoutIfNeeded];
         
     } completion:^(BOOL finished) {
         
-        [animationview removeFromSuperview];
+        [self removeFromSuperview];
         
     }];
     
 }
 
-+ (void)animateWindowsAddSubView:(DaysOfAgeOption *)animationview {
+- (void)animateWindowsAddSubView {
     
-    [animationview setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    CGFloat x = (SCREEN_WIDTH - 200) / 3;
     
-    animationview.perfectImageView.frame = CGRectMake(0, SCREEN_HEIGHT - 250, 100, 100);
-    
-    animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - 250, 100, 100);
-    
-    [[[UIApplication sharedApplication].delegate window] addSubview:animationview];
-    
+    [[[UIApplication sharedApplication].delegate window] addSubview:self];
+  
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        animationview.perfectImageView.frame = CGRectMake(SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT - 250, 100, 100);
+        self.oneLeft.constant = x;
         
-        animationview.promoteImageView.frame = CGRectMake(SCREEN_WIDTH / 2 + 70, SCREEN_HEIGHT - 250, 100, 100);
+        self.oneRight.constant = x;
+        
+        self.twoRight.constant = x;
+        
+        [self layoutIfNeeded];
         
     } completion:nil];
     

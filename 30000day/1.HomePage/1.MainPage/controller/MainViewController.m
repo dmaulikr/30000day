@@ -752,11 +752,13 @@
     DaysOfAgeOption *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"DaysOfAgeOption" owner:self options:nil] lastObject];
     
     //封装的动画般推出视图
-    [DaysOfAgeOption animateWindowsAddSubView:shareAnimationView];
+    [shareAnimationView animateWindowsAddSubView];
+    
+    __weak DaysOfAgeOption *weakSelf = shareAnimationView;
     
     [shareAnimationView setShareButtonBlock:^(NSInteger tag, DaysOfAgeOption *daysOfAgeOptionView) {
        
-        [DaysOfAgeOption annimateRemoveFromSuperView:daysOfAgeOptionView];
+        [weakSelf annimateRemoveFromSuperView];
         
         if (tag == 1) {
             
