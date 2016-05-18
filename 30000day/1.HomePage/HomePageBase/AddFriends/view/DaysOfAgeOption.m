@@ -11,7 +11,7 @@
 @implementation DaysOfAgeOption
 
 -(void)awakeFromNib {
-
+    
     [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0 ]];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
@@ -57,12 +57,12 @@
 
 - (void)annimateRemoveFromSuperView {
     
+    self.oneLeft.constant = -100;
+    
+    self.twoRight.constant = -100;
+    
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.oneLeft.constant = -100;
-        
-        self.twoRight.constant = -100;
-        
+    
         [self layoutIfNeeded];
         
     } completion:^(BOOL finished) {
@@ -77,13 +77,19 @@
     
     CGFloat x = (SCREEN_WIDTH - 200) / 3;
     
+    [self setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    [self.perfectImageView setFrame:CGRectMake(x, SCREEN_HEIGHT - 150, 100, 100)];
+    
+    [self.promoteImageView setFrame:CGRectMake(SCREEN_WIDTH - x - 100, SCREEN_HEIGHT - 150, 100, 100)];
+    
     [[[UIApplication sharedApplication].delegate window] addSubview:self];
+    
+    self.oneLeft.constant = x;
+    
+    self.twoRight.constant = x;
   
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.oneLeft.constant = x;
-        
-        self.twoRight.constant = x;
         
         [self layoutIfNeeded];
         

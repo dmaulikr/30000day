@@ -751,6 +751,10 @@
 
     DaysOfAgeOption *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"DaysOfAgeOption" owner:self options:nil] lastObject];
     
+    //[shareAnimationView setSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    //[shareAnimationView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
     //封装的动画般推出视图
     [shareAnimationView animateWindowsAddSubView];
     
