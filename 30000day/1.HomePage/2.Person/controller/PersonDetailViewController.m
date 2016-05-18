@@ -110,7 +110,7 @@
 - (void)getUserLifeList {
     
     //1.获取用户的天龄
-    [self.dataHandler sendUserLifeListWithCurrentUserId:self.friendUserId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
+    [STDataHandler sendUserLifeListWithCurrentUserId:self.friendUserId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
         UserLifeModel *lastModel = [dataArray lastObject];
         
@@ -170,9 +170,12 @@
             
         }
         
-        [self.tableView reloadData];
-        
-    } failure:^(STNetError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+        });
+    
+    } failure:^(NSError *error) {
         
     }];
 }
@@ -180,7 +183,7 @@
 //根据用户id去获取打败的数据
 - (void)getDefeatDataWithUserId:(NSNumber *)userId {
     
-    [self.dataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
+    [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
         self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",[[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName],[dataString floatValue] * 100];
         

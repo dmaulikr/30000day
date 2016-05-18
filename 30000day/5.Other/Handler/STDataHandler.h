@@ -182,11 +182,11 @@ static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNo
 
 
 //**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
-- (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
++ (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                 success:(void (^)(NSMutableArray *dataArray))success
-                                failure:(void (^)(STNetError *error))failure;
+                                failure:(void (^)(NSError *error))failure;
 
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
@@ -480,7 +480,7 @@ static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNo
                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************获取击败人数数据*********************/
-- (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
++ (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
                            success:(void (^)(NSString *dataString))success
                            failure:(void (^)(NSError *error))failure;
 

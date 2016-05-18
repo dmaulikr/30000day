@@ -120,12 +120,20 @@
             
             if (friendArray.count != 0) {
                 
-                [self.indexArray insertObject:@"友" atIndex:0];
+                [self.indexArray insertObject:@"已添加好友" atIndex:0];
+                
+            } else {
+                
+                [self.indexArray insertObject:@"" atIndex:0];
             }
             
             if (registerArray.count != 0) {
         
-                [self.indexArray insertObject:@"＋" atIndex:0];
+                [self.indexArray insertObject:@"可添加的好友" atIndex:0];
+                
+            } else {
+                
+                [self.indexArray insertObject:@"" atIndex:0];
             }
             
             //同步到沙盒

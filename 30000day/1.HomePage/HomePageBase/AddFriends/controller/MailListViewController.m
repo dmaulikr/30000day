@@ -161,14 +161,22 @@
     
     if (self.isSearch) {
         
-        return 0;
+        return 0.0f;
         
     } else {
         
-        return 30;
+        NSMutableArray *array = self.cellArray[section];
+        
+        if (array.count) {
+            
+            return 30.0f;
+            
+        } else {
+            
+            return 0.01f;
+        }
     }
 }
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     

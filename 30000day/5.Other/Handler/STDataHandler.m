@@ -90,6 +90,13 @@
     return requestHash;
 }
 
++ (NSString *)startRequest:(STRequest *)request {
+    
+    NSString *requestHash = [[STNetworkAgent sharedAgent] addRequest:request];
+    
+    return requestHash;
+}
+
 #pragma mark ---- 以下封装的是app所用到的所有接口
 
 //***** 发送验证请求 *****/
@@ -1333,12 +1340,12 @@
 }
 
 //**********获取用户的天龄(dataArray装的是UserLifeModel模型)**********************/
-- (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
++ (void)sendUserLifeListWithCurrentUserId:(NSNumber *)currentUserId
                                    endDay:(NSString *)endDay//2016-02-19这种模式
                                 dayNumber:(NSString *)dayNumber
                                   success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(STNetError *error))failure {
-    
+                                  failure:(void (^)(NSError *error))failure {
+
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:currentUserId forKey:@"userId"];
@@ -1347,71 +1354,42 @@
     
     [parameters addParameter:dayNumber forKey:@"day"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_USER_LIFE_LIST
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *array = [UserLifeModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(array);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                             failure(error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    [self startRequest:request];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_LIFE_LIST] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSMutableArray *array = [UserLifeModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                
+                success(array);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
@@ -5221,7 +5199,7 @@
 }
 
 //*****************************************获取击败人数数据*********************/
-- (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
++ (void)sendGetDefeatDataWithUserId:(NSNumber *)userId
                             success:(void (^)(NSString *dataString))success
                             failure:(void (^)(NSError *error))failure {
     
@@ -5282,7 +5260,7 @@
     
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
-    [self startRequest:request];
+    [STDataHandler startRequest:request];
 }
 
 //*****************************************检查是否已绑定*********************/
