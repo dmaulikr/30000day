@@ -371,7 +371,6 @@
 		B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */; };
 		B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */; };
 		B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */; };
-		B8F1FCC11CE9D46B00C8A0FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCBF1CE9D46B00C8A0FA /* LaunchScreen.storyboard */; };
 		B8F1FCC51CEAF97C00C8A0FA /* PhysicalExaminationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */; };
 		B8F1FCC61CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
@@ -1187,7 +1186,6 @@
 		B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFriendsViewController.xib; sourceTree = "<group>"; };
 		B8F1FCB81CE9980C00C8A0FA /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
 		B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
-		B8F1FCC01CE9D46B00C8A0FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = 30000day/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		B8F1FCC21CEAF97C00C8A0FA /* PhysicalExaminationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationViewController.h; sourceTree = "<group>"; };
 		B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationViewController.m; sourceTree = "<group>"; };
 		B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationViewController.xib; sourceTree = "<group>"; };
@@ -2654,9 +2652,6 @@
 				B6E30CA91CE1CF4E00C510A5 /* PromoteAgeTableViewCell.h */,
 				B6E30CAA1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m */,
 				B6E30CAB1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.xib */,
-				B6CF99861CE5B6E000BD80B5 /* PhysicalExaminationViewController.h */,
-				B6CF99871CE5B6E000BD80B5 /* PhysicalExaminationViewController.m */,
-				B6CF99881CE5B6E000BD80B5 /* PhysicalExaminationViewController.xib */,
 				B610FAC91CEAB73E00097C72 /* LifeDescendFactorsViewController.h */,
 				B610FACA1CEAB73E00097C72 /* LifeDescendFactorsViewController.m */,
 				B610FACB1CEAB73E00097C72 /* LifeDescendFactorsViewController.xib */,
