@@ -5885,8 +5885,6 @@
     
     [params addParameter:addressBookJson forKey:@"addressBookJson"];
     
-    [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];

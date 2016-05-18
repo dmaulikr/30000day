@@ -114,18 +114,6 @@
             
             self.modelArray = chineseStringArray;
             
-//            if (registerArray.count != 0) {
-//                
-//                [self.modelArray insertObject:registerArray atIndex:0];
-//                
-//                
-//            }
-//            
-//            if (friendArray.count != 0 && registerArray.count != 0) {
-//                
-//                [self.modelArray insertObject:friendArray atIndex:1];
-//            }
-            
             [self.modelArray insertObject:registerArray atIndex:0];
             
             [self.modelArray insertObject:friendArray atIndex:1];
@@ -162,6 +150,13 @@
 - (NSMutableArray *)getIndexArray {
     
     return [self decodeObjectwithKey:@"indexArray"];
+}
+
+- (void)dealloc {
+    
+    self.indexArray = nil;
+    
+    self.modelArray = nil;
 }
 
 @end

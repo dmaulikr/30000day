@@ -32,4 +32,40 @@
     }
 }
 
+- (void)setDataModel:(ChineseString *)dataModel {
+    
+    _dataModel = dataModel;
+    
+    self.titleLabel.text = dataModel.string;
+    
+    if (dataModel.status == 1) {
+        
+        [self.invitationButton setTitle:@"＋" forState:UIControlStateNormal];
+        
+        [self.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
+        
+        [self.invitationButton setTag:1];
+        
+    } else if(dataModel.status == 2) {
+        
+        [self.invitationButton setTitle:@"已加" forState:UIControlStateNormal];
+        
+        [self.invitationButton setUserInteractionEnabled:NO];
+        
+        [self.invitationButton setTitleColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        
+        [self.invitationButton setBackgroundColor:[UIColor whiteColor]];
+        
+        [self.invitationButton setTag:2];
+        
+    } else {
+        
+        [self.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
+        
+        [self.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
+        
+        [self.invitationButton setTag:0];
+    }
+}
+
 @end

@@ -215,29 +215,7 @@
 
     }
     
-    cell.titleLabel.text = chineseString.string;
-    
-    if (chineseString.status == 1) {
-        
-        [cell.invitationButton setTitle:@"＋" forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
-        [cell.invitationButton setTag:1];
-        
-    } else if(chineseString.status == 2) {
-    
-        [cell.invitationButton setTitle:@"已加" forState:UIControlStateNormal];
-        [cell.invitationButton setUserInteractionEnabled:NO];
-        [cell.invitationButton setTitleColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor whiteColor]];
-        [cell.invitationButton setTag:2];
-        
-    } else {
-    
-        [cell.invitationButton setTitle:@"邀请" forState:UIControlStateNormal];
-        [cell.invitationButton setBackgroundColor:[UIColor colorWithRed:73.0/255.0 green:117.0/255.0 blue:188.0/255.0 alpha:1.0]];
-        [cell.invitationButton setTag:0];
-    
-    }
+    cell.dataModel = chineseString;
     
     //按钮点击回调
     [cell setInvitationButtonBlock:^(UIButton *button){
@@ -255,7 +233,6 @@
             NSMutableArray *array = self.cellArray[indexPath.section];
             
             chineseString = array[indexPath.row];
-            
         }
         
         if (button.tag) {
@@ -282,7 +259,6 @@
         } else {
 
             [self showShareAnimatonView:indexPath];
-            
         }
 
     }];

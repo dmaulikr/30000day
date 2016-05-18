@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChineseString.h"
 
 @interface MailListTableViewCell : UITableViewCell
 
@@ -15,5 +16,8 @@
 @property (nonatomic , copy) void (^(invitationButtonBlock))(UIButton *button);
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (nonatomic,strong) ChineseString *dataModel;
+
 
 @end

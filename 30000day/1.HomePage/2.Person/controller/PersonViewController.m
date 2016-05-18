@@ -15,6 +15,10 @@
 #import "NewFriendsViewController.h"
 #import "NewFriendManager.h"
 #import "AddFriendsViewController.h"
+#import "MailListManager.h"
+#import "MailListTableViewCell.h"
+#import "ChineseString.h"
+#import "MTProgressHUD.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -44,16 +48,16 @@
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     //监听成功添加好友发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAddFriendsSuccessPostNotification object:nil];
-    
+    //成功移除好友的时候发送的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUseDidSuccessDeleteFriendSendNotification object:nil];
-    
+    //当成功的更新好友的信息（好友的昵称、备注头像）所发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
-    
     //成功的切换模式
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
-    
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidApplyAddFriendSuccessSendNotification object:nil];
-    
+    //别人同意加为好友
+    [STNotificationCenter addObserver:self selector:@selector(loadCanApplyFriend) name:STDidApplyAddFriendSuccessSendNotification object:nil];
+    //通讯录的信息有变
+    [STNotificationCenter addObserver:self selector:@selector(reloadMainTableView) name:STDidSaveInFileSendNotification object:nil];
     //获取角标
     [[NewFriendManager shareManager] getBadgeNumber:^(NSInteger badgeNumber) {
         
@@ -101,9 +105,24 @@
     [self getMyFriends];
 }
 
+//下载可以请求的数据
+- (void)loadCanApplyFriend {
+    
+    [[MailListManager shareManager] synchronizedMailList];
+    
+    [self reloadData];
+}
+
+- (void)reloadMainTableView {
+    
+    [self.tableView reloadData];
+}
+
 - (void)headerRefreshing {
     
-    [self getMyFriends];
+    [[MailListManager shareManager] synchronizedMailList];
+    
+    [self reloadData];
 }
 
 //获取我的好友
@@ -180,10 +199,36 @@
         
         return view;
         
-    } else {
+    } else if(section == 1) {
         
-        return nil;
+        static NSString *headViewIndentifier = @"PersonHeadView";
+        
+        PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
+        
+        if (view == nil) {
+            
+            view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
+        }
+        
+        view.titleLabel.text = @"可添加的好友";
+        
+        view.titleLabel.hidden = NO;
+        
+        view.changeStatusButton.hidden = YES;
+        
+        NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
+        
+        if (registerArray.count) {
+            
+            return view;
+            
+        } else {
+            
+            return nil;
+        }
+        
     }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -191,6 +236,19 @@
     if (section == 0) {
         
         return 44;
+        
+    } else if (section == 1) {
+        
+        NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
+        
+        if (registerArray.count) {
+            
+            return 44.0f;
+            
+        } else {
+            
+            return 0.01f;
+        }
     }
     
     return 0.01f;
@@ -198,7 +256,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -206,6 +264,12 @@
     if (section == 0) {
         
         return 1;
+        
+    } else if (section == 1) {
+      
+        NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
+        
+        return registerArray.count;
         
     } else {
         
@@ -218,6 +282,10 @@
     if (indexPath.section == 0) {
         
         return 72.1f;
+        
+    } else if(indexPath.section == 1) {
+        
+        return 44.0f;
         
     } else {
         
@@ -237,6 +305,50 @@
     if (indexPath.section == 0) {
 
         return self.firstCell;
+        
+    } else if (indexPath.section == 1) {
+      
+        MailListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MailListTableViewCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MailListTableViewCell" owner:self options:nil] lastObject];
+        }
+        
+        NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
+        
+        ChineseString *chineseString = registerArray[indexPath.row];
+        
+        cell.dataModel = chineseString;
+        
+        //按钮点击回调
+        [cell setInvitationButtonBlock:^(UIButton *button) {
+            
+            if (button.tag) {
+                
+                //添加好友
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+                //添加好友,接口, @1请求   @2接受   @3拒绝
+                [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                                                            userId:chineseString.userId
+                                                       messageType:@1
+                                                           success:^(BOOL success) {
+                                                               
+                                                               [self showToast:@"请求发送成功"];
+                                                               
+                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                               
+                                                           } failure:^(NSError *error) {
+                                                               
+                                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                               
+                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                           }];
+                
+            }
+        }];
+        
+        return cell;
         
     } else {
         
@@ -289,6 +401,10 @@
             [[self navigationController] tabBarItem].badgeValue = nil;
         }];
         
+    } else if(indexPath.section == 1) {
+        
+        
+        
     } else {
         
         PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
@@ -322,6 +438,8 @@
     [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STDidApplyAddFriendSuccessSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSaveInFileSendNotification object:nil];
     
     _dataArray = nil;
 }
