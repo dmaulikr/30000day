@@ -18,8 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *oneLeft;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oneRight;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *twoRight;
 
 
