@@ -28,12 +28,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuw-mr-LYf">
-                        <rect key="frame" x="245" y="13" width="60" height="30"/>
+                        <rect key="frame" x="245" y="21" width="60" height="30"/>
+                        <color key="backgroundColor" red="0.22745098039215686" green="0.37254901960784315" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="9S3-Sk-Bza"/>
                             <constraint firstAttribute="height" constant="30" id="Oy2-d3-Phw"/>
                         </constraints>
-                        <state key="normal" title="添加"/>
+                        <state key="normal" title="＋">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
                         <connections>
                             <action selector="addUserAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YYZ-uK-NUJ"/>
                         </connections>
@@ -55,9 +58,9 @@
                     <constraint firstItem="WEK-0F-Tdf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LDN-YJ-O7g"/>
                     <constraint firstItem="xjX-8z-1k0" firstAttribute="top" secondItem="7AT-kH-KYS" secondAttribute="bottom" constant="5" id="MRh-au-pwB"/>
                     <constraint firstItem="xuw-mr-LYf" firstAttribute="leading" secondItem="xjX-8z-1k0" secondAttribute="trailing" constant="5" id="bil-ri-OlP"/>
-                    <constraint firstItem="xuw-mr-LYf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="lCA-iS-dpQ"/>
                     <constraint firstAttribute="trailing" secondItem="xuw-mr-LYf" secondAttribute="trailing" constant="15" id="lh6-17-5h1"/>
                     <constraint firstItem="7AT-kH-KYS" firstAttribute="top" secondItem="WEK-0F-Tdf" secondAttribute="top" constant="6" id="pU9-6g-cjf"/>
+                    <constraint firstItem="xuw-mr-LYf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sbE-IG-1B5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
