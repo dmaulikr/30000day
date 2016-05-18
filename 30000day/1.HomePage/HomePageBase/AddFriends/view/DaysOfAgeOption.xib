@@ -31,13 +31,11 @@
                 <constraint firstAttribute="trailing" secondItem="lbK-Fl-7kN" secondAttribute="trailing" constant="-100" id="0W6-Ww-6Iv"/>
                 <constraint firstAttribute="bottom" secondItem="4Ql-fu-H2F" secondAttribute="bottom" constant="150" id="BQ0-bj-5eu"/>
                 <constraint firstItem="4Ql-fu-H2F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="b1i-0F-mda"/>
-                <constraint firstItem="lbK-Fl-7kN" firstAttribute="leading" secondItem="4Ql-fu-H2F" secondAttribute="trailing" constant="375" id="okG-kf-LBK"/>
                 <constraint firstItem="lbK-Fl-7kN" firstAttribute="centerY" secondItem="4Ql-fu-H2F" secondAttribute="centerY" id="sfa-ah-P5T"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="oneLeft" destination="b1i-0F-mda" id="FZ1-L9-nda"/>
-                <outlet property="oneRight" destination="okG-kf-LBK" id="ey3-Uu-Swc"/>
                 <outlet property="perfectImageView" destination="4Ql-fu-H2F" id="0EC-vG-na9"/>
                 <outlet property="promoteImageView" destination="lbK-Fl-7kN" id="jox-8N-5o2"/>
                 <outlet property="twoRight" destination="0W6-Ww-6Iv" id="Hdd-4V-Bz4"/>

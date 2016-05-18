@@ -61,8 +61,6 @@
         
         self.oneLeft.constant = -100;
         
-        self.oneRight.constant = SCREEN_WIDTH;
-        
         self.twoRight.constant = -100;
         
         [self layoutIfNeeded];
@@ -84,8 +82,6 @@
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         self.oneLeft.constant = x;
-        
-        self.oneRight.constant = x;
         
         self.twoRight.constant = x;
         
