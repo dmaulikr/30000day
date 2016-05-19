@@ -54,7 +54,7 @@
         
         notification.soundName = UILocalNotificationDefaultSoundName;
         
-        notification.alertBody = @"早上7点起床，晚上九点睡觉";
+        notification.alertBody = @"早上7点起床，晚上9:30睡觉";
         
         notification.repeatInterval = NSCalendarUnitDay;
         

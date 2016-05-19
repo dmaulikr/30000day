@@ -63,6 +63,13 @@ static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification =
 //通讯录成功的存入沙盒
 static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNotification";
 
+//日历那成功删除提醒发出的通知
+static NSString *const STDidSuccessDeleteRemindSendNotification = @"STDidSuccessDeleteRemindSendNotification";
+
+//日历提醒成功或者增加发出的通知
+static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSuccessChangeOrAddRemindSendNotification";
+
+
 @class STNetError;
 
 @class WeatherInformationModel;

@@ -14,9 +14,4 @@
 
 @property (nonatomic,assign) BOOL changeORAdd;//yes:是表示是来修改的,修改的需要把原来的RemindModel传过来  no:表示是来新增的,新增的不需要
 
-//点击保存按钮回调
-@property (nonatomic,copy) void (^(saveOrChangeSuccessBlock))();
-//点击删除回调
-@property (nonatomic,copy) void (^(deleteSuccessBlock))();
-
 @end

@@ -12,7 +12,7 @@
 #import "DeleteRemindTableViewCell.h"
 #import "AddContentTableViewCell.h"
 
-@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate> {
+@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate> {
     
     NSMutableArray *_dataArray;
 }
@@ -96,6 +96,7 @@
         
         _titleCell.textField.text = self.oldModel.title;
         
+        _titleCell.textField.delegate = self;
     }
     
     return _titleCell;
@@ -205,12 +206,9 @@
             
             [self showToast:@"修改成功"];
     
+            [STNotificationCenter postNotificationName:STDidSuccessChangeOrAddRemindSendNotification object:nil];
+            
             [self.navigationController popViewControllerAnimated:YES];
-    
-            if (self.saveOrChangeSuccessBlock) {
-    
-                self.saveOrChangeSuccessBlock();
-            }
             
         } else {
             
@@ -224,12 +222,9 @@
             
             [self showToast:@"保存成功"];
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [STNotificationCenter postNotificationName:STDidSuccessChangeOrAddRemindSendNotification object:nil];
             
-            if (self.saveOrChangeSuccessBlock) {
-                
-                self.saveOrChangeSuccessBlock();
-            }
+            [self.navigationController popViewControllerAnimated:YES];
             
         } else {
             
@@ -247,6 +242,27 @@
 - (void)textViewDidChange:(UITextView *)textView {
     
     [self judgeSaveButtonCanUse];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    
+    [self.titleCell.textField resignFirstResponder];
+    
+    [self.contentCell.contentTextView becomeFirstResponder];
+
+    return YES;
 }
 
 #pragma ---
@@ -360,16 +376,13 @@
                 
                 [self showToast:@"删除成功"];
                 
-                if (self.deleteSuccessBlock) {
-                    
-                    self.deleteSuccessBlock();
-                }
+                [STNotificationCenter postNotificationName:STDidSuccessDeleteRemindSendNotification object:nil];
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 
             } else {//删除失败
                 
-                [self showToast:@"删除成功"];
+                [self showToast:@"删除失败"];
                 
             }
         }];

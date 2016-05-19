@@ -52,6 +52,17 @@
     
     //监听通知
     [STNotificationCenter addObserver:self selector:@selector(reloadDate) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(deleteOrChangeData) name:STDidSuccessDeleteRemindSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(deleteOrChangeData) name:STDidSuccessChangeOrAddRemindSendNotification object:nil];
+}
+
+- (void)deleteOrChangeData {
+    
+    [self loadTableViewData];
+    
+    [self.tableView reloadData];
 }
 
 - (void)reloadDate {
@@ -67,12 +78,6 @@
     controller.hidesBottomBarWhenPushed = YES;
     
     controller.changeORAdd = NO;//表示是新增的
-    
-    [controller setSaveOrChangeSuccessBlock:^{
-       
-        [self loadTableViewData];
-        
-    }];
     
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -410,26 +415,7 @@
         
         controller.hidesBottomBarWhenPushed = YES;
         
-        //成功增加或者修改的一些回调
-        [controller setSaveOrChangeSuccessBlock:^{
-            
-            [self loadTableViewData];
-            
-            [self.tableView reloadData];
-            
-        }];
-        
-        //成功删除一条提醒的回调
-        [controller setDeleteSuccessBlock:^{
-            
-            [self loadTableViewData];
-            
-            [self.tableView reloadData];
-            
-        }];
-        
         [self.navigationController pushViewController:controller animated:YES];
-        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -449,13 +435,21 @@
 
 - (void)dealloc {
     
-    [STNotificationCenter removeObserver:self];
+    [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessDeleteRemindSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessChangeOrAddRemindSendNotification object:nil];
+    
     self.remindDataArray = nil;
+    
     self.selectorDate = nil;
+    
     self.birthdayCell = nil;
+    
     self.ageCell = nil;
+    
     self.calendarCell = nil;
-
 }
 
 - (void)didReceiveMemoryWarning {

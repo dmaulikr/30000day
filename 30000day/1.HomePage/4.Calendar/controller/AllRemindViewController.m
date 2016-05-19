@@ -35,6 +35,10 @@
     self.title = @"所有的提醒";
     
     [self loadRemindDataFromCoreData];
+    
+    [STNotificationCenter addObserver:self selector:@selector(loadRemindDataFromCoreData) name:STDidSuccessDeleteRemindSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(loadRemindDataFromCoreData) name:STDidSuccessChangeOrAddRemindSendNotification object:nil];
 }
 
 - (void)loadRemindDataFromCoreData {
@@ -42,6 +46,13 @@
     self.dataArray = [[STRemindManager shareRemindManager] allRemindModelWithUserId:STUserAccountHandler.userProfile.userId];
     
     [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessDeleteRemindSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessChangeOrAddRemindSendNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,20 +100,6 @@
     controller.changeORAdd = YES;//表示修改的
     
     controller.hidesBottomBarWhenPushed = YES;
-    
-    //成功增加或者修改的一些回调
-    [controller setSaveOrChangeSuccessBlock:^{
-        
-        [self loadRemindDataFromCoreData];
-        
-    }];
-    
-    //成功删除一条提醒的回调
-    [controller setDeleteSuccessBlock:^{
-        
-        [self loadRemindDataFromCoreData];
-        
-    }];
     
     [self.navigationController pushViewController:controller animated:YES];
 }

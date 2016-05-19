@@ -925,10 +925,7 @@
             
         } else {
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 更新界面
-                //[hud turnToError:@"没有获取通讯录权限"];
-            });
+            //没有获取通讯录权限
         }
         
     });
