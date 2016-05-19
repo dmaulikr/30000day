@@ -98,11 +98,22 @@
     return success;
 }
 
+//6.删除若干数据-数组里装的是model
+- (BOOL)deleteOjbectWithArray:(NSMutableArray *)modelArray {
+    
+    BOOL success = NO;
+    
+    for (RemindModel *model in modelArray) {
+        
+       success = [self deleteOjbectWithModel:model];
+    }
+    return success;
+}
+
 //2.删除一条数据
 - (BOOL)deleteOjbectWithModel:(RemindModel *)model {
     
     //1.查询数据库数据并删除
-    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"RemindObject"];
     
     //设置过滤和排序

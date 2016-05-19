@@ -370,7 +370,6 @@
 		B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A1C1C7420B000805EE2 /* SearchFriendsTableViewCell.xib */; };
 		B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */; };
 		B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */; };
-		B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */; };
 		B8F1FCC51CEAF97C00C8A0FA /* PhysicalExaminationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */; };
 		B8F1FCC61CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */; };
 		B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F2D8AC1C5B36C4002C7712 /* myViewCell.m */; };
@@ -464,6 +463,8 @@
 		B8F6E3B01CBCD645000CC117 /* ShopDetailMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6E3AF1CBCD645000CC117 /* ShopDetailMapViewController.m */; };
 		B8F7198D1CEB206E000D859D /* MailListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F7198C1CEB206E000D859D /* MailListManager.m */; };
 		B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */; };
+		B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */; };
+		B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */; };
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
@@ -1186,8 +1187,6 @@
 		B8D67A241C74420500805EE2 /* SearchFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendsViewController.h; sourceTree = "<group>"; };
 		B8D67A251C74420500805EE2 /* SearchFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendsViewController.m; sourceTree = "<group>"; };
 		B8D67A261C74420500805EE2 /* SearchFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFriendsViewController.xib; sourceTree = "<group>"; };
-		B8F1FCB81CE9980C00C8A0FA /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
-		B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
 		B8F1FCC21CEAF97C00C8A0FA /* PhysicalExaminationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalExaminationViewController.h; sourceTree = "<group>"; };
 		B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalExaminationViewController.m; sourceTree = "<group>"; };
 		B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhysicalExaminationViewController.xib; sourceTree = "<group>"; };
@@ -1412,6 +1411,9 @@
 		B8F7198C1CEB206E000D859D /* MailListManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListManager.m; sourceTree = "<group>"; };
 		B8F7198F1CEB2613000D859D /* NSMutableDictionary+parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+parameter.h"; sourceTree = "<group>"; };
 		B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+parameter.m"; sourceTree = "<group>"; };
+		B8F7199C1CED9DFB000D859D /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
+		B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
+		B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllRemindViewController.xib; sourceTree = "<group>"; };
 		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
@@ -2730,8 +2732,9 @@
 				B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */,
 				B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */,
 				B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */,
-				B8F1FCB81CE9980C00C8A0FA /* AllRemindViewController.h */,
-				B8F1FCB91CE9980C00C8A0FA /* AllRemindViewController.m */,
+				B8F7199C1CED9DFB000D859D /* AllRemindViewController.h */,
+				B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */,
+				B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4601,6 +4604,7 @@
 				B804FD881C8AC9A900DFD1CF /* multiMedia@2x.png in Resources */,
 				B804FD641C8AC9A900DFD1CF /* tusiji_1_cover@2x.png in Resources */,
 				B8FD3EBC1C8A8440007BCA6B /* CDImageLabelTableCell.xib in Resources */,
+				B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */,
 				B665F8C71CC4BF5200070458 /* defaultphoto.png in Resources */,
@@ -5032,7 +5036,6 @@
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
 				B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */,
 				B8FD3E1E1C8A7903007BCA6B /* XHMessageTableView.m in Sources */,
-				B8F1FCBA1CE9980C00C8A0FA /* AllRemindViewController.m in Sources */,
 				B6114CAB1CA27FE60088EED2 /* CommentDetailsLastTableViewCell.m in Sources */,
 				B8FD3DDD1C8A7903007BCA6B /* UIView+XHRemoteImage.m in Sources */,
 				B8FD3E0B1C8A7903007BCA6B /* SETextInput.m in Sources */,
@@ -5043,6 +5046,7 @@
 				B8FD3E1B1C8A7903007BCA6B /* XHMessageBubbleView.m in Sources */,
 				B6F66DA31CBB44CE0064DB11 /* InformationDetailWebViewController.m in Sources */,
 				B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */,
+				B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */,
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
 				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
@@ -5274,6 +5278,7 @@
 			baseConfigurationReference = E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5328,6 +5333,7 @@
 			baseConfigurationReference = 0DC533304EB964BB41F806FF /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

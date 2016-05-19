@@ -23,6 +23,9 @@
 //3.删除一条数据
 - (BOOL)deleteOjbectWithModel:(RemindModel *)model;
 
+//6.删除若干数据-数组里装的是model
+- (BOOL)deleteOjbectWithArray:(NSMutableArray *)modelArray;
+
 //4.用userId获取所有的RemindModel
 - (NSMutableArray *)allRemindModelWithUserId:(NSNumber *)userId;
 
