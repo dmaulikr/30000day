@@ -39,7 +39,7 @@
     [self showHeadRefresh:NO showFooterRefresh:NO];
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendLifeDescendFactorsWithUserId:STUserAccountHandler.userProfile.userId success:^(NSArray *lifeDescendFactorsArray) {
+    [self.dataHandler sendLifeDescendFactorsWithUserId:@1000000007 success:^(NSArray *lifeDescendFactorsArray) {
        
         if (lifeDescendFactorsArray.count == 0) {
             
@@ -62,6 +62,10 @@
     } failure:^(NSError *error) {
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        self.nilLable.hidden = NO;
+        self.tableView.hidden = YES;
+        self.nilLable.text =error.userInfo[@"NSLocalizedDescription"];
         
     }];
     

@@ -10,10 +10,10 @@
 
 @interface LifeDescendFactorsModel : NSObject
 
-@property (nonatomic,assign) CGFloat data;
-@property (nonatomic,copy) NSString *fTitle;
-@property (nonatomic,copy) NSString *title;
-@property (nonatomic,assign) NSInteger fid;
+@property (nonatomic,assign) CGFloat value;
 @property (nonatomic,assign) NSInteger lifeId;
+@property (nonatomic,copy) NSString *factor;
+@property (nonatomic,copy) NSString *pFactor;
+@property (nonatomic,assign) NSInteger pid;
 
 @end
