@@ -25,7 +25,6 @@
         
         self.longPressBlock(self.longPressIndexPath);
     }
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -50,33 +49,83 @@
  **/
 - (NSString *)compareDateWithCurrentTodayWithDate:(NSDate *)date {
     
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
-    NSDateComponents *components =  [calendar components:unit fromDate:date toDate:[NSDate date] options:0];
-    
-    if (components.day == 1) {
+    if ([self isThisDay:date]) {
         
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+        return [NSString stringWithFormat:@"今天 %@",[[[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
         
-        return [NSString stringWithFormat:@"昨天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
+    } else if ([self isYesterDay:date]) {
         
-    } else if (components.day == 0) {
+        return [NSString stringWithFormat:@"昨天 %@",[[[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
         
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
+    } else if ([self istomorrow:date]) {
         
-        return [NSString stringWithFormat:@"今天 %@",[[[formatter stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
+        return [NSString stringWithFormat:@"明天 %@",[[[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:date] componentsSeparatedByString:@" "] lastObject]];
         
     } else {
         
-        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"];
-        
-        return [formatter stringFromDate:date];
+        return [[Common dateFormatterWithFormatterString:@"yyyy年MM月dd日 HH:mm"] stringFromDate:date];
     }
-    
-    return @"";
 }
 
+/** 判断是否为昨天 */
+- (BOOL)isYesterDay:(NSDate *)inputDate {
+    //date == 2014-04-30 00:00:00
+    //now ==2014-05-01   00:00:00
+    
+    // day = 1;hour = 0 minite = 0 second = 0 只看日期不看分钟和小时
+    
+    NSString *dateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:inputDate];
+    
+    NSString *nowStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
+    
+    //在转回去是因为要比较day的区别
+    NSDate *date2 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:dateStr];
+    
+    NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
+    
+    NSCalendar *calendar  = [NSCalendar currentCalendar];//[[NSCalendar alloc] init]这样才对
+    
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    
+    NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
+    
+    NSLog(@"cmps.year = %ld cmps.month = %ld cmps.day = %ld ",cmps.year,cmps.month,cmps.day);
+    
+    return cmps.day == -1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+}
+
+/** 判断是否为明天 */
+- (BOOL)istomorrow:(NSDate *)inputDate {
+    //date == 2014-04-30 00:00:00
+    //now ==2014-05-01   00:00:00
+    // day = 1;hour = 0 minite = 0 second = 0 只看日期不看分钟和小时
+    
+    NSString *dateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:inputDate];
+    
+    NSString *nowStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
+    
+    //在转回去是因为要比较day的区别
+    NSDate *date2 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:dateStr];
+    
+    NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
+    
+    NSCalendar *calendar  = [NSCalendar currentCalendar];//[[NSCalendar alloc] init]这样才对
+    
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    
+    NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
+    
+    return cmps.day == 1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+}
+
+/** 判断某个时间是否为今天--年月日一样*/
+- (BOOL)isThisDay:(NSDate *)inputDate {
+    
+    NSString *dateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:inputDate];
+    
+    NSString *nowStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
+    
+    return [dateStr isEqual:nowStr];
+}
 
 @end

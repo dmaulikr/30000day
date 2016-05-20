@@ -27,10 +27,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="hwf-E0-6GS" secondAttribute="bottom" id="6Dc-pS-ws3"/>
                 <constraint firstItem="hwf-E0-6GS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7A4-9H-rwo"/>
                 <constraint firstItem="hwf-E0-6GS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RKe-Pa-K5w"/>
                 <constraint firstAttribute="trailing" secondItem="hwf-E0-6GS" secondAttribute="trailing" id="U4O-GY-mbT"/>
-                <constraint firstAttribute="bottom" secondItem="hwf-E0-6GS" secondAttribute="bottom" id="tVC-zt-Bbg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="331" y="74"/>

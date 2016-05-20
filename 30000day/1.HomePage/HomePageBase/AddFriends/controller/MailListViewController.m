@@ -22,17 +22,10 @@
 @interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
 @property (nonatomic,assign) BOOL isSearch;
-
 @property (nonatomic ,strong) NSMutableArray *indexArray;//里面装的NSSting(A,B,C,D.......)
-
 @property (nonatomic ,strong) NSMutableArray *chineseStringArray;//该数组里面装的是chineseString这个模型
 @property (nonatomic ,strong) NSMutableArray *cellArray;//存储的MailListTableViewCell
-
 @property (nonatomic ,strong) NSMutableArray *searchResultArray;//存储的是搜索后的MailListTableViewCell
-
-@property (nonatomic,strong) NSMutableArray *phoneNumberArray;
-
-//@property (nonatomic,strong) NSMutableArray *registerArray; //已经注册了的通讯录用户数组
 
 @end
 
@@ -59,11 +52,6 @@
     self.cellArray = [[MailListManager shareManager] getModelArray];
     
     self.indexArray = [[MailListManager shareManager] getIndexArray];
-}
-
-- (void)dealloc {
-    
-    [STNotificationCenter removeObserver:self name:STDidSaveInFileSendNotification object:nil];
 }
 
 #pragma ---

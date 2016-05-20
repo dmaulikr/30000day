@@ -12,7 +12,7 @@
 #import "DeleteRemindTableViewCell.h"
 #import "AddContentTableViewCell.h"
 
-@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate> {
+@interface AddRemindViewController () <QGPickerViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate> {
     
     NSMutableArray *_dataArray;
 }
@@ -35,6 +35,8 @@
 
 @property (nonatomic,strong) QGPickerView *circlePicker;
 
+@property (nonatomic,strong) NSDate *selectorDate;
+
 @end
 
 @implementation AddRemindViewController
@@ -52,15 +54,21 @@
         
         self.calenderNumber = self.oldModel.calenderNumber;
         
+        self.selectorDate = self.oldModel.date;
+        
     } else {//新增
         
         self.calenderNumber = @0;
+        
+        self.selectorDate = [NSDate date];
     }
     
     //循环数据源
     _dataArray = [NSMutableArray arrayWithArray:@[@"不循环",@"每分钟",@"每小时",@"每天",@"每星期",@"每月",@"每年"]];
     
     UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction)];
+    
+    saveButtonItem.tintColor = LOWBLUECOLOR;
     
     saveButtonItem.enabled = NO;
     
@@ -96,6 +104,7 @@
         
         _titleCell.textField.text = self.oldModel.title;
         
+        _titleCell.textField.delegate = self;
     }
     
     return _titleCell;
@@ -133,44 +142,61 @@
 //判断save按钮是否可用
 - (void)judgeSaveButtonCanUse {
     
-    if (self.changeORAdd) {//他是来修改的
-        
-        if ([Common isObjectNull:self.timeString]) {//表示没有成功使用QGPickView或者第一次进来
-            
-            NSComparisonResult result = [self.oldModel.date compare:[NSDate date]];
-            
-            if (result > 0 ) {
-                
-                self.saveButtonItem.enabled = YES;
-                
-            } else {
-                
-                self.saveButtonItem.enabled = NO;
-            }
-            
-        } else {//表示已经成功使用了下面的QGPickView
-            
-            if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.timeString]) {
-                
-                self.saveButtonItem.enabled = YES;
-                
-            } else {
-                
-                self.saveButtonItem.enabled = NO;
-            }
-        }
-        
-    } else {//他是来新增的
-        
-        if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.timeString]) {
-
-            self.saveButtonItem.enabled = YES;
-
-        } else {
-
-            self.saveButtonItem.enabled = NO;
-        }
+//    if (self.changeORAdd) {//他是来修改的
     
+//        if ([Common isObjectNull:self.timeString]) {//表示没有成功使用QGPickView或者第一次进来
+//            
+//            NSComparisonResult result = [self.oldModel.date compare:[NSDate date]];
+//            
+//            if (result > 0 ) {
+//                
+//                self.saveButtonItem.enabled = YES;
+//                
+//            } else {
+//                
+//                self.saveButtonItem.enabled = NO;
+//            }
+//            
+//        } else {//表示已经成功使用了下面的QGPickView
+//            
+//            if (![Common isObjectNull:self.titleCell.textField.text] && ![Common isObjectNull:self.timeString]) {
+//                
+//                self.saveButtonItem.enabled = YES;
+//                
+//            } else {
+//                
+//                self.saveButtonItem.enabled = NO;
+//            }
+//        }
+//        
+//        if (![Common isObjectNull:self.titleCell.textField.text] && ([self.selectorDate compare:[NSDate date]] != NSOrderedAscending)) {
+//            
+//            self.saveButtonItem.enabled = YES;
+//            
+//        } else {
+//            
+//            self.saveButtonItem.enabled = NO;
+//        }
+//        
+//    } else {//他是来新增的
+//        
+//        if (![Common isObjectNull:self.titleCell.textField.text] && ([self.selectorDate compare:[NSDate date]] != NSOrderedAscending)) {
+//
+//            self.saveButtonItem.enabled = YES;
+//
+//        } else {
+//
+//            self.saveButtonItem.enabled = NO;
+//        }
+//    }
+    
+    if (![Common isObjectNull:self.titleCell.textField.text] && ([self.selectorDate compare:[NSDate date]] != NSOrderedAscending)) {
+        
+        self.saveButtonItem.enabled = YES;
+        
+    } else {
+        
+        self.saveButtonItem.enabled = NO;
     }
 }
 
@@ -185,19 +211,13 @@
     
     newModel.content = self.contentCell.contentTextView.text;
     
-    NSString *dateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
-    
-    newModel.dateString = dateString;
-    
-    dateString = [NSString stringWithFormat:@"%@ %@",dateString,self.addTimeCell.detailTitleLabel.text];
-    
-    NSDate *newDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
-    
-    newModel.date = newDate;
-    
     newModel.userId = [Common readAppDataForKey:KEY_SIGNIN_USER_UID];
 
     newModel.calenderNumber = self.calenderNumber;
+    
+    newModel.date = self.selectorDate;
+    
+    newModel.dateString = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate];
     
     if (self.changeORAdd) {//他是来修改的
         
@@ -205,12 +225,9 @@
             
             [self showToast:@"修改成功"];
     
+            [STNotificationCenter postNotificationName:STDidSuccessChangeOrAddRemindSendNotification object:nil];
+            
             [self.navigationController popViewControllerAnimated:YES];
-    
-            if (self.saveOrChangeSuccessBlock) {
-    
-                self.saveOrChangeSuccessBlock();
-            }
             
         } else {
             
@@ -224,12 +241,9 @@
             
             [self showToast:@"保存成功"];
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [STNotificationCenter postNotificationName:STDidSuccessChangeOrAddRemindSendNotification object:nil];
             
-            if (self.saveOrChangeSuccessBlock) {
-                
-                self.saveOrChangeSuccessBlock();
-            }
+            [self.navigationController popViewControllerAnimated:YES];
             
         } else {
             
@@ -247,6 +261,26 @@
 - (void)textViewDidChange:(UITextView *)textView {
     
     [self judgeSaveButtonCanUse];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [self.titleCell.textField resignFirstResponder];
+    
+    [self.contentCell.contentTextView becomeFirstResponder];
+
+    return YES;
 }
 
 #pragma ---
@@ -288,7 +322,7 @@
         
     } else if (indexPath.section == 2) {
         
-        self.addTimeCell.detailTitleLabel.text = self.addTimeCellShowString;
+        self.addTimeCell.detailTitleLabel.text = [[Common dateFormatterWithFormatterString:@"yyyy年MM月dd日 HH:mm"] stringFromDate:self.selectorDate];
         
         return self.addTimeCell;
         
@@ -315,7 +349,6 @@
         if (cell == nil) {
             
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DeleteRemindTableViewCell" owner:nil options:nil] lastObject];
-            
         }
 
         return cell;
@@ -360,16 +393,13 @@
                 
                 [self showToast:@"删除成功"];
                 
-                if (self.deleteSuccessBlock) {
-                    
-                    self.deleteSuccessBlock();
-                }
+                [STNotificationCenter postNotificationName:STDidSuccessDeleteRemindSendNotification object:nil];
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 
             } else {//删除失败
                 
-                [self showToast:@"删除成功"];
+                [self showToast:@"删除失败"];
                 
             }
         }];
@@ -391,46 +421,62 @@
 
     [self.view endEditing:YES];
     
+//    QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+//
+//    picker.delegate = self;
+//
+//    picker.titleText = @"添加提醒时间";
+//    
+//    //1.设置小时数组
+//    NSDate *currentData = [NSDate date];
+//    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    
+//    [formatter setDateFormat:@"HH-mm"];
+//    
+//    NSString *dateString = [formatter stringFromDate:currentData];
+//    
+//    NSString *lastString = [[dateString componentsSeparatedByString:@"-"] firstObject];
+//    
+//    int lastStringNumber = [lastString intValue];
+//    
+//    NSMutableArray *hourArray = [NSMutableArray array];
+//    
+//    for (int i = lastStringNumber ; i < 24; i++ ) {
+//        
+//        NSString *lastString_1 = [Common addZeroWithString:[NSString stringWithFormat:@"%d",i]];
+//        
+//        [hourArray addObject:lastString_1];
+//    }
+//    
+//    //2.设置分钟数组
+//    NSMutableArray *minuteArray = [NSMutableArray array];
+//    
+//    for (int i = 0; i < 60; i++) {
+//        
+//        NSString *string = [Common addZeroWithString:[NSString stringWithFormat:@"%d",i]];
+//        
+//        [minuteArray addObject:string];
+//    }
+//    
+//    //显示QGPickerView
+//    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:2 withArray:hourArray withArray:minuteArray withArray:nil selectedTitle:[[dateString componentsSeparatedByString:@"-"] firstObject] selectedTitle:[[dateString componentsSeparatedByString:@"-"] lastObject] selectedTitle:nil];
+    
+    
     QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-
+    
     picker.delegate = self;
-
+    
     picker.titleText = @"添加提醒时间";
     
-    //1.设置小时数组
-    NSDate *currentData = [NSDate date];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateFormat:@"HH-mm"];
-    
-    NSString *dateString = [formatter stringFromDate:currentData];
-    
-    NSString *lastString = [[dateString componentsSeparatedByString:@"-"] firstObject];
-    
-    int lastStringNumber = [lastString intValue];
-    
-    NSMutableArray *hourArray = [NSMutableArray array];
-    
-    for (int i = lastStringNumber ; i < 24; i++ ) {
+    if (self.changeORAdd) {//修改的
         
-        NSString *lastString_1 = [Common addZeroWithString:[NSString stringWithFormat:@"%d",i]];
+        [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:self.oldModel.date datePickerMode:UIDatePickerModeDateAndTime minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(365.0000000*24.000000*60.00000*60.00000)]];
         
-        [hourArray addObject:lastString_1];
+    } else {//新增的
+        
+        [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:[NSDate date] datePickerMode:UIDatePickerModeDateAndTime minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(365.0000000*24.000000*60.00000*60.00000)]];
     }
-    
-    //2.设置分钟数组
-    NSMutableArray *minuteArray = [NSMutableArray array];
-    
-    for (int i = 0; i < 60; i++) {
-        
-        NSString *string = [Common addZeroWithString:[NSString stringWithFormat:@"%d",i]];
-        
-        [minuteArray addObject:string];
-    }
-    
-    //显示QGPickerView
-    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:2 withArray:hourArray withArray:minuteArray withArray:nil selectedTitle:[[dateString componentsSeparatedByString:@"-"] firstObject] selectedTitle:[[dateString componentsSeparatedByString:@"-"] lastObject] selectedTitle:nil];
 }
 
 //选择循环时间
@@ -517,6 +563,15 @@
         }
         
     }
+}
+
+- (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
+    
+    self.selectorDate = selectorDate;
+    
+    [self judgeSaveButtonCanUse];
+    
+    [self.tableView reloadData];
 }
 
 /*

@@ -52,18 +52,15 @@ static NewFriendManager *manager;
                                               badgeNumber += oldModel.badgeNumber;
                                           }
                                           
-                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                          if (self.getBadgeNumberBlock) {
                                               
-                                              if (self.getBadgeNumberBlock) {
-                                                  
-                                                  self.getBadgeNumberBlock(badgeNumber);
-                                              }
+                                              self.getBadgeNumberBlock(badgeNumber);
+                                          }
+                                          
+                                          if (self.getDataBlock) {
                                               
-                                              if (self.getDataBlock) {
-                                                  
-                                                  self.getDataBlock(dataArray);
-                                              }
-                                          });
+                                              self.getDataBlock(dataArray);
+                                          }
 
                                       } failure:^(NSError *error) {
                                           
@@ -98,43 +95,47 @@ static NewFriendManager *manager;
                 NSDictionary *recvDic = (NSDictionary *)parsedObject;
                 
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                    
-                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                    
-                    NSArray *array = recvDic[@"value"];
-                    
-                    for (int i = 0; i < array.count; i++) {
+            
+                    dispatch_async(dispatch_get_main_queue(), ^{//主线程执行
+                       
+                        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                         
-                        NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
+                        NSArray *array = recvDic[@"value"];
                         
-                        BOOL isExist = NO;//默认是不存在
-                        
-                        NSMutableArray *oldArray = [self decodeObject];
-                        
-                        for (int i = 0; i < oldArray.count; i++) {
+                        for (int i = 0; i < array.count; i++) {
                             
-                            NewFriendModel *oldModel = oldArray[i];
+                            NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
                             
-                            if ([oldModel.userId isEqualToString:model.userId]) {
-                               
-                                model.badgeNumber = oldModel.badgeNumber;
+                            BOOL isExist = NO;//默认是不存在
+                            
+                            NSMutableArray *oldArray = [self decodeObject];
+                            
+                            for (int i = 0; i < oldArray.count; i++) {
                                 
-                                isExist = YES;
+                                NewFriendModel *oldModel = oldArray[i];
+                                
+                                if ([oldModel.userId isEqualToString:model.userId]) {
+                                    
+                                    model.badgeNumber = oldModel.badgeNumber;
+                                    
+                                    isExist = YES;
+                                }
                             }
-                        }
-                        
-                        if (!isExist) {//不存在
                             
-                            model.badgeNumber = 1;
+                            if (!isExist) {//不存在
+                                
+                                model.badgeNumber = 1;
+                            }
+                            
+                            [dataArray addObject:model];
                         }
+     
+                        //归档到文件
+                        [self encodeDataObject:dataArray];
                         
-                        [dataArray addObject:model];
-                    }
-                    
-                    //归档到文件
-                    [self encodeDataObject:dataArray];
-                    
-                    success(dataArray);
+                        success(dataArray);
+                        
+                    });
                     
                 } else {
                     
@@ -170,10 +171,7 @@ static NewFriendManager *manager;
        
        [self cleanBadgeNumber];
        
-       dispatch_async(dispatch_get_main_queue(), ^{
-           
-           success(0);
-       });
+       success(0);
        
     } failure:^(NSError *error) {
        
@@ -265,10 +263,7 @@ static NewFriendManager *manager;
         //清除完后归档
         [self encodeDataObject:oldArray];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            action(oldArray);
-        });
+         action(oldArray);
         
     } failure:^(NSError *error) {
         
