@@ -10,6 +10,11 @@
 
 @implementation GetFactorModel
 
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
+    
+    return @{@"factorId":@"id"};
+}
+
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -17,7 +22,7 @@
         
         self.factorId = [aDecoder decodeObjectForKey:@"factorId"];
         
-        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.factor = [aDecoder decodeObjectForKey:@"factor"];
         
         self.subFactorArray = [aDecoder decodeObjectForKey:@"subFactorArray"];
         
@@ -30,7 +35,7 @@
     
     [aCoder encodeObject:self.factorId forKey:@"factorId"];
     
-    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.factor forKey:@"factor"];
     
     [aCoder encodeObject:self.subFactorArray forKey:@"subFactorArray"];
     
@@ -50,16 +55,15 @@
 }
 
 //用一个data 来取得subFactorArray里面模型里面的一个string
-+ (NSString *)titleStringWithDataNumber:(NSNumber *)subFactorId subFactorArray:(NSMutableArray *)subFactorArray {
++ (NSString *)titleStringWithDataNumber:(NSNumber *)factorId subFactorArray:(NSMutableArray *)subFactorArray {
     
     for (int i = 0; i < subFactorArray.count ; i++) {
         
         SubFactorModel *subFactorModel = subFactorArray[i];
         
-        if ([subFactorModel.subFactorId isEqual:subFactorId]) {
+        if ([subFactorModel.factorId isEqual:factorId]) {
             
-            return subFactorModel.title;
-            
+            return subFactorModel.factor;
         }
     }
     
@@ -72,9 +76,9 @@
         
         SubFactorModel *subFactorModel = subFactorArray[i];
         
-        if ([subFactorModel.title isEqualToString:string]) {
+        if ([subFactorModel.factor isEqualToString:string]) {
             
-            return subFactorModel.subFactorId;
+            return subFactorModel.factorId;
             
         }
     }
@@ -92,11 +96,11 @@
     
     if ([self init]) {
         
-        self.subFactorId = [aDecoder decodeObjectForKey:@"subFactorId"];
-        
         self.factorId = [aDecoder decodeObjectForKey:@"factorId"];
         
-        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.factor = [aDecoder decodeObjectForKey:@"factor"];
+        
+        self.pid = [aDecoder decodeObjectForKey:@"pid"];
 
     }
     return self;
@@ -104,11 +108,11 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
-    [aCoder encodeObject:self.subFactorId forKey:@"subFactorId"];
-    
     [aCoder encodeObject:self.factorId forKey:@"factorId"];
     
-    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.factor forKey:@"factor"];
+    
+    [aCoder encodeObject:self.pid forKey:@"pid"];
 }
 
 @end

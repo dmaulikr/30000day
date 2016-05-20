@@ -12,13 +12,17 @@
 
 @interface GetFactorModel : NSObject
 
-@property (nonatomic , strong) NSNumber *factorId;
-
-@property (nonatomic , copy) NSString *title;
-
 @property (nonatomic,strong) NSMutableArray *subFactorArray;//表示点击后出现的选项模型
 
 @property (nonatomic ,strong)SubFactorModel *userSubFactorModel;//用户设置的subFactorModel
+
+@property (nonatomic,copy) NSString *level;//等级
+
+@property (nonatomic,copy) NSString *factor;//名字
+
+@property (nonatomic,strong) NSNumber *pid;//父id
+
+@property (nonatomic , strong) NSNumber *factorId;
 
 /**
   *
@@ -26,7 +30,7 @@
   *
   **/
 
-+ (NSString *)titleStringWithDataNumber:(NSNumber *)subFactorId subFactorArray:(NSMutableArray *)subFactorArray;
++ (NSString *)titleStringWithDataNumber:(NSNumber *)factorId subFactorArray:(NSMutableArray *)subFactorArray;
 
 /**
  *
@@ -36,14 +40,16 @@
 
 + (NSNumber *)subFactorIdWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray;
 
+
+
 @end
 
 @interface SubFactorModel : NSObject
 
-@property (nonatomic,strong)   NSNumber *subFactorId;
+@property (nonatomic,strong)   NSNumber *factorId;
 
-@property (nonatomic , strong) NSNumber *factorId;
+@property (nonatomic , strong) NSNumber *pid;
 
-@property (nonatomic , copy)  NSString *title;
+@property (nonatomic , copy)  NSString *factor;
 
 @end

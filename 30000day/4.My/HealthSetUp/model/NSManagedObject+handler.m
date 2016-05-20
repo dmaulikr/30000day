@@ -22,7 +22,7 @@
     return [[STCoreDataHandler shareCoreDataHandler] save:handler];
 }
 
-+ (NSArray *)filter:(NSString *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
++ (NSArray *)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
     
     NSManagedObjectContext *ctx = [STCoreDataHandler shareCoreDataHandler].mainObjectContext;
     
@@ -43,7 +43,7 @@
 }
 
 
-+ (NSFetchRequest *)makeRequest:(NSManagedObjectContext *)ctx predicate:(NSString *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
++ (NSFetchRequest *)makeRequest:(NSManagedObjectContext *)ctx predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
     
     NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
     
@@ -53,7 +53,7 @@
     
     if (predicate) {
         
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:predicate]];
+        [fetchRequest setPredicate:predicate];
     }
     
     NSMutableArray *orderArray = [[NSMutableArray alloc] init];
@@ -91,7 +91,7 @@
     return fetchRequest;
 }
 
-+ (void)filter:(NSString *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler {
++ (void)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler {
     
     NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
     
@@ -145,7 +145,7 @@
 }
 
 
-+ (id)one:(NSString*)predicate {
++ (id)one:(NSPredicate *)predicate {
     
     NSManagedObjectContext *ctx = [STCoreDataHandler shareCoreDataHandler].mainObjectContext;
     
@@ -163,7 +163,7 @@
     return results[0];
 }
 
-+ (void)one:(NSString*)predicate on:(ObjectResult)handler {
++ (void)one:(NSPredicate *)predicate on:(ObjectResult)handler {
     
     NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
     
@@ -203,7 +203,7 @@
 }
 
 
-+ (void)delobject:(id)object {
++ (void)deleteObject:(id)object {
     
     [[STCoreDataHandler shareCoreDataHandler].mainObjectContext deleteObject:object];
 }

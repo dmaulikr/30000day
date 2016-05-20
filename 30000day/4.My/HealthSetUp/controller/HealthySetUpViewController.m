@@ -10,6 +10,7 @@
 #import "HealthyTableViewCell.h"
 #import "GetFactorModel.h"
 #import "STHealthyManager.h"
+#import "GetFactorObject.h"
 
 @interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -46,7 +47,7 @@
 //保存健康因素
 - (void)saveFactor {
     
-    [self.dataHandler sendSaveUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:self.getFactorArray success:^(BOOL success) {
+    [self.dataHandler sendSaveUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(BOOL success) {
         
         [self showToast:@"保存成功"];
         
@@ -61,10 +62,62 @@
 
 //下载健康因素
 - (void)loadFactor {
-    
-    self.getFactorArray = [STHealthyManager shareManager].healthyArray;
-    
-    [self.tableView reloadData];
+
+    dispatch_async(dispatch_queue_create("HealthySetUpViewController", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+       
+        NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[@"factor"] offset:0 limit:0];
+        
+        self.getFactorArray = [[NSMutableArray alloc] init];
+        
+        for (GetFactorObject *object in factorArray) {
+            
+            GetFactorModel *model = [[GetFactorModel alloc] init];
+            
+            model.factorId = object.factorId;
+            
+            model.factor = object.factor;
+            
+            model.level = object.level;
+            
+            model.pid = object.pid;
+            
+            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[@"factor"] offset:0 limit:0];
+            
+            model.subFactorArray  = [[NSMutableArray alloc] init];
+            
+            for (int j = 0; j < subFactorArray.count; j++) {
+                
+                GetFactorObject *_object = subFactorArray[j];
+                
+                GetFactorModel *_model = [[GetFactorModel alloc] init];
+                
+                _model.factorId = _object.factorId;
+                
+                _model.factor = _object.factor;
+                
+                _model.level = _object.level;
+                
+                _model.pid = _object.pid;
+                
+                [model.subFactorArray addObject:_model];
+            }
+            
+            [self.getFactorArray addObject:model];
+        }
+        
+        [STDataHandler sendGetUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSMutableArray *dataArray) {
+           
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.getFactorArray = dataArray;
+                
+                [self.tableView reloadData];
+            });
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    });
 }
 
 //设置QGPickView,并显示QGPickView
@@ -74,19 +127,19 @@
     
     picker.delegate = self;
     
-    picker.titleText = factorModel.title;
+    picker.titleText = factorModel.factor;
     
     NSMutableArray *array = [NSMutableArray array];
     
     for (int i = 0;  i < factorModel.subFactorArray.count; i++) {
         
-        NSString *title = [(SubFactorModel *)factorModel.subFactorArray[i] title];
+        NSString *title = [(GetFactorModel *)factorModel.subFactorArray[i] factor];
         
         [array addObject:title];
     }
     
     //显示QGPickerView
-    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.title selectedTitle:nil selectedTitle:nil];
+    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.factor selectedTitle:nil selectedTitle:nil];
     
     [Common saveAppIntegerDataForKey:HEALTHSETINDICATE withObject:indexPath.row];
 }
@@ -100,14 +153,14 @@
     
         GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
         
-        if (![factorModel.userSubFactorModel.title isEqualToString:value] && ![factorModel.userSubFactorModel.subFactorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
+        if (![factorModel.userSubFactorModel.factor isEqualToString:value] && ![factorModel.userSubFactorModel.factorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
             
             self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
         }
         
-        factorModel.userSubFactorModel.title = value;
+        factorModel.userSubFactorModel.factor = value;
         
-        factorModel.userSubFactorModel.subFactorId  = [GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray];
+        factorModel.userSubFactorModel.factorId  = [GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray];
         
         [self.tableView reloadData];
     }

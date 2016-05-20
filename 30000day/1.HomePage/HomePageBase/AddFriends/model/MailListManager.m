@@ -149,6 +149,8 @@
             
         } failure:^(NSError *error) {
             
+            [STNotificationCenter postNotificationName:STDidSaveInFileSendNotification object:nil];
+            
         }];
     }];
 }

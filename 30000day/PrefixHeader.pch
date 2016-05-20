@@ -121,7 +121,7 @@
 
 #define  GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
 
-#define  GET_FACTORS                  @"/stapi/factor/getFactors"                    //获取健康因子
+#define  GET_FACTORS                  @"/stapi/factor/getFactor"                    //获取健康因子
 
 #define  GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
 

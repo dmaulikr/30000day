@@ -34,8 +34,8 @@ static SearchVersionManager *manager;
         
         if (oldArray.count == 0 || oldArray == nil) {
             
-            //同步省-城市-区、县的数据
-            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+//            //同步省-城市-区、县的数据【暂时没这个功能，先注释】
+//            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
             
             [self encodeDataObject:dataArray];
             
@@ -51,10 +51,10 @@ static SearchVersionManager *manager;
                     
                     if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@1]) {//城市的表
 
-                        //同步省-城市-区、县的数据
-                        [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
-                        
-                        [self encodeDataObject:dataArray];
+//                        //同步省-城市-区、县的数据【暂时没这个功能，先注释】
+//                        [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
+//                        
+//                        [self encodeDataObject:dataArray];
                         
                     } else if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@2]) {//健康因子
                         

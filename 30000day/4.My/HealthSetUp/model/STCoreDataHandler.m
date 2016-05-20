@@ -7,6 +7,8 @@
 //
 
 #import "STCoreDataHandler.h"
+#import "GetFactorObject.h"
+#import "GetFactorModel.h"
 
 static STCoreDataHandler *onlyInstance;
 
@@ -28,12 +30,13 @@ static STCoreDataHandler *onlyInstance;
         
         onlyInstance = [[STCoreDataHandler alloc] init];
         
+        [onlyInstance configModel:@"HealthModel" DbFile:@"asyncCoreDataWrapper.sqlite"];
     });
     
     return onlyInstance;
 }
 
-- (void)configModel:(NSString *)model DbFile:(NSString*)filename {
+- (void)configModel:(NSString *)model DbFile:(NSString *)filename {
     
     _modelName = model;
     
@@ -88,7 +91,11 @@ static STCoreDataHandler *onlyInstance;
     
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+                                       NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
+                                       NSInferMappingModelAutomaticallyOption, nil];
+    
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:optionsDictionary error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
@@ -127,6 +134,45 @@ static STCoreDataHandler *onlyInstance;
     }
     
     return error;
+}
+
+- (void)synchronizedHealthyDataFromServer {
+    
+    //获取所有的健康因子
+    [STDataHandler sendGetFactors:^(NSMutableArray *dataArray) {
+        
+        for (GetFactorObject *object in [GetFactorObject filter:nil orderby:nil offset:0 limit:0]) {
+            
+            [GetFactorObject deleteObject:object];
+        }
+        
+        for (int i = 0; i < dataArray.count; i++) {
+            
+            GetFactorObject *object =  [GetFactorObject createNewObject];
+            
+            GetFactorModel *model = dataArray[i];
+            
+            object.factorId = model.factorId;
+            
+            object.factor = model.factor;
+            
+            object.pid = model.pid;
+            
+            object.level = model.level;
+        }
+        
+        [GetFactorObject save:^(NSError *error) {
+           
+            if (!error) {
+                
+                NSLog(@"保存成功");
+            }
+        }];
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
 }
 
 

@@ -21,15 +21,15 @@ typedef id(^AsyncProcess)(NSManagedObjectContext *ctx, NSString *className);
 
 + (NSError *)save:(OperationResult)handler;
 
-+ (NSArray *)filter:(NSString *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;
++ (NSArray *)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;
 
-+ (void)filter:(NSString *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler;
++ (void)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler;
 
-+ (id)one:(NSString *)predicate;
++ (id)one:(NSPredicate *)predicate;
 
-+ (void)one:(NSString*)predicate on:(ObjectResult)handler;
++ (void)one:(NSPredicate *)predicate on:(ObjectResult)handler;
 
-+ (void)delobject:(id)object;
++ (void)deleteObject:(id)object;
 
 + (void)async:(AsyncProcess)processBlock result:(ListResult)resultBlock;
 

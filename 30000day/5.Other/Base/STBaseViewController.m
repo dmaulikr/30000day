@@ -8,6 +8,7 @@
 
 #import "STBaseViewController.h"
 #import "STNetworkAgent.h"
+#import "JZNavigationExtension.h"
 
 @interface STBaseViewController ()
 //{
@@ -25,7 +26,7 @@
     
     self.dataHandler = [STDataHandler sharedHandler];
     
-//    self.navigationController.jz_fullScreenInteractivePopGestureRecognizer = YES;//开启这个会和百度地图造成冲突
+    self.navigationController.jz_fullScreenInteractivePopGestureEnabled = YES;//开启这个会和百度地图造成冲突
     
 //    //IOS8吧导航栏设置透明的话会有一条黑线，，这个方法就是隐藏的
 //    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];

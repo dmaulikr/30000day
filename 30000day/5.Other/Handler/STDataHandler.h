@@ -197,21 +197,15 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
-               failure:(void (^)(STNetError *error))failure;
-
-
-//***********获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
-- (void)sendGetSubFactorsWithFactorsModel:(NSMutableArray *)factorsArray
-                                  success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(STNetError *error))failure;
++ (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
+               failure:(void (^)(NSError *error))failure;
 
 
 //***********获获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
++ (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
-                             failure:(void (^)(STNetError *error))failure;
+                             failure:(void (^)(NSError *error))failure;
 
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/

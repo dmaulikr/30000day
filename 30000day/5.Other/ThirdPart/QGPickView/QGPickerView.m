@@ -67,6 +67,8 @@
         
         [titelLabel setTextColor:[UIColor whiteColor]];
         
+        titelLabel.textAlignment = NSTextAlignmentCenter;
+        
         titelLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
         [topView addSubview:titelLabel];
@@ -87,7 +89,7 @@
         
         [topView addConstraint:buttonContraint_y];
         
-        NSArray *buttonClickContraint_h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(40)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(button)];
+        NSArray *buttonClickContraint_h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-60-[titelLabel]-5-[button(40)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(titelLabel,button)];
         
         NSArray *buttonClickContraint_v = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button(44)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(button)];
         

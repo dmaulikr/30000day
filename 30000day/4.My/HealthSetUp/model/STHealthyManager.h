@@ -16,4 +16,6 @@
 
 - (void)synchronizedHealthyDataFromServer;
 
+- (NSMutableArray *)array;
+
 @end

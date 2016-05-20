@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-CM-5S8">
-                        <rect key="frame" x="10" y="13" width="38" height="18"/>
+                        <rect key="frame" x="10" y="13" width="139" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -27,7 +27,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="设置">
-                            <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.40784313729999999" green="0.58431372550000005" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="setButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sJp-Ae-SJq"/>
@@ -39,6 +39,7 @@
                     <constraint firstItem="4bR-CM-5S8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ctd-6U-AIY"/>
                     <constraint firstItem="4bR-CM-5S8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iCv-f6-KiE"/>
                     <constraint firstAttribute="trailing" secondItem="paI-og-Qh9" secondAttribute="trailing" constant="10" id="lzA-y2-LEI"/>
+                    <constraint firstItem="paI-og-Qh9" firstAttribute="leading" secondItem="4bR-CM-5S8" secondAttribute="trailing" constant="10" id="zmH-bf-yMt"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

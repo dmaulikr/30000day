@@ -35,6 +35,7 @@
 #import "QuestionAnswerModel.h"
 #import "NewFriendModel.h"
 #import "MailListManager.h"
+#import "GetFactorObject.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -563,9 +564,6 @@
         
     }
     
-    //设置个人健康模型
-    [[STHealthyManager shareManager] synchronizedHealthyDataFromServer];
-    
     //设置推送别名
     [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",userProfile.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
         
@@ -1026,7 +1024,6 @@
             
             if (firstError == nil && ![Common isObjectNull:dictionary]) {
                 
-               
                 if ([dictionary[@"code"] isEqualToNumber:@0]) {
                     
                     //字典数组创建一个模型数组
@@ -1385,248 +1382,69 @@
 }
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
-                  failure:(void (^)(STNetError *error))failure {
-    
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_FACTORS
-                                                 parameters:nil
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *oldArray = [NSMutableArray arrayWithArray:recvDic[@"value"]];
-                                                                
-                                                                NSMutableArray *newArray = [NSMutableArray array];
-                                                                
-                                                                for (int i = 0; i < oldArray.count ; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = oldArray[i];
-                                                                    
-                                                                    GetFactorModel *model = [[GetFactorModel alloc] init];
-                                                                    
-                                                                    model.title = dictionary[@"title"];
-                                                                    
-                                                                    model.factorId = dictionary[@"id"];
-                                                                    
-                                                                    [newArray addObject:model];
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(newArray);
-                                                                    
-                                                                });
-                                                                
-                                                                //下载子因素模型
-                                                                [self sendGetSubFactorsWithFactorsModel:newArray success:^(NSMutableArray *dataArray) {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                       
-                                                                        success(dataArray);
-                                                                        
-                                                                    });
-                                                                    
-                                                                    //获取某人健康因素模型
-                                                                    [self sendGetUserFactorsWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] factorsModelArray:dataArray success:^(NSMutableArray *dataArray) {
-                                                                        
-                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                            
-                                                                            success(dataArray);
-                                                                            
-                                                                        });
-                                                                        
-                                                                    } failure:^(STNetError *error) {
-                                                                        
-                                                                        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载个人健康因失败"}];
-                                                                        
-                                                                        STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                        
-                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                            
-                                                                            failure(newError);
-                                                                            
-                                                                        });;
-                                                                        
-                                                                    }];
-                                                                    
-                                                                } failure:^(STNetError *error) {
-                                                                    
-                                                                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子选项失败"}];
-                                                                    
-                                                                    STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                        
-                                                                        failure(newError);
-                                                                        
-                                                                    });
-                                                                    
-                                                                }];
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
-                                                            
-                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(error);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"加载健康因子失败"}];
-                                                        
-                                                        STNetError *newError = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(newError);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    
-    [self startRequest:request];
-}
++ (void)sendGetFactors:(void (^)(NSMutableArray *dataArray))success
+                  failure:(void (^)(NSError *error))failure {
 
-//***********私有API:获取每个健康模型的子模型(param:factorsArray装的是GetFactorModel,return:dataArray装GetFactorModel数组)***************/
-- (void)sendGetSubFactorsWithFactorsModel:(NSMutableArray *)factorsArray
-                                  success:(void (^)(NSMutableArray *dataArray))success
-                                  failure:(void (^)(STNetError *error))failure {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_SUBFACTORS
-                                                 parameters:nil
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *oldArray = [NSMutableArray arrayWithArray:recvDic[@"value"]];
-                                                                
-                                                                for (int i = 0; i < oldArray.count ; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = oldArray[i];
-                                                                    
-                                                                    int j = [dictionary[@"fid"] intValue] - 1;
-                                                                    
-                                                                    if ( j >= 0 ) {
-                                                                        
-                                                                        GetFactorModel *factorModel = factorsArray[j];
-                                                                        
-                                                                        SubFactorModel *subModel = [[SubFactorModel alloc] init];
-                                                                        
-                                                                        subModel.title = dictionary[@"title"];
-                                                                        
-                                                                        subModel.subFactorId = dictionary[@"id"];
-                                                                        
-                                                                        subModel.factorId = dictionary[@"fid"];
-                                                                        
-                                                                        [factorModel.subFactorArray addObject:subModel];
-                                                                        
-                                                                    }
-                                                                    
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(factorsArray);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [self startRequest:request];
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_FACTORS] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                    
+                NSArray *oldArray = recvDic[@"value"];
+                
+                NSMutableArray *newArray = [NSMutableArray array];
+                
+                for (int i = 0; i < oldArray.count ; i++) {
+                    
+                    NSDictionary *dictionary = oldArray[i];
+                    
+                    GetFactorModel *model = [GetFactorModel yy_modelWithDictionary:dictionary];
+                    
+                    [newArray addObject:model];
+                }
+                
+                success(newArray);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
 //***********获取某人的健康因子(里面装的是GetFacotorModel数组)***************/
-- (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
++ (void)sendGetUserFactorsWithUserId:(NSNumber *)userId
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
-                             failure:(void (^)(STNetError *error))failure {
+                             failure:(void (^)(NSError *error))failure {
     //异步执行
     dispatch_async(dispatch_queue_create("saveUserFactores", DISPATCH_QUEUE_SERIAL), ^{
         
         NSString *url = [NSString stringWithFormat:@"http://192.168.1.101:8081/stapi/factor/getUserFactor?userId=%@",userId];
         
-        NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url] ;
+        NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
         
         NSError *error;
         
@@ -1646,93 +1464,70 @@
                 
                 NSError *secondError;
                 
-                NSArray *valueArray = [jsonParser objectWithString:valueString error:&secondError];
+                NSDictionary *dictionary_second = [jsonParser objectWithString:valueString error:&secondError];
                 
-                if (secondError == nil && ![Common isObjectNull:valueArray]) {
+                if (secondError == nil && ![Common isObjectNull:dictionary_second]) {
                     
-                    if ([dictionary[@"code"] isEqualToNumber:@0]) {
+                    NSArray *oldArray = dictionary_second[@"idPid"];
+                    
+                    for (int i = 0; i < oldArray.count ; i++) {
                         
-                        NSMutableArray *oldArray = [NSMutableArray arrayWithArray:valueArray];
+                        NSDictionary *_dictionary = oldArray[i];
                         
-                        for (int i = 0; i < oldArray.count ; i++) {
-                            
-                            NSDictionary *dictionary = oldArray[i];
-                            
-                            NSNumber *subFactorId = dictionary[@"id"];
-                            
-                            NSNumber *keyNumber = dictionary[@"k"];
-                            
-                            GetFactorModel *factorModel = factorsModelArray[[keyNumber intValue] - 1];
-                            
-                            factorModel.userSubFactorModel.subFactorId = subFactorId;
-                            
-                            factorModel.userSubFactorModel.factorId = [NSNumber numberWithInt:i + 1];
-                            
-                            factorModel.userSubFactorModel.title = [GetFactorModel titleStringWithDataNumber:subFactorId subFactorArray:factorModel.subFactorArray];
-                            
-                        }
+                        NSNumber *factorId = _dictionary[@"id"];
                         
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            success(factorsModelArray);
-                            
-                        });
+                        NSNumber *keyNumber = _dictionary[@"pid"];
                         
-                    } else {
+                        GetFactorModel *model = [STDataHandler _factorModelWithFactorId:keyNumber FromfactorsModelArray:factorsModelArray];
                         
-                        NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
+                        model.userSubFactorModel.factorId = factorId;
                         
-                        STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
+                        model.userSubFactorModel.factor = [GetFactorModel titleStringWithDataNumber:factorId subFactorArray:model.subFactorArray];
                         
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            failure(error);
-                            
-                        });
+                        model.userSubFactorModel.pid = model.factorId;
                     }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        success(factorsModelArray);
+                    });
                     
                 } else {
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
                     
-                    STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        failure(error);
-                        
-                    });
-                    
+                    failure(failureError);
                 }
                 
             } else {
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
                 
-                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    failure(error);
-                    
-                });
+                failure(failureError);
             }
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"获取个人健康因子失败"}];
-            
-            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                failure(error);
-                
-            });
+            failure(error);
         }
-        
     });;
-   
+}
+
++ (GetFactorModel *)_factorModelWithFactorId:(NSNumber *)factorId FromfactorsModelArray:(NSMutableArray *)factorsModelArray {
+    
+    if (!factorId || !factorsModelArray) {
+        
+        return nil;
+    }
+    
+    for (GetFactorModel *model in factorsModelArray) {
+        
+        if ([model.factorId isEqualToNumber:factorId]) {
+            
+            return model;
+        }
+    }
+    return nil;
 }
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
@@ -1743,30 +1538,35 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    params[@"userId"] = userId;
-    
     NSMutableArray *dataArray = [NSMutableArray array];
+    
+    NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
     
     for (int i = 0; i < factorsModelArray.count; i++) {
         
         GetFactorModel *factorModel = factorsModelArray[i];
         
-        if (factorModel.userSubFactorModel.subFactorId) {
+        if (factorModel.userSubFactorModel.factorId) {
             
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
             
-            dictionary[@"id"] = factorModel.userSubFactorModel.subFactorId;
+            dictionary[@"id"] = factorModel.userSubFactorModel.factorId;
             
-            dictionary[@"k"] = [NSNumber numberWithInt:i + 1];
+            dictionary[@"pid"] = factorModel.factorId;
             
             [dataArray addObject:dictionary];
-            
         }
     }
     
-    NSString *dataString = [dataArray mj_JSONString];
+    [dataDictionary addParameter:dataArray forKey:@"idPid"];
     
-    params[@"data"] = dataString;
+    NSString *dataString = [dataDictionary mj_JSONString];
+    
+    [params addParameter:dataString forKey:@"data"];
+    
+    [params addParameter:userId forKey:@"userId"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_FACTORS
@@ -5860,6 +5660,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

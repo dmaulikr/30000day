@@ -37,12 +37,12 @@
     
     _factorModel = factorModel;
     
-    self.titleLabel.text = _factorModel.title;
+    self.titleLabel.text = _factorModel.factor;
     
     //如果用户有选择设置健康因子，那么就要显示该健康因子,如果用户没有选择健康因子，那么要显示设置
-    [self.setButton setTitle:[Common isObjectNull:factorModel.userSubFactorModel.title] ? @"设置" : factorModel.userSubFactorModel.title  forState:UIControlStateNormal];
+    [self.setButton setTitle:[Common isObjectNull:factorModel.userSubFactorModel.factor] ? @"设置" : factorModel.userSubFactorModel.factor  forState:UIControlStateNormal];
     
-    [self.setButton setTitleColor:[Common isObjectNull:factorModel.userSubFactorModel.title] ? RGBACOLOR(127, 0, 127, 1) : [UIColor blackColor] forState:UIControlStateNormal];
+    [self.setButton setTitleColor:[Common isObjectNull:factorModel.userSubFactorModel.factor] ? LOWBLUECOLOR : [UIColor blackColor] forState:UIControlStateNormal];
 }
 
 @end

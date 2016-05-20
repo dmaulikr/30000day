@@ -53,7 +53,7 @@
     //当成功的更新好友的信息（好友的昵称、备注头像）所发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
     //成功的切换模式
-    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     //别人同意加为好友
     [STNotificationCenter addObserver:self selector:@selector(loadCanApplyFriend) name:STDidApplyAddFriendSuccessSendNotification object:nil];
     //通讯录的信息有变
@@ -108,6 +108,8 @@
 //下载可以请求的数据
 - (void)loadCanApplyFriend {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [[MailListManager shareManager] synchronizedMailList];
     
     [self reloadData];
@@ -116,9 +118,13 @@
 - (void)reloadMainTableView {
     
     [self.tableView reloadData];
+    
+    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
 }
 
 - (void)headerRefreshing {
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
     [[MailListManager shareManager] synchronizedMailList];
     
@@ -127,7 +133,7 @@
 
 //获取我的好友
 - (void)getMyFriends {
-    
+
     [self.dataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
         
         _dataArray = dataArray;

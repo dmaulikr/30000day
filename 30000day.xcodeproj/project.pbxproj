@@ -347,8 +347,6 @@
 		B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4E91C9A58C400834533 /* CityTableViewCell.m */; };
 		B8B3F4EC1C9A58C400834533 /* CityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F4EA1C9A58C400834533 /* CityTableViewCell.xib */; };
 		B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5261C9AAAA400834533 /* ShopModel.m */; };
-		B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */; };
-		B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */; };
 		B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */; };
 		B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F54C1C9FF21800834533 /* SearchConditionModel.m */; };
 		B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F55E1CA28F5900834533 /* AppointmentTableViewCell.m */; };
@@ -465,6 +463,11 @@
 		B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */; };
 		B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */; };
 		B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */; };
+		B8F719A31CEDD7FB000D859D /* HealthModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */; };
+		B8F719A81CEDDE12000D859D /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */; };
+		B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */; };
+		B8F719AE1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719AB1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m */; };
+		B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719AD1CEDFAC5000D859D /* GetFactorObject.m */; };
 		B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C371C96519F0063CC60 /* InformationViewController.m */; };
 		B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F73C3A1C9654AE0063CC60 /* InformationListTableViewCell.m */; };
 		B8F73C3D1C9654AE0063CC60 /* InformationListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F73C3B1C9654AE0063CC60 /* InformationListTableViewCell.xib */; };
@@ -1147,10 +1150,6 @@
 		B8B3F4EA1C9A58C400834533 /* CityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityTableViewCell.xib; sourceTree = "<group>"; };
 		B8B3F5251C9AAAA400834533 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		B8B3F5261C9AAAA400834533 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
-		B8B3F5281C9AB73800834533 /* STCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataHandler.h; sourceTree = "<group>"; };
-		B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataHandler.m; sourceTree = "<group>"; };
-		B8B3F52B1C9ABA5200834533 /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
-		B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		B8B3F5391C9BEB3E00834533 /* SubwayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubwayModel.h; sourceTree = "<group>"; };
 		B8B3F53A1C9BEB3E00834533 /* SubwayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubwayModel.m; sourceTree = "<group>"; };
 		B8B3F54B1C9FF21800834533 /* SearchConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchConditionModel.h; sourceTree = "<group>"; };
@@ -1414,6 +1413,15 @@
 		B8F7199C1CED9DFB000D859D /* AllRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllRemindViewController.h; sourceTree = "<group>"; };
 		B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
 		B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllRemindViewController.xib; sourceTree = "<group>"; };
+		B8F719A21CEDD7FB000D859D /* HealthModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HealthModel.xcdatamodel; sourceTree = "<group>"; };
+		B8F719A41CEDDE12000D859D /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
+		B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
+		B8F719A61CEDDE12000D859D /* STCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataHandler.h; sourceTree = "<group>"; };
+		B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataHandler.m; sourceTree = "<group>"; };
+		B8F719AA1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetFactorObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B8F719AB1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GetFactorObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B8F719AC1CEDFAC5000D859D /* GetFactorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFactorObject.h; sourceTree = "<group>"; };
+		B8F719AD1CEDFAC5000D859D /* GetFactorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFactorObject.m; sourceTree = "<group>"; };
 		B8F73C361C96519F0063CC60 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
 		B8F73C371C96519F0063CC60 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		B8F73C391C9654AE0063CC60 /* InformationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationListTableViewCell.h; sourceTree = "<group>"; };
@@ -3152,6 +3160,15 @@
 				B808FB5B1C780D250000449C /* GetFactorModel.m */,
 				B8BD78891CC1EB8E00362C89 /* STHealthyManager.h */,
 				B8BD788A1CC1EB8E00362C89 /* STHealthyManager.m */,
+				B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */,
+				B8F719A41CEDDE12000D859D /* NSManagedObject+handler.h */,
+				B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */,
+				B8F719A61CEDDE12000D859D /* STCoreDataHandler.h */,
+				B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */,
+				B8F719AA1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.h */,
+				B8F719AB1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m */,
+				B8F719AC1CEDFAC5000D859D /* GetFactorObject.h */,
+				B8F719AD1CEDFAC5000D859D /* GetFactorObject.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3345,10 +3362,6 @@
 				B89216B01C5F3EEA0023F8A8 /* STDataHandler.m */,
 				B89216C11C6075150023F8A8 /* UserAccountHandler.h */,
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
-				B8B3F5281C9AB73800834533 /* STCoreDataHandler.h */,
-				B8B3F5291C9AB73800834533 /* STCoreDataHandler.m */,
-				B8B3F52B1C9ABA5200834533 /* NSManagedObject+handler.h */,
-				B8B3F52C1C9ABA5200834533 /* NSManagedObject+handler.m */,
 				B8BD78831CC1E6F700362C89 /* STManager.h */,
 				B8BD78841CC1E6F700362C89 /* STManager.m */,
 			);
@@ -4827,6 +4840,7 @@
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
+				B8F719AE1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m in Sources */,
 				B886ADE51CB3C5F4005E262A /* Win5SwitchTitleView.m in Sources */,
 				B8FD3E861C8A83A6007BCA6B /* CDUser.m in Sources */,
 				B8FD3DF11C8A7903007BCA6B /* XHHTTPClient.m in Sources */,
@@ -5001,15 +5015,17 @@
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
 				B8FD3DD11C8A7903007BCA6B /* NSString+MessageInputView.m in Sources */,
-				B8B3F52A1C9AB73800834533 /* STCoreDataHandler.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
+				B8F719A31CEDD7FB000D859D /* HealthModel.xcdatamodeld in Sources */,
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
 				B6DB85CD1CC762A00088F867 /* InformationCommentTableViewCell.m in Sources */,
+				B8F719A81CEDDE12000D859D /* NSManagedObject+handler.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
+				B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B886E8701C7EAE1200E64BEC /* RemindContentTableViewCell.m in Sources */,
@@ -5053,8 +5069,8 @@
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
+				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
-				B8B3F52D1C9ABA5200834533 /* NSManagedObject+handler.m in Sources */,
 				B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
@@ -5407,6 +5423,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B8F719A21CEDD7FB000D859D /* HealthModel.xcdatamodel */,
+			);
+			currentVersion = B8F719A21CEDD7FB000D859D /* HealthModel.xcdatamodel */;
+			path = HealthModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
