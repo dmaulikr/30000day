@@ -67,7 +67,7 @@
 
 #define IS_BIG_PICTUREMODEL           @"isBigPictureModel"   //是否是大图模式,0列表,1大图
 
-#define USER_CHOOSE_AGENUMBER         @"userChooseAgeNumber"  //当前用户所选择的年龄
+#define USER_CHOOSE_AGENUMBER         [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  //当前用户所选择的年龄
 
 #define BADGE_NUMBER                  @"badge_number"        //自己人的角标
 
