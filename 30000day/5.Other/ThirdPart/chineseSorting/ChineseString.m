@@ -111,6 +111,7 @@
             } else {//相同
                 
                 [item  addObject:object];
+                
             }
             
         }
