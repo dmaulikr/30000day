@@ -42,8 +42,7 @@
     return results;
 }
 
-
-+ (NSFetchRequest *)makeRequest:(NSManagedObjectContext *)ctx predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
++ (NSFetchRequest *)makeRequest:(NSManagedObjectContext *)ctx predicate:(NSPredicate *)predicate orderby:(NSArray *)sortArray offset:(int)offset limit:(int)limit {
     
     NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
     
@@ -56,26 +55,9 @@
         [fetchRequest setPredicate:predicate];
     }
     
-    NSMutableArray *orderArray = [[NSMutableArray alloc] init];
-    
-    if (orders != nil) {
+    if (sortArray) {
         
-        for (NSString *order in orders) {
-            
-            NSSortDescriptor *orderDesc = nil;
-            
-            if ([[order substringToIndex:1] isEqualToString:@"-"]) {
-                
-                orderDesc = [[NSSortDescriptor alloc] initWithKey:[order substringFromIndex:1]
-                                                        ascending:NO];
-            } else {
-                
-                orderDesc = [[NSSortDescriptor alloc] initWithKey:order
-                                                        ascending:YES];
-            }
-        }
-        
-        [fetchRequest setSortDescriptors:orderArray];
+        [fetchRequest setSortDescriptors:sortArray];
     }
     
     if ( offset > 0 ) {

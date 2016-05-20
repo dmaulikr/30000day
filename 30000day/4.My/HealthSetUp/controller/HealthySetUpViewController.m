@@ -11,6 +11,7 @@
 #import "GetFactorModel.h"
 #import "STHealthyManager.h"
 #import "GetFactorObject.h"
+#import "MTProgressHUD.h"
 
 @interface HealthySetUpViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -79,9 +80,13 @@
 //下载健康因素
 - (void)loadFactor {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     dispatch_async(dispatch_queue_create("HealthySetUpViewController", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
        
-        NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[@"factor"] offset:0 limit:0];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"factorId" ascending:YES];
+        
+        NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[sort] offset:0 limit:0];
         
         self.getFactorArray = [[NSMutableArray alloc] init];
         
@@ -97,7 +102,7 @@
             
             model.pid = object.pid;
             
-            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[@"factorId"] offset:0 limit:0];
+            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
             
             model.subFactorArray  = [[NSMutableArray alloc] init];
             
@@ -128,9 +133,16 @@
                 self.getFactorArray = dataArray;
                 
                 [self.tableView reloadData];
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             });
             
         } failure:^(NSError *error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            });
             
         }];
     });
