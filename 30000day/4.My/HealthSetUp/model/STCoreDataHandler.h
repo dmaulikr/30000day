@@ -27,7 +27,6 @@ typedef void(^OperationResult)(NSError* error);
 - (NSError *)save:(OperationResult)handler;
 
 //获取所有的健康因子,并同步到服务器
-- (void)synchronizedHealthyDataFromServer;
-
+- (void)synchronizedHealthyDataFromServer:(void (^)(BOOL isSuccess))isSuccess;
 
 @end

@@ -23,4 +23,6 @@
 
 - (id)decodeObjectwithKey:(NSString *)key;
 
+- (void)deleteDataObjectWithKey:(NSString *)key;
+
 @end

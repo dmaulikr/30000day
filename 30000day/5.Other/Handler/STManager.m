@@ -44,6 +44,17 @@
     [data writeToFile:[self getFilePath:key] options:NSUTF8StringEncoding error:nil];
 }
 
+- (void)deleteDataObjectWithKey:(NSString *)key {
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if ([fileManager fileExistsAtPath:[self getFilePath:key]]) {
+        
+        NSError *error;
+        
+        [fileManager removeItemAtPath:[self getFilePath:key] error:&error];
+    }
+}
 
 - (id)decodeObjectwithKey:(NSString *)key {
     

@@ -125,15 +125,12 @@
     //初始化版本控制器
     [[SearchVersionManager shareManager] synchronizedDataFromServer];
     
-    [[STCoreDataHandler shareCoreDataHandler] synchronizedHealthyDataFromServer];
-
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self.window makeKeyAndVisible];
     
     return YES;
 }
-
 
 - (void)openChat:(NSNumber *)userId
       completion:(void (^)(BOOL success))success

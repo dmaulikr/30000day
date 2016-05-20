@@ -136,7 +136,7 @@ static STCoreDataHandler *onlyInstance;
     return error;
 }
 
-- (void)synchronizedHealthyDataFromServer {
+- (void)synchronizedHealthyDataFromServer:(void (^)(BOOL isSuccess))isSuccess {
     
     //获取所有的健康因子
     [STDataHandler sendGetFactors:^(NSMutableArray *dataArray) {
@@ -165,12 +165,13 @@ static STCoreDataHandler *onlyInstance;
            
             if (!error) {
                 
-                NSLog(@"保存成功");
+                isSuccess(YES);
             }
         }];
         
     } failure:^(NSError *error) {
         
+        isSuccess(NO);
         
     }];
 }

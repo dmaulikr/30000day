@@ -82,70 +82,66 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    dispatch_async(dispatch_queue_create("HealthySetUpViewController", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
-       
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"factorId" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"factorId" ascending:YES];
+    
+    NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[sort] offset:0 limit:0];
+    
+    self.getFactorArray = [[NSMutableArray alloc] init];
+    
+    for (GetFactorObject *object in factorArray) {
         
-        NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[sort] offset:0 limit:0];
+        GetFactorModel *model = [[GetFactorModel alloc] init];
         
-        self.getFactorArray = [[NSMutableArray alloc] init];
+        model.factorId = object.factorId;
         
-        for (GetFactorObject *object in factorArray) {
+        model.factor = object.factor;
+        
+        model.level = object.level;
+        
+        model.pid = object.pid;
+        
+        NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
+        
+        model.subFactorArray  = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < subFactorArray.count; j++) {
             
-            GetFactorModel *model = [[GetFactorModel alloc] init];
+            GetFactorObject *_object = subFactorArray[j];
             
-            model.factorId = object.factorId;
+            GetFactorModel *_model = [[GetFactorModel alloc] init];
             
-            model.factor = object.factor;
+            _model.factorId = _object.factorId;
             
-            model.level = object.level;
+            _model.factor = _object.factor;
             
-            model.pid = object.pid;
+            _model.level = _object.level;
             
-            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
+            _model.pid = _object.pid;
             
-            model.subFactorArray  = [[NSMutableArray alloc] init];
-            
-            for (int j = 0; j < subFactorArray.count; j++) {
-                
-                GetFactorObject *_object = subFactorArray[j];
-                
-                GetFactorModel *_model = [[GetFactorModel alloc] init];
-                
-                _model.factorId = _object.factorId;
-                
-                _model.factor = _object.factor;
-                
-                _model.level = _object.level;
-                
-                _model.pid = _object.pid;
-                
-                [model.subFactorArray addObject:_model];
-            }
-            
-            [self.getFactorArray addObject:model];
+            [model.subFactorArray addObject:_model];
         }
         
-        [STDataHandler sendGetUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSMutableArray *dataArray) {
-           
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                self.getFactorArray = dataArray;
-                
-                [self.tableView reloadData];
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            });
+        [self.getFactorArray addObject:model];
+    }
+    
+    [STDataHandler sendGetUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSMutableArray *dataArray) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-        } failure:^(NSError *error) {
+            self.getFactorArray = dataArray;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            });
+            [self.tableView reloadData];
             
-        }];
-    });
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        });
+        
+    } failure:^(NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        });
+    }];
 }
 
 //设置QGPickView,并显示QGPickView

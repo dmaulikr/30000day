@@ -30,7 +30,7 @@
     
     [self.tableView setTableFooterView:footerview];
     
-    self.titleCellArray = [NSArray arrayWithObjects:@"设置密保",@"修改密码",@"账号绑定", nil];
+    self.titleCellArray = [NSArray arrayWithObjects:@"设置密保",@"修改密码",nil];
 }
 
 - (void)didReceiveMemoryWarning {

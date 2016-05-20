@@ -16,12 +16,3 @@
 
 @end
 
-@interface SearchTableVersion : NSObject
-
-@property (nonatomic,strong) NSNumber *searchTableVersionId;
-
-@property (nonatomic,copy) NSString *tableName;
-
-@property (nonatomic,copy) NSString *version;
-
-@end
