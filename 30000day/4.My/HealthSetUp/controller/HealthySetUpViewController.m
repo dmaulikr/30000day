@@ -47,22 +47,38 @@
 //保存健康因素
 - (void)saveFactor {
     
-    [self.dataHandler sendSaveUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(BOOL success) {
+    [STDataHandler sendSaveUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSString *dataString) {
         
-        [self showToast:@"保存成功"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([dataString floatValue] > 0 ) {
+                
+                [self showToast:[NSString stringWithFormat:@"保存成功,天龄增加%.2f",[dataString floatValue]]];
+                
+            } else if ( [dataString floatValue] == 0 ) {
+                
+                [self showToast:@"天龄，天龄保持不变"];
+                
+            } else {
+                
+                [self showToast:[NSString stringWithFormat:@"保存成功，天龄降低%.2f",-[dataString floatValue]]];
+            }
+            
+            self.barButton.enabled = NO;
+        });
+
+    } failure:^(NSError *error) {
         
-        self.barButton.enabled = NO;
-        
-    } failure:^(STNetError *error) {
-        
-        [self showToast:@"保存失败"];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+             [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+        });
     }];
 }
 
 //下载健康因素
 - (void)loadFactor {
-
+    
     dispatch_async(dispatch_queue_create("HealthySetUpViewController", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
        
         NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[@"factor"] offset:0 limit:0];
@@ -81,7 +97,7 @@
             
             model.pid = object.pid;
             
-            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[@"factor"] offset:0 limit:0];
+            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[@"factorId"] offset:0 limit:0];
             
             model.subFactorArray  = [[NSMutableArray alloc] init];
             

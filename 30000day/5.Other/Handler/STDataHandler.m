@@ -1531,10 +1531,10 @@
 }
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
-- (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
++ (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
-                              success:(void (^)(BOOL success))success
-                              failure:(void (^)(STNetError *error))failure {
+                              success:(void (^)(NSString *dataString))success
+                              failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -1565,9 +1565,7 @@
     [params addParameter:dataString forKey:@"data"];
     
     [params addParameter:userId forKey:@"userId"];
-    
-    [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
-    
+
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_FACTORS
                                                  parameters:params
@@ -1583,48 +1581,29 @@
                                                             
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    //当用户成功保存健康因子的时候会发出通知
-                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
-                                                                                                                        object:nil];
-        
-                                                                      success(YES);
-                                                                    
-                                                                });
+                                                                //当用户成功保存健康因子的时候会发出通知
+                                                                [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
+                                                                                                                    object:nil];
+                                                                
+                                                                success(recvDic[@"value"][@"chgDays"]);
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
                                                                 
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
+                                                                failure(failureError);
                                                                 
                                                             }
                                                             
                                                         } else {
                                                             
-                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(error);
-                                                                
-                                                            });
+                                                           failure(localError);
                                                             
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
                                                         
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error);
-                                                        });
+                                                        failure(error.error);
                                                         
                                                     }];
     request.needHeaderAuthorization = NO;
@@ -1633,6 +1612,72 @@
     
     [self startRequest:request];
     
+#pragma mark  ---
+    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    
+//    NSMutableArray *dataArray = [NSMutableArray array];
+//    
+//    NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
+//    
+//    for (int i = 0; i < factorsModelArray.count; i++) {
+//        
+//        GetFactorModel *factorModel = factorsModelArray[i];
+//        
+//        if (factorModel.userSubFactorModel.factorId) {
+//            
+//            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//            
+//            dictionary[@"id"] = factorModel.userSubFactorModel.factorId;
+//            
+//            dictionary[@"pid"] = factorModel.factorId;
+//            
+//            [dataArray addObject:dictionary];
+//        }
+//    }
+//    
+//    [dataDictionary addParameter:dataArray forKey:@"idPid"];
+//    
+//    NSString *dataString = [dataDictionary mj_JSONString];
+//    
+//    [params addParameter:dataString forKey:@"data"];
+//    
+//    [params addParameter:userId forKey:@"userId"];
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_USER_FACTORS] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+//        
+//        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+//        
+//        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                success(@"");
+//                
+//                //当用户成功保存健康因子的时候会发出通知
+//                [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
+//                                                                    object:nil];
+//            });
+//            
+//        } else {
+//            
+//            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+//            
+//            failure(failureError);
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        failure(error);
+//    }];
 }
 
 - (void)sendUpdateUserHeadPortrait:(NSNumber *)userId

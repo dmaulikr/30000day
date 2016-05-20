@@ -210,10 +210,10 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 //********保存某人健康因子到服务器(factorsModelArray存储的是GetFactorModel模型)*********************/
 //提醒:如果保存成功,首界面天龄应该改变,保存成功会发出一个通知
-- (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
++ (void)sendSaveUserFactorsWithUserId:(NSNumber *)userId
                     factorsModelArray:(NSMutableArray *)factorsModelArray
-                              success:(void (^)(BOOL success))success
-                              failure:(void (^)(STNetError *error))failure;
+                              success:(void (^)(NSString *dataString))success
+                              failure:(void (^)(NSError *error))failure;
 
 
 //***********************************更新用户头像*********************/
