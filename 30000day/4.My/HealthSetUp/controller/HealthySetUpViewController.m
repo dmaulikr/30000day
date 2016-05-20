@@ -20,8 +20,6 @@
 
 @property (nonatomic,strong) UIBarButtonItem *barButton;
 
-@property (nonatomic,strong) NSMutableArray *staticArray;//身高、体重、平均每日被动吸烟支数 、被动吸烟年数
-
 @end
 
 @implementation HealthySetUpViewController
@@ -133,6 +131,8 @@
             
             self.getFactorArray = dataArray;
             
+            [self.getFactorArray addObjectsFromArray:[GetFactorModel configFactorModelArray]];
+            
             [self.tableView reloadData];
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -148,11 +148,6 @@
         });
     }];
 }
-
-- (void)configStaticArray {
-        
-}
-
 
 //设置QGPickView,并显示QGPickView
 - (void)setQGPickViewWith:(GetFactorModel *)factorModel indexPath:(NSIndexPath *)indexPath {
@@ -184,7 +179,11 @@
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
     
     if (index == 1) {
-    
+        
+        if (self.getFactorArray.count) {
+            
+        }
+        
         GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
         
         if (![factorModel.userSubFactorModel.factor isEqualToString:value] && ![factorModel.userSubFactorModel.factorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {

@@ -89,7 +89,7 @@
 //获取一组数据,身高，体重，平均每日被动吸烟支数，被动吸烟年数
 + (NSMutableArray *)configFactorModelArray {
     
-    NSMutableArray *dataArray = [NSMutableArray arrayWithArray:@[@"身高",@"体重",@"平均每日被动吸烟支数",@"被动吸烟年数"]];
+    NSMutableArray *dataArray = [NSMutableArray array];
     
     for (int i = 0; i < 4; i++) {
         
@@ -192,9 +192,9 @@
                 subModel.factor = [NSString stringWithFormat:@"%d年",i];
                 
                 [model.subFactorArray addObject:subModel];
-                
-                [dataArray addObject:model];
             }
+            
+            [dataArray addObject:model];
         }
     }
     
