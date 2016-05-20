@@ -89,7 +89,6 @@
                     <constraint firstItem="lix-Uf-QFw" firstAttribute="leading" secondItem="2Et-LE-mJ2" secondAttribute="trailing" constant="15" id="yds-q3-ioD"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="ageLable" destination="XUN-rN-1yo" id="sVC-fb-y0N"/>
                 <outlet property="airLabel" destination="UZy-KZ-007" id="qPW-pz-X9y"/>
@@ -100,7 +99,7 @@
                 <outlet property="temperatureLabel" destination="lix-Uf-QFw" id="sfK-Da-Xvm"/>
                 <outlet property="weatherImageView" destination="2Et-LE-mJ2" id="1aQ-nJ-YLj"/>
             </connections>
-            <point key="canvasLocation" x="90" y="328"/>
+            <point key="canvasLocation" x="186" y="278"/>
         </tableViewCell>
     </objects>
     <resources>
