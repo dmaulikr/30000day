@@ -986,13 +986,73 @@
         }
     }
     
-    NSMutableArray *array =  [ChineseString LetterSortArray:addressBookArray];
+    NSMutableArray *arrayAll =  [ChineseString LetterSortArray:addressBookArray];
     
     NSMutableArray *sortArray = [ChineseString SortArray:addressBookArray];
     
     NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
     
-    handler(array,sortArray,indexArray);
+   
+    NSMutableArray *newArray = [NSMutableArray array];
+    
+    for (int a = 0; a < arrayAll.count; a++) {
+        
+        NSMutableArray *nextArray = arrayAll[a];
+        
+        NSMutableArray *fistNameArray = [NSMutableArray array];
+        
+        NSMutableArray *newNameArray = [NSMutableArray array];
+        
+        for (int i = 0; i < nextArray.count; i++) {
+            
+            ChineseString *model = nextArray[i];
+            
+            NSString *nameString = [model.string substringToIndex:1];
+            
+            if (![fistNameArray containsObject:nameString]) {
+                
+                [fistNameArray addObject:nameString];
+            }
+        }
+        
+        
+        for (int i = 0; i < fistNameArray.count; i++) {
+            
+            for (int j = 0; j < nextArray.count; j++) {
+                
+                ChineseString *model = nextArray[j];
+                
+                NSString *nameString = [model.string substringToIndex:1];
+                
+                if ([nameString isEqualToString:fistNameArray[i]]) {
+                    
+                    [newNameArray addObject:nextArray[j]];
+                }
+                
+            }
+            
+        }
+        
+        [newArray addObject:newNameArray];
+        
+    }
+
+    handler(newArray,sortArray,indexArray);
+}
+
+//私有api
+//得到汉字py
+- (NSString *)charactor:(NSString *)aString
+{
+    NSMutableString *str = [NSMutableString stringWithString:aString];
+
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+
+    NSString *pinYin = [str capitalizedString];
+
+    return pinYin;
 }
 
 //*************搜索某一个用户（里面装的SearchUserInformationModel）**********************/

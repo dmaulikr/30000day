@@ -23,9 +23,9 @@
 
 - (void)setLifeModel:(LifeDescendFactorsModel *)lifeModel {
 
-    self.dataTitleLable.text = lifeModel.title;
+    self.dataTitleLable.text = lifeModel.pFactor;
     
-    self.dataLable.text = [NSString stringWithFormat:@"%.2lf",lifeModel.data];
+    self.dataLable.text = [NSString stringWithFormat:@"%.2lf",lifeModel.value];
 
 }
 

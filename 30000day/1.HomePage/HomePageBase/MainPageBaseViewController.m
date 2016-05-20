@@ -187,7 +187,7 @@
 
 - (void)createButton {
     
-    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , 44)];
+    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_WIDTH * 3 , 44)];
     self.navigationItem.titleView = self.buttonParentView;
     
     _mainPageButton = [self buttonWithTitle:@"主页" numberAndTag:0];
@@ -205,9 +205,8 @@
 //    [_personButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
 //    [self.buttonParentView addSubview:_personButton];
     
-    
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
     
@@ -282,7 +281,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [_bottomScrollView setFrame:CGRectMake(curPageNo*65, 42, 65, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo * (BUTTON_WIDTH * 2), 42, 65, 2)];
     }];
     
     [self buttonTitleChange:curPageNo];
