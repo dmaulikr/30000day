@@ -109,6 +109,7 @@
 
 - (void)getUserLifeList {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     //1.获取用户的天龄
     [STDataHandler sendUserLifeListWithCurrentUserId:self.friendUserId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
         
@@ -173,10 +174,16 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         });
     
     } failure:^(NSError *error) {
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        });
     }];
 }
 

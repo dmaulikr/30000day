@@ -29,7 +29,6 @@
 #import "MyOrderModel.h"
 #import "MyOrderDetailModel.h"
 #import "InformationModel.h"
-#import "STHealthyManager.h"
 #import "InformationWriterModel.h"
 #import "PriceModel.h"
 #import "QuestionAnswerModel.h"
@@ -5619,8 +5618,6 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

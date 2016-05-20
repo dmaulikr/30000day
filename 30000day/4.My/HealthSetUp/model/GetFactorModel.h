@@ -40,7 +40,8 @@
 
 + (NSNumber *)subFactorIdWithTitleString:(NSString *)string subFactorArray:(NSMutableArray *)subFactorArray;
 
-
+//获取一组数据,身高，体重，平均每日被动吸烟支数，被动吸烟年数
++ (NSMutableArray *)configFactorModelArray;
 
 @end
 

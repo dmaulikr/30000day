@@ -86,6 +86,120 @@
     return @0;
 }
 
+//获取一组数据,身高，体重，平均每日被动吸烟支数，被动吸烟年数
++ (NSMutableArray *)configFactorModelArray {
+    
+    NSMutableArray *dataArray = [NSMutableArray arrayWithArray:@[@"身高",@"体重",@"平均每日被动吸烟支数",@"被动吸烟年数"]];
+    
+    for (int i = 0; i < 4; i++) {
+        
+        if (i == 0) {
+            
+            GetFactorModel *model = [[GetFactorModel alloc] init];
+            
+            model.factor = @"身高";
+            
+            model.level = @"1";
+            
+            model.subFactorArray = [[NSMutableArray alloc] init];
+            
+            model.userSubFactorModel = [[SubFactorModel alloc] init];
+            
+            for (int i = 1; i <= 260; i++) {
+                
+                SubFactorModel *subModel = [[SubFactorModel alloc] init];
+                
+                subModel.factor = [NSString stringWithFormat:@"%dcm",i];
+                
+                [model.subFactorArray addObject:subModel];
+            }
+            
+            [dataArray addObject:model];
+            
+        } else if (i == 1) {
+            
+            GetFactorModel *model = [[GetFactorModel alloc] init];
+            
+            model.factor = @"体重";
+            
+            model.level = @"1";
+            
+            model.subFactorArray = [[NSMutableArray alloc] init];
+            
+            model.userSubFactorModel = [[SubFactorModel alloc] init];
+            
+            for (int i = 1; i <= 500; i++) {
+                
+                SubFactorModel *subModel = [[SubFactorModel alloc] init];
+                
+                subModel.factor = [NSString stringWithFormat:@"%dkg",i];
+                
+                [model.subFactorArray addObject:subModel];
+            }
+            
+            [dataArray addObject:model];
+            
+        } else if (i == 2) {
+            
+            GetFactorModel *model = [[GetFactorModel alloc] init];
+            
+            model.factor = @"平均每日被动吸烟支数";
+            
+            model.level = @"1";
+            
+            model.userSubFactorModel = [[SubFactorModel alloc] init];
+            
+            model.subFactorArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 1; i <= 101; i++) {
+                
+                if (i == 101) {
+                    
+                    SubFactorModel *subModel = [[SubFactorModel alloc] init];
+                    
+                    subModel.factor = @"100根以上";
+                    
+                    [model.subFactorArray addObject:subModel];
+                    
+                } else {
+                    
+                    SubFactorModel *subModel = [[SubFactorModel alloc] init];
+                    
+                    subModel.factor = [NSString stringWithFormat:@"%d根",i];
+                    
+                    [model.subFactorArray addObject:subModel];
+                }
+            }
+            
+            [dataArray addObject:model];
+            
+        } else if (i == 3) {
+            
+            GetFactorModel *model = [[GetFactorModel alloc] init];
+            
+            model.factor = @"被动吸烟年数";
+            
+            model.level = @"1";
+            
+            model.subFactorArray = [[NSMutableArray alloc] init];
+            
+            model.userSubFactorModel = [[SubFactorModel alloc] init];
+            
+            for (int i = 1; i <= 100; i++) {
+                
+                SubFactorModel *subModel = [[SubFactorModel alloc] init];
+                
+                subModel.factor = [NSString stringWithFormat:@"%d年",i];
+                
+                [model.subFactorArray addObject:subModel];
+                
+                [dataArray addObject:model];
+            }
+        }
+    }
+    
+    return dataArray;
+}
 
 @end
 

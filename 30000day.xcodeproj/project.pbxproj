@@ -357,7 +357,6 @@
 		B8BD787D1CBE2DAA00362C89 /* PayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BD78791CBE2DAA00362C89 /* PayTableViewCell.xib */; };
 		B8BD78801CBE2E6500362C89 /* ShopDeliverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD787F1CBE2E6500362C89 /* ShopDeliverModel.m */; };
 		B8BD78851CC1E6F700362C89 /* STManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78841CC1E6F700362C89 /* STManager.m */; };
-		B8BD788B1CC1EB8E00362C89 /* STHealthyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD788A1CC1EB8E00362C89 /* STHealthyManager.m */; };
 		B8BD78911CC2418100362C89 /* STNetError.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78901CC2418100362C89 /* STNetError.m */; };
 		B8BD78941CC2478200362C89 /* STRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78931CC2478200362C89 /* STRequest.m */; };
 		B8BD78971CC24DDF00362C89 /* STApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78961CC24DDF00362C89 /* STApiRequest.m */; };
@@ -1167,8 +1166,6 @@
 		B8BD787F1CBE2E6500362C89 /* ShopDeliverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDeliverModel.m; sourceTree = "<group>"; };
 		B8BD78831CC1E6F700362C89 /* STManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STManager.h; sourceTree = "<group>"; };
 		B8BD78841CC1E6F700362C89 /* STManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STManager.m; sourceTree = "<group>"; };
-		B8BD78891CC1EB8E00362C89 /* STHealthyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STHealthyManager.h; sourceTree = "<group>"; };
-		B8BD788A1CC1EB8E00362C89 /* STHealthyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STHealthyManager.m; sourceTree = "<group>"; };
 		B8BD788F1CC2418100362C89 /* STNetError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNetError.h; sourceTree = "<group>"; };
 		B8BD78901CC2418100362C89 /* STNetError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STNetError.m; sourceTree = "<group>"; };
 		B8BD78921CC2478200362C89 /* STRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRequest.h; sourceTree = "<group>"; };
@@ -3158,8 +3155,6 @@
 			children = (
 				B808FB5A1C780D250000449C /* GetFactorModel.h */,
 				B808FB5B1C780D250000449C /* GetFactorModel.m */,
-				B8BD78891CC1EB8E00362C89 /* STHealthyManager.h */,
-				B8BD788A1CC1EB8E00362C89 /* STHealthyManager.m */,
 				B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */,
 				B8F719A41CEDDE12000D859D /* NSManagedObject+handler.h */,
 				B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */,
@@ -4983,7 +4978,6 @@
 				B8FD3E081C8A7903007BCA6B /* SETextAttachment.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* STNetworkCache.m in Sources */,
 				B8FD3DE21C8A7903007BCA6B /* XHMessageBubbleHelper.m in Sources */,
-				B8BD788B1CC1EB8E00362C89 /* STHealthyManager.m in Sources */,
 				B8FD3DDA1C8A7903007BCA6B /* UIImage+XHRounded.m in Sources */,
 				B612DD7D1CACFE21004C428C /* CompanyViewController.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,

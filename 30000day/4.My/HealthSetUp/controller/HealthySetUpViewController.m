@@ -9,7 +9,6 @@
 #import "HealthySetUpViewController.h"
 #import "HealthyTableViewCell.h"
 #import "GetFactorModel.h"
-#import "STHealthyManager.h"
 #import "GetFactorObject.h"
 #import "MTProgressHUD.h"
 
@@ -20,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) UIBarButtonItem *barButton;
+
+@property (nonatomic,strong) NSMutableArray *staticArray;//身高、体重、平均每日被动吸烟支数 、被动吸烟年数
 
 @end
 
@@ -32,6 +33,8 @@
     self.title = @"健康因素";
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveFactor)];
+    
+    barButton.tintColor = LOWBLUECOLOR;
     
     self.barButton = barButton;
     
@@ -145,6 +148,11 @@
         });
     }];
 }
+
+- (void)configStaticArray {
+        
+}
+
 
 //设置QGPickView,并显示QGPickView
 - (void)setQGPickViewWith:(GetFactorModel *)factorModel indexPath:(NSIndexPath *)indexPath {

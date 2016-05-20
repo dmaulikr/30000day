@@ -34,7 +34,6 @@
 #import "STLocationMananger.h"
 #import "SearchVersionManager.h"
 #import "NewFriendManager.h"
-#import "STHealthyManager.h"
 #import "STDataHandler.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
