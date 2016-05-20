@@ -140,6 +140,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
         });
     }];
 }
@@ -233,7 +235,6 @@
     }];
 
     return cell;
-
 }
 
 - (void)didReceiveMemoryWarning {

@@ -22,6 +22,7 @@
 #import "CDChatRoomVC.h"
 #import "STConversationCell.h"
 #import "PersonHeadView.h"
+#import "PersonInformationsManager.h"
 
 @interface CDChatListVC () <UITableViewDataSource,UITableViewDelegate>
 
@@ -66,15 +67,13 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [LZConversationCell registerCellToTableView:self.tableView];
     
-    [self headerRefreshing];
-    
     // 当在其它 Tab 的时候，收到消息 badge 增加，所以需要一直监听
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationMessageReceived object:nil];
     
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:kCDNotificationUnreadsUpdated object:nil];
     
     //成功的链接上凌云聊天服务器
-    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(getMyFriends) name:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
     
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
     
@@ -82,12 +81,31 @@ static NSString *cellIdentifier = @"ContactCell";
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
+    //获取我的好友-----目的是取出当前用户是否设置备注头像
+    [self getMyFriends];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // 刷新 unread badge 和新增的对话
     [self performSelector:@selector(headerRefreshing) withObject:nil afterDelay:0];
+}
+
+//获取我的好友-----目的是取出当前用户是否设置备注头像
+- (void)getMyFriends {
+    
+    [self.dataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
+        
+        //给这个好友管理器赋值
+        [PersonInformationsManager shareManager].informationsArray = dataArray;
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    [self headerRefreshing];
 }
 
 - (void)headerRefreshing {

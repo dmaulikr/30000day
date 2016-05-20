@@ -117,9 +117,12 @@
 
 - (void)reloadMainTableView {
     
-    [self.tableView reloadData];
-    
-    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+    });
 }
 
 - (void)headerRefreshing {

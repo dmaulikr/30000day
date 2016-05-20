@@ -48,7 +48,7 @@
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
-    [self loadEmail];
+//    [self loadEmail];
 }
 
 #pragma ---
@@ -78,7 +78,7 @@
                                      success:^(BOOL success) {
                                          
                                          //获取用户的email
-                                         [self loadEmail];
+//                                         [self loadEmail];
                                          
                                          [self.tableView.mj_header endRefreshing];
                                          
