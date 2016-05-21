@@ -25,7 +25,7 @@
 #import "CDAddRequest.h"
 #import "LZPushManager.h"
 //#import <iRate/iRate.h>
-//#import <iVersion/iVersion.h>
+#import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "CDIMService.h"
 #import "CDUserManager.h"
@@ -123,9 +123,9 @@
 //    
 //    [iRate sharedInstance].previewMode = NO;
 //    
-//    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-//    
-//    [iVersion sharedInstance].previewMode = NO;
+    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+    
+    [iVersion sharedInstance].previewMode = NO;
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
 //    _mapManager = [[BMKMapManager alloc] init];
