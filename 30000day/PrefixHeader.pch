@@ -248,6 +248,8 @@
 
 #define  GET_DESCEND_FACTORS         @"/stapi/life/getLifeDescendFactors"       //获取用户天龄下降因素
 
+#define  GET_AGREEMENT               @"/stapi/info/getAgreement"                //免责条款及协议
+
 //凌云用到的宏
 #define NICK_NAME             @"nickName"
 #define USER_ID               @"userId"
