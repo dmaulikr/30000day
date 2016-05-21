@@ -539,4 +539,8 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                  failure:(void (^)(NSError *error))failure;
 
 
+//*****************************************获取免责条款及协议*********************/
++ (void)sendGetAgreement:(void (^)(NSString *urlString))success
+                 failure:(void (^)(NSError *error))failure;
+
 @end

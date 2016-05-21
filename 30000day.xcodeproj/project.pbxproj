@@ -104,6 +104,8 @@
 		B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DB85C81CC722400088F867 /* InformationDetails.m */; };
 		B6DB85CD1CC762A00088F867 /* InformationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */; };
 		B6DB85CE1CC762A00088F867 /* InformationCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */; };
+		B6DBF0E31CF000FE00197B01 /* AgreementWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DBF0E11CF000FE00197B01 /* AgreementWebViewController.m */; };
+		B6DBF0E41CF000FE00197B01 /* AgreementWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DBF0E21CF000FE00197B01 /* AgreementWebViewController.xib */; };
 		B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4F91CB784360026322A /* ShareInformationView.m */; };
 		B6DDB4FC1CB7844F0026322A /* ShareInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */; };
 		B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DDB4FE1CB796800026322A /* InformationCommentViewController.m */; };
@@ -799,6 +801,9 @@
 		B6DB85CA1CC762A00088F867 /* InformationCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCommentTableViewCell.h; sourceTree = "<group>"; };
 		B6DB85CB1CC762A00088F867 /* InformationCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationCommentTableViewCell.m; sourceTree = "<group>"; };
 		B6DB85CC1CC762A00088F867 /* InformationCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationCommentTableViewCell.xib; sourceTree = "<group>"; };
+		B6DBF0E01CF000FE00197B01 /* AgreementWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreementWebViewController.h; sourceTree = "<group>"; };
+		B6DBF0E11CF000FE00197B01 /* AgreementWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreementWebViewController.m; sourceTree = "<group>"; };
+		B6DBF0E21CF000FE00197B01 /* AgreementWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgreementWebViewController.xib; sourceTree = "<group>"; };
 		B6DDB4F81CB784360026322A /* ShareInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareInformationView.h; sourceTree = "<group>"; };
 		B6DDB4F91CB784360026322A /* ShareInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareInformationView.m; sourceTree = "<group>"; };
 		B6DDB4FB1CB7844F0026322A /* ShareInformationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareInformationView.xib; sourceTree = "<group>"; };
@@ -2786,7 +2791,6 @@
 			children = (
 				B886ADDA1CB3C1B9005E262A /* MyOrder */,
 				B8F2DA191C5F3D04002C7712 /* SignInANDSignOut */,
-				B8F2D8E01C5B3A39002C7712 /* HealthSetUp */,
 				B88C91AF1C5B00500089BEAE /* BasePart */,
 				B88C91B41C5B00500089BEAE /* MySetting */,
 				B8F2D8BF1C5B38FA002C7712 /* Security */,
@@ -3137,7 +3141,8 @@
 				B8F2D8E21C5B3A39002C7712 /* model */,
 				B8F2D8E31C5B3A39002C7712 /* view */,
 			);
-			path = HealthSetUp;
+			name = HealthSetUp;
+			path = ../HealthSetUp;
 			sourceTree = "<group>";
 		};
 		B8F2D8E11C5B3A39002C7712 /* controller */ = {
@@ -3284,6 +3289,7 @@
 		B8F2DA191C5F3D04002C7712 /* SignInANDSignOut */ = {
 			isa = PBXGroup;
 			children = (
+				B8F2D8E01C5B3A39002C7712 /* HealthSetUp */,
 				B8F2DA1A1C5F3D04002C7712 /* controller */,
 				B8F2DA361C5F3D04002C7712 /* model */,
 				B8F2DA3F1C5F3D04002C7712 /* view */,
@@ -3318,6 +3324,9 @@
 				B8F2DA331C5F3D04002C7712 /* NewPasswordViewController.h */,
 				B8F2DA341C5F3D04002C7712 /* NewPasswordViewController.m */,
 				B8F2DA351C5F3D04002C7712 /* NewPasswordViewController.xib */,
+				B6DBF0E01CF000FE00197B01 /* AgreementWebViewController.h */,
+				B6DBF0E11CF000FE00197B01 /* AgreementWebViewController.m */,
+				B6DBF0E21CF000FE00197B01 /* AgreementWebViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4712,6 +4721,7 @@
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B665F8C91CC4BF5200070458 /* navBackBtn@2x.png in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
+				B6DBF0E41CF000FE00197B01 /* AgreementWebViewController.xib in Resources */,
 				B8F2D9C61C5F0439002C7712 /* PersonTableViewCell.xib in Resources */,
 				B8F2D8C61C5B3906002C7712 /* SecurityViewController.xib in Resources */,
 				B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */,
@@ -4881,6 +4891,7 @@
 				B8D67A271C74420500805EE2 /* SearchFriendsViewController.m in Sources */,
 				B8FD3AD21C83EDA3007BCA6B /* PersonDetailViewController.m in Sources */,
 				B8FD3DF81C8A7903007BCA6B /* XHAlbum.m in Sources */,
+				B6DBF0E31CF000FE00197B01 /* AgreementWebViewController.m in Sources */,
 				B89216C31C6075150023F8A8 /* UserAccountHandler.m in Sources */,
 				B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */,
 				B8F6487A1C9424BF001A3119 /* AppointmentCollectionViewCell.m in Sources */,

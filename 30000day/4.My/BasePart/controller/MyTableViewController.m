@@ -20,6 +20,7 @@
 #import "MTProgressHUD.h"
 #import "MyOrderViewController.h"
 #import "JPUSHService.h"
+#import "AgreementWebViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -150,7 +151,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -171,11 +172,13 @@
         
         return 1;
         
-    } else {
-        
+    } else if (section == 4){
+    
         return 1;
-        
+    
     }
+    
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -276,7 +279,23 @@
         
         return cell;
         
-    }  else if (indexPath.section == 3 ) {
+    } else if (indexPath.section == 3 ) {
+    
+        UITableViewCell *tCell = [tableView dequeueReusableCellWithIdentifier:@"TCELL"];
+        
+        if (!tCell) {
+            
+            tCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TCELL"];
+            
+        }
+        
+        [tCell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        
+        [tCell.textLabel setText:@"《免责条款及协议》"];
+        
+        return tCell;
+    
+    } else if (indexPath.section == 4 ) {
         
         LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
         
@@ -337,6 +356,14 @@
         }
         
     } else if (indexPath.section == 3) {
+    
+        AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    
+    } else if (indexPath.section == 4) {
         
         [self cancelAction];
     }
