@@ -87,8 +87,38 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (void)friendValidation:(UISwitch *)switchView {
 
+    BOOL isOn = switchView.isOn;
     
+    NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
     
+    if (userConfigure == nil) {
+        
+        userConfigure = [NSMutableDictionary dictionary];
+        
+    }
+    
+    [userConfigure setObject:@(isOn) forKey:FRIENDVALIDATION];
+    
+    [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+    
+}
+
+- (void)factorVerification :(UISwitch *)switchView {
+
+    BOOL isOn = switchView.isOn;
+    
+    NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+    
+    if (userConfigure == nil) {
+        
+        userConfigure = [NSMutableDictionary dictionary];
+        
+    }
+    
+    [userConfigure setObject:@(isOn) forKey:FACTORVERIFICATION];
+    
+    [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+
 }
 
 
@@ -101,7 +131,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count + 1;
+    return self.dataSource.count + 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -136,15 +166,35 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         
         cell.textLabel.text = @"好友验证";
         
+        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+        
+        BOOL isOn = [userConfigure[FRIENDVALIDATION] boolValue];
+        
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
         
-        [switchView setOn:YES];
+        [switchView setOn:isOn];
         
         [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
         
         cell.accessoryView = switchView;
         
-    } else {
+    } else if(self.dataSource.count + 1 == indexPath.section){
+        
+        cell.textLabel.text = @"健康因素密码验证";
+        
+        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+        
+        BOOL isOn = [userConfigure[FACTORVERIFICATION] boolValue];
+        
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+        
+        [switchView setOn:isOn];
+        
+        [switchView addTarget:self action:@selector(factorVerification:) forControlEvents:UIControlEventValueChanged];
+        
+        cell.accessoryView = switchView;
+
+    }else {
         
         NSDictionary *sectionData = self.dataSource[indexPath.section];
         
@@ -198,6 +248,14 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         
         return tipLabel;
         
+    } else if(self.dataSource.count + 1 == section){
+    
+        UILabel *tipLabel = [self tipLabel];
+        
+        tipLabel.text = @"开启时，进入完善健康因素时需填写登陆密码";
+        
+        return tipLabel;
+    
     } else {
     
         NSDictionary *sectionData = self.dataSource[section];

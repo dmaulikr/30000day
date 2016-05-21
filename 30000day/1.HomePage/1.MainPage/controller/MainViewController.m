@@ -23,6 +23,7 @@
 #import "SettingBirthdayView.h"
 #import "DaysOfAgeOption.h"
 #import "PromoteAgeViewController.h"
+#import "FactorVerificationView.h"
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
@@ -758,10 +759,6 @@
 
     DaysOfAgeOption *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"DaysOfAgeOption" owner:self options:nil] lastObject];
     
-    //[shareAnimationView setSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    //[shareAnimationView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     //封装的动画般推出视图
     [shareAnimationView animateWindowsAddSubView];
     
@@ -773,11 +770,27 @@
         
         if (tag == 1) {
             
-            HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
+            NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+            
+            BOOL isOn = [userConfigure[FACTORVERIFICATION] boolValue];
 
-            controller.hidesBottomBarWhenPushed = YES;
+            if (isOn) {
+                
+                FactorVerificationView *view = [[FactorVerificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                
+                
+            
+            } else {
+            
+                HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
+                
+                controller.hidesBottomBarWhenPushed = YES;
+                
+                [self.navigationController pushViewController:controller animated:YES];
+            
+            }
+            
 
-            [self.navigationController pushViewController:controller animated:YES];
         
         } else {
             

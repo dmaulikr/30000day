@@ -40,12 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-    
-    NSString *age = [Common isObjectNull:userConfigure[@"Age"]] ? @"80" : userConfigure[@"Age"];
-    
-    NSLog(@"%@",age);
-    
     self.selectorDate = [NSDate date];//默认选中的日期是今天
     
     self.remindDataArray = [[NSMutableArray alloc] init];
