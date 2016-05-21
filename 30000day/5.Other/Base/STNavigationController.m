@@ -29,36 +29,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//    
-//    [super pushViewController:viewController animated:animated];
-//}
-//
-//- (nullable UIViewController *)popViewControllerAnimated:(BOOL)animated {
-//    
-//    [self popViewControllerSendNotification];
-//    
-//   return [super popViewControllerAnimated:animated];
-//}
-//
-//- (nullable NSArray<__kindof UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
-//    
-//    [self popViewControllerSendNotification];
-//    
-//    return [super popToViewController:viewController animated:animated];
-//}
-//
-//- (nullable NSArray<__kindof UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
-//    
-//    [self popViewControllerSendNotification];
-//    
-//    return [super popToRootViewControllerAnimated:animated];
-//}
-//
-//- (void)popViewControllerSendNotification {
-//    
-//    [STNotificationCenter postNotificationName:STWillPopViewControllerSendNotification object:nil];
-//}
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    [super pushViewController:viewController animated:animated];
+}
+
+- (nullable UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    
+    [self popViewControllerSendNotification];
+    
+   return [super popViewControllerAnimated:animated];
+}
+
+- (nullable NSArray<__kindof UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    [self popViewControllerSendNotification];
+    
+    return [super popToViewController:viewController animated:animated];
+}
+
+- (nullable NSArray<__kindof UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
+    
+    [self popViewControllerSendNotification];
+    
+    return [super popToRootViewControllerAnimated:animated];
+}
+
+- (void)popViewControllerSendNotification {
+    
+    [STNotificationCenter postNotificationName:STWillPopViewControllerSendNotification object:nil];
+}
 
 /*
 #pragma mark - Navigation

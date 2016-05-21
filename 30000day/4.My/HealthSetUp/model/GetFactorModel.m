@@ -97,7 +97,7 @@
             
             GetFactorModel *model = [[GetFactorModel alloc] init];
             
-            model.factor = @"身高";
+            model.factor = @"身高(单位cm)";
             
             model.level = @"1";
             
@@ -109,7 +109,7 @@
                 
                 SubFactorModel *subModel = [[SubFactorModel alloc] init];
                 
-                subModel.factor = [NSString stringWithFormat:@"%dcm",i];
+                subModel.factor = [NSString stringWithFormat:@"%d",i];
                 
                 [model.subFactorArray addObject:subModel];
             }
@@ -120,7 +120,7 @@
             
             GetFactorModel *model = [[GetFactorModel alloc] init];
             
-            model.factor = @"体重";
+            model.factor = @"体重(单位kg)";
             
             model.level = @"1";
             
@@ -132,7 +132,7 @@
                 
                 SubFactorModel *subModel = [[SubFactorModel alloc] init];
                 
-                subModel.factor = [NSString stringWithFormat:@"%dkg",i];
+                subModel.factor = [NSString stringWithFormat:@"%d",i];
                 
                 [model.subFactorArray addObject:subModel];
             }
@@ -151,13 +151,13 @@
             
             model.subFactorArray = [[NSMutableArray alloc] init];
             
-            for (int i = 1; i <= 101; i++) {
+            for (int i = 0; i <= 101; i++) {
                 
                 if (i == 101) {
                     
                     SubFactorModel *subModel = [[SubFactorModel alloc] init];
                     
-                    subModel.factor = @"100根以上";
+                    subModel.factor = @"100以上";
                     
                     [model.subFactorArray addObject:subModel];
                     
@@ -165,7 +165,7 @@
                     
                     SubFactorModel *subModel = [[SubFactorModel alloc] init];
                     
-                    subModel.factor = [NSString stringWithFormat:@"%d根",i];
+                    subModel.factor = [NSString stringWithFormat:@"%d",i];
                     
                     [model.subFactorArray addObject:subModel];
                 }
@@ -185,11 +185,11 @@
             
             model.userSubFactorModel = [[SubFactorModel alloc] init];
             
-            for (int i = 1; i <= 100; i++) {
+            for (int i = 0; i <= 100; i++) {
                 
                 SubFactorModel *subModel = [[SubFactorModel alloc] init];
                 
-                subModel.factor = [NSString stringWithFormat:@"%d年",i];
+                subModel.factor = [NSString stringWithFormat:@"%d",i];
                 
                 [model.subFactorArray addObject:subModel];
             }

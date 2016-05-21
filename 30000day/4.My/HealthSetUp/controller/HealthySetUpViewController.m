@@ -49,6 +49,41 @@
 //保存健康因素
 - (void)saveFactor {
     
+    //判断是否可以保存
+    GetFactorModel *heightModel = self.getFactorArray[self.getFactorArray.count - 4];//身高
+    
+    GetFactorModel *weightModel = self.getFactorArray[self.getFactorArray.count - 3];//体重
+    
+    GetFactorModel *numberModel = self.getFactorArray[self.getFactorArray.count - 2];//被动吸烟根数
+    
+    GetFactorModel *yearModel = self.getFactorArray[self.getFactorArray.count - 1];//被动吸烟年数
+    
+    if ([Common isObjectNull:heightModel.userSubFactorModel.factor] && ![Common isObjectNull:weightModel.userSubFactorModel.factor]) {
+        
+        [self showToast:@"请完善身高（身高和体重须同时存在）"];
+        
+        return;
+        
+    } else if (![Common isObjectNull:heightModel.userSubFactorModel.factor] && [Common isObjectNull:weightModel.userSubFactorModel.factor]) {
+        
+        [self showToast:@"请完善体重（身高和体重须同时存在）"];
+        
+        return;
+    }
+    
+    if ([Common isObjectNull:numberModel.userSubFactorModel.factor] && ![Common isObjectNull:yearModel.userSubFactorModel.factor]) {
+        
+        [self showToast:@"请完善被动吸烟根数（被动吸烟根数和年数须同时存在）"];
+        
+        return;
+        
+    } else if (![Common isObjectNull:numberModel.userSubFactorModel.factor] && [Common isObjectNull:yearModel.userSubFactorModel.factor]) {
+        
+        [self showToast:@"请完善被动吸烟年数（被动吸烟根数和被动吸烟年数须同时存在）"];
+        
+        return;
+    }
+    
     [STDataHandler sendSaveUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSString *dataString) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -125,13 +160,14 @@
         [self.getFactorArray addObject:model];
     }
     
+    //先把数据源后面4个加上去【身高、体重、被动吸烟数、 被动吸烟年数】
+    [self.getFactorArray addObjectsFromArray:[GetFactorModel configFactorModelArray]];
+    
     [STDataHandler sendGetUserFactorsWithUserId:STUserAccountHandler.userProfile.userId factorsModelArray:self.getFactorArray success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.getFactorArray = dataArray;
-            
-            [self.getFactorArray addObjectsFromArray:[GetFactorModel configFactorModelArray]];
             
             [self.tableView reloadData];
             
@@ -180,22 +216,32 @@
     
     if (index == 1) {
         
-        if (self.getFactorArray.count) {
-            
-        }
-        
         GetFactorModel *factorModel = self.getFactorArray[[Common readAppIntegerDataForKey:HEALTHSETINDICATE]];
         
-        if (![factorModel.userSubFactorModel.factor isEqualToString:value] && ![factorModel.userSubFactorModel.factorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
+        if (([Common readAppIntegerDataForKey:HEALTHSETINDICATE] <= self.getFactorArray.count - 1) && (self.getFactorArray.count - 4<= [Common readAppIntegerDataForKey:HEALTHSETINDICATE])) {
             
-            self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
+            if (![factorModel.userSubFactorModel.factor isEqualToString:value]) {
+                
+                self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
+            }
+            
+            factorModel.userSubFactorModel.factor = value;
+            
+            [self.tableView reloadData];
+            
+        } else {
+            
+            if (![factorModel.userSubFactorModel.factor isEqualToString:value] && ![factorModel.userSubFactorModel.factorId isEqualToNumber:[GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray]]) {
+                
+                self.barButton.enabled = YES;//表示如果本次选择的和上次选择的不一样,那么就打开保存按钮
+            }
+            
+            factorModel.userSubFactorModel.factor = value;
+            
+            factorModel.userSubFactorModel.factorId  = [GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray];
+            
+            [self.tableView reloadData];
         }
-        
-        factorModel.userSubFactorModel.factor = value;
-        
-        factorModel.userSubFactorModel.factorId  = [GetFactorModel subFactorIdWithTitleString:value subFactorArray:factorModel.subFactorArray];
-        
-        [self.tableView reloadData];
     }
 }
 

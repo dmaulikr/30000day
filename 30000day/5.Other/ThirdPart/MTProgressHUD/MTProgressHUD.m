@@ -35,7 +35,7 @@
 - (void)creatIndicatorView {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     indicator.hidesWhenStopped = YES;
-    indicator.color = [UIColor darkGrayColor];//指示器颜色可以自定义
+    indicator.color = LOWBLUECOLOR;//指示器颜色可以自定义
     indicator.center = CGPointMake(37.0f/2.0f,37.0f/2.0f);
     indicator.tag = MTProgressActivityTag;
     [self addSubview:indicator];
