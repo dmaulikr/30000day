@@ -11,13 +11,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="登陆密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FgA-9w-JWL">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="登录密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FgA-9w-JWL">
                     <rect key="frame" x="14" y="212" width="347" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="eLS-8S-xtK"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZd-bi-cdF">
                     <rect key="frame" x="14" y="276" width="347" height="44"/>
@@ -48,7 +48,7 @@
             <connections>
                 <outlet property="passWordTextFiled" destination="FgA-9w-JWL" id="A9k-e9-07j"/>
             </connections>
-            <point key="canvasLocation" x="235.5" y="305.5"/>
+            <point key="canvasLocation" x="218.5" y="274.5"/>
         </view>
     </objects>
 </document>

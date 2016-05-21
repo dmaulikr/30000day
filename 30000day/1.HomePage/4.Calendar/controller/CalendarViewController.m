@@ -294,7 +294,7 @@
 
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
     
-    NSMutableDictionary *userConfigure = (NSMutableDictionary *)[Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+    NSMutableDictionary *userConfigure =  [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
     
     if (userConfigure == nil) {
         

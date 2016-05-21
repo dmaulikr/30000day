@@ -8,7 +8,7 @@
 
 #import "FactorVerificationView.h"
 
-@implementation FactorVerificationView
+@implementation FactorVerificationView 
 
 - (void)awakeFromNib {
 
@@ -35,14 +35,6 @@
     }
     
 }
-
-
-- (IBAction)closeClick:(id)sender {
-    
-    [self removeFromSuperview];
-    
-}
-
 
 
 @end
