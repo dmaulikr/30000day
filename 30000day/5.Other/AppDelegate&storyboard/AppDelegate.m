@@ -116,13 +116,7 @@
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
-    
-//    [iRate sharedInstance].applicationBundleID = @"com.shutian.30000day";
-//    
-//    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
-//    
-//    [iRate sharedInstance].previewMode = NO;
-//    
+
     [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
     [iVersion sharedInstance].previewMode = NO;

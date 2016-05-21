@@ -113,6 +113,8 @@
 	<string>开启定位获取更多精彩哦</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>开启定位获取更多精彩哦</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
