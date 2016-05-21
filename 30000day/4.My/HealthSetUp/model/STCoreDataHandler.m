@@ -159,6 +159,8 @@ static STCoreDataHandler *onlyInstance;
             object.pid = model.pid;
             
             object.level = model.level;
+            
+            object.gender = model.gender;
         }
         
         [GetFactorObject save:^(NSError *error) {

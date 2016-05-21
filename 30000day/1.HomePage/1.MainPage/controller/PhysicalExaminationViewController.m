@@ -33,9 +33,9 @@
     
     self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
     
-    self.physicalExaminationLastTimePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:(10 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
+    self.physicalExaminationLastTimePicker.maximumDate = [NSDate date];
     
-    self.physicalExaminationLastTimePicker.minimumDate = [NSDate date];
+    self.physicalExaminationLastTimePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:(-10 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
     
     self.physicalExaminationLastTimePicker.backgroundColor = [UIColor whiteColor];
 
@@ -45,14 +45,16 @@
         
     } else {//已经有存储了时间
         
-        if ([[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]] compare:[NSDate date]] == NSOrderedAscending) {//表示已经过时了
-            
-            self.physicalExaminationLastTimePicker.date = [NSDate date];
-            
-        } else {
-            
-            self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
-        }
+//        if ([[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]] compare:[NSDate date]] == NSOrderedAscending) {//表示已经过时了
+//            
+//            self.physicalExaminationLastTimePicker.date = [NSDate date];
+//            
+//        } else {
+//            
+//            self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
+//        }
+        
+        self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
     }
     
     self.physicalExaminationIntervalPicker.showsSelectionIndicator = YES;

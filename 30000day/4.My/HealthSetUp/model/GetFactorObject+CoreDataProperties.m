@@ -17,5 +17,6 @@
 @dynamic factor;
 @dynamic pid;
 @dynamic level;
+@dynamic gender;
 
 @end

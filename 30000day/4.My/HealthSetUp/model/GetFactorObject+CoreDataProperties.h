@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GetFactorObject (CoreDataProperties)
 
+@property (nullable, nonatomic, retain) NSNumber *gender;
 @property (nullable, nonatomic, retain) NSNumber *factorId;
 @property (nullable, nonatomic, retain) NSString *factor;
 @property (nullable, nonatomic, retain) NSNumber *pid;
