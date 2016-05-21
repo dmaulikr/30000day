@@ -131,7 +131,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count + 2;
+    return self.dataSource.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -164,22 +164,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     if (self.dataSource.count == indexPath.section) {
         
-        cell.textLabel.text = @"好友验证";
-        
-        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-        
-        BOOL isOn = [userConfigure[FRIENDVALIDATION] boolValue];
-        
-        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-        
-        [switchView setOn:isOn];
-        
-        [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
-        
-        cell.accessoryView = switchView;
-        
-    } else if(self.dataSource.count + 1 == indexPath.section){
-        
         cell.textLabel.text = @"健康因素密码验证";
         
         NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
@@ -194,7 +178,21 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         
         cell.accessoryView = switchView;
 
-    }else {
+//        cell.textLabel.text = @"好友验证";
+//        
+//        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+//        
+//        BOOL isOn = [userConfigure[FRIENDVALIDATION] boolValue];
+//        
+//        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+//        
+//        [switchView setOn:isOn];
+//        
+//        [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
+//        
+//        cell.accessoryView = switchView;
+        
+    } else {
         
         NSDictionary *sectionData = self.dataSource[indexPath.section];
         
@@ -242,20 +240,18 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     if (self.dataSource.count == section) {
         
+//        UILabel *tipLabel = [self tipLabel];
+//        
+//        tipLabel.text = @"开启时，别人添加你为好友时需要验证";
+//        
+//        return tipLabel;
+        
         UILabel *tipLabel = [self tipLabel];
         
-        tipLabel.text = @"开启时，别人添加你为好友时需要验证";
+        tipLabel.text = @"开启时，进入完善健康因素时需填写登录密码";
         
         return tipLabel;
         
-    } else if(self.dataSource.count + 1 == section){
-    
-        UILabel *tipLabel = [self tipLabel];
-        
-        tipLabel.text = @"开启时，进入完善健康因素时需填写登陆密码";
-        
-        return tipLabel;
-    
     } else {
     
         NSDictionary *sectionData = self.dataSource[section];
