@@ -25,7 +25,7 @@
 
     self.dataTitleLable.text = lifeModel.pFactor;
     
-    self.dataLable.text = [NSString stringWithFormat:@"%.2lf",lifeModel.value];
+    //self.dataLable.text = [NSString stringWithFormat:@"%.2lf",lifeModel.value];
 
 }
 
