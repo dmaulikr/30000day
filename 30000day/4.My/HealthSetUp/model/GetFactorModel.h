@@ -24,6 +24,8 @@
 
 @property (nonatomic , strong) NSNumber *factorId;
 
+@property (nonatomic , strong) NSNumber *gender;//表示该健康因素男的还是女的，还是共有的
+
 /**
   *
   * 用一个subFactorId 来取得subFactorArray里面SubFactorModel的一个string

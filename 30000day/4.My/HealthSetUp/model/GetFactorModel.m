@@ -15,33 +15,6 @@
     return @{@"factorId":@"id"};
 }
 
-#pragma mark --- NSCoding的协议
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    
-    if ([self init]) {
-        
-        self.factorId = [aDecoder decodeObjectForKey:@"factorId"];
-        
-        self.factor = [aDecoder decodeObjectForKey:@"factor"];
-        
-        self.subFactorArray = [aDecoder decodeObjectForKey:@"subFactorArray"];
-        
-        self.userSubFactorModel = [aDecoder decodeObjectForKey:@"userSubFactorModel"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    [aCoder encodeObject:self.factorId forKey:@"factorId"];
-    
-    [aCoder encodeObject:self.factor forKey:@"factor"];
-    
-    [aCoder encodeObject:self.subFactorArray forKey:@"subFactorArray"];
-    
-    [aCoder encodeObject:self.userSubFactorModel forKey:@"userSubFactorModel"];
-}
-
 - (id)init {
     
     if (self = [super init]) {
@@ -204,29 +177,5 @@
 @end
 
 @implementation SubFactorModel
-
-#pragma mark --- NSCoding的协议
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    
-    if ([self init]) {
-        
-        self.factorId = [aDecoder decodeObjectForKey:@"factorId"];
-        
-        self.factor = [aDecoder decodeObjectForKey:@"factor"];
-        
-        self.pid = [aDecoder decodeObjectForKey:@"pid"];
-
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    [aCoder encodeObject:self.factorId forKey:@"factorId"];
-    
-    [aCoder encodeObject:self.factor forKey:@"factor"];
-    
-    [aCoder encodeObject:self.pid forKey:@"pid"];
-}
 
 @end

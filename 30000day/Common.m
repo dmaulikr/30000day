@@ -291,7 +291,7 @@
             
         } else if (comp.month == 5 && comp.day == 1) {
             
-            d_str =  @"劳动节";
+            m_str =  @"劳动节";
             
         } else if (comp.month == 5 && comp.day == 4) {
             
