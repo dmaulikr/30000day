@@ -85,6 +85,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     [CDSoundManager manager].needVibrateWhenNotChatting = switchView.on;
 }
 
+- (void)friendValidation:(UISwitch *)switchView {
+
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -95,7 +101,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count;
+    return self.dataSource.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -126,32 +132,48 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSDictionary *sectionData = self.dataSource[indexPath.section];
-    
-    NSString *text = sectionData[kMainText];
-    
-    NSString *detailText = sectionData[kDetailText];
-    
-    id switchValue = sectionData[kDetailSwitchOn];
-    
-    if (switchValue) {
+    if (self.dataSource.count == indexPath.section) {
+        
+        cell.textLabel.text = @"好友验证";
         
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
         
-        BOOL switchOn = [switchValue boolValue];
+        [switchView setOn:YES];
         
-        [switchView setOn:switchOn];
-        
-        NSString *selectorName = sectionData[kDetailSwitchChangeSelector];
-        
-        [switchView addTarget:self action:NSSelectorFromString(selectorName) forControlEvents:UIControlEventValueChanged];
+        [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
         
         cell.accessoryView = switchView;
+        
+    } else {
+        
+        NSDictionary *sectionData = self.dataSource[indexPath.section];
+        
+        NSString *text = sectionData[kMainText];
+        
+        NSString *detailText = sectionData[kDetailText];
+        
+        id switchValue = sectionData[kDetailSwitchOn];
+        
+        if (switchValue) {
+            
+            UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+            
+            BOOL switchOn = [switchValue boolValue];
+            
+            [switchView setOn:switchOn];
+            
+            NSString *selectorName = sectionData[kDetailSwitchChangeSelector];
+            
+            [switchView addTarget:self action:NSSelectorFromString(selectorName) forControlEvents:UIControlEventValueChanged];
+            
+            cell.accessoryView = switchView;
+        }
+        
+        cell.textLabel.text = text;
+        
+        cell.detailTextLabel.text = detailText;
+    
     }
-    
-    cell.textLabel.text = text;
-    
-    cell.detailTextLabel.text = detailText;
     
     return cell;
 }
@@ -168,23 +190,35 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    NSDictionary *sectionData = self.dataSource[section];
-    
-    NSString *tipText = sectionData[kTipText];
-    
-    if (tipText.length > 0) {
+    if (self.dataSource.count == section) {
         
         UILabel *tipLabel = [self tipLabel];
         
-        tipLabel.text = tipText;
+        tipLabel.text = @"开启时，别人添加你为好友时需要验证";
         
         return tipLabel;
         
     } else {
+    
+        NSDictionary *sectionData = self.dataSource[section];
         
-        return nil;
+        NSString *tipText = sectionData[kTipText];
+        
+        if (tipText.length > 0) {
+            
+            UILabel *tipLabel = [self tipLabel];
+            
+            tipLabel.text = tipText;
+            
+            return tipLabel;
+            
+        } else {
+            
+            return nil;
+        }
     }
 }
+
 
 - (UILabel *)tipLabel {
     
