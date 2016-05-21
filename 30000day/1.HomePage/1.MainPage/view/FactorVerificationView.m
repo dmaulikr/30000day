@@ -10,12 +10,39 @@
 
 @implementation FactorVerificationView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)awakeFromNib {
+
+    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    
+    [self addGestureRecognizer:tap];
+    
 }
-*/
+
+- (void)tapAction:(UITapGestureRecognizer *)tap {
+    
+    [self removeFromSuperview];
+        
+}
+
+- (IBAction)enterClick:(UIButton *)sender {
+    
+    if (self.buttonBlock) {
+        
+        self.buttonBlock(sender);
+        
+    }
+    
+}
+
+
+- (IBAction)closeClick:(id)sender {
+    
+    [self removeFromSuperview];
+    
+}
+
+
 
 @end

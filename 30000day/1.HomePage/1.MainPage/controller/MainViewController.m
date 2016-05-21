@@ -25,6 +25,7 @@
 #import "PromoteAgeViewController.h"
 #import "FactorVerificationView.h"
 
+
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
@@ -776,9 +777,50 @@
 
             if (isOn) {
                 
-                FactorVerificationView *view = [[FactorVerificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                FactorVerificationView *view = [[[NSBundle mainBundle] loadNibNamed:@"FactorVerificationView" owner:self options:nil] lastObject];
+                
+                [view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                
+                 __weak FactorVerificationView *weakSelf = view;
+                
+                [view setButtonBlock:^(UIButton *button) {
+                   
+                    if ([Common isObjectNull:weakSelf.passWordTextFiled.text]) {
+                        
+                        [self showToast:@"密码不能为空"];
+                        
+                        return;
+                        
+                    }
+                    
+                    [STDataHandler sendCheckPasswordWithUserId:STUserAccountHandler.userProfile.userId password:weakSelf.passWordTextFiled.text success:^(BOOL success) {
+                        
+                        if (success) {
+                            
+                            [weakSelf removeFromSuperview];
+                            
+                            HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
+                            
+                            controller.hidesBottomBarWhenPushed = YES;
+                            
+                            [self.navigationController pushViewController:controller animated:YES];
+                            
+                        } else {
+                        
+                            [self showToast:@"密码错误"];
+                        
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        
+                        [self showToast:@"服务器繁忙"];
+                        
+                    }];
+                    
+                }];
                 
                 
+                [[[UIApplication sharedApplication].delegate window] addSubview:view];
             
             } else {
             

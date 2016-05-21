@@ -543,4 +543,10 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 + (void)sendGetAgreement:(void (^)(NSString *urlString))success
                  failure:(void (^)(NSError *error))failure;
 
+//*****************************************检测密码是否正确*********************/
++ (void)sendCheckPasswordWithUserId:(NSNumber *)userId
+                           password:(NSString *)password
+                            success:(void (^)(BOOL success))success
+                            failure:(void (^)(NSError *error))failure;
+
 @end
