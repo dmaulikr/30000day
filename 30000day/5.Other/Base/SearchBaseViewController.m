@@ -74,10 +74,11 @@
         
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         
+        [_cancelButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+        
         [_cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
         
         [self.view addSubview:_cancelButton];
-        
     }
     return _cancelButton;
 }

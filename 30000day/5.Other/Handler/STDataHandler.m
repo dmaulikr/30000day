@@ -399,17 +399,12 @@
     if (password != nil) {
         
         [parameters addParameter:password forKey:@"password"];
-        
     }
     
     if (type != nil) {
         
         [parameters addParameter:type forKey:@"type"];
-        
     }
-    
-    
-    [Common urlStringWithDictionary:parameters withString:LOGIN_WITH_PASSWORD];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:LOGIN_WITH_PASSWORD
@@ -657,8 +652,6 @@
     
     [parameters addParameter:userId forKey:@"userId"];
     
-    [Common urlStringWithDictionary:parameters withString:GET_MY_FRIENDS];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_MY_FRIENDS
                                                  parameters:parameters
@@ -720,8 +713,6 @@
     [parameters addParameter:userId forKey:@"curUserId"];
     
     [parameters addParameter:friendId forKey:@"fUserId"];
-    
-    [Common urlStringWithDictionary:parameters withString:DELETE_FRIEND];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:DELETE_FRIEND
@@ -805,8 +796,6 @@
     [parameters addParameter:gender forKey:@"gender"];//性别
     
     [parameters addParameter:memo forKey:@"memo"];//个人简介
-    
-    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_INFORMATION
@@ -1139,8 +1128,6 @@
     [parameters addParameter:userId forKey:@"friendOwnerId"];
     
     [parameters addParameter:messageType forKey:@"messageType"];
-    
-    [Common urlStringWithDictionary:parameters withString:ADD_USER];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:ADD_USER
@@ -1498,8 +1485,7 @@
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(NSError *error))failure {
-    //异步执行
-    dispatch_async(dispatch_queue_create("saveUserFactores", DISPATCH_QUEUE_SERIAL), ^{
+    dispatch_async(dispatch_queue_create("GetUserFactors", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         
         NSString *url = [NSString stringWithFormat:@"http://192.168.1.101:8081/stapi/factor/getUserFactor?userId=%@",userId];
         
@@ -1508,7 +1494,6 @@
         NSError *error;
         
         NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-        
         if (error == nil  && ![Common isObjectNull:jsonStr]) {
             
             SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
@@ -1524,10 +1509,39 @@
                 NSError *secondError;
                 
                 NSDictionary *dictionary_second = [jsonParser objectWithString:valueString error:&secondError];
-                
+            
                 if (secondError == nil && ![Common isObjectNull:dictionary_second]) {
                     
                     NSArray *oldArray = dictionary_second[@"idPid"];
+                    
+                    if (![Common isObjectNull:dictionary_second[@"passiveSmokeCount"]] && ![Common isObjectNull:dictionary_second[@"passiveSmokeYears"]]) {//被动吸烟数和年数要同时存在
+                        
+                        GetFactorModel *numberModel = factorsModelArray[factorsModelArray.count - 2];//被动吸烟根数
+                        
+                        GetFactorModel *yearModel = factorsModelArray[factorsModelArray.count - 1];//被动吸烟年数
+                        
+                        if ([dictionary_second[@"passiveSmokeCount"] isEqualToString:@"150"]) {
+                            
+                            numberModel.userSubFactorModel.factor = @"100以上";
+                            
+                        } else {
+                            
+                            numberModel.userSubFactorModel.factor = dictionary_second[@"passiveSmokeCount"];
+                        }
+                        
+                        yearModel.userSubFactorModel.factor = dictionary_second[@"passiveSmokeYears"];
+                    }
+                    
+                    if (![Common isObjectNull:dictionary_second[@"height"]] && ![Common isObjectNull:dictionary_second[@"weight"]]) {//身高和体重要同时存在
+                        
+                        GetFactorModel *heightModel = factorsModelArray[factorsModelArray.count - 4];//身高
+                        
+                        GetFactorModel *weightModel = factorsModelArray[factorsModelArray.count - 3];//体重
+                        
+                        heightModel.userSubFactorModel.factor = dictionary_second[@"height"];
+                        
+                        weightModel.userSubFactorModel.factor = dictionary_second[@"weight"];
+                    }
                     
                     for (int i = 0; i < oldArray.count ; i++) {
                         
@@ -1569,7 +1583,7 @@
             
             failure(error);
         }
-    });;
+    });
 }
 
 + (GetFactorModel *)_factorModelWithFactorId:(NSNumber *)factorId FromfactorsModelArray:(NSMutableArray *)factorsModelArray {
@@ -1601,7 +1615,7 @@
     
     NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
     
-    for (int i = 0; i < factorsModelArray.count; i++) {
+    for (int i = 0; i < factorsModelArray.count - 3; i++) {
         
         GetFactorModel *factorModel = factorsModelArray[i];
         
@@ -1615,6 +1629,39 @@
             
             [dataArray addObject:dictionary];
         }
+    }
+#pragma mark --- 设置体重和身高
+    GetFactorModel *heightModel = factorsModelArray[factorsModelArray.count - 4];//身高
+    
+    GetFactorModel *weightModel = factorsModelArray[factorsModelArray.count - 3];//体重
+    
+    GetFactorModel *numberModel = factorsModelArray[factorsModelArray.count - 2];//被动吸烟根数
+    
+    GetFactorModel *yearModel = factorsModelArray[factorsModelArray.count - 1];//被动吸烟年数
+    
+    if (![Common isObjectNull:heightModel.userSubFactorModel.factor] && ![Common isObjectNull:weightModel.userSubFactorModel.factor]) {
+        
+        [dataDictionary addParameter:heightModel.userSubFactorModel.factor forKey:@"height"];
+        
+        [dataDictionary addParameter:weightModel.userSubFactorModel.factor forKey:@"weight"];
+        
+        [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
+    }
+    
+    if (![Common isObjectNull:numberModel.userSubFactorModel.factor] && ![Common isObjectNull:yearModel.userSubFactorModel.factor]) {
+        
+        if ([numberModel.userSubFactorModel.factor isEqualToString:@"100以上"]) {//特殊处理
+            
+            [dataDictionary addParameter:@"150" forKey:@"passiveSmokeCount"];
+            
+        } else {
+            
+            [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
+        }
+        
+        [dataDictionary addParameter:yearModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
+        
+        [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
     }
     
     [dataDictionary addParameter:dataArray forKey:@"idPid"];
@@ -1641,7 +1688,7 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 //当用户成功保存健康因子的时候会发出通知
-                                                                [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
+                                                                [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
                                                                                                                     object:nil];
                                                                 
                                                                 success(recvDic[@"value"][@"chgDays"]);
@@ -1670,73 +1717,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
     [self startRequest:request];
-    
-#pragma mark  ---
-    
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    
-//    NSMutableArray *dataArray = [NSMutableArray array];
-//    
-//    NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
-//    
-//    for (int i = 0; i < factorsModelArray.count; i++) {
-//        
-//        GetFactorModel *factorModel = factorsModelArray[i];
-//        
-//        if (factorModel.userSubFactorModel.factorId) {
-//            
-//            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-//            
-//            dictionary[@"id"] = factorModel.userSubFactorModel.factorId;
-//            
-//            dictionary[@"pid"] = factorModel.factorId;
-//            
-//            [dataArray addObject:dictionary];
-//        }
-//    }
-//    
-//    [dataDictionary addParameter:dataArray forKey:@"idPid"];
-//    
-//    NSString *dataString = [dataDictionary mj_JSONString];
-//    
-//    [params addParameter:dataString forKey:@"data"];
-//    
-//    [params addParameter:userId forKey:@"userId"];
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-//    
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_USER_FACTORS] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
-//        
-//        NSDictionary *recvDic = (NSDictionary *)parsedObject;
-//        
-//        if ([recvDic[@"code"] isEqualToNumber:@0]) {
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                success(@"");
-//                
-//                //当用户成功保存健康因子的时候会发出通知
-//                [[NSNotificationCenter defaultCenter] postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
-//                                                                    object:nil];
-//            });
-//            
-//        } else {
-//            
-//            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-//            
-//            failure(failureError);
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//        failure(error);
-//    }];
 }
 
 - (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
@@ -1847,8 +1827,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params addParameter:userId forKey:@"userId"];
-    
-    [Common urlStringWithDictionary:params withString:GET_SECURITY_QUESTION];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SECURITY_QUESTION
@@ -3740,8 +3718,6 @@
         
     }
     
-    [Common urlStringWithDictionary:params withString:CALCULATE_PRICE];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:CALCULATE_PRICE
                                                  parameters:params
@@ -3976,8 +3952,6 @@
     
     [params setObject:@(sortType) forKey:@"sortType"];
     
-    //[Common urlStringWithDictionary:params withString:GET_SEARCH_MATIONS];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_SEARCH_MATIONS
                                                  parameters:params
@@ -4142,8 +4116,6 @@
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
     
     [params setObject:@(busiType) forKey:@"busiType"];
-    
-    [Common urlStringWithDictionary:params withString:SAVE_POINT];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_POINT
@@ -4682,8 +4654,6 @@
     
     [params setObject:@(commentType) forKey:@"commentType"];
     
-    [Common urlStringWithDictionary:params withString:GET_COMMENTS];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_COMMENTS
                                                  parameters:params
@@ -4771,8 +4741,6 @@
     [params addParameter:infoId forKey:@"infoId"];
         
     [params addParameter:userId forKey:@"userId"];
-    
-    [Common urlStringWithDictionary:params withString:GET_INFOMATION_DETAIL];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_INFOMATION_DETAIL
@@ -4867,8 +4835,6 @@
     [params setObject:@(isHideName) forKey:@"isHideName"];
 
     [params addParameter:commentPhotos forKey:@"commentPhotos"];
-    
-    [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_COMMENT_SUM
@@ -5171,8 +5137,6 @@
     
     [params addParameter:type forKey:@"type"];
     
-    [Common urlStringWithDictionary:params withString:GET_CHECKBIND];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:GET_CHECKBIND
                                                  parameters:params
@@ -5253,8 +5217,6 @@
     [params addParameter:headImg forKey:@"headImg"];
     
     [params addParameter:type forKey:@"type"];
-    
-    [Common urlStringWithDictionary:params withString:SAVE_BIND_REGISTER];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_BIND_REGISTER
@@ -5400,8 +5362,6 @@
     
     [params addParameter:accountNo forKey:@"accountNo"];
     
-    [Common urlStringWithDictionary:params withString:CHECK_REGISTER];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:CHECK_REGISTER
                                                  parameters:params
@@ -5474,8 +5434,6 @@
     
     [params addParameter:headImg forKey:@"headImg"];
     
-    [Common urlStringWithDictionary:params withString:REGIST_THIRDPARY];
-    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:REGIST_THIRDPARY
                                                  parameters:params
@@ -5541,8 +5499,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params addParameter:mobile forKey:@"mobile"];
-    
-    [Common urlStringWithDictionary:params withString:CHECK_MOBILE];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:CHECK_MOBILE
