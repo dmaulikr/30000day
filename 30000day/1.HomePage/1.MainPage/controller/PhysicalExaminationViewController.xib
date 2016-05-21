@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhysicalExaminationViewController">
             <connections>
-                <outlet property="completeButton" destination="kzf-YH-oE3" id="Bwd-oY-Ogc"/>
                 <outlet property="physicalExaminationIntervalPicker" destination="DHS-6J-TZG" id="sJO-Yd-SuA"/>
                 <outlet property="physicalExaminationLastTimePicker" destination="hdi-q3-wAh" id="Mnc-f6-rBt"/>
                 <outlet property="switchButton" destination="SL9-kB-gn7" id="bq5-82-M6v"/>
@@ -19,8 +18,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次体检时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo5-LH-4oO">
-                    <rect key="frame" x="8" y="125" width="90" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置上次体检时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo5-LH-4oO">
+                    <rect key="frame" x="8" y="125" width="120" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -38,16 +37,6 @@
                         <constraint firstAttribute="height" constant="120" id="SJI-dD-1jG"/>
                     </constraints>
                 </pickerView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzf-YH-oE3">
-                    <rect key="frame" x="0.0" y="528" width="320" height="40"/>
-                    <color key="backgroundColor" red="0.33725490196078434" green="0.49803921568627452" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="mms-6r-VmM"/>
-                    </constraints>
-                    <state key="normal" title="完成">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hdi-q3-wAh">
                     <rect key="frame" x="0.0" y="153" width="320" height="120"/>
                     <constraints>
@@ -82,16 +71,13 @@
                 <constraint firstItem="2UF-aB-V0U" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="3eA-we-hWa"/>
                 <constraint firstItem="2UF-aB-V0U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8Qx-de-PRp"/>
                 <constraint firstItem="uAd-HG-Dko" firstAttribute="top" secondItem="hdi-q3-wAh" secondAttribute="bottom" constant="10" id="9by-D7-GqS"/>
-                <constraint firstAttribute="bottom" secondItem="kzf-YH-oE3" secondAttribute="bottom" id="JcX-3o-gde"/>
                 <constraint firstItem="DHS-6J-TZG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jkj-1m-IlS"/>
                 <constraint firstItem="uAd-HG-Dko" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="JvP-e0-ywc"/>
                 <constraint firstItem="DHS-6J-TZG" firstAttribute="top" secondItem="uAd-HG-Dko" secondAttribute="bottom" constant="10" id="KLf-0e-rxE"/>
                 <constraint firstItem="hdi-q3-wAh" firstAttribute="top" secondItem="Oo5-LH-4oO" secondAttribute="bottom" constant="10" id="KaZ-A5-EoC"/>
-                <constraint firstAttribute="trailing" secondItem="kzf-YH-oE3" secondAttribute="trailing" id="LBi-h8-PQg"/>
                 <constraint firstAttribute="trailing" secondItem="hdi-q3-wAh" secondAttribute="trailing" id="ddW-jD-Og1"/>
                 <constraint firstAttribute="trailing" secondItem="DHS-6J-TZG" secondAttribute="trailing" id="gZv-oi-dGe"/>
                 <constraint firstItem="hdi-q3-wAh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qE5-nZ-uXE"/>
-                <constraint firstItem="kzf-YH-oE3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="shN-Af-axq"/>
                 <constraint firstItem="Oo5-LH-4oO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="tS5-Tg-2pP"/>
                 <constraint firstItem="Oo5-LH-4oO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="125" id="vc7-sq-wV8"/>
             </constraints>

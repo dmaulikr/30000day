@@ -14,8 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UIPickerView *physicalExaminationIntervalPicker;
 
-@property (weak, nonatomic) IBOutlet UIButton *completeButton;
-
 @property (nonatomic,assign) NSInteger selectRow;
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchButton;
@@ -31,28 +29,25 @@
     
     self.physicalExaminationLastTimePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     
-    self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    self.physicalExaminationLastTimePicker.datePickerMode = UIDatePickerModeDate;
     
     self.physicalExaminationLastTimePicker.maximumDate = [NSDate date];
     
-    self.physicalExaminationLastTimePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:(-10 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
+    self.physicalExaminationLastTimePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:(-5 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
     
     self.physicalExaminationLastTimePicker.backgroundColor = [UIColor whiteColor];
-
+    
+    [self.physicalExaminationLastTimePicker addTarget:self action:@selector(timeChange:) forControlEvents:UIControlEventValueChanged];
+    
     if ([Common isObjectNull:[Common readAppDataForKey:CHECK_DATE]]) {//表示之前没存储过时间
         
         self.physicalExaminationLastTimePicker.date = [NSDate date];
         
-    } else {//已经有存储了时间
+        [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:[NSDate date]]];
         
-//        if ([[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]] compare:[NSDate date]] == NSOrderedAscending) {//表示已经过时了
-//            
-//            self.physicalExaminationLastTimePicker.date = [NSDate date];
-//            
-//        } else {
-//            
-//            self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
-//        }
+        [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
+        
+    } else {//已经有存储了时间
         
         self.physicalExaminationLastTimePicker.date = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:[Common readAppDataForKey:CHECK_DATE]];
     }
@@ -67,35 +62,39 @@
     
     if ([Common isObjectNull:[Common readAppDataForKey:CHECK_REPEAT]]) {
         
+        [Common saveAppDataForKey:CHECK_REPEAT withObject:@0];
+        
         [self.physicalExaminationIntervalPicker selectRow:0 inComponent:0 animated:NO];
         
     } else {
         
         if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {
             
+            [self.physicalExaminationIntervalPicker selectRow:0 inComponent:0 animated:NO];
+            
+            self.selectRow = 0;
+            
         } else {
+            
+            self.selectRow = 1;
             
             [self.physicalExaminationIntervalPicker selectRow:1 inComponent:0 animated:NO];
         }
     }
     
-    [self.completeButton addTarget:self action:@selector(commitData) forControlEvents:UIControlEventTouchUpInside];
-    
     //判断开关
      self.switchButton.on = [Common readAppBoolDataForkey:CHECK_NOTIFICATION];
+}
+
+//时间值改变
+- (void)timeChange:(UIDatePicker *)datePicker {
+    
+    [self configCheckLocaleNotification:self.switchButton.on];
 }
 
 - (IBAction)switchAction:(id)sender {
     
     UISwitch *switchButton = (UISwitch *)sender;
-    
-    //把上次选择存储进沙河
-    [Common saveAppBoolDataForKey:CHECK_NOTIFICATION withObject:switchButton.on];
-    
-    if (self.setSuccessBlock) {//回调刷新之前的界面
-        
-        self.setSuccessBlock();
-    }
     
     [self configCheckLocaleNotification:switchButton.on];
 }
@@ -136,46 +135,14 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     self.selectRow = row;
-}
-
-- (void)commitData {
-
-    [Common saveAppDataForKey:CHECK_REPEAT withObject:@(self.selectRow)];
-    
-    [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
-    //存储通知并修改
-    [Common saveAppBoolDataForKey:CHECK_NOTIFICATION withObject:self.switchButton.on];
     
     [self configCheckLocaleNotification:self.switchButton.on];
-    
-    if (self.setSuccessBlock) {//回调刷新之前的界面
-        
-        self.setSuccessBlock();
-    }
-    
-    [self showToast:@"修改成功"];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 #pragma mark -- 设置提醒逻辑
 - (UILocalNotification *)getNotication {
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    
-    if ([Common isObjectNull:[Common readAppDataForKey:CHECK_DATE]]) {//之前没存储过：默认时间是：00：00
-        
-        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60.000000];
-        
-    } else {//之前有储存了
-        
-        NSString *dateString = [Common readAppDataForKey:CHECK_DATE];
-        
-        NSDate *newDate =  [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:dateString];
-        
-        notification.fireDate = newDate;
-    }
     
     notification.timeZone = [NSTimeZone defaultTimeZone];
     
@@ -195,49 +162,62 @@
 }
 
 - (void)configCheckLocaleNotification:(BOOL)addOrDelete {//YES:add NO:delete
+
+    [Common saveAppBoolDataForKey:CHECK_NOTIFICATION withObject:self.switchButton.on];
     
     if (addOrDelete) {
         
-        UILocalNotification *notification = [self getNotication];
+#pragma ---- 存储通知并修改
+        [Common saveAppDataForKey:CHECK_REPEAT withObject:[NSNumber numberWithInt:(int)self.selectRow]];
         
-        NSDate *oldDate = notification.fireDate;
+        [Common saveAppDataForKey:CHECK_DATE withObject:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] stringFromDate:self.physicalExaminationLastTimePicker.date]];
         
-        if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
+        NSString *oldString = [Common readAppDataForKey:CHECK_DATE];
+        
+        oldString = [[oldString componentsSeparatedByString:@" "] firstObject];
+        
+        oldString = [NSString stringWithFormat:@"%@ 11:00",oldString];
+        
+        NSDate *oldDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd HH:mm"] dateFromString:oldString];
+        
+        if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {//半年
             
-            for( int i = 0; i < 10; i++ ) {//表示创建10个半年的提醒
+            NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:oldDate];
+            
+            float flag = time / (182.500000 * 24.000000 * 60.00000 * 60.0000000);
+            
+            NSString *floatString = [NSString stringWithFormat:@"%.2f",flag];
+            
+            int  x  = [floatString intValue] + 1;
+            
+            for( int i = x; i < 20 ; i++ ) {//表示创建10个半年的提醒
                 
-                UILocalNotification *notification_1 = [self getNotication];
+                UILocalNotification *notification_2 = [self getNotication];
                 
-                notification_1.fireDate = [NSDate dateWithTimeInterval:i * 182.00000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];//半年
+                notification_2.fireDate = [NSDate dateWithTimeInterval:i * 182.500000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];
                 
-                notification_1.repeatInterval = 0;
+                notification_2.repeatInterval = 0;
                 
-                [[UIApplication sharedApplication] scheduleLocalNotification: notification_1];
+                [[UIApplication sharedApplication] scheduleLocalNotification: notification_2];
             }
             
-        } else {//有记录
+        } else {//1年
             
-            if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {//半年
-                
-                for( int i = 0; i < 10 ; i++ ) {//表示创建10个半年的提醒
-                    
-                    UILocalNotification *notification_2 = [self getNotication];
-                    
-                    notification_2.fireDate = [NSDate dateWithTimeInterval:i * 182.000000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];
-                    
-                    notification_2.repeatInterval = 0;
-                    
-                    [[UIApplication sharedApplication] scheduleLocalNotification: notification_2];
-                }
-                
-            } else {//1年
-                
-                UILocalNotification *notification_3 = [self getNotication];
-                
-                notification_3.repeatInterval = NSCalendarUnitYear;
-                
-                [[UIApplication sharedApplication] scheduleLocalNotification:notification_3];
-            }
+            NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:oldDate];
+            
+            float flag = time / (365.000000 * 24.000000 * 60.00000 * 60.0000000);
+            
+            NSString *floatString = [NSString stringWithFormat:@"%.2f",flag];
+            
+            int  x  = [floatString intValue] + 1;
+            
+            UILocalNotification *notification_3 = [self getNotication];
+            
+            notification_3.repeatInterval = NSCalendarUnitYear;
+            
+            notification_3.fireDate = [NSDate dateWithTimeInterval: x * 365.000000 * 24.000000 * 60.00000 * 60.0000000 sinceDate:oldDate];
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification_3];
         }
         
     } else {
@@ -256,6 +236,11 @@
                 [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
             }
         }
+    }
+    
+    if (self.setSuccessBlock) {//回调刷新之前的界面
+        
+        self.setSuccessBlock();
     }
 }
 
