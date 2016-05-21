@@ -72,6 +72,25 @@
         }];
     }
     
+//    //设置需要获取的权限这里仅设置了步数
+//    HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+//    
+//    HKObjectType *stepCount = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//    
+//    NSSet *healthSet = [NSSet setWithObjects:stepCount, nil];
+//    
+//    //从健康应用中获取权限
+//    [healthStore requestAuthorizationToShareTypes:nil readTypes:healthSet completion:^(BOOL success, NSError * _Nullable error) {
+//        
+//        if (success) {
+//            NSLog(@"获取步数权限成功");
+//
+//        } else {
+//            NSLog(@"获取步数权限失败");
+//        }
+//    }];
+
+    
     //***********************************配置JPush*******************************//
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                       UIUserNotificationTypeSound |
@@ -297,11 +316,11 @@
     
     HKQuantityType *stepCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
     
-    HKQuantityType *stairsCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+//    HKQuantityType *stairsCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
+//    
+//    HKQuantityType *movingDistanceCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     
-    HKQuantityType *movingDistanceCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
-    
-    return [NSSet setWithObjects: stepCountType,stairsCountType,movingDistanceCountType, nil];
+    return [NSSet setWithObjects: stepCountType, nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
