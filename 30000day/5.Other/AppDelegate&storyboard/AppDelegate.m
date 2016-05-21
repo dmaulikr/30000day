@@ -72,6 +72,25 @@
         }];
     }
     
+//    //设置需要获取的权限这里仅设置了步数
+//    HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+//    
+//    HKObjectType *stepCount = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+//    
+//    NSSet *healthSet = [NSSet setWithObjects:stepCount, nil];
+//    
+//    //从健康应用中获取权限
+//    [healthStore requestAuthorizationToShareTypes:nil readTypes:healthSet completion:^(BOOL success, NSError * _Nullable error) {
+//        
+//        if (success) {
+//            NSLog(@"获取步数权限成功");
+//
+//        } else {
+//            NSLog(@"获取步数权限失败");
+//        }
+//    }];
+
+    
     //***********************************配置JPush*******************************//
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                       UIUserNotificationTypeSound |

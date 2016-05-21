@@ -139,7 +139,7 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"PromoteAgeTableViewCell" owner:nil options:nil][2];
         }
         
-        cell.physicalExaminationLableThird.text = @"天龄下降因素";
+        cell.physicalExaminationLableThird.text = @"可改善因素";
         
         return cell;
     }

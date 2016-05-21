@@ -11,8 +11,6 @@
 
 @interface LifeDescendFactorsTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *dataLable;
-
 @property (weak, nonatomic) IBOutlet UILabel *dataTitleLable;
 
 @property (nonatomic,strong) LifeDescendFactorsModel *lifeModel;

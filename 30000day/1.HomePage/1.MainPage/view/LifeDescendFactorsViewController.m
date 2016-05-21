@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"天龄下降因素";
+    self.title = @"可改善因素";
     
     [self.tableView setBackgroundColor:[UIColor redColor]];
     
@@ -39,7 +39,7 @@
     [self showHeadRefresh:NO showFooterRefresh:NO];
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendLifeDescendFactorsWithUserId:@1000000007 success:^(NSArray *lifeDescendFactorsArray) {
+    [self.dataHandler sendLifeDescendFactorsWithUserId:STUserAccountHandler.userProfile.userId success:^(NSArray *lifeDescendFactorsArray) {
        
         if (lifeDescendFactorsArray.count == 0) {
             

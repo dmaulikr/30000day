@@ -121,6 +121,9 @@
 		B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C401CBC97AE0039217D /* InformationWriterHeadTableViewCell.m */; };
 		B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */; };
 		B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C451CBC9FD50039217D /* InformationWriterModel.m */; };
+		B6E548B61CF055F700002650 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E548B51CF055F700002650 /* HealthKit.framework */; };
+		B6E548BA1CF065D800002650 /* FactorVerificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E548B91CF065D800002650 /* FactorVerificationView.m */; };
+		B6E548BC1CF0661200002650 /* FactorVerificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E548BB1CF0661200002650 /* FactorVerificationView.xib */; };
 		B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */; };
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
@@ -827,6 +830,11 @@
 		B6E44C411CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationWriterHeadTableViewCell.xib; sourceTree = "<group>"; };
 		B6E44C441CBC9FD50039217D /* InformationWriterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWriterModel.h; sourceTree = "<group>"; };
 		B6E44C451CBC9FD50039217D /* InformationWriterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationWriterModel.m; sourceTree = "<group>"; };
+		B6E548B51CF055F700002650 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		B6E548B71CF055F700002650 /* 30000day.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 30000day.entitlements; sourceTree = "<group>"; };
+		B6E548B81CF065D800002650 /* FactorVerificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactorVerificationView.h; sourceTree = "<group>"; };
+		B6E548B91CF065D800002650 /* FactorVerificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactorVerificationView.m; sourceTree = "<group>"; };
+		B6E548BB1CF0661200002650 /* FactorVerificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactorVerificationView.xib; sourceTree = "<group>"; };
 		B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeDescendFactorsModel.h; sourceTree = "<group>"; };
 		B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeDescendFactorsModel.m; sourceTree = "<group>"; };
 		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
@@ -1797,6 +1805,7 @@
 				B8381DD81CE0609700E3AC08 /* jpush-ios-2.1.6.a in Frameworks */,
 				B80B55A11CD1013C003E2C36 /* OpenGLES.framework in Frameworks */,
 				B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */,
+				B6E548B61CF055F700002650 /* HealthKit.framework in Frameworks */,
 				B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */,
 				B80B559E1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework in Frameworks */,
 				B80B559F1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework in Frameworks */,
@@ -1833,6 +1842,7 @@
 		2B3E1B6A3876F650B59C8A8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B6E548B51CF055F700002650 /* HealthKit.framework */,
 				B80B55A61CD10196003E2C36 /* libstdc++.6.0.9.tbd */,
 				B80B55A41CD10176003E2C36 /* libsqlite3.0.tbd */,
 				B80B55A21CD1015B003E2C36 /* Security.framework */,
@@ -2473,6 +2483,7 @@
 		B88C912D1C59F2260089BEAE /* 30000day */ = {
 			isa = PBXGroup;
 			children = (
+				B6E548B71CF055F700002650 /* 30000day.entitlements */,
 				B88C915D1C59F96D0089BEAE /* 1.HomePage */,
 				B88C916C1C59FF490089BEAE /* 2.Information */,
 				B88C915B1C59F9270089BEAE /* 3.Shop */,
@@ -2678,6 +2689,9 @@
 				B610FAD21CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.h */,
 				B610FAD31CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.m */,
 				B610FAD41CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.xib */,
+				B6E548B81CF065D800002650 /* FactorVerificationView.h */,
+				B6E548B91CF065D800002650 /* FactorVerificationView.m */,
+				B6E548BB1CF0661200002650 /* FactorVerificationView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4481,6 +4495,9 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = TTA54FV6AY;
 						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -4625,6 +4642,7 @@
 				B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */,
 				B665F8C71CC4BF5200070458 /* defaultphoto.png in Resources */,
 				B6114CA21CA277FA0088EED2 /* CommentDetailsTableViewCell.xib in Resources */,
+				B6E548BC1CF0661200002650 /* FactorVerificationView.xib in Resources */,
 				B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
 				B804FD801C8AC9A900DFD1CF /* keyborad@2x.png in Resources */,
@@ -5148,6 +5166,7 @@
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
 				B83B7A631CAD060700D2CC6A /* STDropdownMenu.m in Sources */,
+				B6E548BA1CF065D800002650 /* FactorVerificationView.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,
 				B8BD78971CC24DDF00362C89 /* STApiRequest.m in Sources */,
@@ -5299,6 +5318,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5354,6 +5374,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

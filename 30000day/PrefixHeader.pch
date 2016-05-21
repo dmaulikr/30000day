@@ -69,6 +69,10 @@
 
 #define USER_CHOOSE_AGENUMBER         [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  //当前用户所选择的年龄
 
+#define FRIENDVALIDATION              @"FriendValidation"    //添加好友验证开关Key
+
+#define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
+
 #define BADGE_NUMBER                  @"badge_number"        //自己人的角标
 
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width

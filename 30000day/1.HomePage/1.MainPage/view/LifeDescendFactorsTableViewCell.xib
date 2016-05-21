@@ -14,28 +14,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDB-PP-jR0">
-                        <rect key="frame" x="268" y="11" width="44" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43F-47-gJU">
                         <rect key="frame" x="14" y="13" width="38" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="HDB-PP-jR0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ifo-9t-wZC"/>
-                    <constraint firstAttribute="trailing" secondItem="HDB-PP-jR0" secondAttribute="trailing" constant="8" id="eW7-hr-yv7"/>
                     <constraint firstItem="43F-47-gJU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="ioS-Es-aJ0"/>
                     <constraint firstItem="43F-47-gJU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qVa-Tn-rgL"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="dataLable" destination="HDB-PP-jR0" id="LoD-Pn-rXx"/>
                 <outlet property="dataTitleLable" destination="43F-47-gJU" id="WvN-kX-M8e"/>
             </connections>
             <point key="canvasLocation" x="345" y="289"/>
