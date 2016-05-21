@@ -10,4 +10,9 @@
 
 @interface FactorVerificationView : UIView
 
+@property (nonatomic,copy) void (^(buttonBlock))(UIButton *);
+
+@property (weak, nonatomic) IBOutlet UITextField *passWordTextFiled;
+
+
 @end

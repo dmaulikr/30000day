@@ -5722,4 +5722,48 @@
 
 }
 
+//*****************************************获取免责条款及协议*********************/
++ (void)sendCheckPasswordWithUserId:(NSNumber *)userId
+                           password:(NSString *)password
+                            success:(void (^)(BOOL success))success
+                            failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params addParameter:userId forKey:@"userId"];
+    
+    [params addParameter:password forKey:@"password"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,@"/stapi/user/checkPassword"] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+            
+            failure(failureError);
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+        
+    }];
+
+}
+
 @end
