@@ -30,9 +30,13 @@
     //获取数据
     [[NewFriendManager shareManager] getDataArray:^(NSMutableArray *dataArray) {
         
-        self.dataArray = dataArray;
-        
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.dataArray = dataArray;
+            
+            [self.tableView reloadData];
+            
+        });
     }];
 }
 
@@ -116,12 +120,16 @@
         [[NewFriendManager shareManager] deleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
                                                           friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]]
                                                                 success:^(NSMutableArray *dataArray) {
-        
-                                                                    self.dataArray = dataArray;
                                                                     
-                                                                    [self.tableView reloadData];
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                       
+                                                                        self.dataArray = dataArray;
+                                                                        
+                                                                        [self.tableView reloadData];
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                    });
                                                                     
-                                                                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     } failure:^(NSError *error) {
        
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];

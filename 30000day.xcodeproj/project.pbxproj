@@ -280,7 +280,6 @@
 		B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A761CAD099F00D2CC6A /* DOPDropDownMenu.m */; };
 		B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */; };
 		B83B7A7C1CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */; };
-		B85EE2AF1CF082F8006BF682 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B85EE2AE1CF082F8006BF682 /* LaunchScreen.storyboard */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
 		B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */; };
@@ -1035,7 +1034,6 @@
 		B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
 		B83B7A781CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QGRecordDetailSwitchHeadView.h; sourceTree = "<group>"; };
 		B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
-		B85EE2AE1CF082F8006BF682 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -2558,7 +2556,6 @@
 		B88C91551C59F8A90089BEAE /* AppDelegate&storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B85EE2AE1CF082F8006BF682 /* LaunchScreen.storyboard */,
 				B88C91571C59F9010089BEAE /* AppDelegate.h */,
 				B88C91581C59F9010089BEAE /* AppDelegate.m */,
 				B88C91681C59F9AF0089BEAE /* Main.storyboard */,
@@ -4709,7 +4706,6 @@
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B665F8BE1CC4BF5200070458 /* btn_original_circle.png in Resources */,
 				B8D67A281C74420500805EE2 /* SearchFriendsViewController.xib in Resources */,
-				B85EE2AF1CF082F8006BF682 /* LaunchScreen.storyboard in Resources */,
 				B804FD8B1C8AC9A900DFD1CF /* MultiSelectedPanelConfirmBtnbKG@2x.png in Resources */,
 				B8F1FCC61CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib in Resources */,
 				B804FDA01C8AC9A900DFD1CF /* SenderVoiceNodePlaying000@2x.png in Resources */,
@@ -5321,8 +5317,9 @@
 			baseConfigurationReference = E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai CountDay Information Technology Co., Ltd. (TTA54FV6AY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5378,8 +5375,9 @@
 			baseConfigurationReference = 0DC533304EB964BB41F806FF /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai CountDay Information Technology Co., Ltd. (TTA54FV6AY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

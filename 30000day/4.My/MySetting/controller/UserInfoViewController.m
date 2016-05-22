@@ -480,16 +480,8 @@
 
 
 - (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSString *message = @"呵呵";
     
-    if (!error) {
-        
-        message = @"成功保存到相册";
-        
-    } else {
-        
-        message = [error description];
-    }
+    
 }
 
 //判断保存按钮是否可用

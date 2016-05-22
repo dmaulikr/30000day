@@ -64,7 +64,7 @@
         self.btnOriginalPhoto.enabled = YES;
         self.btnPreView.enabled = YES;
         self.btnDone.enabled = YES;
-        [self.btnDone setTitle:[NSString stringWithFormat:@"确定(%ld)", self.arraySelectPhotos.count] forState:UIControlStateNormal];
+        [self.btnDone setTitle:[NSString stringWithFormat:@"确定(%d)", (int)self.arraySelectPhotos.count] forState:UIControlStateNormal];
         [self.btnOriginalPhoto setTitleColor:kRGB(80, 180, 234) forState:UIControlStateNormal];
         [self.btnPreView setTitleColor:kRGB(80, 180, 234) forState:UIControlStateNormal];
         self.btnDone.backgroundColor = kRGB(80, 180, 234);

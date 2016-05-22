@@ -191,7 +191,7 @@
         
         [headerView setChangeStateBlock:^(UIButton *button) {
            
-            NSString *string = [NSString stringWithFormat:@"%ld",button.tag - 10000];
+            NSString *string = [NSString stringWithFormat:@"%d",(int)button.tag - 10000];
             
             if ([self.selectedArr containsObject:string]){
                 
@@ -348,7 +348,7 @@
         
         ShopDetailViewController *shopDetailViewController = [[ShopDetailViewController alloc] init];
         
-        shopDetailViewController.productId = [NSString stringWithFormat:@"%ld",model.productId.integerValue];
+        shopDetailViewController.productId = [NSString stringWithFormat:@"%d",(int)model.productId.integerValue];
         
         [self.navigationController pushViewController:shopDetailViewController animated:YES];
         

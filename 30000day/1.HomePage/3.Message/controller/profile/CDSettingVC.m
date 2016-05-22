@@ -57,17 +57,10 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 #pragma mark - actions or helpers
 
 - (BOOL)isNotificationEnabled {
+    
     UIApplication *application = [UIApplication sharedApplication];
-    BOOL enabled;
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
-        // ios8
-        enabled = [application isRegisteredForRemoteNotifications];
-    }
-    else {
-        UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
-        enabled = types & UIRemoteNotificationTypeAlert;
-    }
-    return enabled;
+  
+    return [application isRegisteredForRemoteNotifications];
 }
 
 - (void)chattingSoundChanged:(UISwitch *)switchView {

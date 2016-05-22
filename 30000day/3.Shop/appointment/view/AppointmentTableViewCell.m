@@ -75,7 +75,7 @@
     _timeModelArray = timeModelArray;
     
     //设置价格
-    float price ;
+    float price  = 0.0f;
     
     for (AppointmentTimeModel *time_model  in _timeModelArray) {
         

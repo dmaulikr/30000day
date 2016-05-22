@@ -98,13 +98,11 @@
                                           categories:nil];
     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
-    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:NO advertisingIdentifier:advertisingId];
-    
+    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:YES advertisingIdentifier:advertisingId];
     
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
     
-
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     

@@ -61,27 +61,31 @@
     //获取角标
     [[NewFriendManager shareManager] getBadgeNumber:^(NSInteger badgeNumber) {
         
-        if (badgeNumber <= 99) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (badgeNumber == 0) {
+            if (badgeNumber <= 99) {
                 
-                self.firstCell.badgeView.badgeText = @"";
+                if (badgeNumber == 0) {
+                    
+                    self.firstCell.badgeView.badgeText = @"";
+                    
+                    [[self navigationController] tabBarItem].badgeValue = nil;
+                    
+                } else {
+                    
+                    self.firstCell.badgeView.badgeText = [NSString stringWithFormat:@"%d",(int)badgeNumber];
+                    
+                    [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%d", (int)badgeNumber];
+                }
                 
-                [[self navigationController] tabBarItem].badgeValue = nil;
-        
             } else {
                 
-               self.firstCell.badgeView.badgeText = [NSString stringWithFormat:@"%d",(int)badgeNumber];
+                self.firstCell.badgeView.badgeText = @"99+";
                 
-               [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%d", (int)badgeNumber];
+                [[self navigationController] tabBarItem].badgeValue = @"99+";
             }
             
-        } else {
-            
-            self.firstCell.badgeView.badgeText = @"99+";
-            
-            [[self navigationController] tabBarItem].badgeValue = @"99+";
-        }
+        });
     }];
     
     [self reloadData];
@@ -405,9 +409,13 @@
         //清除badgeNumber
         [[NewFriendManager shareManager] cleanApplyFiendBadgeNumber:^(NSInteger badgerNumber) {
            
-            self.firstCell.badgeView.badgeText = @"";
-            
-            [[self navigationController] tabBarItem].badgeValue = nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                self.firstCell.badgeView.badgeText = @"";
+                
+                [[self navigationController] tabBarItem].badgeValue = nil;
+                
+            });
         }];
         
     } else if(indexPath.section == 1) {

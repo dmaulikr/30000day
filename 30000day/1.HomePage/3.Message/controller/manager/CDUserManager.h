@@ -15,7 +15,7 @@
 + (instancetype)manager;
 
 - (void)loginWithInput:(NSString *)input password:(NSString *)password block:(AVUserResultBlock)block;
-- (void)loginByAuthData:(NSDictionary *)authData platform:(NSString *)platform block:(AVBooleanResultBlock)block;
+//- (void)loginByAuthData:(NSDictionary *)authData platform:(NSString *)platform block:(AVBooleanResultBlock)block;
 - (void)registerWithUsername:(NSString *)username phone:(NSString *)phone password:(NSString *)password block:(AVBooleanResultBlock)block;
 
 - (void)findFriendsWithBlock:(AVArrayResultBlock)block;

@@ -192,7 +192,7 @@
     if (_arraySelectPhotos.count >= self.maxSelectCount
         && btn.selected == NO) {
         [self getPhotosBytes];
-        ShowToastLong(@"最多只能选择%ld张图片", self.maxSelectCount);
+        ShowToastLong(@"最多只能选择%d张图片", (int)self.maxSelectCount);
         return;
     }
     PHAsset *asset = _arrayDataSources[_currentPage-1];
@@ -251,7 +251,7 @@
 - (void)changeBtnDoneTitle
 {
     if (self.arraySelectPhotos.count > 0) {
-        [_btnDone setTitle:[NSString stringWithFormat:@"确定(%ld)", self.arraySelectPhotos.count] forState:UIControlStateNormal];
+        [_btnDone setTitle:[NSString stringWithFormat:@"确定(%ld)", (unsigned long)self.arraySelectPhotos.count] forState:UIControlStateNormal];
     } else {
         [_btnDone setTitle:@"确定" forState:UIControlStateNormal];
     }
@@ -300,7 +300,7 @@
         [_arrayDataSources addObjectsFromArray:self.assets];
         _currentPage = self.selectIndex + 1;
     }
-    self.title = [NSString stringWithFormat:@"%ld/%ld", _currentPage, _arrayDataSources.count];
+    self.title = [NSString stringWithFormat:@"%ld/%ld", (long)_currentPage, (unsigned long)_arrayDataSources.count];
 }
 
 
@@ -390,7 +390,7 @@
         CGFloat page = scrollView.contentOffset.x/(kViewWidth+kItemMargin);
         NSString *str = [NSString stringWithFormat:@"%.0f", page];
         _currentPage = str.integerValue + 1;
-        self.title = [NSString stringWithFormat:@"%ld/%ld", _currentPage, _arrayDataSources.count];
+        self.title = [NSString stringWithFormat:@"%ld/%ld", (long)_currentPage, (unsigned long)_arrayDataSources.count];
         [self changeNavRightBtnStatus];
     }
 }

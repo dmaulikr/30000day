@@ -192,8 +192,11 @@
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",[[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName],[dataString floatValue] * 100];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",[[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName],[dataString floatValue] * 100];
+        });
+    
     } failure:^(NSError *error) {
         
     }];

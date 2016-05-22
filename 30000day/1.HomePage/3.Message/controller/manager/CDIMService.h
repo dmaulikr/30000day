@@ -12,7 +12,7 @@
 
 typedef void (^completionBlock)(BOOL successed, NSError *error);
 
-@interface CDIMService : NSObject<CDUserDelegate>
+@interface CDIMService : NSObject
 
 + (instancetype)service;
 

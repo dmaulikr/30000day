@@ -105,7 +105,7 @@
         cell.headImageView.image = image;
     }];
     cell.labTitle.text = ablumList.title;
-    cell.labCount.text = [NSString stringWithFormat:@"(%ld)", ablumList.count];
+    cell.labCount.text = [NSString stringWithFormat:@"(%ld)", (long)ablumList.count];
     
     return cell;
 }

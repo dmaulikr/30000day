@@ -1389,13 +1389,15 @@
     [parameters addParameter:endDay forKey:@"endDay"];
     
     [parameters addParameter:dayNumber forKey:@"day"];
-    
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.completionQueue = dispatch_queue_create("sendUserLifeList",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_LIFE_LIST] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         
@@ -1425,6 +1427,59 @@
         
         failure(error);
     }];
+
+//   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?userId=%@&endDay=%@day=%@",ST_API_SERVER,GET_USER_LIFE_LIST,currentUserId,endDay,dayNumber]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
+//    
+//   request.HTTPMethod = @"GET";
+//    
+//    NSMutableArray *acceptLanguagesComponents = [NSMutableArray array];
+//    
+//    [[NSLocale preferredLanguages] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        float q = 1.0f - (idx * 0.1f);
+//        [acceptLanguagesComponents addObject:[NSString stringWithFormat:@"%@;q=%0.1g", obj, q]];
+//        *stop = q <= 0.5f;
+//    }];
+//    
+//   [request setValue:[acceptLanguagesComponents componentsJoinedByString:@", "] forHTTPHeaderField:@"Accept-Language"];
+//    
+//   [request setValue:[NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleExecutableKey] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleIdentifierKey], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]] forHTTPHeaderField:@"User-Agent"];
+//    
+//   NSURLSession *sessin =  [NSURLSession sharedSession];
+//    
+//   NSURLSessionDataTask *task  = [sessin dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//       
+//        NSThread *thread = [NSThread currentThread];
+//        
+//        NSLog(@"---%@--",thread.description);
+//       
+//        NSError *localError = nil;
+//       
+//       id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&localError];
+//       if (localError == nil) {
+//
+//           NSDictionary *recvDic = (NSDictionary *)parsedObject;
+//
+//           if ([recvDic[@"code"] isEqualToNumber:@0]) {
+//
+//               NSMutableArray *array = [UserLifeModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+//
+//               success(array);
+//
+//           } else {
+//
+//               NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+//
+//               failure(failureError);
+//           }
+//           
+//       } else {
+//           
+//           failure(localError);
+//       }
+//       
+//    }];
+//    
+//    [task resume];
 }
 
 //***********获取健康因子(里面装的是GetFacotorModel数组)***************/
@@ -1485,32 +1540,36 @@
                    factorsModelArray:(NSMutableArray *)factorsModelArray
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(NSError *error))failure {
-    dispatch_async(dispatch_queue_create("GetUserFactors", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    [parameters addParameter:userId forKey:@"userId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.completionQueue = dispatch_queue_create("sendUserLifeList",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_FACTORS] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
         
-        NSString *url = [NSString stringWithFormat:@"http://192.168.1.101:8081/stapi/factor/getUserFactor?userId=%@",userId];
-        
-        NSMutableString *mUrl = [[NSMutableString alloc] initWithString:url];
-        
-        NSError *error;
-        
-        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:mUrl] encoding:NSUTF8StringEncoding error:&error];
-        if (error == nil  && ![Common isObjectNull:jsonStr]) {
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
             
-            SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
             
-            NSError *firstError;
-            
-            NSDictionary * dictionary = [jsonParser objectWithString:jsonStr error:&firstError];
-            
-            if (firstError == nil && ![Common isObjectNull:dictionary]) {
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
-                NSString *valueString = dictionary[@"value"];
+                SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+    
+                NSError *firstError;
+    
+                NSDictionary *dictionary_second = [jsonParser objectWithString:recvDic[@"value"] error:&firstError];
                 
-                NSError *secondError;
-                
-                NSDictionary *dictionary_second = [jsonParser objectWithString:valueString error:&secondError];
-            
-                if (secondError == nil && ![Common isObjectNull:dictionary_second]) {
+                if ([Common isObjectNull:firstError]) {
                     
                     NSArray *oldArray = dictionary_second[@"idPid"];
                     
@@ -1560,30 +1619,26 @@
                         model.userSubFactorModel.pid = model.factorId;
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        success(factorsModelArray);
-                    });
+                    success(factorsModelArray);
                     
-                } else {
-                    
-                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
-                    
-                    failure(failureError);
                 }
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"请设置健康因素"}];
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
                 
                 failure(failureError);
             }
             
         } else {
             
-            failure(error);
+            failure(localError);
         }
-    });
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+    
 }
 
 + (GetFactorModel *)_factorModelWithFactorId:(NSNumber *)factorId FromfactorsModelArray:(NSMutableArray *)factorsModelArray {
@@ -5071,6 +5126,8 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    manager.completionQueue = dispatch_queue_create("sendGetDefeatData", DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -5082,33 +5139,21 @@
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                success(recvDic[@"value"]);
-            });
+            success(recvDic[@"value"]);
             
         } else {
             
             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                failure(failureError);
-                
-            });
+             failure(failureError);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            failure(error);
-            
-        });
+        failure(error);
         
     }];
-    
 }
 
 //*****************************************检查是否已绑定*********************/

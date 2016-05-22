@@ -130,7 +130,7 @@
             
         }
         
-        self.commentCountLable.text = [NSString stringWithFormat:@"%ld",informationCommentModel.clickLikeCount];
+        self.commentCountLable.text = [NSString stringWithFormat:@"%d",(int)informationCommentModel.clickLikeCount];
     }
 
     

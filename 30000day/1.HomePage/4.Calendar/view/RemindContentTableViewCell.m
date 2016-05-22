@@ -89,8 +89,6 @@
     
     NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
     
-    NSLog(@"cmps.year = %ld cmps.month = %ld cmps.day = %ld ",cmps.year,cmps.month,cmps.day);
-    
     return cmps.day == -1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
 }
 

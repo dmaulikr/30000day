@@ -95,66 +95,54 @@ static NewFriendManager *manager;
                 NSDictionary *recvDic = (NSDictionary *)parsedObject;
                 
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
-            
-                    dispatch_async(dispatch_get_main_queue(), ^{//主线程执行
-                       
-                        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                    
+                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                    
+                    NSArray *array = recvDic[@"value"];
+                    
+                    for (int i = 0; i < array.count; i++) {
                         
-                        NSArray *array = recvDic[@"value"];
+                        NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
                         
-                        for (int i = 0; i < array.count; i++) {
+                        BOOL isExist = NO;//默认是不存在
+                        
+                        NSMutableArray *oldArray = [self decodeObject];
+                        
+                        for (int i = 0; i < oldArray.count; i++) {
                             
-                            NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
+                            NewFriendModel *oldModel = oldArray[i];
                             
-                            BOOL isExist = NO;//默认是不存在
-                            
-                            NSMutableArray *oldArray = [self decodeObject];
-                            
-                            for (int i = 0; i < oldArray.count; i++) {
+                            if ([oldModel.userId isEqualToString:model.userId]) {
                                 
-                                NewFriendModel *oldModel = oldArray[i];
+                                model.badgeNumber = oldModel.badgeNumber;
                                 
-                                if ([oldModel.userId isEqualToString:model.userId]) {
-                                    
-                                    model.badgeNumber = oldModel.badgeNumber;
-                                    
-                                    isExist = YES;
-                                }
+                                isExist = YES;
                             }
-                            
-                            if (!isExist) {//不存在
-                                
-                                model.badgeNumber = 1;
-                            }
-                            
-                            [dataArray addObject:model];
                         }
-     
-                        //归档到文件
-                        [self encodeDataObject:dataArray];
                         
-                        success(dataArray);
+                        if (!isExist) {//不存在
+                            
+                            model.badgeNumber = 1;
+                        }
                         
-                    });
+                        [dataArray addObject:model];
+                    }
+                    
+                    //归档到文件
+                    [self encodeDataObject:dataArray];
+                    
+                    success(dataArray);
                     
                 } else {
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        failure(failureError);
-                        
-                    });
+                   failure(failureError);
                 }
                 
             } else {
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    failure(localError);
-                    
-                });
+                failure(localError);
             }
         }
     }];
@@ -306,20 +294,12 @@ static NewFriendManager *manager;
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        failure(failureError);
-                        
-                    });
+                    failure(failureError);
                 }
                 
             } else {
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    failure(localError);
-                    
-                });
+               failure(localError);
             }
         }
     }];
