@@ -1569,7 +1569,7 @@
     
                 NSDictionary *dictionary_second = [jsonParser objectWithString:recvDic[@"value"] error:&firstError];
                 
-                if ([Common isObjectNull:firstError]) {
+                if ([Common isObjectNull:firstError] && ![Common isObjectNull:dictionary_second]) {
                     
                     NSArray *oldArray = dictionary_second[@"idPid"];
                     
@@ -1621,11 +1621,16 @@
                     
                     success(factorsModelArray);
                     
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                    
+                    failure(failureError);
                 }
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
                 
                 failure(failureError);
             }
