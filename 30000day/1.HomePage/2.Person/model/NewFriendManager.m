@@ -131,6 +131,8 @@ static NewFriendManager *manager;
                     //归档到文件
                     [self encodeDataObject:dataArray];
                     
+                    NSLog(@"2222 -%@",[[NSThread currentThread] debugDescription]);
+                    
                     success(dataArray);
                     
                 } else {
@@ -152,8 +154,6 @@ static NewFriendManager *manager;
 //清除申请好友的角标
 - (void)cleanApplyFiendBadgeNumber:(void (^)(NSInteger badgerNumber))success {
     
-   [self cleanBadgeNumber];
-   
     //在从服务器去拉取
    [self sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
        
@@ -163,9 +163,11 @@ static NewFriendManager *manager;
        
     } failure:^(NSError *error) {
        
+        [self cleanBadgeNumber];
+        
+        success(0);
+        
     }];
-    
-    success(0);
 }
 
 - (void)cleanBadgeNumber {
@@ -224,8 +226,6 @@ static NewFriendManager *manager;
                                           
                                           
                                       }];
-    
-    success([self decodeObject]);
 }
 
 //*********************删除某一条请求加为好友记录*******************//
