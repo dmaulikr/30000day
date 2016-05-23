@@ -100,7 +100,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 
 //************ 修改密码*****************//
-- (void)sendUpdateUserPasswordWithMobile:(NSString *)mobile
++ (void)sendUpdateUserPasswordWithMobile:(NSString *)mobile
                              mobileToken:(NSString *)mobileToken
                                 password:(NSString *)password
                                  success:(void (^)(BOOL success))success

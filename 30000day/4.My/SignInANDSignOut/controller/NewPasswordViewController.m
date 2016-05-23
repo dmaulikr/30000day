@@ -66,15 +66,23 @@
             
         }else{
             
-            [self.dataHandler sendUpdateUserPasswordWithMobile:self.mobile mobileToken:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
+            [STDataHandler sendUpdateUserPasswordWithMobile:self.mobile mobileToken:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
                 
-                [self showToast:@"密码修改成功"];
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self showToast:@"密码修改成功"];
+                    
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    
+                });
                 
             } failure:^(NSError *error) {
                 
-                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                    
+                });
                 
             }];
         
