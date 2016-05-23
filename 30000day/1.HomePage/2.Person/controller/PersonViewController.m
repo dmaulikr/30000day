@@ -399,6 +399,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (indexPath.section == 0) {
         
         NewFriendsViewController *controller = [[NewFriendsViewController alloc] init];
@@ -434,8 +436,6 @@
         
         [self.navigationController pushViewController:controller animated:YES];
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

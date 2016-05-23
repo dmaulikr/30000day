@@ -9,7 +9,7 @@
 #import "ShowBackItemViewController.h"
 
 
-@interface ShowBackItemViewController ()
+@interface ShowBackItemViewController () <UIGestureRecognizerDelegate>
 
 @end
 
@@ -20,16 +20,6 @@
     
     //定制返回按钮
     [self backBarButtonItem];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    //开启ios右滑返回
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
 }
 
 #pragma mark - 导航栏返回按钮封装
@@ -65,21 +55,16 @@
     } else {
         
         self.navigationItem.leftBarButtonItem = leftButton;
-        
     }
-   
-    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-        
-    }
+
+    self.navigationItem.backBarButtonItem.title = @"";
     
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)backClick {
     
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {

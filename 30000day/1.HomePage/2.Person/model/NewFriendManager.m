@@ -131,8 +131,6 @@ static NewFriendManager *manager;
                     //归档到文件
                     [self encodeDataObject:dataArray];
                     
-                    NSLog(@"2222 -%@",[[NSThread currentThread] debugDescription]);
-                    
                     success(dataArray);
                     
                 } else {
@@ -191,7 +189,10 @@ static NewFriendManager *manager;
     //保存角标的代码块
     self.getBadgeNumberBlock = success;
     
-    success([self badgeNumber]);
+    dispatch_async(dispatch_queue_create("getBadgeNumber", DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        
+         success([self badgeNumber]);
+    });
 }
 
 - (NSInteger)badgeNumber {

@@ -39,7 +39,7 @@
 
 @end
 
-@interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface STRefreshViewController () <UITextViewDelegate,STChoosePictureViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,copy) void (^inputViewBlock)(NSString *message,NSMutableArray *imageArray,NSNumber *flag);
 
@@ -75,33 +75,38 @@
     self.maxPhoto = NSUIntegerMax;//默认是最大
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    //开启ios右滑返回
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    }
-    
-    if (_inputView) {
-        
-        //这地方必须加上，否则会出现bug
-        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
-        
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [super viewWillDisappear:animated];
-    
-    if (_inputView) {
-        
-        [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
-    }
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    
+//    [super viewWillAppear:animated];
+//    
+//    //开启ios右滑返回
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+//    }
+//    
+//    if (_inputView) {
+//        
+//        //这地方必须加上，否则会出现bug
+//        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
+//        
+//    }
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    
+//    [super viewWillDisappear:animated];
+//    
+//    if (_inputView) {
+//        
+//        [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
+//    }
+//    
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
+//}
 
 //监听屏幕的滑动事件
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -492,8 +497,11 @@
     } else {
         
         self.navigationItem.leftBarButtonItem = leftButton;
-        
     }
+    
+    self.navigationItem.backBarButtonItem.title = @"";
+    
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)backClick {
