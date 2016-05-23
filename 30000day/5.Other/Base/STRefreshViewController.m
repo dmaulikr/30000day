@@ -75,38 +75,26 @@
     self.maxPhoto = NSUIntegerMax;//默认是最大
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    
-//    [super viewWillAppear:animated];
-//    
-//    //开启ios右滑返回
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        
-//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-//    }
-//    
-//    if (_inputView) {
-//        
-//        //这地方必须加上，否则会出现bug
-//        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
-//        
-//    }
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated {
-//    
-//    [super viewWillDisappear:animated];
-//    
-//    if (_inputView) {
-//        
-//        [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
-//    }
-//    
-//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    if (_inputView) {
+        
+        //这地方必须加上，否则会出现bug
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_inputView];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    if (_inputView) {
+        
+        [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
+    }
+}
 
 //监听屏幕的滑动事件
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -467,46 +455,17 @@
 #pragma mark - 导航栏返回按钮封装
 - (void)backBarButtonItem {
     
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image = [UIImage imageNamed:@"back.png"];
     
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
     
-    [button setTitle:@"返回" forState:UIControlStateNormal];
+    [item setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [item setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
     
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    
-    [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    self.navigationItem.leftBarButtonItem = leftButton;
-    
-    if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0 )) {
-        
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-        
-    } else {
-        
-        self.navigationItem.leftBarButtonItem = leftButton;
-    }
+    self.navigationItem.backBarButtonItem = item;
     
     self.navigationItem.backBarButtonItem.title = @"";
-    
-    [self.navigationItem setHidesBackButton:YES];
-}
-
-- (void)backClick {
-
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma ----

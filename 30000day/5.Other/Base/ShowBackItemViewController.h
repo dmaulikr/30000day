@@ -10,7 +10,5 @@
 
 @interface ShowBackItemViewController : STBaseViewController
 
-//点击返回按钮的回调
-- (void)backClick;
 
 @end

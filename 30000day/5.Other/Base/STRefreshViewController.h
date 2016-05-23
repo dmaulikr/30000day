@@ -29,11 +29,8 @@ typedef enum {
 - (void)headerRefreshing;//有下拉刷新该方法才会被调用
 - (void)footerRereshing;//有上刷新该方法才会被调用
 
-
 //是否显示 " <-返回 "这种类型的返回按钮,默认是不显示
 @property (nonatomic,assign) BOOL isShowBackItem;
-- (void)backClick;
-
 
 #pragma mark --- 关于键盘的一些设置
 //是否有键盘 默认是没键盘的
