@@ -11,6 +11,7 @@
 #import "PhysicalExaminationViewController.h"
 #import "SettingBirthdayView.h"
 #import "LifeDescendFactorsViewController.h"
+#import "FactorVerificationView.h"
 
 @interface PromoteAgeViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -165,8 +166,62 @@
         
     } else if(indexPath.row == 3) {
     
-        LifeDescendFactorsViewController *controller = [[LifeDescendFactorsViewController alloc] init];
-        [self.navigationController pushViewController:controller animated:YES];
+        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+        
+        BOOL isOn = [userConfigure[FACTORVERIFICATION] boolValue];
+        
+        if (isOn) {
+            
+            FactorVerificationView *view = [[[NSBundle mainBundle] loadNibNamed:@"FactorVerificationView" owner:self options:nil] lastObject];
+            
+            [view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            
+            __weak FactorVerificationView *weakSelf = view;
+            
+            [view setButtonBlock:^(UIButton *button) {
+                
+                if ([Common isObjectNull:weakSelf.passWordTextFiled.text]) {
+                    
+                    [self showToast:@"密码不能为空"];
+                    
+                    return;
+                    
+                }
+                
+                [STDataHandler sendCheckPasswordWithUserId:STUserAccountHandler.userProfile.userId password:weakSelf.passWordTextFiled.text success:^(BOOL success) {
+                    
+                    if (success) {
+                        
+                        [weakSelf removeFromSuperview];
+                        
+                        LifeDescendFactorsViewController *controller = [[LifeDescendFactorsViewController alloc] init];
+                        [self.navigationController pushViewController:controller animated:YES];
+                        
+                    } else {
+                        
+                        [self showToast:@"密码错误"];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    [self showToast:@"服务器繁忙"];
+                    
+                }];
+                
+            }];
+            
+            
+            [[[UIApplication sharedApplication].delegate window] addSubview:view];
+            
+        } else {
+            
+            LifeDescendFactorsViewController *controller = [[LifeDescendFactorsViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        }
+        
+
     
     }
     
