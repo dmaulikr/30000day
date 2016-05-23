@@ -8,7 +8,7 @@
 
 #import "STBaseViewController.h"
 #import "STNetworkAgent.h"
-//#import "JZNavigationExtension.h"
+#import "JZNavigationExtension.h"
 
 @interface STBaseViewController () <UIGestureRecognizerDelegate>
 //{
@@ -28,6 +28,27 @@
     
 //    //IOS8吧导航栏设置透明的话会有一条黑线，，这个方法就是隐藏的
 //    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    
+    //定制返回按钮
+    [self backBarButtonItem];
+    
+    self.navigationController.jz_fullScreenInteractivePopGestureEnabled = YES;
+}
+
+#pragma mark - 导航栏返回按钮封装
+- (void)backBarButtonItem {
+    
+    UIImage *image = [UIImage imageNamed:@"back.png"];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
+    
+    [item setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    [item setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationItem.backBarButtonItem = item;
+    
+    self.navigationItem.backBarButtonItem.title = @"";
 }
 
 //- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
@@ -129,27 +150,6 @@
     [super didReceiveMemoryWarning];
     NSLog(@"内存警告");
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-    
-    //开启ios右滑返回
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
-    
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    
-    [super viewDidDisappear:animated];
-    
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-}
-
 
 /*
 #pragma mark - Navigation

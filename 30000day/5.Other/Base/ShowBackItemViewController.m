@@ -18,54 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //定制返回按钮
-    [self backBarButtonItem];
+    
 }
 
-#pragma mark - 导航栏返回按钮封装
-- (void)backBarButtonItem {
-    
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [button setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    
-    [button setTitleColor:[UIColor colorWithRed:69.0/255.0 green:69.0/255.0 blue:69.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    
-    [button setFrame:CGRectMake(0, 0, 60, 30)];
-    
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    
-    [button addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    self.navigationItem.leftBarButtonItem = leftButton;
-    
-    if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 ? 20:0 )) {
-        
-        UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                           target:nil action:nil];
-        negativeSpacer.width = -10;
-        
-        self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftButton];
-        
-    } else {
-        
-        self.navigationItem.leftBarButtonItem = leftButton;
-    }
 
-    self.navigationItem.backBarButtonItem.title = @"";
-    
-    [self.navigationItem setHidesBackButton:YES];
-}
-
-- (void)backClick {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
