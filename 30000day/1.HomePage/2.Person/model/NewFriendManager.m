@@ -9,6 +9,8 @@
 #import "NewFriendManager.h"
 #import "NewFriendModel.H"
 #import "YYModel.h"
+#import "CDChatManager.h"
+#import "UserInformationModel.h"
 
 static NewFriendManager *manager;
 
@@ -309,6 +311,34 @@ static NewFriendManager *manager;
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:STDidApplyAddFriendSendNotification object:nil];
+}
+
++ (void)subscribePresenceToUserWithUserProfile:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback {
+    
+    //查询conversation
+    [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        
+        if (![Common isObjectNull:error]) {
+            
+            callback(NO,error);
+            
+        } else {
+            
+            NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+            
+            [dictionary addParameter:@"add" forKey:[STUserAccountHandler.userProfile.userId stringValue]];
+            
+            [dictionary addParameter:@"accept" forKey:[model.userId stringValue]];
+            
+            AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:@"我想加你为好友" attributes:dictionary];
+            
+            [[CDChatManager manager] sendMessage:messgage conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+               
+                callback(succeeded,error);
+                
+            }];
+        }
+    }];
 }
 
 @end

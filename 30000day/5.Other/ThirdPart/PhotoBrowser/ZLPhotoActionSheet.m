@@ -238,7 +238,7 @@ typedef void (^handler)(NSArray<UIImage *> *selectPhotos);
 {
     if (_arraySelectPhotos.count >= self.maxSelectCount
         && btn.selected == NO) {
-        ShowToastLong(@"最多只能选择%ld张图片", self.maxSelectCount);
+        ShowToastLong(@"最多只能选择%ld张图片", (long)self.maxSelectCount);
         return;
     }
     btn.selected = !btn.selected;

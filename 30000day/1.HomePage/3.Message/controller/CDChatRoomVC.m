@@ -582,7 +582,6 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
-//    id<CDUserModelDelegate> fromUser = [[CDChatManager manager].userDelegate getUserById:msg.clientId];
     
     NSString *nickName = [self userNameByClientId:msg.clientId];
     

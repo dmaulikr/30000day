@@ -272,10 +272,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//保存到相册
 - (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSString *message = @"呵呵";
-    
- 
+
 }
 
 - (void)updateImage:(UIImage *)image {

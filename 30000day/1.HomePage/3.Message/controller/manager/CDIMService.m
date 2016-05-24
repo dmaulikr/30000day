@@ -9,9 +9,7 @@
 #import "CDIMService.h"
 #import "CDCacheManager.h"
 #import "CDUtils.h"
-#import "CDUserManager.h"
 //#import "CDConvDetailVC.h"
-#import "CDUser.h"
 #import "CDChatVC.h"
 #import "CDEmotionUtils.h"
 #import "AppDelegate.h"
@@ -30,25 +28,6 @@
     });
     return imService;
 }
-
-#pragma mark - CDUserDelegate delegate
-
-- (void)cacheUserByIds:(NSSet *)userIds block:(AVBooleanResultBlock)block {
-    
-    [[CDCacheManager manager] cacheUsersWithIds:userIds callback:block];
-}
-
-//- (id<CDUserModelDelegate>)getUserById:(NSString *)userId {
-//    CDUser *user = [[CDUser alloc] init];
-//    AVUser *avUser = [[CDCacheManager manager] lookupUser:userId];
-//    NSString *reason = [NSString stringWithFormat:@"class name :%@, line: %@ , %@", @(__PRETTY_FUNCTION__), @(__LINE__), @"avUser can't be nil!"];
-//    NSAssert(avUser, reason);
-//    user.userId = userId;
-//    user.username = avUser.username;
-//    AVFile *avatarFile = [avUser objectForKey:@"avatar"];
-//    user.avatarUrl = avatarFile.url;
-//    return user;
-//}
 
 - (void)pushToChatRoomByConversation:(AVIMConversation *)conversation fromNavigation:(UINavigationController *)navigation completion:(completionBlock)completion {
     

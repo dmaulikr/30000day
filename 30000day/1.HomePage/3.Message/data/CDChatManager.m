@@ -128,7 +128,7 @@ static CDChatManager *instance;
     
     if (type == CDConversationTypeGroup) {
         // 群聊默认名字， 老王、小李
-        name = [AVIMConversation nameOfUserIds:members];
+//        name = [AVIMConversation nameOfUserIds:members];
     }
     
     AVIMConversationOption options;
@@ -221,7 +221,7 @@ static CDChatManager *instance;
     
     if (type == CDConversationTypeGroup) {
         // 群聊默认名字， 老王、小李
-        name = [AVIMConversation nameOfUserIds:members];
+//        name = [AVIMConversation nameOfUserIds:members];
     }
     
     AVIMConversationOption options;
@@ -735,7 +735,6 @@ static CDChatManager *instance;
         return NO;
     } else {
         NSString *text = ((AVIMTextMessage *)message).text;
-//        id<CDUserModelDelegate> selfUser = [[CDChatManager manager].userDelegate getUserById:self.clientId];
         NSString *pattern = [NSString stringWithFormat:@"@%@ ",STUserAccountHandler.userProfile.nickName];
         if([text rangeOfString:pattern].length > 0) {
             return YES;

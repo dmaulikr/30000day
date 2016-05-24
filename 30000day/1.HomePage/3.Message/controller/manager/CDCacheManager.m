@@ -8,7 +8,6 @@
 
 #import "CDCacheManager.h"
 #import "CDUtils.h"
-#import "CDUserManager.h"
 #import "CDChatManager.h"
 #import "CDChatListVC.h"
 
@@ -59,35 +58,6 @@ static CDCacheManager *cacheManager;
     
 }
 
-- (void)cacheUsersWithIds:(NSSet *)userIds callback:(AVBooleanResultBlock)callback {
-    
-    NSMutableSet *uncachedUserIds = [[NSMutableSet alloc] init];
-    
-    for (NSString *userId in userIds) {
-        
-        if ([[CDCacheManager manager] lookupUser:userId] == nil) {
-            
-            [uncachedUserIds addObject:userId];
-        }
-    }
-    
-    if ([uncachedUserIds count] > 0) {
-        
-        [[CDUserManager manager] findUsersByIds:[[NSMutableArray alloc] initWithArray:[uncachedUserIds allObjects]] callback: ^(NSArray *objects, NSError *error) {
-            
-            if (objects) {
-                
-                [[CDCacheManager manager] registerUsers:objects];
-            }
-            
-            callback(YES, error);
-        }];
-        
-    } else {
-        
-        callback(YES, nil);
-    }
-}
 
 #pragma mark - current conversation
 

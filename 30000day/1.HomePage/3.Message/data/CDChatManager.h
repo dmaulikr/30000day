@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CDUserModel.h"
 #import "AVIMConversation+Custom.h"
 #import "CDMacros.h"
 
@@ -38,22 +37,6 @@ static NSString *const kCDNotificationConnectivityUpdated = @"ConnectStatus";
 
 typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger totalUnreadCount,  NSError *error);
 
-@protocol CDUserDelegate <NSObject>
-
-@required
-/**
- *  @brief 根据 id 获取用户对象
- *  @attention 同步方法，下面的 `-cacheUserByIds:block` 方法是为了 `-getUserById:` 能同步返回用户信息。
- */
-- (id<CDUserModelDelegate>)getUserById:(NSString *)userId;
-
-/**
- *  @brief 对于每条消息，都会调用这个方法。
- *  @attention  你可以使用该代理来缓存发送者的用户信息，以便 `-getUserById:` 能直接从缓存中获取用户信息。
- */
-- (void)cacheUserByIds:(NSSet *)userIds block:(AVIMBooleanResultBlock)block;
-
-@end
 
 /**
  *  核心的聊天管理类
@@ -65,10 +48,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 @property (nonatomic, strong) AVIMClient *client;
 
-/**
- *  设置用户信息的 delegate
- */
-@property (nonatomic, strong) id<CDUserDelegate> userDelegate;
 
 /**
  *  即 openClient 时的 clientId

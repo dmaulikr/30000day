@@ -17,7 +17,6 @@ typedef void (^AVIMConversationResultBlock)(AVIMConversation *conversation, NSEr
 
 - (AVUser *)lookupUser:(NSString *)userId;
 - (void)registerUsers:(NSArray *)users;
-- (void)cacheUsersWithIds:(NSSet *)userIds callback:(AVBooleanResultBlock)callback;
 - (void)setCurrentConversation:(AVIMConversation *)conv;
 
 /*!

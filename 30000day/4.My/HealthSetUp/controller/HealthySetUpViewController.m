@@ -115,40 +115,44 @@
     
     for (GetFactorObject *object in factorArray) {
         
-        if ([object.gender isEqualToNumber:@2] || [object.gender isEqualToNumber:STUserAccountHandler.userProfile.gender]) {//过滤当前性别
+        if (![Common isObjectNull:STUserAccountHandler.userProfile.gender]) {//当前已经登录
             
-            GetFactorModel *model = [[GetFactorModel alloc] init];
-            
-            model.factorId = object.factorId;
-            
-            model.factor = object.factor;
-            
-            model.level = object.level;
-            
-            model.pid = object.pid;
-            
-            NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
-            
-            model.subFactorArray  = [[NSMutableArray alloc] init];
-            
-            for (int j = 0; j < subFactorArray.count; j++) {
+            if ([object.gender isEqualToNumber:@2] || [object.gender isEqualToNumber:STUserAccountHandler.userProfile.gender]) {//过滤当前性别
                 
-                GetFactorObject *_object = subFactorArray[j];
+                GetFactorModel *model = [[GetFactorModel alloc] init];
                 
-                GetFactorModel *_model = [[GetFactorModel alloc] init];
+                model.factorId = object.factorId;
                 
-                _model.factorId = _object.factorId;
+                model.factor = object.factor;
                 
-                _model.factor = _object.factor;
+                model.level = object.level;
                 
-                _model.level = _object.level;
+                model.pid = object.pid;
                 
-                _model.pid = _object.pid;
+                NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
                 
-                [model.subFactorArray addObject:_model];
+                model.subFactorArray  = [[NSMutableArray alloc] init];
+                
+                for (int j = 0; j < subFactorArray.count; j++) {
+                    
+                    GetFactorObject *_object = subFactorArray[j];
+                    
+                    GetFactorModel *_model = [[GetFactorModel alloc] init];
+                    
+                    _model.factorId = _object.factorId;
+                    
+                    _model.factor = _object.factor;
+                    
+                    _model.level = _object.level;
+                    
+                    _model.pid = _object.pid;
+                    
+                    [model.subFactorArray addObject:_model];
+                }
+                
+                [self.getFactorArray addObject:model];
             }
             
-            [self.getFactorArray addObject:model];
         }
     }
     //先把数据源后面4个加上去【身高、体重、被动吸烟数、 被动吸烟年数】
