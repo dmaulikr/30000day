@@ -235,14 +235,22 @@
     
         UIAlertAction *action_first = [UIAlertAction actionWithTitle:@"删除好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [self.dataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId success:^(BOOL success) {
+            [STDataHandler sendDeleteFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId success:^(BOOL success) {
                 
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                });
+
             } failure:^(NSError *error) {
                 
-                [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
+                    [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                
+                });
+
             }];
         }];
         

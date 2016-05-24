@@ -115,20 +115,30 @@
                                        nickName:_userNickNameTxt.text
                                     mobileToken:self.mobileToken//校验后获取的验证码
                                         success:^(BOOL success) {
+
+                                            dispatch_async(dispatch_get_main_queue(), ^{
                                             
-                                           [self showToast:@"注册成功"];
-                                    
-                                           [self.tabBarController setSelectedIndex:0];
+                                                [self showToast:@"注册成功"];
+                                                
+                                                [self.tabBarController setSelectedIndex:0];
+                                                
+                                                [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                
+                                                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                             
-                                           [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                            
-                                           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                            });
+                                           
                                         }
                                         failure:^(NSError *error) {
                                             
-                                            [self showToast:@"注册失败"];
+                                            dispatch_async(dispatch_get_main_queue(), ^{
                                             
-                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                
+                                                [self showToast:@"注册失败"];
+                                            
+                                            });
+                                            
                                         }];
 }
 

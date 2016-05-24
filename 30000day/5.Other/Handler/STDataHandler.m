@@ -291,7 +291,7 @@
 }
 
 //**************通过用户名获取userId通过用户名获取userId**********/
-- (void)sendGetUserIdByUserName:(NSString *)userName
++ (void)sendGetUserIdByUserName:(NSString *)userName
                         success:(void (^)(NSNumber *userId))success
                         failure:(void (^)(NSError *error))failure {
     
@@ -299,62 +299,41 @@
     
     [parameters addParameter:userName forKey:@"userName"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_USERID_BY_NAME
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(recvDic[@"value"]);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                        
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendGetUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USERID_BY_NAME] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(recvDic[@"value"]);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
     
 }
 
@@ -366,7 +345,60 @@
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
-    
+
+//    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+//    
+//    [parameters addParameter:loginName forKey:@"userName"];
+//    
+//    [parameters addParameter:@(isFromThirdParty) forKey:@"isFromThirdParty"];
+//
+//    [parameters addParameter:password forKey:@"password"];
+//    
+//    [parameters addParameter:type forKey:@"type"];
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    manager.completionQueue = dispatch_queue_create("postSignInWithPassword",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+//    
+//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,LOGIN_WITH_PASSWORD] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        NSError *localError = nil;
+//        
+//        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+//        if (localError == nil) {
+//            
+//            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+//            
+//            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+//                
+//                NSDictionary *jsonDictionary = recvDic[@"value"];
+//                
+//                //设置个人信息
+//                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password isFromThirdParty:isFromThirdParty postNotification:isPostNotification];
+//                
+//                success(YES);
+//                
+//            } else {
+//                
+//                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+//                
+//                failure(failureError);
+//            }
+//            
+//        } else {
+//            
+//            failure(localError);
+//        }
+//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+//        
+//        failure(error);
+//    }];
+
+
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:loginName forKey:@"userName"];
@@ -564,64 +596,55 @@
     
     [parameters addParameter:nickName forKey:@"nickName"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:REGISTER
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDictionary = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDictionary[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSDictionary *jsonDictionary = recvDictionary[@"value"];
-                                                                
-                                                                //设置个人信息
-                                                                [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
-                                                                    success(YES);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                failure([[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}]);
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("setUserInformationWithDictionary",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,REGISTER] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSDictionary *jsonDictionary = recvDic[@"value"];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    //设置个人信息
+                    [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
+                
+                });
+
+                success(YES);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+    
 }
 
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
-- (void)getMyFriendsWithUserId:(NSString *)userId
++ (void)getMyFriendsWithUserId:(NSString *)userId
                                success:(void (^)(NSMutableArray * dataArray))success
                                failure:(void (^)(NSError *))failure {
 
@@ -629,58 +652,48 @@
     
     [parameters addParameter:userId forKey:@"userId"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_MY_FRIENDS
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                //更新当前用户好友的数据库
-                                                                
-                                                                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(array);
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("getMyFriendsWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_MY_FRIENDS] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                
+                success(array);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+    
 }
 
 //************************ 删除好友 **********/
-- (void)sendDeleteFriendWithUserId:(NSNumber *)userId
++ (void)sendDeleteFriendWithUserId:(NSNumber *)userId
                       friendUserId:(NSNumber *)friendId
                            success:(void (^)(BOOL  success))success
                            failure:(void (^)(NSError *))failure {
@@ -691,62 +704,43 @@
     
     [parameters addParameter:friendId forKey:@"fUserId"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:DELETE_FRIEND
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                    
-                                                                    [STNotificationCenter postNotificationName:STUseDidSuccessDeleteFriendSendNotification object:nil];
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                            
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendDeleteFriendWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,DELETE_FRIEND] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(YES);
+                
+                [STNotificationCenter postNotificationName:STUseDidSuccessDeleteFriendSendNotification object:nil];
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
 
