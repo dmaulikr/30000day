@@ -166,6 +166,20 @@
         
         [self.view endEditing:YES];
         
+        if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:userInformationModel.userId]) {
+            
+            [self showToast:@"对方或自己的id为空"];
+            
+            return;
+        }
+        
+        if ([STUserAccountHandler.userProfile.userId isEqualToNumber:userInformationModel.userId]) {
+            
+            [self showToast:@"不能添加自己"];
+            
+            return;
+        }
+        
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口, @1请求   @2接受   @3拒绝
         [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId

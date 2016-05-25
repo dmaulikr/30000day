@@ -335,8 +335,22 @@
             if (button.tag) {
                 
                 //添加好友
-                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 //添加好友,接口, @1请求   @2接受   @3拒绝
+                if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:chineseString.userId]) {
+                    
+                    [self showToast:@"对方或自己的id为空"];
+                    
+                    return;
+                }
+                
+                if ([[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] isEqualToString:[NSString stringWithFormat:@"%@",chineseString.userId]]) {
+                    
+                    [self showToast:@"不能添加自己"];
+                    
+                    return;
+                }
+                
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
                                                             userId:chineseString.userId
                                                        messageType:@1
