@@ -55,16 +55,12 @@
         }
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
-        //设置极光推送的badge
-        [JPUSHService setBadge:totalUnreadCount];
         
     } else {
         
         [[self navigationController] tabBarItem].badgeValue = nil;
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-        //重置极光推送的badge
-        [JPUSHService resetBadge];
     }
     
     if (self.unreadMessageChange) {

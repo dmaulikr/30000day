@@ -245,19 +245,16 @@
                 [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
                     
                     if (birthString != nil) {
-                        NSLog(@"获取步数  %@",birthString);
                         //获取爬楼数
                         [mdata getClimbStairsCount:^(NSString *climbStairsString) {
                             
                             if (climbStairsString != nil) {
-                                NSLog(@"获取爬楼数  %@",climbStairsString);
                                 //获取运动距离
                                 [mdata getMovingDistanceCount:^(NSString *movingDistanceString) {
                                     
                                     if (movingDistanceString != nil) {
-                                        NSLog(@"获取运动距离  %@",movingDistanceString);
                                         
-                                        NSMutableDictionary *dataDictionary=[NSMutableDictionary dictionary];
+                                        NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
                                         [dataDictionary setObject:birthString forKey:@"stepNum"];
                                         [dataDictionary setObject:climbStairsString forKey:@"stairs"];
                                         [dataDictionary setObject:movingDistanceString forKey:@"distance"];
@@ -267,29 +264,26 @@
                                         [self.dataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
                                             
                                             if (success) {
-                                                NSLog(@"运动信息上传成功");
+                                                
                                             }
                                             
                                         } failure:^(NSError *error) {
-                                            
-                                            NSLog(@"运动信息上传失败");
                                             
                                         }];
                                     }
                                     
                                 } failure:^(NSError *error) {
-                                    NSLog(@"获取运动距离失败");
+                                    
                                 }];
                             }
                             
                         } failure:^(NSError *error) {
-                            NSLog(@"获取爬楼数失败");
+                            
                         }];
                         
                     }
                     
                 } failure:^(NSError *error) {
-                    NSLog(@"获取步数失败");
                 }];
                 
             }else{
@@ -297,7 +291,7 @@
             }
             
         } failure:^(NSError *error) {
-            NSLog(@"%@",error);
+            
         }];
     }
     

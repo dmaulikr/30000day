@@ -570,13 +570,6 @@
         
     }
     
-    //设置推送别名
-    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",userProfile.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-        
-        NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
-        
-    }];
-    
     //初始化通讯录
     [[MailListManager shareManager] synchronizedMailList];
 }
@@ -1678,7 +1671,7 @@
             
         } else {
             
-            [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
+            [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeCount"];
         }
         
         [dataDictionary addParameter:yearModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];

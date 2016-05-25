@@ -282,11 +282,8 @@
         
         if ([type isEqualToString:@"1"]) {//正在等待验证
             
-            [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
-            
         } else if ([type isEqualToString:@"2"]) {//接受
             
-            [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
             
         } else if ([type isEqualToString:@"3"]) {//拒绝
             
