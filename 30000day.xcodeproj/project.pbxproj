@@ -88,8 +88,8 @@
 		B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B665F8B91CC4BF5200070458 /* ZLShowBigImgViewController.m */; };
 		B665F8DD1CC4BF5200070458 /* ZLThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B665F8BB1CC4BF5200070458 /* ZLThumbnailViewController.m */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
-		B6BC9C731CF543EC00030D64 /* NSArray+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */; };
-		B6BC9C741CF543EC00030D64 /* NSString+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */; };
+		B6BC9C791CF58D7C00030D64 /* NSArray+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C761CF58D7C00030D64 /* NSArray+Chinese.m */; };
+		B6BC9C7A1CF58D7C00030D64 /* NSString+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C781CF58D7C00030D64 /* NSString+Chinese.m */; };
 		B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */; };
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
 		B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */; };
@@ -778,10 +778,10 @@
 		B665F8BB1CC4BF5200070458 /* ZLThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLThumbnailViewController.m; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
-		B6BC9C6F1CF543EC00030D64 /* NSArray+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chinese.h"; sourceTree = "<group>"; };
-		B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chinese.m"; sourceTree = "<group>"; };
-		B6BC9C711CF543EC00030D64 /* NSString+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Chinese.h"; sourceTree = "<group>"; };
-		B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Chinese.m"; sourceTree = "<group>"; };
+		B6BC9C751CF58D7C00030D64 /* NSArray+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chinese.h"; sourceTree = "<group>"; };
+		B6BC9C761CF58D7C00030D64 /* NSArray+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chinese.m"; sourceTree = "<group>"; };
+		B6BC9C771CF58D7C00030D64 /* NSString+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Chinese.h"; sourceTree = "<group>"; };
+		B6BC9C781CF58D7C00030D64 /* NSString+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Chinese.m"; sourceTree = "<group>"; };
 		B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewSuccessAndFailController.h; sourceTree = "<group>"; };
 		B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewSuccessAndFailController.m; sourceTree = "<group>"; };
 		B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewSuccessAndFailController.xib; sourceTree = "<group>"; };
@@ -2289,6 +2289,10 @@
 				B8365A4B1C70820100063269 /* UIView+Extension.m */,
 				B8F7198F1CEB2613000D859D /* NSMutableDictionary+parameter.h */,
 				B8F719901CEB2613000D859D /* NSMutableDictionary+parameter.m */,
+				B6BC9C751CF58D7C00030D64 /* NSArray+Chinese.h */,
+				B6BC9C761CF58D7C00030D64 /* NSArray+Chinese.m */,
+				B6BC9C771CF58D7C00030D64 /* NSString+Chinese.h */,
+				B6BC9C781CF58D7C00030D64 /* NSString+Chinese.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3377,10 +3381,6 @@
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
 				B8BD78831CC1E6F700362C89 /* STManager.h */,
 				B8BD78841CC1E6F700362C89 /* STManager.m */,
-				B6BC9C6F1CF543EC00030D64 /* NSArray+Chinese.h */,
-				B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */,
-				B6BC9C711CF543EC00030D64 /* NSString+Chinese.h */,
-				B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -4815,6 +4815,7 @@
 				B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
 				B8FD3EB81C8A8440007BCA6B /* CDButton.m in Sources */,
+				B6BC9C791CF58D7C00030D64 /* NSArray+Chinese.m in Sources */,
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
 				B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */,
@@ -4932,7 +4933,6 @@
 				B6114CA61CA2785E0088EED2 /* ShopDetailCommentTableViewCell.m in Sources */,
 				B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */,
 				B665F8DA1CC4BF5200070458 /* ZLProgressHUD.m in Sources */,
-				B6BC9C741CF543EC00030D64 /* NSString+Chinese.m in Sources */,
 				B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */,
 				B8FD3E041C8A7903007BCA6B /* SEConstants.m in Sources */,
 				B8FD3DF21C8A7903007BCA6B /* XHOperationNetworkKit.m in Sources */,
@@ -5028,7 +5028,6 @@
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
-				B6BC9C731CF543EC00030D64 /* NSArray+Chinese.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
@@ -5046,6 +5045,7 @@
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
+				B6BC9C7A1CF58D7C00030D64 /* NSString+Chinese.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B8F648AA1C9498F0001A3119 /* ShopViewController.m in Sources */,
 				B80B55991CD0B2EC003E2C36 /* DiscountCouponViewController.m in Sources */,
