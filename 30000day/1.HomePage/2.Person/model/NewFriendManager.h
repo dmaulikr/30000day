@@ -30,4 +30,8 @@
                                    success:(void (^)(NSMutableArray *dataArray))action
                                    failure:(void (^)(NSError *error))failure;
 
++ (void)subscribePresenceToUserWithUserProfile:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback;
+
++ (void)acceptPresenceSubscriptionRequestFrom:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback;
+
 @end

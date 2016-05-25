@@ -27,4 +27,6 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
++ (CGFloat)getCalendarTableViewCellHeight;
+
 @end

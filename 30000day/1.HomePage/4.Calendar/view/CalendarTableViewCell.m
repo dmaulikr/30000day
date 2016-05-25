@@ -7,7 +7,7 @@
 //
 
 #import "CalendarTableViewCell.h"
-
+#import "STRemindManager.h"
 
 @interface CalendarTableViewCell () <FSCalendarDataSource, FSCalendarDelegate ,FSCalendarDelegateAppearance >
 
@@ -38,7 +38,7 @@
 
 - (void)configUI {
 
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(1,0, SCREEN_WIDTH - 1, 350)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(1,0, SCREEN_WIDTH - 1, [CalendarTableViewCell getCalendarTableViewCellHeight])];
     
     calendar.dataSource = self;
     
@@ -158,29 +158,32 @@
     [_calendar selectDate:[NSDate date]];
 }
 
-//- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
-//    
-//    NSString *dateString = [calendar stringFromDate:date format:@"yyyy-MM-dd"];
-//    
-//    if ([_datesWithEvent containsObject:dateString]) {
-//        
-//        return 1;
-//    }
-//    
-//    if ([_datesWithMultipleEvents containsObject:dateString]) {
-//        
-//        return 3;
-//    }
-//    
-//    return 0;
-//}
++ (CGFloat)getCalendarTableViewCellHeight {
+    
+    if (SCREEN_HEIGHT > 480 ) {
+        
+        return 350;
+        
+    } else {
+        
+        return 320;
+    }
+}
 
-//- (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
-//    
-//    calendar.height = CGRectGetHeight(bounds);
-//    
-//    [self layoutIfNeeded];
-//}
+#pragma mark ---日历代理
+- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
+    
+    NSMutableArray *dataArray = [[STRemindManager shareRemindManager] allRemindModelWithUserId:STUserAccountHandler.userProfile.userId dateString:[calendar stringFromDate:date format:@"yyyy-MM-dd"]];
+    
+    return dataArray.count;
+}
+
+- (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
+    
+    calendar.height = CGRectGetHeight(bounds);
+    
+    [self layoutIfNeeded];
+}
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date {
     

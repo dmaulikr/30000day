@@ -58,42 +58,26 @@
     [STNotificationCenter addObserver:self selector:@selector(loadCanApplyFriend) name:STDidApplyAddFriendSuccessSendNotification object:nil];
     //通讯录的信息有变
     [STNotificationCenter addObserver:self selector:@selector(reloadMainTableView) name:STDidSaveInFileSendNotification object:nil];
-    //获取角标
-    [[NewFriendManager shareManager] getBadgeNumber:^(NSInteger badgeNumber) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (badgeNumber <= 99) {
-                
-                if (badgeNumber == 0) {
-                    
-                    self.firstCell.badgeView.badgeText = @"";
-                    
-                    [[self navigationController] tabBarItem].badgeValue = nil;
-                    
-                } else {
-                    
-                    self.firstCell.badgeView.badgeText = [NSString stringWithFormat:@"%d",(int)badgeNumber];
-                    
-                    [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%d", (int)badgeNumber];
-                }
-                
-            } else {
-                
-                self.firstCell.badgeView.badgeText = @"99+";
-                
-                [[self navigationController] tabBarItem].badgeValue = @"99+";
-            }
-            
-        });
-    }];
     
     [self reloadData];
     //设置右面的按钮
     UIBarButtonItem *addFriendItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addFriends"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addFriendsAction)];
     
     self.navigationItem.rightBarButtonItem = addFriendItem;
+    
+    //有人请求加为好友
+    [STNotificationCenter addObserver:self selector:@selector(changeState) name:STDidApplyAddFriendSendNotification object:nil];
 }
+
+- (void)changeState {
+    
+    [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:1];
+    
+    self.firstCell.badgeView.hidden = NO;
+    
+    [[self navigationController] tabBarItem].badgeValue = @"";
+} 
+
 
 - (void)addFriendsAction {
     
@@ -173,6 +157,9 @@
         
         _firstCell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         
+        _firstCell.badgeView.hidden = [Common readAppIntegerDataForKey:USER_BADGE_NUMBER] ? NO : YES;
+        
+        [[self navigationController] tabBarItem].badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;
     }
     return _firstCell;
 }
@@ -425,20 +412,14 @@
         controller.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:controller animated:YES];
-        //清除badgeNumber
-        [[NewFriendManager shareManager] cleanApplyFiendBadgeNumber:^(NSInteger badgerNumber) {
-           
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                self.firstCell.badgeView.badgeText = @"";
-                
-                [[self navigationController] tabBarItem].badgeValue = nil;
-                
-            });
-        }];
+        
+        self.firstCell.badgeView.hidden = YES;
+        
+        [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];
+        
+        [[self navigationController] tabBarItem].badgeValue = nil;
         
     } else if(indexPath.section == 1) {
-        
         
         
     } else {

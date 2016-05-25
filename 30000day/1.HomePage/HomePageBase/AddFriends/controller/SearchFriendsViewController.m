@@ -12,6 +12,7 @@
 #import "NSString+URLEncoding.h"
 #import "MTProgressHUD.h"
 #import "LZPushManager.h"
+#import "NewFriendManager.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -173,6 +174,11 @@
                                                       success:^(BOOL success) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                
+            [NewFriendManager subscribePresenceToUserWithUserProfile:userInformationModel andCallback:^(BOOL succeeded, NSError *error) {
+              
+            }];
+
             
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 
@@ -194,7 +200,6 @@
             });
             
         }];
-        
     }];
     
     return cell;

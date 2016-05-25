@@ -23,10 +23,9 @@
     
     self.button_fourth.backgroundColor = LOWBLUECOLOR;
     
-    if (self.imageView_third) {
-        
-         _badgeView = [[JSBadgeView alloc] initWithParentView:self.imageView_third alignment:JSBadgeViewAlignmentTopRight];
-    }
+    self.badgeView.layer.cornerRadius = 10.0f;
+    
+    self.badgeView.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

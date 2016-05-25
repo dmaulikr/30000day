@@ -582,7 +582,6 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
-//    id<CDUserModelDelegate> fromUser = [[CDChatManager manager].userDelegate getUserById:msg.clientId];
     
     NSString *nickName = [self userNameByClientId:msg.clientId];
     
@@ -700,12 +699,19 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - query messages
 
 - (void)queryAndCacheMessagesWithTimestamp:(int64_t)timestamp block:(AVIMArrayResultBlock)block {
+    
     [[CDChatManager manager] queryTypedMessagesWithConversation:self.conversation timestamp:timestamp limit:kOnePageSize block:^(NSArray *msgs, NSError *error) {
+        
         if (error) {
+            
             block(msgs, error);
+            
         } else {
+            
             [self memoryCacheMsgs:msgs callback:^(BOOL succeeded, NSError *error) {
+                
                 block (msgs, error);
+                
             }];
         }
     }];
@@ -727,7 +733,7 @@ static NSInteger const kOnePageSize = 10;
                 
                 // 失败消息加到末尾，因为 SDK 缓存不保存它们
                 NSArray *failedMessages = [[CDFailedMessageStore store] selectFailedMessagesByConversationId:self.conversation.conversationId];
-                
+    
                 NSMutableArray *allMessages = [NSMutableArray arrayWithArray:msgs];
                 
                 [allMessages addObjectsFromArray:failedMessages];

@@ -260,8 +260,8 @@
     
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     
-    datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-    
+//    datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];这行代码 非常的耗费时间
+
     datePicker.datePickerMode = datePickerMode;
     
     if (![Common isObjectNull:minimumDate]) {
@@ -274,8 +274,6 @@
         datePicker.maximumDate = maximumDate;
     }
     
-//  [datePicker setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
-    
     datePicker.backgroundColor = [UIColor whiteColor];
     
     datePicker.frame = CGRectMake(0, 44, (float)self.bounds.size.width, self.bounds.size.height-44);
@@ -285,16 +283,16 @@
         datePicker.date = willShowDate;
     }
     
+    [self addSubview:datePicker];
+
+    self.datePicker = datePicker;
+    
     [superView addSubview:self.maskView];
     
     [superView addSubview:self];
     
-    [self addSubview:datePicker];
-    
     self.isDatePicker = YES;
-    
-    self.datePicker = datePicker;
-    
+
     __block CGRect frame = self.frame;
     
     frame.origin.y = superView.bounds.size.height;
@@ -302,7 +300,7 @@
     self.frame = frame;
     
     [UIView animateWithDuration:0.35f
-                          delay:0
+                          delay:0.0f
                         options:UIViewAnimationOptionTransitionFlipFromBottom
                      animations:^{
                          

@@ -171,8 +171,18 @@
                             <constraint firstAttribute="height" constant="53" id="Dp1-1t-55Y"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MuP-LA-KmS">
+                        <rect key="frame" x="60" y="1" width="20" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="2Pi-oT-7QX"/>
+                            <constraint firstAttribute="width" constant="20" id="9bb-EK-dKt"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="MuP-LA-KmS" firstAttribute="leading" secondItem="Fr1-M1-FhN" secondAttribute="leading" constant="60" id="0QK-yR-tap"/>
+                    <constraint firstItem="MuP-LA-KmS" firstAttribute="top" secondItem="Fr1-M1-FhN" secondAttribute="top" constant="1" id="GVH-pt-AfQ"/>
                     <constraint firstItem="KdX-94-yAK" firstAttribute="leading" secondItem="Fr1-M1-FhN" secondAttribute="leadingMargin" constant="6" id="O0I-5j-PWk"/>
                     <constraint firstItem="iF0-vy-qty" firstAttribute="leading" secondItem="KdX-94-yAK" secondAttribute="trailing" constant="10" id="OtA-Fa-9kw"/>
                     <constraint firstAttribute="trailing" secondItem="iF0-vy-qty" secondAttribute="trailing" constant="20" id="UeR-iM-zQW"/>
@@ -181,6 +191,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="badgeView" destination="MuP-LA-KmS" id="Exi-uU-Dfh"/>
                 <outlet property="imageView_third" destination="KdX-94-yAK" id="SnC-IT-THe"/>
             </connections>
             <point key="canvasLocation" x="265" y="715"/>

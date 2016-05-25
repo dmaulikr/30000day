@@ -62,7 +62,8 @@
     
     [self loadTableViewData];
     
-    [self.tableView reloadData];
+    //刷新日历的界面
+    [self.calendarCell.calendar reloadData];
 }
 
 - (void)reloadDate {
@@ -346,7 +347,7 @@
     
     if (indexPath.section == 0) {
         
-        return 350.0f;
+        return [CalendarTableViewCell getCalendarTableViewCellHeight];
         
     } else if (indexPath.section == 1) {
         

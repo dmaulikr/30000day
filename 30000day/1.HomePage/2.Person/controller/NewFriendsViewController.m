@@ -87,6 +87,24 @@
 
                                                        //发出通知
                                                        [STNotificationCenter postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
+                                                       
+                                                       UserInformationModel *otherModle = [[UserInformationModel alloc] init];
+                                                       
+                                                       otherModle.userId = [NSNumber numberWithLongLong:[friendModel.userId longLongValue]];
+                                                       
+                                                       otherModle.nickName = friendModel.friendNickName;
+                                                       
+                                                       otherModle.originalNickName = friendModel.friendNickName;
+                                                       
+                                                       otherModle.originalHeadImg = friendModel.friendHeadImg;
+                                                       
+                                                       otherModle.headImg = friendModel.friendHeadImg;
+                                                       
+                                                       [NewFriendManager acceptPresenceSubscriptionRequestFrom:otherModle andCallback:^(BOOL succeeded, NSError *error) {
+                                                           
+                                                           
+                                                       }];
+                                                       
                                                    }
                                                    failure:^(NSError *error) {
                                                        

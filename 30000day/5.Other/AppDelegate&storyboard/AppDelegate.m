@@ -18,18 +18,9 @@
 #import "JPUSHService.h"
 #import <AdSupport/AdSupport.h>
 
-
-#import "CDAbuseReport.h"
-#import "CDCacheManager.h"
-#import "CDUtils.h"
-#import "CDAddRequest.h"
 #import "LZPushManager.h"
-//#import <iRate/iRate.h>
 #import <iVersion/iVersion.h>
 #import "CDChatManager.h"
-#import "CDIMService.h"
-#import "CDUserManager.h"
-#import "CDSoundManager.h"
 #import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
 #import "SearchVersionManager.h"
