@@ -570,13 +570,6 @@
         
     }
     
-    //设置推送别名
-    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",userProfile.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-        
-        NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
-        
-    }];
-    
     //初始化通讯录
     [[MailListManager shareManager] synchronizedMailList];
 }
