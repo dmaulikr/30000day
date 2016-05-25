@@ -231,64 +231,64 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                            failure:(void (^)(NSError *error))failure;
 
 //***********************************验证个人密保问题*********************/
-- (void)sendSecurityQuestionvalidate:(NSNumber *)userId
++ (void)sendSecurityQuestionvalidate:(NSNumber *)userId
                         answer:(NSArray *)answerArr
                         success:(void (^)(NSString *successToken))success
-                        failure:(void (^)(STNetError *error))failure;
+                        failure:(void (^)(NSError *error))failure;
 
 //***********************************密保修改密码*********************/
-- (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
++ (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
                                token:(NSString *)token
                             password:(NSString *)password
                              success:(void (^)(BOOL success))success
-                             failure:(void (^)(STNetError *error))failure;
+                             failure:(void (^)(NSError *error))failure;
 
 //***********************************修改密码*********************/
-- (void)sendChangePasswordWithUserId:(NSNumber *)userId
++ (void)sendChangePasswordWithUserId:(NSNumber *)userId
                             oldPassword:(NSString *)oldPassword
                             newPassword:(NSString *)newPassword
                                 success:(void (^)(BOOL success))success
                                 failure:(void (^)(NSError *error))failure;
 
 //***********************************添加密保*********************/
-- (void)sendChangeSecurityWithUserId:(NSNumber *)userId
++ (void)sendChangeSecurityWithUserId:(NSNumber *)userId
                  questionAnswerArray:(NSMutableArray *)modelArray
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
 
 
 //***********************************统计环境因素*********************/
-- (void)sendStatUserLifeWithUserId:(NSNumber *)userId
++ (void)sendStatUserLifeWithUserId:(NSNumber *)userId
                         dataString:(NSString *)data
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure;
 
 
 //***********************************绑定邮箱*********************/
-- (void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId
++ (void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId
                               emailString:(NSString *)email
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure;
 
 
 //***********************************验证邮箱*********************/
-- (void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
++ (void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
                                   success:(void (^)(NSDictionary *verificationDictionary))success
                                   failure:(void (^)(NSError *error))failure;
 
 //*********************************获取商家详细的数据*******************/
-- (void)sendCompanyDetailsWithProductId:(NSString *)productId
++ (void)sendCompanyDetailsWithProductId:(NSString *)productId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure;
 
 //*********************************获取城市地铁数据*******************/
-- (void)sendCitySubWayWithCityId:(NSString *)cityId
++ (void)sendCitySubWayWithCityId:(NSString *)cityId
                                 Success:(void (^)(NSMutableArray *))success
                                 failure:(void (^)(NSError *error))failure;
 
 
 //*********************************根据筛选条件来获取所有的商品列表*******************/
-- (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
++ (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
                                     isSearch:(BOOL)isSearch
                                   pageNumber:(NSInteger)pageNumber
                                      Success:(void (^)(NSMutableArray *))success

@@ -74,18 +74,26 @@
     [self.view endEditing:YES];
     
     //提交修改密码
-    [self.dataHandler sendChangePasswordWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+    [STDataHandler sendChangePasswordWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                        oldPassword:self.oldPasswordTextField.text
                                        newPassword:self.passwordTextFiled.text
                                            success:^(BOOL success) {
                                                
-                                               [self showToast:@"密码修改成功"];
+                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                
-                                               [self.navigationController popViewControllerAnimated:YES];
-                                           }
-                                           failure:^(NSError *error) {
+                                                   [self showToast:@"密码修改成功"];
+                                                   
+                                                   [self.navigationController popViewControllerAnimated:YES];
+                                                   
+                                               });
                                                
-                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                           } failure:^(NSError *error) {
+                                               
+                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                               
+                                                   [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                               
+                                               });
                                                
                                            }];
 }

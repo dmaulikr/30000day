@@ -1985,12 +1985,13 @@
     }];
 }
 
-
--(void)sendSecurityQuestionvalidate:(NSNumber *)userId
+//***********************************验证个人密保问题*********************/
++ (void)sendSecurityQuestionvalidate:(NSNumber *)userId
                             answer:(NSArray *)answerArr
                             success:(void (^)(NSString *successToken))success
-                            failure:(void (^)(STNetError *error))failure{
+                            failure:(void (^)(NSError *error))failure{
 
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params addParameter:userId forKey:@"userId"];
@@ -2000,75 +2001,52 @@
         [params addParameter:answerArr[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
     }
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_SECURITY_QUESTION_VERIFICATION
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                             
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(recvDic[@"value"]);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(error);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    manager.completionQueue = dispatch_queue_create("sendSecurityQuestionvalidate",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    [self startRequest:request];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SECURITY_QUESTION_VERIFICATION] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(recvDic[@"value"]);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+    
+
 
 }
 
--(void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
+//***********************************密保修改密码*********************/
++ (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId
                                       token:(NSString *)token
                                    password:(NSString *)password
                                     success:(void (^)(BOOL success))success
-                                    failure:(void (^)(STNetError *))failure{
+                                    failure:(void (^)(NSError *))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -2076,76 +2054,49 @@
     [params addParameter:userId forKey:@"userId"];
     [params addParameter:password forKey:@"password"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_SECURITY_QUESTION_UPTUSERPWDBYSECU
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-                                                                
-                                                                STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:failureError];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            STNetError *error = [STNetError errorWithAFHTTPRequestOperation:nil NSError:localError];
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(error);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendSecurityQuestionUptUserPwdBySecu",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
-
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SECURITY_QUESTION_UPTUSERPWDBYSECU] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(YES);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
 //***********************************修改密码*********************/
-- (void)sendChangePasswordWithUserId:(NSNumber *)userId
++ (void)sendChangePasswordWithUserId:(NSNumber *)userId
                          oldPassword:(NSString *)oldPassword
                          newPassword:(NSString *)newPassword
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure {
-    
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -2155,66 +2106,45 @@
     
     [params addParameter:newPassword forKey:@"newPwd"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:CHANGE_PASSWORD
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendChangePasswordWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHANGE_PASSWORD] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(YES);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
-- (void)sendChangeSecurityWithUserId:(NSNumber *)userId
+//***********************************添加密保*********************/
++ (void)sendChangeSecurityWithUserId:(NSNumber *)userId
                  questionAnswerArray:(NSMutableArray *)modelArray
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure {
@@ -2232,66 +2162,46 @@
         [params addParameter:model.answerString forKey:[NSString stringWithFormat:@"a%d",i+1]];
     }
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:UPDATE_USER_SECURITY
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendChangeSecurityWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_SECURITY] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(YES);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
     
 }
 
-- (void)sendStatUserLifeWithUserId:(NSNumber *)userId
+//***********************************统计环境因素*********************/
++ (void)sendStatUserLifeWithUserId:(NSNumber *)userId
                         dataString:(NSString *)data
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure{
@@ -2361,7 +2271,8 @@
     
 }
 
--(void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId
+//***********************************绑定邮箱*********************/
++ (void)sendUploadUserSendEmailWithUserId:(NSNumber *)userId
                              emailString:(NSString *)email
                                  success:(void (^)(BOOL))success
                                  failure:(void (^)(NSError *))failure{
@@ -2372,67 +2283,45 @@
     
     [params addParameter:email forKey:@"email"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:UPDATE_USER_SENDEMAIL
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(YES);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendUploadUserSendEmailWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
-
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_SENDEMAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(YES);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 }
 
-
--(void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
+//***********************************验证邮箱*********************/
++ (void)sendVerificationUserEmailWithUserId:(NSNumber *)userId
                                    success:(void (^)(NSDictionary *verificationDictionary))success
                                    failure:(void (^)(NSError *error))failure{
     
@@ -2440,238 +2329,178 @@
     
     [params addParameter:userId forKey:@"userId"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:UPDATE_USER_VERIFICATION_EMAIL
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.completionQueue = dispatch_queue_create("sendVerificationUserEmailWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_VERIFICATION_EMAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                success(recvDic[@"value"]);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
 
-                                                                    success(recvDic[@"value"]);
-                                        
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    
-    [self startRequest:request];
 }
 
 //*********************************获取商家详细的数据*******************/
-- (void)sendCompanyDetailsWithProductId:(NSString *)productId
++ (void)sendCompanyDetailsWithProductId:(NSString *)productId
                                     Success:(void (^)(ShopDetailModel *model))success
                                     failure:(void (^)(NSError *error))failure{
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-
+    
     [params addParameter:productId forKey:@"productId"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_COMPANYDETAILS
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSDictionary * dataDictionary = recvDic[@"value"];
-                                                                
-                                                                ShopDetailModel *model = [ShopDetailModel yy_modelWithDictionary:dataDictionary];
-
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(model);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendCompanyDetailsWithProductId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_COMPANYDETAILS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSDictionary * dataDictionary = recvDic[@"value"];
+                
+                ShopDetailModel *model = [ShopDetailModel yy_modelWithDictionary:dataDictionary];
+                
+                success(model);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+    
 }
 
 //*********************************获取城市地铁数据*******************/
-- (void)sendCitySubWayWithCityId:(NSString *)cityId
++ (void)sendCitySubWayWithCityId:(NSString *)cityId
                          Success:(void (^)(NSMutableArray *))success
                          failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        
+    
     [params addParameter:cityId forKey:@"citySign"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_LINE_LIST
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                                                                
-                                                                NSArray *array = recvDic[@"value"];
-                                                                
-                                                                for (int i = 0; i < array.count; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = array[i];
-                                                                    
-                                                                    NSArray *subArray = dictionary[@"list"];
-                                                                    
-                                                                    SubwayModel *subwayModel = [[SubwayModel alloc] init];
-                                                                    
-                                                                    subwayModel.subWayId = dictionary[@"id"];
-                                                                    
-                                                                    subwayModel.lineCode = dictionary[@"lineCode"];
-                                                                    
-                                                                    subwayModel.lineName = dictionary[@"lineName"];
-                                                                    
-                                                                    subwayModel.list = [[NSMutableArray alloc] init];
-                                                                    
-                                                                    for (int i = 0; i < subArray.count; i++) {
-                                                                        
-                                                                        platformModel *model = [[platformModel alloc] init];
-                                                                        
-                                                                        NSDictionary *dictionary = subArray[i];
-                                                                        
-                                                                        [model setValuesForKeysWithDictionary:dictionary];
-
-                                                                        [subwayModel.list addObject:model];
-                                                                    }
-                                                                    
-                                                                    [dataArray addObject:subwayModel];
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(dataArray);
-
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(localError);
-                                                                
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendCitySubWayWithCityId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_LINE_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                
+                NSArray *array = recvDic[@"value"];
+                
+                for (int i = 0; i < array.count; i++) {
+                    
+                    NSDictionary *dictionary = array[i];
+                    
+                    NSArray *subArray = dictionary[@"list"];
+                    
+                    SubwayModel *subwayModel = [[SubwayModel alloc] init];
+                    
+                    subwayModel.subWayId = dictionary[@"id"];
+                    
+                    subwayModel.lineCode = dictionary[@"lineCode"];
+                    
+                    subwayModel.lineName = dictionary[@"lineName"];
+                    
+                    subwayModel.list = [[NSMutableArray alloc] init];
+                    
+                    for (int i = 0; i < subArray.count; i++) {
+                        
+                        platformModel *model = [[platformModel alloc] init];
+                        
+                        NSDictionary *dictionary = subArray[i];
+                        
+                        [model setValuesForKeysWithDictionary:dictionary];
+                        
+                        [subwayModel.list addObject:model];
+                    }
+                    
+                    [dataArray addObject:subwayModel];
+                }
+                
+                success(dataArray);
+
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
     
 }
 
 //*********************************获取根据筛选条件来获取所有的商品列表*******************/
-- (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
++ (void)sendShopListWithSearchConditionModel:(SearchConditionModel *)conditionModel
                                     isSearch:(BOOL)isSearch
                                   pageNumber:(NSInteger)pageNumber
                                      Success:(void (^)(NSMutableArray *))success
@@ -2719,76 +2548,55 @@
     
     [params addParameter:[Common deletedStringWithParentString:conditionModel.cityName] forKey:@"addrCity"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:isSearch?GET_SEARCH_LIST:GET_SHOP_LIST
-                                                 parameters:params
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                                                                
-                                                                NSArray *array = recvDic[@"value"];
-                                                                
-                                                                for (int i = 0; i < array.count; i++) {
-                                                                    
-                                                                    NSDictionary *dictionary = array[i];
-                                                                    
-                                                                    ShopModel *model = [ShopModel yy_modelWithDictionary:dictionary];
-                                                                    
-                                                                    [dataArray addObject:model];
-                                                                    
-                                                                }
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    success(dataArray);
-                                                                    
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
-                                                                });
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(localError);
-                                                                    
-                                                                });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    request.requestSerializerType = STRequestSerializerTypeJSON;
+    manager.completionQueue = dispatch_queue_create("sendShopListWithSearchConditionModel",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
-    [self startRequest:request];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,isSearch?GET_SEARCH_LIST:GET_SHOP_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                
+                NSArray *array = recvDic[@"value"];
+                
+                for (int i = 0; i < array.count; i++) {
+                    
+                    NSDictionary *dictionary = array[i];
+                    
+                    ShopModel *model = [ShopModel yy_modelWithDictionary:dictionary];
+                    
+                    [dataArray addObject:model];
+                    
+                }
+                
+                success(dataArray);
+                
+            } else {
+                
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                
+                failure(failureError);
+            }
+            
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
     
 }
 

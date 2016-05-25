@@ -115,8 +115,10 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     if (!isOn) {
 
             FactorVerificationView *view = [[[NSBundle mainBundle] loadNibNamed:@"FactorVerificationView" owner:self options:nil] lastObject];
-            
+        
             [view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+            [view.insertButton setTitle:@"关闭" forState:UIControlStateNormal];
             
             __weak FactorVerificationView *weakSelf = view;
             

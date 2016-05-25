@@ -127,18 +127,26 @@
         [answerMutableArray addObject:self.passwordVerifiedSecondCell.answer.text];
     }
     
-    [self.dataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] answer:answerMutableArray success:^(NSString *successToken) {
+    [STDataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] answer:answerMutableArray success:^(NSString *successToken) {
         
-        [self showToast:@"验证成功"];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        NewPasswordViewController *newPassword = [[NewPasswordViewController alloc] init];
-        newPassword.mobileToken = successToken;
-        newPassword.type = YES;
-        [self.navigationController pushViewController:newPassword animated:YES];
+            [self showToast:@"验证成功"];
+            
+            NewPasswordViewController *newPassword = [[NewPasswordViewController alloc] init];
+            newPassword.mobileToken = successToken;
+            newPassword.type = YES;
+            [self.navigationController pushViewController:newPassword animated:YES];
         
-    } failure:^(STNetError *error) {
+        });
         
-        [self showToast:@"验证失败"];
+    } failure:^(NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self showToast:@"验证失败"];
+            
+        });
         
     }];
 }

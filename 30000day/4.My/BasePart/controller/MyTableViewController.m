@@ -117,26 +117,34 @@
     
     //获取用户绑定的邮箱
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
+    [STDataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
         
-        if ([Common isObjectNull:verificationDictionary]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if ([Common isObjectNull:verificationDictionary]) {
+                
+                [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+                
+            } else {
+                
+                [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
+            }
             
-            [STUserAccountHandler userProfile].email = @"未绑定邮箱";
+            [self.tableView.mj_header endRefreshing];
             
-        } else {
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
-            [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
-        }
-        
-        [self.tableView.mj_header endRefreshing];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        });
         
     } failure:^(NSError *error) {
         
-        [self.tableView.mj_header endRefreshing];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView.mj_header endRefreshing];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
     }];
 }

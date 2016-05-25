@@ -256,13 +256,16 @@
 //根据Id来配置该城市的地铁
 - (void)configCitySubWayWithCityId:(NSString *)cityId {
     
-    [self.dataHandler sendCitySubWayWithCityId:cityId Success:^(NSMutableArray *dataArray) {
+    [STDataHandler sendCitySubWayWithCityId:cityId Success:^(NSMutableArray *dataArray) {
         
-        //保存数据
         self.subwayArray = dataArray;
-    
-        [self.menuView reloadData];
-
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.menuView reloadData];
+            
+        });
+        
     } failure:^(NSError *error) {
         
         //二.用省和市的名字从给定的地址模型中选择筛选列表的数据
@@ -324,119 +327,137 @@
     
     if (pageNumber != 1) {//上拉刷新
         
-        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel isSearch:![Common isObjectNull:self.searchBar.text] pageNumber:pageNumber Success:^(NSMutableArray *dataArray) {
+        [STDataHandler sendShopListWithSearchConditionModel:conditionModel isSearch:![Common isObjectNull:self.searchBar.text] pageNumber:pageNumber Success:^(NSMutableArray *dataArray) {
             
             [self.shopListArray addObjectsFromArray:dataArray];
             
-            [self.tableView reloadData];
-            
-            if (!dataArray.count) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self.tableView reloadData];
                 
-                [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
-                
-            } else {
-                
-                [self.tableView.mj_footer setState:MJRefreshStateIdle];
-            }
-            
-            self.pageNumber += 1;//数据下载成功加1
-            
-            //在百度地图上显示
-            NSMutableArray *annotation = [[NSMutableArray alloc] init];
-            
-            [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
-            
-            for (int i = 0; i < self.shopListArray.count; i++) {
-                
-                ShopModel *model = self.shopListArray[i];
-                
-                ShopAnnotation *item = [[ShopAnnotation alloc] init];
-                
-                item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
-                
-                item.title = model.productName;
-                
-                item.subtitle = model.address;
-            
-                item.model = model;
-                
-                [annotation addObject:item];
-                
-                if (i == 0) {//把第一个经纬度作为中心
+                if (!dataArray.count) {
                     
-                    [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
-                    _mapView.zoomLevel = 15;
+                    [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+                    
+                } else {
+                    
+                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
                 }
-            }
-
-            [_mapView addAnnotations:annotation];
-            [_mapView showAnnotations:annotation animated:NO];
-            _mapView.zoomLevel = 15;
+                
+                self.pageNumber += 1;//数据下载成功加1
+                
+                //在百度地图上显示
+                NSMutableArray *annotation = [[NSMutableArray alloc] init];
+                
+                [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
+                
+                for (int i = 0; i < self.shopListArray.count; i++) {
+                    
+                    ShopModel *model = self.shopListArray[i];
+                    
+                    ShopAnnotation *item = [[ShopAnnotation alloc] init];
+                    
+                    item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
+                    
+                    item.title = model.productName;
+                    
+                    item.subtitle = model.address;
+                    
+                    item.model = model;
+                    
+                    [annotation addObject:item];
+                    
+                    if (i == 0) {//把第一个经纬度作为中心
+                        
+                        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
+                        _mapView.zoomLevel = 15;
+                    }
+                }
+                
+                [_mapView addAnnotations:annotation];
+                [_mapView showAnnotations:annotation animated:NO];
+                _mapView.zoomLevel = 15;
+                
+            });
+            
             
         } failure:^(NSError *error) {
             
-            [self.tableView.mj_footer endRefreshing];
-            
-            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self.tableView.mj_footer endRefreshing];
+                
+                [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                
+            });
             
         }];
     } else {//下拉刷新和首次刷新
     
-        [self.dataHandler sendShopListWithSearchConditionModel:conditionModel
+        [STDataHandler sendShopListWithSearchConditionModel:conditionModel
                                                       isSearch:![Common isObjectNull:self.searchBar.text]
                                                     pageNumber:pageNumber
                                                        Success:^(NSMutableArray *dataArray) {
             
-           self.shopListArray = dataArray;
-            
-           [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                self.shopListArray = dataArray;
+                
+                [self.tableView reloadData];
+                
+                [self.tableView.mj_header endRefreshing];
+                
+                [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                
+                self.pageNumber = 1;//下拉刷新当前的页数是1
+                
+                //在百度地图上显示
+                NSMutableArray *annotation = [[NSMutableArray alloc] init];
+                
+                // 清楚屏幕中所有的annotation
+                [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
+                
+                for (int i = 0; i < dataArray.count; i++) {
+                    
+                    ShopModel *model = dataArray[i];
+                    
+                    ShopAnnotation *item = [[ShopAnnotation alloc] init];
+                    
+                    item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
+                    
+                    item.title = model.productName;
+                    
+                    item.subtitle = model.address;
+                    
+                    item.model = model;
+                    
+                    [annotation addObject:item];
+                    
+                    if (i == 0) {//把第一个经纬度作为中心
+                        
+                        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
+                        _mapView.zoomLevel = 15;
+                    }
+                }
+                
+                [_mapView addAnnotations:annotation];
+                
+                [_mapView showAnnotations:annotation animated:NO];
+                
+                _mapView.zoomLevel = 15;
+
+                
+            });
                                                            
-           [self.tableView.mj_header endRefreshing];
-           
-           [self.tableView.mj_footer setState:MJRefreshStateIdle];
-           
-           self.pageNumber = 1;//下拉刷新当前的页数是1
-                                                           
-           //在百度地图上显示
-           NSMutableArray *annotation = [[NSMutableArray alloc] init];
-           
-           // 清楚屏幕中所有的annotation
-           [_mapView removeAnnotations:[NSArray arrayWithArray:_mapView.annotations]];
-                                                           
-           for (int i = 0; i < dataArray.count; i++) {
-               
-               ShopModel *model = dataArray[i];
-               
-               ShopAnnotation *item = [[ShopAnnotation alloc] init];
-               
-               item.coordinate = CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue]);
-               
-               item.title = model.productName;
-               
-               item.subtitle = model.address;
-               
-               item.model = model;
-               
-               [annotation addObject:item];
-               
-               if (i == 0) {//把第一个经纬度作为中心
-                   
-                   [_mapView setCenterCoordinate:CLLocationCoordinate2DMake([model.latitude doubleValue], [model.longitude doubleValue])];
-                   _mapView.zoomLevel = 15;
-               }
-           }
-                                                           
-           [_mapView addAnnotations:annotation];
-                                                           
-           [_mapView showAnnotations:annotation animated:NO];
-                                                           
-            _mapView.zoomLevel = 15;
-          
         } failure:^(NSError *error) {
             
-            [self.tableView.mj_header endRefreshing];
-            
-            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self.tableView.mj_header endRefreshing];
+                
+                [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                
+            });
             
         }];
     }

@@ -51,9 +51,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="insertButton" destination="EZd-bi-cdF" id="E2p-6j-93u"/>
                 <outlet property="passWordTextFiled" destination="FgA-9w-JWL" id="A9k-e9-07j"/>
             </connections>
-            <point key="canvasLocation" x="218.5" y="274.5"/>
+            <point key="canvasLocation" x="161.5" y="267.5"/>
         </view>
     </objects>
 </document>
