@@ -261,7 +261,7 @@
                                         
                                         NSString *dataString=[self dataToJsonString:dataDictionary];
                                         
-                                        [self.dataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
+                                        [STDataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
                                             
                                             if (success) {
                                                 

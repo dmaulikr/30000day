@@ -67,7 +67,7 @@
 //下载详细数据
 - (void)loadDetailData {
     
-    [self.dataHandler sendCompanyDetailsWithProductId:self.productId Success:^(ShopDetailModel *model) {
+    [STDataHandler sendCompanyDetailsWithProductId:self.productId Success:^(ShopDetailModel *model) {
         
         if (model.productPhotos != nil) {
             
@@ -75,7 +75,15 @@
             
         }
         
-        self.title = model.productName;
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            self.title = model.productName;
+            
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
+            
+        });
         
         self.shopDetailModel = model;
         //店长推荐
@@ -127,14 +135,16 @@
         } failure:^(NSError *error) {
             
         }];
-        
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_header endRefreshing];
+
         
     } failure:^(NSError *error) {
         
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView.mj_header endRefreshing];
+            
+        });
+
     }];
 }
 

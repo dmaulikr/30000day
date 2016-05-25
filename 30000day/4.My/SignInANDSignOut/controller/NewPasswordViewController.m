@@ -49,18 +49,26 @@
         
     } else {
     
-     //开始修改密码
+        //开始修改密码
         if (self.type) {
-            [self.dataHandler sendSecurityQuestionUptUserPwdBySecu:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] token:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
+            [STDataHandler sendSecurityQuestionUptUserPwdBySecu:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] token:self.mobileToken password:self.oneNewPass.text success:^(BOOL success) {
                 
-                if (success) {
-                    [self showToast:@"密码修改成功"];
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
-            } failure:^(STNetError *error) {
+                    if (success) {
+                        [self showToast:@"密码修改成功"];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                    
+                });
                 
-                [self showToast:@"密码修改失败"];
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    [self showToast:@"密码修改失败"];
+                
+                });
                 
             }];
             

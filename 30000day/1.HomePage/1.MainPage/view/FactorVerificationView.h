@@ -14,5 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *passWordTextFiled;
 
+@property (weak, nonatomic) IBOutlet UIButton *insertButton;
+
 
 @end

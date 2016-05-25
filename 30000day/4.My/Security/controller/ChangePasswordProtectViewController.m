@@ -147,28 +147,38 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler sendChangeSecurityWithUserId:STUserAccountHandler.userProfile.userId
-                               questionAnswerArray:self.dataArray
-                                           success:^(BOOL success) {
+    [STDataHandler sendChangeSecurityWithUserId:STUserAccountHandler.userProfile.userId
+                            questionAnswerArray:self.dataArray
+                                        success:^(BOOL success) {
         
         if (success) {
             
-            [self showToast:@"添加密保成功"];
-            
-            button.enabled = YES;
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self showToast:@"添加密保成功"];
+                
+                button.enabled = YES;
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+            });
+    
         }
         
     } failure:^(NSError *error) {
         
-        button.enabled = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            button.enabled = YES;
+            
+            [self showToast:@"添加密保失败"];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
-        [self showToast:@"添加密保失败"];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     }];
 }
 
