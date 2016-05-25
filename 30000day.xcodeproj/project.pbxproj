@@ -88,6 +88,8 @@
 		B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B665F8B91CC4BF5200070458 /* ZLShowBigImgViewController.m */; };
 		B665F8DD1CC4BF5200070458 /* ZLThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B665F8BB1CC4BF5200070458 /* ZLThumbnailViewController.m */; };
 		B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */; };
+		B6BC9C731CF543EC00030D64 /* NSArray+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */; };
+		B6BC9C741CF543EC00030D64 /* NSString+Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */; };
 		B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */; };
 		B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */; };
 		B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C73B171C9000D20041ED65 /* AccountNumberTableViewCell.m */; };
@@ -776,6 +778,10 @@
 		B665F8BB1CC4BF5200070458 /* ZLThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLThumbnailViewController.m; sourceTree = "<group>"; };
 		B6A5E75E1C61AA5000A4322D /* MainPageBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageBaseViewController.h; sourceTree = "<group>"; };
 		B6A5E75F1C61AA5000A4322D /* MainPageBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageBaseViewController.m; sourceTree = "<group>"; };
+		B6BC9C6F1CF543EC00030D64 /* NSArray+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Chinese.h"; sourceTree = "<group>"; };
+		B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Chinese.m"; sourceTree = "<group>"; };
+		B6BC9C711CF543EC00030D64 /* NSString+Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Chinese.h"; sourceTree = "<group>"; };
+		B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Chinese.m"; sourceTree = "<group>"; };
 		B6C73B111C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailBindViewSuccessAndFailController.h; sourceTree = "<group>"; };
 		B6C73B121C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailBindViewSuccessAndFailController.m; sourceTree = "<group>"; };
 		B6C73B131C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailBindViewSuccessAndFailController.xib; sourceTree = "<group>"; };
@@ -3371,6 +3377,10 @@
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
 				B8BD78831CC1E6F700362C89 /* STManager.h */,
 				B8BD78841CC1E6F700362C89 /* STManager.m */,
+				B6BC9C6F1CF543EC00030D64 /* NSArray+Chinese.h */,
+				B6BC9C701CF543EC00030D64 /* NSArray+Chinese.m */,
+				B6BC9C711CF543EC00030D64 /* NSString+Chinese.h */,
+				B6BC9C721CF543EC00030D64 /* NSString+Chinese.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -4922,6 +4932,7 @@
 				B6114CA61CA2785E0088EED2 /* ShopDetailCommentTableViewCell.m in Sources */,
 				B6D50A591CD070DF00CAD470 /* CommentOptionsView.m in Sources */,
 				B665F8DA1CC4BF5200070458 /* ZLProgressHUD.m in Sources */,
+				B6BC9C741CF543EC00030D64 /* NSString+Chinese.m in Sources */,
 				B8695AB91C74949A001B4B95 /* MainViewController.m in Sources */,
 				B8FD3E041C8A7903007BCA6B /* SEConstants.m in Sources */,
 				B8FD3DF21C8A7903007BCA6B /* XHOperationNetworkKit.m in Sources */,
@@ -5017,6 +5028,7 @@
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
+				B6BC9C731CF543EC00030D64 /* NSArray+Chinese.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
 				B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,

@@ -48,18 +48,22 @@
         
         [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userId];//获取到该账号的userId会存储起来
         
-        [self.dataHandler sendGetSecurityQuestion:userId
+        [STDataHandler sendGetSecurityQuestion:userId
                                           success:^(NSDictionary *success) {
                                               
-                                              PasswordVerifiedViewController *controller = [[PasswordVerifiedViewController alloc]init];
+                                              dispatch_async(dispatch_get_main_queue(), ^{
                                               
-                                              controller.passwordVerifiedDictionary = success;
+                                                  PasswordVerifiedViewController *controller = [[PasswordVerifiedViewController alloc]init];
+                                                  
+                                                  controller.passwordVerifiedDictionary = success;
+                                                  
+                                                  controller.hidesBottomBarWhenPushed = YES;
+                                                  
+                                                  [self.navigationController pushViewController:controller animated:YES];
                                               
-                                              controller.hidesBottomBarWhenPushed = YES;
+                                              });
                                               
-                                              [self.navigationController pushViewController:controller animated:YES];
-                                              
-                                          } failure:^(STNetError *error) {
+                                          } failure:^(NSError *error) {
                                               
                                           }];
         

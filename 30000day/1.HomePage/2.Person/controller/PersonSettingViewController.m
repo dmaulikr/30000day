@@ -289,7 +289,7 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
+    [STDataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
         
         [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:imageUrl success:^(BOOL success) {
             

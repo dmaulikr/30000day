@@ -97,7 +97,7 @@
         [self.view endEditing:YES];
         
         //开始搜索
-        [self.dataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
+        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
                                               currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                     success:^(NSMutableArray *dataArray) {
             
@@ -168,25 +168,37 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口, @1请求   @2接受   @3拒绝
-        [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+        [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
                                                        userId:userInformationModel.userId
                                                     messageType:@1
                                                       success:^(BOOL success) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
             [NewFriendManager subscribePresenceToUserWithUserProfile:userInformationModel andCallback:^(BOOL succeeded, NSError *error) {
               
             }];
+
+            
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"请求发送成功"];
+            
+            });
                                                           
-            [self showToast:@"请求发送成功"];
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
+                        
         } failure:^(NSError *error) {
             
-            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            weakCell.addButton.hidden = NO;
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                
+                weakCell.addButton.hidden = NO;
+
+            });
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
     }];
     

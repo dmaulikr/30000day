@@ -82,29 +82,37 @@
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
         [STDataHandler sendGetUserIdByUserName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSNumber *userId) {
-            [self.dataHandler sendGetSecurityQuestion:userId
+            [STDataHandler sendGetSecurityQuestion:userId
                                               success:^(NSDictionary *success) {
                                                 
-                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-
-                                                      ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
-                                                      
-                                                      controller.hidesBottomBarWhenPushed = YES;
-                                                      
-                                                      if ([Common isObjectNull:success]) {
-                                                          
-                                                          controller.isSet = NO;
-                                                          
-                                                      } else {
-                                                          
-                                                          controller.isSet = YES;
-                                                      }
-                                                      
-                                                      [self.navigationController pushViewController:controller animated:YES];
-                                                  
-                                              } failure:^(STNetError *error) {
-
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                
                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                    
+                                                    ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
+                                                    
+                                                    controller.hidesBottomBarWhenPushed = YES;
+                                                    
+                                                    if ([Common isObjectNull:success]) {
+                                                        
+                                                        controller.isSet = NO;
+                                                        
+                                                    } else {
+                                                        
+                                                        controller.isSet = YES;
+                                                    }
+                                                    
+                                                    [self.navigationController pushViewController:controller animated:YES];
+                                                
+                                                });
+                                                  
+                                              } failure:^(NSError *error) {
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                  
+                                                  });
 
                                               }];
             

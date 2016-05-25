@@ -74,13 +74,17 @@
     
     [cell setButtonAction:^(NewFriendModel *friendModel) {
        
-        [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+        [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
                                                     userId:[NSNumber numberWithLongLong:[friendModel.userId longLongValue]]
                                                messageType:@2
                                                    success:^(BOOL success) {
                                                        
-                                                       [weakCell setType:ButtonTypeAccept];
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                        
+                                                           [weakCell setType:ButtonTypeAccept];
+                                                       
+                                                       });
+
                                                        //发出通知
                                                        [STNotificationCenter postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
                                                        
@@ -104,8 +108,12 @@
                                                    }
                                                    failure:^(NSError *error) {
                                                        
-                                                       [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                        
+                                                           [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                       
+                                                       });
+
                                                    }];
     }];
     
