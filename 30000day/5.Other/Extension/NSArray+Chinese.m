@@ -17,10 +17,7 @@
     NSMutableArray *tmpArray = [NSMutableArray arrayWithCapacity:self.count];
     
     for (int i = 0; i < self.count; ++i) {
-        
-        ChineseString *model = self[i];
-        
-        NSString *chineseString = [self[i] valueForKeyPath:chineseKey];
+        NSString *chineseString = (chineseKey == nil) ? self[i] : [self[i] valueForKeyPath:chineseKey];
         [tmpArray addObject:@{@"obj": self[i], @"pinyin": chineseString.pinyinString.lowercaseString}];
     }
     
