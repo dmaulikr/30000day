@@ -1652,6 +1652,8 @@
     
     NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
     
+    [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
+    
     for (int i = 0; i < factorsModelArray.count - 3; i++) {
         
         GetFactorModel *factorModel = factorsModelArray[i];
@@ -1681,8 +1683,6 @@
         [dataDictionary addParameter:heightModel.userSubFactorModel.factor forKey:@"height"];
         
         [dataDictionary addParameter:weightModel.userSubFactorModel.factor forKey:@"weight"];
-        
-        [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
     }
     
     if (![Common isObjectNull:numberModel.userSubFactorModel.factor] && ![Common isObjectNull:yearModel.userSubFactorModel.factor]) {
@@ -1697,8 +1697,6 @@
         }
         
         [dataDictionary addParameter:yearModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
-        
-        [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
     }
     
     [dataDictionary addParameter:dataArray forKey:@"idPid"];
@@ -1708,6 +1706,8 @@
     [params addParameter:dataString forKey:@"data"];
     
     [params addParameter:userId forKey:@"userId"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_FACTORS

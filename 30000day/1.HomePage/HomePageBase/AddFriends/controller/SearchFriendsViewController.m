@@ -12,6 +12,7 @@
 #import "NSString+URLEncoding.h"
 #import "MTProgressHUD.h"
 #import "LZPushManager.h"
+#import "NewFriendManager.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -171,7 +172,10 @@
                                                        userId:userInformationModel.userId
                                                     messageType:@1
                                                       success:^(BOOL success) {
-            
+            [NewFriendManager subscribePresenceToUserWithUserProfile:userInformationModel andCallback:^(BOOL succeeded, NSError *error) {
+              
+            }];
+                                                          
             [self showToast:@"请求发送成功"];
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -184,7 +188,6 @@
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }];
-        
     }];
     
     return cell;

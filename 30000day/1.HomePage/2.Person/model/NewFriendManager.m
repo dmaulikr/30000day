@@ -326,9 +326,7 @@ static NewFriendManager *manager;
             
             NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
             
-            [dictionary addParameter:@"add" forKey:[STUserAccountHandler.userProfile.userId stringValue]];
-            
-            [dictionary addParameter:@"accept" forKey:[model.userId stringValue]];
+            [dictionary addParameter:SUBSCRIBE forKey:MESSAGETYPE];
             
             AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:@"我想加你为好友" attributes:dictionary];
             
@@ -340,5 +338,32 @@ static NewFriendManager *manager;
         }
     }];
 }
+
++ (void)acceptPresenceSubscriptionRequestFrom:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback {
+    
+    //查询conversation
+    [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        
+        if (![Common isObjectNull:error]) {
+            
+            callback(NO,error);
+            
+        } else {
+            
+            NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+            
+            [dictionary addParameter:ACCEPTSUBSCRIBE forKey:MESSAGETYPE];
+            
+            AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:@"同意你的请求" attributes:dictionary];
+            
+            [[CDChatManager manager] sendMessage:messgage conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+                
+                callback(succeeded,error);
+                
+            }];
+        }
+    }];
+}
+
 
 @end

@@ -342,20 +342,40 @@ static CDChatManager *instance;
 #pragma mark - query msgs
 
 - (void)queryTypedMessagesWithConversation:(AVIMConversation *)conversation timestamp:(int64_t)timestamp limit:(NSInteger)limit block:(AVIMArrayResultBlock)block {
+    
     AVIMArrayResultBlock callback = ^(NSArray *messages, NSError *error) {
+        
         //以下过滤为了避免非法的消息，引起崩溃
         NSMutableArray *typedMessages = [NSMutableArray array];
+        
         for (AVIMTypedMessage *message in messages) {
-            if ([message isKindOfClass:[AVIMTypedMessage class]]) {
-                [typedMessages addObject:message];
+            
+            if ([message isKindOfClass:[AVIMTypedMessage class]] ) {
+                
+                NSString *messageType = message.attributes[MESSAGETYPE];
+                
+                if ([messageType isEqualToString:SUBSCRIBE]) {//请求加为好友
+                    
+                    
+                } else if ([messageType isEqualToString:ACCEPTSUBSCRIBE]) {//接受请求
+                    
+                    
+                } else {
+                    
+                    [typedMessages addObject:message];
+                }
             }
         }
+        
         block(typedMessages, error);
     };
+    
     if(timestamp == 0) {
         // sdk 会设置好 timestamp
         [conversation queryMessagesWithLimit:limit callback:callback];
+        
     } else {
+        
         [conversation queryMessagesBeforeId:nil timestamp:timestamp limit:limit callback:callback];
     }
 }
@@ -437,20 +457,44 @@ static CDChatManager *instance;
 
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
-    if (message.messageId) {
-        if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
-            [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
-                if (error) {
-                    DLog(@"%@", error);
-                } else {
-                    [self receiveMessage:message conversation:conversation];
-                }
-            }];
+    
+    NSDictionary *dictionary = message.attributes;
+    
+    if ([dictionary[MESSAGETYPE] isEqualToString:SUBSCRIBE]) {//申请加为好友
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+        
+    } else if ([dictionary[MESSAGETYPE] isEqualToString:ACCEPTSUBSCRIBE]) {//别人同意加为好友
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        
+    } else {//正常的消息
+        
+        if (message.messageId) {
+            
+            if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
+                
+                [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
+                    
+                    if (error) {
+                        
+                        DLog(@"%@", error);
+                        
+                    } else {
+                        
+                        [self receiveMessage:message conversation:conversation];
+                    }
+                }];
+                
+            } else {
+                
+                [self receiveMessage:message conversation:conversation];
+            }
+            
         } else {
-            [self receiveMessage:message conversation:conversation];
+            
+            DLog(@"Receive Message , but MessageId is nil");
         }
-    } else {
-        DLog(@"Receive Message , but MessageId is nil");
     }
 }
 
@@ -683,13 +727,26 @@ static CDChatManager *instance;
         
         for (AVIMConversation *conversation in conversations) {
             
-            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:1];
+            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:50];//这里暂时取50个缓存数据然后进行检索
             
-            if (lastestMessages.count > 0) {
+            for (int i = 0 ; i < lastestMessages.count; i++) {
                 
-                conversation.lastMessage = lastestMessages[0];
+                AVIMTypedMessage *message = lastestMessages[lastestMessages.count - 1 - i];
+                
+                NSDictionary *dictionary = message.attributes;
+                
+                if ([Common isObjectNull:dictionary[MESSAGETYPE]]) {//该message是正常的聊天数据
+                    
+                    conversation.lastMessage = message;
+                    
+                    break;
+                    
+                } else {//添加好友、同意加为好友等消息
+                 
+                    
+                }
             }
-            
+
             if (conversation.type == CDConversationTypeSingle) {
                 
                 [userIds addObject:conversation.otherId];
@@ -713,18 +770,8 @@ static CDChatManager *instance;
             return (NSComparisonResult)(conv2.lastMessage.sendTimestamp - conv1.lastMessage.sendTimestamp);
             
         }];
-//        if ([self.userDelegate respondsToSelector:@selector(cacheUserByIds:block:)]) {
-//            [self.userDelegate cacheUserByIds:userIds block: ^(BOOL succeeded, NSError *error) {
-//                if (error) {
-//                    block(nil,0, error);
-//                } else {
-                    block(sortedRooms, totalUnreadCount, error);
-//                }
-//            }];
-//        } else {
-//            DLog(@"self.userDelegate not reponds to cacheUserByIds:block:, may have problem");
-//            block([NSArray array], 0 , nil);
-//        }
+        
+        block(sortedRooms, totalUnreadCount, error);
     }];
 }
 

@@ -69,6 +69,8 @@
 
 #define USER_CHOOSE_AGENUMBER         [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  //当前用户所选择的年龄
 
+#define USER_BADGE_NUMBER            [NSString stringWithFormat:@"badge_%@",STUserAccountHandler.userProfile.userId]  //当前用户角标
+
 #define FRIENDVALIDATION              @"FriendValidation"    //添加好友验证开关Key
 
 #define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
@@ -262,6 +264,11 @@
 #define IMG_URL               @"imgUrl"
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
+
+#define SUBSCRIBE             @"subscribe"       //申请加为好友
+#define ACCEPTSUBSCRIBE       @"acceptSubscribe" //同意加为好友
+#define MESSAGETYPE           @"messageType"     //消息的类型
+
 
 //本地推送所用到的宏
 #define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒
