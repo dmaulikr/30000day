@@ -8,6 +8,7 @@
 
 #import "SetUpViewController.h"
 #import "CDSoundManager.h"
+#import "FactorVerificationView.h"
 
 static CGFloat kHorizontalSpacing = 40;
 static CGFloat kFooterHeight = 30;
@@ -99,19 +100,94 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (void)factorVerification :(UISwitch *)switchView {
 
-    BOOL isOn = switchView.isOn;
-    
-    NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
-    
-    if (userConfigure == nil) {
+    if ([Common isObjectNull:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]]) {
         
-        userConfigure = [NSMutableDictionary dictionary];
+        [self showToast:@"请绑定手机后再操作"];
+        
+        [switchView setOn:NO];
+        
+        return;
         
     }
     
-    [userConfigure setObject:@(isOn) forKey:FACTORVERIFICATION];
+    BOOL isOn = switchView.isOn;
     
-    [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+    if (!isOn) {
+
+            FactorVerificationView *view = [[[NSBundle mainBundle] loadNibNamed:@"FactorVerificationView" owner:self options:nil] lastObject];
+            
+            [view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            
+            __weak FactorVerificationView *weakSelf = view;
+            
+            [view setButtonBlock:^(UIButton *button) {
+                
+                if ([Common isObjectNull:weakSelf.passWordTextFiled.text]) {
+                    
+                    [self showToast:@"密码不能为空"];
+                    
+                    return;
+                    
+                }
+                
+                [STDataHandler sendCheckPasswordWithUserId:STUserAccountHandler.userProfile.userId password:weakSelf.passWordTextFiled.text success:^(BOOL success) {
+                    
+                    if (success) {
+                        
+                        [weakSelf removeFromSuperview];
+                        
+                        NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+                        
+                        if (userConfigure == nil) {
+                            
+                            userConfigure = [NSMutableDictionary dictionary];
+                            
+                        }
+                        
+                        [userConfigure setObject:@(isOn) forKey:FACTORVERIFICATION];
+                        
+                        [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+                        
+                        [switchView setOn:isOn];
+                        
+                    } else {
+                        
+                        [self showToast:@"密码错误"];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    [self showToast:@"服务器繁忙"];
+                    
+                }];
+                
+            }];
+            
+            
+            [[[UIApplication sharedApplication].delegate window] addSubview:view];
+ 
+    } else {
+    
+        NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+        
+        if (userConfigure == nil) {
+            
+            userConfigure = [NSMutableDictionary dictionary];
+            
+        }
+        
+        [userConfigure setObject:@(isOn) forKey:FACTORVERIFICATION];
+        
+        [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+    
+    }
+    
+    NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
+    
+    BOOL on = [userConfigure[FACTORVERIFICATION] boolValue];
+
+    [switchView setOn:on];
 
 }
 
