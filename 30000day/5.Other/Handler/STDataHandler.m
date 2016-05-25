@@ -1687,7 +1687,7 @@
             
         } else {
             
-            [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
+            [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeCount"];
         }
         
         [dataDictionary addParameter:yearModel.userSubFactorModel.factor forKey:@"passiveSmokeYears"];
