@@ -787,6 +787,64 @@
                                                                 if (![Common isObjectNull:gender]) {
                                                                     
                                                                     STUserAccountHandler.userProfile.gender = gender;
+                                                                    
+                                                                    //恶心的逻辑，设置完性别后，调用健康因子界面接口
+                                                                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                                                                    
+                                                                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+                                                                    
+                                                                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                                                                    
+                                                                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                                                                    
+                                                                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                                                                    
+                                                                    
+                                                                    NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
+                                                                    
+                                                                    [dataDictionary addParameter:gender forKey:@"gender"];
+                                                                    
+                                                                    [dataDictionary addParameter:@"" forKey:@"idPid"];
+                                                                    
+                                                                    NSString *dataString = [dataDictionary mj_JSONString];
+                                                                    
+                                                                    [params addParameter:dataString forKey:@"data"];
+                                                                    
+                                                                    [params addParameter:userId forKey:@"userId"];
+                                                                    
+                                                                    [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
+                                                                    
+                                                                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_USER_FACTORS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                        NSError *localError = nil;
+                                                                        
+                                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                                        if (localError == nil) {
+                                                                            
+                                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                                            
+                                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                                
+//                                                                                success(YES);
+                                                                                
+                                                                                //发出通知
+                                                                                [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                                
+                                                                            } else {
+                                                                                
+//                                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
+//                                                                                
+//                                                                                failure(failureError);
+                                                                            }
+                                                                            
+                                                                        } else {
+                                                                            
+//                                                                            failure(localError);
+                                                                        }
+                                                                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+                                                                        
+//                                                                        failure(error);
+                                                                    }];
+   
                                                                 }
                                                                 
                                                                 if (![Common isObjectNull:birthday]) {
