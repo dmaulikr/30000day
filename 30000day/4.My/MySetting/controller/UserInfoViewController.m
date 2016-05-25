@@ -137,7 +137,7 @@
 
 - (void)updateImage:(UIImage *)image {
     
-    [self.dataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
+    [STDataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
         self.headImageURLString = imageUrl;
         

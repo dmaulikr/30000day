@@ -148,7 +148,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 
 //**********搜索某一个用户（里面装的UserInformationModel）**********************/
-- (void)sendSearchUserRequestWithNickName:(NSString *)nickName
++ (void)sendSearchUserRequestWithNickName:(NSString *)nickName
                             currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(NSError *))failure;
@@ -156,7 +156,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 //************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型 @1请求;@2接受;@3拒绝*************/
 //添加好友会发送一个极光推送
-- (void)sendPushMessageWithCurrentUserId:(NSNumber *)currentUserId
++ (void)sendPushMessageWithCurrentUserId:(NSNumber *)currentUserId
                                      userId:(NSNumber *)userId
                                 messageType:(NSNumber *)messageType
                                     success:(void(^)(BOOL success))success
@@ -182,7 +182,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 
 //*****************获取天气情况(代码块返回的是天气模型)***********/
-- (void)getWeatherInformation:(NSString *)cityName
++ (void)getWeatherInformation:(NSString *)cityName
                         sucess:(void (^)(WeatherInformationModel *))sucess
                        failure:(void (^)(NSError *))failure;
 
@@ -216,19 +216,19 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 
 //***********************************更新用户头像*********************/
-- (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
++ (void)sendUpdateUserHeadPortrait:(NSNumber *)userId
                            headImage:(UIImage *)image
                            success:(void (^)(NSString *imageUrl))success
                            failure:(void (^)(NSError *error))failure;
 
 //***********************************获取个人密保问题*********************/
-- (void)sendGetSecurityQuestion:(NSNumber *)userId
++ (void)sendGetSecurityQuestion:(NSNumber *)userId
                        success:(void (^)(NSDictionary *dic))success
-                       failure:(void (^)(STNetError *error))failure;
+                       failure:(void (^)(NSError *error))failure;
 
 //***********************************获取所有密保问题*********************/
-- (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
-                           failure:(void (^)(STNetError *error))failure;
++ (void)sendGetSecurityQuestionSum:(void (^)(NSArray *array))sucess
+                           failure:(void (^)(NSError *error))failure;
 
 //***********************************验证个人密保问题*********************/
 - (void)sendSecurityQuestionvalidate:(NSNumber *)userId

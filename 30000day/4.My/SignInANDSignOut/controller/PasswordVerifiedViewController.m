@@ -86,7 +86,7 @@
         }
     }
     
-    [self.dataHandler sendGetSecurityQuestionSum:^(NSArray *array) {
+    [STDataHandler sendGetSecurityQuestionSum:^(NSArray *array) {
     
         self.problemDic = [NSMutableDictionary dictionary];
         
@@ -97,9 +97,13 @@
             [self.problemDic setObject:dictionary[@"question"] forKey:dictionary[@"qid"]];
         }
         
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
         
-    } failure:^(STNetError *error) {
+        });
+        
+    } failure:^(NSError *error) {
         
         NSLog(@"获取所有密保问题失败");
         

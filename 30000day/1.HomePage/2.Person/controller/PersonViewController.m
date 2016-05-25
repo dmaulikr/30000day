@@ -350,20 +350,29 @@
                 //添加好友
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 //添加好友,接口, @1请求   @2接受   @3拒绝
-                [self.dataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
                                                             userId:chineseString.userId
                                                        messageType:@1
                                                            success:^(BOOL success) {
                                                                
-                                                               [self showToast:@"请求发送成功"];
-                                                               
-                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   
+                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                   
+                                                                   [self showToast:@"请求发送成功"];
+                                                                
+                                                               });
                                                                
                                                            } failure:^(NSError *error) {
                                                                
-                                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                                
-                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                   
+                                                                   [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                               
+                                                               });
+                                                               
                                                            }];
                 
             }
