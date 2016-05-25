@@ -37,14 +37,14 @@
 
 - (void)nextAction {
     
-    if (self.loginNameText.text == nil) {
+    if ([Common isObjectNull:self.loginNameText.text]) {
         
         [self showToast:@"请填写需要找回密码的账号"];
         
         return;
     }
     
-    [self.dataHandler sendGetUserIdByUserName:self.loginNameText.text success:^(NSNumber *userId) {
+    [STDataHandler sendGetUserIdByUserName:self.loginNameText.text success:^(NSNumber *userId) {
         
         [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userId];//获取到该账号的userId会存储起来
         
@@ -66,7 +66,11 @@
         
     } failure:^(NSError *error) {
         
-        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            
+        });
         
     }];
     

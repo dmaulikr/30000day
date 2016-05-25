@@ -81,37 +81,42 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self.dataHandler sendGetUserIdByUserName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSNumber *userId) {
+        [STDataHandler sendGetUserIdByUserName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] success:^(NSNumber *userId) {
             [self.dataHandler sendGetSecurityQuestion:userId
                                               success:^(NSDictionary *success) {
-                                                  
-                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                  
-                                                  ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
-                                                  
-                                                  controller.hidesBottomBarWhenPushed = YES;
+                                                
+                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
 
-                                                  if ([Common isObjectNull:success]) {
+                                                      ChangePasswordProtectViewController *controller = [[ChangePasswordProtectViewController alloc] init];
                                                       
-                                                      controller.isSet = NO;
+                                                      controller.hidesBottomBarWhenPushed = YES;
                                                       
-                                                  } else {
+                                                      if ([Common isObjectNull:success]) {
+                                                          
+                                                          controller.isSet = NO;
+                                                          
+                                                      } else {
+                                                          
+                                                          controller.isSet = YES;
+                                                      }
                                                       
-                                                      controller.isSet = YES;
-                                                  }
-                                                  
-                                                  [self.navigationController pushViewController:controller animated:YES];
+                                                      [self.navigationController pushViewController:controller animated:YES];
                                                   
                                               } failure:^(STNetError *error) {
-                                                  
-                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+
+                                                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+
                                               }];
             
         } failure:^(NSError *error) {
             
-            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                
+            });
             
         }];
         

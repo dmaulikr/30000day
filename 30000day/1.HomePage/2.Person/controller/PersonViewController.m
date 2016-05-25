@@ -125,20 +125,28 @@
 //获取我的好友
 - (void)getMyFriends {
 
-    [self.dataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
         
-        _dataArray = dataArray;
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        //给这个好友管理器赋值
-        [PersonInformationsManager shareManager].informationsArray = dataArray;
+            _dataArray = dataArray;
+            
+            //给这个好友管理器赋值
+            [PersonInformationsManager shareManager].informationsArray = dataArray;
+            
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
         
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_header endRefreshing];
+        });
         
     } failure:^(NSError *error) {
         
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self.tableView.mj_header endRefreshing];
+        
+        });
         
     }];
 }
