@@ -10,11 +10,14 @@
 
 typedef void (^DidFinishTakeMediaCompledBlock)(UIImage *image, NSDictionary *editingInfo);
 typedef void (^DidFinishTakeImageBlock)(UIImage *image);
+typedef void (^DidFinishTakeImagesBlock)(NSArray<UIImage *> *imageArray);
 
 @interface MCPhotographyHelper : NSObject
 
 - (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController allowsEditing:(BOOL)allowsEditing compled:(DidFinishTakeMediaCompledBlock)compled;
 
 - (void)showOnPickerViewControllerOnViewController:(UIViewController *)viewController completion:(DidFinishTakeImageBlock)completion;
+
++ (void)showPhotoBrowserWithController:(UIViewController *)controller completion:(DidFinishTakeImagesBlock)comletion;
 
 @end

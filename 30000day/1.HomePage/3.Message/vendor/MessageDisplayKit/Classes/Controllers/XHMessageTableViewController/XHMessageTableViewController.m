@@ -9,6 +9,7 @@
 #import "XHMessageTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
+#import "MCPhotographyHelper.h"
 
 static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextViewContext;
 
@@ -1084,29 +1085,49 @@ static CGPoint  delayOffset = {0.0};
     
     WEAKSELF
     void (^PickerMediaBlock)(UIImage *image, NSDictionary *editingInfo) = ^(UIImage *image, NSDictionary *editingInfo) {
+        
         if (image) {
+            
             [weakSelf didSendMessageWithPhoto:image];
+            
         } else {
+            
             if (!editingInfo)
                 return ;
             NSString *mediaType = [editingInfo objectForKey: UIImagePickerControllerMediaType];
+            
             NSString *videoPath;
+            
             NSURL *videoUrl;
+            
             if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo) {
+                
                 videoUrl = (NSURL*)[editingInfo objectForKey:UIImagePickerControllerMediaURL];
+                
                 videoPath = [videoUrl path];
                 
                 UIImage *thumbnailImage = [XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:videoPath];
                 
                 [weakSelf didSendMessageWithVideoConverPhoto:thumbnailImage videoPath:videoPath];
+                
             } else {
+                
                 [weakSelf didSendMessageWithPhoto:[editingInfo valueForKey:UIImagePickerControllerOriginalImage]];
             }
         }
     };
     switch (index) {
         case 0: {
-            [self.photographyHelper showOnPickerViewControllerSourceType:UIImagePickerControllerSourceTypePhotoLibrary onViewController:self compled:PickerMediaBlock];
+
+            [MCPhotographyHelper showPhotoBrowserWithController:self completion:^(NSArray<UIImage *> *imageArray) {
+                
+                for (int i = 0 ; i < imageArray.count; i++) {
+                    
+                    [weakSelf didSendMessageWithPhoto:imageArray[i]];
+                }
+
+            }];
+            
             break;
         }
         case 1: {

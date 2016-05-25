@@ -8,6 +8,7 @@
 
 #import "MCPhotographyHelper.h"
 #import "XHMacro.h"
+#import "ZLPhotoActionSheet.h"
 
 @interface MCPhotographyHelper () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -80,6 +81,25 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissPickerViewController:picker];
+}
+
+
++ (void)showPhotoBrowserWithController:(UIViewController *)controller completion:(DidFinishTakeImagesBlock)comletion {
+    
+    ZLPhotoActionSheet *actionSheet = [[ZLPhotoActionSheet alloc] init];
+    //设置最大选择数量
+    
+    actionSheet.maxSelectCount = 5;
+    //设置预览图最大数目
+    
+    actionSheet.maxPreviewCount = 20;
+    
+    [actionSheet showWithSender:controller animate:YES completion:^(NSArray<UIImage *> * _Nonnull selectPhotos) {
+        // your codes
+        
+        comletion(selectPhotos);
+        
+    }];
 }
 
 @end
