@@ -148,6 +148,12 @@
 @property (nonatomic, weak) id <XHMessageTableViewControllerDataSource> dataSource;
 
 /**
+ * 是否让下拉刷新
+ * 初始化时YES，当无消息可加载为NO【当消息加载完的时候，不让下拉刷新】
+ */
+@property (nonatomic,assign) BOOL canLoadMoreMessage;
+
+/**
  *  数据源，显示多少消息
  */
 @property (nonatomic, strong) NSMutableArray *messages;

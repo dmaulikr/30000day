@@ -79,6 +79,10 @@
     
     [super viewWillAppear:animated];
     
+    if ([self respondsToSelector:@selector(panGestureRecognizer)]) {
+        
+    }
+    
     if (_inputView) {
         
         //这地方必须加上，否则会出现bug

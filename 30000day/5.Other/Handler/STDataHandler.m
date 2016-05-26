@@ -799,22 +799,11 @@
                                                                     
                                                                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
                                                                     
-                                                                    
-                                                                    NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
-                                                                    
-                                                                    [dataDictionary addParameter:gender forKey:@"gender"];
-                                                                    
-                                                                    [dataDictionary addParameter:@"" forKey:@"idPid"];
-                                                                    
-                                                                    NSString *dataString = [dataDictionary mj_JSONString];
-                                                                    
-                                                                    [params addParameter:dataString forKey:@"data"];
-                                                                    
                                                                     [params addParameter:userId forKey:@"userId"];
                                                                     
-                                                                    [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
+                                                                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
                                                                     
-                                                                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_USER_FACTORS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForGenderChange",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
                                                                         NSError *localError = nil;
                                                                         
                                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
@@ -824,25 +813,25 @@
                                                                             
                                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                                 
-//                                                                                success(YES);
-                                                                                
-                                                                                //发出通知
-                                                                                [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-                                                                                
+                                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                    
+                                                                                    //发出通知
+                                                                                  [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                                });
+
                                                                             } else {
                                                                                 
-//                                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-//                                                                                
-//                                                                                failure(failureError);
+
                                                                             }
                                                                             
                                                                         } else {
                                                                             
-//                                                                            failure(localError);
+                                                                            
                                                                         }
+                                                                        
                                                                     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
                                                                         
-//                                                                        failure(error);
+                                                                        
                                                                     }];
    
                                                                 }
@@ -1688,7 +1677,7 @@
     
     NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
     
-    [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
+    [dataDictionary addParameter:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.gender] forKey:@"gender"];
     
     for (int i = 0; i < factorsModelArray.count - 3; i++) {
         

@@ -10,7 +10,7 @@
 
 static NSString *STAvatarBrowserDidHideAvatarImage = @"STAvatarBrowserDidHideAvatarImage";
 
-@interface STAvatarBrowser : NSObject
+@interface STAvatarBrowser : UIView
 
 /**
  *	@brief	浏览头像
@@ -26,5 +26,7 @@ static NSString *STAvatarBrowserDidHideAvatarImage = @"STAvatarBrowserDidHideAva
  */
 + (void)showImageView:(UIImageView *)avatarImageView;
 
+
+- (void)showVideo:(NSString *)URLString;
 
 @end
