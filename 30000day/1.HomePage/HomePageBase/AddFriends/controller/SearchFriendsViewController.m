@@ -14,11 +14,9 @@
 #import "LZPushManager.h"
 #import "NewFriendManager.h"
 
-@interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *searchBackgroundView;//搜索框的背景视图
-
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;//模态视图
+@property (nonatomic,strong) UIView *searchBackgroundView;//搜索框的背景视图
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;//主表格视图
 
@@ -28,7 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *noResultView;//无搜索结果的时候显示的视图
 
-@property (weak, nonatomic) IBOutlet UITextField *textField;//搜索的textField
+@property (nonatomic,strong) UITextField *textField;//搜索的textField
 
 @end
 
@@ -37,37 +35,155 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.searchBackgroundView.layer.cornerRadius = 5;
-    
-    self.searchBackgroundView.layer.masksToBounds = YES;
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    
-    [self.backgroundView addGestureRecognizer:tap];
-    
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
     self.isSearch = NO;//刚进来的时候不是搜索状态
     
     self.noResultView.hidden = YES;
-    
-    [self.textField becomeFirstResponder];
+
+    [self setUpUI];
 }
 
-//点击事件
+- (void)setUpUI {
+    
+    self.searchBackgroundView.frame = CGRectMake(0, 0,500, 32);
+    
+    self.searchBackgroundView.layer.cornerRadius = 5;
+    
+    self.searchBackgroundView.layer.masksToBounds = YES;
+    
+    self.searchBackgroundView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+    
+    self.searchBackgroundView.layer.borderWidth = 0.5f;
+    
+    //搜索视图
+    UITextField *textField = [[UITextField alloc] init];
+    
+    textField.returnKeyType = UIReturnKeySearch;
+    
+    textField.font = [UIFont systemFontOfSize:15.0f];
+    
+    textField.placeholder = @"搜索好友/账号";
+    
+    textField.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [textField becomeFirstResponder];
+    
+    textField.delegate = self;
+    
+    self.textField = textField;
+    
+    [self.searchBackgroundView addSubview:textField];
+    
+    //右部搜索按钮
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
+    
+    rightButton.tintColor = LOWBLUECOLOR;
+    
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
+    //左边的搜索图标
+    UIImageView *imageView = [[UIImageView alloc] init];
+    
+    imageView.image = [UIImage imageNamed:@"search"];
+    
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.searchBackgroundView addSubview:imageView];
+    
+    NSArray *contrains_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-5-[imageView(14)]-[textField]-10-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView,textField)];
+    
+    NSArray *contrains_imageView_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageView(14)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView)];
+    
+    NSArray *contrains_textField_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[textField(30)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(textField)];
+    
+    NSLayoutConstraint *contrains_imageView_Y = [NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.searchBackgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    
+    NSLayoutConstraint *contrains_textField_Y = [NSLayoutConstraint constraintWithItem:textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.searchBackgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    
+    [self.searchBackgroundView addConstraints:contrains_H];
+    
+    [self.searchBackgroundView addConstraints:contrains_imageView_V];
+    
+    [self.searchBackgroundView addConstraints:contrains_textField_V];
+    
+    [self.searchBackgroundView addConstraint:contrains_imageView_Y];
+    
+    [self.searchBackgroundView addConstraint:contrains_textField_Y];
+    //设置title
+    self.navigationItem.titleView = self.searchBackgroundView;
+    
+    //添加点击事件
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    
+    [self.noResultView addGestureRecognizer:tap];
+    
+    [self.textField becomeFirstResponder];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
 - (void)tapAction {
     
-    [self cancelControllerAndView];
+    [self.textField resignFirstResponder];
+}
+
+- (void)searchAction {
+    
+    //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
+    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
+    
+    if (self.isSearch) {
+        
+        //只要开始搜索先隐藏noResultView
+        self.noResultView.hidden = YES;
+        
+        [self.view endEditing:YES];
+        
+        //开始搜索
+        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
+                                           currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+                                                 success:^(NSMutableArray *dataArray) {
+                                                     
+                                                     self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
+                                                     
+                                                     self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+                                                     
+                                                     [self.tableView reloadData];
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     
+                                                     self.searchResultArray = [NSMutableArray array];
+                                                     
+                                                     self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+                                                     
+                                                     [self.tableView reloadData];
+                                                 }];
+        
+    } else {
+        
+        //不是搜索状态隐藏noResultView
+        self.noResultView.hidden = YES;
+    }
+    
+    [self.tableView reloadData];
+    
+    [self.textField resignFirstResponder];
+}
+
+- (UIView *)searchBackgroundView {
+    
+    if (!_searchBackgroundView) {
+        
+        _searchBackgroundView = [[UIView alloc] init];
+        
+        _searchBackgroundView.backgroundColor = [UIColor whiteColor];
+    }
+    return _searchBackgroundView;
 }
 
 //移除本控制器和本视图
 - (void)cancelControllerAndView {
-    
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-    [self removeFromParentViewController];
-    
-    [self.view removeFromSuperview];
     
     [self.view endEditing:YES];
 }
@@ -83,51 +199,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
-    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
-    
-    if (self.isSearch) {
-        
-        //只要开始搜索先隐藏noResultView
-        self.noResultView.hidden = YES;
-        
-        //只要开始搜索先隐藏backgroundView
-        self.backgroundView.hidden = YES;
-        
-        [self.view endEditing:YES];
-        
-        //开始搜索
-        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
-                                              currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
-                                                    success:^(NSMutableArray *dataArray) {
-            
-            self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
-            
-            self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
-            
-            [self.tableView reloadData];
-            
-        } failure:^(NSError *error) {
-            
-            self.searchResultArray = [NSMutableArray array];
-            
-            self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
-            
-            [self.tableView reloadData];
-        }];
-        
-    } else {
-        
-        //不是搜索状态隐藏noResultView
-        self.noResultView.hidden = YES;
-        
-        //不是搜索状态显示backgroundView
-        self.backgroundView.hidden = NO;
-    }
-    
-    [self.tableView reloadData];
-    
-    [textField resignFirstResponder];
+    [self searchAction];
     
     return YES;
 }
@@ -138,7 +210,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -232,8 +303,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
-
 
 @end

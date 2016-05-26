@@ -62,15 +62,11 @@
     
     if (indexPath.section == 0) {
         
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        
         SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
+
+        controller.hidesBottomBarWhenPushed = YES;
         
-        controller.view.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        [self addChildViewController:controller];
-        
-        [self.view addSubview:controller.view];
+        [self.navigationController pushViewController:controller animated:YES];
     
     } else {
         
@@ -78,6 +74,7 @@
         
         [self.navigationController pushViewController:mlvc animated:YES];
     }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

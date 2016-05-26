@@ -46,7 +46,7 @@
     
     if (!_backgroundView) {
         
-       _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
+       _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         
@@ -110,7 +110,7 @@
         
         self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
         
-        self.backgroundView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+        self.backgroundView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
         
     } else {
         
@@ -187,13 +187,9 @@
             
             if (_isChangeSearchBarHeight) {//要改变
                 
-                [self.navigationController setNavigationBarHidden:NO animated:NO];
-                
                 self.cancelButton.frame = CGRectMake(SCREEN_WIDTH + 5, 64, 44, 44);
                 
                 self.searchBar.frame = CGRectMake(0, 64, SCREEN_WIDTH, 44);
-                
-                self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
                 
             } else {//不要改变
                 
@@ -210,14 +206,10 @@
     } else {
         
         if (_isChangeSearchBarHeight) {//要改变
-            
-            [self.navigationController setNavigationBarHidden:NO animated:NO];
-            
+    
             self.cancelButton.frame = CGRectMake(SCREEN_WIDTH + 5, 64, 44, 44);
             
             self.searchBar.frame = CGRectMake(0, 64, SCREEN_WIDTH, 44);
-            
-            self.tableView.frame = CGRectMake(0, 108, SCREEN_WIDTH, SCREEN_HEIGHT - 108);
             
         } else {//不要改变
             
@@ -240,15 +232,11 @@
         
         if (_isChangeSearchBarHeight) {//改变高度
             
-            [self.navigationController setNavigationBarHidden:YES animated:NO];
-            
             [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                 
-                self.cancelButton.frame = CGRectMake(SCREEN_WIDTH - 49, 22, 44, 44);
+                self.cancelButton.frame = CGRectMake(SCREEN_WIDTH - 49, 64, 44, 44);
                 
-                self.searchBar.frame = CGRectMake(0,22, SCREEN_WIDTH -53, 44);
-                
-                self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+                self.searchBar.frame = CGRectMake(0,64, SCREEN_WIDTH -53, 44);
                 
             } completion:^(BOOL finished) {
                 

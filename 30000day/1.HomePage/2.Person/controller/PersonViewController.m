@@ -239,6 +239,11 @@
     return nil;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return 0.01f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     if (section == 0) {
@@ -251,7 +256,7 @@
         
         if (registerArray.count) {
             
-            return 44.0f;
+            return 30.0f;
             
         } else {
             
@@ -259,7 +264,7 @@
         }
     }
     
-    return 0.01f;
+    return 25.0f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

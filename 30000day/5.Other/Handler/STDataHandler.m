@@ -803,6 +803,8 @@
                                                                     
                                                                     [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
                                                                     
+                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForGenderChange"];
+                                                                    
                                                                     [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForGenderChange",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
                                                                         NSError *localError = nil;
                                                                         

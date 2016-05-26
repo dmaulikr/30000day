@@ -79,9 +79,11 @@
     
     [super viewWillAppear:animated];
     
-    if ([self respondsToSelector:@selector(panGestureRecognizer)]) {
-        
-    }
+//    //开启ios右滑返回
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+//    }
     
     if (_inputView) {
         
@@ -93,6 +95,12 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
+    
+//    //开启ios右滑返回
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
     
     if (_inputView) {
         
