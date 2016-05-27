@@ -41,17 +41,25 @@
     //下载数据
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
+    [STDataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
         
         self.detailModel = detailModel;
         
-        [self.tableView reloadData];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
     }];
 }

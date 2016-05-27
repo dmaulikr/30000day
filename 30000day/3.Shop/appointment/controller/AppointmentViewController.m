@@ -93,21 +93,29 @@
 //2.从服务器下载数据
 - (void)loadDataFromServer {
     
-    [self.dataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
+    [STDataHandler sendFindOrderCanAppointmentWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] productId:self.productId date:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:self.selectorDate] Success:^(NSMutableArray *success) {
         
         self.dataArray = success;
         
-        [self.tableView reloadData];
-        
         self.timeModelArray = [NSMutableArray array];
         
-        [self.productPriceCell clearCell];//清除数据
-        
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.productPriceCell clearCell];//清除数据
+            
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
+            
+        });
         
     } failure:^(NSError *error) {
-    
-        [self.tableView.mj_header endRefreshing];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView.mj_header endRefreshing];
+            
+        });
         
     }];
 }

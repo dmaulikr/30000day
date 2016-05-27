@@ -163,21 +163,29 @@
         
         UIAlertAction *action_third = [UIAlertAction actionWithTitle:@"清除备注头像" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:@"" success:^(BOOL success) {
+            [STDataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:@"" success:^(BOOL success) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-                [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = @"";
-                
-                [self showToast:@"清除备注头像成功"];
-                
-                self.headViewCell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = @"";
+                    
+                    [self showToast:@"清除备注头像成功"];
+                    
+                    self.headViewCell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
+                    
+                });
                 
             } failure:^(NSError *error) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                    
+                });
             }];
             
         }];
@@ -203,21 +211,29 @@
            
             [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             
-            [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:changedTitle friendHeadImageUrlString:nil success:^(BOOL success) {
+            [STDataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:changedTitle friendHeadImageUrlString:nil success:^(BOOL success) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                //给管理器赋值
-                [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].nickName = changedTitle;
-                
-                [self showToast:@"设置昵称成功"];
-                
-                self.cell.detailTextLabel.text = changedTitle;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    //给管理器赋值
+                    [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].nickName = changedTitle;
+                    
+                    [self showToast:@"设置昵称成功"];
+                    
+                    self.cell.detailTextLabel.text = changedTitle;
+                    
+                });
                 
             } failure:^(NSError *error) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                    
+                });
             }];
             
         }];
@@ -291,29 +307,42 @@
     
     [STDataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
         
-        [self.dataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:imageUrl success:^(BOOL success) {
+        [STDataHandler sendUpdateFriendInformationWithUserId:STUserAccountHandler.userProfile.userId friendUserId:self.friendUserId friendNickName:nil friendHeadImageUrlString:imageUrl success:^(BOOL success) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-            //给管理器赋值
-            [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = imageUrl;
-            
-            [self showToast:@"设置备注头像成功"];
-            
-            self.headViewCell.headImageView.image = image;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                //给管理器赋值
+                [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = imageUrl;
+                
+                [self showToast:@"设置备注头像成功"];
+                
+                self.headViewCell.headImageView.image = image;
+                
+            });
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                
+            });
+            
         }];
         
     } failure:^(NSError *error) {
         
-        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
     }];
 }
 

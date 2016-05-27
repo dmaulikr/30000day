@@ -99,19 +99,27 @@
 - (void)loadDataFromServer {
 
     //下载数据
-    [self.dataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
+    [STDataHandler sendFindOrderDetailOrderNumber:self.orderNumber success:^(MyOrderDetailModel *detailModel) {
         
         self.detailModel = detailModel;
         //判断按钮是否可用
         [self judgeConformButtonCanUse:self.detailModel.status];
         
-        [self.tableView reloadData];
-        
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView reloadData];
+            
+            [self.tableView.mj_header endRefreshing];
+            
+        });
         
     } failure:^(NSError *error) {
         
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView.mj_header endRefreshing];
+            
+        });
         
     }];
 }
@@ -145,18 +153,27 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self.dataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
+        [STDataHandler sendCancelOrderWithOrderNumber:self.detailModel.orderNo
                                                  success:^(BOOL success) {
                                                      
-                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                     
-                                                     [self canceledOrderSetting];
-                                                     
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         
+                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                         
+                                                         [self canceledOrderSetting];
+                                                         
+                                                     });
+
                                                  } failure:^(NSError *error) {
                                                      
-                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                     
-                                                     [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                        
+                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                         
+                                                         [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+                                                         
+                                                     });
+                                                    
                                                      
                                                  }];
         

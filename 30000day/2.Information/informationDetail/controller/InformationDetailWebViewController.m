@@ -100,15 +100,19 @@
        
         if (self.praiseView.isSelected) {
             
-            [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:0 busiType:1 success:^(BOOL success) {
+            [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:0 busiType:1 success:^(BOOL success) {
                 
-                if (success) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    if (success) {
+                        
+                        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+                        self.praiseView.showLabel.text = @"点赞";
+                        self.praiseView.selected = NO;
+                        self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
+                    }
                     
-                    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
-                    self.praiseView.showLabel.text = @"点赞";
-                    self.praiseView.selected = NO;
-                    self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
-                }
+                });
                 
             } failure:^(NSError *error) {
 
@@ -117,15 +121,19 @@
             
         } else {
             
-            [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
+            [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:self.infoId isClickLike:1 busiType:1 success:^(BOOL success) {
                 
-                if (success) {
-                    
-                    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
-                    self.praiseView.showLabel.text = @"已赞";
-                    self.praiseView.selected = YES;
-                    self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    if (success) {
+                        
+                        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
+                        self.praiseView.showLabel.text = @"已赞";
+                        self.praiseView.selected = YES;
+                        self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
+                    }
+                
+                });
                 
             } failure:^(NSError *error) {
                 
@@ -134,31 +142,36 @@
     }];
     
     //下载数据
-    [self.dataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
+    [STDataHandler getInfomationDetailWithInfoId:[NSNumber numberWithInt:[self.infoId intValue]] userId:STUserAccountHandler.userProfile.userId success:^(InformationDetails *success) {
        
-        [self loadWebView:success.linkUrl];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        self.urlString = success.linkUrl;
-        
-        if ([success.isClickLike isEqualToString:@"1"]) {
+            [self loadWebView:success.linkUrl];
             
-            self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
-            self.praiseView.showLabel.text = @"已赞";
-            self.praiseView.selected = YES;
-            self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
+            self.urlString = success.linkUrl;
             
-        } else {
+            if ([success.isClickLike isEqualToString:@"1"]) {
+                
+                self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
+                self.praiseView.showLabel.text = @"已赞";
+                self.praiseView.selected = YES;
+                self.praiseView.showLabel.textColor = RGBACOLOR(83, 128, 196, 1);
+                
+            } else {
+                
+                self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+                self.praiseView.showLabel.text = @"点赞";
+                self.praiseView.selected = NO;
+                self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
+            }
             
-            self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
-            self.praiseView.showLabel.text = @"点赞";
-            self.praiseView.selected = NO;
-            self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
-        }
+            self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
+            
+            self.commentCount = [success.commentCount integerValue];
+            self.comment_view.showLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
+
         
-        self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
-        
-        self.commentCount = [success.commentCount integerValue];
-        self.comment_view.showLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];
+        });
         
     } failure:^(NSError *error) {
         
@@ -185,26 +198,33 @@
             
         }
         
-        [self.dataHandler sendSaveCommentWithBusiId:self.infoId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+        [STDataHandler sendSaveCommentWithBusiId:self.infoId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
             
-            if (success) {
-
-                [self showToast:@"评论成功"];
-                
-                self.comment_view.showLabel.text = [NSString stringWithFormat:@"%d跟帖",(int)self.commentCount + 1];
-                
-            } else {
-                
-                [self showToast:@"评论失败"];
-                
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                if (success) {
+                    
+                    [self showToast:@"评论成功"];
+                    
+                    self.comment_view.showLabel.text = [NSString stringWithFormat:@"%d跟帖",(int)self.commentCount + 1];
+                    
+                } else {
+                    
+                    [self showToast:@"评论失败"];
+                    
+                }
+            
+            });
             
         } failure:^(NSError *error) {
             
-            [self showToast:@"评论失败"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [self showToast:@"评论失败"];
+            
+            });
             
         }];
-
         
     }];
 }

@@ -87,11 +87,14 @@
 
 - (void)loadDataWithUserId:(NSNumber *)userId suscribeType:(NSString *)suscribeType {
     
-    [self.dataHandler sendWriterListWithUserId:userId suscribeType:suscribeType success:^(NSMutableArray *dataArray) {
-       
+    [STDataHandler sendWriterListWithUserId:userId suscribeType:suscribeType success:^(NSMutableArray *dataArray) {
         self.dataArray = dataArray;
         
-        [self.rightTableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self.rightTableView reloadData];
+        
+        });
         
     } failure:^(NSError *error) {
         
@@ -172,33 +175,49 @@
             
             if (model.isMineSubscribe == 0) {//订阅操作
                 
-                [self.dataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                [STDataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
                     
-                    model.isMineSubscribe = 1;
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                        model.isMineSubscribe = 1;
+                        
+                        [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                    
+                    });
                     
                     [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
                     
                 } failure:^(NSError *error) {
                     
-                    [self showToast:@"订阅失败"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self showToast:@"订阅失败"];
                     
+                    });
+
                 }];
                 
             } else {
                 
-                [self.dataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                [STDataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
 
-                    model.isMineSubscribe = 0;
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                        model.isMineSubscribe = 0;
+                        
+                        [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                    
+                    });
                     
                     [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
                     
                 } failure:^(NSError *error) {
                    
-                    [self showToast:@"取消失败"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                        [self showToast:@"取消失败"];
+                        
+                    });
                     
                 }];
             }

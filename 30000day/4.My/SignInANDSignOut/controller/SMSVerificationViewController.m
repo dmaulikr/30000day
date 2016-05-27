@@ -13,7 +13,6 @@
 #import "UIImageView+WebCache.h"
 #import "STTabBarViewController.h"
 #import "MTProgressHUD.h"
-#import "AgreementWebViewController.h"
 
 #define IdentityCount 60
 
@@ -40,8 +39,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *agreementButton;
-
 
 @end
 
@@ -64,17 +61,6 @@
     self.nextBtn.layer.cornerRadius = 6;
     
     self.nextBtn.layer.masksToBounds = YES;
-    
-    if (self.isSignOut == 1) {
-        
-        self.agreementButton.hidden = NO;
-        
-    } else {
-    
-        self.agreementButton.hidden = YES;
-    }
-    
-    [self.agreementButton addTarget:self action:@selector(agreementButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     
@@ -214,14 +200,6 @@
 - (void)back {
     
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)agreementButtonClick {
-
-    AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
-    
-    [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -192,7 +192,7 @@
 - (void)subMitClick:(UIButton *)sender {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(NSString *success) {
+    [STDataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:self.imageArray success:^(NSString *success) {
         
         NSString *encodingString;
         if (self.imageArray.count > 0) {
@@ -206,27 +206,38 @@
             
         }
         
-        [self.dataHandler sendSaveCommentWithBusiId:self.productId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:self.textView.text pid:-1 isHideName:self.isHideButton.tag numberStar:self.rate commentPhotos:encodingString success:^(BOOL success) {
+        [STDataHandler sendSaveCommentWithBusiId:self.productId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:self.textView.text pid:-1 isHideName:self.isHideButton.tag numberStar:self.rate commentPhotos:encodingString success:^(BOOL success) {
             
-            if (success) {
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                [self showToast:@"评论成功"];
-                
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                if (success) {
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [self showToast:@"评论成功"];
+                    
+                }
+            
+            });
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            [self showToast:@"评论失败"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                [self showToast:@"评论失败"];
+            
+            });
             
         }];
         
         
     } failure:^(NSError *error) {
     
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
         
     }];
 

@@ -41,9 +41,7 @@
     self.isShowBackItem = YES;
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler senSearchWriterInfomationsWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(InformationWriterModel *success) {
-       
-        self.title = success.writerName;
+    [STDataHandler senSearchWriterInfomationsWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(InformationWriterModel *success) {
         
         self.informationWriterModel = success;
         
@@ -63,16 +61,26 @@
             
         }
         
-        self.informationModelArray = [NSMutableArray arrayWithArray:array];
-    
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            self.title = success.writerName;
+        
+            [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
+        
+        self.informationModelArray = [NSMutableArray arrayWithArray:array];
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
+
     }];
 }
 
@@ -166,53 +174,70 @@
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self.dataHandler sendCancelSubscribeWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
+                [STDataHandler sendCancelSubscribeWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
                     
-                    if (success) {
-                        
-                        [button setTitle:@"订阅" forState:UIControlStateNormal];
-                        button.tag = 0;
-                        
-                        self.isSubscription = self.isSubscription - 1;
-                        
-                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%d人已订阅",(int)self.isSubscription];
-                        
-                        [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
-                        
-                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        if (success) {
+                            
+                            [button setTitle:@"订阅" forState:UIControlStateNormal];
+                            button.tag = 0;
+                            
+                            self.isSubscription = self.isSubscription - 1;
+                            
+                            weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%d人已订阅",(int)self.isSubscription];
+                            
+                            [STNotificationCenter postNotificationName:STDidSuccessCancelSubscribeSendNotification object:NSStringFromClass([self class])];
+                            
+                        }
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    });
                     
                 } failure:^(NSError *error) {
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                    });
                 }];
 
                 
             } else {
             
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-                [self.dataHandler sendSubscribeWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
+                [STDataHandler sendSubscribeWithWriterId:self.writerId userId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(BOOL success) {
                     
-                    if (success) {
-                        
-                        [button setTitle:@"取消订阅" forState:UIControlStateNormal];
-                        button.tag = 1;
-                        
-                        self.isSubscription = self.isSubscription + 1;
-                        
-                        weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%d人已订阅",(int)self.isSubscription];
-                        
-                        [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
-                        
-                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        if (success) {
+                            
+                            [button setTitle:@"取消订阅" forState:UIControlStateNormal];
+                            button.tag = 1;
+                            
+                            self.isSubscription = self.isSubscription + 1;
+                            
+                            weakCell.subscriptionCountLable.text = [NSString stringWithFormat:@"%d人已订阅",(int)self.isSubscription];
+                            
+                            [STNotificationCenter postNotificationName:STDidSuccessSubscribeSendNotification object:NSStringFromClass([self class])];
+                            
+                        }
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+
+                    
+                    });
+                    
                     
                 } failure:^(NSError *error) {
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    });
                     
                 }];
 

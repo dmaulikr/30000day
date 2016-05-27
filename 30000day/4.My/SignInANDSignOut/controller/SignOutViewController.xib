@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignOutViewController">
             <connections>
                 <outlet property="ConfirmPasswordTxt" destination="kip-bp-AMZ" id="TBB-VI-9ps"/>
+                <outlet property="agreementButton" destination="qtg-W1-L9M" id="gAi-2J-z8s"/>
                 <outlet property="niceNameTextSubView" destination="8w0-wn-4mg" id="Mw5-qY-XGe"/>
                 <outlet property="passwordTextSubView" destination="Gtv-WO-RSr" id="Ph5-vz-EnX"/>
                 <outlet property="submitBtn" destination="kIe-11-75Y" id="rbj-UW-bZe"/>
@@ -135,27 +136,8 @@
                         </mask>
                     </variation>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eW7-yF-dTF">
-                    <rect key="frame" x="87" y="239" width="96" height="12"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="12" id="SW6-AV-JRe"/>
-                        <constraint firstAttribute="height" constant="12" id="lvx-Qu-JVq"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="《数天用户协议》"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="lvx-Qu-JVq"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="lvx-Qu-JVq"/>
-                        </mask>
-                    </variation>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIe-11-75Y">
-                    <rect key="frame" x="15" y="281" width="290" height="44"/>
+                    <rect key="frame" x="15" y="283" width="290" height="44"/>
                     <color key="backgroundColor" red="0.26274509800000001" green="0.41568627450000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="fIS-ct-d5B"/>
@@ -180,25 +162,30 @@
                         <action selector="regitF:" destination="-1" eventType="touchUpInside" id="N3Q-qL-6eZ"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtg-W1-L9M">
+                    <rect key="frame" x="87" y="231" width="108" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="《免责条款及协议》"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Gtv-WO-RSr" firstAttribute="leading" secondItem="0Lr-CE-oyE" secondAttribute="leading" id="0jQ-Sy-UyQ"/>
                 <constraint firstAttribute="trailing" secondItem="kIe-11-75Y" secondAttribute="trailing" constant="15" id="0x2-tb-8L2"/>
+                <constraint firstItem="qtg-W1-L9M" firstAttribute="leading" secondItem="IKh-UA-tQ9" secondAttribute="trailing" id="8ER-9Z-Sfu"/>
+                <constraint firstItem="kIe-11-75Y" firstAttribute="top" secondItem="qtg-W1-L9M" secondAttribute="bottom" constant="25" id="Ec5-3T-SXu"/>
                 <constraint firstAttribute="trailing" secondItem="Gtv-WO-RSr" secondAttribute="trailing" id="R00-2P-SAP"/>
                 <constraint firstItem="8w0-wn-4mg" firstAttribute="top" secondItem="Gtv-WO-RSr" secondAttribute="bottom" constant="15" id="VIx-gm-UXy"/>
                 <constraint firstItem="IKh-UA-tQ9" firstAttribute="top" secondItem="8w0-wn-4mg" secondAttribute="bottom" constant="15" id="c9l-Nv-Yqq"/>
-                <constraint firstItem="eW7-yF-dTF" firstAttribute="top" secondItem="8w0-wn-4mg" secondAttribute="bottom" constant="15" id="dEa-HF-goi"/>
                 <constraint firstItem="8w0-wn-4mg" firstAttribute="leading" secondItem="0Lr-CE-oyE" secondAttribute="leading" id="dj4-Lb-9m0"/>
                 <constraint firstItem="kIe-11-75Y" firstAttribute="leading" secondItem="0Lr-CE-oyE" secondAttribute="leading" constant="15" id="fnO-IX-w7g"/>
-                <constraint firstItem="eW7-yF-dTF" firstAttribute="leading" secondItem="IKh-UA-tQ9" secondAttribute="trailing" id="kmC-RO-haT"/>
+                <constraint firstItem="qtg-W1-L9M" firstAttribute="centerY" secondItem="IKh-UA-tQ9" secondAttribute="centerY" id="hPf-sL-DZh"/>
                 <constraint firstAttribute="trailing" secondItem="8w0-wn-4mg" secondAttribute="trailing" id="ngh-Q8-VM8"/>
                 <constraint firstItem="IKh-UA-tQ9" firstAttribute="leading" secondItem="0Lr-CE-oyE" secondAttribute="leading" constant="15" id="otb-KL-KCD"/>
-                <constraint firstItem="kIe-11-75Y" firstAttribute="top" secondItem="eW7-yF-dTF" secondAttribute="bottom" constant="30" id="tAk-3o-uHM"/>
                 <constraint firstItem="Gtv-WO-RSr" firstAttribute="top" secondItem="0Lr-CE-oyE" secondAttribute="top" constant="76" id="x0B-U1-05l"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="34" y="-635"/>
+            <point key="canvasLocation" x="-87" y="-632"/>
         </view>
     </objects>
 </document>

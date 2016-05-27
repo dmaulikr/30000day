@@ -87,48 +87,74 @@
         
         self.shopDetailModel = model;
         //店长推荐
-        [self.dataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
+        [STDataHandler sendShopOwnerRecommendWithCompanyId:model.companyId count:3 Success:^(NSMutableArray *success) {
             
             self.shopModelKeeperArray = [NSArray arrayWithArray:success];
             
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+                
+                [self.tableView.mj_header endRefreshing];
+            
+            });
             
         } failure:^(NSError *error) {
             
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [self.tableView.mj_header endRefreshing];
+            
+            });
             
         }];
         
         //平台推荐
-        [self.dataHandler sendPlatformRecommendWithProductTypeId:model.productTypePid count:3 Success:^(NSMutableArray *success) {
+        [STDataHandler sendPlatformRecommendWithProductTypeId:model.productTypePid count:3 Success:^(NSMutableArray *success) {
             
-            self.shopModelTerraceArray = [NSArray arrayWithArray:success];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
+                self.shopModelTerraceArray = [NSArray arrayWithArray:success];
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+            
+            });
+
         } failure:^(NSError *error) {
             
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
+                [self.tableView.mj_header endRefreshing];
+            
+            });
+
         }];
         //商品详情评论
-        [self.dataHandler sendDefaultCommentWithBusiId:[NSNumber numberWithInteger:[self.productId integerValue]] Success:^(NSMutableArray *success) {
+        [STDataHandler sendDefaultCommentWithBusiId:[NSNumber numberWithInteger:[self.productId integerValue]] Success:^(NSMutableArray *success) {
            
-            self.commentArray = success;
-            
-            [self.tableView.mj_header endRefreshing];
-            
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.commentArray = success;
+                
+                [self.tableView.mj_header endRefreshing];
+                
+                [self.tableView reloadData];
+                
+            });
             
         } failure:^(NSError *error) {
             
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self.tableView.mj_header endRefreshing];
+                
+            });
+            
+            
         }];
         
         //下载店主的个人信息
-        [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+        [STDataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
            
             self.ownerInformationModel = model;
             
@@ -564,21 +590,29 @@
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+                [STDataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
                     
-                    [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
-                        
-                        if (!error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                             
-                            [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                        }
-                    }];
+                            if (!error) {
+                                
+                                [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
+                            }
+                        }];
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    });
                     
                 } failure:^(NSError *error) {
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    });
                     
                 }];
 
