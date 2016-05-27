@@ -219,6 +219,9 @@
                     //给管理器赋值
                     [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].nickName = changedTitle;
                     
+                    //成功的更新好友信息发出的通知
+                    [STNotificationCenter postNotificationName:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+                    
                     [self showToast:@"设置昵称成功"];
                     
                     self.cell.detailTextLabel.text = changedTitle;
@@ -256,6 +259,8 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                 
                     [self.navigationController popToRootViewControllerAnimated:YES];
+                    
+                    [STNotificationCenter postNotificationName:STUseDidSuccessDeleteFriendSendNotification object:nil];
                 
                 });
 
