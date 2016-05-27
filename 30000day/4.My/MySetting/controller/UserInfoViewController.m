@@ -366,7 +366,7 @@
     
     NSDate *bithdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
     
-    [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:bithdayDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(100.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate date]];
+    [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:bithdayDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(200.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate date]];
 }
 
 #pragma mark -- QGPickerViewDelegate
