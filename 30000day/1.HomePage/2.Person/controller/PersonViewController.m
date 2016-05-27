@@ -201,13 +201,13 @@
         
         if (self.sortTab) {
         
-            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
+            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
             
             view.sortButton.selected = YES;
         
         } else {
             
-            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
+            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
         
             view.sortButton.selected = NO;
         }
@@ -220,7 +220,7 @@
                 
                 self.sortTab = 0;
                 
-                [button setTitle:@"降序" forState:UIControlStateNormal];
+                [button setTitle:@"升序" forState:UIControlStateNormal];
                 
             } else {
                 
@@ -228,7 +228,7 @@
                 
                 self.sortTab = 1;
                 
-                [button setTitle:@"升序" forState:UIControlStateNormal];
+                [button setTitle:@"降序" forState:UIControlStateNormal];
             }
             
             [self reloadData];

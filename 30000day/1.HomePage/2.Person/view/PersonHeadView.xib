@@ -38,13 +38,11 @@
                     <rect key="frame" x="167" y="33" width="70" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="1Ln-1c-3mY"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="grs-mi-hCx"/>
-                        <constraint firstAttribute="width" constant="70" id="o4z-1e-ah5"/>
-                        <constraint firstAttribute="height" constant="30" id="qlE-C3-Tlc"/>
+                        <constraint firstAttribute="width" constant="70" id="9EE-od-eih"/>
+                        <constraint firstAttribute="height" constant="30" id="YFS-be-pxJ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="降序">
+                    <state key="normal" title="降序" image="sort">
                         <color key="titleColor" red="0.26274509800000001" green="0.41568627450000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -56,10 +54,10 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="NjZ-PT-3iQ" secondAttribute="trailing" constant="8" id="05h-AS-NWX"/>
                 <constraint firstItem="NjZ-PT-3iQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="A3c-rj-qEr"/>
+                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="centerY" secondItem="hdS-d5-33i" secondAttribute="centerY" id="bdB-o1-q81"/>
                 <constraint firstItem="BEa-Ee-FQY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="dxG-CC-RNO"/>
-                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="centerY" secondItem="hdS-d5-33i" secondAttribute="centerY" id="fPf-ox-R0i"/>
                 <constraint firstItem="BEa-Ee-FQY" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gsL-z4-CBA"/>
-                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="leading" secondItem="hdS-d5-33i" secondAttribute="trailing" constant="5" id="vyA-qD-zGy"/>
+                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="leading" secondItem="hdS-d5-33i" secondAttribute="trailing" constant="5" id="lbO-8I-8HN"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -72,5 +70,6 @@
     </objects>
     <resources>
         <image name="list" width="16" height="16"/>
+        <image name="sort" width="16" height="16"/>
     </resources>
 </document>

@@ -106,11 +106,11 @@
                                                        dispatch_async(dispatch_get_main_queue(), ^{
                                                        
                                                            [weakCell setType:ButtonTypeAccept];
+                                                           
+                                                           //发出通知
+                                                           [STNotificationCenter postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
                                                        
                                                        });
-
-                                                       //发出通知
-                                                       [STNotificationCenter postNotificationName:STUserAddFriendsSuccessPostNotification object:nil];
                                                        
                                                        UserInformationModel *otherModle = [[UserInformationModel alloc] init];
                                                        
