@@ -145,19 +145,27 @@
                                            currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                  success:^(NSMutableArray *dataArray) {
                                                      
-                                                     self.searchResultArray = [NSMutableArray arrayWithArray:dataArray];
-                                                     
-                                                     self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
-                                                     
-                                                     [self.tableView reloadData];
-                                                     
+                                                     self.searchResultArray = dataArray;
+
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         
+                                                        [self.tableView reloadData];
+                                                         
+                                                         self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+                                                         
+                                                     });
+
                                                  } failure:^(NSError *error) {
                                                      
                                                      self.searchResultArray = [NSMutableArray array];
                                                      
-                                                     self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
-                                                     
-                                                     [self.tableView reloadData];
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         
+                                                         self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+
+                                                         [self.tableView reloadData];
+                                                         
+                                                     });
                                                  }];
         
     } else {
@@ -186,12 +194,6 @@
 - (void)cancelControllerAndView {
     
     [self.view endEditing:YES];
-}
-
-//取消按钮点击方法
-- (IBAction)cancelAction:(id)sender {
-    
-    [self cancelControllerAndView];
 }
 
 #pragma ---
@@ -228,23 +230,25 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:searchResultIdentifier owner:self options:nil] lastObject];
     }
     
-    cell.userInformationModel = self.searchResultArray[indexPath.row];
+    UserInformationModel *model = self.searchResultArray[indexPath.row];
+    
+    cell.userInformationModel = model;
     
     __weak typeof(cell) weakCell = cell;
     
     //点击添加按钮回调
-    [cell setAddUserBlock:^(UserInformationModel *userInformationModel){
+    [cell setAddUserBlock:^{
         
         [self.view endEditing:YES];
         
-        if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:userInformationModel.userId]) {
+        if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:model.userId]) {
             
             [self showToast:@"对方或自己的id为空~"];
             
             return;
         }
         
-        if ([STUserAccountHandler.userProfile.userId isEqualToNumber:userInformationModel.userId]) {
+        if ([STUserAccountHandler.userProfile.userId isEqualToNumber:model.userId]) {
             
             [self showToast:@"不能添加自己~"];
             
@@ -254,15 +258,13 @@
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         //添加好友,接口, @1请求   @2接受   @3拒绝
         [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
-                                                       userId:userInformationModel.userId
+                                                       userId:model.userId
                                                     messageType:@1
                                                       success:^(BOOL success) {
-                                                          
-                                                          userInformationModel.userId = nil;
-                                                          
-                                                          if ([Common isObjectNull:[UserInformationModel errorStringWithModel:userInformationModel userProfile:STUserAccountHandler.userProfile]]) {
+  
+                                                          if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {
                                                               
-                                                              [NewFriendManager subscribePresenceToUserWithUserProfile:userInformationModel andCallback:^(BOOL succeeded, NSError *error) {
+                                                              [NewFriendManager subscribePresenceToUserWithUserProfile:model andCallback:^(BOOL succeeded, NSError *error) {
                                                                   
                                                                   if (succeeded) {
                                                                       
@@ -292,7 +294,7 @@
                                                                   
                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                   
-                                                                  [self showToast:[UserInformationModel errorStringWithModel:userInformationModel userProfile:STUserAccountHandler.userProfile]];
+                                                                  [self showToast:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]];
                                                               });
                                                           }
 

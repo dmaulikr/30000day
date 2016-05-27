@@ -27,8 +27,20 @@
     self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    //获取数据
-    [[NewFriendManager shareManager] getDataArray:^(NSMutableArray *dataArray) {
+    [self showHeadRefresh:YES showFooterRefresh:NO];
+    
+    [self getDataFromServer];
+}
+
+- (void)headerRefreshing {
+    
+    [self getDataFromServer];
+}
+
+//获取数据
+- (void)getDataFromServer {
+    
+    [STDataHandler sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -36,9 +48,21 @@
             
             [self.tableView reloadData];
             
+            [self.tableView.mj_header endRefreshing];
+            
+        });
+        
+    } failure:^(NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+            
+            [self.tableView.mj_header endRefreshing];
         });
     }];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -143,25 +167,27 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
-        [[NewFriendManager shareManager] deleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId
-                                                          friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]]
-                                                                success:^(NSMutableArray *dataArray) {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                       
-                                                                        self.dataArray = dataArray;
-                                                                        
-                                                                        [self.tableView reloadData];
-                                                                        
-                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                    });
-                                                                    
-    } failure:^(NSError *error) {
-       
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-    }];
-        
+        [STDataHandler sendDeleteApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId friendUserId:[NSNumber numberWithLongLong:[model.userId longLongValue]] success:^(BOOL success) {
+           
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.dataArray removeObject:model];
+                
+                [self.tableView reloadData];
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            });
+            
+        } failure:^(NSError *error) {
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                
+            });
+        }];   
     }
 }
 

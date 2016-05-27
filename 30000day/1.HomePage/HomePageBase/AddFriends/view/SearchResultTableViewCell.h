@@ -20,6 +20,6 @@
 
 @property (nonatomic,strong) UserInformationModel *userInformationModel;
 
-@property (nonatomic , copy) void (^(addUserBlock))(UserInformationModel *userInformationModel);
+@property (nonatomic , copy) void (^(addUserBlock))();
 
 @end

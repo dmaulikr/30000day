@@ -788,55 +788,6 @@
                                                                 if (![Common isObjectNull:gender]) {
                                                                     
                                                                     STUserAccountHandler.userProfile.gender = gender;
-                                                                    
-                                                                    //恶心的逻辑，设置完性别后，调用健康因子界面接口
-                                                                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                                                                    
-                                                                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-                                                                    
-                                                                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-                                                                    
-                                                                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-                                                                    
-                                                                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                                                                    
-                                                                    [params addParameter:userId forKey:@"userId"];
-                                                                    
-                                                                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
-                                                                    
-                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForGenderChange"];
-                                                                    
-                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForGenderChange",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-                                                                        NSError *localError = nil;
-                                                                        
-                                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                                        if (localError == nil) {
-                                                                            
-                                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                                            
-                                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                                
-                                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                    
-                                                                                    //发出通知
-                                                                                  [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-                                                                                });
-
-                                                                            } else {
-                                                                                
-
-                                                                            }
-                                                                            
-                                                                        } else {
-                                                                            
-                                                                            
-                                                                        }
-                                                                        
-                                                                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-                                                                        
-                                                                        
-                                                                    }];
-   
                                                                 }
                                                                 
                                                                 if (![Common isObjectNull:birthday]) {
@@ -852,6 +803,56 @@
                                                                 if (![Common isObjectNull:memo]) {
                                                                     
                                                                     STUserAccountHandler.userProfile.memo = memo;
+                                                                }
+                                                                
+#pragma mark --- 因公司系统设计问题，设置完性别后，需调用健康因子界面接口，去设置天龄
+                                                                if (![Common isObjectNull:gender] || ![Common isObjectNull:birthday]) {
+
+                                                                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                                                                    
+                                                                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+                                                                    
+                                                                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                                                                    
+                                                                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                                                                    
+                                                                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                                                                    
+                                                                    [params addParameter:userId forKey:@"userId"];
+                                                                    
+                                                                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
+                                                                    
+                                                                    [params addParameter:birthday forKey:@"birthday"];
+
+                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForUpdateUserInfo"];
+                                                                    
+                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForUpdateUserInfo",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                        NSError *localError = nil;
+                                                                        
+                                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                                        if (localError == nil) {
+                                                                            
+                                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                                            
+                                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                                
+                                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                    
+                                                                                    //发出通知
+                                                                                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                                });
+                                                                                
+                                                                            } else {
+                                                                                
+                                                                            }
+                                                                            
+                                                                        } else {
+                                                                            
+                                                                        }
+                                                                        
+                                                                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+
+                                                                    }];
                                                                 }
 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -1098,43 +1099,38 @@
                 if ([dictionary[@"code"] isEqualToNumber:@0]) {
                     
                     //字典数组创建一个模型数组
-                    NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:dictionary[@"value"]];
+                    NSArray *array = dictionary[@"value"];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                    
+                    for (int i = 0; i < array.count; i++) {
                         
-                        success(array);
+                        NSDictionary *dictionary = array[i];
                         
-                    });
+                        UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
+                        
+                        [dataArray addObject:model];
+                    }
+
+                    success(dataArray);
                     
                 } else {
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:dictionary[@"msg"]}];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        failure(failureError);
-                        
-                    });
+                    failure(failureError);
                 }
               
             } else {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    failure(firstError);
-                    
-                });
+            
+                failure(firstError);
             }
             
         } else {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                failure(error);
-                
-            });
+                    
+            failure(error);
         }
-    });;
+    });
 }
 
 //************添加一个好友(currentUserId:当前用户的userId,userId:待添加的userId,messageType:消息类型 @1请求;@2接受;@3拒绝*************/
@@ -4880,7 +4876,107 @@
         failure(error);
         
     }];
+}
 
+
+//**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
++ (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
+                                    success:(void (^)(NSMutableArray *dataArray))success
+                                    failure:(void (^)(NSError *error))failure {
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?userId=%@",ST_API_SERVER,FIND_APPLY_ALL_ADD_FRIEND,userId]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    
+    request.HTTPMethod = @"GET";
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        if (connectionError) {//链接出现问题
+            
+            failure(connectionError);
+            
+        } else {//链接没有问题
+            
+            NSError *localError = nil;
+            
+            id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+            
+            if (localError == nil) {
+                
+                NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                
+                if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                    
+                    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                    
+                    NSArray *array = recvDic[@"value"];
+                    
+                    for (int i = 0; i < array.count; i++) {
+                        
+                        NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
+                        
+                        [dataArray addObject:model];
+                    }
+                    
+                    success(dataArray);
+                    
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                    
+                    failure(failureError);
+                }
+                
+            } else {
+                
+                failure(localError);
+            }
+        }
+    }];
+}
+
+//*********************删除某一条请求加为好友记录*******************//
++ (void)sendDeleteApplyAddFriendWithUserId:(NSNumber *)userId
+                              friendUserId:(NSNumber *)friendId
+                                   success:(void (^)(BOOL))success
+                                   failure:(void (^)(NSError *))failure {
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?userId=%@&friendId=%@",ST_API_SERVER,DELETE_APPLY_ADD_FRIEND,userId,friendId]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    
+    request.HTTPMethod = @"GET";
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        if (connectionError) {//链接出现问题
+            
+            failure(connectionError);
+            
+        } else {//链接没有问题
+            
+            NSError *localError = nil;
+            
+            id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
+            
+            if (localError == nil) {
+                
+                NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                
+                if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                    
+                    success(YES);
+                    
+                } else {
+                    
+                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+                    
+                    failure(failureError);
+                }
+                
+            } else {
+                
+                failure(localError);
+            }
+        }
+    }];
 }
 
 @end

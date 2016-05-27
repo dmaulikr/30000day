@@ -1122,6 +1122,7 @@ static CGPoint  delayOffset = {0.0};
         }
     };
     switch (index) {
+            
         case 0: {
 
             [MCPhotographyHelper showPhotoBrowserWithController:self completion:^(NSArray<UIImage *> *imageArray) {
@@ -1135,25 +1136,39 @@ static CGPoint  delayOffset = {0.0};
             
             break;
         }
+            
         case 1: {
+            
             [self.photographyHelper showOnPickerViewControllerSourceType:UIImagePickerControllerSourceTypeCamera onViewController:self compled:PickerMediaBlock];
+            
             break;
         }
+            
         case 2: {
+            
             WEAKSELF
             [self.locationHelper getCurrentGeolocationsCompled:^(NSArray *placemarks) {
+                
                 CLPlacemark *placemark = [placemarks lastObject];
+                
                 if (placemark) {
+                    
                     NSDictionary *addressDictionary = placemark.addressDictionary;
+                    
                     NSArray *formattedAddressLines = [addressDictionary valueForKey:@"FormattedAddressLines"];
+                    
                     NSString *geoLocations = [formattedAddressLines lastObject];
+                    
                     if (geoLocations) {
+                        
                         [weakSelf didSendGeolocationsMessageWithGeolocaltions:geoLocations location:placemark.location];
                     }
                 }
             }];
+            
             break;
         }
+            
         default:
             break;
     }
@@ -1198,7 +1213,7 @@ static CGPoint  delayOffset = {0.0};
             
             if ( translation.y > 0) {//向下滑动
                 
-                if (scrollView.contentOffset.y <= -30 ) {//&& scrollView.contentOffset.y >= - 40
+                if (scrollView.contentOffset.y <= -30 && scrollView.contentOffset.y >= - 60) {
                     
                     if (!self.loadingMoreMessage) {
                         
