@@ -272,9 +272,9 @@ static BOOL _showStatusBar = NO;
 
 - (void)didDoubleSelectedOnTextMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
     DLog(@"text : %@", message.text);
-    XHDisplayTextViewController *displayTextViewController = [[XHDisplayTextViewController alloc] init];
-    displayTextViewController.message = message;
-    [self.navigationController pushViewController:displayTextViewController animated:YES];
+//    XHDisplayTextViewController *displayTextViewController = [[XHDisplayTextViewController alloc] init];
+//    displayTextViewController.message = message;
+//    [self.navigationController pushViewController:displayTextViewController animated:YES];
 }
 
 - (void)didSelectedAvatorOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
@@ -874,23 +874,30 @@ static BOOL _showStatusBar = NO;
             
             if (!error) {
                 
-                NSMutableArray *xhMsgs = [[self getXHMessages:msgs] mutableCopy];
-                
-                NSMutableArray *newMsgs = [NSMutableArray arrayWithArray:msgs];
-                
-                [newMsgs addObjectsFromArray:self.msgs];
-                
-                self.msgs = newMsgs;
-                
-                [self insertOldMessages:xhMsgs completion: ^{
-                    
-                    self.isLoadingMsg = NO;
-                    self.loadingMoreMessage = NO;//结束加载更多数据
-                }];
-                
-                if (msgs.count == 0 ) {//没数据的时候不让加载
+                if (msgs.count == 0 ) {//没数据的时候不让继续加载
                     
                     self.canLoadMoreMessage = NO;
+                    
+                    self.isLoadingMsg = NO;
+                    
+                    self.loadingMoreMessage = NO;//结束加载更多数据
+                    
+                } else {//有数据继续加载
+                    
+                    NSMutableArray *xhMsgs = [[self getXHMessages:msgs] mutableCopy];
+                    
+                    NSMutableArray *newMsgs = [NSMutableArray arrayWithArray:msgs];
+                    
+                    [newMsgs addObjectsFromArray:self.msgs];
+                    
+                    self.msgs = newMsgs;
+                    
+                    [self insertOldMessages:xhMsgs completion: ^{
+                        
+                        self.isLoadingMsg = NO;
+                        
+                        self.loadingMoreMessage = NO;//结束加载更多数据
+                    }];
                 }
                 
             } else {

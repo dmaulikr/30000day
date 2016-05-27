@@ -41,6 +41,7 @@ static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextVi
 
 @property (nonatomic, strong) UIView *headerContainerView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadMoreActivityIndicatorView;
+@property (nonatomic, strong) UILabel *loadMoreLabel;
 
 /**
  *  管理本机的摄像和图片库的工具对象
@@ -232,28 +233,40 @@ static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextVi
 }
 
 - (void)addMessage:(XHMessage *)addedMessage {
+    
     WEAKSELF
+    
     [self exChangeMessageDataSourceQueue:^{
+        
         NSMutableArray *messages = [NSMutableArray arrayWithArray:weakSelf.messages];
+        
         [messages addObject:addedMessage];
         
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+        
         [indexPaths addObject:[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]];
         
         [weakSelf exMainQueue:^{
+            
             weakSelf.messages = messages;
+            
             [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            
             [weakSelf scrollToBottomAnimated:YES];
         }];
     }];
 }
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.row >= self.messages.count)
+        
         return;
+    
     [self.messages removeObjectAtIndex:indexPath.row];
     
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:1];
+    
     [indexPaths addObject:indexPath];
     
     [self.messageTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
@@ -262,29 +275,45 @@ static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextVi
 static CGPoint  delayOffset = {0.0};
 // http://stackoverflow.com/a/11602040 Keep UITableView static when inserting rows at the top
 - (void)insertOldMessages:(NSArray *)oldMessages completion:(void (^)())completion{
+    
     WEAKSELF
+    
     [self exChangeMessageDataSourceQueue:^{
+        
         NSMutableArray *messages = [NSMutableArray arrayWithArray:oldMessages];
+        
         [messages addObjectsFromArray:weakSelf.messages];
         
         delayOffset = weakSelf.messageTableView.contentOffset;
+        
+        weakSelf.messages = messages;//先赋值 解决了崩溃bug
+        
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:oldMessages.count];
+        
         [oldMessages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+            
             [indexPaths addObject:indexPath];
             
             delayOffset.y += [weakSelf calculateCellHeightWithMessage:[messages objectAtIndex:idx] atIndexPath:indexPath];
+            
         }];
         
         [weakSelf exMainQueue:^{
+            
             [UIView setAnimationsEnabled:NO];
+            
             [weakSelf.messageTableView beginUpdates];
-            weakSelf.messages = messages;
+
             [weakSelf.messageTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             
             [weakSelf.messageTableView setContentOffset:delayOffset animated:NO];
+            
             [weakSelf.messageTableView endUpdates];
+            
             [UIView setAnimationsEnabled:YES];
+            
             completion();
         }];
     }];
@@ -293,27 +322,62 @@ static CGPoint  delayOffset = {0.0};
 #pragma mark - Propertys
 
 - (NSMutableArray *)messages {
+    
     if (!_messages) {
+        
         _messages = [[NSMutableArray alloc] initWithCapacity:0];
     }
+    
     return _messages;
 }
 
 - (UIView *)headerContainerView {
+    
     if (!_headerContainerView) {
+        
         _headerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44)];
+        
         _headerContainerView.backgroundColor = self.messageTableView.backgroundColor;
+        
         [_headerContainerView addSubview:self.loadMoreActivityIndicatorView];
+        
+        [_headerContainerView addSubview:self.loadMoreLabel];
     }
+    
     return _headerContainerView;
 }
+
 - (UIActivityIndicatorView *)loadMoreActivityIndicatorView {
+    
     if (!_loadMoreActivityIndicatorView) {
+        
         _loadMoreActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _loadMoreActivityIndicatorView.center = CGPointMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0, CGRectGetHeight(_headerContainerView.bounds) / 2.0);
+        
+        _loadMoreActivityIndicatorView.color = LOWBLUECOLOR;
+        
+        _loadMoreActivityIndicatorView.center = CGPointMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0 - 30.f, -20.f);
+        
     }
+    
     return _loadMoreActivityIndicatorView;
 }
+
+- (UILabel *)loadMoreLabel {
+    
+    if (!_loadMoreLabel) {
+        
+        _loadMoreLabel = [[UILabel alloc] init];
+        
+        _loadMoreLabel.frame = CGRectMake(CGRectGetWidth(_headerContainerView.bounds) / 2.0 - 15,-42.5f, 100.0f, CGRectGetHeight(_headerContainerView.frame));
+        
+        _loadMoreLabel.textColor = LOWBLUECOLOR;
+        
+        _loadMoreLabel.font = [UIFont systemFontOfSize:15.0f];
+    }
+    
+    return _loadMoreLabel;
+}
+
 - (void)setLoadingMoreMessage:(BOOL)loadingMoreMessage {
     
     _loadingMoreMessage = loadingMoreMessage;
@@ -322,37 +386,70 @@ static CGPoint  delayOffset = {0.0};
         
         [self.loadMoreActivityIndicatorView startAnimating];
         
+        self.loadMoreLabel.text = @"正在加载...";
+        
+        self.loadMoreLabel.hidden = NO;
+        
     } else {
         
         [self.loadMoreActivityIndicatorView stopAnimating];
+        
+        self.loadMoreLabel.hidden = YES;
     }
 }
 
+- (void)setCanLoadMoreMessage:(BOOL)canLoadMoreMessage {
+    
+    _canLoadMoreMessage = canLoadMoreMessage;
+    
+    //可以进行一些的操作
+}
+
 - (XHShareMenuView *)shareMenuView {
+    
     if (!_shareMenuView) {
+        
         XHShareMenuView *shareMenuView = [[XHShareMenuView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), self.keyboardViewHeight)];
+        
         shareMenuView.delegate = self;
+        
         shareMenuView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
+        
         shareMenuView.alpha = 0.0;
+        
         shareMenuView.shareMenuItems = self.shareMenuItems;
+        
         [self.view addSubview:shareMenuView];
+        
         _shareMenuView = shareMenuView;
     }
+    
     [self.view bringSubviewToFront:_shareMenuView];
+    
     return _shareMenuView;
 }
 
 - (XHEmotionManagerView *)emotionManagerView {
+    
     if (!_emotionManagerView) {
+        
         XHEmotionManagerView *emotionManagerView = [[XHEmotionManagerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), self.keyboardViewHeight)];
+        
         emotionManagerView.delegate = self;
+        
         emotionManagerView.dataSource = self;
+        
         emotionManagerView.backgroundColor = [UIColor colorWithWhite:0.961 alpha:1.000];
+        
         emotionManagerView.alpha = 0.0;
+        
         [self.view addSubview:emotionManagerView];
+        
         _emotionManagerView = emotionManagerView;
     }
+    
     [self.view bringSubviewToFront:_emotionManagerView];
+    
     return _emotionManagerView;
 }
 
@@ -619,10 +716,15 @@ static CGPoint  delayOffset = {0.0};
     };
     
     self.messageTableView.keyboardDidChange = ^(BOOL didShowed) {
+        
         if ([weakSelf.messageInputView.inputTextView isFirstResponder]) {
+            
             if (didShowed) {
+                
                 if (weakSelf.textViewInputViewType == XHInputViewTypeText) {
+                    
                     weakSelf.shareMenuView.alpha = 0.0;
+                    
                     weakSelf.emotionManagerView.alpha = 0.0;
                 }
             }
@@ -630,6 +732,7 @@ static CGPoint  delayOffset = {0.0};
     };
     
     self.messageTableView.keyboardDidHide = ^() {
+        
         [weakSelf.messageInputView.inputTextView resignFirstResponder];
     };
     
@@ -714,7 +817,7 @@ static CGPoint  delayOffset = {0.0};
     return NO;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
@@ -834,11 +937,15 @@ static CGPoint  delayOffset = {0.0};
 #pragma mark - Message Calculate Cell Height
 
 - (CGFloat)calculateCellHeightWithMessage:(id <XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
+    
     CGFloat cellHeight = 0;
     
     BOOL displayTimestamp = YES;
+    
     if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:)]) {
+        
         displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath];
+        
     }
     
     cellHeight = [XHMessageTableViewCell calculateCellHeightWithMessage:message displaysTimestamp:displayTimestamp];
@@ -1213,7 +1320,7 @@ static CGPoint  delayOffset = {0.0};
             
             if ( translation.y > 0) {//向下滑动
                 
-                if (scrollView.contentOffset.y <= -30 && scrollView.contentOffset.y >= - 60) {
+                if (scrollView.contentOffset.y <= -115 ) {//scrollView.contentOffset.y >= - 140
                     
                     if (!self.loadingMoreMessage) {
                         
@@ -1276,7 +1383,9 @@ static CGPoint  delayOffset = {0.0};
     id <XHMessageModel> message = [self.dataSource messageForRowAtIndexPath:indexPath];
     
     BOOL displayTimestamp = YES;
+    
     if ([self.delegate respondsToSelector:@selector(shouldDisplayTimestampForRowAtIndexPath:)]) {
+        
         displayTimestamp = [self.delegate shouldDisplayTimestampForRowAtIndexPath:indexPath];
     }
     
@@ -1285,15 +1394,18 @@ static CGPoint  delayOffset = {0.0};
     XHMessageTableViewCell *messageTableViewCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!messageTableViewCell) {
+        
         messageTableViewCell = [[XHMessageTableViewCell alloc] initWithMessage:message displaysTimestamp:displayTimestamp reuseIdentifier:cellIdentifier];
+        
         messageTableViewCell.delegate = self;
     }
     
     messageTableViewCell.indexPath = indexPath;
+    
     [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
-//    [messageTableViewCell setBackgroundColor:tableView.backgroundColor];
     
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
+        
         [self.delegate configureCell:messageTableViewCell atIndexPath:indexPath];
     }
     

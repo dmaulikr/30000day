@@ -152,18 +152,27 @@
 }
 
 - (void)configureBubbleImageView:(id <XHMessageModel>)message {
+    
     XHBubbleMessageMediaType currentType = message.messageMediaType;
     
     _voiceDurationLabel.hidden = YES;
+    
     switch (currentType) {
+            
         case XHBubbleMessageMediaTypeVoice: {
+            
             _voiceDurationLabel.hidden = NO;
+            
             if (message.isRead == NO) {
+                
                 _voiceUnreadDotImageView.hidden = NO;
             }
         }
+            
         case XHBubbleMessageMediaTypeText:
+            
         case XHBubbleMessageMediaTypeEmotion: {
+            
             _bubbleImageView.image = [XHMessageBubbleFactory bubbleImageViewForType:message.bubbleMessageType style:XHBubbleImageViewStyleWeChat meidaType:message.messageMediaType];
             // 只要是文本、语音、第三方表情，背景的气泡都不能隐藏
             _bubbleImageView.hidden = NO;
@@ -176,24 +185,34 @@
                 _displayTextView.hidden = NO;
                 // 那语言的gif动画imageView就需要隐藏了
                 _animationVoiceImageView.hidden = YES;
+                
                 _emotionImageView.hidden = YES;
+                
             } else {
                 // 那如果不文本消息，必须把文本消息的控件隐藏了啊
                 _displayTextView.hidden = YES;
                 
                 // 对语音消息的进行特殊处理，第三方表情可以直接利用背景气泡的ImageView控件
                 if (currentType == XHBubbleMessageMediaTypeVoice) {
+                    
                     [_animationVoiceImageView removeFromSuperview];
+                    
                     _animationVoiceImageView = nil;
                     
                     UIImageView *animationVoiceImageView = [XHMessageVoiceFactory messageVoiceAnimationImageViewWithBubbleMessageType:message.bubbleMessageType];
+                    
                     [self addSubview:animationVoiceImageView];
+                    
                     _animationVoiceImageView = animationVoiceImageView;
+                    
                     _animationVoiceImageView.hidden = NO;
+                    
                 } else {
+                    
                     _emotionImageView.hidden = NO;
                     
                     _bubbleImageView.hidden = YES;
+                    
                     _animationVoiceImageView.hidden = YES;
                 }
             }
