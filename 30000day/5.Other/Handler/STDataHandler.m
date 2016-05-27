@@ -4297,7 +4297,7 @@
 }
 
 //*****************************************根据userId来获取个人信息模型*********************/
-- (void)sendUserInformtionWithUserId:(NSNumber *)userId
++ (void)sendUserInformtionWithUserId:(NSNumber *)userId
                              success:(void (^)(UserInformationModel *model))success
                              failure:(void (^)(NSError *error))failure {
     
@@ -4364,7 +4364,7 @@
     
     request.requestSerializerType = STRequestSerializerTypeJSON;
     
-    [self startRequest:request];
+    [STDataHandler startRequest:request];
 }
 
 //*****************************************查找作者*********************/

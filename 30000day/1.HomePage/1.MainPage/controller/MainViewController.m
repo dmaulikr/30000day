@@ -145,6 +145,37 @@
     
 }
 
+/** 判断是否为明天 */
+- (BOOL)istomorrow:(NSDate *)inputDate {
+    
+    NSString *dateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:inputDate];
+    
+    NSString *nowStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
+    
+    //在转回去是因为要比较day的区别
+    NSDate *date2 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:dateStr];
+    
+    NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
+    
+    NSCalendar *calendar  = [NSCalendar currentCalendar];
+    
+    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    
+    NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
+    
+    return cmps.day == 1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+}
+
+//- (NSString *)getUserLifeDay {
+//    
+//    if (STUserAccountHandler.userProfile.birthday) {
+//        
+//        
+//    }
+//    
+//    return ;
+//}
+
 //获取用户的天龄
 - (void)getUserLifeList {
     

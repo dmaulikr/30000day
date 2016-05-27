@@ -128,7 +128,7 @@
         }];
         
         //下载店主的个人信息
-        [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+        [STDataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
            
             self.ownerInformationModel = model;
             
@@ -564,7 +564,7 @@
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
-                [self.dataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
+                [STDataHandler sendUserInformtionWithUserId:self.shopDetailModel.ownerId success:^(UserInformationModel *model) {
                     
                     [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.shopDetailModel.ownerId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
                         

@@ -106,7 +106,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                  success:(void (^)(BOOL success))success
                                  failure:(void (^)(NSError *error))failure;
 
-//**************通过用户名获取userId通过用户名获取userId**********/
+//**************通过用户名获取userId**********/
 + (void)sendGetUserIdByUserName:(NSString *)userName
                         success:(void (^)(NSNumber *userId))success
                         failure:(void (^)(NSError *error))failure;
@@ -428,7 +428,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                           failure:(void (^)(NSError *error))failure;
 
 //*****************************************根据userId来获取个人信息模型*********************/
-- (void)sendUserInformtionWithUserId:(NSNumber *)userId
++ (void)sendUserInformtionWithUserId:(NSNumber *)userId
                           success:(void (^)(UserInformationModel *model))success
                           failure:(void (^)(NSError *error))failure;
 
