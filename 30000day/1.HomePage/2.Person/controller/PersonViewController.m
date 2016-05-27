@@ -128,7 +128,8 @@
 - (void)getMyFriends {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] order:[NSString stringWithFormat:@"%ld",self.sortTab] success:^(NSMutableArray *dataArray) {
+    
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] order:[NSString stringWithFormat:@"%d",(int)self.sortTab] success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -267,6 +268,8 @@
         view.titleLabel.hidden = NO;
         
         view.changeStatusButton.hidden = YES;
+        
+        view.sortButton.hidden = YES;
         
         NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
         

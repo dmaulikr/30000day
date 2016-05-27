@@ -723,9 +723,7 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 success(YES);
-                
-                [STNotificationCenter postNotificationName:STUseDidSuccessDeleteFriendSendNotification object:nil];
-                
+
             } else {
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
@@ -4525,10 +4523,7 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 success(YES);
-                
-                //成功的更新好友信息发出的通知
-                [STNotificationCenter postNotificationName:STDidSuccessUpdateFriendInformationSendNotification object:nil];
-                
+                            
             } else {
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
