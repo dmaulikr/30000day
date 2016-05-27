@@ -45,7 +45,7 @@
   
     self.detailTitleLabel.text = userInformationModel.memo;
     
-    if ([_userInformationModel.flag isEqual:@0]) {
+    if ([userInformationModel.flag isEqual:@0]) {
         
         self.addButton.hidden = NO;
         
@@ -59,7 +59,7 @@
     
     if (self.addUserBlock) {
         
-        self.addUserBlock(_userInformationModel);
+        self.addUserBlock();
         
     }
 }

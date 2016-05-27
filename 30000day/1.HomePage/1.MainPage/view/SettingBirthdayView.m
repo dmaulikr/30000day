@@ -73,7 +73,7 @@
         
         datePicker.datePickerMode = UIDatePickerModeDate;
         
-        datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-(100.00000 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
+        datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-(200.00000 * 365.00000 * 24.000000 * 60.00000 * 60.00000)];
         
         datePicker.maximumDate = [NSDate date];
         

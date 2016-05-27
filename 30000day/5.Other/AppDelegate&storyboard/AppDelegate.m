@@ -119,9 +119,6 @@
 //        
 //        NSLog(@"manager start failed!");
 //    }
-
-    //*********初始化申请好友管理***************************//
-    [[NewFriendManager shareManager] synchronizedDataFromServer];
     
     //初始化版本控制器
     [[SearchVersionManager shareManager] synchronizedDataFromServer];

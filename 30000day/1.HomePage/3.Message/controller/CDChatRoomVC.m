@@ -41,8 +41,6 @@ static NSInteger const kOnePageSize = 10;
 
 @property (nonatomic, strong) NSArray *emotionManagers;
 
-@property (nonatomic,strong) MPMoviePlayerViewController *moviePlayerViewController;
-
 @end
 
 @implementation CDChatRoomVC
@@ -185,16 +183,6 @@ static BOOL _showStatusBar = NO;
     return _showStatusBar;
 }
 
-//- (MPMoviePlayerViewController *)moviePlayerViewController {
-//    
-//    if (!_moviePlayerViewController) {
-//        
-//        
-//    }
-//    
-//    return _moviePlayerViewController;
-//}
-
 - (void)multiMediaMessageDidSelectedOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
     
     UIViewController *disPlayViewController;
@@ -203,15 +191,15 @@ static BOOL _showStatusBar = NO;
             
         case XHBubbleMessageMediaTypeVideo: {
             
-            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
-            
-            [browser showVideo:message.videoPath];
-            
-//            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
+//            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
 //            
-//            controller.message = message;
-//            
-//            [self.navigationController pushViewController:controller animated:YES];
+//            [browser showVideo:message.videoPath];
+            
+            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
+            
+            controller.message = message;
+            
+            [self.navigationController pushViewController:controller animated:YES];
 
             break;
         }
@@ -338,12 +326,18 @@ static BOOL _showStatusBar = NO;
 
 //发送文本消息的回调方法
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     if ([text length] > 0 ) {
+        
         AVIMTextMessage *msg = [AVIMTextMessage messageWithText:[CDEmotionUtils plainStringFromEmojiString:text] attributes:nil];
+        
         [self sendMsg:msg];
+        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeText];
     }
 }
@@ -408,16 +402,25 @@ static BOOL _showStatusBar = NO;
 
 // 是否显示时间轴Label的回调方法
 - (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.row == 0) {
+        
         return YES;
+        
     } else {
+        
         XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
+        
         XHMessage *lastMsg = [self.messages objectAtIndex:indexPath.row - 1];
+        
         int interval = [msg.timestamp timeIntervalSinceDate:lastMsg.timestamp];
+        
         if (interval > 60 * 3) {
+            
             return YES;
-        }
-        else {
+            
+        } else {
+            
             return NO;
         }
     }
@@ -490,13 +493,21 @@ static BOOL _showStatusBar = NO;
 #pragma mark - send message
 
 - (void)sendImage:(UIImage *)image {
+    
     NSData *imageData = UIImageJPEGRepresentation(image, 0.6);
+    
     NSString *path = [[CDChatManager manager] tmpPath];
+    
     NSError *error;
+    
     [imageData writeToFile:path options:NSDataWritingAtomic error:&error];
+    
     if (error == nil) {
+        
         AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil attachedFilePath:path attributes:nil];
+        
         [self sendMsg:msg];
+        
     } else {
         
     }
