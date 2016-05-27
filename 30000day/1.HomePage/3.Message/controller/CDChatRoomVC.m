@@ -301,24 +301,28 @@ static BOOL _showStatusBar = NO;
 #pragma mark - XHEmotionManagerView DataSource
 
 - (NSInteger)numberOfEmotionManagers {
+    
     return self.emotionManagers.count;
 }
 
 - (XHEmotionManager *)emotionManagerForColumn:(NSInteger)column {
+    
     return [self.emotionManagers objectAtIndex:column];
 }
 
 - (NSArray *)emotionManagersAtManager {
+    
     return self.emotionManagers;
 }
 
 #pragma mark - XHMessageTableViewController Delegate
-
 - (BOOL)shouldLoadMoreMessagesScrollToTop {
+    
     return YES;
 }
 
 - (void)loadMoreMessagesScrollTotop {
+    
     [self loadOldMessages];
 }
 
@@ -344,37 +348,53 @@ static BOOL _showStatusBar = NO;
 
 //发送图片消息的回调方法
 - (void)didSendPhoto:(UIImage *)photo fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     [self sendImage:photo];
+    
     [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
 }
 
 // 发送视频消息的回调方法
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:videoPath attributes:nil];
+    
     [self sendMsg:sendVideoMessage];
 }
 
-// 发送语音消息的回调方法
+//发送语音消息的回调方法
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     AVIMTypedMessage *msg = [AVIMAudioMessage messageWithText:nil attachedFilePath:voicePath attributes:nil];
+    
     [self sendMsg:msg];
 }
 
 // 发送表情消息的回调方法
 - (void)didSendEmotion:(NSString *)emotion fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     if ([emotion hasPrefix:@":"]) {
+        
         // 普通表情
         UITextView *textView = self.messageInputView.inputTextView;
         NSRange range = [textView selectedRange];
@@ -384,9 +404,13 @@ static BOOL _showStatusBar = NO;
         textView.text = [CDEmotionUtils emojiStringFromString:str];
         textView.selectedRange = NSMakeRange(range.location + emotion.length, 0);
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeEmotion];
+        
     } else {
+        
         AVIMEmotionMessage *msg = [AVIMEmotionMessage messageWithEmotionPath:emotion];
+        
         [self sendMsg:msg];
+        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeEmotion];
     }
 }

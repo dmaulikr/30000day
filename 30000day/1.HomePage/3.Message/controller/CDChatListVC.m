@@ -186,15 +186,15 @@ static NSString *cellIdentifier = @"ContactCell";
     static NSString *headViewIndentifier = @"PersonHeadView";
     
     PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
-    
-    view.sortButton.hidden = YES;
-    
-    view.titleLabel.hidden = YES;
-    
+
     if (view == nil) {
         
         view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
     }
+    
+    view.sortButton.hidden = YES;
+    
+    view.titleLabel.hidden = YES;
     
     [view setChangeStateBlock:^(UIButton *changeStatusButton) {
         

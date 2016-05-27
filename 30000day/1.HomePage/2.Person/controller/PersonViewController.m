@@ -268,6 +268,8 @@
         
         view.changeStatusButton.hidden = YES;
         
+        view.sortButton.hidden = YES;
+        
         NSMutableArray *registerArray = [[[MailListManager shareManager] getModelArray] firstObject];
         
         if (registerArray.count) {
