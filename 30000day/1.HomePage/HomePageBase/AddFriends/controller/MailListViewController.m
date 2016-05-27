@@ -24,7 +24,6 @@
 @property (nonatomic,assign) BOOL isSearch;
 @property (nonatomic ,strong) NSMutableArray *indexArray;//里面装的NSSting(A,B,C,D.......)
 @property (nonatomic ,strong) NSMutableArray *chineseStringArray;//该数组里面装的是chineseString这个模型
-@property (nonatomic ,strong) NSMutableArray *cellArray;//存储的MailListTableViewCell
 @property (nonatomic ,strong) NSMutableArray *searchResultArray;//存储的是搜索后的MailListTableViewCell
 
 @end
@@ -49,7 +48,7 @@
 
 - (void)loadDataFromServer {
     
-    self.cellArray = [[MailListManager shareManager] getModelArray];
+    self.chineseStringArray = [[MailListManager shareManager] getModelArray];
     
     self.indexArray = [[MailListManager shareManager] getIndexArray];
 }
@@ -103,7 +102,7 @@
         
     } else {
         
-        return self.cellArray.count;
+        return self.chineseStringArray.count;
     }
     
 }
@@ -116,7 +115,7 @@
         
     }  else {
 
-        NSMutableArray *array = self.cellArray[section];
+        NSMutableArray *array = self.chineseStringArray[section];
             
         return array.count;
         
@@ -153,7 +152,7 @@
         
     } else {
         
-        NSMutableArray *array = self.cellArray[section];
+        NSMutableArray *array = self.chineseStringArray[section];
         
         if (array.count) {
             
@@ -205,7 +204,7 @@
         
     } else {
         
-        NSMutableArray *array = self.cellArray[indexPath.section];
+        NSMutableArray *array = self.chineseStringArray[indexPath.section];
         
         chineseString = array[indexPath.row];
 
@@ -226,7 +225,7 @@
             
         } else {
             
-            NSMutableArray *array = self.cellArray[indexPath.section];
+            NSMutableArray *array = self.chineseStringArray[indexPath.section];
             
             chineseString = array[indexPath.row];
         }
@@ -333,7 +332,6 @@
             
         } else if (tag == 5) {
             
-            //[UMSocialData defaultData].extConfig.sinaData.title
             [[UMSocialControllerService defaultControllerService] setShareText:@"守护我爱的人，30000天。人生短暂，快来加入吧! " shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             

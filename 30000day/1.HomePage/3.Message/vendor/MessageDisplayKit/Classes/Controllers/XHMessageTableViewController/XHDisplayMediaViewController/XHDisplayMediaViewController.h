@@ -10,7 +10,7 @@
 #import "XHBaseViewController.h"
 #import "XHMessageModel.h"
 
-@interface XHDisplayMediaViewController : XHBaseViewController
+@interface XHDisplayMediaViewController : STBaseViewController
 
 @property (nonatomic, strong) id <XHMessageModel> message;
 

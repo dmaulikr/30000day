@@ -315,10 +315,15 @@ static CGPoint  delayOffset = {0.0};
     return _loadMoreActivityIndicatorView;
 }
 - (void)setLoadingMoreMessage:(BOOL)loadingMoreMessage {
+    
     _loadingMoreMessage = loadingMoreMessage;
+    
     if (loadingMoreMessage) {
+        
         [self.loadMoreActivityIndicatorView startAnimating];
+        
     } else {
+        
         [self.loadMoreActivityIndicatorView stopAnimating];
     }
 }
@@ -499,7 +504,7 @@ static CGPoint  delayOffset = {0.0};
     _allowsSendMultiMedia = YES;
     _allowsSendFace = YES;
     _inputViewStyle = XHMessageInputViewStyleFlat;
-    
+    self.canLoadMoreMessage = YES;//可以加载更多
     self.delegate = self;
     self.dataSource = self;
 }
@@ -1188,29 +1193,22 @@ static CGPoint  delayOffset = {0.0};
         
         BOOL shouldLoadMoreMessages = [self.delegate shouldLoadMoreMessagesScrollToTop];
         if (shouldLoadMoreMessages) {
-//            if (scrollView.contentOffset.y >=0 && scrollView.contentOffset.y <= 44) {
-//                if (!self.loadingMoreMessage) {
-//                    if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
-//                        [self.delegate loadMoreMessagesScrollTotop];
-//                    }
-//                }
-//            }
+
             CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
             
             if ( translation.y > 0) {//向下滑动
                 
-                if (scrollView.contentOffset.y >=0 && scrollView.contentOffset.y <= 44) {
+                if (scrollView.contentOffset.y <= -30 ) {//&& scrollView.contentOffset.y >= - 40
                     
                     if (!self.loadingMoreMessage) {
                         
-                        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)]) {
+                        if ([self.delegate respondsToSelector:@selector(loadMoreMessagesScrollTotop)] && self.canLoadMoreMessage) {
                             
                             [self.delegate loadMoreMessagesScrollTotop];
                             
                         }
                     }
                 }
-                
             } else if (translation.y < 0) {//向上滑动
                 
                 

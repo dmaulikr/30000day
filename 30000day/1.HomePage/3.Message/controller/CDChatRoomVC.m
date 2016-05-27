@@ -23,6 +23,8 @@
 #import "CDFailedMessageStore.h"
 #import "AVIMEmotionMessage.h"
 #import "UIImageView+WebCache.h"
+#import "STAvatarBrowser.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 static NSInteger const kOnePageSize = 10;
 
@@ -38,6 +40,8 @@ static NSInteger const kOnePageSize = 10;
 @property (nonatomic, strong) XHMessageTableViewCell *currentSelectedCell;
 
 @property (nonatomic, strong) NSArray *emotionManagers;
+
+@property (nonatomic,strong) MPMoviePlayerViewController *moviePlayerViewController;
 
 @end
 
@@ -94,6 +98,8 @@ static NSInteger const kOnePageSize = 10;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(hideOrShowStatusBar) name:STAvatarBrowserDidHideAvatarImage object:nil];
 
     [self loadMessagesWhenInit];
 }
@@ -160,25 +166,71 @@ static NSInteger const kOnePageSize = 10;
 
 #pragma mark - XHMessageTableViewCell delegate
 
+static BOOL _showStatusBar = NO;
+
+- (void)hideOrShowStatusBar {
+    
+    _showStatusBar = NO;
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self prefersStatusBarHidden];
+        
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    
+    return _showStatusBar;
+}
+
+//- (MPMoviePlayerViewController *)moviePlayerViewController {
+//    
+//    if (!_moviePlayerViewController) {
+//        
+//        
+//    }
+//    
+//    return _moviePlayerViewController;
+//}
+
 - (void)multiMediaMessageDidSelectedOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
     
     UIViewController *disPlayViewController;
     
     switch (message.messageMediaType) {
             
-        case XHBubbleMessageMediaTypeVideo:
+        case XHBubbleMessageMediaTypeVideo: {
+            
+//            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
+//            
+//            [browser showVideo:message.videoPath];
+            
+            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
+            
+            controller.message = message;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+
+            break;
+        }
             
         case XHBubbleMessageMediaTypePhoto: {
             
-            XHDisplayMediaViewController *messageDisplayTextView = [[XHDisplayMediaViewController alloc] init];
+            [STAvatarBrowser showImage:[message photo]];
             
-            messageDisplayTextView.message = message;
-            
-            disPlayViewController = messageDisplayTextView;
+            if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                
+                _showStatusBar = YES;
+                
+                [self prefersStatusBarHidden];
+                
+                [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+            }
             
             break;
         }
-            break;
             
         case XHBubbleMessageMediaTypeVoice: {
             // Mark the voice as read and hide the red dot.
@@ -777,6 +829,8 @@ static NSInteger const kOnePageSize = 10;
         
         self.isLoadingMsg = YES;
         
+        self.loadingMoreMessage = YES;//正在加载更多数据
+        
         AVIMTypedMessage *msg = [self.msgs objectAtIndex:0];
         
         int64_t timestamp = msg.sendTimestamp;
@@ -796,8 +850,13 @@ static NSInteger const kOnePageSize = 10;
                 [self insertOldMessages:xhMsgs completion: ^{
                     
                     self.isLoadingMsg = NO;
-                    
+                    self.loadingMoreMessage = NO;//结束加载更多数据
                 }];
+                
+                if (msgs.count == 0 ) {//没数据的时候不让加载
+                    
+                    self.canLoadMoreMessage = NO;
+                }
                 
             } else {
                 

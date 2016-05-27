@@ -22,37 +22,64 @@
 @implementation XHDisplayMediaViewController
 
 - (MPMoviePlayerController *)moviePlayerController {
+    
     if (!_moviePlayerController) {
+        
         _moviePlayerController = [[MPMoviePlayerController alloc] init];
+        
         _moviePlayerController.repeatMode = MPMovieRepeatModeOne;
+        
         _moviePlayerController.scalingMode = MPMovieScalingModeAspectFill;
+        
         _moviePlayerController.view.frame = self.view.frame;
+        
         [self.view addSubview:_moviePlayerController.view];
     }
+    
     return _moviePlayerController;
 }
 
 - (UIImageView *)photoImageView {
+    
     if (!_photoImageView) {
+        
         UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        photoImageView.contentMode=UIViewContentModeScaleAspectFit;
+        
+        photoImageView.backgroundColor = [UIColor whiteColor];
+        
+        photoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
         [self.view addSubview:photoImageView];
+        
         _photoImageView = photoImageView;
+        
     }
+    
     return _photoImageView;
 }
 
 - (void)setMessage:(id<XHMessageModel>)message {
+    
     _message = message;
+    
     if ([message messageMediaType] == XHBubbleMessageMediaTypeVideo) {
+        
         self.title = NSLocalizedStringFromTable(@"Video", @"MessageDisplayKitString", @"详细视频");
+        
         self.moviePlayerController.contentURL = [NSURL fileURLWithPath:[message videoPath]];
+        
         [self.moviePlayerController play];
+        
     } else if ([message messageMediaType] ==XHBubbleMessageMediaTypePhoto) {
+        
         self.title = NSLocalizedStringFromTable(@"Photo", @"MessageDisplayKitString", @"详细照片");
+        
         self.photoImageView.image = message.photo;
+        
         if (message.thumbnailUrl) {
+            
             [self.photoImageView setImageWithURL:[NSURL URLWithString:[message thumbnailUrl]] placeholer:[UIImage imageNamed:@"placeholderImage"]];
+            
         }
     }
 }

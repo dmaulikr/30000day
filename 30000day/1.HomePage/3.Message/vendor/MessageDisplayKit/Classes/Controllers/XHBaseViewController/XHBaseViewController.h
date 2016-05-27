@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, XHBarbuttonItemStyle) {
     XHBarbuttonItemStyleCamera,
 };
 
-@interface XHBaseViewController : UIViewController
+@interface XHBaseViewController : ShowBackItemViewController
 
 /**
  *  统一设置背景图片

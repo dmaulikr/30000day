@@ -79,6 +79,12 @@
     
     [super viewWillAppear:animated];
     
+//    //开启ios右滑返回
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+//    }
+    
     if (_inputView) {
         
         //这地方必须加上，否则会出现bug
@@ -89,6 +95,12 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
+    
+//    //开启ios右滑返回
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
     
     if (_inputView) {
         

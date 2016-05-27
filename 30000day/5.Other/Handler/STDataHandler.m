@@ -788,6 +788,55 @@
                                                                 if (![Common isObjectNull:gender]) {
                                                                     
                                                                     STUserAccountHandler.userProfile.gender = gender;
+                                                                    
+                                                                    //恶心的逻辑，设置完性别后，调用健康因子界面接口
+                                                                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                                                                    
+                                                                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+                                                                    
+                                                                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                                                                    
+                                                                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                                                                    
+                                                                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                                                                    
+                                                                    [params addParameter:userId forKey:@"userId"];
+                                                                    
+                                                                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
+                                                                    
+                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForGenderChange"];
+                                                                    
+                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForGenderChange",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                        NSError *localError = nil;
+                                                                        
+                                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                                                                        if (localError == nil) {
+                                                                            
+                                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                                                                            
+                                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                                                                
+                                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                    
+                                                                                    //发出通知
+                                                                                  [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                                                                });
+
+                                                                            } else {
+                                                                                
+
+                                                                            }
+                                                                            
+                                                                        } else {
+                                                                            
+                                                                            
+                                                                        }
+                                                                        
+                                                                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+                                                                        
+                                                                        
+                                                                    }];
+   
                                                                 }
                                                                 
                                                                 if (![Common isObjectNull:birthday]) {
@@ -1631,7 +1680,7 @@
     
     NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
     
-    [dataDictionary addParameter:STUserAccountHandler.userProfile.gender forKey:@"gender"];
+    [dataDictionary addParameter:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.gender] forKey:@"gender"];
     
     for (int i = 0; i < factorsModelArray.count - 3; i++) {
         
