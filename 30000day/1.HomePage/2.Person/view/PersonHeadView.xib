@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -34,17 +34,37 @@
                         <action selector="buttonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="H4A-JY-0XV"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdS-d5-33i">
+                    <rect key="frame" x="167" y="33" width="70" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="1Ln-1c-3mY"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="grs-mi-hCx"/>
+                        <constraint firstAttribute="width" constant="70" id="o4z-1e-ah5"/>
+                        <constraint firstAttribute="height" constant="30" id="qlE-C3-Tlc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="降序">
+                        <color key="titleColor" red="0.26274509800000001" green="0.41568627450000001" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="sortButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="YNg-Jv-B8n"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="NjZ-PT-3iQ" secondAttribute="trailing" constant="8" id="05h-AS-NWX"/>
                 <constraint firstItem="NjZ-PT-3iQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="A3c-rj-qEr"/>
                 <constraint firstItem="BEa-Ee-FQY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="dxG-CC-RNO"/>
+                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="centerY" secondItem="hdS-d5-33i" secondAttribute="centerY" id="fPf-ox-R0i"/>
                 <constraint firstItem="BEa-Ee-FQY" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gsL-z4-CBA"/>
+                <constraint firstItem="NjZ-PT-3iQ" firstAttribute="leading" secondItem="hdS-d5-33i" secondAttribute="trailing" constant="5" id="vyA-qD-zGy"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="changeStatusButton" destination="NjZ-PT-3iQ" id="XQw-Hj-9zv"/>
+                <outlet property="sortButton" destination="hdS-d5-33i" id="hkc-5w-TcS"/>
                 <outlet property="titleLabel" destination="BEa-Ee-FQY" id="s5n-f8-nKn"/>
             </connections>
             <point key="canvasLocation" x="212" y="-96"/>

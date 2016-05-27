@@ -94,7 +94,8 @@ static NSString *cellIdentifier = @"ContactCell";
 //获取我的好友-----目的是取出当前用户是否设置备注头像
 - (void)getMyFriends {
     
-    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
+    //order:@"0"
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -186,6 +187,8 @@ static NSString *cellIdentifier = @"ContactCell";
     static NSString *headViewIndentifier = @"PersonHeadView";
     
     PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
+    
+    view.sortButton.hidden = YES;
     
     view.titleLabel.hidden = YES;
     

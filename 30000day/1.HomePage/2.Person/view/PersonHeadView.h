@@ -12,7 +12,12 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *sortButton;
+
+
 @property (nonatomic,copy) void (^(changeStateBlock))(UIButton *changeStatusButton);
+
+@property (nonatomic,copy) void (^(sortButtonBlock))(UIButton *sortButton);
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 

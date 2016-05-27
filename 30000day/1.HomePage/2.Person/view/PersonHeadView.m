@@ -36,4 +36,13 @@
     }
 }
 
+- (IBAction)sortButtonClick:(UIButton *)sender {
+    
+    if (self.sortButtonBlock) {
+        self.sortButtonBlock(sender);
+    }
+    
+}
+
+
 @end

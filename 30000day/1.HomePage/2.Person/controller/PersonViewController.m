@@ -27,6 +27,8 @@
 
 @property (nonatomic,strong) PersonTableViewCell *firstCell;
 
+@property (nonatomic,assign) NSInteger sortTab;
+
 @end
 
 @implementation PersonViewController
@@ -125,7 +127,9 @@
 //获取我的好友
 - (void)getMyFriends {
 
-    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] success:^(NSMutableArray *dataArray) {
+    //order:[NSString stringWithFormat:@"%ld",self.sortTab]
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -137,6 +141,8 @@
             [self.tableView reloadData];
             
             [self.tableView.mj_header endRefreshing];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         });
         
@@ -145,6 +151,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
         
             [self.tableView.mj_header endRefreshing];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
         });
         
@@ -191,6 +199,43 @@
             [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
             
         }];
+        
+        if (self.sortTab) {
+        
+            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
+            
+            view.sortButton.selected = YES;
+        
+        } else {
+            
+            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
+        
+            view.sortButton.selected = NO;
+        }
+
+        [view setSortButtonBlock:^(UIButton *button) {
+            
+            if (button.isSelected) {
+                
+                button.selected = NO;
+                
+                self.sortTab = 0;
+                
+                [button setTitle:@"降序" forState:UIControlStateNormal];
+                
+            } else {
+                
+                button.selected = YES;
+                
+                self.sortTab = 1;
+                
+                [button setTitle:@"升序" forState:UIControlStateNormal];
+            }
+            
+            [self reloadData];
+            
+        }];
+
         
         if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
             
