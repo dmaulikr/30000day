@@ -94,8 +94,7 @@ static NSString *cellIdentifier = @"ContactCell";
 //获取我的好友-----目的是取出当前用户是否设置备注头像
 - (void)getMyFriends {
     
-    //order:@"0"
-    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  success:^(NSMutableArray *dataArray) {
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] order:@"0" success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         

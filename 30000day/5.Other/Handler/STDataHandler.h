@@ -137,8 +137,9 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
 + (void)getMyFriendsWithUserId:(NSString *)userId
-                                success:(void (^)(NSMutableArray * dataArray))success
-                                failure:(void (^)(NSError *))failure;
+                         order:(NSString *)order
+                       success:(void (^)(NSMutableArray * dataArray))success
+                       failure:(void (^)(NSError *))failure;
 
 //************************ 删除好友 **********/
 + (void)sendDeleteFriendWithUserId:(NSNumber *)userId

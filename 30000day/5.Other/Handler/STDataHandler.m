@@ -642,12 +642,15 @@
 
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
 + (void)getMyFriendsWithUserId:(NSString *)userId
-                               success:(void (^)(NSMutableArray * dataArray))success
-                               failure:(void (^)(NSError *))failure {
-
+                         order:(NSString *)order
+                       success:(void (^)(NSMutableArray * dataArray))success
+                       failure:(void (^)(NSError *))failure {
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     [parameters addParameter:userId forKey:@"userId"];
+    
+    [parameters addParameter:order forKey:@"order"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

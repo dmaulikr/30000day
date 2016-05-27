@@ -127,9 +127,8 @@
 //获取我的好友
 - (void)getMyFriends {
 
-    //order:[NSString stringWithFormat:@"%ld",self.sortTab]
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  success:^(NSMutableArray *dataArray) {
+    [STDataHandler getMyFriendsWithUserId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] order:[NSString stringWithFormat:@"%ld",self.sortTab] success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
