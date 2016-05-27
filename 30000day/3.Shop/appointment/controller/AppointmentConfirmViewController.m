@@ -98,27 +98,37 @@
                                  uniqueKeyArray:self.timeModelArray
                                   payableAmount:_model.currentPrice
                                         Success:^(NSString *orderNumber) {
-                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                            PaymentViewController *controller = [[PaymentViewController alloc] init];
                                             
-//                                            controller.timeModelArray = self.timeModelArray;
-//                                            
-//                                            controller.selectorDate = self.selectorDate;
-//                                            
-//                                            controller.productName = self.productName;
+                                            dispatch_async(dispatch_get_main_queue(), ^{
                                             
-                                            controller.orderNumber = orderNumber;
+                                                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                PaymentViewController *controller = [[PaymentViewController alloc] init];
+                                                
+                                                //                                            controller.timeModelArray = self.timeModelArray;
+                                                //
+                                                //                                            controller.selectorDate = self.selectorDate;
+                                                //
+                                                //                                            controller.productName = self.productName;
+                                                
+                                                controller.orderNumber = orderNumber;
+                                                
+                                                controller.hidesBottomBarWhenPushed = YES;
+                                                
+                                                [self.navigationController pushViewController:controller animated:YES];
                                             
-                                            controller.hidesBottomBarWhenPushed = YES;
-                                            
-                                            [self.navigationController pushViewController:controller animated:YES];
+                                            });
                                             
                                             
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+        
+        });
+        
     }];
 }
 
@@ -129,8 +139,12 @@
        
         _model = model;
         
-        [self.tableView reloadData];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView reloadData];
+            
+        });
+
     } failure:^(NSError *error) {
         
     }];

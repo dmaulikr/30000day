@@ -18,4 +18,6 @@
 
 @property (nonatomic,copy) NSString *uid;
 
+@property (nonatomic,assign) BOOL isConceal;
+
 @end

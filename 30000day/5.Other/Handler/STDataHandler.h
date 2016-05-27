@@ -295,7 +295,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                      failure:(void (^)(NSError *error))failure;
 
 //*********************************获取评论列表*******************/
-- (void)sendfindCommentListWithProductId:(NSInteger)productId
++ (void)sendfindCommentListWithProductId:(NSInteger)productId
                                     type:(NSInteger)type
                                      pId:(NSInteger)pId
                                   userId:(NSInteger)userId
@@ -303,7 +303,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                          failure:(void (^)(NSError *error))failure;
 
 //*********************************评论*************************/
-- (void)sendsaveCommentWithProductId:(NSString *)productId
++ (void)sendsaveCommentWithProductId:(NSString *)productId
                                 type:(NSInteger)type
                               userId:(NSString *)userId
                               remark:(NSString *)remark
@@ -314,42 +314,42 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                  failure:(void (^)(NSError *error))failure;
 
 //*********************************点赞*************************/
-- (void)sendPointPraiseOrCancelWithCommentId:(NSString *)commentId
++ (void)sendPointPraiseOrCancelWithCommentId:(NSString *)commentId
                                  isClickLike:(BOOL)isClickLike
                                      Success:(void (^)(BOOL success))success
                                      failure:(void (^)(NSError *error))failure;
 
 
 //*********************************商品详情评论*************************/
-- (void)sendDefaultCommentWithBusiId:(NSNumber *)busiId
++ (void)sendDefaultCommentWithBusiId:(NSNumber *)busiId
                                      Success:(void (^)(NSMutableArray *success))success
                                      failure:(void (^)(NSError *error))failure;
 
 //*********************************店长推荐*************************/
-- (void)sendShopOwnerRecommendWithCompanyId:(NSString *)companyId
++ (void)sendShopOwnerRecommendWithCompanyId:(NSString *)companyId
                                       count:(NSInteger)count
                                      Success:(void (^)(NSMutableArray *success))success
                                      failure:(void (^)(NSError *error))failure;
 
 //*********************************平台推荐*************************/
-- (void)sendPlatformRecommendWithProductTypeId:(NSString *)ProductTypeId
++ (void)sendPlatformRecommendWithProductTypeId:(NSString *)ProductTypeId
                                          count:(NSInteger)count
                                        Success:(void (^)(NSMutableArray *success))success
                                        failure:(void (^)(NSError *error))failure;
 
 //*********************************商店*************************/
-- (void)sendfindCompanyInfoByIdWithCompanyId:(NSString *)companyId
++ (void)sendfindCompanyInfoByIdWithCompanyId:(NSString *)companyId
                                     Success:(void (^)(CompanyModel *success))success
                                     failure:(void (^)(NSError *error))failure;
 
 //*********************************商店下的商品*************************/
-- (void)sendFindProductsByIdsWithCompanyId:(NSString *)companyId
++ (void)sendFindProductsByIdsWithCompanyId:(NSString *)companyId
                              productTypeId:(NSString *)productTypeId
                                    Success:(void (^)(NSMutableArray *success))success
                                    failure:(void (^)(NSError *error))failure;
 
 //*********************************获取可预约的场地*************************/
-- (void)sendFindOrderCanAppointmentWithUserId:(NSNumber *)userId
++ (void)sendFindOrderCanAppointmentWithUserId:(NSNumber *)userId
                                     productId:(NSNumber *)productId
                                          date:(NSString *)date
                                       Success:(void (^)(NSMutableArray *success))success
@@ -374,30 +374,30 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                            failure:(void (^)(NSError *error))failure;
 
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/
-- (void)sendFindOrderUserId:(NSNumber *)userId
++ (void)sendFindOrderUserId:(NSNumber *)userId
                        type:(NSNumber *)type
                     success:(void (^)(NSMutableArray *success))success
                     failure:(void (^)(NSError *error))failure;
 
 //**************根据类型获取订单，返回的是MyOrderDetailModel************/
-- (void)sendFindOrderDetailOrderNumber:(NSString *)orderNumber
++ (void)sendFindOrderDetailOrderNumber:(NSString *)orderNumber
                     success:(void (^)(MyOrderDetailModel *detailModel))success
                     failure:(void (^)(NSError *error))failure;
 
 //*****************************************根据类型查资讯************/
-- (void)sendsearchInfomationsWithWriterId:(NSString *)writerId
++ (void)sendsearchInfomationsWithWriterId:(NSString *)writerId
                              infoTypeCode:(NSString *)infoTypeCode
                                  sortType:(NSInteger)sortType
                                   success:(void (^)(NSMutableArray *success))success
                                   failure:(void (^)(NSError *error))failure;
 
 //**************取消订单,会出发通知:STDidSuccessPaySendNotification************/
-- (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
++ (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
                                success:(void (^)(BOOL success))success
                                failure:(void (^)(NSError *error))failure;
 
 //*****************************************资讯点赞*********************/
-- (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
++ (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
                                    busiId:(NSString *)busiId
                               isClickLike:(NSInteger)isClickLike
                                  busiType:(NSInteger)busiType
@@ -405,25 +405,25 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                   failure:(void (^)(NSError *error))failure;
 
 //*****************************************作者主页*********************/
-- (void)senSearchWriterInfomationsWithWriterId:(NSString *)writerId
++ (void)senSearchWriterInfomationsWithWriterId:(NSString *)writerId
                                         userId:(NSString *)userId
                                        success:(void (^)(InformationWriterModel *success))success
                                        failure:(void (^)(NSError *error))failure;
 
 //*****************************************订阅*********************/
-- (void)sendSubscribeWithWriterId:(NSString *)writerId
++ (void)sendSubscribeWithWriterId:(NSString *)writerId
                            userId:(NSString *)userId
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure;
 
 //*****************************************取消订阅*********************/
-- (void)sendCancelSubscribeWriterId:(NSString *)writerId
++ (void)sendCancelSubscribeWriterId:(NSString *)writerId
                              userId:(NSString *)userId
                             success:(void (^)(BOOL success))success
                             failure:(void (^)(NSError *error))failure;
 
 //*****************************************我的订阅*********************/
-- (void)sendMySubscribeWithUserId:(NSString *)userId
++ (void)sendMySubscribeWithUserId:(NSString *)userId
                           success:(void (^)(NSMutableArray *success))success
                           failure:(void (^)(NSError *error))failure;
 
@@ -433,13 +433,13 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                           failure:(void (^)(NSError *error))failure;
 
 //*****************************************查找作者*********************/
-- (void)sendSearchWriterListWithWriterName:(NSString *)writerName
++ (void)sendSearchWriterListWithWriterName:(NSString *)writerName
                                     userId:(NSString *)userId
                           success:(void (^)(NSMutableArray *success))success
                           failure:(void (^)(NSError *error))failure;
 
 //*****************************************获取评论*********************/
-- (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
++ (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
                             busiType:(NSInteger)busiType
                                  pid:(NSInteger)pid
                               userId:(NSInteger)userId
@@ -448,14 +448,14 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                              failure:(void (^)(NSError *error))failure;
 
 //*****************************************资讯详情*********************/
-- (void)getInfomationDetailWithInfoId:(NSNumber *)infoId
++ (void)getInfomationDetailWithInfoId:(NSNumber *)infoId
                                userId:(NSNumber *)userId
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure;
 
 
 //*****************************************评论*********************/
-- (void)sendSaveCommentWithBusiId:(NSInteger)busiId
++ (void)sendSaveCommentWithBusiId:(NSInteger)busiId
                          busiType:(NSInteger)busiType
                            userId:(NSInteger)userId
                            remark:(NSString *)remark
@@ -467,13 +467,13 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                           failure:(void (^)(NSError *error))failure;
 
 //*****************************************根据类型获取订阅作者*********************/
-- (void)sendWriterListWithUserId:(NSNumber *)userId
++ (void)sendWriterListWithUserId:(NSNumber *)userId
                     suscribeType:(NSString *)suscribeType
                          success:(void (^)(NSMutableArray *dataArray))success
                          failure:(void (^)(NSError *error))failure;
 
 //*****************************************上传商品评论图片*********************/
-- (void)sendUploadImagesWithUserId:(NSInteger)userId
++ (void)sendUploadImagesWithUserId:(NSInteger)userId
                               type:(NSInteger)type
                         imageArray:(NSArray *)imageArray
                            success:(void (^)(NSString *success))success
@@ -485,13 +485,13 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************检查是否已绑定*********************/
-- (void)sendcheckBindWithAccountNo:(NSString *)accountNo
++ (void)sendcheckBindWithAccountNo:(NSString *)accountNo
                               type:(NSString *)type
                            success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************绑定注册*********************/
-- (void)sendBindRegisterWithMobile:(NSString *)mobile
++ (void)sendBindRegisterWithMobile:(NSString *)mobile
                           nickName:(NSString *)nickName
                          accountNo:(NSString *)accountNo
                           password:(NSString *)password
@@ -501,7 +501,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************更新好友好友信息*********************/
-- (void)sendUpdateFriendInformationWithUserId:(NSNumber *)userId
++ (void)sendUpdateFriendInformationWithUserId:(NSNumber *)userId
                                  friendUserId:(NSNumber *)friendUserId
                                friendNickName:(NSString *)friendNickName
                      friendHeadImageUrlString:(NSString *)friendHeadImageUrlString
@@ -509,19 +509,19 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                       failure:(void (^)(NSError *error))failure;
 
 //*****************************************检查是否已注册*********************/
-- (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
++ (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
                                            success:(void (^)(NSString *success))success
                                            failure:(void (^)(NSError *error))failure;
 
 //*****************************************注册第三方登录账号*********************/
-- (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
++ (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
                                      nickName:(NSString *)nickName
                                       headImg:(NSString *)headImg
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
 
 //*****************************************检查手机号是否已经注册*********************/
-- (void)sendcheckRegisterForMobileWithmobile:(NSString *)mobile
++ (void)sendcheckRegisterForMobileWithmobile:(NSString *)mobile
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
 
@@ -533,7 +533,7 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                       failure:(void (^)(NSError *error))failure;
 
 //*****************************************获取用户天龄下降因素*********************/
-- (void)sendLifeDescendFactorsWithUserId:(NSNumber *)userId
++ (void)sendLifeDescendFactorsWithUserId:(NSNumber *)userId
                                  success:(void (^)(NSArray *lifeDescendFactorsArray))success
                                  failure:(void (^)(NSError *error))failure;
 

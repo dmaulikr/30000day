@@ -57,17 +57,25 @@
 - (void)searchCommentsWithPid:(NSInteger)pid {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
+    [STDataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
-        [self.tableView reloadData];
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self.tableView reloadData];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        [self showToast:@"数据加载失败"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:@"数据加载失败"];
+            
+        });
         
     }];
 }
@@ -163,30 +171,39 @@
         
         InformationCommentModel *model = self.commentModelArray[indexPath.row];
         
-        [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:1 success:^(BOOL success) {
+        [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:1 success:^(BOOL success) {
             
-            if (success) {
-                
-                if (isClickLike) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                if (success) {
                     
-                    [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                    zanButton.selected = YES;
-                    
-                } else {
-                
-                    [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                    zanButton.selected = NO;
+                    if (isClickLike) {
+                        
+                        [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                        zanButton.selected = YES;
+                        
+                    } else {
+                        
+                        [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                        zanButton.selected = NO;
+                        
+                    }
                     
                 }
+
                 
-            }
+            });
+            
             
         } failure:^(NSError *error) {
             
-            [self showToast:@"服务器游神了"];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self showToast:@"服务器游神了"];
+                
+            });
+
         }];
-        
         
     }];
     
@@ -226,31 +243,39 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
+        [STDataHandler sendSearchCommentsWithBusiId:self.infoId busiType:1 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:0 success:^(NSMutableArray *success) {
             
-            if (success.count > 0) {
-                
-                for (int i = 0; i < success.count; i++) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                if (success.count > 0) {
                     
-                    InformationCommentModel *comment = success[i];
-                    comment.commentPid = model.commentId;
-                    [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
+                    for (int i = 0; i < success.count; i++) {
+                        
+                        InformationCommentModel *comment = success[i];
+                        comment.commentPid = model.commentId;
+                        [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
+                        
+                    }
                     
+                    model.selected = YES;
+                    [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
+                    
+                    [self.tableView reloadData];
                 }
                 
-                model.selected = YES;
-                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
-                
-                [self.tableView reloadData];
-            }
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            });
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"服务器繁忙"];
             
-            [self showToast:@"服务器繁忙"];
+            });
             
         }];
         
@@ -272,11 +297,15 @@
         
         [self.commentModelArray removeObjectsInArray:array];
 
-        model.selected = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
-        
-        [self.tableView reloadData];
+            model.selected = NO;
+            
+            [changeStatusButton setTitle:@"查看回复" forState:UIControlStateNormal];
+            
+            [self.tableView reloadData];
+            
+        });
     }
 }
 
@@ -291,30 +320,38 @@
             
             InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
             
-            [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+            [STDataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
                 
-                if (success) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    //self.save = YES;
-                    
-                    [self showToast:@"回复成功"];
-                    
-                    [self searchCommentsWithPid:-1];
-                    
-                }
+                    if (success) {
+                        
+                        [self showToast:@"回复成功"];
+                        
+                        [self searchCommentsWithPid:-1];
+                        
+                    }
+                
+                });
                 
             } failure:^(NSError *error) {
                 
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self showToast:@"回复失败"];
+                    [self showToast:@"回复失败"];
+                
+                });
                 
             }];
             
             
         } else {
         
-        
-            [self refreshControllerInputViewHide];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [self refreshControllerInputViewHide];
+            
+            });
         
         }
         

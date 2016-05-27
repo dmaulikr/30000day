@@ -34,11 +34,16 @@
     
     self.tableView.dataSource  = self;
     
-    [self.dataHandler sendFindProductsByIdsWithCompanyId:@"2" productTypeId:@"1" Success:^(NSMutableArray *success) {
+    [STDataHandler sendFindProductsByIdsWithCompanyId:@"2" productTypeId:@"1" Success:^(NSMutableArray *success) {
        
         self.shopModelArray = [NSArray arrayWithArray:success];
         
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView reloadData];
+            
+        });
+
         
     } failure:^(NSError *error) {
         

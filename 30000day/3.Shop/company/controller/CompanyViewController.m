@@ -46,9 +46,7 @@
     
     self.tableView.dataSource  = self;
     
-    [self.dataHandler sendfindCompanyInfoByIdWithCompanyId:@"2" Success:^(CompanyModel *success) {
-        
-        self.title = success.companyName;
+    [STDataHandler sendfindCompanyInfoByIdWithCompanyId:@"2" Success:^(CompanyModel *success) {
         
         self.companyModel = success;
         
@@ -67,7 +65,13 @@
         
         self.productTypeModelArray = [NSArray arrayWithArray:array];
         
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.title = success.companyName;
+            
+            [self.tableView reloadData];
+            
+        });
         
     } failure:^(NSError *error) {
         
@@ -320,20 +324,28 @@
     ProductTypeModel *productTypeModel = self.productTypeModelArray[self.selectSection - 3];
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendFindProductsByIdsWithCompanyId:self.companyModel.companyId productTypeId:productTypeModel.productTypeId Success:^(NSMutableArray *success) {
+    [STDataHandler sendFindProductsByIdsWithCompanyId:self.companyModel.companyId productTypeId:productTypeModel.productTypeId Success:^(NSMutableArray *success) {
         
         self.shopModelArray = [NSMutableArray arrayWithArray:success];
         
-        [self.tableView reloadData];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
+
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self.selectedArr removeAllObjects];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self.selectedArr removeAllObjects];
+            
+        });
+
     }];
 
 }

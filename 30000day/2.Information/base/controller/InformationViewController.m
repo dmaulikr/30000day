@@ -100,10 +100,15 @@
     
     if (![notification.object isEqualToString:NSStringFromClass([self class])]) {//不是本控制器发出的就要监听
         
-        [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+        [STDataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
             
             self.mySubscribeArray = [NSArray arrayWithArray:success];
-            [self.tableViewSubscription reloadData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+             
+                [self.tableViewSubscription reloadData];
+            
+            });
             
         } failure:^(NSError *error) {
             
@@ -114,15 +119,24 @@
 - (void)loadMySubscribeData {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+    [STDataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
         
         self.mySubscribeArray = [NSArray arrayWithArray:success];
-        [self.tableViewSubscription reloadData];
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self.tableViewSubscription reloadData];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
         
     }];
     
@@ -174,39 +188,56 @@
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         
-        [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:@"" sortType:self.orderByIndex success:^(NSMutableArray *success) {
+        [STDataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:@"" sortType:self.orderByIndex success:^(NSMutableArray *success) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-            self.informationModelArray = [NSMutableArray arrayWithArray:success];
-            
-            [self.tableViewInformation reloadData];
-            
-            [self.tableViewInformation.mj_header endRefreshing];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                self.informationModelArray = [NSMutableArray arrayWithArray:success];
+                
+                [self.tableViewInformation reloadData];
+                
+                [self.tableViewInformation.mj_header endRefreshing];
+                
+            });
+
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-            [self.tableViewInformation.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self.tableViewInformation.mj_header endRefreshing];
+                
+            });
             
         }];
 
     } else {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
+        [STDataHandler sendMySubscribeWithUserId:[NSString stringWithFormat:@"%d",STUserAccountHandler.userProfile.userId.intValue] success:^(NSMutableArray *success) {
             
-            self.mySubscribeArray = [NSArray arrayWithArray:success];
-            [self.tableViewSubscription reloadData];
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            [self.tableViewSubscription.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                self.mySubscribeArray = [NSArray arrayWithArray:success];
+                [self.tableViewSubscription reloadData];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                [self.tableViewSubscription.mj_header endRefreshing];
+            
+            });
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self.tableViewSubscription.mj_header endRefreshing];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self.tableViewSubscription.mj_header endRefreshing];
+            
+            });
+        
         }];
     }
 }
@@ -279,11 +310,15 @@
             
             if (model.isMineSubscribe == 0) {//订阅操作
                 
-                [self.dataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                [STDataHandler sendSubscribeWithWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
                     
-                    model.isMineSubscribe = 1;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+
+                        model.isMineSubscribe = 1;
+                        
+                        [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
                     
-                    [subcribeButton setTitle:@"取消订阅" forState:UIControlStateNormal];
+                    });
                     
                 } failure:^(NSError *error) {
                     
@@ -291,11 +326,15 @@
                 
             } else {
                 
-                [self.dataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
+                [STDataHandler sendCancelSubscribeWriterId:model.writerId userId:[STUserAccountHandler.userProfile.userId stringValue] success:^(BOOL success) {
                     
-                    model.isMineSubscribe = 0;
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                        model.isMineSubscribe = 0;
+                        
+                        [subcribeButton setTitle:@"订阅" forState:UIControlStateNormal];
+                    
+                    });
                     
                 } failure:^(NSError *error) {
                     
@@ -432,17 +471,25 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
 
-    [self.dataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:code sortType:self.orderByIndex success:^(NSMutableArray *success) {
+    [STDataHandler sendsearchInfomationsWithWriterId:@"" infoTypeCode:code sortType:self.orderByIndex success:^(NSMutableArray *success) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        self.informationModelArray = [NSMutableArray arrayWithArray:success];
-        
-        [self.tableViewInformation reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            self.informationModelArray = [NSMutableArray arrayWithArray:success];
+            
+            [self.tableViewInformation reloadData];
+            
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
     
     }];
 }

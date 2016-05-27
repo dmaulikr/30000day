@@ -10,6 +10,7 @@
 #import "SignInViewController.h"
 #import "STTabBarViewController.h"
 #import "MTProgressHUD.h"
+#import "AgreementWebViewController.h"
 
 @interface SignOutViewController () <QGPickerViewDelegate>
 
@@ -24,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIView *passwordTextSubView;
 
 @property (weak, nonatomic) IBOutlet UIView *niceNameTextSubView;
+
+@property (weak, nonatomic) IBOutlet UIButton *agreementButton;
+
 
 @end
 
@@ -62,6 +66,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     
     [self.view addGestureRecognizer:tap];
+    
+    [self.agreementButton addTarget:self action:@selector(agreementButtonClick) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)tapAction {
@@ -149,6 +155,14 @@
         return NO;
     }
     return YES;
+}
+
+- (void)agreementButtonClick {
+    
+    AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 #pragma mark - 键盘return

@@ -227,7 +227,7 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    [self.dataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
+    [STDataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
         if (success.boolValue) {
             
@@ -267,26 +267,35 @@
 
         } else {
         
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
+                
+                controller.type = type;
+                
+                controller.name = userName;
+                
+                controller.url = iconURL;
+                
+                controller.uid = uid;
+                
+                [self.navigationController pushViewController:controller animated:NO];
             
-            controller.type = type;
-            
-            controller.name = userName;
-            
-            controller.url = iconURL;
-            
-            controller.uid = uid;
-            
-            [self.navigationController pushViewController:controller animated:NO];
+            });
         }
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self showToast:@"请求超时，请重新登录"];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:@"请求超时，请重新登录"];
+        
+        });
+
     }];
 }
 

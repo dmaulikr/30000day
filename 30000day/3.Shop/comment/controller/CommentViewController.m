@@ -193,17 +193,25 @@
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
 
-    [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
+    [STDataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:pid userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
         
         self.commentModelArray = [NSMutableArray arrayWithArray:success];
         
-        [self.tableView reloadData];
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self.tableView reloadData];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        [self showToast:@"数据加载失败"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:@"数据加载失败"];
+        
+        });
         
     }];
     
@@ -235,7 +243,7 @@
     if (!model.selected) {
         
         [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [self.dataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
+        [STDataHandler sendSearchCommentsWithBusiId:self.productId busiType:0 pid:model.commentId.integerValue userId:STUserAccountHandler.userProfile.userId.integerValue commentType:self.commentType success:^(NSMutableArray *success) {
             
             if (success.count > 0) {
                 
@@ -246,21 +254,29 @@
                     [self.commentModelArray insertObject:comment atIndex:indexPath.row + 1];
                     
                 }
-                
-                model.selected = YES;
-                [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
-                
-                [self.tableView reloadData];
-            }
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    model.selected = YES;
+                    [changeStatusButton setTitle:@"收起回复" forState:UIControlStateNormal];
+                    
+                    [self.tableView reloadData];
+             
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                });
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            }
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self showToast:@"服务器繁忙"];
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"服务器繁忙"];
             
+            });
+
         }];
         
     } else {
@@ -305,29 +321,39 @@
         
     }
     
-    [self.dataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:2 success:^(BOOL success) {
+    [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:2 success:^(BOOL success) {
         
-        if (success) {
-            
-            if (isClickLike) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if (success) {
                 
-                [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                zanButton.selected = YES;
+                if (isClickLike) {
+                    
+                    [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+                    zanButton.selected = YES;
+                    
+                } else {
+                    
+                    [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+                    zanButton.selected = NO;
+                    
+                }
                 
-            } else {
-                
-                [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                zanButton.selected = NO;
+                [self searchCommentsWithPid:-1];
                 
             }
+
             
-            [self searchCommentsWithPid:-1];
-            
-        }
+        });
+        
         
     } failure:^(NSError *error) {
         
-        [self showToast:@"服务器游神了"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self showToast:@"服务器游神了"];
+            
+        });
         
     }];
     
@@ -346,7 +372,7 @@
         if (message != nil || imageArray != nil) {
         
             [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-            [self.dataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:imageArray success:^(NSString *success) {
+            [STDataHandler sendUploadImagesWithUserId:STUserAccountHandler.userProfile.userId.integerValue type:1 imageArray:imageArray success:^(NSString *success) {
                 
                 NSString *encodingString;
                 if (imageArray.count > 0) {
@@ -362,27 +388,39 @@
                 
                 InformationCommentModel *commentModel = self.commentModelArray[indexPath.row];
                 
-                [self.dataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:encodingString success:^(BOOL success) {
+                [STDataHandler sendSaveCommentWithBusiId:commentModel.busiId.integerValue busiType:0 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:commentModel.commentId.integerValue isHideName:NO numberStar:0 commentPhotos:encodingString success:^(BOOL success) {
                     
-                    if (success) {
-                        
-                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                        [self showToast:@"评论成功"];
-                        
-                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                        if (success) {
+                            
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                            [self showToast:@"评论成功"];
+                            
+                        }
+                    
+                    });
                     
                 } failure:^(NSError *error) {
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                    [self showToast:@"评论失败"];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        [self showToast:@"评论失败"];
+                    
+                    });
                     
                 }];
                 
                 
             } failure:^(NSError *error) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    NSLog(@"%@",error.userInfo[@"NSLocalizedDescription"]);
+                
+                });
                 
             }];
             

@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SMSVerificationViewController">
             <connections>
-                <outlet property="agreementButton" destination="z7V-QF-Jh8" id="v7z-CF-olW"/>
                 <outlet property="nextBtn" destination="KJF-sK-YZp" id="Q3s-OM-usx"/>
                 <outlet property="phoneNumber" destination="hes-2S-O0L" id="N0v-b3-3tG"/>
                 <outlet property="sms" destination="6E2-DN-Kf7" id="4Gd-yl-EXV"/>
@@ -140,22 +139,14 @@
                         <action selector="nextBtn:" destination="-1" eventType="touchUpInside" id="DhT-zh-FWk"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7V-QF-Jh8">
-                    <rect key="frame" x="197" y="165" width="108" height="25"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="《免责条款及协议》"/>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="KJF-sK-YZp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="1Jz-Sm-Jrf"/>
-                <constraint firstItem="z7V-QF-Jh8" firstAttribute="trailing" secondItem="KJF-sK-YZp" secondAttribute="trailing" id="C5N-DM-ALh"/>
-                <constraint firstItem="KJF-sK-YZp" firstAttribute="top" secondItem="z7V-QF-Jh8" secondAttribute="bottom" constant="10" id="ETO-1Z-EF1"/>
                 <constraint firstItem="h3H-3l-mFF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Gcl-Bc-q8u"/>
                 <constraint firstItem="KJF-sK-YZp" firstAttribute="top" secondItem="h3H-3l-mFF" secondAttribute="bottom" constant="35" id="Mgt-dC-emJ"/>
                 <constraint firstAttribute="trailing" secondItem="h3H-3l-mFF" secondAttribute="trailing" id="Sbi-ej-zam"/>
                 <constraint firstAttribute="trailing" secondItem="KJF-sK-YZp" secondAttribute="trailing" constant="15" id="YLc-GG-mQ4"/>
-                <constraint firstItem="z7V-QF-Jh8" firstAttribute="top" secondItem="h3H-3l-mFF" secondAttribute="bottom" id="lwD-C9-GEf"/>
                 <constraint firstItem="h3H-3l-mFF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="sGs-wc-ocO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

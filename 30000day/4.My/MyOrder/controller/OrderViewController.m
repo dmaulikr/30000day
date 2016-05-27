@@ -72,7 +72,7 @@
         newType = @1;
     }
     
-    [self.dataHandler sendFindOrderUserId:STUserAccountHandler.userProfile.userId type:newType success:^(NSMutableArray *success) {
+    [STDataHandler sendFindOrderUserId:STUserAccountHandler.userProfile.userId type:newType success:^(NSMutableArray *success) {
        
         self.dataArray = success;
         
@@ -87,15 +87,24 @@
             [self.cellArray addObject:cell];
         }
         
-        [self.tableView.mj_header endRefreshing];
-        
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [self.tableView.mj_header endRefreshing];
+            
+            [self.tableView reloadData];
+            
+        });
+    
         
     } failure:^(NSError *error) {
         
-        [self.tableView.mj_header endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self loadDataFromServerWith:_type];
+            [self.tableView.mj_header endRefreshing];
+            
+            [self loadDataFromServerWith:_type];
+        
+        });
         
     }];
 }

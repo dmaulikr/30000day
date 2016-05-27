@@ -39,33 +39,41 @@
     [self showHeadRefresh:NO showFooterRefresh:NO];
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendLifeDescendFactorsWithUserId:STUserAccountHandler.userProfile.userId success:^(NSArray *lifeDescendFactorsArray) {
+    [STDataHandler sendLifeDescendFactorsWithUserId:STUserAccountHandler.userProfile.userId success:^(NSArray *lifeDescendFactorsArray) {
        
-        if (lifeDescendFactorsArray.count == 0) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if (lifeDescendFactorsArray.count == 0) {
+                
+                self.nilLable.hidden = NO;
+                self.tableView.hidden = YES;
+                
+            } else {
+                
+                self.nilLable.hidden = YES;
+                self.tableView.hidden = NO;
+                
+                self.modelArray = [NSArray arrayWithArray:lifeDescendFactorsArray];
+                
+                [self.tableView reloadData];
+                
+            }
             
-            self.nilLable.hidden = NO;
-            self.tableView.hidden = YES;
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
-        } else {
-        
-            self.nilLable.hidden = YES;
-            self.tableView.hidden = NO;
-            
-            self.modelArray = [NSArray arrayWithArray:lifeDescendFactorsArray];
-            
-            [self.tableView reloadData];
-            
-        }
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        self.nilLable.hidden = NO;
-        self.tableView.hidden = YES;
-        self.nilLable.text =error.userInfo[@"NSLocalizedDescription"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            self.nilLable.hidden = NO;
+            self.tableView.hidden = YES;
+            self.nilLable.text =error.userInfo[@"NSLocalizedDescription"];
+            
+        });
         
     }];
     

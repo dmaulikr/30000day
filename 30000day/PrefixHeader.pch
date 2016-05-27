@@ -75,6 +75,8 @@
 
 #define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
 
+#define ISFROMTHIRDPARTY              @"isFromThirdParty"    //是否是第三方登陆
+
 #define BADGE_NUMBER                  @"badge_number"        //自己人的角标
 
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width

@@ -39,6 +39,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *temporarilyButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *loginTypeLable;
 
@@ -59,6 +60,14 @@
     [super viewDidLoad];
     
     self.title = @"手机绑定";
+    
+    if (self.isConceal) {
+        
+        self.temporarilyButton.hidden = YES;
+        
+        self.loginSupView.hidden = YES;
+        
+    }
     
     [self.phoneNumber setDelegate:self];
     
@@ -105,11 +114,36 @@
         return;
     }
     
-    if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+    if (!self.isConceal) {
         
-        [self showToast:@"第三方信息获取失败，请重新授权"];
+        if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+            
+            [self showToast:@"第三方信息获取失败，请重新授权"];
+            
+            return;
+            
+        }
+    
+    }
+    
+
+    NSString *uid = self.uid;
+    
+    NSString *name = self.name;
+    
+    NSString *url = self.url;
+    
+    NSString *type = self.type;
+    
+    if (self.isConceal) {
         
-        return;
+        uid = [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId];
+        
+        name = STUserAccountHandler.userProfile.nickName;
+        
+        url = STUserAccountHandler.userProfile.headImg;
+        
+        type = nil;
         
     }
     
@@ -117,9 +151,7 @@
     
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
-        [self.dataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid password:self.passWord.text headImg:self.url type:self.type success:^(NSString *success) {
-            
-            NSLog(@"%d",success.boolValue);
+        [STDataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:name accountNo:uid password:self.passWord.text headImg:url type:type success:^(NSString *success) {
             
             if (success.boolValue) {
                 
@@ -141,10 +173,17 @@
                                                                       
                                                                       [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                       
-                                                                      [self.tabBarController setSelectedIndex:0];
+                                                                      if (!self.isConceal) {
+                                                                          
+                                                                          [self.tabBarController setSelectedIndex:0];
+                                                                          
+                                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                                          
+                                                                      } else {
                                                                       
-                                                                      [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                                          [self.navigationController popViewControllerAnimated:YES];
                                                                       
+                                                                      }
                                                                       
                                                                   } failure:^(NSError *error) {
                                                                       
@@ -163,27 +202,39 @@
                 
             } else {
                 
-                [self textFiledResignFirst];
+                dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [self textFiledResignFirst];
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [self showToast:@"绑定/注册失败"];
                 
-                [self showToast:@"绑定/注册失败"];
+                });
                 
             }
             
         } failure:^(NSError *error) {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-            [self showToast:@"服务器繁忙"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self showToast:@"服务器繁忙"];
+                
+            });
             
         }];
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self showToast:@"验证失败"];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:@"验证失败"];
+        
+        });
         
     }];
 
@@ -193,43 +244,55 @@
 - (IBAction)notBind:(UIButton *)sender {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid success:^(NSString *success) {
+    [STDataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid success:^(NSString *success) {
         
-        if (success.boolValue) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self regist:self.uid];
-
-        } else {
-            
-            if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+            if (success.boolValue) {
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                [self regist:self.uid];
                 
-                [self showToast:@"第三方信息获取失败，请重新授权"];
+            } else {
                 
-                return;
-                
-            }
-            
-            [self.dataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
-                
-                if (success.boolValue) {
+                if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
                     
-                    [self regist:self.uid];
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [self showToast:@"第三方信息获取失败，请重新授权"];
+                    
+                    return;
                     
                 }
                 
-            } failure:^(NSError *error) {
+                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
+                    
+                    if (success.boolValue) {
+                        
+                        [self regist:self.uid];
+                        
+                    }
+                    
+                } failure:^(NSError *error) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                    });
+                    
+                }];
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-            }];
-        
-        }
+            }
+            
+        });
         
     } failure:^(NSError *error) {
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
     }];
     
@@ -328,19 +391,24 @@
                                            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
                                            
                                            //检查手机号是否已经注册
-                                           [self.dataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
+                                           [STDataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
                                                
-                                               if (success.boolValue) {
+                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                            
+                                                   if (success.boolValue) {
+                                                       
+                                                       [self.promptLable setText:@"该手机号已被注册，继续操作将绑定至当前账号"];
+                                                       [self.promptLable setTextColor:[UIColor redColor]];
+                                                       
+                                                   } else {
+                                                       
+                                                       [self.promptLable setText:@"为了您的账号安全，建议您绑定手机号"];
+                                                       [self.promptLable setTextColor:[UIColor blackColor]];
+                                                       
+                                                   }
                                                    
-                                                   [self.promptLable setText:@"该手机号已被注册，继续操作将绑定至当前账号"];
-                                                   [self.promptLable setTextColor:[UIColor redColor]];
-                                                   
-                                               } else {
-                                                   
-                                                   [self.promptLable setText:@"为了您的账号安全，建议您绑定手机号"];
-                                                   [self.promptLable setTextColor:[UIColor blackColor]];
-                                                   
-                                               }
+                                               });
+                                            
                                                
                                            } failure:^(NSError *error) {
 
@@ -349,8 +417,12 @@
                                            
                                        } failure:^(NSString *error) {
                                            
-                                           [self showToast:error];
-                                           
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               
+                                               [self showToast:error];
+                                               
+                                           });
+
                                        }];
 }
 
