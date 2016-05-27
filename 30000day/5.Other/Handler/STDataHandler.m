@@ -3889,7 +3889,7 @@
     manager.completionQueue = dispatch_queue_create("sendUserInformtionWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_INFORMATION] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3923,7 +3923,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************查找作者*********************/

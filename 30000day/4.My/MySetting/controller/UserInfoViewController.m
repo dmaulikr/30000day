@@ -322,7 +322,7 @@
             
             [alert show];
             
-        } else if(indexPath.row == 2){
+        } else if(indexPath.row == 2) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.currentChooseNickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             

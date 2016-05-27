@@ -361,14 +361,45 @@
                                                        messageType:@1
                                                            success:^(BOOL success) {
                                                                
-                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                               [STDataHandler sendUserInformtionWithUserId:chineseString.userId success:^(UserInformationModel *model) {
                                                                    
-                                                                   [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                   [NewFriendManager subscribePresenceToUserWithUserProfile:model andCallback:^(BOOL succeeded, NSError *error) {
+                                                                       
+                                                                       if (succeeded) {
+                                                                           
+                                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                                               
+                                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                               
+                                                                               [self showToast:@"请求发送成功"];
+                                                                               
+                                                                           });
+                                                                           
+                                                                       } else {
+                                                                           
+                                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                                               
+                                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                               
+                                                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                                               
+                                                                           });
+                                                                       }
+
+                                                                   }];
                                                                    
-                                                                   [self showToast:@"请求发送成功"];
-                                                                
-                                                               });
-                                                               
+                                                               } failure:^(NSError *error) {
+                                                                   
+                                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                                       
+                                                                       [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                       
+                                                                       [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                                       
+                                                                   });
+                                                                   
+                                                               }];
+
                                                            } failure:^(NSError *error) {
                                                                
                                                                dispatch_async(dispatch_get_main_queue(), ^{
@@ -450,6 +481,8 @@
         UserInformationModel *model = _dataArray[indexPath.row];
         
         controller.friendUserId = model.userId;
+        
+        controller.informationModel = model;
         
         [self.navigationController pushViewController:controller animated:YES];
     }

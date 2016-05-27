@@ -203,15 +203,15 @@ static BOOL _showStatusBar = NO;
             
         case XHBubbleMessageMediaTypeVideo: {
             
-//            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
+            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
+            
+            [browser showVideo:message.videoPath];
+            
+//            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
 //            
-//            [browser showVideo:message.videoPath];
-            
-            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
-            
-            controller.message = message;
-            
-            [self.navigationController pushViewController:controller animated:YES];
+//            controller.message = message;
+//            
+//            [self.navigationController pushViewController:controller animated:YES];
 
             break;
         }
