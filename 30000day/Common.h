@@ -87,4 +87,7 @@
 //15.00  -> ￥15.00(红色)
 + (NSMutableAttributedString *)attributedStringWithPrice:(CGFloat)price;
 
+/** 判断是否在某一天天之内 */
++ (void)dayNumberWithinNumber:(NSInteger)number inputDate:(NSDate *)inputDate completion:(void(^)(NSInteger day))completion;
+
 @end

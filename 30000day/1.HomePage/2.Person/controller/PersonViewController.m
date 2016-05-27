@@ -482,6 +482,8 @@
         
         controller.friendUserId = model.userId;
         
+        controller.informationModel = model;
+        
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

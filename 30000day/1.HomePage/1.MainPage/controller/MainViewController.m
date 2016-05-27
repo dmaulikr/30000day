@@ -145,8 +145,8 @@
     
 }
 
-/** 判断是否为明天 */
-- (BOOL)istomorrow:(NSDate *)inputDate {
+/** 判断是否在7天以内 */
+- (BOOL)userLifeDayWithinSevenDay:(NSDate *)inputDate {
     
     NSString *dateStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:inputDate];
     
@@ -163,100 +163,94 @@
     
     NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
     
-    return cmps.day == 1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+    return cmps.day <= 7 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
 }
 
-//- (NSString *)getUserLifeDay {
-//    
-//    if (STUserAccountHandler.userProfile.birthday) {
-//        
-//        
-//    }
-//    
-//    return ;
-//}
 
 //获取用户的天龄
 - (void)getUserLifeList {
     
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {//表示如果账户的userId为空的话，那么就不获取用户的天龄
-    
-        [STDataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:@"7" success:^(NSMutableArray *dataArray) {
-            
-            UserLifeModel *lastModel = [dataArray firstObject];
-            
-            self.totalLifeDayNumber = [lastModel.curLife floatValue];
-            
-            //算出数组
-            NSMutableArray *allDayArray = [NSMutableArray array];
-            
-            NSMutableArray *dayNumberArray = [NSMutableArray array];
-            
-            if (dataArray.count > 1 ) {
+        
+        [Common dayNumberWithinNumber:7 inputDate:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:STUserAccountHandler.userProfile.birthday] completion:^(NSInteger day) {
+           
+            [STDataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:[NSString stringWithFormat:@"%d",(int)day] success:^(NSMutableArray *dataArray) {
                 
-                for (int  i = 0; i < dataArray.count ; i++ ) {
-                    
-                    UserLifeModel *model = dataArray[i];
-                    
-                    [allDayArray addObject:model.curLife];
-                    
-                    NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                    
-                    NSString *string = array[2];
-                    
-                    NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                    
-                    [dayNumberArray addObject:newString];
-                    
-                }
+                UserLifeModel *lastModel = [dataArray firstObject];
                 
-                self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+                self.totalLifeDayNumber = [lastModel.curLife floatValue];
                 
-                self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+                //算出数组
+                NSMutableArray *allDayArray = [NSMutableArray array];
                 
-            } else {
+                NSMutableArray *dayNumberArray = [NSMutableArray array];
                 
-                UserLifeModel *model = [dataArray firstObject];
-                
-                if (model) {
+                if (dataArray.count > 1 ) {
                     
-                    [allDayArray addObject:model.curLife];
-                    
-                    [allDayArray addObject:model.curLife];
-                    
-                    NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                    
-                    NSString *string = array[2];
-                    
-                    NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                    
-                    [dayNumberArray addObject:newString];
-                    
-                    [dayNumberArray addObject:newString];
+                    for (int  i = 0; i < dataArray.count ; i++ ) {
+                        
+                        UserLifeModel *model = dataArray[i];
+                        
+                        [allDayArray addObject:model.curLife];
+                        
+                        NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                        
+                        NSString *string = array[2];
+                        
+                        NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                        
+                        [dayNumberArray addObject:newString];
+                        
+                    }
                     
                     self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
                     
                     self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+                    
+                } else {
+                    
+                    UserLifeModel *model = [dataArray firstObject];
+                    
+                    if (model) {
+                        
+                        [allDayArray addObject:model.curLife];
+                        
+                        [allDayArray addObject:model.curLife];
+                        
+                        NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
+                        
+                        NSString *string = array[2];
+                        
+                        NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
+                        
+                        [dayNumberArray addObject:newString];
+                        
+                        [dayNumberArray addObject:newString];
+                        
+                        self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
+                        
+                        self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
+                    }
+                    
                 }
                 
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.tableView reloadData];
+                    
+                    [self.tableView.mj_header endRefreshing];
+                    
+                });
                 
-                [self.tableView reloadData];
+            } failure:^(NSError *error) {
                 
-                [self.tableView.mj_header endRefreshing];
-
-            });
-            
-        } failure:^(NSError *error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self showToast:@"获取天龄失败，可能是网络繁忙"];
-                
-                [self.tableView.mj_header endRefreshing];
-            });
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self showToast:@"获取天龄失败，可能是网络繁忙"];
+                    
+                    [self.tableView.mj_header endRefreshing];
+                });
+            }];
         }];
     }
 }

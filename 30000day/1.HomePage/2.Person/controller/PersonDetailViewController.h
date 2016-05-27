@@ -8,9 +8,12 @@
 
 #import "ShowBackItemViewController.h"
 #import "CDBaseVC.h"
+#import "UserInformationModel.h"
 
 @interface PersonDetailViewController : CDBaseVC
 
 @property (nonatomic,strong) NSNumber *friendUserId;//好友的ID
+
+@property (nonatomic,strong) UserInformationModel *informationModel;
 
 @end
