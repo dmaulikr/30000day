@@ -74,11 +74,7 @@ static CDChatManager *instance;
     self.client = [[AVIMClient alloc] initWithClientId:clientId];
     
     self.client.delegate = self;
-    
-    /* 取消下面的注释，将对 im的 open ，start(create conv),kick,invite 操作签名，更安全
-     可以从你的服务器获得签名，这里从云代码获取，需要部署云代码，https://github.com/leancloud/leanchat-cloudcode
-     */
-//     self.client.signatureDataSource = self;
+
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
@@ -86,7 +82,6 @@ static CDChatManager *instance;
             callback(succeeded, error);
             
         }
-        [CDEmotionUtils saveEmotions];
     }];
 }
 

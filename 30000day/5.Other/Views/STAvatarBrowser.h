@@ -27,6 +27,4 @@ static NSString *STAvatarBrowserDidHideAvatarImage = @"STAvatarBrowserDidHideAva
 + (void)showImageView:(UIImageView *)avatarImageView;
 
 
-- (void)showVideo:(NSString *)URLString;
-
 @end

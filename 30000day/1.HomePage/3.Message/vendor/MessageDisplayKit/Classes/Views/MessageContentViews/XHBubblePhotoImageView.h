@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XHMessageBubbleFactory.h"
 
-@interface XHBubblePhotoImageView : UIImageView
+@interface XHBubblePhotoImageView : UIView
 
 /**
  *  发送后，需要显示的图片消息的图片，或者是视频的封面

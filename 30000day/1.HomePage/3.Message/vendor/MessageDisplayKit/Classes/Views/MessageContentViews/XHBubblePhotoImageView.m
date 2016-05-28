@@ -25,9 +25,8 @@
 @end
 
 @implementation XHBubblePhotoImageView {
-    CAShapeLayer *_maskLayer;
-    CAShapeLayer *_borderLayer;
-    CALayer      *_contentLayer;
+
+    UIImageView *_imageView;
 }
 
 - (XHBubbleMessageType)getBubbleMessageType {
@@ -44,8 +43,10 @@
 
 - (void)setMessagePhoto:(UIImage *)messagePhoto {
     _messagePhoto = messagePhoto;
-//    [self setNeedsDisplay];
-    self.image = messagePhoto;
+
+    _imageView.image = messagePhoto;
+   
+     [self setNeedsDisplay];
 }
 
 - (void)configureMessagePhoto:(UIImage *)messagePhoto thumbnailUrl:(NSString *)thumbnailUrl originPhotoUrl:(NSString *)originPhotoUrl onBubbleMessageType:(XHBubbleMessageType)bubbleMessageType {
@@ -83,116 +84,88 @@
         dispatch_semaphore_signal(self.semaphore);
     }
     _activityIndicatorView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
+    _imageView.frame = CGRectMake(5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10);
     
-    CGMutablePathRef path = CGPathCreateMutable();
     
-    _borderLayer.frame = self.bounds;
-    
-    _maskLayer.frame = self.bounds;
-    
-    if (self.bubbleMessageType == XHBubbleMessageTypeSending) {
-        
-        //画图
-        CGFloat width = self.bounds.size.width;
-        
-        CGFloat height = self.bounds.size.height;
-        
-        CGPathMoveToPoint(path, NULL,0,0);
-        
-        CGPathAddLineToPoint(path, NULL, width, 0);//上面直线
-        CGPathMoveToPoint(path, NULL,width,0);
-        
-        CGPathAddLineToPoint(path, NULL, width, 10);
-        CGPathMoveToPoint(path, NULL,width,10);
-        
-        CGPathAddLineToPoint(path, NULL, width + 6, 13);//三角形
-        CGPathMoveToPoint(path, NULL,width + 6,13);
-        
-        CGPathAddLineToPoint(path, NULL, width,16);
-        CGPathMoveToPoint(path, NULL,width,16);
-        
-        CGPathAddLineToPoint(path, NULL, width,height);
-        CGPathMoveToPoint(path, NULL,width,height);
-        
-        CGPathAddLineToPoint(path, NULL, 0,height);
-        CGPathMoveToPoint(path, NULL,0,height);
-        
-        CGPathAddLineToPoint(path, NULL, 0,0);
-        CGPathMoveToPoint(path, NULL,0,0);
-        
-        _borderLayer.strokeColor = LOWBLUECOLOR.CGColor;
-        
-    } else {
-        
-        CGFloat width = self.bounds.size.width;
-        
-        CGFloat height = self.bounds.size.height;
-        
-        CGPathMoveToPoint(path, NULL,0,0);
-        
-        CGPathAddLineToPoint(path, NULL, width, 0);//上面直线
-        CGPathMoveToPoint(path, NULL,width,0);
-        
-        
-        CGPathAddLineToPoint(path, NULL, width, height);
-        CGPathMoveToPoint(path, NULL,width,height);
-        
-        
-        CGPathAddLineToPoint(path, NULL,0,height);//三角形
-        CGPathMoveToPoint(path, NULL,0,height);
-        
-        CGPathAddLineToPoint(path, NULL, 0,16);
-        CGPathMoveToPoint(path, NULL,0,16);
-        
-        
-        CGPathAddLineToPoint(path, NULL, -6,13);
-        CGPathMoveToPoint(path, NULL,-6,13);
-        
-        
-        CGPathAddLineToPoint(path, NULL, 0,10);
-        CGPathMoveToPoint(path, NULL,0,10);
-        
-        CGPathAddLineToPoint(path, NULL, 0,0);
-        CGPathMoveToPoint(path, NULL,0,0);
-        
-        _borderLayer.strokeColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-    }
-    
-    _borderLayer.lineWidth  = 3.0f;
-    
-    _maskLayer.path = path;
-    
-    _borderLayer.path    =   path;
-}
+//    CGMutablePathRef path = CGPathCreateMutable();
+//    
+//    _borderLayer.frame = self.bounds;
+//    
+//    _maskLayer.frame = self.bounds;
 
-
-- (void)setup {
-    
-    _maskLayer = [CAShapeLayer layer];
-    
-    _maskLayer.contentsCenter = CGRectMake(0.5, 0.5, 0.1, 0.1);
-    
-    _maskLayer.fillColor = [UIColor clearColor].CGColor;
-    
-    _maskLayer.strokeColor    = LOWBLUECOLOR.CGColor;
-    
-    _maskLayer.contentsScale = [UIScreen mainScreen].scale;
-    
-    _borderLayer = [CAShapeLayer layer];
-    
-    _borderLayer.fillColor  = [UIColor clearColor].CGColor;
-    
-    _borderLayer.strokeColor    = LOWBLUECOLOR.CGColor;
-
-    _contentLayer = [CALayer layer];
-    
-    _contentLayer.mask = _maskLayer;
-    
-    _contentLayer.frame = self.bounds;
-    
-    [_contentLayer addSublayer:_borderLayer];
-    
-    [self.layer addSublayer:_contentLayer];
+//    if (self.bubbleMessageType == XHBubbleMessageTypeSending) {
+//        
+//        //画图
+//        CGFloat width = self.bounds.size.width;
+//        
+//        CGFloat height = self.bounds.size.height;
+//        
+//        CGPathMoveToPoint(path, NULL,0,0);
+//        
+//        CGPathAddLineToPoint(path, NULL, width - 20 , 0);//上面直线
+//        CGPathMoveToPoint(path, NULL,width - 20 ,0);
+//        
+//        CGPathAddLineToPoint(path, NULL, width, 10);
+//        CGPathMoveToPoint(path, NULL,width,10);
+//        
+//        CGPathAddLineToPoint(path, NULL, width + 6, 13);//三角形
+//        CGPathMoveToPoint(path, NULL,width + 6,13);
+//        
+//        CGPathAddLineToPoint(path, NULL, width,16);
+//        CGPathMoveToPoint(path, NULL,width,16);
+//        
+//        CGPathAddLineToPoint(path, NULL, width,height);
+//        CGPathMoveToPoint(path, NULL,width,height);
+//        
+//        CGPathAddLineToPoint(path, NULL, 0,height);
+//        CGPathMoveToPoint(path, NULL,0,height);
+//        
+//        CGPathAddLineToPoint(path, NULL, 0,0);
+//        CGPathMoveToPoint(path, NULL,0,0);
+//        
+//        _borderLayer.strokeColor = LOWBLUECOLOR.CGColor;
+//        
+//    } else {
+//        
+//        CGFloat width = self.bounds.size.width;
+//        
+//        CGFloat height = self.bounds.size.height;
+//        
+//        CGPathMoveToPoint(path, NULL,0,0);
+//        
+//        CGPathAddLineToPoint(path, NULL, width, 0);//上面直线
+//        CGPathMoveToPoint(path, NULL,width,0);
+//        
+//        
+//        CGPathAddLineToPoint(path, NULL, width, height);
+//        CGPathMoveToPoint(path, NULL,width,height);
+//        
+//        
+//        CGPathAddLineToPoint(path, NULL,0,height);//三角形
+//        CGPathMoveToPoint(path, NULL,0,height);
+//        
+//        CGPathAddLineToPoint(path, NULL, 0,16);
+//        CGPathMoveToPoint(path, NULL,0,16);
+//        
+//        
+//        CGPathAddLineToPoint(path, NULL, -6,13);
+//        CGPathMoveToPoint(path, NULL,-6,13);
+//        
+//        
+//        CGPathAddLineToPoint(path, NULL, 0,10);
+//        CGPathMoveToPoint(path, NULL,0,10);
+//        
+//        CGPathAddLineToPoint(path, NULL, 0,0);
+//        CGPathMoveToPoint(path, NULL,0,0);
+//        
+//        _borderLayer.strokeColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+//    }
+//    
+//    _borderLayer.lineWidth  = 3.0f;
+//    
+//    _maskLayer.path = path;
+//    
+//    _borderLayer.path = path;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -201,7 +174,21 @@
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
-        [self setup];
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        
+        _imageView = imageView;
+        
+        imageView.layer.cornerRadius = 5;
+        
+        imageView.layer.masksToBounds = YES;
+        
+        imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+        
+        imageView.layer.borderWidth = 1.0f;
+        
+        [self addSubview:imageView];
+
     }
     return self;
 }
@@ -213,12 +200,6 @@
     [self.activityIndicatorView stopAnimating];
     
     self.activityIndicatorView = nil;
-    
-    _maskLayer = nil;
-    
-    _borderLayer = nil;
-    
-    _contentLayer = nil;
 }
 
 // Only override drawRect: if you perform custom drawing.

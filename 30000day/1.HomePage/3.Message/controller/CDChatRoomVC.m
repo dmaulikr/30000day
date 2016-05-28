@@ -24,7 +24,7 @@
 #import "AVIMEmotionMessage.h"
 #import "UIImageView+WebCache.h"
 #import "STAvatarBrowser.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
 
 static NSInteger const kOnePageSize = 10;
 
@@ -190,17 +190,19 @@ static BOOL _showStatusBar = NO;
     switch (message.messageMediaType) {
             
         case XHBubbleMessageMediaTypeVideo: {
-            
-//            STAvatarBrowser *browser = [[STAvatarBrowser alloc] init];
-//            
-//            [browser showVideo:message.videoPath];
-            
-            XHDisplayMediaViewController *controller = [[XHDisplayMediaViewController alloc] init];
-            
-            controller.message = message;
-            
-            [self.navigationController pushViewController:controller animated:YES];
 
+            AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
+
+            AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:message.videoPath]];
+            
+            AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
+            
+            controller.player = player;
+            
+            [player play];
+            
+            [self presentViewController:controller animated:YES completion:nil];
+            
             break;
         }
             
@@ -518,23 +520,13 @@ static BOOL _showStatusBar = NO;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.6);
     
-    NSString *path = [[CDChatManager manager] tmpPath];
+    AVFile *file = [AVFile fileWithData:imageData];
     
-    NSError *error;
+    AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
     
-    [imageData writeToFile:path options:NSDataWritingAtomic error:&error];
-    
-    if (error == nil) {
-        
-        AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil attachedFilePath:path attributes:nil];
-        
-        [self sendMsg:msg];
-        
-    } else {
-        
-    }
+    [self sendMsg:msg];
 }
 
 - (void)sendLocationWithLatitude:(double)latitude longitude:(double)longitude address:(NSString *)address {
@@ -970,25 +962,19 @@ static BOOL _showStatusBar = NO;
     
     self.isLoadingMsg = YES;
     
-    [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
-        
-        if (!error) {
-            
-            XHMessage *xhMessage = [self getXHMessageByMsg:message];
-            
-            [self.msgs addObject:message];
-            
-            [self.messages addObject:xhMessage];
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
-            
-            [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            
-            [self scrollToBottomAnimated:YES];
-        }
-        
-        self.isLoadingMsg = NO;
-    }];
+    XHMessage *xhMessage = [self getXHMessageByMsg:message];
+    
+    [self.msgs addObject:message];
+    
+    [self.messages addObject:xhMessage];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+    
+    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self scrollToBottomAnimated:YES];
+    
+    self.isLoadingMsg = NO;
 }
 
 @end
