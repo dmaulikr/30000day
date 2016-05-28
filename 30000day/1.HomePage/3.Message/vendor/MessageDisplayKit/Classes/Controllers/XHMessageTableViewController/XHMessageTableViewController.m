@@ -797,7 +797,6 @@ static CGPoint  delayOffset = {0.0};
     // Dispose of any resources that can be recreated.
 }
 
-
 - (void)dealloc {
     _messages = nil;
     _delegate = nil;
@@ -1402,6 +1401,11 @@ static CGPoint  delayOffset = {0.0};
     
     messageTableViewCell.indexPath = indexPath;
     
+//    if (self.messageTableView.dragging == NO && self.messageTableView.decelerating == NO) {
+//        
+//            [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
+//    }
+    
     [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
     
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {
@@ -1433,5 +1437,6 @@ static CGPoint  delayOffset = {0.0};
         [self layoutAndAnimateMessageInputTextView:object];
     }
 }
+
 
 @end

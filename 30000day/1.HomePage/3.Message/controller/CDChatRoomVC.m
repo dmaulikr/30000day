@@ -518,7 +518,7 @@ static BOOL _showStatusBar = NO;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.6);
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     
     NSString *path = [[CDChatManager manager] tmpPath];
     

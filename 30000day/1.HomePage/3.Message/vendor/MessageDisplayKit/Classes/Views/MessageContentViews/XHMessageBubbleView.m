@@ -67,7 +67,7 @@
 
 + (CGSize)neededSizeForPhoto:(UIImage *)photo {
     // 这里需要缩放后的size
-    CGSize photoSize = CGSizeMake(140.0f, 140.0f * photo.size.height/photo.size.width - 8.0f);
+    CGSize photoSize = CGSizeMake(120.0f, 120.0f * photo.size.height/photo.size.width - 8.0f);
     return photoSize;
 }
 
@@ -135,7 +135,7 @@
 - (CGRect)bubbleFrame {
     CGSize bubbleSize = [XHMessageBubbleView getBubbleFrameWithMessage:self.message];
     
-    return CGRectIntegral(CGRectMake((self.message.bubbleMessageType == XHBubbleMessageTypeSending ? CGRectGetWidth(self.bounds) - bubbleSize.width : 0.0f),
+    return CGRectIntegral(CGRectMake((self.message.bubbleMessageType == XHBubbleMessageTypeSending ? CGRectGetWidth(self.bounds) - bubbleSize.width : 3.0f),
                                      kMarginTop,
                                      bubbleSize.width,
                                      bubbleSize.height + kMarginTop + kMarginBottom));
