@@ -4704,6 +4704,8 @@
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
+    
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
