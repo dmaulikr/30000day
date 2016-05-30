@@ -188,7 +188,7 @@
             view = [[[NSBundle mainBundle] loadNibNamed:headViewIndentifier owner:self options:nil] lastObject];
         }
         
-        view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人哦！",(unsigned long)_dataArray.count];
+        view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人",(unsigned long)_dataArray.count];
         
         view.titleLabel.hidden = NO;
         

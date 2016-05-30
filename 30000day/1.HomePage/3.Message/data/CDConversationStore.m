@@ -161,7 +161,7 @@
     NSInteger unreadCount = [resultSet intForColumn:kCDConversationTableKeyUnreadCount];
     BOOL mentioned = [resultSet boolForColumn:kCDConversationTableKeyMentioned];
     AVIMConversation *conversation = [self conversationFromData:data];
-    conversation.unreadCount = unreadCount;
+    conversation.unreadCount = [NSNumber numberWithInt:(int)unreadCount];
     conversation.mentioned = mentioned;
     return conversation;
 }

@@ -289,13 +289,13 @@ static NSString *cellIdentifier = @"ContactCell";
                 
             } else {
                 
-                if (conversation.unreadCount >= 100) {
+                if ([conversation.unreadCount intValue] >= 100) {
                     
                     cell.badgeView.badgeText = @"99+";
                     
                 } else {
                     
-                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", conversation.unreadCount];
                 }
             }
         }
@@ -356,7 +356,7 @@ static NSString *cellIdentifier = @"ContactCell";
             cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
         }
         
-        if (conversation.unreadCount > 0) {
+        if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] > 0) {
             
             if (conversation.muted) {
                 
@@ -364,13 +364,13 @@ static NSString *cellIdentifier = @"ContactCell";
                 
             } else {
                 
-                if (conversation.unreadCount >= 100) {
+                if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] >= 100) {
                     
                     cell.badgeView.badgeText = @"99+";
                     
                 } else {
                     
-                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", @(conversation.unreadCount)];
+                    cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", conversation.unreadCount];
                 }
             }
         }

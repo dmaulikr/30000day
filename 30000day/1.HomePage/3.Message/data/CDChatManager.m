@@ -756,7 +756,7 @@ static CDChatManager *instance;
             
             if (conversation.muted == NO) {
                 
-                totalUnreadCount += conversation.unreadCount;
+                totalUnreadCount += [conversation.unreadCount intValue];
             }
         }
         

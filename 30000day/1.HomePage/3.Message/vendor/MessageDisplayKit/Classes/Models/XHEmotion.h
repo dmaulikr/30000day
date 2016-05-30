@@ -24,7 +24,7 @@
 @property (nonatomic, copy) NSString *emotionPath;
 
 /**
- * gif表情的名字
+ * 每一个gif表情的名字
  */
 @property (nonatomic,copy) NSString *emotionName;
 

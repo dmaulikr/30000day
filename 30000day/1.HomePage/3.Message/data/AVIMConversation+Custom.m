@@ -24,14 +24,14 @@
     objc_setAssociatedObject(self, @selector(lastMessage), lastMessage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSInteger)unreadCount {
+- (NSNumber *)unreadCount {
     
-    return [objc_getAssociatedObject(self, @selector(unreadCount)) intValue];
+    return objc_getAssociatedObject(self, @selector(unreadCount));
 }
 
-- (void)setUnreadCount:(NSInteger)unreadCount {
+- (void)setUnreadCount:(NSNumber *)unreadCount {
     
-    objc_setAssociatedObject(self, @selector(unreadCount), @(unreadCount), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(unreadCount),unreadCount, OBJC_ASSOCIATION_RETAIN);
 }
 
 - (BOOL)mentioned {

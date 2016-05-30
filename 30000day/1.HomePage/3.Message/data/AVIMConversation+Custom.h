@@ -24,7 +24,7 @@ typedef enum : NSUInteger {
 /**
  *  未读消息数，保存在了数据库。收消息的时候，更新数据库
  */
-@property (nonatomic, assign) NSInteger unreadCount;
+@property (nonatomic, assign) NSNumber *unreadCount;
 
 /**
  *  是否有人提到了你，配合 @ 功能。不能看最后一条消息。
