@@ -54,10 +54,12 @@
             
             [alertView show];
             
-        }
+        } else {
             
             [self loadData];
-        
+            
+        }
+    
     };
     
 }
