@@ -32,7 +32,7 @@
 
 @import HealthKit;
 
-@interface AppDelegate () {
+@interface AppDelegate () <UIAlertViewDelegate> {
     
     BMKMapManager* _mapManager;
 }
@@ -45,22 +45,37 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    //***********************************配置获取健康信息*******************************//
-    if ([HKHealthStore isHealthDataAvailable]) {
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTHKHEALTHSTORE];
+    
+    if ([Common isObjectNull:isFirstStartString]) {
         
-        _healthStore1 = [[HKHealthStore alloc] init];
+        [Common saveAppDataForKey:FIRSTSTARTHKHEALTHSTORE withObject:@"1"];
         
-        NSSet *readDataTypes = [self dataTypesToRead];
+        //提示用户
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"”30000天“想访问您的运动记录" message:@"30000天想访问您的运动记录，用于计算天龄" delegate:self cancelButtonTitle:@"不予许" otherButtonTitles:@"好", nil];
         
-        [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+        [alertView show];
+        
+    } else {
+
+        //***********************************配置获取健康信息*******************************//
+        if ([HKHealthStore isHealthDataAvailable]) {
             
-            if (!success) {
+            _healthStore1 = [[HKHealthStore alloc] init];
+            
+            NSSet *readDataTypes = [self dataTypesToRead];
+            
+            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
                 
-                NSLog(@"error = %@", error);
-                
-                return;
-            }
-        }];
+                if (!success) {
+                    
+                    NSLog(@"error = %@", error);
+                    
+                    return;
+                }
+            }];
+        }
+        
     }
     
 //    //设置需要获取的权限这里仅设置了步数
@@ -306,6 +321,33 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex) {
+        
+        //***********************************配置获取健康信息*******************************//
+        if ([HKHealthStore isHealthDataAvailable]) {
+            
+            _healthStore1 = [[HKHealthStore alloc] init];
+            
+            NSSet *readDataTypes = [self dataTypesToRead];
+            
+            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+                
+                if (!success) {
+                    
+                    NSLog(@"error = %@", error);
+                    
+                    return;
+                }
+            }];
+        }
+        
+    }
+    
 }
 
 @end
