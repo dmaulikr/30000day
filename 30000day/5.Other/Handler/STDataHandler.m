@@ -572,7 +572,7 @@
     }
     
     //初始化通讯录
-    [[MailListManager shareManager] synchronizedMailList];
+//    [[MailListManager shareManager] synchronizedMailList];
 }
 
 //********** 用户注册************/
@@ -4703,6 +4703,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

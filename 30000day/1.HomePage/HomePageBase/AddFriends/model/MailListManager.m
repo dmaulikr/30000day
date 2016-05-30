@@ -8,6 +8,7 @@
 
 #import "MailListManager.h"
 #import "ChineseString.h"
+#import <AddressBook/AddressBook.h>
 
 @interface MailListManager () <UIAlertViewDelegate>
 
@@ -36,22 +37,31 @@
 //同步数据
 - (void)synchronizedMailList {
     
-    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTART];
-    
-    if ([Common isObjectNull:isFirstStartString]) {
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
         
-        [Common saveAppDataForKey:FIRSTSTART withObject:@"1"];
-        
-        //提示用户
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推存朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-        
-        [alertView show];
+        [self loadData];
         
     } else {
     
-        [self loadData];
+        NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTART];
         
-    }
+        if ([Common isObjectNull:isFirstStartString]) {
+            
+            [Common saveAppDataForKey:FIRSTSTART withObject:@"1"];
+            
+            //提示用户
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推荐朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+            
+            [alertView show];
+            
+        } else {
+            
+            [self loadData];
+            
+        }
+    
+    };
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -66,6 +76,10 @@
 
 - (void)loadData{
 
+    [self deleteDataObjectWithKey:@"modelArray"];
+    
+    [self deleteDataObjectWithKey:@"indexArray"];
+    
     [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.modelArray = [NSMutableArray array];
