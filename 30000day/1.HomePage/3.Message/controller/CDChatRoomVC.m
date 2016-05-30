@@ -193,7 +193,7 @@ static BOOL _showStatusBar = NO;
 
             AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
 
-            AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:message.videoPath]];
+            AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:message.videoPath]];//改到这
             
             AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
             
@@ -535,30 +535,46 @@ static BOOL _showStatusBar = NO;
 }
 
 - (void)sendMsg:(AVIMTypedMessage *)msg {
+    
     [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
         if (error) {
+            
             msg.sendTimestamp = [[NSDate date] timeIntervalSince1970] * 1000;
+            
             [[CDFailedMessageStore store] insertFailedMessage:msg];
+            
             [[CDSoundManager manager] playSendSoundIfNeed];
+            
             [self insertMessage:msg];
+            
         } else {
+            
             [[CDSoundManager manager] playSendSoundIfNeed];
+            
             [self insertMessage:msg];
         }
     }];
 }
 
 - (void)replaceMesssage:(AVIMTypedMessage *)message atIndexPath:(NSIndexPath *)indexPath {
+    
     self.msgs[indexPath.row] = message;
+    
     XHMessage *xhMessage = [self getXHMessageByMsg:message];
+    
     self.messages[indexPath.row] = xhMessage;
+    
     [self.messageTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)resendMessageAtIndexPath:(NSIndexPath *)indexPath discardIfFailed:(BOOL)discardIfFailed {
+    
     AVIMTypedMessage *msg = self.msgs[indexPath.row];
+    
     [self replaceMesssage:msg atIndexPath:indexPath];
+    
     NSString *recordId = msg.messageId;
+    
     [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
         if (error) {
             if (discardIfFailed) {
@@ -723,8 +739,26 @@ static BOOL _showStatusBar = NO;
         
         NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
         
-        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:nickName  timestamp:time];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            
+            NSError *error;
+            
+            NSData *data = [msg.file getData:&error];
+            
+            if (error) {
+                
+                DLog(@"download file error : %@", error);
+                
+            } else {
+                
+                [data writeToFile:path atomically:YES];
+            }
+        }
         
+        path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
+        
+        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:nickName  timestamp:time];
+     
     } else {
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
         DLog("unkonwMessage");
@@ -846,7 +880,7 @@ static BOOL _showStatusBar = NO;
     }
 }
 
-- (void)loadOldMessages{
+- (void)loadOldMessages {
     
     if (self.messages.count == 0 || self.isLoadingMsg) {
         

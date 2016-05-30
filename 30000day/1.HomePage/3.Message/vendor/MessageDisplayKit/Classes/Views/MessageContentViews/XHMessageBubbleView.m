@@ -66,9 +66,17 @@
 }
 
 + (CGSize)neededSizeForPhoto:(UIImage *)photo {
-    // 这里需要缩放后的size
-    CGSize photoSize = CGSizeMake(120.0f, 120.0f * photo.size.height/photo.size.width - 8.0f);
-    return photoSize;
+    
+    if (photo) {
+        // 这里需要缩放后的size
+        CGSize photoSize = CGSizeMake(120.0f, 120.0f * photo.size.height/photo.size.width - 8.0f);
+        
+        return photoSize;
+        
+    } else {
+        
+        return CGSizeMake(120.0f, 120.0f);//如果不存在就返回一个固定值
+    }
 }
 
 + (CGSize)neededSizeForVoicePath:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration {
