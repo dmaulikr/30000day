@@ -54,12 +54,10 @@
             
             [alertView show];
             
-        } else {
+        }
             
             [self loadData];
-            
-        }
-    
+        
     };
     
 }
@@ -76,6 +74,10 @@
 
 - (void)loadData{
 
+    [self deleteDataObjectWithKey:@"modelArray"];
+    
+    [self deleteDataObjectWithKey:@"indexArray"];
+    
     [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.modelArray = [NSMutableArray array];
