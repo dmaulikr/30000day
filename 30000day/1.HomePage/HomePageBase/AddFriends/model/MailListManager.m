@@ -9,7 +9,7 @@
 #import "MailListManager.h"
 #import "ChineseString.h"
 
-@interface MailListManager ()
+@interface MailListManager () <UIAlertViewDelegate>
 
 @property (nonatomic ,strong) NSMutableArray *modelArray;//存储的数组【数组里存储的是chineseString】模型
 
@@ -36,6 +36,36 @@
 //同步数据
 - (void)synchronizedMailList {
     
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTART];
+    
+    if ([Common isObjectNull:isFirstStartString]) {
+        
+        [Common saveAppDataForKey:FIRSTSTART withObject:@"1"];
+        
+        //提示用户
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推存朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+        
+        [alertView show];
+        
+    } else {
+    
+        [self loadData];
+        
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex) {
+        
+        [self loadData];
+        
+    }
+
+}
+
+- (void)loadData{
+
     [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.modelArray = [NSMutableArray array];
@@ -128,7 +158,7 @@
             }
             
             if (registerArray.count != 0) {
-        
+                
                 [self.indexArray insertObject:@"+" atIndex:0];
                 
             } else {
@@ -153,6 +183,7 @@
             
         }];
     }];
+
 }
 
 - (NSMutableArray *)getModelArray {
