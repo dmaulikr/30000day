@@ -103,6 +103,8 @@
 
 #define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
 
+#define FIRSTSTART                    @"FirstStart"          //第一次登陆
+
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 #define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
