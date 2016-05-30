@@ -270,7 +270,7 @@ typedef void (^handler)(NSArray<UIImage *> *selectPhotos);
 - (void)changeBtnCameraTitle
 {
     if (_arraySelectPhotos.count > 0) {
-        [self.btnCamera setTitle:[NSString stringWithFormat:@"确定(%ld)", _arraySelectPhotos.count] forState:UIControlStateNormal];
+        [self.btnCamera setTitle:[NSString stringWithFormat:@"确定(%ld)", (long)_arraySelectPhotos.count] forState:UIControlStateNormal];
         [self.btnCamera setTitleColor:kRGB(19, 153, 231) forState:UIControlStateNormal];
     } else {
         [self.btnCamera setTitle:@"拍照" forState:UIControlStateNormal];
