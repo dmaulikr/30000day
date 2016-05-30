@@ -23,12 +23,12 @@
 #import "CDFailedMessageStore.h"
 #import "AVIMEmotionMessage.h"
 #import "UIImageView+WebCache.h"
-#import "STAvatarBrowser.h"
+#import "LGPhoto.h"
 #import <AVKit/AVKit.h>
 
 static NSInteger const kOnePageSize = 10;
 
-@interface CDChatRoomVC ()
+@interface CDChatRoomVC () <LGPhotoPickerBrowserViewControllerDelegate,LGPhotoPickerBrowserViewControllerDataSource>
 
 @property (nonatomic, strong, readwrite) AVIMConversation *conversation;
 
@@ -40,6 +40,10 @@ static NSInteger const kOnePageSize = 10;
 @property (nonatomic, strong) XHMessageTableViewCell *currentSelectedCell;
 
 @property (nonatomic, strong) NSArray *emotionManagers;
+
+@property (nonatomic,strong) NSMutableArray *pickerBrowserPhotoArray;
+
+@property (nonatomic, assign) LGShowImageType showType;
 
 @end
 
@@ -96,8 +100,6 @@ static NSInteger const kOnePageSize = 10;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
-    
-    [STNotificationCenter addObserver:self selector:@selector(hideOrShowStatusBar) name:STAvatarBrowserDidHideAvatarImage object:nil];
 
     [self loadMessagesWhenInit];
 }
@@ -159,30 +161,63 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)refreshConv {
+    
     self.title = self.conversation.title;
 }
 
-#pragma mark - XHMessageTableViewCell delegate
-
-static BOOL _showStatusBar = NO;
-
-- (void)hideOrShowStatusBar {
+/**
+ *  初始化图片浏览器
+ */
+- (void)pushPhotoBroswerWithStyle:(LGShowImageType)style image:(UIImage *)willShowImage {
     
-    _showStatusBar = NO;
+    LGPhotoPickerBrowserViewController *broswerVC = [[LGPhotoPickerBrowserViewController alloc] init];
     
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        // iOS 7
-        [self prefersStatusBarHidden];
+    broswerVC.delegate = self;
+    
+    broswerVC.dataSource = self;
+    
+    broswerVC.showType = style;
+    
+    broswerVC.navigationHeight = 20;
+    
+    self.showType = style;
+    //配置数据
+    LGPhotoPickerBrowserPhoto *photo = [[LGPhotoPickerBrowserPhoto alloc] init];
+    
+    photo.photoImage = willShowImage;
+    
+    self.pickerBrowserPhotoArray = [NSMutableArray arrayWithObject:photo];
+
+    [self presentViewController:broswerVC animated:YES completion:nil];
+}
+
+#pragma mark - LGPhotoPickerBrowserViewControllerDataSource
+
+- (NSInteger)photoBrowser:(LGPhotoPickerBrowserViewController *)photoBrowser numberOfItemsInSection:(NSUInteger)section {
+    
+    if (self.showType == LGShowImageTypeImageBroswer) {
         
-        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        return self.pickerBrowserPhotoArray.count;
+        
+    } else {
+       
+      return 0;
     }
 }
 
-- (BOOL)prefersStatusBarHidden {
+- (id<LGPhotoPickerBrowserPhoto>)photoBrowser:(LGPhotoPickerBrowserViewController *)pickerBrowser photoAtIndexPath:(NSIndexPath *)indexPath {
     
-    return _showStatusBar;
+    if (self.showType == LGShowImageTypeImageBroswer) {
+        
+        return [self.pickerBrowserPhotoArray objectAtIndex:indexPath.item];
+        
+    } else {
+        
+        return nil;
+    }
 }
 
+#pragma mark - XHMessageTableViewCell delegate
 - (void)multiMediaMessageDidSelectedOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
     
     UIViewController *disPlayViewController;
@@ -208,17 +243,8 @@ static BOOL _showStatusBar = NO;
             
         case XHBubbleMessageMediaTypePhoto: {
             
-            [STAvatarBrowser showImage:[message photo]];
-            
-            if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-                
-                _showStatusBar = YES;
-                
-                [self prefersStatusBarHidden];
-                
-                [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-            }
-            
+            [self pushPhotoBroswerWithStyle:LGShowImageTypeImageBroswer image:message.photo];
+
             break;
         }
             
@@ -520,7 +546,7 @@ static BOOL _showStatusBar = NO;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,0.6);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.7);
     
     AVFile *file = [AVFile fileWithData:imageData];
     
@@ -738,24 +764,6 @@ static BOOL _showStatusBar = NO;
         AVIMVideoMessage *videoMsg = (AVIMVideoMessage *)msg;
         
         NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
-        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            
-            NSError *error;
-            
-            NSData *data = [msg.file getData:&error];
-            
-            if (error) {
-                
-                DLog(@"download file error : %@", error);
-                
-            } else {
-                
-                [data writeToFile:path atomically:YES];
-            }
-        }
-        
-        path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
         
         xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:nickName  timestamp:time];
      
@@ -996,19 +1004,39 @@ static BOOL _showStatusBar = NO;
     
     self.isLoadingMsg = YES;
     
-    XHMessage *xhMessage = [self getXHMessageByMsg:message];
+//    XHMessage *xhMessage = [self getXHMessageByMsg:message];
+//    
+//    [self.msgs addObject:message];
+//    
+//    [self.messages addObject:xhMessage];
+//    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+//    
+//    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    
+//    [self scrollToBottomAnimated:YES];
+//    
+//    self.isLoadingMsg = NO;
     
-    [self.msgs addObject:message];
-    
-    [self.messages addObject:xhMessage];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
-    
-    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    
-    [self scrollToBottomAnimated:YES];
-    
-    self.isLoadingMsg = NO;
+    [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
+        
+        if ([Common isObjectNull:error]) {
+            
+            XHMessage *xhMessage = [self getXHMessageByMsg:message];
+            
+            [self.msgs addObject:message];
+            
+            [self.messages addObject:xhMessage];
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+            
+            [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
+            [self scrollToBottomAnimated:YES];
+        }
+        
+        self.isLoadingMsg = NO;
+    }];
 }
 
 @end
