@@ -11,6 +11,7 @@
 #import "ChineseString.h"
 #import "ShareAnimatonView.h"
 #import <MessageUI/MessageUI.h>
+#import <AddressBook/AddressBook.h>
 
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
@@ -43,15 +44,168 @@
     
     self.tableView.dataSource = self;
     
-    [self loadDataFromServer];
+    [self synchronizedMailList];
 }
 
-- (void)loadDataFromServer {
+//同步数据
+- (void)synchronizedMailList {
     
-    self.chineseStringArray = [[MailListManager shareManager] getModelArray];
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        
+        [self loadData];
+        
+    } else {
+        
+        NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTART];
+        
+        if ([Common isObjectNull:isFirstStartString]) {
+            
+            [Common saveAppDataForKey:FIRSTSTART withObject:@"1"];
+            
+            //提示用户
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推荐朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+            
+            [alertView show];
+            
+        } else {
+            
+            [self loadData];
+            
+        }
+        
+    };
     
-    self.indexArray = [[MailListManager shareManager] getIndexArray];
 }
+
+- (void)loadData{
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
+        
+        self.chineseStringArray = [NSMutableArray array];
+        
+        self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+        
+        NSMutableArray *phoneNumberArray = [NSMutableArray array];
+        
+        for (int i = 0 ; i < chineseStringArray.count ; i++) {
+            
+            NSMutableArray *subDataArray = chineseStringArray[i];
+            
+            NSMutableArray *phoneArray = [NSMutableArray array];
+            
+            for (int j = 0; j < subDataArray.count; j++) {
+                
+                ChineseString *chineseString = subDataArray[j];
+                
+                NSString *phoneNumber = chineseString.phoneNumber;
+                
+                if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
+                    
+                    phoneNumber = [phoneNumber substringFromIndex:4];
+                }
+                
+                phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                
+                NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
+                
+                [phoneNumberDictionary addParameter:phoneNumber forKey:@"mobile"];
+                
+                [phoneArray addObject:phoneNumberDictionary];
+            }
+            
+            [phoneNumberArray addObject:phoneArray];
+        }
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
+            
+            NSMutableArray *registerArray = [NSMutableArray array];
+            
+            NSMutableArray *friendArray = [NSMutableArray array];
+            
+            for (int i = 0 ; i < addressArray.count; i++) {
+                
+                NSMutableArray *subDataArray = chineseStringArray[i];
+                
+                NSDictionary *dictionary = addressArray[i];
+                
+                NSArray *array = dictionary[@"addressBookList"];
+                
+                for (int j = 0; j < subDataArray.count; j++) {
+                    
+                    NSDictionary *dictionary = array[j];
+                    
+                    ChineseString *chineseString = subDataArray[j];
+                    
+                    chineseString.status = [dictionary[@"status"] integerValue];
+                    
+                    if ([dictionary[@"status"] integerValue] == 1) {
+                        
+                        chineseString.userId = dictionary[@"userId"];
+                        
+                        [registerArray addObject:chineseString];
+                        
+                    } else if([dictionary[@"status"] integerValue] == 2){
+                        
+                        [friendArray addObject:chineseString];
+                    }
+                }
+            }
+            
+            self.chineseStringArray = chineseStringArray;
+            
+            [self.chineseStringArray insertObject:registerArray atIndex:0];
+            
+            [self.chineseStringArray insertObject:friendArray atIndex:1];
+            
+            if (friendArray.count != 0) {
+                
+                [self.indexArray insertObject:@"友" atIndex:0];
+                
+            } else {
+                
+                [self.indexArray insertObject:@"" atIndex:0];
+            }
+            
+            if (registerArray.count != 0) {
+                
+                [self.indexArray insertObject:@"+" atIndex:0];
+                
+            } else {
+                
+                [self.indexArray insertObject:@"" atIndex:0];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+                [self.tableView reloadData];
+                
+            });
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        }];
+    }];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex) {
+        
+        [self loadData];
+        
+    }
+    
+}
+
 
 #pragma ---
 #pragma mark ---- 父视图的生命周期方法

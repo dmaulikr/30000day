@@ -572,7 +572,7 @@
     }
     
     //初始化通讯录
-    [[MailListManager shareManager] synchronizedMailList];
+//    [[MailListManager shareManager] synchronizedMailList];
 }
 
 //********** 用户注册************/
