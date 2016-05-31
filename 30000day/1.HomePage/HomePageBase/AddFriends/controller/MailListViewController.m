@@ -435,7 +435,13 @@
         
         [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
-        if (tag == 7) {//发送短信
+        if (tag == 8) {
+         
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = @"http://www.30000day.com";
+            [self showToast:@"已经复制到剪贴板"];
+            
+        } else if (tag == 7) {//发送短信
             
             if ([MFMessageComposeViewController canSendText] ) {
 
