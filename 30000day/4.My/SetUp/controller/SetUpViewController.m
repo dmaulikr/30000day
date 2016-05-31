@@ -10,6 +10,7 @@
 #import "CDSoundManager.h"
 #import "FactorVerificationView.h"
 #import "ThirdPartyLandingViewController.h"
+#import "MTProgressHUD.h"
 
 static CGFloat kHorizontalSpacing = 40;
 static CGFloat kFooterHeight = 30;
@@ -83,19 +84,30 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (void)friendValidation:(UISwitch *)switchView {
 
-    BOOL isOn = switchView.isOn;
-    
-    NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
-    
-    if (userConfigure == nil) {
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    [STDataHandler sendSetFriendSwitchWithUserId:STUserAccountHandler.userProfile.userId status:switchView.isOn success:^(BOOL success) {
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+ 
+            if (!success) {
+                
+                switchView.on = !switchView.isOn;
+            }
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
+    } failure:^(NSError *error) {
         
-        userConfigure = [NSMutableDictionary dictionary];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            switchView.on = !switchView.isOn;
+            
+        });
         
-    }
-    
-    [userConfigure setObject:@(isOn) forKey:FRIENDVALIDATION];
-    
-    [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+    }];
     
 }
 
@@ -276,7 +288,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count + 1;
+    return self.dataSource.count + 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -322,20 +334,26 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         [switchView addTarget:self action:@selector(factorVerification:) forControlEvents:UIControlEventValueChanged];
         
         cell.accessoryView = switchView;
+        
+    } else if (self.dataSource.count + 1 == indexPath.section) {
+    
+        cell.textLabel.text = @"好友验证";
 
-//        cell.textLabel.text = @"好友验证";
-//        
-//        NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-//        
-//        BOOL isOn = [userConfigure[FRIENDVALIDATION] boolValue];
-//        
-//        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-//        
-//        [switchView setOn:isOn];
-//        
-//        [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
-//        
-//        cell.accessoryView = switchView;
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+        
+        if ([Common isObjectNull:STUserAccountHandler.userProfile.friendSwitch] || !STUserAccountHandler.userProfile.friendSwitch.boolValue) {
+            
+            [switchView setOn:NO];
+            
+        } else {
+        
+            [switchView setOn:YES];
+        
+        }
+
+        [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
+        
+        cell.accessoryView = switchView;
         
     } else {
         
@@ -385,16 +403,18 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     if (self.dataSource.count == section) {
         
-//        UILabel *tipLabel = [self tipLabel];
-//        
-//        tipLabel.text = @"开启时，别人添加你为好友时需要验证";
-//        
-//        return tipLabel;
-        
         UILabel *tipLabel = [self tipLabel];
         
         tipLabel.text = @"开启时，进入完善健康因素时需填写登录密码";
         
+        return tipLabel;
+        
+    } else if (self.dataSource.count + 1 == section) {
+    
+        UILabel *tipLabel = [self tipLabel];
+
+        tipLabel.text = @"开启时，别人添加你为好友时需要验证";
+
         return tipLabel;
         
     } else {
