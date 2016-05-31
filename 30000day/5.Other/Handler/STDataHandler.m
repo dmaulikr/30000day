@@ -4760,6 +4760,8 @@
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [Common urlStringWithDictionary:params withString:GET_DESCEND_FACTORS];
+    
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_DESCEND_FACTORS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         
@@ -4789,7 +4791,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
+                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
                 
                 failure(failureError);
             }
