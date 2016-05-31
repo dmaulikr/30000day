@@ -32,7 +32,7 @@
 
 @import HealthKit;
 
-@interface AppDelegate () <UIAlertViewDelegate> {
+@interface AppDelegate () {
     
     BMKMapManager* _mapManager;
 }
@@ -45,18 +45,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTHKHEALTHSTORE];
-    
-    if ([Common isObjectNull:isFirstStartString]) {
-        
-        [Common saveAppDataForKey:FIRSTSTARTHKHEALTHSTORE withObject:@"1"];
-        
-        //提示用户
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"”30000天“想访问您的运动记录" message:@"30000天想访问您的运动记录，用于计算天龄" delegate:self cancelButtonTitle:@"不予许" otherButtonTitles:@"好", nil];
-        
-        [alertView show];
-        
-    } else {
+//    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTHKHEALTHSTORE];
+//    
+//    if ([Common isObjectNull:isFirstStartString]) {
+//        
+//        [Common saveAppDataForKey:FIRSTSTARTHKHEALTHSTORE withObject:@"1"];
+//        
+//        //提示用户
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"”30000天“想访问您的运动记录" message:@"30000天想访问您的运动记录，用于计算天龄" delegate:self cancelButtonTitle:@"不予许" otherButtonTitles:@"好", nil];
+//        
+//        [alertView show];
+//        
+//    } else {
 
         //***********************************配置获取健康信息*******************************//
         if ([HKHealthStore isHealthDataAvailable]) {
@@ -76,7 +76,7 @@
             }];
         }
         
-    }
+   // }
     
 //    //设置需要获取的权限这里仅设置了步数
 //    HKHealthStore *healthStore = [[HKHealthStore alloc] init];
@@ -324,30 +324,30 @@
 }
 
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex) {
-        
-        //***********************************配置获取健康信息*******************************//
-        if ([HKHealthStore isHealthDataAvailable]) {
-            
-            _healthStore1 = [[HKHealthStore alloc] init];
-            
-            NSSet *readDataTypes = [self dataTypesToRead];
-            
-            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
-                
-                if (!success) {
-                    
-                    NSLog(@"error = %@", error);
-                    
-                    return;
-                }
-            }];
-        }
-        
-    }
-    
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    
+//    if (buttonIndex) {
+//        
+//        //***********************************配置获取健康信息*******************************//
+//        if ([HKHealthStore isHealthDataAvailable]) {
+//            
+//            _healthStore1 = [[HKHealthStore alloc] init];
+//            
+//            NSSet *readDataTypes = [self dataTypesToRead];
+//            
+//            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+//                
+//                if (!success) {
+//                    
+//                    NSLog(@"error = %@", error);
+//                    
+//                    return;
+//                }
+//            }];
+//        }
+//        
+//    }
+//    
+//}
 
 @end

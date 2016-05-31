@@ -40,6 +40,7 @@
 #import "AFNetworking.h"
 #import "NSString+URLEncoding.h"
 #import "YYModel.h"
+#import "MTProgressHUD.h"
 //电话簿
 #import <AddressBook/AddressBook.h>
 
@@ -929,6 +930,12 @@
             [STDataHandler copyAddressBook:addressBook addressBookArray:addressBookArray completionHandler:handler];
             
         } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+            });
             
             //没有获取通讯录权限
         }
