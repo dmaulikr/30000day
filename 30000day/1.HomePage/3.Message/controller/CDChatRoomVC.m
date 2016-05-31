@@ -520,7 +520,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,0.7);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.8);
     
     AVFile *file = [AVFile fileWithData:imageData];
     

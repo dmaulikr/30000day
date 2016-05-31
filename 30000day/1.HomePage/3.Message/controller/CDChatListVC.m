@@ -283,13 +283,14 @@ static NSString *cellIdentifier = @"ContactCell";
             cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
         }
         
-        if (conversation.unreadCount > 0) {
+        if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] > 0) {
             
             if (conversation.muted) {
                 
+                
             } else {
                 
-                if ([conversation.unreadCount intValue] >= 100) {
+                if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] >= 100) {
                     
                     cell.badgeView.badgeText = @"99+";
                     
@@ -299,6 +300,7 @@ static NSString *cellIdentifier = @"ContactCell";
                 }
             }
         }
+        
         return cell;
         
     } else {

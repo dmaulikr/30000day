@@ -77,8 +77,10 @@
     
 }
 
-- (void)loadData{
+- (void)loadData {
+    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.chineseStringArray = [NSMutableArray array];
@@ -201,9 +203,7 @@
     if (buttonIndex) {
         
         [self loadData];
-        
     }
-    
 }
 
 
@@ -213,7 +213,7 @@
     
     [super searchBarDidBeginRestore:isAnimation];
     
-     self.isSearch = NO;
+    self.isSearch = NO;
     
     [self.tableView reloadData];
 }
@@ -258,7 +258,6 @@
         
         return self.chineseStringArray.count;
     }
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -272,7 +271,6 @@
         NSMutableArray *array = self.chineseStringArray[section];
             
         return array.count;
-        
     }
 }
 

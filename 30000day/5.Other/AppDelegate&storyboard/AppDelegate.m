@@ -150,7 +150,7 @@
          failure:(void (^)(NSError *))failure {
     
     [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",userId] callback: ^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
+        if (succeeded) { 
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
