@@ -4988,4 +4988,49 @@
     }];
 }
 
+//*********************设置添加好友开关*******************//
++ (void)sendSetFriendSwitchWithUserId:(NSNumber *)userId
+                               status:(NSInteger)status
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [params addParameter:userId forKey:@"userId"];
+    
+    [params addParameter:@(status) forKey:@"status"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,@"/stapi/user/setFriendSwitch"] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
+            
+            failure(failureError);
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+        
+    }];
+
+
+}
+
 @end

@@ -560,4 +560,10 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
                                    success:(void (^)(BOOL))success
                                    failure:(void (^)(NSError *))failure;
 
+//*********************设置添加好友开关*******************//
++ (void)sendSetFriendSwitchWithUserId:(NSNumber *)userId
+                               status:(NSInteger)status
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(NSError *error))failure;
+
 @end
