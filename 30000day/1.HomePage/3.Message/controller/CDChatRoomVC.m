@@ -978,20 +978,6 @@ static NSInteger const kOnePageSize = 10;
     
     self.isLoadingMsg = YES;
     
-//    XHMessage *xhMessage = [self getXHMessageByMsg:message];
-//    
-//    [self.msgs addObject:message];
-//    
-//    [self.messages addObject:xhMessage];
-//    
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
-//    
-//    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//    
-//    [self scrollToBottomAnimated:YES];
-//    
-//    self.isLoadingMsg = NO;
-    
     [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
         
         if ([Common isObjectNull:error]) {
