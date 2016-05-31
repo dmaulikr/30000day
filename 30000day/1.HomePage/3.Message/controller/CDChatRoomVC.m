@@ -23,12 +23,12 @@
 #import "CDFailedMessageStore.h"
 #import "AVIMEmotionMessage.h"
 #import "UIImageView+WebCache.h"
-#import "LGPhoto.h"
 #import <AVKit/AVKit.h>
+#import "IDMPhotoBrowser.h"
 
 static NSInteger const kOnePageSize = 10;
 
-@interface CDChatRoomVC () <LGPhotoPickerBrowserViewControllerDelegate,LGPhotoPickerBrowserViewControllerDataSource>
+@interface CDChatRoomVC ()
 
 @property (nonatomic, strong, readwrite) AVIMConversation *conversation;
 
@@ -43,7 +43,7 @@ static NSInteger const kOnePageSize = 10;
 
 @property (nonatomic,strong) NSMutableArray *pickerBrowserPhotoArray;
 
-@property (nonatomic, assign) LGShowImageType showType;
+@property (nonatomic,strong) IDMPhotoBrowser *browser;
 
 @end
 
@@ -124,6 +124,7 @@ static NSInteger const kOnePageSize = 10;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConversationUpdated object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
     [[XHAudioPlayerHelper shareInstance] setDelegate:nil];
+    self.browser = nil;
 }
 
 #pragma mark - ui init
@@ -165,56 +166,9 @@ static NSInteger const kOnePageSize = 10;
     self.title = self.conversation.title;
 }
 
-/**
- *  初始化图片浏览器
- */
-- (void)pushPhotoBroswerWithStyle:(LGShowImageType)style image:(UIImage *)willShowImage {
+- (void)tapAction {
     
-    LGPhotoPickerBrowserViewController *broswerVC = [[LGPhotoPickerBrowserViewController alloc] init];
-    
-    broswerVC.delegate = self;
-    
-    broswerVC.dataSource = self;
-    
-    broswerVC.showType = style;
-    
-    broswerVC.navigationHeight = 20;
-    
-    self.showType = style;
-    //配置数据
-    LGPhotoPickerBrowserPhoto *photo = [[LGPhotoPickerBrowserPhoto alloc] init];
-    
-    photo.photoImage = willShowImage;
-    
-    self.pickerBrowserPhotoArray = [NSMutableArray arrayWithObject:photo];
-
-    [self presentViewController:broswerVC animated:YES completion:nil];
-}
-
-#pragma mark - LGPhotoPickerBrowserViewControllerDataSource
-
-- (NSInteger)photoBrowser:(LGPhotoPickerBrowserViewController *)photoBrowser numberOfItemsInSection:(NSUInteger)section {
-    
-    if (self.showType == LGShowImageTypeImageBroswer) {
-        
-        return self.pickerBrowserPhotoArray.count;
-        
-    } else {
-       
-      return 0;
-    }
-}
-
-- (id<LGPhotoPickerBrowserPhoto>)photoBrowser:(LGPhotoPickerBrowserViewController *)pickerBrowser photoAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (self.showType == LGShowImageTypeImageBroswer) {
-        
-        return [self.pickerBrowserPhotoArray objectAtIndex:indexPath.item];
-        
-    } else {
-        
-        return nil;
-    }
+    [self.browser dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - XHMessageTableViewCell delegate
@@ -243,7 +197,27 @@ static NSInteger const kOnePageSize = 10;
             
         case XHBubbleMessageMediaTypePhoto: {
             
-            [self pushPhotoBroswerWithStyle:LGShowImageTypeImageBroswer image:message.photo];
+            IDMPhoto *photo = [IDMPhoto photoWithImage:message.photo];
+            
+            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:@[photo] animatedFromView:nil];
+            
+            browser.forceHideStatusBar = YES;
+            
+            browser.displayDoneButton = NO;
+            
+            browser.displayToolbar = NO;
+            
+            browser.autoHideInterface = false;
+            
+            browser.animationDuration = 1.0f;
+            
+            self.browser = browser;
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+            
+            [browser.view addGestureRecognizer:tap];
+            
+            [self presentViewController:browser animated:YES completion:nil];
 
             break;
         }
