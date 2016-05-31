@@ -19,6 +19,7 @@
 #import "UMSocialQQHandler.h"
 #import "MTProgressHUD.h"
 #import "MailListManager.h"
+#import "NewFriendManager.h"
 
 @interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -363,60 +364,91 @@
     }
     
     cell.dataModel = chineseString;
-    
+  
     //按钮点击回调
-    [cell setInvitationButtonBlock:^(UIButton *button){
+    [cell setInvitationButtonBlock:^(UIButton *button) {
         
         [self.view endEditing:YES];
         
-        ChineseString *chineseString;
-        
-        if (self.isSearch) {
-            
-            chineseString = self.searchResultArray[indexPath.row];
-            
-        } else {
-            
-            NSMutableArray *array = self.chineseStringArray[indexPath.section];
-            
-            chineseString = array[indexPath.row];
-        }
-        
         if (button.tag) {
-        
+            
             //添加好友
-            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             //添加好友,接口, @1请求   @2接受   @3拒绝
+            if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:chineseString.userId]) {
+                
+                [self showToast:@"对方或自己的id为空"];
+                
+                return;
+            }
+            
+            if ([[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] isEqualToString:[NSString stringWithFormat:@"%@",chineseString.userId]]) {
+                
+                [self showToast:@"不能添加自己"];
+                
+                return;
+            }
+            
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
-                                                        userId:chineseString.userId
-                                                   messageType:@1
-                                                       success:^(BOOL success) {
-                                                           
-                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                           
-                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                               
-                                                               [self showToast:@"请求发送成功"];
-                                                           
-                                                           });
-
-                                                       } failure:^(NSError *error) {
-                                                           
-                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                           
-                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                               
-                                                               [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-                                                           
-                                                           });
-
-                                                       }];
-
+                                                     userId:chineseString.userId
+                                                messageType:@1
+                                                    success:^(BOOL success) {
+                                                        
+                                                        [STDataHandler sendUserInformtionWithUserId:chineseString.userId success:^(UserInformationModel *model) {
+                                                            
+                                                            [NewFriendManager subscribePresenceToUserWithUserProfile:model andCallback:^(BOOL succeeded, NSError *error) {
+                                                                
+                                                                if (succeeded) {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        
+                                                                        [self showToast:@"请求发送成功"];
+                                                                        
+                                                                    });
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        
+                                                                        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                                        
+                                                                    });
+                                                                }
+                                                                
+                                                            }];
+                                                            
+                                                        } failure:^(NSError *error) {
+                                                            
+                                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                                
+                                                                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                
+                                                                [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                                
+                                                            });
+                                                            
+                                                        }];
+                                                        
+                                                    } failure:^(NSError *error) {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                            
+                                                            [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                            
+                                                        });
+                                                        
+                                                    }];
+            
         } else {
-
+            
             [self showShareAnimatonView:indexPath];
         }
-
     }];
     
     return cell;

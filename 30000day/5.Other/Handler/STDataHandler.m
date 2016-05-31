@@ -294,7 +294,7 @@
   
 }
 
-//**************通过用户名获取userId通过用户名获取userId**********/
+//**************通过用户名获取userId**********/
 + (void)sendGetUserIdByUserName:(NSString *)userName
                         success:(void (^)(NSNumber *userId))success
                         failure:(void (^)(NSError *error))failure {
