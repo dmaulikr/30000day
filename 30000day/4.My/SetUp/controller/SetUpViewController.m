@@ -92,6 +92,11 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             if (!success) {
                 
                 switchView.on = !switchView.isOn;
+            
+            } else {
+                
+                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%ld",(NSInteger)switchView.isOn];
+            
             }
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
