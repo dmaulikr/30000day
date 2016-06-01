@@ -1165,6 +1165,8 @@
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [Common urlStringWithDictionary:parameters withString:ADD_USER];
+    
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,ADD_USER] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         

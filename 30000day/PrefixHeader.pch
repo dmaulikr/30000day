@@ -271,9 +271,9 @@
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
 
-#define SUBSCRIBE             @"subscribe"       //申请加为好友
-#define ACCEPTSUBSCRIBE       @"acceptSubscribe" //同意加为好友
-#define MESSAGETYPE           @"messageType"     //消息的类型
+//#define SUBSCRIBE             @"subscribe"       //申请加为好友
+//#define ACCEPTSUBSCRIBE       @"acceptSubscribe" //同意加为好友
+//#define MESSAGETYPE           @"messageType"     //消息的类型
 
 
 //本地推送所用到的宏

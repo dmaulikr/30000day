@@ -196,8 +196,18 @@
         [array addObject:title];
     }
     
-    //显示QGPickerView
-    [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.factor selectedTitle:nil selectedTitle:nil];
+    if (indexPath.row == self.getFactorArray.count - 3) {//体重
+        
+        [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:[Common isObjectNull:factorModel.userSubFactorModel.factor] ? @"66" : factorModel.userSubFactorModel.factor selectedTitle:nil selectedTitle:nil];
+    
+    } else if (indexPath.row == self.getFactorArray.count - 4) {//身高
+        
+        [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:[Common isObjectNull:factorModel.userSubFactorModel.factor] ? @"177" : factorModel.userSubFactorModel.factor selectedTitle:nil selectedTitle:nil];
+        
+    } else {//其余的
+        
+        [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:factorModel.userSubFactorModel.factor selectedTitle:nil selectedTitle:nil];
+    }
     
     [Common saveAppIntegerDataForKey:HEALTHSETINDICATE withObject:indexPath.row];
 }

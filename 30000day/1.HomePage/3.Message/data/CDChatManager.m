@@ -14,6 +14,9 @@
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
 #import "LZPushManager.h"
+#import "AVIMRequestMessage.h"
+#import "AVIMAcceptMessage.h"
+#import "AVIMDirectRefreshMessage.h"
 
 static CDChatManager *instance;
 
@@ -74,6 +77,11 @@ static CDChatManager *instance;
     self.client = [[AVIMClient alloc] initWithClientId:clientId];
     
     self.client.delegate = self;
+    
+    //注册自定义
+    [AVIMRequestMessage registerSubclass];
+    [AVIMAcceptMessage registerSubclass];
+    [AVIMDirectRefreshMessage registerSubclass];
 
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
@@ -347,18 +355,7 @@ static CDChatManager *instance;
             
             if ([message isKindOfClass:[AVIMTypedMessage class]] ) {
                 
-                NSString *messageType = message.attributes[MESSAGETYPE];
-                
-                if ([messageType isEqualToString:SUBSCRIBE]) {//请求加为好友
-                    
-                    
-                } else if ([messageType isEqualToString:ACCEPTSUBSCRIBE]) {//接受请求
-                    
-                    
-                } else {
-                    
-                    [typedMessages addObject:message];
-                }
+                [typedMessages addObject:message];
             }
         }
         
@@ -442,54 +439,52 @@ static CDChatManager *instance;
 }
 
 #pragma mark - AVIMMessageDelegate
-
-// content : "this is message"
+//接受自定义消息
 - (void)conversation:(AVIMConversation *)conversation didReceiveCommonMessage:(AVIMMessage *)message {
-    // 不做处理，此应用没有用到
-    // 可以看做跟 AVIMTypedMessage 两个频道。构造消息和收消息的接口都不一样，互不干扰。
-    // 其实一般不用，有特殊的需求时可以考虑优先用 自定义 AVIMTypedMessage 来实现。见 AVIMCustomMessage 类
+    //可以看做跟 AVIMTypedMessage 两个频道。构造消息和收消息的接口都不一样，互不干扰。
+    AVIMTypedMessage *typeMessage = (AVIMTypedMessage *)message;
+    
+    if ((int)typeMessage.mediaType == 233) {//请求
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+        
+    } else if ((int)typeMessage.mediaType == 234) {//接受
+     
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        
+    } else if ((int)typeMessage.mediaType == 235) {//直接刷新的
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+    }
 }
 
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
     
-    NSDictionary *dictionary = message.attributes;
-    
-    if ([dictionary[MESSAGETYPE] isEqualToString:SUBSCRIBE]) {//申请加为好友
+    if (message.messageId) {
         
-        [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
-        
-    } else if ([dictionary[MESSAGETYPE] isEqualToString:ACCEPTSUBSCRIBE]) {//别人同意加为好友
-        
-        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-        
-    } else {//正常的消息
-        
-        if (message.messageId) {
+        if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
             
-            if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
+            [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
                 
-                [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
+                if (error) {
                     
-                    if (error) {
-                        
-                        DLog(@"%@", error);
-                        
-                    } else {
-                        
-                        [self receiveMessage:message conversation:conversation];
-                    }
-                }];
-                
-            } else {
-                
-                [self receiveMessage:message conversation:conversation];
-            }
+                    DLog(@"%@", error);
+                    
+                } else {
+                    
+                    [self receiveMessage:message conversation:conversation];
+                }
+            }];
             
         } else {
             
-            DLog(@"Receive Message , but MessageId is nil");
+            [self receiveMessage:message conversation:conversation];
         }
+        
+    } else {
+        
+        DLog(@"Receive Message , but MessageId is nil");
     }
 }
 
@@ -722,24 +717,11 @@ static CDChatManager *instance;
         
         for (AVIMConversation *conversation in conversations) {
             
-            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:50];//这里暂时取50个缓存数据然后进行检索
+            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:1];//这里暂时取50个缓存数据然后进行检索
             
-            for (int i = 0 ; i < lastestMessages.count; i++) {
+            if (lastestMessages.count > 0) {
                 
-                AVIMTypedMessage *message = lastestMessages[lastestMessages.count - 1 - i];
-                
-                NSDictionary *dictionary = message.attributes;
-                
-                if ([Common isObjectNull:dictionary[MESSAGETYPE]]) {//该message是正常的聊天数据
-                    
-                    conversation.lastMessage = message;
-                    
-                    break;
-                    
-                } else {//添加好友、同意加为好友等消息
-                 
-                    
-                }
+                conversation.lastMessage = lastestMessages[0];
             }
 
             if (conversation.type == CDConversationTypeSingle) {

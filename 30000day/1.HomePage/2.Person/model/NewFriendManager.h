@@ -14,4 +14,6 @@
 
 + (void)acceptPresenceSubscriptionRequestFrom:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback;
 
++ (void)drictRefresh:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback;
+
 @end

@@ -300,7 +300,7 @@ static NSInteger const kOnePageSize = 10;
     self.currentSelectedCell = nil;
 }
 
-#pragma mark - XHEmotionManagerView DataSource
+#pragma mark - XHEmotionManagerView 6DataSource
 
 - (NSInteger)numberOfEmotionManagers {
     

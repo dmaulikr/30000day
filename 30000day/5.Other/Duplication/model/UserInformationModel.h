@@ -40,7 +40,7 @@
 
 @property (nonatomic,copy) NSString *originalHeadImg;//原来的头像
 
-@property (nonatomic,copy) NSString *friendSwitch;//添加好友的验证开关
+@property (nonatomic,copy) NSString *friendSwitch;//添加好友的验证开关,0关闭 1打开
 
 //先判断:双方账户是否有效
 + (NSString *)errorStringWithModel:(UserInformationModel *)model userProfile:(UserProfile *)userProfile;
