@@ -9,7 +9,6 @@
 #import "CDChatVC.h"
 #import "CDBaseNavC.h"
 #import "CDCacheManager.h"
-#import "AVIMCustomMessage.h"
 
 @interface CDChatVC ()
 

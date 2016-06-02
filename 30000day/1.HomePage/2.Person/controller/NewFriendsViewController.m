@@ -56,8 +56,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-            
             [self.tableView.mj_header endRefreshing];
         });
     }];

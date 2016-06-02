@@ -9,6 +9,9 @@
 #import "NewFriendManager.h"
 #import "CDChatManager.h"
 #import "UserInformationModel.h"
+#import "AVIMRequestMessage.h"
+#import "AVIMAcceptMessage.h"
+#import "AVIMDirectRefreshMessage.h"
 
 @interface NewFriendManager ()
 
@@ -28,14 +31,11 @@
                 callback(NO,error);
                 
             } else {
+                NSLog(@"---%@",[[NSThread currentThread] description]);
+                AVIMRequestMessage *messgage = [AVIMRequestMessage messageWithContent:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil
+                                                ];
                 
-                NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-                
-                [dictionary addParameter:SUBSCRIBE forKey:MESSAGETYPE];
-                
-                AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:dictionary];
-                
-                [[CDChatManager manager] sendMessage:messgage conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+                [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
                     
                     callback(succeeded,error);
                     
@@ -64,13 +64,10 @@
                  
              } else {
                  
-                 NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+                 AVIMAcceptMessage *messgage = [AVIMAcceptMessage messageWithContent:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil];
+                                                
                  
-                 [dictionary addParameter:ACCEPTSUBSCRIBE forKey:MESSAGETYPE];
-                 
-                 AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:[NSString stringWithFormat:@"%@同意你的请求",STUserAccountHandler.userProfile.nickName] attributes:dictionary];
-                 
-                 [[CDChatManager manager] sendMessage:messgage conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+                 [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
                      
                      callback(succeeded,error);
                      
@@ -87,5 +84,37 @@
      }    
 }
 
++ (void)drictRefresh:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback {
+    
+    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {//为空
+        
+        //查询conversation
+        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+            
+            if (![Common isObjectNull:error]) {
+                
+                callback(NO,error);
+                
+            } else {
+                
+                AVIMDirectRefreshMessage *messgage = [AVIMDirectRefreshMessage messageWithContent:[NSString stringWithFormat:@"%@直接请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil
+                                               ];
+                
+                [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
+                    
+                    callback(succeeded,error);
+                    
+                }];
+            }
+        }];
+        
+    } else {
+        
+        NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]}];
+        
+        callback(NO,error);
+        
+    }
+}
 
 @end

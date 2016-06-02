@@ -262,32 +262,65 @@
                                                     messageType:@1
                                                       success:^(BOOL success) {
   
-                                                          if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {
+                                                       if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {
                                                               
-                                                              [NewFriendManager subscribePresenceToUserWithUserProfile:model andCallback:^(BOOL succeeded, NSError *error) {
-                                                                  
-                                                                  if (succeeded) {
+                                                              if ([model.friendSwitch isEqualToString:@"1"]) {//打开的
+                                                              
+                                                                  [NewFriendManager drictRefresh:model andCallback:^(BOOL succeeded, NSError *error) {
+                                                                     
+                                                                      if (succeeded) {
+                                                                          
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              
+                                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                              
+                                                                              [self showToast:@"好友添加成功"];
+                                                                              
+                                                                              [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+                                                                              
+                                                                          });
+                                                                          
+                                                                      } else {
+                                                                          
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              
+                                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                              
+                                                                              [self showToast:@"消息发送失败"];
+                                                                              
+                                                                          });
+                                                                      }
                                                                       
-                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                          
-                                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                          
-                                                                          [self showToast:@"请求发送成功"];
-                                                                          
-                                                                      });
-                                                                      
-                                                                  } else {
-                                                                      
-                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                          
-                                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                          
-                                                                          [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-                                                                          
-                                                                      });
-                                                                  }
-                                                              }];
+                                                                  }];
 
+                                                              } else {//等于0，获取没设置
+                                                                  
+                                                                  [NewFriendManager subscribePresenceToUserWithUserProfile:model andCallback:^(BOOL succeeded, NSError *error) {
+                                                                      
+                                                                      if (succeeded) {
+                                                                          
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              
+                                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                              
+                                                                              [self showToast:@"请求发送成功"];
+                                                                              
+                                                                          });
+                                                                          
+                                                                      } else {
+                                                                          
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              
+                                                                              [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                              
+                                                                              [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                                              
+                                                                          });
+                                                                      }
+                                                                  }];
+                                                                  
+                                                              }
+                                                              
                                                           } else {
                                                               
                                                               dispatch_async(dispatch_get_main_queue(), ^{
