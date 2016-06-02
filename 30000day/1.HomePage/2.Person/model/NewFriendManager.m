@@ -31,7 +31,7 @@
                 callback(NO,error);
                 
             } else {
-                
+                NSLog(@"---%@",[[NSThread currentThread] description]);
                 AVIMRequestMessage *messgage = [AVIMRequestMessage messageWithContent:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil
                                                 ];
                 

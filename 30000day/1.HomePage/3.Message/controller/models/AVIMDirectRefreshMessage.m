@@ -15,25 +15,14 @@
     [self registerSubclass];
 }
 
-- (instancetype)init {
-    
-    if ((self = [super init])) {
-        
-        self.mediaType = [[self class] classMediaType];
-        
-    }
-    
-    return self;
-}
-
 + (AVIMMessageMediaType)classMediaType {
     
-    return 235;
+    return YourDirectMessageTypeOperation;
 }
 
 + (instancetype)messageWithContent:(NSString *)content attributes:(NSDictionary *)attributes {
     
-    AVIMDirectRefreshMessage *message = [[self alloc] init];
+    AVIMDirectRefreshMessage *message = [super messageWithText:content attachedFilePath:nil attributes:nil];
     
     message.text = content;
     

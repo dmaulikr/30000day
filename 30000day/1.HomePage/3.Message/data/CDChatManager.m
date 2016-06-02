@@ -77,15 +77,12 @@ static CDChatManager *instance;
     self.client = [[AVIMClient alloc] initWithClientId:clientId];
     
     self.client.delegate = self;
-    
-    //注册自定义
-    [AVIMRequestMessage registerSubclass];
-    [AVIMAcceptMessage registerSubclass];
-    [AVIMDirectRefreshMessage registerSubclass];
 
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
+            
+
             
             callback(succeeded, error);
             
@@ -442,50 +439,91 @@ static CDChatManager *instance;
 //接受自定义消息
 - (void)conversation:(AVIMConversation *)conversation didReceiveCommonMessage:(AVIMMessage *)message {
     //可以看做跟 AVIMTypedMessage 两个频道。构造消息和收消息的接口都不一样，互不干扰。
-    AVIMTypedMessage *typeMessage = (AVIMTypedMessage *)message;
     
-    if ((int)typeMessage.mediaType == 233) {//请求
+    if (message.transient) {
         
-        [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+        NSString *string =  message.content;
         
-    } else if ((int)typeMessage.mediaType == 234) {//接受
-     
-        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        NSLog(@"%@",string);
         
-    } else if ((int)typeMessage.mediaType == 235) {//直接刷新的
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         
-        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        NSError *error;
+        
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        
+        if (!error) {
+            
+            NSNumber *medioType = dictionary[@"_lctype"];
+            
+            NSString *medioTypeString = [NSString stringWithFormat:@"%@",medioType];
+            
+            if ([medioTypeString isEqualToString:@"233"]) {
+                
+                [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+                
+            } else if ([medioTypeString isEqualToString:@"234"]) {
+                
+                [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+                
+            } else if ([medioTypeString isEqualToString:@"235"]) {
+                
+                [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+            }
+        }
     }
 }
 
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
     
-    if (message.messageId) {
+    NSLog(@"%d--%@",message.mediaType,message.content);
+    
+   if (message.transient) {
+       
+       if ([message isKindOfClass:[AVIMRequestMessage class]]) {//请求
+           
+           [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+           
+       } else if ([message isKindOfClass:[AVIMAcceptMessage class]]) {//接受
+           
+           [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+           
+       } else if ([message isKindOfClass:[AVIMDirectRefreshMessage class]]) {//直接刷新的
+           
+           [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+       }
+       
+    } else {
         
-        if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
+        if (message.messageId) {
             
-            [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
+            if (conversation.creator == nil && [[CDConversationStore store] isConversationExists:conversation] == NO) {
                 
-                if (error) {
+                [conversation fetchWithCallback:^(BOOL succeeded, NSError *error) {
                     
-                    DLog(@"%@", error);
-                    
-                } else {
-                    
-                    [self receiveMessage:message conversation:conversation];
-                }
-            }];
+                    if (error) {
+                        
+                        DLog(@"%@", error);
+                        
+                    } else {
+                        
+                        [self receiveMessage:message conversation:conversation];
+                    }
+                }];
+                
+            } else {
+                
+                [self receiveMessage:message conversation:conversation];
+            }
             
         } else {
             
-            [self receiveMessage:message conversation:conversation];
+            DLog(@"Receive Message , but MessageId is nil");
         }
-        
-    } else {
-        
-        DLog(@"Receive Message , but MessageId is nil");
+
     }
+    
 }
 
 - (void)conversation:(AVIMConversation *)conversation messageDelivered:(AVIMMessage *)message {

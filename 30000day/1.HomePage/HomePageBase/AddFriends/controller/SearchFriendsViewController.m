@@ -286,7 +286,7 @@
                                                                               
                                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                                               
-                                                                              [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                                              [self showToast:@"消息发送失败"];
                                                                               
                                                                           });
                                                                       }

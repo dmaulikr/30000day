@@ -12,32 +12,22 @@
 
 + (void)load {
     
-    [self registerSubclass];
-}
-
-- (instancetype)init {
-    
-    if ((self = [super init])) {
-        
-        self.mediaType = [[self class] classMediaType];
-    }
-    
-    return self;
+    [AVIMRequestMessage registerSubclass];
 }
 
 + (AVIMMessageMediaType)classMediaType {
     
-    return 233;
+    return YourRequestMessageTypeOperation;
 }
 
 + (instancetype)messageWithContent:(NSString *)content attributes:(NSDictionary *)attributes {
     
-    AVIMRequestMessage *message = [[self alloc] init];
+    AVIMRequestMessage *message = [AVIMRequestMessage messageWithText:content file:nil attributes:nil];
     
-    message.text = content;
+    message.op = @"av";
     
     message.attributes = attributes;
-    
+
     return message;
 }
 

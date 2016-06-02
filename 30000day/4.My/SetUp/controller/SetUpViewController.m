@@ -85,6 +85,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 - (void)friendValidation:(UISwitch *)switchView {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [STDataHandler sendSetFriendSwitchWithUserId:STUserAccountHandler.userProfile.userId status:switchView.isOn success:^(BOOL success) {
        
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -95,7 +96,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             
             } else {
                 
-                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%ld",(NSInteger)switchView.isOn];
+                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%d",(int)switchView.isOn];
             
             }
             

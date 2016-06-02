@@ -271,9 +271,15 @@
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
 
-//#define SUBSCRIBE             @"subscribe"       //申请加为好友
-//#define ACCEPTSUBSCRIBE       @"acceptSubscribe" //同意加为好友
-//#define MESSAGETYPE           @"messageType"     //消息的类型
+//
+typedef NS_ENUM(NSInteger, YourCustomMessageType) {
+    
+    YourRequestMessageTypeOperation = 233,
+    
+    YourAcceptMessageTypeOperation = 234,
+    
+    YourDirectMessageTypeOperation = 235
+};
 
 
 //本地推送所用到的宏

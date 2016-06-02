@@ -8,8 +8,9 @@
 
 #import "AVIMTypedMessage.h"
 
-
 @interface AVIMRequestMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
+
+@property (nonatomic,copy) NSString *op;
 
 + (instancetype)messageWithContent:(NSString *)content attributes:(NSDictionary *)attributes;
 

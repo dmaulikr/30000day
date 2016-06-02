@@ -15,24 +15,14 @@
     [self registerSubclass];
 }
 
-- (instancetype)init {
-    
-    if ((self = [super init])) {
-        
-        self.mediaType = [[self class] classMediaType];
-    }
-    
-    return self;
-}
-
 + (AVIMMessageMediaType)classMediaType {
     
-    return 234;
+    return YourAcceptMessageTypeOperation;
 }
 
 + (instancetype)messageWithContent:(NSString *)content attributes:(NSDictionary *)attributes {
     
-    AVIMAcceptMessage *message = [[self alloc] init];
+    AVIMAcceptMessage *message = [super messageWithText:content attachedFilePath:nil attributes:nil];
     
     message.text = content;
     
