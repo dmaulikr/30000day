@@ -85,7 +85,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 - (void)friendValidation:(UISwitch *)switchView {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler sendSetFriendSwitchWithUserId:STUserAccountHandler.userProfile.userId status:switchView.isOn success:^(BOOL success) {
+    [STDataHandler sendSetFriendSwitchWithUserId:STUserAccountHandler.userProfile.userId status:!switchView.isOn success:^(BOOL success) {
        
         dispatch_async(dispatch_get_main_queue(), ^{
  
@@ -95,7 +95,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             
             } else {
                 
-                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%ld",(NSInteger)switchView.isOn];
+                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%ld",(NSInteger)!switchView.isOn];
             
             }
             
@@ -345,16 +345,8 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         cell.textLabel.text = @"好友验证";
 
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-        
-        if ([Common isObjectNull:STUserAccountHandler.userProfile.friendSwitch] || !STUserAccountHandler.userProfile.friendSwitch.boolValue) {
             
-            [switchView setOn:NO];
-            
-        } else {
-        
-            [switchView setOn:YES];
-        
-        }
+        [switchView setOn:!STUserAccountHandler.userProfile.friendSwitch.boolValue];
 
         [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
         
