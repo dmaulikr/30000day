@@ -273,16 +273,9 @@
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
 
-//
-typedef NS_ENUM(NSInteger, YourCustomMessageType) {
-    
-    YourRequestMessageTypeOperation = 233,
-    
-    YourAcceptMessageTypeOperation = 234,
-    
-    YourDirectMessageTypeOperation = 235
-};
-
+#define REQUEST_TYPE          @"Once, I'd found my best love, but I didn't treasure her!@#$%^233" //请求加为好友
+#define ACCEPT_TYPE           @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求
+#define DRECT_TYPE            @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
 
 //本地推送所用到的宏
 #define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒

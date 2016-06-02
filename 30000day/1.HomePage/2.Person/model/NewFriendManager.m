@@ -9,16 +9,12 @@
 #import "NewFriendManager.h"
 #import "CDChatManager.h"
 #import "UserInformationModel.h"
-#import "AVIMRequestMessage.h"
-#import "AVIMAcceptMessage.h"
-#import "AVIMDirectRefreshMessage.h"
 
 @interface NewFriendManager ()
 
 @end
 
 @implementation NewFriendManager
-
 
 + (void)subscribePresenceToUserWithUserProfile:(UserInformationModel *)model andCallback:(AVBooleanResultBlock)callback {
     
@@ -31,9 +27,8 @@
                 callback(NO,error);
                 
             } else {
-                NSLog(@"---%@",[[NSThread currentThread] description]);
-                AVIMRequestMessage *messgage = [AVIMRequestMessage messageWithContent:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil
-                                                ];
+                
+                AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:REQUEST_TYPE attributes:nil];
                 
                 [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
                     
@@ -64,8 +59,7 @@
                  
              } else {
                  
-                 AVIMAcceptMessage *messgage = [AVIMAcceptMessage messageWithContent:[NSString stringWithFormat:@"%@请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil];
-                                                
+                 AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:ACCEPT_TYPE attributes:nil];
                  
                  [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
                      
@@ -97,13 +91,11 @@
                 
             } else {
                 
-                AVIMDirectRefreshMessage *messgage = [AVIMDirectRefreshMessage messageWithContent:[NSString stringWithFormat:@"%@直接请求加为好友",STUserAccountHandler.userProfile.nickName] attributes:nil
-                                               ];
+                AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:DRECT_TYPE attributes:nil];
                 
                 [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
                     
                     callback(succeeded,error);
-                    
                 }];
             }
         }];
@@ -112,8 +104,7 @@
         
         NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]}];
         
-        callback(NO,error);
-        
+        callback(NO,error);        
     }
 }
 

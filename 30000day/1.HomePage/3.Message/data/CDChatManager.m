@@ -14,18 +14,19 @@
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
 #import "LZPushManager.h"
-#import "AVIMRequestMessage.h"
-#import "AVIMAcceptMessage.h"
-#import "AVIMDirectRefreshMessage.h"
 
 static CDChatManager *instance;
 
 @interface CDChatManager () <AVIMClientDelegate, AVIMSignatureDataSource>
 
 @property (nonatomic, assign, readwrite) BOOL connect;
+
 @property (nonatomic, strong) NSMutableDictionary *cachedConversations;
+
 @property (nonatomic, strong) NSString *plistPath;
+
 @property (nonatomic, strong) NSMutableDictionary *conversationDatas;
+
 @property (nonatomic, assign) NSInteger totalUnreadCount;
 
 @end
@@ -35,10 +36,14 @@ static CDChatManager *instance;
 #pragma mark - lifecycle
 
 + (instancetype)manager {
+    
     static dispatch_once_t token;
+    
     dispatch_once(&token, ^{
+        
         instance = [[CDChatManager alloc] init];
     });
+    
     return instance;
 }
 
@@ -82,18 +87,15 @@ static CDChatManager *instance;
         
         if (callback) {
             
-
-            
             callback(succeeded, error);
-            
         }
     }];
 }
 
 - (void)closeWithCallback:(AVBooleanResultBlock)callback {
+    
     [self.client closeWithCallback:callback];
 }
-
 
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
@@ -333,7 +335,9 @@ static CDChatManager *instance;
             block(NO, error);
             
         } else {
+            
             AVIMTextMessage *textMessage = [AVIMTextMessage messageWithText:text attributes:nil];
+            
             [self sendMessage:textMessage conversation:conversation callback:block];
         }
     }];
@@ -350,7 +354,7 @@ static CDChatManager *instance;
         
         for (AVIMTypedMessage *message in messages) {
             
-            if ([message isKindOfClass:[AVIMTypedMessage class]] ) {
+            if ([message isKindOfClass:[AVIMTypedMessage class]] && !message.transient) {//不是暂态消息才会显示
                 
                 [typedMessages addObject:message];
             }
@@ -382,14 +386,17 @@ static CDChatManager *instance;
 #pragma mark - AVIMClientDelegate
 
 - (void)imClientPaused:(AVIMClient *)imClient {
+    
     [self updateConnectStatus];
 }
 
 - (void)imClientResuming:(AVIMClient *)imClient {
+    
     [self updateConnectStatus];
 }
 
 - (void)imClientResumed:(AVIMClient *)imClient {
+    
     [self updateConnectStatus];
 }
 
@@ -400,12 +407,12 @@ static CDChatManager *instance;
     
     self.connect = self.client.status == AVIMClientStatusOpened;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationConnectivityUpdated object:@(self.connect)];
+    [STNotificationCenter postNotificationName:kCDNotificationConnectivityUpdated object:@(self.connect)];
 }
 
 #pragma mark - receive message handle
 
-- (void)receiveMessage:(AVIMTypedMessage *)message conversation:(AVIMConversation *)conversation{
+- (void)receiveMessage:(AVIMTypedMessage *)message conversation:(AVIMConversation *)conversation {
     
     [[CDConversationStore store] insertConversation:conversation];
     
@@ -419,7 +426,7 @@ static CDChatManager *instance;
             [[CDConversationStore store] updateMentioned:YES conversation:conversation];
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationUnreadsUpdated object:nil];
+        [STNotificationCenter postNotificationName:kCDNotificationUnreadsUpdated object:nil];
     }
     
     if (!self.chattingConversationId) {
@@ -432,46 +439,13 @@ static CDChatManager *instance;
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationMessageReceived object:message];
+    [STNotificationCenter postNotificationName:kCDNotificationMessageReceived object:message];
 }
 
 #pragma mark - AVIMMessageDelegate
 //接受自定义消息
 - (void)conversation:(AVIMConversation *)conversation didReceiveCommonMessage:(AVIMMessage *)message {
     //可以看做跟 AVIMTypedMessage 两个频道。构造消息和收消息的接口都不一样，互不干扰。
-    
-    if (message.transient) {
-        
-        NSString *string =  message.content;
-        
-        NSLog(@"%@",string);
-        
-        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-        
-        NSError *error;
-        
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-        if (!error) {
-            
-            NSNumber *medioType = dictionary[@"_lctype"];
-            
-            NSString *medioTypeString = [NSString stringWithFormat:@"%@",medioType];
-            
-            if ([medioTypeString isEqualToString:@"233"]) {
-                
-                [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
-                
-            } else if ([medioTypeString isEqualToString:@"234"]) {
-                
-                [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-                
-            } else if ([medioTypeString isEqualToString:@"235"]) {
-                
-                [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-            }
-        }
-    }
 }
 
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
@@ -481,15 +455,17 @@ static CDChatManager *instance;
     
    if (message.transient) {
        
-       if ([message isKindOfClass:[AVIMRequestMessage class]]) {//请求
+       NSString *text = message.text;
+       
+       if ([text isEqualToString:REQUEST_TYPE]) {
            
            [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
            
-       } else if ([message isKindOfClass:[AVIMAcceptMessage class]]) {//接受
+       } else if ([text isEqualToString:ACCEPT_TYPE]) {
            
            [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
            
-       } else if ([message isKindOfClass:[AVIMDirectRefreshMessage class]]) {//直接刷新的
+       } else if ([text isEqualToString:DRECT_TYPE]) {
            
            [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
        }
@@ -521,9 +497,7 @@ static CDChatManager *instance;
             
             DLog(@"Receive Message , but MessageId is nil");
         }
-
     }
-    
 }
 
 - (void)conversation:(AVIMConversation *)conversation messageDelivered:(AVIMMessage *)message {
@@ -569,31 +543,48 @@ static CDChatManager *instance;
 #pragma mark - signature
 
 - (id)conversationSignWithSelfId:(NSString *)clientId conversationId:(NSString *)conversationId targetIds:(NSArray *)targetIds action:(NSString *)action {
+    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
     [dict setObject:clientId forKey:@"self_id"];
+    
     if (conversationId) {
+        
         [dict setObject:conversationId forKey:@"convid"];
     }
+    
     if (targetIds) {
+        
         [dict setObject:targetIds forKey:@"targetIds"];
     }
+    
     if (action) {
+        
         [dict setObject:action forKey:@"action"];
     }
+    
     //这里是从云代码获取签名，也可以从你的服务器获取
     return [AVCloud callFunction:@"conv_sign" withParameters:dict];
 }
 
 - (AVIMSignature *)getAVSignatureWithParams:(NSDictionary *)fields peerIds:(NSArray *)peerIds {
+    
     AVIMSignature *avSignature = [[AVIMSignature alloc] init];
+    
     NSNumber *timestampNum = [fields objectForKey:@"timestamp"];
+    
     long timestamp = [timestampNum longValue];
+    
     NSString *nonce = [fields objectForKey:@"nonce"];
+    
     NSString *signature = [fields objectForKey:@"signature"];
     
     [avSignature setTimestamp:timestamp];
+    
     [avSignature setNonce:nonce];
+    
     [avSignature setSignature:signature];
+    
     return avSignature;
 }
 
@@ -664,25 +655,36 @@ static CDChatManager *instance;
 }
 
 - (NSString *)uuid {
+    
     NSString *chars = @"abcdefghijklmnopgrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    
     assert(chars.length == 62);
+    
     int len = (int)chars.length;
+    
     NSMutableString *result = [[NSMutableString alloc] init];
+    
     for (int i = 0; i < 24; i++) {
+        
         int p = arc4random_uniform(len);
+        
         NSRange range = NSMakeRange(p, 1);
+        
         [result appendString:[chars substringWithRange:range]];
     }
+    
     return result;
 }
 
 + (NSError *)errorWithText:(NSString *)text {
+    
     return [NSError errorWithDomain:@"LeanChatLib" code:0 userInfo:@{NSLocalizedDescriptionKey:text}];
 }
 
 #pragma mark - Conversation cache
 
 - (NSString *)localKeyWithConversationId:(NSString *)conversationId {
+    
     return [NSString stringWithFormat:@"conv_%@", conversationId];
 }
 
@@ -693,17 +695,27 @@ static CDChatManager *instance;
 }
 
 - (void)cacheConversationsWithIds:(NSMutableSet *)conversationIds callback:(AVBooleanResultBlock)callback {
+    
     NSMutableSet *uncacheConversationIds = [[NSMutableSet alloc] init];
+    
     for (NSString *conversationId in conversationIds) {
+        
         AVIMConversation  *conversation = [self lookupConversationById:conversationId];
+        
         if (conversation == nil) {
+            
             [uncacheConversationIds addObject:conversationId];
         }
     }
+    
     [self fetchConversationsWithConversationIds:uncacheConversationIds callback: ^(NSArray *objects, NSError *error) {
+        
         if (error) {
+            
             callback(NO, error);
+            
         } else {
+            
             callback(YES, nil);
         }
     }];
@@ -793,14 +805,23 @@ static CDChatManager *instance;
 #pragma mark - mention
 
 - (BOOL)isMentionedByMessage:(AVIMTypedMessage *)message {
+    
     if (![message isKindOfClass:[AVIMTextMessage class]]) {
+        
         return NO;
+        
     } else {
+        
         NSString *text = ((AVIMTextMessage *)message).text;
+        
         NSString *pattern = [NSString stringWithFormat:@"@%@ ",STUserAccountHandler.userProfile.nickName];
+        
         if([text rangeOfString:pattern].length > 0) {
+            
             return YES;
+            
         } else {
+            
             return NO;
         }
     }

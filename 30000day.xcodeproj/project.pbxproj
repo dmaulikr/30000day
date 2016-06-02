@@ -259,9 +259,6 @@
 		B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B81306CA1CB5FA680051C4BA /* OrderDetailTableViewCell.m */; };
 		B81306CD1CB5FA680051C4BA /* OrderDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81306CB1CB5FA680051C4BA /* OrderDetailTableViewCell.xib */; };
 		B833348D1CF41EAA00A1E13A /* CDAddFriendsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B833348C1CF41EAA00A1E13A /* CDAddFriendsManager.m */; };
-		B8342A951CFEB2E5002FCBBB /* AVIMRequestMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8342A941CFEB2E5002FCBBB /* AVIMRequestMessage.m */; };
-		B8342A981CFEB332002FCBBB /* AVIMAcceptMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8342A971CFEB332002FCBBB /* AVIMAcceptMessage.m */; };
-		B8342A9B1CFEB486002FCBBB /* AVIMDirectRefreshMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8342A9A1CFEB486002FCBBB /* AVIMDirectRefreshMessage.m */; };
 		B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A4B1C70820100063269 /* UIView+Extension.m */; };
 		B8365A4E1C709BA400063269 /* SignOutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8365A4D1C709BA400063269 /* SignOutViewController.xib */; };
 		B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8365A551C71A53500063269 /* HeadViewTableViewCell.m */; };
@@ -997,12 +994,6 @@
 		B81306CB1CB5FA680051C4BA /* OrderDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailTableViewCell.xib; sourceTree = "<group>"; };
 		B833348B1CF41EAA00A1E13A /* CDAddFriendsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAddFriendsManager.h; sourceTree = "<group>"; };
 		B833348C1CF41EAA00A1E13A /* CDAddFriendsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAddFriendsManager.m; sourceTree = "<group>"; };
-		B8342A931CFEB2E5002FCBBB /* AVIMRequestMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVIMRequestMessage.h; sourceTree = "<group>"; };
-		B8342A941CFEB2E5002FCBBB /* AVIMRequestMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMRequestMessage.m; sourceTree = "<group>"; };
-		B8342A961CFEB332002FCBBB /* AVIMAcceptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVIMAcceptMessage.h; sourceTree = "<group>"; };
-		B8342A971CFEB332002FCBBB /* AVIMAcceptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMAcceptMessage.m; sourceTree = "<group>"; };
-		B8342A991CFEB486002FCBBB /* AVIMDirectRefreshMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVIMDirectRefreshMessage.h; sourceTree = "<group>"; };
-		B8342A9A1CFEB486002FCBBB /* AVIMDirectRefreshMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMDirectRefreshMessage.m; sourceTree = "<group>"; };
 		B8365A4A1C70820100063269 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B8365A4B1C70820100063269 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B8365A4D1C709BA400063269 /* SignOutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignOutViewController.xib; sourceTree = "<group>"; };
@@ -2739,7 +2730,6 @@
 				B8FD3E9C1C8A8440007BCA6B /* views */,
 				B8FD3E8B1C8A8408007BCA6B /* manager */,
 				B8FD3E871C8A83D1007BCA6B /* LZPushManager */,
-				B8FD3E791C8A83A6007BCA6B /* models */,
 				B8FD3E661C8A8353007BCA6B /* base */,
 				B8FD3E4F1C8A8178007BCA6B /* CDChatVC.h */,
 				B8FD3E501C8A8178007BCA6B /* CDChatVC.m */,
@@ -4384,19 +4374,6 @@
 			path = base;
 			sourceTree = "<group>";
 		};
-		B8FD3E791C8A83A6007BCA6B /* models */ = {
-			isa = PBXGroup;
-			children = (
-				B8342A931CFEB2E5002FCBBB /* AVIMRequestMessage.h */,
-				B8342A941CFEB2E5002FCBBB /* AVIMRequestMessage.m */,
-				B8342A961CFEB332002FCBBB /* AVIMAcceptMessage.h */,
-				B8342A971CFEB332002FCBBB /* AVIMAcceptMessage.m */,
-				B8342A991CFEB486002FCBBB /* AVIMDirectRefreshMessage.h */,
-				B8342A9A1CFEB486002FCBBB /* AVIMDirectRefreshMessage.m */,
-			);
-			path = models;
-			sourceTree = "<group>";
-		};
 		B8FD3E871C8A83D1007BCA6B /* LZPushManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -4906,7 +4883,6 @@
 				B8F6487A1C9424BF001A3119 /* AppointmentCollectionViewCell.m in Sources */,
 				B8BD78801CBE2E6500362C89 /* ShopDeliverModel.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
-				B8342A951CFEB2E5002FCBBB /* AVIMRequestMessage.m in Sources */,
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
 				B612DD811CACFE21004C428C /* ShopOneLineDataTableViewCell.m in Sources */,
@@ -5053,7 +5029,6 @@
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
 				B8BD78851CC1E6F700362C89 /* STManager.m in Sources */,
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
-				B8342A9B1CFEB486002FCBBB /* AVIMDirectRefreshMessage.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B6BC9C7A1CF58D7C00030D64 /* NSString+Chinese.m in Sources */,
@@ -5198,7 +5173,6 @@
 				B665F8D51CC4BF5200070458 /* ZLNoAuthorityViewController.m in Sources */,
 				B80137911CD89B4000ED0566 /* UserInformationModel.m in Sources */,
 				B665F8DD1CC4BF5200070458 /* ZLThumbnailViewController.m in Sources */,
-				B8342A981CFEB332002FCBBB /* AVIMAcceptMessage.m in Sources */,
 				B8FD3DE51C8A7903007BCA6B /* XHVoiceRecordHelper.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* PasswordVerifiedViewController.m in Sources */,
 				B665F8D81CC4BF5200070458 /* ZLPhotoBrowserCell.m in Sources */,
