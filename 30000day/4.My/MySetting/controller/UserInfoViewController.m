@@ -120,11 +120,40 @@
                                                      memo:self.currentChooseMemo
                                                   success:^(BOOL success) {
         
-        [self showToast:@"个人信息保存成功"];
+          [self showToast:@"个人信息保存成功"];
         
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+          [self.navigationController popViewControllerAnimated:YES];
+            
+          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+          NSDateFormatter *date = [[NSDateFormatter alloc] init];
+          
+          [date setDateFormat:@"yyyy-MM-dd"];
+          
+          NSDate *birthDate = [date dateFromString:self.currentChooseBirthdayString];
+          
+          NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
+          
+          NSInteger age = trunc(dateDiff/(60 * 60 * 24)) / 365;
+          
+          age = 0 - age;
+          
+          if (age < 80) {
+                  
+                  NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+                  
+                  if (userConfigure == nil) {
+                      
+                      userConfigure = [NSMutableDictionary dictionary];
+                      
+                  }
+                  
+                  [userConfigure setObject:@(NO) forKey:HIGH_ALERT];
+                  
+                  [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+              
+          }
+
                                                       
         
     } failure:^(NSError *error) {
