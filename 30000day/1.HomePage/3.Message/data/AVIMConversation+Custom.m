@@ -120,11 +120,12 @@
     
     if (members.count == 0) {
         
-        [NSException raise:@"invalid conversation" format:@"invalid conversation"];
-        
+//        [NSException raise:@"invalid conversation" format:@"invalid conversation"];
+        return INVALID_CONVERSATION;
     }
     
     if (members.count == 1) {
+        
         return members[0];
     }
     
@@ -143,9 +144,13 @@
 }
 
 - (NSString *)title {
+    
     if (self.type == CDConversationTypeSingle) {
+        
         return self.displayName;
+        
     } else {
+        
         return [NSString stringWithFormat:@"%@(%ld)", self.displayName, (long)self.members.count];
     }
 }

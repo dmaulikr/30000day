@@ -356,14 +356,23 @@ static CDChatManager *instance;
             
             if ([message isKindOfClass:[AVIMTypedMessage class]] && !message.transient) {//不是暂态消息才会显示
                 
-                [typedMessages addObject:message];
+                if ([message.text isEqualToString:REQUEST_TYPE]) {//请求添好友
+
+                } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//同意请求
+                    
+                } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接添加好友
+                    
+                } else { //正常的消息
+                    
+                    [typedMessages addObject:message];
+                }
             }
         }
         
         block(typedMessages, error);
     };
     
-    if(timestamp == 0) {
+    if (timestamp == 0) {
         // sdk 会设置好 timestamp
         [conversation queryMessagesWithLimit:limit callback:callback];
         
@@ -765,7 +774,19 @@ static CDChatManager *instance;
         
         NSUInteger totalUnreadCount = 0;
         
-        for (AVIMConversation *conversation in conversations) {
+        NSMutableArray *conversation_array = [NSMutableArray arrayWithArray:conversations];
+        
+        for (int i = 0; i < conversation_array.count; i++) {
+            
+            AVIMConversation *conversation = conversation_array[i];
+            
+            if ([conversation.otherId isEqualToString:INVALID_CONVERSATION]) {
+                
+                [conversation_array removeObject:conversation];
+            }
+        }
+        
+        for (AVIMConversation *conversation in conversation_array) {
             
             NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:1];//这里暂时取50个缓存数据然后进行检索
             
@@ -778,7 +799,7 @@ static CDChatManager *instance;
                 
                 [userIds addObject:conversation.otherId];
                 
-            } else {
+            } else {//不不
                 
                 if (conversation.lastMessage) {
                     
@@ -792,7 +813,7 @@ static CDChatManager *instance;
             }
         }
         
-        NSArray *sortedRooms = [conversations sortedArrayUsingComparator:^NSComparisonResult(AVIMConversation *conv1, AVIMConversation *conv2) {
+        NSArray *sortedRooms = [conversation_array sortedArrayUsingComparator:^NSComparisonResult(AVIMConversation *conv1, AVIMConversation *conv2) {
             
             return (NSComparisonResult)(conv2.lastMessage.sendTimestamp - conv1.lastMessage.sendTimestamp);
             

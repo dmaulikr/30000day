@@ -277,6 +277,10 @@
 #define ACCEPT_TYPE           @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求
 #define DRECT_TYPE            @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
 
+#define INVALID_CONVERSATION  @"invalidConversation" //无效的对话
+
+
+
 //本地推送所用到的宏
 #define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒
 #define WORK_REST_NOTIFICATION               @"workRestNotification"   //健康作息提醒、并存储进沙河
