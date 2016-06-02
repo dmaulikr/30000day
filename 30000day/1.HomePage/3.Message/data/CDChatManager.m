@@ -776,7 +776,7 @@ static CDChatManager *instance;
         
         NSMutableArray *conversation_array = [NSMutableArray arrayWithArray:conversations];
         
-        for (int i = 0; i < conversation_array.count; i++) {
+        for (int i = 0; i < conversation_array.count; i++) {//过滤非法的conversation
             
             AVIMConversation *conversation = conversation_array[i];
             
@@ -788,11 +788,30 @@ static CDChatManager *instance;
         
         for (AVIMConversation *conversation in conversation_array) {
             
-            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:1];//这里暂时取50个缓存数据然后进行检索
+            NSArray *lastestMessages = [conversation queryMessagesFromCacheWithLimit:50];//这里暂时取50个缓存数据然后进行检索
             
-            if (lastestMessages.count > 0) {
+            for (int i = 0 ; i < lastestMessages.count; i++) {//过滤非法的消息
                 
-                conversation.lastMessage = lastestMessages[0];
+                AVIMTypedMessage *message = lastestMessages[lastestMessages.count - 1 - i];
+                
+                if (!message.transient) {//不是暂态消息
+                    
+                    if ([message.text isEqualToString:REQUEST_TYPE]) {//请求加为好友
+                        
+                        
+                    } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//接受请求加为好友
+                        
+                        
+                    } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
+                        
+                        
+                    } else {//正常的消息
+                        
+                        conversation.lastMessage = message;
+                        
+                        break;
+                    }
+                }
             }
 
             if (conversation.type == CDConversationTypeSingle) {
