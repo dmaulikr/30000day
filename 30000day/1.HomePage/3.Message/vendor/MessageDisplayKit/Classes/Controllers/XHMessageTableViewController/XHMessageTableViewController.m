@@ -9,7 +9,7 @@
 #import "XHMessageTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
-#import "MCPhotographyHelper.h"
+#import "TZImageManager.h"
 
 static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextViewContext;
 
@@ -159,7 +159,7 @@ static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextVi
  *
  *  @param photo 目标图片
  */
-- (void)didSendMessageWithPhoto:(UIImage *)photo;
+- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray;
 /**
  *  根据视频的封面和视频的路径开始发送视频消息
  *
@@ -955,16 +955,18 @@ static CGPoint  delayOffset = {0.0};
 #pragma mark - Message Send helper Method
 
 - (void)didSendMessageWithText:(NSString *)text {
-    DLog(@"send text : %@", text);
+    
     if ([self.delegate respondsToSelector:@selector(didSendText:fromSender:onDate:)]) {
+        
         [self.delegate didSendText:text fromSender:self.messageSender onDate:[NSDate date]];
     }
 }
 
-- (void)didSendMessageWithPhoto:(UIImage *)photo {
-    DLog(@"send photo : %@", photo);
-    if ([self.delegate respondsToSelector:@selector(didSendPhoto:fromSender:onDate:)]) {
-        [self.delegate didSendPhoto:photo fromSender:self.messageSender onDate:[NSDate date]];
+- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray {
+    
+    if ([self.delegate respondsToSelector:@selector(didSendPhotoArray:fromSender:onDate:)]) {
+        
+        [self.delegate didSendPhotoArray:photoArray fromSender:self.messageSender onDate:[NSDate date]];
     }
 }
 
@@ -1061,10 +1063,10 @@ static CGPoint  delayOffset = {0.0};
         
         InputViewAnimation(hide);
         
-        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
-         - self.messageInputView.frame.origin.y];
+        [self setTableViewInsetsWithBottomValue:self.view.frame.size.height - self.messageInputView.frame.origin.y];
         
         [self scrollToBottomAnimated:NO];
+        
     } completion:^(BOOL finished) {
         
     }];
@@ -1073,6 +1075,7 @@ static CGPoint  delayOffset = {0.0};
 #pragma mark - Voice Recording Helper Method
 
 - (void)prepareRecordWithCompletion:(XHPrepareRecorderCompletion)completion {
+    
     [self.voiceRecordHelper prepareRecordingWithPath:[self getRecorderPath] prepareRecorderCompletion:completion];
 }
 
@@ -1199,7 +1202,7 @@ static CGPoint  delayOffset = {0.0};
         
         if (image) {
             
-            [weakSelf didSendMessageWithPhoto:image];
+            [weakSelf didSendMessageWithPhotoArray:@[image]];
             
         } else {
             
@@ -1223,22 +1226,43 @@ static CGPoint  delayOffset = {0.0};
                 
             } else {
                 
-                [weakSelf didSendMessageWithPhoto:[editingInfo valueForKey:UIImagePickerControllerOriginalImage]];
+                [weakSelf didSendMessageWithPhotoArray:@[[editingInfo valueForKey:UIImagePickerControllerOriginalImage]]];
             }
         }
     };
+    //多媒体选择器
     switch (index) {
             
         case 0: {
+            
+            TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:5 delegate:nil];
 
-            [MCPhotographyHelper showPhotoBrowserWithController:self completion:^(NSArray<UIImage *> *imageArray) {
+            [imagePickerVc setDidFinishPickingVideoHandle:^(UIImage *coverImage, id asset) {
                 
-                for (int i = 0 ; i < imageArray.count; i++) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                    [self showHUDWithContent:@"正在处理" animated:YES];
                     
-                    [weakSelf didSendMessageWithPhoto:imageArray[i]];
-                }
-
+                    [[TZImageManager manager] getVideoOutputPathWithAsset:asset completion:^(NSString *outputPath) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                           
+                            [self hideHUD:YES];
+                            
+                            [weakSelf didSendMessageWithVideoConverPhoto:coverImage videoPath:outputPath]; 
+                        });
+                    }];
+                    
+                });
             }];
+            
+            [imagePickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
+               
+                [weakSelf didSendMessageWithPhotoArray:photos];
+                
+            }];
+            
+            [self presentViewController:imagePickerVc animated:YES completion:nil];
             
             break;
         }

@@ -348,18 +348,32 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
-//发送图片消息的回调方法
-- (void)didSendPhoto:(UIImage *)photo fromSender:(NSString *)sender onDate:(NSDate *)date {
+/**
+ *  发送图片消息的回调方法
+ *
+ *  @param photo  目标图片对象，后续有可能会换
+ *  @param sender 发送者的名字
+ *  @param date   发送时间
+ */
+- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
         
         return;
     }
     
-    [self sendImage:photo];
+    [self showHUDWithContent:@"正在发送" animated:YES];
     
-    [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+    for (int i = 0; i < photo.count; i++) {
+        
+        UIImage *image = photo[i];
+        
+        [self sendImage:image];
+        
+        [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+    }
 }
+
 
 // 发送视频消息的回调方法
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
@@ -369,9 +383,70 @@ static NSInteger const kOnePageSize = 10;
         return;
     }
     
-    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:videoPath attributes:nil];
-    
-    [self sendMsg:sendVideoMessage];
+    if ([videoPath hasSuffix:@".MOV"]) {//调用系统的相机拍摄的
+        
+        //.MOV 转换成MP4格式（因安卓那边只能播放MP4格式，且在存储本地的时候也存储MP4格式）
+        AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:videoPath] options:nil];
+        
+        NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
+        
+        [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
+        
+        if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
+            
+            AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
+            
+            NSString *exportPath = [[videoPath componentsSeparatedByString:@".MOV"] firstObject];
+            
+            exportPath = [NSString stringWithFormat:@"%@.mp4",exportPath];
+            
+            exportSession.outputURL = [NSURL fileURLWithPath:exportPath];
+            
+            exportSession.outputFileType = AVFileTypeMPEG4;
+            
+            [exportSession exportAsynchronouslyWithCompletionHandler:^{
+                
+                switch ([exportSession status]) {
+                        
+                    case AVAssetExportSessionStatusFailed:
+                        
+                        break;
+                        
+                    case AVAssetExportSessionStatusCancelled:
+                        
+                        break;
+                        
+                    case AVAssetExportSessionStatusCompleted:{//转换成功
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{//主线隐藏
+                            
+                            AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:exportPath attributes:nil];
+                            
+                            [self sendMsg:sendVideoMessage];
+                        });
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }];
+        
+         }
+        
+    } else {//从相册里面选取出来的
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
+            
+            AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:videoPath attributes:nil];
+            
+            [self sendMsg:sendVideoMessage];
+            
+        });
+    }
 }
 
 //发送语音消息的回调方法
@@ -520,9 +595,23 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,0.8);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.5);//无论缩略图、还是原图都被压缩一半
     
     AVFile *file = [AVFile fileWithData:imageData];
+    
+//    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//       
+//        if (succeeded) {
+//            
+//             NSString *string = [file getThumbnailURLWithScaleToFit:YES width:50 height:50 / image.size.width * image.size.height];
+//            
+//             NSLog(@"---%@",string);
+//        }
+//        
+//    } progressBlock:^(NSInteger percentDone) {
+//        
+//        
+//    }];
     
     AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
     
@@ -576,17 +665,24 @@ static NSInteger const kOnePageSize = 10;
     NSString *recordId = msg.messageId;
     
     [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+        
         if (error) {
+            
             if (discardIfFailed) {
                 // 服务器连通的情况下重发依然失败，说明消息有问题，如音频文件不存在，删掉这条消息
                 [[CDFailedMessageStore store] deleteFailedMessageByRecordId:recordId];
                 // 显示失败状态。列表里就让它存在吧，反正也重发不出去
                 [self replaceMesssage:msg atIndexPath:indexPath];
+                
             } else {
+                
                 [self replaceMesssage:msg atIndexPath:indexPath];
             }
+            
         } else {
+            
             [[CDFailedMessageStore store] deleteFailedMessageByRecordId:recordId];
+            
             [self replaceMesssage:msg atIndexPath:indexPath];
         }
     }];
@@ -595,12 +691,18 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - receive and delivered
 
 - (void)receiveMessage:(NSNotification *)notification {
+    
     AVIMTypedMessage *message = notification.object;
+    
     if ([message.conversationId isEqualToString:self.conversation.conversationId]) {
+        
         if (self.conversation.muted == NO) {
+            
             [[CDSoundManager manager] playReceiveSoundIfNeed];
         }
+        
         [self insertMessage:message];
+        
 //        [[CDChatManager manager] setZeroUnreadWithConversationId:self.conversation.conversationId];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationMessageReceived object:nil];
     }
@@ -953,8 +1055,11 @@ static NSInteger const kOnePageSize = 10;
                     NSData *data = [msg.file getData:&error];
                     
                     if (error) {
+                        
                         DLog(@"download file error : %@", error);
+                        
                     } else {
+                        
                         [data writeToFile:path atomically:YES];
                     }
                 }
@@ -962,6 +1067,7 @@ static NSInteger const kOnePageSize = 10;
         }
 
         [self runInMainQueue:^{
+            
             callback(YES, nil);
         }];
     }];
@@ -991,9 +1097,12 @@ static NSInteger const kOnePageSize = 10;
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
             
             [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            
+    
             [self scrollToBottomAnimated:YES];
         }
+        
+        //隐藏HUD
+        [self hideHUD:YES];
         
         self.isLoadingMsg = NO;
     }];

@@ -615,10 +615,15 @@ static CDChatManager *instance;
             break;
         }
     } while (0);
+    
     NSDictionary *dict = [self conversationSignWithSelfId:clientId conversationId:conversationId targetIds:clientIds action:action];
+    
     if (dict != nil) {
+        
         return [self getAVSignatureWithParams:dict peerIds:clientIds];
+        
     } else {
+        
         return nil;
     }
 }
@@ -655,8 +660,8 @@ static CDChatManager *instance;
 }
 
 - (NSString *)videoPathOfMessag:(AVIMVideoMessage *)message {
-    // 视频播放会根据文件扩展名来识别格式
-    return [[self getFilesPath] stringByAppendingFormat:@"%@.%@", message.messageId, message.format];
+    //视频播放会根据文件扩展名来识别格式
+    return [[self getFilesPath] stringByAppendingFormat:@"%@.mp4", message.messageId];
 }
 
 - (NSString *)tmpPath {

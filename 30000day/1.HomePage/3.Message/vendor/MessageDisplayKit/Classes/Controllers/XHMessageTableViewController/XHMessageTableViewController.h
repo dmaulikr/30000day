@@ -32,6 +32,8 @@
 // Categorys
 #import "UIScrollView+XHkeyboardControl.h"
 
+#import "TZImagePickerController.h"//图片选择器
+
 @protocol XHMessageTableViewControllerDelegate <NSObject>
 
 @optional
@@ -51,7 +53,7 @@
  *  @param sender 发送者的名字
  *  @param date   发送时间
  */
-- (void)didSendPhoto:(UIImage *)photo fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date;
 
 /**
  *  发送视频消息的回调方法

@@ -50,21 +50,21 @@ PODS:
   - YYModel (1.0.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.6.3)
+  - AFNetworking
   - AVOSCloud
   - AVOSCloudIM
   - FMDB
   - FSCalendar
   - IDMPhotoBrowser
   - iVersion
-  - JSBadgeView (= 1.4.1)
+  - JSBadgeView
   - JZNavigationExtension
   - MBProgressHUD
   - MJExtension
   - MJRefresh
-  - MWPhotoBrowser (~> 2.1.1)
+  - MWPhotoBrowser
   - SDWebImage
-  - UMengSocial (~> 4.3)
+  - UMengSocial
   - YYModel
 
 SPEC CHECKSUMS:
