@@ -145,7 +145,7 @@ static NSInteger const kOnePageSize = 10;
     
     NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video"];
     
-    NSArray *plugTitle = @[@"照片", @"拍摄"];
+    NSArray *plugTitle = @[@"图片", @"拍摄"];
     
     for (NSString *plugIcon in plugIcons) {
         
