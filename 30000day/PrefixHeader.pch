@@ -273,12 +273,12 @@
 #define ORIGINAL_NICK_NAME    @"originalNickName"
 #define ORIGINAL_IMG_URL      @"originalHeadImg"
 
-#define REQUEST_TYPE          @"Once, I'd found my best love, but I didn't treasure her!@#$%^233" //请求加为好友
-#define ACCEPT_TYPE           @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求
-#define DRECT_TYPE            @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
+#define REQUEST_TYPE               @"Once, I'd found my best love, but I didn't treasure her!@#$%^233" //请求加为好友
+#define ACCEPT_TYPE                @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求
+#define DRECT_TYPE                 @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
 
-#define INVALID_CONVERSATION  @"invalidConversation" //无效的对话
-
+#define INVALID_CONVERSATION       @"invalidConversation" //无效的对话
+#define THUMBNAIL_PHOTO_WIDTH      150.0f
 
 
 //本地推送所用到的宏

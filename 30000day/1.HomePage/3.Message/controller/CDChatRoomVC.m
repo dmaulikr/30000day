@@ -52,24 +52,28 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - life cycle
 
 - (instancetype)init {
+    
     self = [super init];
+    
     if (self) {
-//         配置输入框UI的样式
-//        self.allowsSendVoice = NO;
-//        self.allowsSendFace = NO;
-//        self.allowsSendMultiMedia = NO;
+
         _isLoadingMsg = NO;
+        
         _msgs = [NSMutableArray array];
-//        [self setBackgroundColor:RGBACOLOR(247, 247, 247, 1)];
     }
+    
     return self;
 }
 
 - (instancetype)initWithConversation:(AVIMConversation *)conversation {
+    
     self = [self init];
+    
     if (self) {
+        
         self.conversation = conversation;
     }
+    
     return self;
 }
 
@@ -182,7 +186,7 @@ static NSInteger const kOnePageSize = 10;
 
             AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
 
-            AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:message.videoPath]];//改到这
+            AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL URLWithString:message.videoUrl]];//改到这
             
             AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
             
@@ -197,9 +201,7 @@ static NSInteger const kOnePageSize = 10;
             
         case XHBubbleMessageMediaTypePhoto: {
             
-            IDMPhoto *photo = [IDMPhoto photoWithImage:message.photo];
-            
-            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:@[photo] animatedFromView:nil];
+            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:@[message.originPhotoUrl]];
             
             browser.forceHideStatusBar = YES;
             
@@ -293,10 +295,14 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - XHAudioPlayerHelper Delegate
 
 - (void)didAudioPlayerStopPlay:(AVAudioPlayer *)audioPlayer {
+    
     if (!_currentSelectedCell) {
+        
         return;
     }
+    
     [_currentSelectedCell.messageBubbleView.animationVoiceImageView stopAnimating];
+    
     self.currentSelectedCell = nil;
 }
 
@@ -420,9 +426,23 @@ static NSInteger const kOnePageSize = 10;
                         
                         dispatch_async(dispatch_get_main_queue(), ^{//主线隐藏
                             
-                            AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:exportPath attributes:nil];
-                            
-                            [self sendMsg:sendVideoMessage];
+                            AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(videoConverPhoto, 0.5)];
+
+                            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                               
+                                if (succeeded) {//保存成功，才会发送
+                                    
+                                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:50 height:50.0f / videoConverPhoto.size.width * videoConverPhoto.size.height];
+                                    
+                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:imageUrl attachedFilePath:exportPath attributes:nil];
+                                    
+                                    [self sendMsg:sendVideoMessage];
+                                }
+                                
+                            } progressBlock:^(NSInteger percentDone) {
+                                
+                                
+                            }];
                         });
                         
                     }
@@ -441,14 +461,29 @@ static NSInteger const kOnePageSize = 10;
             
             [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
             
-            AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:nil attachedFilePath:videoPath attributes:nil];
+            AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(videoConverPhoto, 0.5)];
             
-            [self sendMsg:sendVideoMessage];
+            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                
+                if (succeeded) {//保存成功，才会发送
+                    
+                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:50 height:50.0f / videoConverPhoto.size.width * videoConverPhoto.size.height];
+                    
+                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:imageUrl attachedFilePath:videoPath attributes:nil];
+                    
+                    [self sendMsg:sendVideoMessage];
+                }
+                
+            } progressBlock:^(NSInteger percentDone) {
+                
+                
+            }];
             
         });
     }
 }
 
+#pragma mark --- 先不管这个
 //发送语音消息的回调方法
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
     
@@ -458,7 +493,7 @@ static NSInteger const kOnePageSize = 10;
     }
     
     AVIMTypedMessage *msg = [AVIMAudioMessage messageWithText:nil attachedFilePath:voicePath attributes:nil];
-    
+
     [self sendMsg:msg];
 }
 
@@ -474,12 +509,19 @@ static NSInteger const kOnePageSize = 10;
         
         // 普通表情
         UITextView *textView = self.messageInputView.inputTextView;
+        
         NSRange range = [textView selectedRange];
+        
         NSMutableString *str = [[NSMutableString alloc] initWithString:textView.text];
+        
         [str deleteCharactersInRange:range];
+        
         [str insertString:emotion atIndex:range.location];
+        
         textView.text = [CDEmotionUtils emojiStringFromString:str];
+        
         textView.selectedRange = NSMakeRange(range.location + emotion.length, 0);
+        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeEmotion];
         
     } else {
@@ -599,23 +641,19 @@ static NSInteger const kOnePageSize = 10;
     
     AVFile *file = [AVFile fileWithData:imageData];
     
-//    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//       
-//        if (succeeded) {
-//            
-//             NSString *string = [file getThumbnailURLWithScaleToFit:YES width:50 height:50 / image.size.width * image.size.height];
-//            
-//             NSLog(@"---%@",string);
-//        }
-//        
-//    } progressBlock:^(NSInteger percentDone) {
-//        
-//        
-//    }];
-    
-    AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
-    
-    [self sendMsg:msg];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+       
+        if (succeeded) {
+            
+            AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
+            
+            [self sendMsg:msg];
+        }
+        
+    } progressBlock:^(NSInteger percentDone) {
+        
+        
+    }];
 }
 
 - (void)sendLocationWithLatitude:(double)latitude longitude:(double)longitude address:(NSString *)address {
@@ -626,6 +664,7 @@ static NSInteger const kOnePageSize = 10;
 - (void)sendMsg:(AVIMTypedMessage *)msg {
     
     [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+        
         if (error) {
             
             msg.sendTimestamp = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -810,22 +849,13 @@ static NSInteger const kOnePageSize = 10;
         
         AVIMImageMessage *imageMsg = (AVIMImageMessage *)msg;
         
-        UIImage *image;
+        AVFile *file = imageMsg.file;
         
-        NSError *error;
+        NSString *thumbnailUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height];
         
-        NSData *data = [imageMsg.file getData:&error];
+        NSString *originPhotoUrl = [file url];
         
-        if (error) {
-            
-            DLog(@"get Data error: %@", error);
-            
-        } else {
-            
-            image = [UIImage imageWithData:data];
-        }
-        
-        xhMessage = [[XHMessage alloc] initWithPhoto:image thumbnailUrl:nil originPhotoUrl:nil sender:nickName  timestamp:time];
+        xhMessage = [[XHMessage alloc] initWithPhoto:nil thumbnailUrl:thumbnailUrl originPhotoUrl:originPhotoUrl photoWitdh:THUMBNAIL_PHOTO_WIDTH photoHeight:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeEmotion) {
         
@@ -839,12 +869,14 @@ static NSInteger const kOnePageSize = 10;
         
         AVIMVideoMessage *videoMsg = (AVIMVideoMessage *)msg;
         
-        NSString *path = [[CDChatManager manager] videoPathOfMessag:videoMsg];
+        AVFile *file = videoMsg.file;
         
-        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:[XHMessageVideoConverPhotoFactory videoConverPhotoWithVideoPath:path] videoPath:path videoUrl:nil sender:nickName  timestamp:time];
+        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:nil videoConverPhotoURL:msg.text videoPath:nil videoUrl:file.url sender:nickName timestamp:time];
      
     } else {
+        
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
+        
         DLog("unkonwMessage");
     }
     
@@ -882,6 +914,31 @@ static NSInteger const kOnePageSize = 10;
     return xhMessage;
 }
 
+//截取本地视频缩略图
++ (UIImage *)getThumbnailImage:(NSString *)videoURL {
+    
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:videoURL] options:nil];
+    
+    AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    
+    gen.appliesPreferredTrackTransform = YES;//按正确方向对视频进行截图,关键点是将AVAssetImageGrnerator对象的appliesPreferredTrackTransform属性设置为YES。
+    
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    
+    NSError *error = nil;
+    
+    CMTime actualTime;
+    
+    CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    
+    UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
+    
+    CGImageRelease(image);
+    
+    return thumb;  
+}
+
+
 - (NSMutableArray *)getXHMessages:(NSArray *)msgs {
     NSMutableArray *messages = [[NSMutableArray alloc] init];
     for (AVIMTypedMessage *msg in msgs) {
@@ -905,11 +962,7 @@ static NSInteger const kOnePageSize = 10;
             
         } else {
             
-            [self memoryCacheMsgs:msgs callback:^(BOOL succeeded, NSError *error) {
-                
-                block (msgs, error);
-                
-            }];
+            block (msgs, error);
         }
     }];
 }
@@ -1018,60 +1071,41 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
-- (void)memoryCacheMsgs:(NSArray *)msgs callback:(AVBooleanResultBlock)callback {
-    
-    [self runInGlobalQueue:^{
-        
-        NSMutableSet *userIds = [[NSMutableSet alloc] init];
-        
-        for (AVIMTypedMessage *msg in msgs) {
-            
-            [userIds addObject:msg.clientId];
-            
-            if (msg.mediaType == kAVIMMessageMediaTypeImage || msg.mediaType == kAVIMMessageMediaTypeAudio) {
-                
-                AVFile *file = msg.file;
-                
-                if (file && file.isDataAvailable == NO) {
-                    
-                    NSError *error;
-                    
-                    // 下载到本地
-                    NSData *data = [file getData:&error];
-                    
-                    if (error || data == nil) {
-                        DLog(@"download file error : %@", error);
-                    }
-                }
-                
-            } else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
-                
-                NSString *path = [[CDChatManager manager] videoPathOfMessag:(AVIMVideoMessage *)msg];
-                
-                if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                    
-                    NSError *error;
-                    
-                    NSData *data = [msg.file getData:&error];
-                    
-                    if (error) {
-                        
-                        DLog(@"download file error : %@", error);
-                        
-                    } else {
-                        
-                        [data writeToFile:path atomically:YES];
-                    }
-                }
-            }
-        }
-
-        [self runInMainQueue:^{
-            
-            callback(YES, nil);
-        }];
-    }];
-}
+//- (void)memoryCacheMsgs:(NSArray *)msgs callback:(AVBooleanResultBlock)callback {
+//    
+//    [self runInGlobalQueue:^{
+//        
+//        NSMutableSet *userIds = [[NSMutableSet alloc] init];
+//        
+//        for (AVIMTypedMessage *msg in msgs) {
+//            
+//            [userIds addObject:msg.clientId];
+//            
+//            if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
+//                
+//                AVFile *file = msg.file;
+//                
+//                if (file && file.isDataAvailable == NO) {
+//                    
+//                    NSError *error;
+//                    
+//                    // 下载到本地
+//                    NSData *data = [file getData:&error];
+//                    
+//                    if (error || data == nil) {
+//                        DLog(@"download file error : %@", error);
+//                    }
+//                }
+//                
+//            }
+//        }
+//
+//        [self runInMainQueue:^{
+//            
+//            callback(YES, nil);
+//        }];
+//    }];
+//}
 
 - (void)insertMessage:(AVIMTypedMessage *)message {
     
@@ -1084,28 +1118,22 @@ static NSInteger const kOnePageSize = 10;
     
     self.isLoadingMsg = YES;
     
-    [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
-        
-        if ([Common isObjectNull:error]) {
-            
-            XHMessage *xhMessage = [self getXHMessageByMsg:message];
-            
-            [self.msgs addObject:message];
-            
-            [self.messages addObject:xhMessage];
-            
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
-            
-            [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    XHMessage *xhMessage = [self getXHMessageByMsg:message];
     
-            [self scrollToBottomAnimated:YES];
-        }
-        
-        //隐藏HUD
-        [self hideHUD:YES];
-        
-        self.isLoadingMsg = NO;
-    }];
+    [self.msgs addObject:message];
+    
+    [self.messages addObject:xhMessage];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+    
+    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [self scrollToBottomAnimated:YES];
+    
+    //隐藏HUD
+    [self hideHUD:YES];
+    
+    self.isLoadingMsg = NO;
 }
 
 @end

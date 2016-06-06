@@ -35,9 +35,8 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationBar.barStyle = UIBarStyleBlack;
-    
     self.navigationBar.translucent = YES;
+    
     [TZImageManager manager].shouldFixOrientation = NO;
 
     // Default appearance, you can reset these after this method
@@ -50,7 +49,7 @@
         
         self.navigationBar.barTintColor = LOWBLUECOLOR;
         
-        self.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationBar.tintColor = LOWBLUECOLOR;
         
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
@@ -68,19 +67,19 @@
     
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     
-    textAttrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    textAttrs[NSForegroundColorAttributeName] = LOWBLUECOLOR;
     
     textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:15];
     
     [barItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     _originStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
     
-    [UIApplication sharedApplication].statusBarStyle = iOS7Later ? UIStatusBarStyleLightContent : UIStatusBarStyleBlackOpaque;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -271,15 +270,15 @@
     if (iOS7Later) viewController.automaticallyAdjustsScrollViewInsets = NO;
     if (_timer) { [_timer invalidate]; _timer = nil;}
     
-    if (self.childViewControllers.count > 0) {
-        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(3, 0, 50, 44)];
-        [backButton setImage:[UIImage imageNamedFromMyBundle:@"navi_back.png"] forState:UIControlStateNormal];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-        [backButton setTitle:@"返回" forState:UIControlStateNormal];
-        backButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [backButton addTarget:self action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    }
+//    if (self.childViewControllers.count > 0) {
+//        UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(3, 0, 50, 44)];
+//        [backButton setImage:[UIImage imageNamedFromMyBundle:@"navi_back.png"] forState:UIControlStateNormal];
+//        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+//        [backButton setTitle:@"返回" forState:UIControlStateNormal];
+//        backButton.titleLabel.font = [UIFont systemFontOfSize:15];
+//        [backButton addTarget:self action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+//        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//    }
     [super pushViewController:viewController animated:animated];
 }
 

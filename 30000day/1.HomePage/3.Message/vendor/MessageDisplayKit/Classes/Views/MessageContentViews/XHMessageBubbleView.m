@@ -65,18 +65,18 @@
     return CGSizeMake((dyWidth > textSize.width ? textSize.width : dyWidth) + kBubblePaddingRight * 2 + kXHArrowMarginWidth, textSize.height + kMarginTop * 2);
 }
 
-+ (CGSize)neededSizeForPhoto:(UIImage *)photo {
++ (CGSize)neededSizeForPhoto:(id <XHMessageModel>)message {
     
-    if (photo) {
-        // 这里需要缩放后的size
-        CGSize photoSize = CGSizeMake(120.0f, 120.0f * photo.size.height/photo.size.width - 8.0f);
+    if (message.photoHeight && message.photoHeight) {
+        
+        CGSize photoSize = CGSizeMake(70.0f, 70.0f * message.photoHeight/message.photoHeight - 8.0f);
         
         return photoSize;
         
     } else {
         
-        return CGSizeMake(120.0f, 120.0f);//如果不存在就返回一个固定值
-    }
+        return CGSizeMake(70.0f, 70.0f);//如果不存在就返回一个固定值
+    }   
 }
 
 + (CGSize)neededSizeForVoicePath:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration {
@@ -99,24 +99,24 @@
             break;
         }
         case XHBubbleMessageMediaTypePhoto: {
-            bubbleSize = [XHMessageBubbleView neededSizeForPhoto:message.photo];
+            bubbleSize = [XHMessageBubbleView neededSizeForPhoto:message];
             break;
         }
         case XHBubbleMessageMediaTypeVideo: {
-            bubbleSize = [XHMessageBubbleView neededSizeForPhoto:message.videoConverPhoto];
+            bubbleSize = [XHMessageBubbleView neededSizeForPhoto:message];
             break;
         }
         case XHBubbleMessageMediaTypeVoice: {
-            // 这里的宽度是不定的，高度是固定的，根据需要根据语音长短来定制啦
+            // 这里的宽度是不定的，高度是固定的，根据需要根据语音长短来定制
             bubbleSize = [XHMessageBubbleView neededSizeForVoicePath:message.voicePath voiceDuration:message.voiceDuration];
             break;
         }
         case XHBubbleMessageMediaTypeEmotion:
-            // 是否固定大小呢？
+            // 是否固定大小？
             bubbleSize = CGSizeMake(100, 100);
             break;
         case XHBubbleMessageMediaTypeLocalPosition:
-            // 固定大小，必须的
+            // 固定大小
             bubbleSize = CGSizeMake(119, 119);
             break;
         default:
@@ -197,7 +197,7 @@
                 _emotionImageView.hidden = YES;
                 
             } else {
-                // 那如果不文本消息，必须把文本消息的控件隐藏了啊
+                // 那如果不文本消息，必须把文本消息的控件隐藏了
                 _displayTextView.hidden = YES;
                 
                 // 对语音消息的进行特殊处理，第三方表情可以直接利用背景气泡的ImageView控件
@@ -257,7 +257,7 @@
             [_bubblePhotoImageView configureMessagePhoto:message.photo thumbnailUrl:message.thumbnailUrl originPhotoUrl:message.originPhotoUrl onBubbleMessageType:self.message.bubbleMessageType];
             break;
         case XHBubbleMessageMediaTypeVideo:
-            [_bubblePhotoImageView configureMessagePhoto:message.videoConverPhoto thumbnailUrl:message.thumbnailUrl originPhotoUrl:message.originPhotoUrl onBubbleMessageType:self.message.bubbleMessageType];
+            [_bubblePhotoImageView configureMessagePhoto:message.videoConverPhoto thumbnailUrl:message.videoConverPhotoURL originPhotoUrl:message.originPhotoUrl onBubbleMessageType:self.message.bubbleMessageType];
             break;
         case XHBubbleMessageMediaTypeVoice:
             _voiceDurationLabel.text = [NSString stringWithFormat:@"%@''",message.voiceDuration];
@@ -431,8 +431,13 @@
         case XHBubbleMessageMediaTypePhoto:
         case XHBubbleMessageMediaTypeVideo:
         case XHBubbleMessageMediaTypeLocalPosition: {
+            
             CGRect photoImageViewFrame = CGRectMake(bubbleFrame.origin.x - 2, 0, bubbleFrame.size.width, bubbleFrame.size.height);
             self.bubblePhotoImageView.frame = photoImageViewFrame;
+            
+            self.videoPlayImageView.width = CGRectGetWidth(photoImageViewFrame) / 3.0f;
+            
+            self.videoPlayImageView.height = CGRectGetWidth(photoImageViewFrame) / 3.0f;
             
             self.videoPlayImageView.center = CGPointMake(CGRectGetWidth(photoImageViewFrame) / 2.0, CGRectGetHeight(photoImageViewFrame) / 2.0);
             

@@ -17,10 +17,15 @@
 @property (nonatomic, strong) UIImage *photo;
 @property (nonatomic, copy) NSString *thumbnailUrl;
 @property (nonatomic, copy) NSString *originPhotoUrl;
+@property (nonatomic, assign) CGFloat photoWitdh;//需要显示的图片宽
+@property (nonatomic, assign) CGFloat photoHeight;//需要显示的图片高
+
 
 @property (nonatomic, strong) UIImage *videoConverPhoto;
+@property (nonatomic, copy) NSString *videoConverPhotoURL;//视频缩略图服务器地址
 @property (nonatomic, copy) NSString *videoPath;
 @property (nonatomic, copy) NSString *videoUrl;
+
 
 @property (nonatomic, copy) NSString *voicePath;
 @property (nonatomic, copy) NSString *voiceUrl;
@@ -59,6 +64,8 @@
  *  @param photo          目标图片
  *  @param thumbnailUrl   目标图片在服务器的缩略图地址
  *  @param originPhotoUrl 目标图片在服务器的原图地址
+ *  @param photoWitdh     目标图片缩略图的宽度
+ *  @param photoHeight    目标图片缩略图的高度
  *  @param sender         发送者
  *  @param date           发送时间
  *
@@ -67,6 +74,8 @@
 - (instancetype)initWithPhoto:(UIImage *)photo
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
+                   photoWitdh:(CGFloat)photoWitdh
+                  photoHeight:(CGFloat)photoHeight
                        sender:(NSString *)sender
                     timestamp:(NSDate *)timestamp;
 
@@ -74,6 +83,7 @@
  *  初始化视频类型的消息
  *
  *  @param videoConverPhoto 目标视频的封面图
+ *  @param videoConverPhotoURL 目标视频缩略图在服务器的地址
  *  @param videoPath        目标视频的本地路径，如果是下载过，或者是从本地发送的时候，会存在
  *  @param videoUrl         目标视频在服务器上的地址
  *  @param sender           发送者
@@ -82,6 +92,7 @@
  *  @return 返回Message model 对象
  */
 - (instancetype)initWithVideoConverPhoto:(UIImage *)videoConverPhoto
+                     videoConverPhotoURL:(NSString *)videoConverPhotoURL
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
                                   sender:(NSString *)sender

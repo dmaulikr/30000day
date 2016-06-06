@@ -29,8 +29,12 @@ typedef NS_ENUM(NSInteger, XHMessageStatus){
 - (NSString *)originPhotoUrl;
 
 - (UIImage *)videoConverPhoto;
+- (NSString *)videoConverPhotoURL;
 - (NSString *)videoPath;
 - (NSString *)videoUrl;
+- (CGFloat)photoWitdh;//需要显示的图片宽
+- (CGFloat)photoHeight;//需要显示的图片高
+
 
 - (NSString *)voicePath;
 - (NSString *)voiceUrl;

@@ -13,6 +13,8 @@
 
 #import "UIImage+Resize.h"
 
+#import "UIImageView+WebCache.h"
+
 @interface XHBubblePhotoImageView ()
 
 @property dispatch_semaphore_t semaphore;
@@ -55,26 +57,41 @@
     
     if (thumbnailUrl) {
         WEAKSELF
+        
         [self addSubview:self.activityIndicatorView];
-        [self.activityIndicatorView startAnimating];
-        [self setImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholer:nil showActivityIndicatorView:NO completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
-            if ([url.absoluteString isEqualToString:thumbnailUrl]) {
-
-                if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
-                    weakSelf.semaphore = dispatch_semaphore_create(0);
-                    dispatch_semaphore_wait(weakSelf.semaphore, DISPATCH_TIME_FOREVER);
-                    weakSelf.semaphore = nil;
-                }
+        
+        [_imageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholderImage:nil options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+            [self.activityIndicatorView startAnimating];
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+//            image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2 transparentBorder:0 cornerRadius:0 interpolationQuality:1.0];
+            
+            if (image) {
                 
-                image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2 transparentBorder:0 cornerRadius:0 interpolationQuality:1.0];
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        weakSelf.messagePhoto = image;
-                        [weakSelf.activityIndicatorView stopAnimating];
-                    });
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    weakSelf.messagePhoto = image;
+                    
+                    [weakSelf.activityIndicatorView stopAnimating];
+                });
             }
         }];
+        
+        
+//        [self setImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholer:nil showActivityIndicatorView:NO completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
+//            if ([url.absoluteString isEqualToString:thumbnailUrl]) {
+//
+//                if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
+//                    weakSelf.semaphore = dispatch_semaphore_create(0);
+//                    dispatch_semaphore_wait(weakSelf.semaphore, DISPATCH_TIME_FOREVER);
+//                    weakSelf.semaphore = nil;
+//                }
+//                
+//
+//            }
+//        }];
     }
 }
 

@@ -31,6 +31,8 @@
  *  @param photo          目标图片
  *  @param thumbnailUrl   目标图片在服务器的缩略图地址
  *  @param originPhotoUrl 目标图片在服务器的原图地址
+ *  @param photoWitdh     目标图片缩略图的宽度
+ *  @param photoHeight    目标图片缩略图的高度
  *  @param sender         发送者
  *  @param date           发送时间
  *
@@ -39,14 +41,21 @@
 - (instancetype)initWithPhoto:(UIImage *)photo
                  thumbnailUrl:(NSString *)thumbnailUrl
                originPhotoUrl:(NSString *)originPhotoUrl
+                   photoWitdh:(CGFloat)photoWitdh
+                  photoHeight:(CGFloat)photoHeight
                        sender:(NSString *)sender
-                    timestamp:(NSDate *)timestamp{
+                    timestamp:(NSDate *)timestamp {
+    
     self = [super init];
+    
     if (self) {
         self.photo = photo;
         self.thumbnailUrl = thumbnailUrl;
         self.originPhotoUrl = originPhotoUrl;
+        self.photoWitdh = photoWitdh;
+        self.photoHeight = photoHeight;
         
+    
         self.sender = sender;
         self.timestamp = timestamp;
         
@@ -59,6 +68,7 @@
  *  初始化视频类型的消息
  *
  *  @param videoConverPhoto 目标视频的封面图
+ *  @param videoConverPhotoURL 目标视频缩略图在服务器的地址
  *  @param videoPath        目标视频的本地路径，如果是下载过，或者是从本地发送的时候，会存在
  *  @param videoUrl         目标视频在服务器上的地址
  *  @param sender           发送者
@@ -67,6 +77,7 @@
  *  @return 返回Message model 对象
  */
 - (instancetype)initWithVideoConverPhoto:(UIImage *)videoConverPhoto
+                     videoConverPhotoURL:(NSString *)videoConverPhotoURL
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
                                   sender:(NSString *)sender
@@ -80,6 +91,7 @@
         self.sender = sender;
         self.timestamp = timestamp;
     
+        self.videoConverPhotoURL = videoConverPhotoURL;
         
         self.messageMediaType = XHBubbleMessageMediaTypeVideo;
     }
@@ -182,6 +194,7 @@
     _originPhotoUrl = nil;
     
     _videoConverPhoto = nil;
+    _videoConverPhotoURL = nil;
     _videoPath = nil;
     _videoUrl = nil;
     
@@ -213,8 +226,12 @@
         _photo = [aDecoder decodeObjectForKey:@"photo"];
         _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
         _originPhotoUrl = [aDecoder decodeObjectForKey:@"originPhotoUrl"];
+        _photoWitdh = [aDecoder decodeFloatForKey:@"photoWitdh"];
+        _photoHeight = [aDecoder decodeFloatForKey:@"photoHeight"];
+        
         
         _videoConverPhoto = [aDecoder decodeObjectForKey:@"videoConverPhoto"];
+        _videoConverPhotoURL = [aDecoder decodeObjectForKey:@"videoConverPhotoURL"];
         _videoPath = [aDecoder decodeObjectForKey:@"videoPath"];
         _videoUrl = [aDecoder decodeObjectForKey:@"videoUrl"];
         
@@ -244,8 +261,11 @@
     [aCoder encodeObject:self.photo forKey:@"photo"];
     [aCoder encodeObject:self.thumbnailUrl forKey:@"thumbnailUrl"];
     [aCoder encodeObject:self.originPhotoUrl forKey:@"originPhotoUrl"];
+    [aCoder encodeFloat:self.photoHeight forKey:@"photoHeight"];
+    [aCoder encodeFloat:self.photoWitdh forKey:@"photoWitdh"];
     
     [aCoder encodeObject:self.videoConverPhoto forKey:@"videoConverPhoto"];
+    [aCoder encodeObject:self.videoConverPhoto forKey:@"videoConverPhotoURL"];
     [aCoder encodeObject:self.videoPath forKey:@"videoPath"];
     [aCoder encodeObject:self.videoUrl forKey:@"videoUrl"];
     
@@ -276,10 +296,13 @@
             return [[[self class] allocWithZone:zone] initWithPhoto:[self.photo copy]
                                                        thumbnailUrl:[self.thumbnailUrl copy]
                                                      originPhotoUrl:[self.originPhotoUrl copy]
+                                                         photoWitdh:self.photoWitdh
+                                                        photoHeight:self.photoHeight
                                                              sender:[self.sender copy]
                                                           timestamp:[self.timestamp copy]];
         case XHBubbleMessageMediaTypeVideo:
             return [[[self class] allocWithZone:zone] initWithVideoConverPhoto:[self.videoConverPhoto copy]
+                                                                    videoConverPhotoURL:[self.videoConverPhotoURL copy]
                                                                      videoPath:[self.videoPath copy]
                                                                       videoUrl:[self.videoUrl copy]
                                                                         sender:[self.sender copy]
