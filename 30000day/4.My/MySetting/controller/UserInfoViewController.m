@@ -371,7 +371,21 @@
             
         } else if(indexPath.row == 4) {
             
-            [self chooseBirthday];
+            UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提醒" message:@"修改生日会被当做新用户，将导致历史数据丢失，是否继续" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+               
+                [self chooseBirthday];
+                
+            }];
+            
+            UIAlertAction *cancelAlert = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+            
+            [alertView addAction:continueAction];
+            
+            [alertView addAction:cancelAlert];
+            
+            [self.navigationController presentViewController:alertView animated:YES completion:nil];
         }
     }
     
