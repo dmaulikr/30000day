@@ -59,6 +59,8 @@
     
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
+    
+    
     //定位并获取天气
     [self startFindLocationSucess];
 
@@ -558,50 +560,31 @@
     
     NSInteger life = [self daysToYear];
     
-    if ([[STUserAccountHandler userProfile].gender intValue] == 0) {
+    if (![[STUserAccountHandler userProfile].gender intValue]) {
         
         if (life <= 20) {
-            
             return [UIImage imageNamed:@"age_1_f"];
-            
         } else if (life <= 30) {
-            
             return [UIImage imageNamed:@"age_2_f"];
-            
         } else if (life <= 40) {
-            
             return [UIImage imageNamed:@"age_3_f"];
-            
         } else if (life <= 50) {
-            
             return [UIImage imageNamed:@"age_4_f"];
-            
         } else if (life <= 60) {
-            
             return [UIImage imageNamed:@"age_5_f"];
-            
         } else if (life <= 70) {
-            
             return [UIImage imageNamed:@"age_6_f"];
-            
         } else if (life <= 80) {
-            
             return [UIImage imageNamed:@"age_7_f"];
-            
         } else if (life <= 90) {
-            
             return [UIImage imageNamed:@"age_8_f"];
-            
         } else if (life <= 100 || life > 100) {
-            
             return [UIImage imageNamed:@"age_9_f"];
-            
         } else {
             return [UIImage imageNamed:@"age_9_f"];
         }
-    }
-    
-    if ([[STUserAccountHandler userProfile].gender intValue] == 1) {
+        
+    } else {
         
         if (life <= 20) {
             return [UIImage imageNamed:@"age_1"];
@@ -625,7 +608,6 @@
             return [UIImage imageNamed:@"age_9"];
         }
     }
-    return nil;
 }
 
 - (void)lifeImagePush {
