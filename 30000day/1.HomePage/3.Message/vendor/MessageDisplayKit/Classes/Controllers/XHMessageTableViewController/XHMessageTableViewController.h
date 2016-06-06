@@ -52,8 +52,9 @@
  *  @param photo  目标图片对象，后续有可能会换
  *  @param sender 发送者的名字
  *  @param date   发送时间
+ *  @parma isSpecialPhoto 若为YES photo里面装的是PHAsset或者ALAsset
  */
-- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date;
+- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date isSpecialPhoto:(BOOL)isSpecialPhoto;
 
 /**
  *  发送视频消息的回调方法

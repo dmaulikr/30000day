@@ -25,6 +25,7 @@
 #import "UIImageView+WebCache.h"
 #import <AVKit/AVKit.h>
 #import "IDMPhotoBrowser.h"
+#import "TZImageManager.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -256,14 +257,21 @@ static NSInteger const kOnePageSize = 10;
         }
             
         case XHBubbleMessageMediaTypeEmotion:
+            
             DLog(@"facePath : %@", message.emotionPath);
+            
             break;
             
         case XHBubbleMessageMediaTypeLocalPosition: {
+            
             DLog(@"facePath : %@", message.localPositionPhoto);
+            
             XHDisplayLocationViewController *displayLocationViewController = [[XHDisplayLocationViewController alloc] init];
+            
             displayLocationViewController.message = message;
+            
             disPlayViewController = displayLocationViewController;
+            
             break;
         }
         default:
@@ -360,28 +368,50 @@ static NSInteger const kOnePageSize = 10;
  *  @param photo  目标图片对象，后续有可能会换
  *  @param sender 发送者的名字
  *  @param date   发送时间
+ *  @parma isSpecialPhoto 若为YES photo里面装的是PHAsset或者ALAsset
  */
-- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date {
+- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date isSpecialPhoto:(BOOL)isSpecialPhoto {
+    
+    [self showHUDWithContent:@"正在发送" animated:YES];
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
         
         return;
     }
     
-    [self showHUDWithContent:@"正在发送" animated:YES];
-    
-    for (int i = 0; i < photo.count; i++) {
+    if (isSpecialPhoto) {//表示用户选择的是原图
+
+        for (int i = 0; i < photo.count; i++) {
+            
+            [[TZImageManager manager] getOriginalPhotoWithAsset:photo[i] completion:^(UIImage *photo, NSDictionary *info) {//再次进行异步操作
+               
+                [self sendImage:photo];
+                
+                [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+                
+            }];
+        }
+
+    } else {//缩略图
         
-        UIImage *image = photo[i];
-        
-        [self sendImage:image];
-        
-        [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+        for (int i = 0; i < photo.count; i++) {
+            
+            UIImage *image = photo[i];
+            
+            [self sendImage:image];
+            
+            [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+        }
     }
 }
 
 
 // 发送视频消息的回调方法
+//这里和安卓约定好:AVIMVideoMessage.text = http://xxxxxx 150.00 120.0f xxxxx
+//http://xxxxxx:视频首帧的缩略图地址
+//150.00:宽
+//120.0f:高
+//xxxx:本地路径
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
@@ -434,7 +464,7 @@ static NSInteger const kOnePageSize = 10;
                                     
                                     NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
                                     
-                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:exportPath attributes:nil];
+                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,exportPath] attachedFilePath:exportPath attributes:nil];
                                     
                                     [self sendMsg:sendVideoMessage];
                                 }
@@ -469,14 +499,13 @@ static NSInteger const kOnePageSize = 10;
                     
                     NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
                 
-                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:videoPath attributes:nil];
+                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,videoPath] attachedFilePath:videoPath attributes:nil];
                     
                     [self sendMsg:sendVideoMessage];
                 }
                 
             } progressBlock:^(NSInteger percentDone) {
                
-                
             }];
         });
     }
@@ -636,7 +665,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,1);//无论缩略图、还是原图都被压缩一半
+    NSData *imageData = UIImageJPEGRepresentation(image,1);
     
     AVFile *file = [AVFile fileWithData:imageData];
     
@@ -876,7 +905,7 @@ static NSInteger const kOnePageSize = 10;
         
         NSArray *stringArray = [msg.text componentsSeparatedByString:@" "];
         
-        if (stringArray.count == 3) {
+        if (stringArray.count >= 3) {//这里有和安卓约定好格式
             
             width = [stringArray[1] floatValue];
             
@@ -884,7 +913,7 @@ static NSInteger const kOnePageSize = 10;
         }
         
         xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:nil
-                                            videoConverPhotoURL:[stringArray firstObject]
+                                            videoConverPhotoURL:stringArray[0]
                                                       videoPath:nil
                                                        videoUrl:file.url
                                                         photoWitdh:width

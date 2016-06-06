@@ -85,6 +85,9 @@
     
     //2.获取天气
     [self startFindLocationSucess];
+    
+    //3.获取用户击败的用户
+    [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
 }
 
 //跳到登录控制器
@@ -332,6 +335,7 @@
                     }
                     
                 } failure:^(NSError *error) {
+                    
                 }];
                 
             }else{
@@ -340,9 +344,9 @@
             
         } failure:^(NSError *error) {
             
+            
         }];
     }
-    
 }
 
 //定位并获取天气情况
@@ -365,6 +369,7 @@
         }];
         
     } failure:^(NSError *error) {
+       
         
     }];
 }
