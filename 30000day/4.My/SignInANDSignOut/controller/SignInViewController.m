@@ -13,7 +13,6 @@
 #import "ThirdPartyLandingViewController.h"
 #import "ChooseVerifyWayViewController.h"
 #import "UserProfile.h"
-#import "AppDelegate.h"
 #import <UMSocialSnsPlatformManager.h>
 #import <UMSocialAccountManager.h>
 #import "UMSocialWechatHandler.h"
@@ -242,21 +241,12 @@
                                                  
                                                  [Common saveAppDataForKey:@"type" withObject:type];
                                                  
-                                                 [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                              completion:^(BOOL success) {
-
-                                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                  
-                                                                  [self.tabBarController setSelectedIndex:0];
-
-                                                                  [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                                  
-                                                              } failure:^(NSError *error) {
-                                                                  
-                                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                              }];
+                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                  
+                                                 [self.tabBarController setSelectedIndex:0];
                                                  
+                                                 [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                                                                  
                                              } failure:^(NSError *error) {
                                                  
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -346,21 +336,9 @@
                                          
                                          [Common removeAppDataForKey:@"type"];
                                          
-                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                      completion:^(BOOL success) {
-                                             
-                                             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                                                          
-                                             [self hideHUD:YES];
-                                             
-                                         } failure:^(NSError *error) {
-                                             
-                                             [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-                                             
-                                             [self hideHUD:YES];
-                                             
-                                             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                                         }];
+                                         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                         
+                                         [self hideHUD:YES];
                                          
                                      } failure:^(NSError *error) {
                                          

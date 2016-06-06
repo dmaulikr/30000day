@@ -57,6 +57,7 @@
 
 #import "NSArray+Chinese.h"
 #import "NSString+Chinese.h"
+#import "CDChatManager.h"
 
 @interface STDataHandler () <CLLocationManagerDelegate>
 
@@ -436,6 +437,28 @@
                                                                 //设置个人信息
                                                                 [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password isFromThirdParty:isFromThirdParty postNotification:isPostNotification];
                                                                 
+                                                                
+                                                                //登录凌云服务器
+                                                                [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
+                                                                    
+                                                                    if (succeeded) {
+                                                                        
+                                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                                            
+                                                                            [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+                                                                        });
+                                                                        
+                                                                    } else {
+                                                                        
+                                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                                            
+                                                                            failure(error);
+                                                                            
+                                                                        });
+                                                                    }
+                                                                }];
+                                                                
+                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     
                                                                     success(YES);
@@ -571,9 +594,6 @@
         [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
         
     }
-    
-    //初始化通讯录
-//    [[MailListManager shareManager] synchronizedMailList];
 }
 
 //********** 用户注册************/

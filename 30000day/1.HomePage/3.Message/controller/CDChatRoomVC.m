@@ -184,19 +184,20 @@ static NSInteger const kOnePageSize = 10;
     switch (message.messageMediaType) {
             
         case XHBubbleMessageMediaTypeVideo: {
-
+            
+            //1.创建播放器
             AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
 
             AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL URLWithString:message.videoUrl]];//改到这
             
             AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
-            
+        
             controller.player = player;
             
             [player play];
             
             [self presentViewController:controller animated:YES completion:nil];
-            
+
             break;
         }
             
@@ -511,7 +512,6 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
-#pragma mark --- 先不管这个
 //发送语音消息的回调方法
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
     

@@ -100,7 +100,7 @@ static CDChatManager *instance;
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    if (![Common isObjectNull:attributes]) {//非空的
+    if (![Common isObjectNull:attributes] && ![Common isObjectNull:self.client]) {//非空的
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
         
