@@ -288,20 +288,12 @@
         return cell;
         
     } else if (indexPath.section == 3 ) {
-    
-        UITableViewCell *tCell = [tableView dequeueReusableCellWithIdentifier:@"TCELL"];
         
-        if (!tCell) {
-            
-            tCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TCELL"];
-            
-        }
+        [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
         
-        [tCell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell.titleLabel setText:@"《免责条款及协议》"];
         
-        [tCell.textLabel setText:@"《免责条款及协议》"];
-        
-        return tCell;
+        return cell;
     
     } else if (indexPath.section == 4 ) {
         
