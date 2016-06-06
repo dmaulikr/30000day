@@ -432,9 +432,9 @@ static NSInteger const kOnePageSize = 10;
                                
                                 if (succeeded) {//保存成功，才会发送
                                     
-                                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:50 height:50.0f / videoConverPhoto.size.width * videoConverPhoto.size.height];
+                                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
                                     
-                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:imageUrl attachedFilePath:exportPath attributes:nil];
+                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:exportPath attributes:nil];
                                     
                                     [self sendMsg:sendVideoMessage];
                                 }
@@ -467,18 +467,17 @@ static NSInteger const kOnePageSize = 10;
                 
                 if (succeeded) {//保存成功，才会发送
                     
-                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:50 height:50.0f / videoConverPhoto.size.width * videoConverPhoto.size.height];
-                    
-                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:imageUrl attachedFilePath:videoPath attributes:nil];
+                    NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
+                
+                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:videoPath attributes:nil];
                     
                     [self sendMsg:sendVideoMessage];
                 }
                 
             } progressBlock:^(NSInteger percentDone) {
-                
+               
                 
             }];
-            
         });
     }
 }
@@ -637,7 +636,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,0.5);//无论缩略图、还是原图都被压缩一半
+    NSData *imageData = UIImageJPEGRepresentation(image,1);//无论缩略图、还是原图都被压缩一半
     
     AVFile *file = [AVFile fileWithData:imageData];
     
@@ -854,7 +853,7 @@ static NSInteger const kOnePageSize = 10;
         NSString *thumbnailUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height];
         
         NSString *originPhotoUrl = [file url];
-        
+
         xhMessage = [[XHMessage alloc] initWithPhoto:nil thumbnailUrl:thumbnailUrl originPhotoUrl:originPhotoUrl photoWitdh:THUMBNAIL_PHOTO_WIDTH photoHeight:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeEmotion) {
@@ -871,8 +870,27 @@ static NSInteger const kOnePageSize = 10;
         
         AVFile *file = videoMsg.file;
         
-        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:nil videoConverPhotoURL:msg.text videoPath:nil videoUrl:file.url sender:nickName timestamp:time];
-     
+        CGFloat width = THUMBNAIL_PHOTO_WIDTH;
+        
+        CGFloat height = THUMBNAIL_PHOTO_WIDTH;
+        
+        NSArray *stringArray = [msg.text componentsSeparatedByString:@" "];
+        
+        if (stringArray.count == 3) {
+            
+            width = [stringArray[1] floatValue];
+            
+            height = [stringArray[2] floatValue];
+        }
+        
+        xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:nil
+                                            videoConverPhotoURL:[stringArray firstObject]
+                                                      videoPath:nil
+                                                       videoUrl:file.url
+                                                        photoWitdh:width
+                                                    photoHeight:height
+                                                         sender:nickName
+                                                      timestamp:time];     
     } else {
         
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
@@ -914,31 +932,6 @@ static NSInteger const kOnePageSize = 10;
     return xhMessage;
 }
 
-//截取本地视频缩略图
-+ (UIImage *)getThumbnailImage:(NSString *)videoURL {
-    
-    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:videoURL] options:nil];
-    
-    AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    
-    gen.appliesPreferredTrackTransform = YES;//按正确方向对视频进行截图,关键点是将AVAssetImageGrnerator对象的appliesPreferredTrackTransform属性设置为YES。
-    
-    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
-    
-    NSError *error = nil;
-    
-    CMTime actualTime;
-    
-    CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
-    
-    UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
-    
-    CGImageRelease(image);
-    
-    return thumb;  
-}
-
-
 - (NSMutableArray *)getXHMessages:(NSArray *)msgs {
     NSMutableArray *messages = [[NSMutableArray alloc] init];
     for (AVIMTypedMessage *msg in msgs) {
@@ -962,7 +955,11 @@ static NSInteger const kOnePageSize = 10;
             
         } else {
             
-            block (msgs, error);
+            [self memoryCacheMsgs:msgs callback:^(BOOL succeeded, NSError *error) {
+                
+                block (msgs, error);
+                
+            }];
         }
     }];
 }
@@ -1071,41 +1068,37 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
-//- (void)memoryCacheMsgs:(NSArray *)msgs callback:(AVBooleanResultBlock)callback {
-//    
-//    [self runInGlobalQueue:^{
-//        
-//        NSMutableSet *userIds = [[NSMutableSet alloc] init];
-//        
-//        for (AVIMTypedMessage *msg in msgs) {
-//            
-//            [userIds addObject:msg.clientId];
-//            
-//            if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
-//                
-//                AVFile *file = msg.file;
-//                
-//                if (file && file.isDataAvailable == NO) {
-//                    
-//                    NSError *error;
-//                    
-//                    // 下载到本地
-//                    NSData *data = [file getData:&error];
-//                    
-//                    if (error || data == nil) {
-//                        DLog(@"download file error : %@", error);
-//                    }
-//                }
-//                
-//            }
-//        }
-//
-//        [self runInMainQueue:^{
-//            
-//            callback(YES, nil);
-//        }];
-//    }];
-//}
+- (void)memoryCacheMsgs:(NSArray *)msgs callback:(AVBooleanResultBlock)callback {
+    
+    [self runInGlobalQueue:^{
+
+        for (AVIMTypedMessage *msg in msgs) {
+
+            if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
+                
+                AVFile *file = msg.file;
+                
+                if (file && file.isDataAvailable == NO) {
+                    
+                    //异步下载到本地
+                    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        
+                        if (error || data == nil) {
+                            
+                            DLog(@"download file error : %@", error);
+                        }
+                        
+                    }];
+                }
+            }
+        }
+
+        [self runInMainQueue:^{
+            
+            callback(YES, nil);
+        }];
+    }];
+}
 
 - (void)insertMessage:(AVIMTypedMessage *)message {
     
@@ -1118,18 +1111,23 @@ static NSInteger const kOnePageSize = 10;
     
     self.isLoadingMsg = YES;
     
-    XHMessage *xhMessage = [self getXHMessageByMsg:message];
-    
-    [self.msgs addObject:message];
-    
-    [self.messages addObject:xhMessage];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
-    
-    [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    
-    [self scrollToBottomAnimated:YES];
-    
+    [self memoryCacheMsgs:@[message] callback:^(BOOL succeeded, NSError *error) {
+        
+        if ([Common isObjectNull:error]) {
+         
+            XHMessage *xhMessage = [self getXHMessageByMsg:message];
+            
+            [self.msgs addObject:message];
+            
+            [self.messages addObject:xhMessage];
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.msgs.count -1 inSection:0];
+            
+            [self.messageTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
+            [self scrollToBottomAnimated:YES];
+        }
+    }];
     //隐藏HUD
     [self hideHUD:YES];
     

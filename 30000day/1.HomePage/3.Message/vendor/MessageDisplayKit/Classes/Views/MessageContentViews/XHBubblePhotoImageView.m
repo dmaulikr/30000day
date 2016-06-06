@@ -60,9 +60,9 @@
         
         [self addSubview:self.activityIndicatorView];
         
-        [_imageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholderImage:nil options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
-            [self.activityIndicatorView startAnimating];
+        [self.activityIndicatorView startAnimating];
+        
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholderImage:nil options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             

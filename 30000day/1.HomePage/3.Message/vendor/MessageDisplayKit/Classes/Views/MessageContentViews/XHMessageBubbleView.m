@@ -67,15 +67,15 @@
 
 + (CGSize)neededSizeForPhoto:(id <XHMessageModel>)message {
     
-    if (message.photoHeight && message.photoHeight) {
+    if (message.photoHeight && message.photoWitdh) {
         
-        CGSize photoSize = CGSizeMake(70.0f, 70.0f * message.photoHeight/message.photoHeight - 8.0f);
+        CGSize photoSize = CGSizeMake(100.0f, 100.0f * message.photoHeight/message.photoWitdh - 8.0f);
         
         return photoSize;
         
     } else {
         
-        return CGSizeMake(70.0f, 70.0f);//如果不存在就返回一个固定值
+        return CGSizeMake(100.0f, 100.0f);//如果不存在就返回一个固定值
     }   
 }
 

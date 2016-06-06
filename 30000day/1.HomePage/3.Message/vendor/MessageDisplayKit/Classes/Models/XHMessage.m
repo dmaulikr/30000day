@@ -80,6 +80,8 @@
                      videoConverPhotoURL:(NSString *)videoConverPhotoURL
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
+                              photoWitdh:(CGFloat)photoWitdh
+                             photoHeight:(CGFloat)photoHeight
                                   sender:(NSString *)sender
                                timestamp:(NSDate *)timestamp {
     self = [super init];
@@ -87,6 +89,8 @@
         self.videoConverPhoto = videoConverPhoto;
         self.videoPath = videoPath;
         self.videoUrl = videoUrl;
+        self.photoWitdh = photoWitdh;
+        self.photoHeight = photoHeight;
         
         self.sender = sender;
         self.timestamp = timestamp;
@@ -305,6 +309,8 @@
                                                                     videoConverPhotoURL:[self.videoConverPhotoURL copy]
                                                                      videoPath:[self.videoPath copy]
                                                                       videoUrl:[self.videoUrl copy]
+                                                                    photoWitdh:self.photoWitdh
+                                                                   photoHeight:self.photoHeight
                                                                         sender:[self.sender copy]
                                                                      timestamp:[self.timestamp copy]];
         case XHBubbleMessageMediaTypeVoice:

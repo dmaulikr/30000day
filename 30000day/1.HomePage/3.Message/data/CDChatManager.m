@@ -460,8 +460,6 @@ static CDChatManager *instance;
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
     
-    NSLog(@"%d--%@",message.mediaType,message.content);
-    
    if (message.transient) {
        
        NSString *text = message.text;
@@ -799,23 +797,27 @@ static CDChatManager *instance;
                 
                 AVIMTypedMessage *message = lastestMessages[lastestMessages.count - 1 - i];
                 
-                if (!message.transient) {//不是暂态消息
+                if ([message isKindOfClass:[AVIMTypedMessage class]]) {//过滤非法的消息
                     
-                    if ([message.text isEqualToString:REQUEST_TYPE]) {//请求加为好友
+                    if (!message.transient) {//不是暂态消息
                         
-                        
-                    } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//接受请求加为好友
-                        
-                        
-                    } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
-                        
-                        
-                    } else {//正常的消息
-                        
-                        conversation.lastMessage = message;
-                        
-                        break;
+                        if ([message.text isEqualToString:REQUEST_TYPE]) {//请求加为好友
+                            
+                            
+                        } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//接受请求加为好友
+                            
+                            
+                        } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
+                            
+                            
+                        } else {//正常的消息
+                            
+                            conversation.lastMessage = message;
+                            
+                            break;
+                        }
                     }
+                    
                 }
             }
 

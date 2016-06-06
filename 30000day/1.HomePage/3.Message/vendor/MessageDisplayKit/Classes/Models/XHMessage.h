@@ -95,6 +95,8 @@
                      videoConverPhotoURL:(NSString *)videoConverPhotoURL
                                videoPath:(NSString *)videoPath
                                 videoUrl:(NSString *)videoUrl
+                              photoWitdh:(CGFloat)photoWitdh
+                             photoHeight:(CGFloat)photoHeight
                                   sender:(NSString *)sender
                                timestamp:(NSDate *)timestamp;
 
