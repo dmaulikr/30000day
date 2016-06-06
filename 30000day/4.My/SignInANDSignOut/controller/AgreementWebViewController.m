@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"免责条款及协议";
+    self.title = @"用户协议";
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [STDataHandler sendGetAgreement:^(NSString *urlString) {

@@ -291,7 +291,7 @@
         
         [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
         
-        [cell.titleLabel setText:@"《免责条款及协议》"];
+        [cell.titleLabel setText:@"《用户协议》"];
         
         return cell;
     

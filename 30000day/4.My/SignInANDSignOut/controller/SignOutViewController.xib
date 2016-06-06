@@ -163,9 +163,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtg-W1-L9M">
-                    <rect key="frame" x="87" y="231" width="108" height="27"/>
+                    <rect key="frame" x="87" y="231" width="72" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="《免责条款及协议》"/>
+                    <state key="normal" title="《用户协议》"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
