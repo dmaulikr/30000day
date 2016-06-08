@@ -10,4 +10,6 @@
 
 @interface AgreementWebViewController : ShowBackItemViewController
 
+@property (nonatomic,assign) int type; //0:用户协议  1:隐私协议
+
 @end

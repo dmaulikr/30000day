@@ -787,6 +787,8 @@
     
     [parameters addParameter:memo forKey:@"memo"];//个人简介
     
+    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
+    
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:SAVE_USER_INFORMATION
                                                  parameters:parameters
