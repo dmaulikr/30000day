@@ -71,9 +71,7 @@
 
 - (void)changeState {
     
-    self.firstCell.badgeView.hidden = NO;
-    
-    [[self navigationController] tabBarItem].badgeValue = @"";
+    self.firstCell.badgeView.hidden = NO;//显示cell的badge
 }
 
 - (void)addFriendsAction {
@@ -132,9 +130,9 @@
         
         _firstCell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         
-        _firstCell.badgeView.hidden = [Common readAppIntegerDataForKey:USER_BADGE_NUMBER] ? NO : YES;
+        _firstCell.badgeView.hidden = [Common readAppIntegerDataForKey:USER_BADGE_NUMBER] ? NO : YES;//显示cell的badge
         
-        [[self navigationController] tabBarItem].badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;
+        self.tabBarItem.badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;//显示底部badge
     }
     return _firstCell;
 }
@@ -326,11 +324,11 @@
         
         [self.navigationController pushViewController:controller animated:YES];
         
-        self.firstCell.badgeView.hidden = YES;
+        self.firstCell.badgeView.hidden = YES;//清除cell的badge
         
-        [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];
+        [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];//把plist里面存储的badge清空
         
-        [[self navigationController] tabBarItem].badgeValue = nil;
+        self.tabBarItem.badgeValue = nil;//清除底部按钮badge
         
     }  else {
         

@@ -62,11 +62,6 @@
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }
-    
-    if (self.unreadMessageChange) {
-        
-        self.unreadMessageChange(totalUnreadCount);
-    }
 }
 
 @end

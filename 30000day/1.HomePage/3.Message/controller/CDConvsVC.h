@@ -10,6 +10,4 @@
 
 @interface CDConvsVC : CDChatListVC
 
-@property (nonatomic,copy) void (^unreadMessageChange)(NSInteger totalUnreadCount);//未读消息个数改变发出的通知
-
 @end

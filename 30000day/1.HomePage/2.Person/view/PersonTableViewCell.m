@@ -23,7 +23,7 @@
     
     self.button_fourth.backgroundColor = LOWBLUECOLOR;
     
-    self.badgeView.layer.cornerRadius = 10.0f;
+    self.badgeView.layer.cornerRadius = 9.0f;
     
     self.badgeView.layer.masksToBounds = YES;
 }

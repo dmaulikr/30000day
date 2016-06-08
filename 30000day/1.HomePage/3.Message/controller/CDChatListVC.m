@@ -136,7 +136,6 @@ static NSString *cellIdentifier = @"ContactCell";
                 if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
                     
                     [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
-                    
                 }
                 
                 [self selectConversationIfHasRemoteNotificatoinConvid];
