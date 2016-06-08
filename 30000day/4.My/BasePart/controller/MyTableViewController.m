@@ -178,7 +178,7 @@
         
     } else if (section == 3) {
         
-        return 1;
+        return 2;
         
     } else if (section == 4){
     
@@ -203,15 +203,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 2) {
-        
-        return 30;
-        
-    } else {
-        
-        return 12;
-        
-    }
+    return 12;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -273,25 +265,31 @@
             
             [cell.titleLabel setText:@"安全中心"];
             
-            cell.seperatorLineView.hidden = NO;
-            
         } else if (indexPath.row == 1) {
             
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
             
             [cell.titleLabel setText:@"设置"];
-            
-            cell.seperatorLineView.hidden = YES;
-            
+
         }
         
         return cell;
         
     } else if (indexPath.section == 3 ) {
         
-        [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
+        if (indexPath.row == 0) {
         
-        [cell.titleLabel setText:@"《用户协议》"];
+            [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
+        
+            [cell.titleLabel setText:@"《用户协议》"];
+        
+        } else {
+        
+            [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
+            
+            [cell.titleLabel setText:@"《隐私保护》"];
+        
+        }
         
         return cell;
     
@@ -356,18 +354,30 @@
         }
         
     } else if (indexPath.section == 3) {
-    
+        
         AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
+    
+        if (indexPath.row == 0) {
+            
+            controller.type = 0;
+            
+        } else {
+        
+            controller.type = 1;
+        
+        }
         
         controller.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:controller animated:YES];
-    
+        
     } else if (indexPath.section == 4) {
         
         [self cancelAction];
     }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 - (void)cancelAction {

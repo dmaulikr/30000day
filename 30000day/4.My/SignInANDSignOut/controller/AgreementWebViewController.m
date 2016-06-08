@@ -20,26 +20,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = @"用户协议";
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler sendGetAgreement:^(NSString *urlString) {
+    if (self.type == 0) {
         
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+        self.title = @"用户协议";
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [STDataHandler sendGetAgreement:^(NSString *urlString) {
+            
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+            
+            [self.agreementWebView loadRequest:request];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        } failure:^(NSError *error) {
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [self showToast:@"加载失败，请稍后再试"];
+            
+        }];
+        
+    } else {
+        
+        self.title = @"隐私保护";
+    
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.196.223.175:8081/STManager/infomation/privacyLink"]];
         
         [self.agreementWebView loadRequest:request];
         
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-    } failure:^(NSError *error) {
-        
-        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [self showToast:@"加载失败，请稍后再试"];
-        
-    }];
+    }
     
+
 }
 
 - (void)didReceiveMemoryWarning {
