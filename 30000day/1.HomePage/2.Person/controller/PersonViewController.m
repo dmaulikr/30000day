@@ -71,8 +71,6 @@
 
 - (void)changeState {
     
-    [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:1];
-    
     self.firstCell.badgeView.hidden = NO;
     
     [[self navigationController] tabBarItem].badgeValue = @"";

@@ -164,6 +164,8 @@
                                                          self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
 
                                                          [self.tableView reloadData];
+                                                         //显示错误信息
+                                                         [self showToast:[Common errorStringWithError:error]];
                                                          
                                                      });
                                                  }];

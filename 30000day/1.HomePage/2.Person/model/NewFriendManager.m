@@ -30,7 +30,7 @@
                 
                 AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:REQUEST_TYPE attributes:nil];
                 
-                [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
+                [conversation sendMessage:messgage options:AVIMMessageSendOptionNone callback:^(BOOL succeeded, NSError *error) {
                     
                     callback(succeeded,error);
                     
@@ -61,7 +61,7 @@
                  
                  AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:ACCEPT_TYPE attributes:nil];
                  
-                 [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
+                 [conversation sendMessage:messgage options:AVIMMessageSendOptionNone callback:^(BOOL succeeded, NSError *error) {
                      
                      callback(succeeded,error);
                      
@@ -93,7 +93,7 @@
                 
                 AVIMTextMessage *messgage = [AVIMTextMessage messageWithText:DRECT_TYPE attributes:nil];
                 
-                [conversation sendMessage:messgage options:AVIMMessageSendOptionTransient callback:^(BOOL succeeded, NSError *error) {
+                [conversation sendMessage:messgage options:AVIMMessageSendOptionNone callback:^(BOOL succeeded, NSError *error) {
                     
                     callback(succeeded,error);
                 }];

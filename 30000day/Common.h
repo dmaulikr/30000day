@@ -90,4 +90,6 @@
 /** 判断是否在某一天天之内 */
 + (void)dayNumberWithinNumber:(NSInteger)number inputDate:(NSDate *)inputDate completion:(void(^)(NSInteger day))completion;
 
++ (NSString *)errorStringWithError:(NSError *)error;
+
 @end

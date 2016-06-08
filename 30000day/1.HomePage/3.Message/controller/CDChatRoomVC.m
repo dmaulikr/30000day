@@ -46,6 +46,8 @@ static NSInteger const kOnePageSize = 10;
 
 @property (nonatomic,strong) IDMPhotoBrowser *browser;
 
+@property (nonatomic,strong) NSTimer *sendMessageTimer;//发送消息的超时定时器
+
 @end
 
 @implementation CDChatRoomVC
@@ -93,8 +95,6 @@ static NSInteger const kOnePageSize = 10;
         [self setBackgroundColor:[UIColor whiteColor]];
     }
     
-    [self initBarButton];
-    
     [self initBottomMenuAndEmotionView];
 
     // 设置自身用户名
@@ -133,12 +133,6 @@ static NSInteger const kOnePageSize = 10;
 }
 
 #pragma mark - ui init
-
-- (void)initBarButton {
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setBackBarButtonItem:backBtn];
-    //    self.navigationItem.backBarButtonItem.title
-}
 
 - (void)initBottomMenuAndEmotionView {
     
@@ -350,6 +344,8 @@ static NSInteger const kOnePageSize = 10;
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
         
+        [self showToast:@"网络不给力，请稍后再试"];
+        
         return;
     }
     
@@ -361,6 +357,22 @@ static NSInteger const kOnePageSize = 10;
         
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeText];
     }
+}
+
+#pragma mark ---- 设置隐藏HUD的定时器
+
+- (void)setHidHUDTimerWithFireDate:(NSDate *)fireDate {
+    
+    _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(overTimeAction:) userInfo:nil repeats:NO];
+    
+    _sendMessageTimer.fireDate = fireDate;
+}
+
+- (void)overTimeAction:(NSTimer *)timer {
+    
+    [self hideHUD:YES];//隐藏提示控件
+    
+    [timer invalidate];
 }
 
 /**
@@ -375,7 +387,13 @@ static NSInteger const kOnePageSize = 10;
     
     [self showHUDWithContent:@"正在发送" animated:YES];
     
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@""];
+        
+        [self hideHUD:YES];
         
         return;
     }
@@ -406,7 +424,6 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
-
 // 发送视频消息的回调方法
 //这里和安卓约定好:AVIMVideoMessage.text = http://xxxxxx 150.00 120.0f xxxxx
 //http://xxxxxx:视频首帧的缩略图地址
@@ -415,7 +432,15 @@ static NSInteger const kOnePageSize = 10;
 //xxxx:本地路径
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
     
+    [self showHUDWithContent:@"正在发送" animated:YES];
+    
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@"网络不给力，请稍后再试"];
+        
+        [self hideHUD:YES];
         
         return;
     }
@@ -426,9 +451,7 @@ static NSInteger const kOnePageSize = 10;
         AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:videoPath] options:nil];
         
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-        
-        [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
-        
+    
         if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
             
             AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
@@ -468,6 +491,14 @@ static NSInteger const kOnePageSize = 10;
                                     AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,exportPath] attachedFilePath:exportPath attributes:nil];
                                     
                                     [self sendMsg:sendVideoMessage];
+                                    
+                                } else {
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                       
+                                        [self hideHUD:YES];
+                                        
+                                    });
                                 }
                                 
                             } progressBlock:^(NSInteger percentDone) {
@@ -489,9 +520,7 @@ static NSInteger const kOnePageSize = 10;
     } else {//从相册里面选取出来的
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
-            
+
             AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(videoConverPhoto, 0.5)];
             
             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -503,6 +532,14 @@ static NSInteger const kOnePageSize = 10;
                     AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,videoPath] attachedFilePath:videoPath attributes:nil];
                     
                     [self sendMsg:sendVideoMessage];
+                    
+                } else {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self hideHUD:YES];
+                        
+                    });
                 }
                 
             } progressBlock:^(NSInteger percentDone) {
@@ -517,6 +554,8 @@ static NSInteger const kOnePageSize = 10;
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
         
+        [self showToast:@"网络不给力，请稍后再试"];
+        
         return;
     }
     
@@ -529,6 +568,8 @@ static NSInteger const kOnePageSize = 10;
 - (void)didSendEmotion:(NSString *)emotion fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@"网络不给力，请稍后再试"];
         
         return;
     }
@@ -676,6 +717,14 @@ static NSInteger const kOnePageSize = 10;
             AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
             
             [self sendMsg:msg];
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self hideHUD:YES];
+                
+            });
         }
         
     } progressBlock:^(NSInteger percentDone) {
