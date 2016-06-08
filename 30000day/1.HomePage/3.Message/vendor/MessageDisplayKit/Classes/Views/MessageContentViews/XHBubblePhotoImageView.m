@@ -52,8 +52,8 @@
 }
 
 - (void)configureMessagePhoto:(UIImage *)messagePhoto thumbnailUrl:(NSString *)thumbnailUrl originPhotoUrl:(NSString *)originPhotoUrl onBubbleMessageType:(XHBubbleMessageType)bubbleMessageType {
+    
     self.bubbleMessageType = bubbleMessageType;
-    self.messagePhoto = messagePhoto;
     
     if (thumbnailUrl) {
         WEAKSELF
@@ -66,8 +66,6 @@
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
-//            image = [image thumbnailImage:CGRectGetWidth(weakSelf.bounds) * 2 transparentBorder:0 cornerRadius:0 interpolationQuality:1.0];
-            
             if (image) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -79,28 +77,23 @@
             }
         }];
         
+    } else {
         
-//        [self setImageWithURL:[NSURL URLWithString:thumbnailUrl] placeholer:nil showActivityIndicatorView:NO completionBlock:^(UIImage *image, NSURL *url, NSError *error) {
-//            if ([url.absoluteString isEqualToString:thumbnailUrl]) {
-//
-//                if (CGRectEqualToRect(weakSelf.bounds, CGRectZero)) {
-//                    weakSelf.semaphore = dispatch_semaphore_create(0);
-//                    dispatch_semaphore_wait(weakSelf.semaphore, DISPATCH_TIME_FOREVER);
-//                    weakSelf.semaphore = nil;
-//                }
-//                
-//
-//            }
-//        }];
+        self.messagePhoto = messagePhoto;
     }
 }
 
 - (void)setFrame:(CGRect)frame {
+    
     [super setFrame:frame];
+    
     if (self.semaphore) {
+        
         dispatch_semaphore_signal(self.semaphore);
     }
+    
     _activityIndicatorView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
+    
     _imageView.frame = CGRectMake(5, 5, self.bounds.size.width - 10, self.bounds.size.height - 10);
     
     
@@ -224,7 +217,6 @@
 //- (void)drawRect:(CGRect)rect {
 //    // Drawing code
 //    rect.origin = CGPointZero;
-////    [self.messagePhoto drawInRect:rect];
 //    
 //    CGFloat width = rect.size.width;
 //    CGFloat height = rect.size.height+1;//莫名其妙会出现绘制底部有残留 +1像素遮盖
@@ -320,13 +312,9 @@
 //    CGContextAddLineToPoint(context, margin + radius, 0);
 //    CGContextAddLineToPoint(context, 0, 0);
 //    CGContextAddLineToPoint(context, 0, radius + margin);
-//    
-//    
-//    //
-//    
+//
 //    CGContextSetShadowWithColor(context, CGSizeMake(0, 0), borderOffset, borderColor.CGColor);//阴影
-//    CGContextSetBlendMode(context, kCGBlendModeClear);
-//    
+//    CGContextSetBlendMode(context, kCGBlendModeNormal);
 //    
 //    CGContextDrawPath(context, kCGPathFill);
 //}

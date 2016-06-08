@@ -69,8 +69,6 @@
 
 #define USER_CHOOSE_AGENUMBER         [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  //当前用户所选择的年龄
 
-#define USER_BADGE_NUMBER            [NSString stringWithFormat:@"badge_%@",STUserAccountHandler.userProfile.userId]  //当前用户角标
-
 #define FRIENDVALIDATION              @"FriendValidation"    //添加好友验证开关Key
 
 #define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
@@ -276,6 +274,8 @@
 #define REQUEST_TYPE               @"Once, I'd found my best love, but I didn't treasure her!@#$%^233" //请求加为好友
 #define ACCEPT_TYPE                @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求
 #define DRECT_TYPE                 @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
+#define USER_BADGE_NUMBER          [NSString stringWithFormat:@"APPLY_%@",STUserAccountHandler.userProfile.userId]  //加好友+接受+直接添加
+
 
 #define INVALID_CONVERSATION       @"invalidConversation" //无效的对话
 #define THUMBNAIL_PHOTO_WIDTH      150.0f

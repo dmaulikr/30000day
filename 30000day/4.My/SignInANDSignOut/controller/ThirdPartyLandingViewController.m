@@ -9,7 +9,6 @@
 #import "ThirdPartyLandingViewController.h"
 #import "MTProgressHUD.h"
 #import "UIImageView+WebCache.h"
-#import "AppDelegate.h"
 #import "STTabBarViewController.h"
 
 #define IdentityCount 60
@@ -166,30 +165,22 @@
                                                      
                                                      [Common removeAppDataForKey:@"type"];
 
-                                                     [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                                  completion:^(BOOL success) {
-                                                                      
-                                                                      [self textFiledResignFirst];
-                                                                      
-                                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                      
-                                                                      if (!self.isConceal) {
-                                                                          
-                                                                          [self.tabBarController setSelectedIndex:0];
-                                                                          
-                                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                                          
-                                                                      } else {
-                                                                      
-                                                                          [self.navigationController popViewControllerAnimated:YES];
-                                                                      
-                                                                      }
-                                                                      
-                                                                  } failure:^(NSError *error) {
-                                                                      
-                                                                  }];
+                                                     [self textFiledResignFirst];
                                                      
+                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      
+                                                     if (!self.isConceal) {
+                                                         
+                                                         [self.tabBarController setSelectedIndex:0];
+                                                         
+                                                         [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                         
+                                                     } else {
+                                                         
+                                                         [self.navigationController popViewControllerAnimated:YES];
+                                                         
+                                                     }
+
                                                  } failure:^(NSError *error) {
                                                      
                                                      [self textFiledResignFirst];
@@ -311,21 +302,13 @@
                                          
                                          [Common saveAppDataForKey:@"type" withObject:self.type];
                                          
-                                         [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                      completion:^(BOOL success) {
-                                                          
-                                                          [self textFiledResignFirst];
-                                                          
-                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                          
-                                                          [self.tabBarController setSelectedIndex:0];
-                                                          
-                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                          
-                                                      } failure:^(NSError *error) {
-                                                          
-                                                      }];
+                                         [self textFiledResignFirst];
                                          
+                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                         
+                                         [self.tabBarController setSelectedIndex:0];
+                                         
+                                         [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                          
                                      } failure:^(NSError *error) {
                                          

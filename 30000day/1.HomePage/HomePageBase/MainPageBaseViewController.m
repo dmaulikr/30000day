@@ -14,7 +14,6 @@
 #import "UserAccountHandler.h"
 #import "MainViewController.h"
 #import "SignInViewController.h"
-#import "AppDelegate.h"
 #import "JSBadgeView.h"
 
 #define BUTTON_WIDTH 65
@@ -69,13 +68,6 @@
                                             type:type
                                          success:^(BOOL success) {
                                              
-                                             [STAppDelegate openChat:STUserAccountHandler.userProfile.userId
-                                                          completion:^(BOOL success) {
-                                                              
-                                             } failure:^(NSError *error) {
-                                                 
-                                                 
-                                             }];
                                              
                                          }
                                          failure:^(NSError *error) {

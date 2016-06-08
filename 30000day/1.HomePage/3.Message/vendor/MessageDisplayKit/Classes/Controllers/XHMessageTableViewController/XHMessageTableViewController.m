@@ -157,9 +157,10 @@ static void * const XHMessageInputTextViewContext = (void*)&XHMessageInputTextVi
 /**
  *  根据图片开始发送图片消息
  *
- *  @param photo 目标图片
+ *  @param photoArray 目标图片数组
+ *  @param isOrginalPhoto 是否是原图
  */
-- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray;
+- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray isSpecialPhoto:(BOOL)isSpecialPhoto;
 /**
  *  根据视频的封面和视频的路径开始发送视频消息
  *
@@ -962,11 +963,11 @@ static CGPoint  delayOffset = {0.0};
     }
 }
 
-- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray {
+- (void)didSendMessageWithPhotoArray:(NSArray *)photoArray isSpecialPhoto:(BOOL)isSpecialPhoto {
     
-    if ([self.delegate respondsToSelector:@selector(didSendPhotoArray:fromSender:onDate:)]) {
+    if ([self.delegate respondsToSelector:@selector(didSendPhotoArray:fromSender:onDate:isSpecialPhoto:)]) {
         
-        [self.delegate didSendPhotoArray:photoArray fromSender:self.messageSender onDate:[NSDate date]];
+        [self.delegate didSendPhotoArray:photoArray fromSender:self.messageSender onDate:[NSDate date] isSpecialPhoto:isSpecialPhoto];
     }
 }
 
@@ -1202,7 +1203,7 @@ static CGPoint  delayOffset = {0.0};
         
         if (image) {
             
-            [weakSelf didSendMessageWithPhotoArray:@[image]];
+            [weakSelf didSendMessageWithPhotoArray:@[image] isSpecialPhoto:NO];
             
         } else {
             
@@ -1226,7 +1227,7 @@ static CGPoint  delayOffset = {0.0};
                 
             } else {
                 
-                [weakSelf didSendMessageWithPhotoArray:@[[editingInfo valueForKey:UIImagePickerControllerOriginalImage]]];
+                [weakSelf didSendMessageWithPhotoArray:@[[editingInfo objectForKey:UIImagePickerControllerOriginalImage]] isSpecialPhoto:NO];
             }
         }
     };
@@ -1257,9 +1258,16 @@ static CGPoint  delayOffset = {0.0};
             }];
             
             [imagePickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
-               
-                [weakSelf didSendMessageWithPhotoArray:photos];
                 
+                if (isSelectOriginalPhoto) {
+                    
+                    [weakSelf didSendMessageWithPhotoArray:assets isSpecialPhoto:YES];
+                    
+                } else {
+                    
+                    [weakSelf didSendMessageWithPhotoArray:photos isSpecialPhoto:NO];
+                }
+
             }];
             
             [self presentViewController:imagePickerVc animated:YES completion:nil];

@@ -79,10 +79,10 @@ static CDChatManager *instance;
     
     [[CDFailedMessageStore store] setupStoreWithDatabasePath:dbPath];
     
-    self.client = [[AVIMClient alloc] initWithClientId:clientId];
+    self.client = [[AVIMClient alloc] initWithClientId:clientId];//开启单点登录
     
     self.client.delegate = self;
-
+    
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
@@ -100,7 +100,7 @@ static CDChatManager *instance;
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    if (![Common isObjectNull:attributes]) {//非空的
+    if (![Common isObjectNull:attributes] && ![Common isObjectNull:self.client]) {//非空的
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
         
@@ -231,6 +231,7 @@ static CDChatManager *instance;
     if (unique) {
         // 如果相同 members 的对话已经存在，将返回原来的对话
         options = AVIMConversationOptionUnique;
+        
     } else {
         // 创建一个新对话
         options = AVIMConversationOptionNone;
@@ -295,8 +296,7 @@ static CDChatManager *instance;
     
     if (self.client.status != AVIMClientStatusOpened) {
         
-            NSString *errorReasonText = @"client status is not opened";
-            DLog(@"%@", errorReasonText);
+            NSLog(@"client status is not opened");
     }
     
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
@@ -354,13 +354,17 @@ static CDChatManager *instance;
         
         for (AVIMTypedMessage *message in messages) {
             
-            if ([message isKindOfClass:[AVIMTypedMessage class]] && !message.transient) {//不是暂态消息才会显示
+            if ([message isKindOfClass:[AVIMTypedMessage class]]) {
+                
                 
                 if ([message.text isEqualToString:REQUEST_TYPE]) {//请求添好友
 
+                    
                 } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//同意请求
                     
+                    
                 } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接添加好友
+                    
                     
                 } else { //正常的消息
                     
@@ -385,10 +389,14 @@ static CDChatManager *instance;
 #pragma mark - remote notification
 
 - (BOOL)didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
     if (userInfo[@"convid"]) {
+        
         self.remoteNotificationConvid = userInfo[@"convid"];
+        
         return YES;
     }
+    
     return NO;
 }
 
@@ -460,24 +468,26 @@ static CDChatManager *instance;
 // content : "{\"_lctype\":-1,\"_lctext\":\"sdfdf\"}"  sdk 会解析好
 - (void)conversation:(AVIMConversation *)conversation didReceiveTypedMessage:(AVIMTypedMessage *)message {
     
-   if (message.transient) {
-       
-       NSString *text = message.text;
-       
-       if ([text isEqualToString:REQUEST_TYPE]) {
-           
-           [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
-           
-       } else if ([text isEqualToString:ACCEPT_TYPE]) {
-           
-           [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-           
-       } else if ([text isEqualToString:DRECT_TYPE]) {
-           
-           [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-       }
-       
-    } else {
+    NSString *text = message.text;
+    
+    if ([text isEqualToString:REQUEST_TYPE]) {
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSendNotification object:nil];
+        
+        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {//如果有人申请加好友，那么就存下
+            
+            [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:1];
+        }
+        
+    } else if ([text isEqualToString:ACCEPT_TYPE]) {
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        
+    } else if ([text isEqualToString:DRECT_TYPE]) {
+        
+        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+        
+    } else {//普通版消息
         
         if (message.messageId) {
             
@@ -540,9 +550,12 @@ static CDChatManager *instance;
 
 /* 如果开启了单点登陆，需要使用代码方法进行监控 */
 - (void)client:(AVIMClient *)client didOfflineWithError:(NSError *)error {
+    
     if ([error code] == 4111) {
+        
         //适当的弹出友好提示，告知当前用户的 Client Id 在其他设备上登陆了
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"检测到您已在其他设备登录，请重新登录" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        
         [alert show];
     }
 }
@@ -799,25 +812,21 @@ static CDChatManager *instance;
                 
                 if ([message isKindOfClass:[AVIMTypedMessage class]]) {//过滤非法的消息
                     
-                    if (!message.transient) {//不是暂态消息
+                    if ([message.text isEqualToString:REQUEST_TYPE]) {//请求加为好友
                         
-                        if ([message.text isEqualToString:REQUEST_TYPE]) {//请求加为好友
-                            
-                            
-                        } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//接受请求加为好友
-                            
-                            
-                        } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
-                            
-                            
-                        } else {//正常的消息
-                            
-                            conversation.lastMessage = message;
-                            
-                            break;
-                        }
+                        
+                    } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//接受请求加为好友
+                        
+                        
+                    } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
+                        
+                        
+                    } else {//正常的消息
+                        
+                        conversation.lastMessage = message;
+                        
+                        break;
                     }
-                    
                 }
             }
 

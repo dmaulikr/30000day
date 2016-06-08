@@ -544,4 +544,17 @@
     return thumb;
 }
 
++ (NSString *)errorStringWithError:(NSError *)error {
+    
+    if ([Common isObjectNull:error.userInfo[NSLocalizedDescriptionKey]]) {
+        
+        return @"似乎网络有问题";
+        
+    } else {
+        
+        return error.userInfo[NSLocalizedDescriptionKey];
+    }
+}
+
+
 @end

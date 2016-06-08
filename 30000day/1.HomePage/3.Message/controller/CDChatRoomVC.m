@@ -25,6 +25,7 @@
 #import "UIImageView+WebCache.h"
 #import <AVKit/AVKit.h>
 #import "IDMPhotoBrowser.h"
+#import "TZImageManager.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -44,6 +45,8 @@ static NSInteger const kOnePageSize = 10;
 @property (nonatomic,strong) NSMutableArray *pickerBrowserPhotoArray;
 
 @property (nonatomic,strong) IDMPhotoBrowser *browser;
+
+@property (nonatomic,strong) NSTimer *sendMessageTimer;//发送消息的超时定时器
 
 @end
 
@@ -92,8 +95,6 @@ static NSInteger const kOnePageSize = 10;
         [self setBackgroundColor:[UIColor whiteColor]];
     }
     
-    [self initBarButton];
-    
     [self initBottomMenuAndEmotionView];
 
     // 设置自身用户名
@@ -133,19 +134,13 @@ static NSInteger const kOnePageSize = 10;
 
 #pragma mark - ui init
 
-- (void)initBarButton {
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
-    [self.navigationItem setBackBarButtonItem:backBtn];
-    //    self.navigationItem.backBarButtonItem.title
-}
-
 - (void)initBottomMenuAndEmotionView {
     
     NSMutableArray *shareMenuItems = [NSMutableArray array];
     
     NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video"];
     
-    NSArray *plugTitle = @[@"照片", @"拍摄"];
+    NSArray *plugTitle = @[@"图片", @"拍摄"];
     
     for (NSString *plugIcon in plugIcons) {
         
@@ -183,19 +178,20 @@ static NSInteger const kOnePageSize = 10;
     switch (message.messageMediaType) {
             
         case XHBubbleMessageMediaTypeVideo: {
-
+            
+            //1.创建播放器
             AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
 
             AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL URLWithString:message.videoUrl]];//改到这
             
             AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
-            
+        
             controller.player = player;
             
             [player play];
             
             [self presentViewController:controller animated:YES completion:nil];
-            
+
             break;
         }
             
@@ -256,14 +252,21 @@ static NSInteger const kOnePageSize = 10;
         }
             
         case XHBubbleMessageMediaTypeEmotion:
+            
             DLog(@"facePath : %@", message.emotionPath);
+            
             break;
             
         case XHBubbleMessageMediaTypeLocalPosition: {
+            
             DLog(@"facePath : %@", message.localPositionPhoto);
+            
             XHDisplayLocationViewController *displayLocationViewController = [[XHDisplayLocationViewController alloc] init];
+            
             displayLocationViewController.message = message;
+            
             disPlayViewController = displayLocationViewController;
+            
             break;
         }
         default:
@@ -341,6 +344,8 @@ static NSInteger const kOnePageSize = 10;
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
         
+        [self showToast:@"网络不给力，请稍后再试"];
+        
         return;
     }
     
@@ -354,37 +359,88 @@ static NSInteger const kOnePageSize = 10;
     }
 }
 
+#pragma mark ---- 设置隐藏HUD的定时器
+
+- (void)setHidHUDTimerWithFireDate:(NSDate *)fireDate {
+    
+    _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(overTimeAction:) userInfo:nil repeats:NO];
+    
+    _sendMessageTimer.fireDate = fireDate;
+}
+
+- (void)overTimeAction:(NSTimer *)timer {
+    
+    [self hideHUD:YES];//隐藏提示控件
+    
+    [timer invalidate];
+}
+
 /**
  *  发送图片消息的回调方法
  *
  *  @param photo  目标图片对象，后续有可能会换
  *  @param sender 发送者的名字
  *  @param date   发送时间
+ *  @parma isSpecialPhoto 若为YES photo里面装的是PHAsset或者ALAsset
  */
-- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date {
+- (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date isSpecialPhoto:(BOOL)isSpecialPhoto {
+    
+    [self showHUDWithContent:@"正在发送" animated:YES];
+    
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@""];
+        
+        [self hideHUD:YES];
         
         return;
     }
     
-    [self showHUDWithContent:@"正在发送" animated:YES];
-    
-    for (int i = 0; i < photo.count; i++) {
+    if (isSpecialPhoto) {//表示用户选择的是原图
+
+        for (int i = 0; i < photo.count; i++) {
+            
+            [[TZImageManager manager] getOriginalPhotoWithAsset:photo[i] completion:^(UIImage *photo, NSDictionary *info) {//再次进行异步操作
+               
+                [self sendImage:photo];
+                
+                [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+                
+            }];
+        }
+
+    } else {//缩略图
         
-        UIImage *image = photo[i];
-        
-        [self sendImage:image];
-        
-        [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+        for (int i = 0; i < photo.count; i++) {
+            
+            UIImage *image = photo[i];
+            
+            [self sendImage:image];
+            
+            [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
+        }
     }
 }
 
-
 // 发送视频消息的回调方法
+//这里和安卓约定好:AVIMVideoMessage.text = http://xxxxxx 150.00 120.0f xxxxx
+//http://xxxxxx:视频首帧的缩略图地址
+//150.00:宽
+//120.0f:高
+//xxxx:本地路径
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
     
+    [self showHUDWithContent:@"正在发送" animated:YES];
+    
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
+    
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@"网络不给力，请稍后再试"];
+        
+        [self hideHUD:YES];
         
         return;
     }
@@ -395,9 +451,7 @@ static NSInteger const kOnePageSize = 10;
         AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:videoPath] options:nil];
         
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-        
-        [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
-        
+    
         if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
             
             AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
@@ -434,9 +488,17 @@ static NSInteger const kOnePageSize = 10;
                                     
                                     NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
                                     
-                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:exportPath attributes:nil];
+                                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,exportPath] attachedFilePath:exportPath attributes:nil];
                                     
                                     [self sendMsg:sendVideoMessage];
+                                    
+                                } else {
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                       
+                                        [self hideHUD:YES];
+                                        
+                                    });
                                 }
                                 
                             } progressBlock:^(NSInteger percentDone) {
@@ -458,9 +520,7 @@ static NSInteger const kOnePageSize = 10;
     } else {//从相册里面选取出来的
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self showHUDWithContent:@"正在发送" animated:YES];//做成视频显示了，才把正在处理隐藏
-            
+
             AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(videoConverPhoto, 0.5)];
             
             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -469,24 +529,32 @@ static NSInteger const kOnePageSize = 10;
                     
                     NSString *imageUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height];
                 
-                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height] attachedFilePath:videoPath attributes:nil];
+                    AVIMVideoMessage *sendVideoMessage = [AVIMVideoMessage messageWithText:[NSString stringWithFormat:@"%@ %.2f %.2f %@",imageUrl,THUMBNAIL_PHOTO_WIDTH,THUMBNAIL_PHOTO_WIDTH / videoConverPhoto.size.width * videoConverPhoto.size.height,videoPath] attachedFilePath:videoPath attributes:nil];
                     
                     [self sendMsg:sendVideoMessage];
+                    
+                } else {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self hideHUD:YES];
+                        
+                    });
                 }
                 
             } progressBlock:^(NSInteger percentDone) {
                
-                
             }];
         });
     }
 }
 
-#pragma mark --- 先不管这个
 //发送语音消息的回调方法
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@"网络不给力，请稍后再试"];
         
         return;
     }
@@ -500,6 +568,8 @@ static NSInteger const kOnePageSize = 10;
 - (void)didSendEmotion:(NSString *)emotion fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+        
+        [self showToast:@"网络不给力，请稍后再试"];
         
         return;
     }
@@ -636,7 +706,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendImage:(UIImage *)image {
     
-    NSData *imageData = UIImageJPEGRepresentation(image,1);//无论缩略图、还是原图都被压缩一半
+    NSData *imageData = UIImageJPEGRepresentation(image,1);
     
     AVFile *file = [AVFile fileWithData:imageData];
     
@@ -647,6 +717,14 @@ static NSInteger const kOnePageSize = 10;
             AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
             
             [self sendMsg:msg];
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                [self hideHUD:YES];
+                
+            });
         }
         
     } progressBlock:^(NSInteger percentDone) {
@@ -876,7 +954,7 @@ static NSInteger const kOnePageSize = 10;
         
         NSArray *stringArray = [msg.text componentsSeparatedByString:@" "];
         
-        if (stringArray.count == 3) {
+        if (stringArray.count >= 3) {//这里有和安卓约定好格式
             
             width = [stringArray[1] floatValue];
             
@@ -884,7 +962,7 @@ static NSInteger const kOnePageSize = 10;
         }
         
         xhMessage = [[XHMessage alloc] initWithVideoConverPhoto:nil
-                                            videoConverPhotoURL:[stringArray firstObject]
+                                            videoConverPhotoURL:stringArray[0]
                                                       videoPath:nil
                                                        videoUrl:file.url
                                                         photoWitdh:width

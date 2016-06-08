@@ -146,31 +146,6 @@
     return YES;
 }
 
-- (void)openChat:(NSNumber *)userId
-      completion:(void (^)(BOOL success))success
-         failure:(void (^)(NSError *))failure {
-    
-    [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",userId] callback: ^(BOOL succeeded, NSError *error) {
-        if (succeeded) { 
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                success(YES);
-                
-                [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-            });
-            
-        } else {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-               failure(error);
-                
-            });
-        }
-    }];
-}
-
 //如果此时你的客户端 软件仍在打开，则会调用
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     

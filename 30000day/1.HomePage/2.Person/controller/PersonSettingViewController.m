@@ -175,6 +175,9 @@
                     
                     self.headViewCell.headImageViewURLString = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showHeadImageUrlString];
                     
+                    //成功的更新好友信息发出的通知
+                    [STNotificationCenter postNotificationName:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+                    
                 });
                 
             } failure:^(NSError *error) {
@@ -322,6 +325,9 @@
                 [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].headImg = imageUrl;
                 
                 [self showToast:@"设置备注头像成功"];
+                
+                //成功的更新好友信息发出的通知
+                [STNotificationCenter postNotificationName:STDidSuccessUpdateFriendInformationSendNotification object:nil];
                 
                 self.headViewCell.headImageView.image = image;
                 
