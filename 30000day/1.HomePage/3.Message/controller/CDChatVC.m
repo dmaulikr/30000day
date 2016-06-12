@@ -7,8 +7,6 @@
 //
 
 #import "CDChatVC.h"
-#import "CDBaseNavC.h"
-#import "CDCacheManager.h"
 
 @interface CDChatVC ()
 
@@ -22,7 +20,6 @@
     
     if (self) {
         
-        [[CDCacheManager manager] setCurrentConversation:conv];
     }
     
     return self;

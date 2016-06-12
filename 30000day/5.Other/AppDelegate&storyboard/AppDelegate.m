@@ -18,7 +18,6 @@
 #import "JPUSHService.h"
 #import <AdSupport/AdSupport.h>
 
-#import "LZPushManager.h"
 #import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "STCoreDataHandler.h"
@@ -45,19 +44,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-//    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTHKHEALTHSTORE];
-//    
-//    if ([Common isObjectNull:isFirstStartString]) {
-//        
-//        [Common saveAppDataForKey:FIRSTSTARTHKHEALTHSTORE withObject:@"1"];
-//        
-//        //提示用户
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"”30000天“想访问您的运动记录" message:@"30000天想访问您的运动记录，用于计算天龄" delegate:self cancelButtonTitle:@"不予许" otherButtonTitles:@"好", nil];
-//        
-//        [alertView show];
-//        
-//    } else {
 
         //***********************************配置获取健康信息*******************************//
         if ([HKHealthStore isHealthDataAvailable]) {
@@ -76,27 +62,6 @@
                 }
             }];
         }
-        
-   // }
-    
-//    //设置需要获取的权限这里仅设置了步数
-//    HKHealthStore *healthStore = [[HKHealthStore alloc] init];
-//    
-//    HKObjectType *stepCount = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-//    
-//    NSSet *healthSet = [NSSet setWithObjects:stepCount, nil];
-//    
-//    //从健康应用中获取权限
-//    [healthStore requestAuthorizationToShareTypes:nil readTypes:healthSet completion:^(BOOL success, NSError * _Nullable error) {
-//        
-//        if (success) {
-//            NSLog(@"获取步数权限成功");
-//
-//        } else {
-//            NSLog(@"获取步数权限失败");
-//        }
-//    }];
-
     
     //***********************************配置JPush*******************************//
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
@@ -113,11 +78,11 @@
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     
-    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://www.30000day.com/download.html"];
     
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://www.30000day.com/download.html"];
     
-    [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://www.30000day.com/download.html"];
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
@@ -188,8 +153,7 @@
              [[UIApplication sharedApplication] cancelLocalNotification:notification];
              
          } else {//1年
-             
-             
+
          }
      }
     }
@@ -298,32 +262,5 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
-
-
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    
-//    if (buttonIndex) {
-//        
-//        //***********************************配置获取健康信息*******************************//
-//        if ([HKHealthStore isHealthDataAvailable]) {
-//            
-//            _healthStore1 = [[HKHealthStore alloc] init];
-//            
-//            NSSet *readDataTypes = [self dataTypesToRead];
-//            
-//            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
-//                
-//                if (!success) {
-//                    
-//                    NSLog(@"error = %@", error);
-//                    
-//                    return;
-//                }
-//            }];
-//        }
-//        
-//    }
-//    
-//}
 
 @end

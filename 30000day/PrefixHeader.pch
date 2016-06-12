@@ -224,7 +224,7 @@
 
 #define  GET_SEARCH_WRITER_LIST       @"/stapi/info/searchWriterList"           //搜索作者
 
-#define  UPDATE_STAT_USERLLFE         @"/stapi/life/statUserLife"               //统计环境因素
+#define  UPDATE_STAT_USERLLFE         @"/stapi/life/updateUserFitness"          //更新用户天龄信息(步数,楼梯数)
 
 #define  GET_COMMENTS                 @"/stapi/user/searchComments"             //获取评论
 

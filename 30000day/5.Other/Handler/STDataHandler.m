@@ -2232,6 +2232,8 @@
     
     [params addParameter:data forKey:@"data"];
     
+    [Common urlStringWithDictionary:params withString:UPDATE_STAT_USERLLFE];
+
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
                                                         url:UPDATE_STAT_USERLLFE
                                                  parameters:params

@@ -11,7 +11,6 @@
 #import "UserInformationModel.h"
 #import "NSString+URLEncoding.h"
 #import "MTProgressHUD.h"
-#import "LZPushManager.h"
 #import "NewFriendManager.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
