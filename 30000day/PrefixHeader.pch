@@ -105,6 +105,8 @@
 
 #define FIRSTSTART                    @"FirstStart"          //第一次登陆
 
+#define FIRSTSTARTINTRODUCE           @"FirstStartIntroduce" //第一次登陆
+
 #define FIRSTSTARTHKHEALTHSTORE       @"FirstStartHKHealthStore" //第一次运动信息授权
 
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]

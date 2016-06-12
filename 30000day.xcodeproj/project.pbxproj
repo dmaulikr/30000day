@@ -660,6 +660,7 @@
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
+		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1813,6 +1814,8 @@
 		B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVersionManager.mm; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
+		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2718,6 +2721,8 @@
 				B6E548B81CF065D800002650 /* FactorVerificationView.h */,
 				B6E548B91CF065D800002650 /* FactorVerificationView.m */,
 				B6E548BB1CF0661200002650 /* FactorVerificationView.xib */,
+				F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */,
+				F5A4F8801D0D3BE300B18988 /* IntroduceView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5021,6 +5026,7 @@
 				B89216B41C5F468C0023F8A8 /* ShowBackItemViewController.m in Sources */,
 				B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */,
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
+				F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				B8FD3E0C1C8A7903007BCA6B /* SETextLayout.m in Sources */,

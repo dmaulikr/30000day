@@ -24,6 +24,7 @@
 #import "DaysOfAgeOption.h"
 #import "PromoteAgeViewController.h"
 #import "FactorVerificationView.h"
+#import "IntroduceView.h"
 
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
@@ -59,7 +60,17 @@
     
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
     
+    if ([Common isObjectNull:isFirstStartString]) {
+        
+        IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        [self.view addSubview:view];
+        
+        [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
+        
+    }
     
     //定位并获取天气
     [self startFindLocationSucess];
