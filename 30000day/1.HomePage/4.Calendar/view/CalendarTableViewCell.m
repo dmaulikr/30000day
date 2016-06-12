@@ -85,7 +85,9 @@
     
     todayButton.titleLabel.font = [UIFont systemFontOfSize:18.0f];
     
-    [todayButton addTarget:self action:@selector(todayButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [todayButton addTarget:self action:@selector(todayButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    todayButton.tag = 3;
     
     self.todayButton = todayButton;
     
@@ -153,9 +155,14 @@
 }
 
 //选择今天
-- (void)todayButtonClick {
+- (void)todayButtonClick:(UIButton *)button {
     
     [_calendar selectDate:[NSDate date]];
+    
+    if (self.chooseDateBlock) {
+        
+        self.chooseDateBlock(button.tag);
+    }
 }
 
 + (CGFloat)getCalendarTableViewCellHeight {

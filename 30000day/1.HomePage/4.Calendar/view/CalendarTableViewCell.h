@@ -12,7 +12,7 @@
 @interface CalendarTableViewCell : UITableViewCell
 
 //点击两个buton的回调
-//tag == 1 表示点击的时间选择按钮 tag == 2 表示点击的增加提醒按钮
+//tag == 1 表示点击的时间选择按钮 tag == 2 表示点击的增加提醒按钮 tag == 3 表示点击今天按钮
 @property (nonatomic,copy) void (^chooseDateBlock)(NSInteger tag);
 
 @property (nonatomic, strong) FSCalendar *calendar;
