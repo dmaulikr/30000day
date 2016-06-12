@@ -37,7 +37,6 @@
 - (void)viewController:(UIViewController *)viewController didSelectConv:(AVIMConversation *)conv {
     
     [[CDIMService service] pushToChatRoomByConversation:conv fromNavigationController:viewController.navigationController];
-
 }
 
 - (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {

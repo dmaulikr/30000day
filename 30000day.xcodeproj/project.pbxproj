@@ -302,6 +302,9 @@
 		B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A104C1CC8CE5E00D3E01B /* SearchWriterViewController.m */; };
 		B86A10501CC8DF9500D3E01B /* SearchBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86A104F1CC8DF9500D3E01B /* SearchBaseViewController.m */; };
 		B86EFC171D0D43A2007A2108 /* CDBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC161D0D43A2007A2108 /* CDBaseVC.m */; };
+		B86EFC1E1D0D586F007A2108 /* CDIMService.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC191D0D586F007A2108 /* CDIMService.m */; };
+		B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC1B1D0D586F007A2108 /* CDUtils.m */; };
+		B86EFC201D0D586F007A2108 /* MCPhotographyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -632,23 +635,6 @@
 		B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E401C8A7BBA007BCA6B /* README.md */; };
 		B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E501C8A8178007BCA6B /* CDChatVC.m */; };
 		B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */; };
-		B8FD3E971C8A8408007BCA6B /* CDIMService.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E8F1C8A8408007BCA6B /* CDIMService.m */; };
-		B8FD3E991C8A8408007BCA6B /* CDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E931C8A8408007BCA6B /* CDUtils.m */; };
-		B8FD3E9A1C8A8408007BCA6B /* MCPhotographyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E951C8A8408007BCA6B /* MCPhotographyHelper.m */; };
-		B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E9E1C8A8440007BCA6B /* CDBadgeLabel.m */; };
-		B8FD3EB81C8A8440007BCA6B /* CDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EA01C8A8440007BCA6B /* CDButton.m */; };
-		B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EA21C8A8440007BCA6B /* CDEntryActionButton.m */; };
-		B8FD3EBA1C8A8440007BCA6B /* CDEntryBottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EA41C8A8440007BCA6B /* CDEntryBottomButton.m */; };
-		B8FD3EBB1C8A8440007BCA6B /* CDImageLabelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EA61C8A8440007BCA6B /* CDImageLabelTableCell.m */; };
-		B8FD3EBC1C8A8440007BCA6B /* CDImageLabelTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3EA71C8A8440007BCA6B /* CDImageLabelTableCell.xib */; };
-		B8FD3EBD1C8A8440007BCA6B /* CDLabelButtonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EA91C8A8440007BCA6B /* CDLabelButtonTableCell.m */; };
-		B8FD3EBE1C8A8440007BCA6B /* CDLabelButtonTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3EAA1C8A8440007BCA6B /* CDLabelButtonTableCell.xib */; };
-		B8FD3EBF1C8A8440007BCA6B /* CDPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EAC1C8A8440007BCA6B /* CDPopMenu.m */; };
-		B8FD3EC01C8A8440007BCA6B /* CDPopMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EAE1C8A8440007BCA6B /* CDPopMenuItem.m */; };
-		B8FD3EC11C8A8440007BCA6B /* CDPopMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB01C8A8440007BCA6B /* CDPopMenuItemCell.m */; };
-		B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB21C8A8440007BCA6B /* CDResizableButton.m */; };
-		B8FD3EC31C8A8440007BCA6B /* CDSNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB41C8A8440007BCA6B /* CDSNSView.m */; };
-		B8FD3EC41C8A8440007BCA6B /* CDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3EB61C8A8440007BCA6B /* CDTextField.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
@@ -1072,6 +1058,12 @@
 		B86A104F1CC8DF9500D3E01B /* SearchBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBaseViewController.m; sourceTree = "<group>"; };
 		B86EFC151D0D43A2007A2108 /* CDBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDBaseVC.h; sourceTree = "<group>"; };
 		B86EFC161D0D43A2007A2108 /* CDBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDBaseVC.m; sourceTree = "<group>"; };
+		B86EFC181D0D586F007A2108 /* CDIMService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDIMService.h; sourceTree = "<group>"; };
+		B86EFC191D0D586F007A2108 /* CDIMService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDIMService.m; sourceTree = "<group>"; };
+		B86EFC1A1D0D586F007A2108 /* CDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDUtils.h; sourceTree = "<group>"; };
+		B86EFC1B1D0D586F007A2108 /* CDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDUtils.m; sourceTree = "<group>"; };
+		B86EFC1C1D0D586F007A2108 /* MCPhotographyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPhotographyHelper.h; sourceTree = "<group>"; };
+		B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPhotographyHelper.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -1749,38 +1741,6 @@
 		B8FD3E501C8A8178007BCA6B /* CDChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDChatVC.m; sourceTree = "<group>"; };
 		B8FD3E511C8A8178007BCA6B /* CDConvsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDConvsVC.h; sourceTree = "<group>"; };
 		B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDConvsVC.m; sourceTree = "<group>"; };
-		B8FD3E8E1C8A8408007BCA6B /* CDIMService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDIMService.h; sourceTree = "<group>"; };
-		B8FD3E8F1C8A8408007BCA6B /* CDIMService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDIMService.m; sourceTree = "<group>"; };
-		B8FD3E921C8A8408007BCA6B /* CDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDUtils.h; sourceTree = "<group>"; };
-		B8FD3E931C8A8408007BCA6B /* CDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDUtils.m; sourceTree = "<group>"; };
-		B8FD3E941C8A8408007BCA6B /* MCPhotographyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPhotographyHelper.h; sourceTree = "<group>"; };
-		B8FD3E951C8A8408007BCA6B /* MCPhotographyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPhotographyHelper.m; sourceTree = "<group>"; };
-		B8FD3E9D1C8A8440007BCA6B /* CDBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDBadgeLabel.h; sourceTree = "<group>"; };
-		B8FD3E9E1C8A8440007BCA6B /* CDBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDBadgeLabel.m; sourceTree = "<group>"; };
-		B8FD3E9F1C8A8440007BCA6B /* CDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDButton.h; sourceTree = "<group>"; };
-		B8FD3EA01C8A8440007BCA6B /* CDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDButton.m; sourceTree = "<group>"; };
-		B8FD3EA11C8A8440007BCA6B /* CDEntryActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDEntryActionButton.h; sourceTree = "<group>"; };
-		B8FD3EA21C8A8440007BCA6B /* CDEntryActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDEntryActionButton.m; sourceTree = "<group>"; };
-		B8FD3EA31C8A8440007BCA6B /* CDEntryBottomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDEntryBottomButton.h; sourceTree = "<group>"; };
-		B8FD3EA41C8A8440007BCA6B /* CDEntryBottomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDEntryBottomButton.m; sourceTree = "<group>"; };
-		B8FD3EA51C8A8440007BCA6B /* CDImageLabelTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDImageLabelTableCell.h; sourceTree = "<group>"; };
-		B8FD3EA61C8A8440007BCA6B /* CDImageLabelTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDImageLabelTableCell.m; sourceTree = "<group>"; };
-		B8FD3EA71C8A8440007BCA6B /* CDImageLabelTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDImageLabelTableCell.xib; sourceTree = "<group>"; };
-		B8FD3EA81C8A8440007BCA6B /* CDLabelButtonTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDLabelButtonTableCell.h; sourceTree = "<group>"; };
-		B8FD3EA91C8A8440007BCA6B /* CDLabelButtonTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDLabelButtonTableCell.m; sourceTree = "<group>"; };
-		B8FD3EAA1C8A8440007BCA6B /* CDLabelButtonTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDLabelButtonTableCell.xib; sourceTree = "<group>"; };
-		B8FD3EAB1C8A8440007BCA6B /* CDPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPopMenu.h; sourceTree = "<group>"; };
-		B8FD3EAC1C8A8440007BCA6B /* CDPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPopMenu.m; sourceTree = "<group>"; };
-		B8FD3EAD1C8A8440007BCA6B /* CDPopMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPopMenuItem.h; sourceTree = "<group>"; };
-		B8FD3EAE1C8A8440007BCA6B /* CDPopMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPopMenuItem.m; sourceTree = "<group>"; };
-		B8FD3EAF1C8A8440007BCA6B /* CDPopMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPopMenuItemCell.h; sourceTree = "<group>"; };
-		B8FD3EB01C8A8440007BCA6B /* CDPopMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPopMenuItemCell.m; sourceTree = "<group>"; };
-		B8FD3EB11C8A8440007BCA6B /* CDResizableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDResizableButton.h; sourceTree = "<group>"; };
-		B8FD3EB21C8A8440007BCA6B /* CDResizableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDResizableButton.m; sourceTree = "<group>"; };
-		B8FD3EB31C8A8440007BCA6B /* CDSNSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSNSView.h; sourceTree = "<group>"; };
-		B8FD3EB41C8A8440007BCA6B /* CDSNSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSNSView.m; sourceTree = "<group>"; };
-		B8FD3EB51C8A8440007BCA6B /* CDTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTextField.h; sourceTree = "<group>"; };
-		B8FD3EB61C8A8440007BCA6B /* CDTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTextField.m; sourceTree = "<group>"; };
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
 		B8FFBF041CE30F72009AA425 /* NewFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendModel.h; sourceTree = "<group>"; };
 		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
@@ -2736,8 +2696,6 @@
 		B88C91771C5A07940089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8FD3E9C1C8A8440007BCA6B /* views */,
-				B8FD3E8B1C8A8408007BCA6B /* manager */,
 				B8FD3E4F1C8A8178007BCA6B /* CDChatVC.h */,
 				B8FD3E501C8A8178007BCA6B /* CDChatVC.m */,
 				B8FD3E511C8A8178007BCA6B /* CDConvsVC.h */,
@@ -3788,20 +3746,26 @@
 				B8FD3CAA1C8A77EB007BCA6B /* AVIMConversation+Custom.m */,
 				B8FD3CAB1C8A77EB007BCA6B /* AVIMEmotionMessage.h */,
 				B8FD3CAC1C8A77EB007BCA6B /* AVIMEmotionMessage.m */,
+				B8FD3CB91C8A77EB007BCA6B /* CDSoundManager.h */,
+				B8FD3CBA1C8A77EB007BCA6B /* CDSoundManager.m */,
 				B8FD3CAD1C8A77EB007BCA6B /* CDChatManager.h */,
 				B8FD3CAE1C8A77EB007BCA6B /* CDChatManager.m */,
 				B8FD3CAF1C8A77EB007BCA6B /* CDChatManager_Internal.h */,
+				B8FD3CB41C8A77EB007BCA6B /* CDFailedMessageStore.h */,
+				B8FD3CB51C8A77EB007BCA6B /* CDFailedMessageStore.m */,
+				B86EFC1C1D0D586F007A2108 /* MCPhotographyHelper.h */,
+				B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */,
 				B8FD3CB01C8A77EB007BCA6B /* CDConversationStore.h */,
 				B8FD3CB11C8A77EB007BCA6B /* CDConversationStore.m */,
 				B8FD3CB21C8A77EB007BCA6B /* CDEmotionUtils.h */,
 				B8FD3CB31C8A77EB007BCA6B /* CDEmotionUtils.m */,
-				B8FD3CB41C8A77EB007BCA6B /* CDFailedMessageStore.h */,
-				B8FD3CB51C8A77EB007BCA6B /* CDFailedMessageStore.m */,
+				B86EFC1A1D0D586F007A2108 /* CDUtils.h */,
+				B86EFC1B1D0D586F007A2108 /* CDUtils.m */,
 				B8FD3CB61C8A77EB007BCA6B /* CDMacros.h */,
 				B8FD3CB71C8A77EB007BCA6B /* CDMessageHelper.h */,
 				B8FD3CB81C8A77EB007BCA6B /* CDMessageHelper.m */,
-				B8FD3CB91C8A77EB007BCA6B /* CDSoundManager.h */,
-				B8FD3CBA1C8A77EB007BCA6B /* CDSoundManager.m */,
+				B86EFC181D0D586F007A2108 /* CDIMService.h */,
+				B86EFC191D0D586F007A2108 /* CDIMService.m */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -4382,52 +4346,6 @@
 			path = DateTools;
 			sourceTree = "<group>";
 		};
-		B8FD3E8B1C8A8408007BCA6B /* manager */ = {
-			isa = PBXGroup;
-			children = (
-				B8FD3E8E1C8A8408007BCA6B /* CDIMService.h */,
-				B8FD3E8F1C8A8408007BCA6B /* CDIMService.m */,
-				B8FD3E921C8A8408007BCA6B /* CDUtils.h */,
-				B8FD3E931C8A8408007BCA6B /* CDUtils.m */,
-				B8FD3E941C8A8408007BCA6B /* MCPhotographyHelper.h */,
-				B8FD3E951C8A8408007BCA6B /* MCPhotographyHelper.m */,
-			);
-			path = manager;
-			sourceTree = "<group>";
-		};
-		B8FD3E9C1C8A8440007BCA6B /* views */ = {
-			isa = PBXGroup;
-			children = (
-				B8FD3E9D1C8A8440007BCA6B /* CDBadgeLabel.h */,
-				B8FD3E9E1C8A8440007BCA6B /* CDBadgeLabel.m */,
-				B8FD3E9F1C8A8440007BCA6B /* CDButton.h */,
-				B8FD3EA01C8A8440007BCA6B /* CDButton.m */,
-				B8FD3EA11C8A8440007BCA6B /* CDEntryActionButton.h */,
-				B8FD3EA21C8A8440007BCA6B /* CDEntryActionButton.m */,
-				B8FD3EA31C8A8440007BCA6B /* CDEntryBottomButton.h */,
-				B8FD3EA41C8A8440007BCA6B /* CDEntryBottomButton.m */,
-				B8FD3EA51C8A8440007BCA6B /* CDImageLabelTableCell.h */,
-				B8FD3EA61C8A8440007BCA6B /* CDImageLabelTableCell.m */,
-				B8FD3EA71C8A8440007BCA6B /* CDImageLabelTableCell.xib */,
-				B8FD3EA81C8A8440007BCA6B /* CDLabelButtonTableCell.h */,
-				B8FD3EA91C8A8440007BCA6B /* CDLabelButtonTableCell.m */,
-				B8FD3EAA1C8A8440007BCA6B /* CDLabelButtonTableCell.xib */,
-				B8FD3EAB1C8A8440007BCA6B /* CDPopMenu.h */,
-				B8FD3EAC1C8A8440007BCA6B /* CDPopMenu.m */,
-				B8FD3EAD1C8A8440007BCA6B /* CDPopMenuItem.h */,
-				B8FD3EAE1C8A8440007BCA6B /* CDPopMenuItem.m */,
-				B8FD3EAF1C8A8440007BCA6B /* CDPopMenuItemCell.h */,
-				B8FD3EB01C8A8440007BCA6B /* CDPopMenuItemCell.m */,
-				B8FD3EB11C8A8440007BCA6B /* CDResizableButton.h */,
-				B8FD3EB21C8A8440007BCA6B /* CDResizableButton.m */,
-				B8FD3EB31C8A8440007BCA6B /* CDSNSView.h */,
-				B8FD3EB41C8A8440007BCA6B /* CDSNSView.m */,
-				B8FD3EB51C8A8440007BCA6B /* CDTextField.h */,
-				B8FD3EB61C8A8440007BCA6B /* CDTextField.m */,
-			);
-			path = views;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4520,7 +4438,6 @@
 				B665F8C01CC4BF5200070458 /* btn_original_circle@3x.png in Resources */,
 				B804FD891C8AC9A900DFD1CF /* multiMedia_HL@2x.png in Resources */,
 				B804FDA91C8AC9A900DFD1CF /* sharemore_pic@2x.png in Resources */,
-				B8FD3EBE1C8A8440007BCA6B /* CDLabelButtonTableCell.xib in Resources */,
 				B804FDA71C8AC9A900DFD1CF /* sharemore_myfav@2x.png in Resources */,
 				B804FDB71C8AC9A900DFD1CF /* weChatBubble_Sending_LeanChat@2x.png in Resources */,
 				B665F8BC1CC4BF5200070458 /* btn_circle@2x.png in Resources */,
@@ -4606,7 +4523,6 @@
 				B8F931511C7AFB3A000FED7C /* AddRemindTextTableViewCell.xib in Resources */,
 				B804FD881C8AC9A900DFD1CF /* multiMedia@2x.png in Resources */,
 				B804FD641C8AC9A900DFD1CF /* tusiji_1_cover@2x.png in Resources */,
-				B8FD3EBC1C8A8440007BCA6B /* CDImageLabelTableCell.xib in Resources */,
 				B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */,
@@ -4785,13 +4701,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */,
-				B8FD3EBD1C8A8440007BCA6B /* CDLabelButtonTableCell.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
-				B8FD3EBA1C8A8440007BCA6B /* CDEntryBottomButton.m in Sources */,
 				B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */,
 				B665F8D71CC4BF5200070458 /* ZLPhotoBrowser.m in Sources */,
-				B8FD3EB71C8A8440007BCA6B /* CDBadgeLabel.m in Sources */,
-				B8FD3E9A1C8A8408007BCA6B /* MCPhotographyHelper.m in Sources */,
 				B8FD3E131C8A7903007BCA6B /* XHViewState.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* PersonTableViewCell.m in Sources */,
 				B8FD3DE31C8A7903007BCA6B /* XHPhotographyHelper.m in Sources */,
@@ -4799,7 +4711,6 @@
 				B8F6E3851CB91BEE000CC117 /* MD5DataSigner.m in Sources */,
 				B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
-				B8FD3EB81C8A8440007BCA6B /* CDButton.m in Sources */,
 				B6BC9C791CF58D7C00030D64 /* NSArray+Chinese.m in Sources */,
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
@@ -4827,7 +4738,6 @@
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
 				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
-				B8FD3EC21C8A8440007BCA6B /* CDResizableButton.m in Sources */,
 				B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */,
 				B8FD3DEA1C8A7903007BCA6B /* XHDisplayEmotionViewController.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
@@ -4840,6 +4750,7 @@
 				B8FD3DF11C8A7903007BCA6B /* XHHTTPClient.m in Sources */,
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
 				B8FD3DD31C8A7903007BCA6B /* NSString+XHMD5.m in Sources */,
+				B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */,
 				B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B8F6E9771D02CD0400AD6745 /* TZPhotoPreviewCell.m in Sources */,
@@ -4884,6 +4795,7 @@
 				B6EFEA821CAE569B00777B75 /* HeaderView.m in Sources */,
 				B8F6487A1C9424BF001A3119 /* AppointmentCollectionViewCell.m in Sources */,
 				B8BD78801CBE2E6500362C89 /* ShopDeliverModel.m in Sources */,
+				B86EFC1E1D0D586F007A2108 /* CDIMService.m in Sources */,
 				B88C91F41C5B05FC0089BEAE /* SBJsonTokeniser.m in Sources */,
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
@@ -4945,16 +4857,13 @@
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
-				B8FD3EC41C8A8440007BCA6B /* CDTextField.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B8FD3DFD1C8A7903007BCA6B /* XHMessage.m in Sources */,
 				B8FD3E0A1C8A7903007BCA6B /* SETextGeometry.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
-				B8FD3EC31C8A8440007BCA6B /* CDSNSView.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,
 				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
-				B8FD3E991C8A8408007BCA6B /* CDUtils.m in Sources */,
 				B8FD3AD71C852BE3007BCA6B /* ChangePasswordViewController.m in Sources */,
 				B89216B41C5F468C0023F8A8 /* ShowBackItemViewController.m in Sources */,
 				B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */,
@@ -4997,7 +4906,6 @@
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,
 				B8FD3E2B1C8A7903007BCA6B /* XHRefreshView.m in Sources */,
 				B8FD3E111C8A7903007BCA6B /* SETextView.m in Sources */,
-				B8FD3E971C8A8408007BCA6B /* CDIMService.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */,
@@ -5076,16 +4984,13 @@
 				B8BD78721CBE2D8E00362C89 /* PaymentViewController.m in Sources */,
 				B8FD3E1F1C8A7903007BCA6B /* XHMessageTableViewCell.m in Sources */,
 				B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */,
-				B8FD3EBF1C8A8440007BCA6B /* CDPopMenu.m in Sources */,
 				B8FD3E171C8A7903007BCA6B /* XHWaterDropRefresh.m in Sources */,
 				B8FD3E0D1C8A7903007BCA6B /* SETextMagnifierCaret.m in Sources */,
-				B8FD3EBB1C8A8440007BCA6B /* CDImageLabelTableCell.m in Sources */,
 				B610FAD51CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.m in Sources */,
 				B612DD8E1CAD36C4004C428C /* CompanyCommodityViewController.m in Sources */,
 				B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */,
 				B8FD3CA41C8A7763007BCA6B /* CDChatListVC.m in Sources */,
 				B86A10471CC8755E00D3E01B /* SubscribeTableViewCell.m in Sources */,
-				B8FD3EC11C8A8440007BCA6B /* CDPopMenuItemCell.m in Sources */,
 				B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */,
 				B89216B11C5F3EEA0023F8A8 /* STDataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
@@ -5093,6 +4998,7 @@
 				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
+				B86EFC201D0D586F007A2108 /* MCPhotographyHelper.m in Sources */,
 				B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
@@ -5126,7 +5032,6 @@
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,
 				B86A10501CC8DF9500D3E01B /* SearchBaseViewController.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
-				B8FD3EB91C8A8440007BCA6B /* CDEntryActionButton.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
 				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
@@ -5151,7 +5056,6 @@
 				B80B55AA1CD1B20F003E2C36 /* PriceModel.m in Sources */,
 				B8FD3E151C8A7903007BCA6B /* XHPathCover.m in Sources */,
 				B8F6E2421CB91989000CC117 /* Order.m in Sources */,
-				B8FD3EC01C8A8440007BCA6B /* CDPopMenuItem.m in Sources */,
 				B612DD871CAD1941004C428C /* CompanyModel.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8F6E9791D02CD0400AD6745 /* TZVideoPlayerController.m in Sources */,

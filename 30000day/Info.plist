@@ -65,6 +65,16 @@
 				<string>wx18ea1411855f610f</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>30000day</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>countdays</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.1.1</string>
