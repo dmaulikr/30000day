@@ -177,7 +177,7 @@
             
             NSMutableArray *dataArray = [NSMutableArray array];
             
-            for (int i = 100 ; i >= 1; i--) {
+            for (int i = 200 ; i >= 1; i--) {
                 
                 [dataArray addObject:[NSString stringWithFormat:@"%d岁",i]];
             }
@@ -207,7 +207,7 @@
             
             NSMutableArray *dataArray = [NSMutableArray array];
             
-            for (int i = 100 ; i >= age ; i--) {
+            for (int i = 200 ; i >= age ; i--) {
                 
                 [dataArray addObject:[NSString stringWithFormat:@"%d岁",i]];
             }
