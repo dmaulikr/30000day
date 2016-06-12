@@ -520,7 +520,7 @@
                 
                 picker.recipients = [NSArray arrayWithObject:chineseSting.phoneNumber];
                 
-                picker.body = @"守护我爱的人，30000天。人生短暂，快来加入吧!http://www.baidu.com";
+                picker.body = @"守护我爱的人，30000天。人生短暂，快来加入吧!http://www.30000day.com";
                 
                 if (picker) {
                     

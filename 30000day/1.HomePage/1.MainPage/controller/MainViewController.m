@@ -317,19 +317,24 @@
                                     if (movingDistanceString != nil) {
                                         
                                         NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
+                                        
                                         [dataDictionary setObject:birthString forKey:@"stepNum"];
+                                        
                                         [dataDictionary setObject:climbStairsString forKey:@"stairs"];
+                                        
                                         [dataDictionary setObject:movingDistanceString forKey:@"distance"];
                                         
-                                        NSString *dataString=[self dataToJsonString:dataDictionary];
+                                        NSString *dataString = [self dataToJsonString:dataDictionary];
                                         
                                         [STDataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
                                             
                                             if (success) {
                                                 
+                                                NSLog(@"上传运动数据成功");
                                             }
                                             
                                         } failure:^(NSError *error) {
+                                            
                                             
                                         }];
                                     }
