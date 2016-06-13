@@ -235,14 +235,17 @@
         //选择日期回调
         [_calendarCell setChooseDateBlock:^(NSInteger tag) {
             
-            if (tag == 1) {
+            if (tag == 1) {//选择时间
                 
                 [weakSelf chooseDate];
                 
-            } else if (tag == 2) {
+            } else if (tag == 2) {//增加提醒
                 
                 [weakSelf addRemindAction];
                 
+            } else if (tag == 3) {//点击今天按钮回调
+                
+                [weakSelf reloadShowCalendarDateWith:[NSDate date]];
             }
         }];
         
