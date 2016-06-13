@@ -59,19 +59,7 @@
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
     
     [self showHeadRefresh:YES showFooterRefresh:NO];
-    
-    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
-    
-    if ([Common isObjectNull:isFirstStartString]) {
-        
-        IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
-        [self.view addSubview:view];
-        
-        [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
-        
-    }
-    
+
     //定位并获取天气
     [self startFindLocationSucess];
 
@@ -125,11 +113,8 @@
     //显示设置生日的视图
     [self showSettingBirthdayView];
     
-    NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    
-    [date setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate *birthDate = [date dateFromString:STUserAccountHandler.userProfile.birthday];
+    //每次修改生日都有可能出现
+    NSDate *birthDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:STUserAccountHandler.userProfile.birthday];
     
     NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
     
@@ -167,6 +152,18 @@
         
     }
     
+    //引导界面
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
+    
+    if ([Common isObjectNull:isFirstStartString]) {
+        
+        IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        [self.view addSubview:view];
+        
+        [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
+        
+    }
 }
 
 //登录获取个人信息
