@@ -159,7 +159,7 @@
         
         IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         
-        [self.view addSubview:view];
+        [[[UIApplication sharedApplication].delegate window] addSubview:view];
         
         [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
         
