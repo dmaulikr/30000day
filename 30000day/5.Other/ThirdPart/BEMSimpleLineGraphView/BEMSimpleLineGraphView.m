@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     // Do any initialization that's common to both -initWithFrame: and -initWithCoder: in this method
     
     // Set the X Axis label font
-    _labelFont = [UIFont fontWithName:DEFAULT_FONT_NAME size:13];
+    _labelFont = [UIFont fontWithName:DEFAULT_FONT_NAME size:9.0];
     
     // Set Animation Values
     _animationGraphEntranceTime = 1.5;
