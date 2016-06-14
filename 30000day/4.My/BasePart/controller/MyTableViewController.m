@@ -285,7 +285,7 @@
         
         } else {
         
-            [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
+            [cell.leftImage setImage:[UIImage imageNamed:@"xieyi"]];
             
             [cell.titleLabel setText:@"《隐私保护》"];
         

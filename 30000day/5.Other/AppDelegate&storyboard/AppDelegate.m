@@ -78,11 +78,11 @@
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     
-    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://30000day.com/html/mobile/index.html"];
+    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://30000day.com/html/mobile/index.html"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
-    [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://30000day.com/html/mobile/index.html"];
+    [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
