@@ -104,7 +104,7 @@
     [self getUserLifeList];
     
     //获取用户击败的用户
-    [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
+    [self getDefeatDataWithUserId:self.friendUserId];
 }
 
 - (void)getUserLifeList {
