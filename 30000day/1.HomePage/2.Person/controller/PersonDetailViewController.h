@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) NSNumber *friendUserId;//好友的ID
 
+@property (nonatomic,copy) NSString *userName;
+
 @property (nonatomic,strong) UserInformationModel *informationModel;
 
 @end

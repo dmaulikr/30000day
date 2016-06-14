@@ -55,4 +55,9 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 @property (nonatomic,copy) void (^buttonAction)(NewFriendModel *friendModel);
 @property (nonatomic,assign) ButtonType type;//
 
+//第五个xib
+@property (weak, nonatomic) IBOutlet UILabel *userNameLable;
+
+
+
 @end

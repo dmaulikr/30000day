@@ -242,7 +242,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -268,12 +268,25 @@
         
     } else if (indexPath.section == 1) {
         
+        PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonTableViewCell_UserName"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][4];
+        }
+        
+        cell.userNameLable.text = [NSString stringWithFormat:@"%@",self.userName];
+        
+        return cell;
+        
+    } else if (indexPath.section == 2) {
+        
         //刷新数据
         [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
         return self.indicatorCell;
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
      
         ChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChartTableViewCell"];
         
@@ -292,7 +305,9 @@
         }
         
         return cell;
+        
     }
+    
     return nil;
 }
 
@@ -302,13 +317,17 @@
         
         return 72.1f;
         
-    } else if ( indexPath.section == 1) {
+    } else if (indexPath.section == 1) {
+    
+        return 40;
+        
+    }else if ( indexPath.section == 2) {
         
         return (SCREEN_HEIGHT - 188)/2.0f;
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
         
-        return (SCREEN_HEIGHT - 188)/2.0f;
+        return (SCREEN_HEIGHT - 188)/2.0f - 40;
     }
     
     return 44;
