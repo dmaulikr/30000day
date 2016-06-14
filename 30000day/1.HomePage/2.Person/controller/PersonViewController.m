@@ -338,6 +338,8 @@
         
         UserInformationModel *model = _dataArray[indexPath.row];
         
+        controller.userName = model.userName;
+        
         controller.friendUserId = model.userId;
         
         controller.informationModel = model;
