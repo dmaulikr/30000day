@@ -97,6 +97,10 @@ static CGFloat kLZLittleBadgeSize = 10;
         _avatarImageView.layer.cornerRadius = 3;
         
         _avatarImageView.layer.masksToBounds = YES;
+        
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        _avatarImageView.backgroundColor = [UIColor blackColor];
     }
     
     return _avatarImageView;
