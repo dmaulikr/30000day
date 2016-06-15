@@ -58,7 +58,20 @@
 //确定操作
 - (void)confirmAction {
     
-    [[CDChatManager sharedManager] createConversationWithMembers:@[] type:CDConversationTypeGroup unique:NO callback:^(AVIMConversation *conversation, NSError *error) {
+    NSMutableDictionary *dictonary = [UserInformationModel attributesWithInformationModelArray:self.removeListArray userProfile:STUserAccountHandler.userProfile chatType:@1];
+    
+    NSMutableArray *membersArrray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < self.removeListArray.count; i++) {
+        
+        UserInformationModel *model = self.removeListArray[i];
+        
+        [membersArrray addObject:model.userId];
+    }
+    
+    
+    
+    [[CDChatManager sharedManager] createConversationWithMembers:@[] type:CDConversationTypeGroup unique:YES attributes:dictonary callback:^(AVIMConversation *conversation, NSError *error) {
        
         
         

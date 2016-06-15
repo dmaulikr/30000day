@@ -48,7 +48,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 @property (nonatomic, strong) AVIMClient *client;
 
-
 /**
  *  即 openClient 时的 clientId
  */
@@ -63,12 +62,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  当前正在聊天的 conversationId
  */
 @property (nonatomic, strong) NSString *chattingConversationId;
-
-/**
- *  是否使用开发证书去推送，默认为 NO。如果设为 YES 的话每条消息会带上这个参数，云代码利用 Hook 设置证书
- *  参考 https://github.com/leancloud/leanchat-cloudcode/blob/master/cloud/mchat.js
- */
-@property (nonatomic, assign) BOOL useDevPushCerticate;
 
 /**
  *  获取单例
@@ -98,14 +91,12 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 - (void)fecthConversationWithConversationId:(NSString *)conversationId callback:(AVIMConversationResultBlock)callback;
 
+#pragma mark ---- 新加的
 /**
  *  获取单聊对话
  *  @param otherId  对方的 clientId
  *  @param callback
  */
-- (void)fetchConversationWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback;
-
-#pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
 
 /**
@@ -133,10 +124,11 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  @param members  初始成员
  *  @param type     单聊或群聊
  *  @param unique   是否唯一，如果有相同 members 的成员且要求唯一的话，将不创建返回原来的对话。
+ *  @param attributes 回话的自定义字典
  *  @param callback 对话回调
  *  @attention  Always consider unique params.
  */
-- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique callback:(AVIMConversationResultBlock)callback;
+- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
 
 /**
  *  更新对话 name 或 attrs
@@ -168,14 +160,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  @param block
  */
 - (void)sendMessage:(AVIMTypedMessage*)message conversation:(AVIMConversation *)conversation callback:(AVIMBooleanResultBlock)block;
-
-/**
- *  发送 "已经是好友了，我们来聊天吧" 之类的消息
- *  @param other 对方的 clientId
- *  @param text  消息文本
- *  @param block
- */
-- (void)sendWelcomeMessageToOther:(NSString *)other text:(NSString *)text block:(AVIMBooleanResultBlock)block;
 
 /**
  *  查询时间戳之前的历史消息

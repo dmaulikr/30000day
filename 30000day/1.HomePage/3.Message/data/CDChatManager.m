@@ -129,7 +129,7 @@ static CDChatManager *instance;
     
     if (type == CDConversationTypeGroup) {
         // 群聊默认名字， 老王、小李
-//        name = [AVIMConversation nameOfUserIds:members];
+        name = @"群聊";
     }
     
     AVIMConversationOption options;
@@ -137,8 +137,10 @@ static CDChatManager *instance;
     if (unique) {
         // 如果相同 members 的对话已经存在，将返回原来的对话
         options = AVIMConversationOptionUnique;
+        
     } else {
-        // 创建一个新对话
+        
+        //创建一个新对话
         options = AVIMConversationOptionNone;
     }
     
@@ -305,12 +307,7 @@ static CDChatManager *instance;
         
         [attributes setObject:STUserAccountHandler.userProfile.nickName forKey:@"username"];
     }
-    
-    if (self.useDevPushCerticate) {
-        
-        [attributes setObject:@YES forKey:@"dev"];
-    }
-    
+
     if (message.attributes == nil) {
         
         message.attributes = attributes;

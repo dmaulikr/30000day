@@ -70,6 +70,69 @@
     return @{[model.userId stringValue]:dictionary_first,[userProfile.userId stringValue]:dictionay_second,@"type":@0};
 }
 
++ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType {
+    
+    NSMutableDictionary *rootDictionary = [NSMutableDictionary dictionary];
+    
+    for (int i = 0 ; i < informationModelArray.count; i++) {
+        
+        UserInformationModel *model = informationModelArray[i];
+        
+        [rootDictionary addParameter:[UserInformationModel dictionaryWithModel:model] forKey:[model.userId stringValue]];
+    }
+    
+    [rootDictionary addParameter:[UserInformationModel dictionaryWithUserProfile:userProfile] forKey:[userProfile.userId stringValue]];
+    
+    [rootDictionary addParameter:chatType forKey:@"type"];
+    
+    return rootDictionary;
+}
+
+//以一个UserInformationModel的模型获取一个字典
++ (NSMutableDictionary *)dictionaryWithModel:(UserInformationModel *)model {
+    
+    NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];
+    
+    if (![Common isObjectNull:model.userId] && ![Common isObjectNull:([Common isObjectNull:model.originalNickName] ? model.nickName : model.originalNickName)] && ![Common isObjectNull:([Common isObjectNull:model.originalHeadImg] ? model.headImg : model.originalHeadImg)]) {
+        
+        [tmpDictionary setObject:[model.userId stringValue] forKey:USER_ID];
+        
+        [tmpDictionary setObject:([Common isObjectNull:model.originalNickName] ? model.nickName : model.originalNickName) forKey:ORIGINAL_NICK_NAME];
+        
+        [tmpDictionary setObject:([Common isObjectNull:model.originalHeadImg] ? model.headImg : model.originalHeadImg) forKey:ORIGINAL_IMG_URL];
+    } else {
+        
+        [tmpDictionary setObject:[model.userId stringValue] forKey:USER_ID];
+        
+        [tmpDictionary setObject:@"" forKey:ORIGINAL_NICK_NAME];
+        
+        [tmpDictionary setObject:@"" forKey:ORIGINAL_IMG_URL];
+    }
+    return tmpDictionary;
+}
+
++ (NSMutableDictionary *)dictionaryWithUserProfile:(UserProfile *)profile {
+    
+    NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];
+    
+    if (![Common isObjectNull:[profile.userId stringValue]] && ![Common isObjectNull:profile.nickName] && ![Common isObjectNull:profile.headImg]) {
+        
+        [tmpDictionary setObject:[profile.userId stringValue] forKey:USER_ID];
+        
+        [tmpDictionary setObject:profile.nickName forKey:ORIGINAL_NICK_NAME];
+        
+        [tmpDictionary setObject:profile.headImg forKey:ORIGINAL_IMG_URL];
+        
+    } else {
+        
+        [tmpDictionary setObject:[profile.userId stringValue] forKey:USER_ID];
+        
+        [tmpDictionary setObject:@"" forKey:ORIGINAL_NICK_NAME];
+        
+        [tmpDictionary setObject:@"" forKey:ORIGINAL_IMG_URL];
+    }
+    return tmpDictionary;
+}
 
 //获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
 - (NSString *)showNickName {
@@ -96,5 +159,20 @@
         return self.headImg;
     }
 }
+
++ (NSString *)nameOfUserInformationModelArray:(NSArray *)modelArray {
+    
+    NSMutableArray *names = [NSMutableArray array];
+    
+    for (int i = 0; i < modelArray.count; i++) {
+        
+        UserInformationModel *model = modelArray[i];
+        
+        [names addObject:[model showNickName]];
+    }
+    
+    return [names componentsJoinedByString:@","];
+}
+
 
 @end

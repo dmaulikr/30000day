@@ -49,20 +49,6 @@
     return [[self.attributes objectForKey:CONVERSATION_TYPE] intValue];
 }
 
-//+ (NSString *)nameOfUserIds:(NSArray *)userIds {
-//    
-//    NSMutableArray *names = [NSMutableArray array];
-//    
-//    for (int i = 0; i < userIds.count; i++) {
-//        
-//        id<CDUserModelDelegate> user = [[CDChatManager manager].userDelegate getUserById:[userIds objectAtIndex:i]];
-//        
-//        [names addObject:user.username];
-//    }
-//    
-//    return [names componentsJoinedByString:@","];
-//}
-
 - (NSString *)displayName {
     
     if ([self type] == CDConversationTypeSingle) {

@@ -92,18 +92,18 @@
 
 - (void)createChatRoomByUserId:(NSString *)userId fromViewController:(CDBaseVC *)viewController completion:(completionBlock)completion {
     
-    [[CDChatManager manager] fetchConversationWithOtherId:userId callback: ^(AVIMConversation *conversation, NSError *error) {
-        
-        if ([viewController filterError:error]) {
-            
-            [self pushToChatRoomByConversation:conversation fromNavigation:viewController.navigationController completion:completion];
-            
-        } else {
-            
-            completion ? completion(NO, error) : nil;
-            
-        }
-    }];
+//    [[CDChatManager manager] fetchConversationWithOtherId:userId callback: ^(AVIMConversation *conversation, NSError *error) {
+//        
+//        if ([viewController filterError:error]) {
+//            
+//            [self pushToChatRoomByConversation:conversation fromNavigation:viewController.navigationController completion:completion];
+//            
+//        } else {
+//            
+//            completion ? completion(NO, error) : nil;
+//            
+//        }
+//    }];
 }
 
 # pragma mark - emotion upload

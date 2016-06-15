@@ -66,13 +66,4 @@ typedef enum : NSUInteger {
  */
 - (UIImage *)icon;
 
-///**
-// *  组合多个用户的名字。如 小王、老李
-// *
-// *  @param userIds 用户的 userId 集合
-// *
-// *  @return 拼成的名字
-// */
-//+ (NSString *)nameOfUserIds:(NSArray *)userIds;
-
 @end

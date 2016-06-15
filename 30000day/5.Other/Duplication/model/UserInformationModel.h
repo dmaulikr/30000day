@@ -49,10 +49,22 @@
  */
 + (NSDictionary *)attributesDictionay:(UserInformationModel *)model userProfile:(UserProfile *)userProfile;
 
+/**
+ *  @return @{@"xxx":@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"yyy":@{@"nickName":@"guojia",@"userId":@"100000016",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"type":0}
+ */
++ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType;
+
 //获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
 - (NSString *)showNickName;
 
 //获取要显示的头像【如果当前用户已经设置了备注，获取的是headImg，反之originalHeadImg】
 - (NSString *)showHeadImageUrlString;
+
+/**
+ *  组合多个用户的名字。如 小王、老李
+ *  @param userIds 用户的 userId 集合
+ *  @return 拼成的名字
+ */
++ (NSString *)nameOfUserInformationModelArray:(NSArray *)modelArray;
 
 @end
