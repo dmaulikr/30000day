@@ -305,6 +305,8 @@
 		B86EFC1E1D0D586F007A2108 /* CDIMService.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC191D0D586F007A2108 /* CDIMService.m */; };
 		B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC1B1D0D586F007A2108 /* CDUtils.m */; };
 		B86EFC201D0D586F007A2108 /* MCPhotographyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */; };
+		B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */; };
+		B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -1064,6 +1066,10 @@
 		B86EFC1B1D0D586F007A2108 /* CDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDUtils.m; sourceTree = "<group>"; };
 		B86EFC1C1D0D586F007A2108 /* MCPhotographyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPhotographyHelper.h; sourceTree = "<group>"; };
 		B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPhotographyHelper.m; sourceTree = "<group>"; };
+		B86EFC7A1D10F52F007A2108 /* STFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STFriendsViewController.h; sourceTree = "<group>"; };
+		B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STFriendsViewController.m; sourceTree = "<group>"; };
+		B86EFC7C1D10F52F007A2108 /* STGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STGroupViewController.h; sourceTree = "<group>"; };
+		B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STGroupViewController.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -2676,6 +2682,10 @@
 				B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */,
 				B8381DDD1CE0C13100E3AC08 /* NewFriendsViewController.h */,
 				B8381DDE1CE0C13100E3AC08 /* NewFriendsViewController.m */,
+				B86EFC7A1D10F52F007A2108 /* STFriendsViewController.h */,
+				B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */,
+				B86EFC7C1D10F52F007A2108 /* STGroupViewController.h */,
+				B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4732,6 +4742,7 @@
 				B8FD3DF51C8A7903007BCA6B /* XHMessageVideoConverPhotoFactory.m in Sources */,
 				B8FD3E221C8A7903007BCA6B /* XHVoiceRecordHUD.m in Sources */,
 				B8FD3E051C8A7903007BCA6B /* SELineLayout.m in Sources */,
+				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
@@ -4846,6 +4857,7 @@
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
+				B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */,
 				B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */,

@@ -23,13 +23,17 @@
     
     self.button_fourth.backgroundColor = LOWBLUECOLOR;
     
-    self.imageView_fourth.layer.cornerRadius = 3;
-    
-    self.imageView_fourth.layer.masksToBounds = YES;
-    
     self.badgeView.layer.cornerRadius = 9.0f;
     
     self.badgeView.layer.masksToBounds = YES;
+    
+    self.imageView_third.layer.cornerRadius = 3;
+    
+    self.imageView_third.layer.masksToBounds = YES;
+    
+    self.imageView_fifth.layer.cornerRadius = 3;
+    
+    self.imageView_fifth.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

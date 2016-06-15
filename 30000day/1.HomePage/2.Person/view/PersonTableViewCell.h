@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 //第三个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_third;
 @property (weak, nonatomic) IBOutlet UIView *badgeView;
+@property (weak, nonatomic) IBOutlet UILabel *label_third;
 
 
 //第四个xib
@@ -56,8 +57,8 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 @property (nonatomic,assign) ButtonType type;//
 
 //第五个xib
-@property (weak, nonatomic) IBOutlet UILabel *userNameLable;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView_fifth;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *label_fifth;
 
 @end
