@@ -8,7 +8,7 @@
 
 #import "XHMessageTableViewCell.h"
 #import "XHMessageStatusView.h"
-
+#import "UIImageView+WebCache.h"
 static const CGFloat kXHLabelPadding = 5.0f;
 static const CGFloat kXHTimeStampLabelHeight = 20.0f;
 
@@ -202,7 +202,16 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
     } else if(message.avatorUrl){
         
-        [self.avatorButton setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholer:[UIImage imageNamed:@"placeholder"]];
+        [self.avatorButton setImage:[UIImage imageNamed:@"placeholder"] forState:UIControlStateNormal];
+        
+        [self.avatorButton.imageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+            //下载进度
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+           
+            [self.avatorButton setImage:image forState:UIControlStateNormal];
+        }];
         
     } else {
         
@@ -482,6 +491,10 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             avatorButton.layer.cornerRadius = 3;
             
             avatorButton.layer.masksToBounds = YES;
+            
+            avatorButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            
+            avatorButton.imageView.backgroundColor = [UIColor blackColor];
             
             [self.contentView addSubview:avatorButton];
             
