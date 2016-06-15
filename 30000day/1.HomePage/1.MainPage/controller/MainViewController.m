@@ -87,6 +87,9 @@
     
     //3.获取用户击败的用户
     [self getDefeatDataWithUserId:STUserAccountHandler.userProfile.userId];
+    
+    //4.上传运动数据
+    [self uploadMotionData];
 }
 
 //跳到登录控制器
@@ -332,6 +335,8 @@
                                             if (success) {
                                                 
                                                 NSLog(@"上传运动数据成功");
+                                                
+                                                [self getUserLifeList];
                                             }
                                             
                                         } failure:^(NSError *error) {
