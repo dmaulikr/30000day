@@ -58,11 +58,11 @@
 //确定操作
 - (void)confirmAction {
     
-    
-    
-//    [CDChatManager sharedManager] createConversationWithMembers:<#(NSArray *)#> type:<#(CDConversationType)#> unique:<#(BOOL)#> attributes:<#(NSDictionary *)#> callback:^(AVIMConversation *conversation, NSError *error) {
-//        
-//    }];
+    [[CDChatManager sharedManager] createConversationWithMembers:@[] type:CDConversationTypeGroup unique:NO callback:^(AVIMConversation *conversation, NSError *error) {
+       
+        
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

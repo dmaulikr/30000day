@@ -19,6 +19,7 @@
 #import "MailListTableViewCell.h"
 #import "ChineseString.h"
 #import "MTProgressHUD.h"
+#import "STGroupViewController.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -245,7 +246,7 @@
     
     if (section == 0) {
         
-        return 1;
+        return 2;
         
     }  else {
         
@@ -275,8 +276,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-
-        return self.firstCell;
+        
+        if (indexPath.row == 0) {
+            
+            return self.firstCell;
+            
+        } else if (indexPath.row == 1) {
+            
+            static NSString *indentifier = @"PersonTableViewCell_group";
+            
+            PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
+            
+            if (cell == nil) {
+                
+                cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
+            }
+            
+            cell.imageView_third.image = [UIImage imageNamed:@"add_friend_icon_addgroup"];
+            
+            cell.badgeView.hidden = YES;
+            
+            cell.label_third.text = @"群组";
+            
+            return cell;
+        }
+        
+        return nil;
         
     } else {
         
@@ -307,7 +332,7 @@
             }
             cell.informationModel_second = _dataArray[indexPath.row];
             
-            return cell;
+             return cell;
         }
     }
 }
@@ -318,18 +343,29 @@
     
     if (indexPath.section == 0) {
         
-        NewFriendsViewController *controller = [[NewFriendsViewController alloc] init];
-        
-        controller.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        
-        self.firstCell.badgeView.hidden = YES;//清除cell的badge
-        
-        [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];//把plist里面存储的badge清空
-        
-        self.tabBarItem.badgeValue = nil;//清除底部按钮badge
-        
+        if (indexPath.row == 0) {
+            
+            NewFriendsViewController *controller = [[NewFriendsViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            self.firstCell.badgeView.hidden = YES;//清除cell的badge
+            
+            [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];//把plist里面存储的badge清空
+            
+            self.tabBarItem.badgeValue = nil;//清除底部按钮badge
+            
+        } else if (indexPath.row == 1) {
+            
+            STGroupViewController *controller = [[STGroupViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+
     }  else {
         
         PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
@@ -337,8 +373,6 @@
         controller.hidesBottomBarWhenPushed = YES;
         
         UserInformationModel *model = _dataArray[indexPath.row];
-        
-        controller.userName = model.userName;
         
         controller.friendUserId = model.userId;
         

@@ -272,10 +272,10 @@
         
         if (cell == nil) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][4];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][5];
         }
-        
-        cell.userNameLable.text = [NSString stringWithFormat:@"%@",self.userName];
+
+        cell.label_sixth.text = [NSString stringWithFormat:@"%@",self.informationModel.userName];
         
         return cell;
         

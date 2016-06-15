@@ -73,6 +73,8 @@
     _imageArray = [[NSMutableArray alloc] init];
     
     self.maxPhoto = NSUIntegerMax;//默认是最大
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

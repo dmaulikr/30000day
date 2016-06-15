@@ -38,8 +38,9 @@
                             <constraint firstAttribute="width" constant="22" id="ZEF-wT-HUd"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-2v-tDG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-2v-tDG">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="53" id="a2V-a2-fbM"/>
                             <constraint firstAttribute="width" constant="53" id="y17-6c-NvC"/>
@@ -77,7 +78,7 @@
                 <outlet property="labelSecond_first" destination="l6b-R0-XMa" id="Ldm-uv-PxH"/>
                 <outlet property="progressView" destination="YeR-ol-YZI" id="Zdg-OY-bZ9"/>
             </connections>
-            <point key="canvasLocation" x="265" y="-231"/>
+            <point key="canvasLocation" x="240" y="-231"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_big" rowHeight="491" id="HeU-XA-PcM" customClass="PersonTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="400" height="467"/>
@@ -94,8 +95,9 @@
                             <constraint firstAttribute="width" constant="30" id="cSx-rK-9jz"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="26e-9V-y16">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="26e-9V-y16">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="26e-9V-y16" secondAttribute="height" multiplier="1:1" id="DtE-p7-Lpr"/>
                         </constraints>
@@ -164,8 +166,9 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plugins_FriendNotify" translatesAutoresizingMaskIntoConstraints="NO" id="KdX-94-yAK">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plugins_FriendNotify" translatesAutoresizingMaskIntoConstraints="NO" id="KdX-94-yAK">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="7Aq-1n-6bK"/>
                             <constraint firstAttribute="height" constant="53" id="Dp1-1t-55Y"/>
@@ -219,8 +222,9 @@
                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-w9-v2f">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-w9-v2f">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="HM7-7i-UrH"/>
                             <constraint firstAttribute="height" constant="53" id="RCj-aH-QuT"/>
@@ -278,8 +282,9 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6cj-Bi-03l">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6cj-Bi-03l">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="6cj-Bi-03l" secondAttribute="height" multiplier="1:1" id="ZXk-3w-yiX"/>
                         </constraints>
@@ -299,6 +304,45 @@
                 <outlet property="label_fifth" destination="73V-lV-nlB" id="QcP-4G-UmI"/>
             </connections>
             <point key="canvasLocation" x="249" y="659"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell_fourth" id="HpB-Rp-frT" userLabel="PersonTableViewCell_sixth" customClass="PersonTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HpB-Rp-frT" id="Msc-wf-vys">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-Xb-pFC">
+                        <rect key="frame" x="16" y="27" width="40" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="wcf-V7-1er"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXw-D3-bCu">
+                        <rect key="frame" x="77" y="25" width="233" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ISG-qS-GWA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="nXw-D3-bCu" secondAttribute="trailing" constant="10" id="MmU-JT-k1c"/>
+                    <constraint firstItem="nXw-D3-bCu" firstAttribute="leading" secondItem="Ps3-Xb-pFC" secondAttribute="trailing" constant="21" id="bz6-jU-5Lc"/>
+                    <constraint firstItem="Ps3-Xb-pFC" firstAttribute="leading" secondItem="Msc-wf-vys" secondAttribute="leading" constant="16" id="coE-aX-XNp"/>
+                    <constraint firstItem="nXw-D3-bCu" firstAttribute="centerY" secondItem="Msc-wf-vys" secondAttribute="centerY" id="pln-gf-8oY"/>
+                    <constraint firstItem="Ps3-Xb-pFC" firstAttribute="centerY" secondItem="Msc-wf-vys" secondAttribute="centerY" id="u8g-sC-B4s"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label_sixth" destination="nXw-D3-bCu" id="MgJ-xO-9Fg"/>
+            </connections>
+            <point key="canvasLocation" x="249" y="787"/>
         </tableViewCell>
     </objects>
     <resources>

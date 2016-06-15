@@ -31,6 +31,10 @@
     
     self.imageView_third.layer.masksToBounds = YES;
     
+    self.imageView_fourth.layer.cornerRadius = 3;
+    
+    self.imageView_fourth.layer.masksToBounds = YES;
+    
     self.imageView_fifth.layer.cornerRadius = 3;
     
     self.imageView_fifth.layer.masksToBounds = YES;

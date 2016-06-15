@@ -61,4 +61,7 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 
 @property (weak, nonatomic) IBOutlet UILabel *label_fifth;
 
+//第六个xib
+@property (weak, nonatomic) IBOutlet UILabel *label_sixth;
+
 @end
