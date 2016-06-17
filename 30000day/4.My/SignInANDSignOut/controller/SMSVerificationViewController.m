@@ -161,24 +161,82 @@
         return;
     }
 
-    //调用短信验证接口
-    [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
-                                          type:@(self.isSignOut)
-                                       success:^(NSString *responseObject) {
+    if (self.isSignOut == 1) {
         
-        count = IdentityCount;
+        //调用短信验证接口
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
+                                              type:@(self.isSignOut)
+                                           success:^(NSString *responseObject) {
+                                               
+                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                               
+                                               count = IdentityCount;
+                                               
+                                               _smsBtn.enabled = NO;
+                                               
+                                               [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
+                                               
+                                               _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
+                                               
+                                           } failure:^(NSString *error) {
+                                               
+                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                               
+                                               [self showToast:error];
+                                               
+                                           }];
+
         
-        _smsBtn.enabled = NO;
+    } else if (self.isSignOut == 2) {
         
-        [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        [STDataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                if (success.boolValue) {
+                
+                        //调用短信验证接口
+                        [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
+                                                              type:@(self.isSignOut)
+                                                           success:^(NSString *responseObject) {
+                                                               
+                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                               
+                                                               count = IdentityCount;
+                                                               
+                                                               _smsBtn.enabled = NO;
+                                                               
+                                                               [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
+                                                               
+                                                               _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
+                                                               
+                                                           } failure:^(NSString *error) {
+                                                               
+                                                               [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                               
+                                                               [self showToast:error];
+                                                               
+                                                           }];
+                    
+                } else {
+                
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                    [self showToast:@"请先注册"];
+                    
+                }
+                
+            });
+            
+        } failure:^(NSError *error) {
+           
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        }];
         
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
-        
-    } failure:^(NSString *error) {
-        
-        [self showToast:error];
-        
-    }];
+    }
 }
 
 - (void)repeatAction {
