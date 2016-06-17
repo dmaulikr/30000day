@@ -224,7 +224,7 @@
                 
                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
-                    [self showToast:@"请先注册"];
+                    [self showToast:@"您还没有注册，请先注册"];
                     
                 }
                 
