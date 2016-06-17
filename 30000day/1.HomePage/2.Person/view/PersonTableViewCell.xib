@@ -38,8 +38,9 @@
                             <constraint firstAttribute="width" constant="22" id="ZEF-wT-HUd"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-2v-tDG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1iA-2v-tDG">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="53" id="a2V-a2-fbM"/>
                             <constraint firstAttribute="width" constant="53" id="y17-6c-NvC"/>
@@ -94,12 +95,6 @@
                             <constraint firstAttribute="width" constant="30" id="cSx-rK-9jz"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="26e-9V-y16">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="26e-9V-y16" secondAttribute="height" multiplier="1:1" id="DtE-p7-Lpr"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dF9-EC-RLk">
                         <rect key="frame" x="15" y="415" width="305" height="21"/>
                         <constraints>
@@ -125,6 +120,13 @@
                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="26e-9V-y16">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="26e-9V-y16" secondAttribute="height" multiplier="1:1" id="DtE-p7-Lpr"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2ky-R3-gkg" firstAttribute="top" secondItem="26e-9V-y16" secondAttribute="bottom" constant="23" id="0KT-r5-21c"/>
@@ -218,8 +220,9 @@
                         <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-w9-v2f">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DgB-w9-v2f">
                         <rect key="frame" x="14" y="9" width="53" height="53"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="HM7-7i-UrH"/>
                             <constraint firstAttribute="height" constant="53" id="RCj-aH-QuT"/>

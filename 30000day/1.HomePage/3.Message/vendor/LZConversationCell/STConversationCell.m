@@ -87,6 +87,10 @@ static CGFloat kLZMessageLabelHeight;
     if (_avatarImageView == nil) {
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,SCREEN_WIDTH)];
+        
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        _avatarImageView.backgroundColor = [UIColor blackColor];
     }
     
     return _avatarImageView;
