@@ -556,5 +556,16 @@
     }
 }
 
++ (NSError *)errorWithString:(NSString *)errorString {
+    
+    if ([Common isObjectNull:errorString]) {
+        
+        return [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"发生了未知因素"}];
+        
+    } else {
+        
+        return [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:errorString}];
+    }
+}
 
 @end

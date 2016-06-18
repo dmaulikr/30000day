@@ -439,13 +439,15 @@
                                                                 
                                                                 
                                                                 //登录凌云服务器
-                                                                [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
+                                                                [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
                                                                     
                                                                     if (succeeded) {
                                                                         
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                                             
                                                                             [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+                                                                            
+                                                                            NSLog(@"---连接凌云聊天服务器成功");
                                                                         });
                                                                         
                                                                     } else {

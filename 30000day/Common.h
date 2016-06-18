@@ -92,4 +92,6 @@
 
 + (NSString *)errorStringWithError:(NSError *)error;
 
++ (NSError *)errorWithString:(NSString *)errorString;
+
 @end
