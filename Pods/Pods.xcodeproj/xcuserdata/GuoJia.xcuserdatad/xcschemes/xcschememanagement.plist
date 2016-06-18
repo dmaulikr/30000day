@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>IDMPhotoBrowser.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JSBadgeView-JSBadgeView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,17 +92,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3299CAC9360F1CB3904663183E4377FA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>430EAC388BE8F7F7139A997947AB1B89</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,7 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A35A56E0316D5315B9473A0EBBB0771</key>
+		<key>7F2445EEE40F10DA25B8B6FE9E1477D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +137,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ACAE27A34969E14A7DA9829402D7B9A0</key>
+		<key>A4247DB177D48A2F3663FA7F43FD513C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7EEFB8FF300110F8FE90A213C7FF1C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,7 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D55A7A46C1B6C5C952C58D67ECE69F35</key>
+		<key>DE3B07ED7FF04F506B0C5E00F4973589</key>
 		<dict>
 			<key>primary</key>
 			<true/>

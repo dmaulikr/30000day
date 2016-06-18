@@ -24,7 +24,7 @@
     
     controller.title = @"选择联系人";
     
-    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:controller];
+    __weak typeof(controller) weakController = controller;
     
     //点击回调
     [controller setDoneBlock:^(UIViewController *viewController, NSMutableArray *memberClientIdArray, NSMutableArray *modifiedArray) {
@@ -37,7 +37,7 @@
         
                 if ([Common isObjectNull:error]) {
         
-                    [navigationController dismissViewControllerAnimated:YES completion:nil];
+                    [weakController.navigationController popViewControllerAnimated:YES];
                     
                     callBack(YES,error);
         
@@ -51,7 +51,7 @@
             }];
     }];
     
-    [viewController presentViewController:navigationController animated:YES completion:nil];
+    [viewController.navigationController pushViewController:controller animated:YES];
 }
 
 //添加人
@@ -83,10 +83,10 @@
     [dataArray removeObjectsInArray:indexArray];
     
     controller.userModelArray = dataArray;//拿到之前赋值的
+
+    [viewController.navigationController pushViewController:controller animated:YES];
     
-    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:controller];
-    
-    [viewController presentViewController:navigationController animated:YES completion:nil];
+    __weak typeof(controller) weakController = controller;
     
     //添加好友入群
     [controller setDoneBlock:^(UIViewController *viewController, NSMutableArray *memberClientIdArray, NSMutableArray *modifiedArray) {
@@ -117,7 +117,7 @@
                         
                         [[CDConversationStore store] updateConversations:@[weakConversation]];
                         
-                        [navigationController dismissViewControllerAnimated:YES completion:nil];
+                        [weakController.navigationController popViewControllerAnimated:YES];
 
                         callBack(YES,error);
                         
@@ -195,9 +195,10 @@
     
     controller.userModelArray = newDataArray;//拿到之前赋值的
     
-    STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:controller];
+    [viewController.navigationController pushViewController:controller animated:YES];
     
-    [viewController presentViewController:navigationController animated:YES completion:nil];
+    __weak typeof(controller) weakController = controller;
+    
     //回调
     [controller setDoneBlock:^(UIViewController *viewController, NSMutableArray *memberClientIdArray, NSMutableArray *modifiedArray) {
 
@@ -225,7 +226,7 @@
                         
                         [[CDConversationStore store] updateConversations:@[weakConversation]];
                         
-                        [navigationController dismissViewControllerAnimated:YES completion:nil];
+                        [weakController.navigationController popViewControllerAnimated:YES];
                         
                         callBack(YES,error);
                         //1.要在群里发送暂态消息

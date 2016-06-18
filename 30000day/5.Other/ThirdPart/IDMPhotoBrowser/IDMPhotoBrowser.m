@@ -609,27 +609,35 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         _doneButton.contentMode = UIViewContentModeScaleAspectFit;
     }
 
-    UIImage *leftButtonImage = (_leftArrowImage == nil) ?
-    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
-
-    UIImage *rightButtonImage = (_rightArrowImage == nil) ?
-    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowRight.png"]         : _rightArrowImage;
-
-    UIImage *leftButtonSelectedImage = (_leftArrowSelectedImage == nil) ?
-    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeftSelected.png"]  : _leftArrowSelectedImage;
-
-    UIImage *rightButtonSelectedImage = (_rightArrowSelectedImage == nil) ?
-    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowRightSelected.png"] : _rightArrowSelectedImage;
+//    UIImage *leftButtonImage = (_leftArrowImage == nil) ?
+//    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
+//
+//    UIImage *rightButtonImage = (_rightArrowImage == nil) ?
+//    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowRight.png"]         : _rightArrowImage;
+//
+//    UIImage *leftButtonSelectedImage = (_leftArrowSelectedImage == nil) ?
+//    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeftSelected.png"]  : _leftArrowSelectedImage;
+//
+//    UIImage *rightButtonSelectedImage = (_rightArrowSelectedImage == nil) ?
+//    [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowRightSelected.png"] : _rightArrowSelectedImage;
 
     // Arrows
-    _previousButton = [[UIBarButtonItem alloc] initWithCustomView:[self customToolbarButtonImage:leftButtonImage
-                                                                                   imageSelected:leftButtonSelectedImage
-                                                                                          action:@selector(gotoPreviousPage)]];
+//    _previousButton = [[UIBarButtonItem alloc] initWithCustomView:[self customToolbarButtonImage:leftButtonImage
+//                                                                                   imageSelected:leftButtonSelectedImage
+//                                                                                          action:@selector(gotoPreviousPage)]];
+//
+//    _nextButton = [[UIBarButtonItem alloc] initWithCustomView:[self customToolbarButtonImage:rightButtonImage
+//                                                                               imageSelected:rightButtonSelectedImage
+//                                                                                      action:@selector(gotoNextPage)]];
 
-    _nextButton = [[UIBarButtonItem alloc] initWithCustomView:[self customToolbarButtonImage:rightButtonImage
-                                                                               imageSelected:rightButtonSelectedImage
-                                                                                      action:@selector(gotoNextPage)]];
-
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+    
+    view.backgroundColor = [UIColor whiteColor];
+    
+    _previousButton = [[UIBarButtonItem alloc] initWithCustomView:view];
+    
+    _nextButton = [[UIBarButtonItem alloc] initWithCustomView:view];
+    
     // Counter Label
     _counterLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 95, 40)];
     _counterLabel.textAlignment = NSTextAlignmentCenter;
@@ -1144,9 +1152,12 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 
 - (void)updateToolbar {
     // Counter
-	if ([self numberOfPhotos] > 1) {
+	if ([self numberOfPhotos] >= 1) {
+        
 		_counterLabel.text = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), IDMPhotoBrowserLocalizedStrings(@"of"), (unsigned long)[self numberOfPhotos]];
+        
 	} else {
+        
 		_counterLabel.text = nil;
 	}
 

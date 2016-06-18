@@ -313,6 +313,14 @@
 		B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC891D124FE3007A2108 /* STGroupNoticeSettingViewController.m */; };
 		B86EFC8F1D139280007A2108 /* STGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC8E1D139280007A2108 /* STGroupTableViewCell.m */; };
 		B86EFC921D13D4E2007A2108 /* GroupSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC911D13D4E2007A2108 /* GroupSettingManager.m */; };
+		B86EFCA41D154DC4007A2108 /* IDMCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC951D154DC4007A2108 /* IDMCaptionView.m */; };
+		B86EFCA51D154DC4007A2108 /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B86EFC971D154DC4007A2108 /* IDMPBLocalizations.bundle */; };
+		B86EFCA61D154DC4007A2108 /* IDMPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC991D154DC4007A2108 /* IDMPhoto.m */; };
+		B86EFCA71D154DC4007A2108 /* IDMPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B86EFC9A1D154DC4007A2108 /* IDMPhotoBrowser.bundle */; };
+		B86EFCA81D154DC4007A2108 /* IDMPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC9C1D154DC4007A2108 /* IDMPhotoBrowser.m */; };
+		B86EFCA91D154DC4007A2108 /* IDMTapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC9F1D154DC4007A2108 /* IDMTapDetectingImageView.m */; };
+		B86EFCAA1D154DC4007A2108 /* IDMTapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFCA11D154DC4007A2108 /* IDMTapDetectingView.m */; };
+		B86EFCAB1D154DC4007A2108 /* IDMZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFCA31D154DC4007A2108 /* IDMZoomingScrollView.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -1085,6 +1093,22 @@
 		B86EFC8E1D139280007A2108 /* STGroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STGroupTableViewCell.m; sourceTree = "<group>"; };
 		B86EFC901D13D4E2007A2108 /* GroupSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSettingManager.h; sourceTree = "<group>"; };
 		B86EFC911D13D4E2007A2108 /* GroupSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSettingManager.m; sourceTree = "<group>"; };
+		B86EFC941D154DC4007A2108 /* IDMCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMCaptionView.h; sourceTree = "<group>"; };
+		B86EFC951D154DC4007A2108 /* IDMCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMCaptionView.m; sourceTree = "<group>"; };
+		B86EFC961D154DC4007A2108 /* IDMPBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMPBConstants.h; sourceTree = "<group>"; };
+		B86EFC971D154DC4007A2108 /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IDMPBLocalizations.bundle; sourceTree = "<group>"; };
+		B86EFC981D154DC4007A2108 /* IDMPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMPhoto.h; sourceTree = "<group>"; };
+		B86EFC991D154DC4007A2108 /* IDMPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMPhoto.m; sourceTree = "<group>"; };
+		B86EFC9A1D154DC4007A2108 /* IDMPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IDMPhotoBrowser.bundle; sourceTree = "<group>"; };
+		B86EFC9B1D154DC4007A2108 /* IDMPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMPhotoBrowser.h; sourceTree = "<group>"; };
+		B86EFC9C1D154DC4007A2108 /* IDMPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMPhotoBrowser.m; sourceTree = "<group>"; };
+		B86EFC9D1D154DC4007A2108 /* IDMPhotoProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMPhotoProtocol.h; sourceTree = "<group>"; };
+		B86EFC9E1D154DC4007A2108 /* IDMTapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMTapDetectingImageView.h; sourceTree = "<group>"; };
+		B86EFC9F1D154DC4007A2108 /* IDMTapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMTapDetectingImageView.m; sourceTree = "<group>"; };
+		B86EFCA01D154DC4007A2108 /* IDMTapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMTapDetectingView.h; sourceTree = "<group>"; };
+		B86EFCA11D154DC4007A2108 /* IDMTapDetectingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMTapDetectingView.m; sourceTree = "<group>"; };
+		B86EFCA21D154DC4007A2108 /* IDMZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDMZoomingScrollView.h; sourceTree = "<group>"; };
+		B86EFCA31D154DC4007A2108 /* IDMZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDMZoomingScrollView.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -2392,6 +2416,29 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				B86EFC941D154DC4007A2108 /* IDMCaptionView.h */,
+				B86EFC951D154DC4007A2108 /* IDMCaptionView.m */,
+				B86EFC961D154DC4007A2108 /* IDMPBConstants.h */,
+				B86EFC971D154DC4007A2108 /* IDMPBLocalizations.bundle */,
+				B86EFC981D154DC4007A2108 /* IDMPhoto.h */,
+				B86EFC991D154DC4007A2108 /* IDMPhoto.m */,
+				B86EFC9A1D154DC4007A2108 /* IDMPhotoBrowser.bundle */,
+				B86EFC9B1D154DC4007A2108 /* IDMPhotoBrowser.h */,
+				B86EFC9C1D154DC4007A2108 /* IDMPhotoBrowser.m */,
+				B86EFC9D1D154DC4007A2108 /* IDMPhotoProtocol.h */,
+				B86EFC9E1D154DC4007A2108 /* IDMTapDetectingImageView.h */,
+				B86EFC9F1D154DC4007A2108 /* IDMTapDetectingImageView.m */,
+				B86EFCA01D154DC4007A2108 /* IDMTapDetectingView.h */,
+				B86EFCA11D154DC4007A2108 /* IDMTapDetectingView.m */,
+				B86EFCA21D154DC4007A2108 /* IDMZoomingScrollView.h */,
+				B86EFCA31D154DC4007A2108 /* IDMZoomingScrollView.m */,
+			);
+			path = IDMPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		B886ADDA1CB3C1B9005E262A /* MyOrder */ = {
 			isa = PBXGroup;
 			children = (
@@ -2810,6 +2857,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */,
 				B8F6E95D1D02CD0400AD6745 /* TZImagePickerController */,
 				B8381DD51CE05FAB00E3AC08 /* JPush */,
 				B80B559B1CD0FFD8003E2C36 /* BaiduMap */,
@@ -4509,6 +4557,7 @@
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B804FDB61C8AC9A900DFD1CF /* weChatBubble_Sending_Cavern@2x.png in Resources */,
 				B804FDAA1C8AC9A900DFD1CF /* sharemore_video@2x.png in Resources */,
+				B86EFCA51D154DC4007A2108 /* IDMPBLocalizations.bundle in Resources */,
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
 				B804FD5E1C8AC9A900DFD1CF /* tusiji_13.gif in Resources */,
@@ -4651,6 +4700,7 @@
 				B804FDAB1C8AC9A900DFD1CF /* sharemore_videovoip@2x.png in Resources */,
 				B804FD681C8AC9A900DFD1CF /* tusiji_3_cover@2x.png in Resources */,
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
+				B86EFCA71D154DC4007A2108 /* IDMPhotoBrowser.bundle in Resources */,
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B665F8C91CC4BF5200070458 /* navBackBtn@2x.png in Resources */,
@@ -4786,6 +4836,7 @@
 				B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B8F6E9771D02CD0400AD6745 /* TZPhotoPreviewCell.m in Sources */,
+				B86EFCAB1D154DC4007A2108 /* IDMZoomingScrollView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
 				B8FD3E1C1C8A7903007BCA6B /* XHMessageDisplayTextView.m in Sources */,
 				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
@@ -4839,6 +4890,7 @@
 				B8FD3E181C8A7903007BCA6B /* XHBaseCollectionViewCell.m in Sources */,
 				B8FD3DD71C8A7903007BCA6B /* UIImage+RoundedCorner.m in Sources */,
 				B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */,
+				B86EFCA81D154DC4007A2108 /* IDMPhotoBrowser.m in Sources */,
 				B8FD3DEE1C8A7903007BCA6B /* XHMessageTableViewController.m in Sources */,
 				B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */,
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
@@ -4896,6 +4948,7 @@
 				B8FD3DFD1C8A7903007BCA6B /* XHMessage.m in Sources */,
 				B8FD3E0A1C8A7903007BCA6B /* SETextGeometry.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
+				B86EFCA91D154DC4007A2108 /* IDMTapDetectingImageView.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,
 				B88C92251C5B11020089BEAE /* STNavigationController.m in Sources */,
 				B8FD3AD71C852BE3007BCA6B /* ChangePasswordViewController.m in Sources */,
@@ -5042,6 +5095,7 @@
 				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
+				B86EFCA41D154DC4007A2108 /* IDMCaptionView.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */,
@@ -5070,6 +5124,7 @@
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
+				B86EFCAA1D154DC4007A2108 /* IDMTapDetectingView.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */,
 				B8FD3DF01C8A7903007BCA6B /* XHFileAttribute.m in Sources */,
@@ -5094,6 +5149,7 @@
 				B612DD871CAD1941004C428C /* CompanyModel.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
 				B8F6E9791D02CD0400AD6745 /* TZVideoPlayerController.m in Sources */,
+				B86EFCA61D154DC4007A2108 /* IDMPhoto.m in Sources */,
 				B8BD78911CC2418100362C89 /* STNetError.m in Sources */,
 				B8F6E3881CB91BEE000CC117 /* RSADataSigner.m in Sources */,
 				B8F1FCC51CEAF97C00C8A0FA /* PhysicalExaminationViewController.m in Sources */,
@@ -5229,7 +5285,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai CountDay Information Technology Co., Ltd. (TTA54FV6AY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5287,7 +5343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai CountDay Information Technology Co., Ltd. (TTA54FV6AY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

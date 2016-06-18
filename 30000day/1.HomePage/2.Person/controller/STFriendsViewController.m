@@ -35,9 +35,9 @@
     
     [self.tableView setEditing:YES animated:NO];//编辑状态
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
-    
-    self.navigationItem.leftBarButtonItem = cancelButton;
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
+//    
+//    self.navigationItem.leftBarButtonItem = cancelButton;
     
     UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(confirmAction)];
     

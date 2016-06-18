@@ -506,7 +506,14 @@ static CDChatManager *instance;
 }
 
 - (void)conversation:(AVIMConversation *)conversation kickedByClientId:(NSString *)clientId {
-    DLog();
+    
+    [self deleteAndDeleteConversation:conversation callBack:^(BOOL successed, NSError *error) {
+        //被移除群，暂时重新刷新界面
+        if (successed) {
+         
+            [STNotificationCenter postNotificationName:STDidSuccessQuitGroupChatSendNotification object:nil];
+        }
+    }];
 }
 
 /* 如果开启了单点登陆，需要使用代码方法进行监控 */

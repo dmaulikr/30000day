@@ -199,7 +199,6 @@
     return [otherDictionary objectForKey:CONVERSATION_IMAGE_URL];
 }
 
-
 - (UIImage *)icon {
     
     NSString *name = self.name;

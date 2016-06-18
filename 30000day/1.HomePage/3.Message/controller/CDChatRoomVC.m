@@ -89,9 +89,6 @@ static NSInteger const kOnePageSize = 10;
     
     if (self.conversation.type == CDConversationTypeSingle) {
         
-//        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"单设" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
-//        
-//        self.navigationItem.rightBarButtonItem = rightItem;
         
     } else if (self.conversation.type == CDConversationTypeGroup) {
         
@@ -107,9 +104,16 @@ static NSInteger const kOnePageSize = 10;
             [self setBackgroundImageURL:[NSURL URLWithString:[self.conversation headUrl:self.conversation.otherId]]];
             
         } else if (self.conversation.type == CDConversationTypeGroup) {//群聊
-            
-        }
 
+            if ([Common isObjectNull:[self.conversation groupChatImageURL]]) {//群头像为空
+                
+                [self setBackgroundImage:[self.conversation icon]];
+                
+            } else {//不为空
+                
+                [self setBackgroundImageURL:[NSURL URLWithString:[self.conversation groupChatImageURL]]];
+            }
+        }
     } else {
         
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -120,11 +124,11 @@ static NSInteger const kOnePageSize = 10;
     // 设置自身用户名
     self.messageSender = STUserAccountHandler.userProfile.nickName;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessage:) name:kCDNotificationMessageReceived object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:kCDNotificationMessageReceived object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
 
     [self loadMessagesWhenInit];
 }
@@ -155,12 +159,21 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageReceived object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationMessageDelivered object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConversationUpdated object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
+    
+    [STNotificationCenter removeObserver:self name:kCDNotificationMessageReceived object:nil];
+    
+    [STNotificationCenter removeObserver:self name:kCDNotificationMessageDelivered object:nil];
+    
+    [STNotificationCenter removeObserver:self name:kCDNotificationConversationUpdated object:nil];
+    
     [[XHAudioPlayerHelper shareInstance] setDelegate:nil];
     self.browser = nil;
+    self.sendMessageTimer = nil;
+    self.pickerBrowserPhotoArray = nil;
+    self.emotionManagers = nil;
+    self.msgs = nil;
+    self.currentSelectedCell = nil;
+    self.conversation = nil;
 }
 
 #pragma mark - ui init
@@ -190,11 +203,6 @@ static NSInteger const kOnePageSize = 10;
     
     [self.emotionManagerView reloadData];
 }
-
-//- (void)refreshConv {
-//    
-//    self.title = self.conversation.title;
-//}
 
 - (void)tapAction {
     
@@ -259,16 +267,18 @@ static NSInteger const kOnePageSize = 10;
             
             browser.disableVerticalSwipe = YES;
             
+            browser.usePopAnimation = YES;
+            
             [browser setInitialPageIndex:[photoUrlArray indexOfObject:message.originPhotoUrl]];
-            
-            self.browser = browser;
-            
+
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
             
             [browser.view addGestureRecognizer:tap];
             
             [self presentViewController:browser animated:YES completion:nil];
-
+            
+            self.browser = browser;
+            
             break;
         }
             
@@ -1093,7 +1103,6 @@ static NSInteger const kOnePageSize = 10;
         [self queryAndCacheMessagesWithTimestamp:0 block:^(NSArray *msgs, NSError *error) {
             
             if (!error) {
-                
                 // 失败消息加到末尾，因为 SDK 缓存不保存它们
                 NSArray *failedMessages = [[CDFailedMessageStore store] selectFailedMessagesByConversationId:self.conversation.conversationId];
     
@@ -1125,6 +1134,7 @@ static NSInteger const kOnePageSize = 10;
                     }
                 }
             }
+            
             self.isLoadingMsg = NO;
         }];
     }
