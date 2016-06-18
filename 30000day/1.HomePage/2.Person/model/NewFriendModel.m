@@ -27,8 +27,6 @@
         
         self.friendMemo = [aDecoder decodeObjectForKey:@"friendMemo"];
         
-        self.badgeNumber = [aDecoder decodeIntegerForKey:@"badgeNumber"];
-        
     }
     return self;
 }
@@ -46,8 +44,6 @@
     [aCoder encodeObject:self.friendHeadImg forKey:@"friendHeadImg"];
     
     [aCoder encodeObject:self.friendMemo forKey:@"friendMemo"];
-    
-    [aCoder encodeInteger:self.badgeNumber forKey:@"badgeNumber"];
 }
 
 

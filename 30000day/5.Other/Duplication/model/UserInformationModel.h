@@ -52,7 +52,7 @@
 /**
  *  @return @{@"xxx":@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"yyy":@{@"nickName":@"guojia",@"userId":@"100000016",@"imgUrl":@"http://xxxxxx.xxxxxx"},@"type":0}
  */
-+ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType;
++ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray <UserInformationModel *> *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType;
 
 //获取要显示的昵称【如果当前用户已经设置了昵称，获取的是nickName，反之originalNickName】
 - (NSString *)showNickName;
@@ -65,6 +65,12 @@
  *  @param userIds 用户的 userId 集合
  *  @return 拼成的名字
  */
-+ (NSString *)nameOfUserInformationModelArray:(NSArray *)modelArray;
++ (NSString *)nameOfUserInformationModelArray:(NSArray <UserInformationModel *> *)modelArray;
+
+//以一个UserInformationModel的模型获取一个字典 @{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"}
++ (NSMutableDictionary *)dictionaryWithModel:(UserInformationModel *)model;
+
+//和上面方法是反过来的@{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"},需要注意的是这边只赋值3个变量
++ (UserInformationModel *)modelWitDictionary:(NSDictionary *)dictionary;
 
 @end

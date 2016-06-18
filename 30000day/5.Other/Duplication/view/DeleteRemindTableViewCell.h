@@ -10,4 +10,6 @@
 
 @interface DeleteRemindTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

@@ -307,6 +307,12 @@
 		B86EFC201D0D586F007A2108 /* MCPhotographyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC1D1D0D586F007A2108 /* MCPhotographyHelper.m */; };
 		B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */; };
 		B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */; };
+		B86EFC821D115770007A2108 /* STCroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC811D115770007A2108 /* STCroupSettingViewController.m */; };
+		B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC841D115FAF007A2108 /* DeleteRemindTableViewCell.m */; };
+		B86EFC871D115FAF007A2108 /* DeleteRemindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86EFC851D115FAF007A2108 /* DeleteRemindTableViewCell.xib */; };
+		B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC891D124FE3007A2108 /* STGroupNoticeSettingViewController.m */; };
+		B86EFC8F1D139280007A2108 /* STGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC8E1D139280007A2108 /* STGroupTableViewCell.m */; };
+		B86EFC921D13D4E2007A2108 /* GroupSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFC911D13D4E2007A2108 /* GroupSettingManager.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
@@ -507,8 +513,6 @@
 		B8F931561C7B0AB4000FED7C /* AddTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F931541C7B0AB3000FED7C /* AddTimeTableViewCell.xib */; };
 		B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9315A1C7BF101000FED7C /* STRemindManager.m */; };
 		B8F931761C7BF420000FED7C /* RemindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931741C7BF420000FED7C /* RemindModel.m */; };
-		B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52121C7FE69100498E34 /* DeleteRemindTableViewCell.m */; };
-		B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA52131C7FE69100498E34 /* DeleteRemindTableViewCell.xib */; };
 		B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */; };
 		B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */; };
 		B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */; };
@@ -1070,6 +1074,17 @@
 		B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STFriendsViewController.m; sourceTree = "<group>"; };
 		B86EFC7C1D10F52F007A2108 /* STGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STGroupViewController.h; sourceTree = "<group>"; };
 		B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STGroupViewController.m; sourceTree = "<group>"; };
+		B86EFC801D115770007A2108 /* STCroupSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCroupSettingViewController.h; sourceTree = "<group>"; };
+		B86EFC811D115770007A2108 /* STCroupSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCroupSettingViewController.m; sourceTree = "<group>"; };
+		B86EFC831D115FAF007A2108 /* DeleteRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteRemindTableViewCell.h; sourceTree = "<group>"; };
+		B86EFC841D115FAF007A2108 /* DeleteRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteRemindTableViewCell.m; sourceTree = "<group>"; };
+		B86EFC851D115FAF007A2108 /* DeleteRemindTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeleteRemindTableViewCell.xib; sourceTree = "<group>"; };
+		B86EFC881D124FE3007A2108 /* STGroupNoticeSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STGroupNoticeSettingViewController.h; sourceTree = "<group>"; };
+		B86EFC891D124FE3007A2108 /* STGroupNoticeSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STGroupNoticeSettingViewController.m; sourceTree = "<group>"; };
+		B86EFC8D1D139280007A2108 /* STGroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STGroupTableViewCell.h; sourceTree = "<group>"; };
+		B86EFC8E1D139280007A2108 /* STGroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STGroupTableViewCell.m; sourceTree = "<group>"; };
+		B86EFC901D13D4E2007A2108 /* GroupSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSettingManager.h; sourceTree = "<group>"; };
+		B86EFC911D13D4E2007A2108 /* GroupSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSettingManager.m; sourceTree = "<group>"; };
 		B876B9351CA3FD88005B7E83 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
@@ -1484,9 +1499,6 @@
 		B8F9315A1C7BF101000FED7C /* STRemindManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRemindManager.m; sourceTree = "<group>"; };
 		B8F931731C7BF420000FED7C /* RemindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindModel.h; sourceTree = "<group>"; };
 		B8F931741C7BF420000FED7C /* RemindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindModel.m; sourceTree = "<group>"; };
-		B8FA52111C7FE69100498E34 /* DeleteRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteRemindTableViewCell.h; sourceTree = "<group>"; };
-		B8FA52121C7FE69100498E34 /* DeleteRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteRemindTableViewCell.m; sourceTree = "<group>"; };
-		B8FA52131C7FE69100498E34 /* DeleteRemindTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeleteRemindTableViewCell.xib; sourceTree = "<group>"; };
 		B8FA52281C802CE100498E34 /* AddContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContentTableViewCell.h; sourceTree = "<group>"; };
 		B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContentTableViewCell.m; sourceTree = "<group>"; };
 		B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddContentTableViewCell.xib; sourceTree = "<group>"; };
@@ -2111,6 +2123,9 @@
 		B80137891CD89ACB00ED0566 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B86EFC831D115FAF007A2108 /* DeleteRemindTableViewCell.h */,
+				B86EFC841D115FAF007A2108 /* DeleteRemindTableViewCell.m */,
+				B86EFC851D115FAF007A2108 /* DeleteRemindTableViewCell.xib */,
 				B801378A1CD89AE300ED0566 /* DuplicationTableViewCell.h */,
 				B801378B1CD89AE300ED0566 /* DuplicationTableViewCell.m */,
 				B801378C1CD89AE300ED0566 /* DuplicationTableViewCell.xib */,
@@ -2127,6 +2142,8 @@
 				B8FFBF051CE30F72009AA425 /* NewFriendModel.m */,
 				B8FFBF071CE4588E009AA425 /* NewFriendManager.h */,
 				B8FFBF081CE4588E009AA425 /* NewFriendManager.m */,
+				B86EFC901D13D4E2007A2108 /* GroupSettingManager.h */,
+				B86EFC911D13D4E2007A2108 /* GroupSettingManager.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2686,6 +2703,10 @@
 				B86EFC7B1D10F52F007A2108 /* STFriendsViewController.m */,
 				B86EFC7C1D10F52F007A2108 /* STGroupViewController.h */,
 				B86EFC7D1D10F52F007A2108 /* STGroupViewController.m */,
+				B86EFC801D115770007A2108 /* STCroupSettingViewController.h */,
+				B86EFC811D115770007A2108 /* STCroupSettingViewController.m */,
+				B86EFC881D124FE3007A2108 /* STGroupNoticeSettingViewController.h */,
+				B86EFC891D124FE3007A2108 /* STGroupNoticeSettingViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2693,6 +2714,8 @@
 		B88C91761C5A07630089BEAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B86EFC8D1D139280007A2108 /* STGroupTableViewCell.h */,
+				B86EFC8E1D139280007A2108 /* STGroupTableViewCell.m */,
 				B8F2D9C21C5F0439002C7712 /* PersonTableViewCell.h */,
 				B8F2D9C31C5F0439002C7712 /* PersonTableViewCell.m */,
 				B8F2D9C41C5F0439002C7712 /* PersonTableViewCell.xib */,
@@ -2751,9 +2774,6 @@
 				B886E86D1C7EAE1200E64BEC /* RemindContentTableViewCell.h */,
 				B886E86E1C7EAE1200E64BEC /* RemindContentTableViewCell.m */,
 				B886E86F1C7EAE1200E64BEC /* RemindContentTableViewCell.xib */,
-				B8FA52111C7FE69100498E34 /* DeleteRemindTableViewCell.h */,
-				B8FA52121C7FE69100498E34 /* DeleteRemindTableViewCell.m */,
-				B8FA52131C7FE69100498E34 /* DeleteRemindTableViewCell.xib */,
 				B8FA52281C802CE100498E34 /* AddContentTableViewCell.h */,
 				B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */,
 				B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */,
@@ -4541,6 +4561,7 @@
 				B6E548BC1CF0661200002650 /* FactorVerificationView.xib in Resources */,
 				B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */,
 				B8695ABA1C74949A001B4B95 /* MainViewController.xib in Resources */,
+				B86EFC871D115FAF007A2108 /* DeleteRemindTableViewCell.xib in Resources */,
 				B804FD801C8AC9A900DFD1CF /* keyborad@2x.png in Resources */,
 				B6C73B151C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.xib in Resources */,
 				B6114CA71CA2785E0088EED2 /* ShopDetailCommentTableViewCell.xib in Resources */,
@@ -4630,7 +4651,6 @@
 				B804FDAB1C8AC9A900DFD1CF /* sharemore_videovoip@2x.png in Resources */,
 				B804FD681C8AC9A900DFD1CF /* tusiji_3_cover@2x.png in Resources */,
 				B8F2D8ED1C5B3A67002C7712 /* HealthyTableViewCell.xib in Resources */,
-				B8FA52151C7FE69100498E34 /* DeleteRemindTableViewCell.xib in Resources */,
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
 				B665F8C91CC4BF5200070458 /* navBackBtn@2x.png in Resources */,
@@ -4745,6 +4765,7 @@
 				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
+				B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
 				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
@@ -4823,6 +4844,7 @@
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
+				B86EFC8F1D139280007A2108 /* STGroupTableViewCell.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
 				B801378D1CD89AE300ED0566 /* DuplicationTableViewCell.m in Sources */,
@@ -4913,6 +4935,7 @@
 				B8F6E3871CB91BEE000CC117 /* openssl_wrapper.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
 				B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */,
+				B86EFC821D115770007A2108 /* STCroupSettingViewController.m in Sources */,
 				B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */,
 				B8FD3E161C8A7903007BCA6B /* XHSoundManager.m in Sources */,
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,
@@ -4982,6 +5005,7 @@
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
+				B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
 				B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
@@ -5045,7 +5069,6 @@
 				B86A10501CC8DF9500D3E01B /* SearchBaseViewController.m in Sources */,
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
-				B8FA52141C7FE69100498E34 /* DeleteRemindTableViewCell.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */,
@@ -5083,6 +5106,7 @@
 				B8F2D93B1C5B6E40002C7712 /* BEMPermanentPopupView.m in Sources */,
 				B86A10271CC7CC4400D3E01B /* CommentView.m in Sources */,
 				B8FD3E271C8A7903007BCA6B /* XHShareMenuView.m in Sources */,
+				B86EFC921D13D4E2007A2108 /* GroupSettingManager.m in Sources */,
 				B8FD3DF71C8A7903007BCA6B /* XHVideoOutputSampleBufferFactory.m in Sources */,
 				B8FD3E1D1C8A7903007BCA6B /* XHMessageStatusView.m in Sources */,
 				B8FD3CBE1C8A77EB007BCA6B /* CDChatManager.m in Sources */,

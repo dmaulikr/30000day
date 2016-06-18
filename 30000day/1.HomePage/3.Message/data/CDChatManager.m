@@ -51,13 +51,15 @@ static CDChatManager *instance;
 }
 
 - (instancetype)init {
-    self = [super init];
-    if (self) {
+    
+    if (self = [super init]) {
+        
         [AVIMClient setTimeoutIntervalInSeconds:20];
         // 以下选项也即是说 A 不在线时，有人往A发了很多条消息，下次启动时，不再收到具体的离线消息，而是收到离线消息的数目(未读通知)
 //         [AVIMClient setUserOptions:@{AVIMUserOptionUseUnread:@(YES)}];
         _cachedConversations = [NSMutableDictionary dictionary];
     }
+    
     return self;
 }
 
@@ -86,6 +88,8 @@ static CDChatManager *instance;
         
         if (callback) {
             
+            self.connect = YES;
+            
             callback(succeeded, error);
         }
     }];
@@ -99,7 +103,11 @@ static CDChatManager *instance;
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    if (![Common isObjectNull:attributes] && ![Common isObjectNull:self.client]) {//非空的
+    if ([Common isObjectNull:self.client]) {//非空的
+        
+        NSLog(@"聊天服务器没有初始化");
+
+    } else {
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
         
@@ -115,12 +123,21 @@ static CDChatManager *instance;
     
     if ([members containsObject:self.clientId] == NO) {
         
-        [NSException raise:NSInvalidArgumentException format:@"members should contain myself"];
+        NSLog(@"members should contain myself");
+        
+    } else {
+        
+        NSSet *set = [NSSet setWithArray:members];
+        
+        if (set.count != members.count) {//有重复定义的值
+            
+            NSLog(@"The array has duplicate value");
+            
+        } else {//无重复定义的值
+            
+            [self createConversationWithMembers:members type:type unique:YES attributes:attributes callback:callback];
+        }
     }
-    
-    [self checkDuplicateValueOfArray:members];
-    
-    [self createConversationWithMembers:members type:type unique:YES attributes:attributes callback:callback];
 }
 
 - (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
@@ -129,7 +146,7 @@ static CDChatManager *instance;
     
     if (type == CDConversationTypeGroup) {
         // 群聊默认名字， 老王、小李
-        name = @"群聊";
+        name = @"群组";
     }
     
     AVIMConversationOption options;
@@ -140,7 +157,7 @@ static CDChatManager *instance;
         
     } else {
         
-        //创建一个新对话
+        // 创建一个新对话
         options = AVIMConversationOptionNone;
     }
     
@@ -179,73 +196,9 @@ static CDChatManager *instance;
     }];
 }
 
-- (void)checkDuplicateValueOfArray:(NSArray *)array {
-    
-    NSSet *set = [NSSet setWithArray:array];
-    
-    if (set.count != array.count) {
-        
-        [NSException raise:NSInvalidArgumentException format:@"The array has duplicate value"];
-        
-    }
-}
-
-- (void)fetchConversationWithMembers:(NSArray *)members type:(CDConversationType)type callback:(AVIMConversationResultBlock)callback {
-    
-    if ([members containsObject:self.clientId] == NO) {
-        
-        [NSException raise:NSInvalidArgumentException format:@"members should contain myself"];
-    }
-    
-    [self checkDuplicateValueOfArray:members];
-    
-    [self createConversationWithMembers:members type:type unique:YES callback:callback];
-}
-
 - (void)fetchConversationWithMembers:(NSArray *)members callback:(AVIMConversationResultBlock)callback {
     
-    [self fetchConversationWithMembers:members type:CDConversationTypeGroup callback:callback];
-}
-
-- (void)fetchConversationWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback {
-    
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    [array addObject:self.client.clientId];
-    
-    [array addObject:otherId];
-    
-    [self fetchConversationWithMembers:array type:CDConversationTypeSingle callback:callback];
-}
-
-- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique callback:(AVIMConversationResultBlock)callback {
-    
-    NSString *name = nil;
-    
-    if (type == CDConversationTypeGroup) {
-        // 群聊默认名字， 老王、小李
-//        name = [AVIMConversation nameOfUserIds:members];
-    }
-    
-    AVIMConversationOption options;
-    
-    if (unique) {
-        // 如果相同 members 的对话已经存在，将返回原来的对话
-        options = AVIMConversationOptionUnique;
-        
-    } else {
-        // 创建一个新对话
-        options = AVIMConversationOptionNone;
-    }
-    
-    [self.client createConversationWithName:name clientIds:members attributes:@{ CONVERSATION_TYPE:@(type) } options:options callback:callback];
-}
-
-
-- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type callback:(AVIMConversationResultBlock)callback {
-    
-    [self createConversationWithMembers:members type:type unique:NO callback:callback];
-    
+    [self fetchConversationWithMembers:members type:CDConversationTypeGroup attributes:nil callback:callback];
 }
 
 - (void)findGroupedConversationsWithBlock:(AVIMArrayResultBlock)block {
@@ -254,39 +207,65 @@ static CDChatManager *instance;
 }
 
 - (void)findGroupedConversationsWithNetworkFirst:(BOOL)networkFirst block:(AVIMArrayResultBlock)block {
+    
     AVIMConversationQuery *q = [self.client conversationQuery];
-    [q whereKey:AVIMAttr(CONVERSATION_TYPE) equalTo:@(CDConversationTypeGroup)];
-    [q whereKey:kAVIMKeyMember containedIn:@[self.clientId]];
-    if (networkFirst) {
-        q.cachePolicy = kAVCachePolicyNetworkElseCache;
-    } else {
-        q.cachePolicy = kAVCachePolicyCacheElseNetwork;
-        q.cacheMaxAge = 60 * 30; // 半小时
+    
+    if (![Common isObjectNull:self.clientId]) {
+        
+        [q whereKey:AVIMAttr(CONVERSATION_TYPE) equalTo:@(CDConversationTypeGroup)];
+        
+        [q whereKey:kAVIMKeyMember containedIn:@[self.clientId]];
+        
+        if (networkFirst) {
+            
+            q.cachePolicy = kAVCachePolicyNetworkElseCache;
+            
+        } else {
+            
+            q.cachePolicy = kAVCachePolicyCacheElseNetwork;
+            
+            q.cacheMaxAge = 60 * 30; // 半小时
+        }
+        // 默认 limit 为10
+        q.limit = 1000;
+        
+        [q findConversationsWithCallback:block];
     }
-    // 默认 limit 为10
-    q.limit = 1000;
-    [q findConversationsWithCallback:block];
 }
 
 - (void)updateConversation:(AVIMConversation *)conversation name:(NSString *)name attrs:(NSDictionary *)attrs callback:(AVIMBooleanResultBlock)callback {
+    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
     if (name) {
+        
         [dict setObject:name forKey:@"name"];
     }
+    
     if (attrs) {
+        
         [dict setObject:attrs forKey:@"attrs"];
     }
+    
     [conversation update:dict callback:callback];
 }
 
 - (void)fetchConversationsWithConversationIds:(NSSet *)conversationIds callback:(AVIMArrayResultBlock)callback {
+    
     if (conversationIds.count > 0) {
+        
         AVIMConversationQuery *q = [self.client conversationQuery];
+        
         [q whereKey:@"objectId" containedIn:[conversationIds allObjects]];
+        
         q.cachePolicy = kAVCachePolicyNetworkElseCache;
+        
         q.limit = 1000;  // default limit:10
+        
         [q findConversationsWithCallback:callback];
+        
     } else {
+        
         callback([NSMutableArray array], nil);
     }
 }
@@ -307,7 +286,7 @@ static CDChatManager *instance;
         
         [attributes setObject:STUserAccountHandler.userProfile.nickName forKey:@"username"];
     }
-
+    
     if (message.attributes == nil) {
         
         message.attributes = attributes;
@@ -320,23 +299,6 @@ static CDChatManager *instance;
     }
     
     [conversation sendMessage:message options:AVIMMessageSendOptionRequestReceipt callback:block];
-}
-
-- (void)sendWelcomeMessageToOther:(NSString *)other text:(NSString *)text block:(AVBooleanResultBlock)block {
-    
-    [self fetchConversationWithOtherId:other callback:^(AVIMConversation *conversation, NSError *error) {
-        
-        if (error) {
-            
-            block(NO, error);
-            
-        } else {
-            
-            AVIMTextMessage *textMessage = [AVIMTextMessage messageWithText:text attributes:nil];
-            
-            [self sendMessage:textMessage conversation:conversation callback:block];
-        }
-    }];
 }
 
 #pragma mark - query msgs
@@ -419,6 +381,8 @@ static CDChatManager *instance;
 - (void)updateConnectStatus {
     
     self.connect = self.client.status == AVIMClientStatusOpened;
+    
+    NSLog(@"---%d",self.connect);
     
     [STNotificationCenter postNotificationName:kCDNotificationConnectivityUpdated object:@(self.connect)];
 }
@@ -514,15 +478,20 @@ static CDChatManager *instance;
 }
 
 - (void)conversation:(AVIMConversation *)conversation messageDelivered:(AVIMMessage *)message {
+    
     DLog();
+    
     if (message != nil) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationMessageDelivered object:message];
+        
+        [STNotificationCenter postNotificationName:kCDNotificationMessageDelivered object:message];
     }
 }
 
 - (void)conversation:(AVIMConversation *)conversation didReceiveUnread:(NSInteger)unread {
+    
     // 需要开启 AVIMUserOptionUseUnread 选项，见 init
     DLog(@"conversatoin:%@ didReceiveUnread:%@", conversation, @(unread));
+    
     [conversation markAsReadInBackground];
 }
 
@@ -744,7 +713,7 @@ static CDChatManager *instance;
 
 - (void)selectOrRefreshConversationsWithBlock:(AVIMArrayResultBlock)block {
     
-    static BOOL refreshedFromServer = NO;
+    static BOOL refreshedFromServer = NO;//这里设置只会调用一次
     
     NSArray *conversations = [[CDConversationStore store] selectAllConversations];
     
@@ -758,9 +727,12 @@ static CDChatManager *instance;
         }
         
         [self fetchConversationsWithConversationIds:conversationIds callback:^(NSArray *objects, NSError *error) {
+            
             if (error) {
                 
                 block(conversations, nil);
+                
+                refreshedFromServer = YES;
                 
             } else {
                 
@@ -830,7 +802,7 @@ static CDChatManager *instance;
                 
                 [userIds addObject:conversation.otherId];
                 
-            } else {//不不
+            } else {
                 
                 if (conversation.lastMessage) {
                     
@@ -881,8 +853,24 @@ static CDChatManager *instance;
 
 #pragma mark - database
 
-- (void)deleteConversation:(AVIMConversation *)conversation {
-    [[CDConversationStore store] deleteConversation:conversation];
+/**
+ * 退出对话并删除聊天记录
+ */
+- (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack {
+    
+    [conversation quitWithCallback:^(BOOL succeeded, NSError *error) {
+       
+        if (succeeded) {
+            
+            [[CDConversationStore store] deleteConversation:conversation];
+            
+            callBack(succeeded,error);
+    
+        } else {
+            
+            callBack(succeeded,error);
+        }
+    }];
 }
 
 @end

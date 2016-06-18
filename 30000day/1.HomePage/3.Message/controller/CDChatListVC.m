@@ -80,6 +80,9 @@ static NSString *cellIdentifier = @"ContactCell";
     //成功的切换模式
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
+    //成功的退出群聊
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessQuitGroupChatSendNotification object:nil];
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     //获取我的好友-----目的是取出当前用户是否设置备注头像
     [self getMyFriends];
@@ -242,7 +245,7 @@ static NSString *cellIdentifier = @"ContactCell";
         
         if (conversation.type == CDConversationTypeSingle) {
             
-            cell.nameLabel.text = conversation.displayName;
+            cell.nameLabel.text = [conversation conversationDisplayName];
             
             //长按手势，长按后删除该cell
             [cell setLongPressBlock:^{
@@ -266,13 +269,42 @@ static NSString *cellIdentifier = @"ContactCell";
                 [self presentViewController:controller animated:YES completion:nil];
             }];
             
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 
         } else {
             
-            [cell.avatarImageView setImage:conversation.icon];
+            //长按手势，长按后删除该cell
+            [cell setLongPressBlock:^{
+                
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [[CDConversationStore store] deleteConversation:conversation];
+                    
+                    [self headerRefreshing];
+                    
+                }];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                
+                [controller addAction:cancelAction];
+                
+                [controller addAction:action];
+                
+                [self presentViewController:controller animated:YES completion:nil];
+            }];
             
-            cell.nameLabel.text = conversation.displayName;
+            if ([Common isObjectNull:[conversation groupChatImageURL]]) {//不存在
+                
+                cell.avatarImageView.image = conversation.icon;
+                
+            } else {
+                
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            }
+            
+            cell.nameLabel.text = [conversation conversationDisplayName];
         }
         
         if (conversation.lastMessage) {
@@ -310,7 +342,7 @@ static NSString *cellIdentifier = @"ContactCell";
         
         if (conversation.type == CDConversationTypeSingle) {
             
-            cell.nameLabel.text = conversation.displayName;
+            cell.nameLabel.text = [conversation conversationDisplayName];
             
             //长按手势，长按后删除该cell
             [cell setLongPressBlock:^{
@@ -336,18 +368,48 @@ static NSString *cellIdentifier = @"ContactCell";
             
             if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)]) {
                 
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
                 
             } else {
                 
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:conversation.otherHeadUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
             }
             
         } else {
             
-            [cell.avatarImageView setImage:conversation.icon];
+            //长按手势，长按后删除该cell
+            [cell setLongPressBlock:^{
+                
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [[CDConversationStore store] deleteConversation:conversation];
+                    
+                    [self headerRefreshing];
+                    
+                }];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                
+                [controller addAction:cancelAction];
+                
+                [controller addAction:action];
+                
+                [self presentViewController:controller animated:YES completion:nil];
+            }];
             
-            cell.nameLabel.text = conversation.displayName;
+            if ([Common isObjectNull:[conversation groupChatImageURL]]) {//不存在
+                
+                cell.avatarImageView.image = conversation.icon;
+                
+            } else {
+                
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                
+            }
+            
+            cell.nameLabel.text = [conversation conversationDisplayName];
         }
         
         if (conversation.lastMessage) {
@@ -427,6 +489,8 @@ static NSString *cellIdentifier = @"ContactCell";
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessQuitGroupChatSendNotification object:nil];
 }
 
 @end

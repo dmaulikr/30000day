@@ -14,9 +14,9 @@
 
 @interface STFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) NSMutableArray *dataArray;
-
-@property (nonatomic,strong) NSMutableArray *removeListArray;
+@property (nonatomic,strong) NSMutableArray *modifiedArray;
+//
+//@property (nonatomic,strong) NSMutableArray *removeListArray;
 
 @end
 
@@ -24,8 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"选择联系人";
-    
+
     self.tableViewStyle = STRefreshTableViewPlain;
     
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -42,11 +41,11 @@
     
     UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(confirmAction)];
     
+    confirmButton.enabled = NO;
+    
     self.navigationItem.rightBarButtonItem = confirmButton;
     
-    self.dataArray = [PersonInformationsManager shareManager].informationsArray;//拿到之前赋值的
-    
-    self.removeListArray = [NSMutableArray array];
+    self.modifiedArray = [NSMutableArray array];
 }
 
 //取消操作
@@ -57,25 +56,20 @@
 
 //确定操作
 - (void)confirmAction {
-    
-    NSMutableDictionary *dictonary = [UserInformationModel attributesWithInformationModelArray:self.removeListArray userProfile:STUserAccountHandler.userProfile chatType:@1];
-    
+
     NSMutableArray *membersArrray = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < self.removeListArray.count; i++) {
+    for (int i = 0; i < self.modifiedArray.count; i++) {
         
-        UserInformationModel *model = self.removeListArray[i];
+        UserInformationModel *model = self.modifiedArray[i];
         
-        [membersArrray addObject:model.userId];
+        [membersArrray addObject:[NSString stringWithFormat:@"%@",model.userId]];
     }
     
-    
-    
-    [[CDChatManager sharedManager] createConversationWithMembers:@[] type:CDConversationTypeGroup unique:YES attributes:dictonary callback:^(AVIMConversation *conversation, NSError *error) {
-       
+    if (self.doneBlock) {
         
-        
-    }];
+        self.doneBlock(self,membersArrray,self.modifiedArray);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,7 +82,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.dataArray.count;
+    return self.userModelArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -107,7 +101,7 @@
         cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][4];
     }
         
-    UserInformationModel *model = _dataArray[indexPath.row];
+    UserInformationModel *model = self.userModelArray[indexPath.row];
     
     [cell.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:[model showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];//显示图片
     
@@ -133,22 +127,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UserInformationModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    UserInformationModel *model = [self.userModelArray objectAtIndex:indexPath.row];
     
-    if (![self.removeListArray containsObject:model]) {//不包含 才加进去
+    if (![self.modifiedArray containsObject:model]) {//不包含 才加进去
         
-        [self.removeListArray addObject:model];
+        [self.modifiedArray addObject:model];
+        
+        [self judgeBarButtonCanUse:self.modifiedArray];//判断按钮是否可用
     }
 }
 
 //取消一项
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UserInformationModel *deleteObject = [self.dataArray objectAtIndex:indexPath.row];
+    UserInformationModel *deleteObject = [self.userModelArray objectAtIndex:indexPath.row];
     
-    if ([self.removeListArray containsObject:deleteObject]) {//不包含 才加进去
+    if ([self.modifiedArray containsObject:deleteObject]) {//不包含 才加进去
         
-        [self.removeListArray removeObject:deleteObject];
+        [self.modifiedArray removeObject:deleteObject];
+        
+        [self judgeBarButtonCanUse:self.modifiedArray];//判断按钮是否可用
+    }
+}
+
+- (void)judgeBarButtonCanUse:(NSMutableArray *)removeListArray {
+    
+    if (removeListArray.count > 0) {
+        
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+//        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"确定(%d)",(int)removeListArray.count];
+        
+    } else {
+        
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        
+//        self.navigationItem.rightBarButtonItem.title = @"确定";
     }
 }
 

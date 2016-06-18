@@ -22,7 +22,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="swK-oZ-czC">
-                        <rect key="frame" x="222" y="4" width="65" height="65"/>
+                        <rect key="frame" x="212" y="4" width="65" height="65"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="65" id="ULg-3h-d1P"/>
@@ -33,7 +33,7 @@
                 <constraints>
                     <constraint firstItem="1oW-3B-rVv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="HUC-2r-XLD"/>
                     <constraint firstItem="1oW-3B-rVv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PTe-3U-Uja"/>
-                    <constraint firstAttribute="trailing" secondItem="swK-oZ-czC" secondAttribute="trailing" id="c8I-nF-n3j"/>
+                    <constraint firstAttribute="trailing" secondItem="swK-oZ-czC" secondAttribute="trailing" constant="10" id="c8I-nF-n3j"/>
                     <constraint firstItem="swK-oZ-czC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cnl-6Y-k1r"/>
                 </constraints>
             </tableViewCellContentView>

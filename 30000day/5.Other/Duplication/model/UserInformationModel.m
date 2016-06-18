@@ -9,6 +9,7 @@
 //
 
 #import "UserInformationModel.h"
+#import "PersonInformationsManager.h"
 
 @implementation UserInformationModel
 
@@ -70,7 +71,7 @@
     return @{[model.userId stringValue]:dictionary_first,[userProfile.userId stringValue]:dictionay_second,@"type":@0};
 }
 
-+ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType {
++ (NSMutableDictionary *)attributesWithInformationModelArray:(NSArray <UserInformationModel *> *)informationModelArray userProfile:(UserProfile *)userProfile chatType:(NSNumber *)chatType {
     
     NSMutableDictionary *rootDictionary = [NSMutableDictionary dictionary];
     
@@ -88,7 +89,7 @@
     return rootDictionary;
 }
 
-//以一个UserInformationModel的模型获取一个字典
+//以一个UserInformationModel的模型获取一个字典 @{@"nickName":@"GuoJia",@"userId":@"100000035",@"imgUrl":@"http://xxxxxx.xxxxxx"}
 + (NSMutableDictionary *)dictionaryWithModel:(UserInformationModel *)model {
     
     NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];
@@ -109,6 +110,20 @@
         [tmpDictionary setObject:@"" forKey:ORIGINAL_IMG_URL];
     }
     return tmpDictionary;
+}
+
+//和上面方法是反过来的
++ (UserInformationModel *)modelWitDictionary:(NSDictionary *)dictionary {
+    
+    UserInformationModel *model = [[UserInformationModel alloc] init];
+    
+    model.userId = [NSNumber numberWithLongLong:[[dictionary objectForKey:USER_ID] longLongValue]];
+
+    model.originalNickName = [dictionary objectForKey:ORIGINAL_NICK_NAME];
+    
+    model.originalHeadImg = [dictionary objectForKey:ORIGINAL_IMG_URL];
+    
+    return model;
 }
 
 + (NSMutableDictionary *)dictionaryWithUserProfile:(UserProfile *)profile {
@@ -160,7 +175,7 @@
     }
 }
 
-+ (NSString *)nameOfUserInformationModelArray:(NSArray *)modelArray {
++ (NSString *)nameOfUserInformationModelArray:(NSArray <UserInformationModel *> *)modelArray {
     
     NSMutableArray *names = [NSMutableArray array];
     

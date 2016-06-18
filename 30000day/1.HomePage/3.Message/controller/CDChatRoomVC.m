@@ -26,6 +26,7 @@
 #import <AVKit/AVKit.h>
 #import "IDMPhotoBrowser.h"
 #import "TZImageManager.h"
+#import "STCroupSettingViewController.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -84,12 +85,31 @@ static NSInteger const kOnePageSize = 10;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.title = self.conversation.displayName;
+    self.title = [self.conversation conversationDisplayName];
+    
+    if (self.conversation.type == CDConversationTypeSingle) {
+        
+//        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"单设" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
+//        
+//        self.navigationItem.rightBarButtonItem = rightItem;
+        
+    } else if (self.conversation.type == CDConversationTypeGroup) {
+        
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"群设" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
+        
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }
     
     if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
-        [self setBackgroundImageURL:[NSURL URLWithString:self.conversation.otherHeadUrl]];
-        
+        if (self.conversation.type == CDConversationTypeSingle) {//单聊
+            
+            [self setBackgroundImageURL:[NSURL URLWithString:[self.conversation headUrl:self.conversation.otherId]]];
+            
+        } else if (self.conversation.type == CDConversationTypeGroup) {//群聊
+            
+        }
+
     } else {
         
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -107,6 +127,17 @@ static NSInteger const kOnePageSize = 10;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
 
     [self loadMessagesWhenInit];
+}
+
+- (void)rightAction {
+    
+    STCroupSettingViewController *controller = [[STCroupSettingViewController alloc] init];
+    
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    controller.conversation = self.conversation;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -160,10 +191,10 @@ static NSInteger const kOnePageSize = 10;
     [self.emotionManagerView reloadData];
 }
 
-- (void)refreshConv {
-    
-    self.title = self.conversation.title;
-}
+//- (void)refreshConv {
+//    
+//    self.title = self.conversation.title;
+//}
 
 - (void)tapAction {
     
@@ -868,19 +899,6 @@ static NSInteger const kOnePageSize = 10;
     return [NSDate dateWithTimeIntervalSince1970:timestamp / 1000];
 }
 
-- (NSString *)userNameByClientId:(NSString *)clientId {
-    
-    if ([[CDChatManager manager].clientId isEqualToString:clientId]) {
-        
-        return STUserAccountHandler.userProfile.nickName;
-        
-    } else {
-        
-       return self.conversation.displayName;
-        
-    }
-}
-
 - (NSString *)avatorUrlByClientId:(NSString *)clientId {
     
     if ([[CDChatManager manager].clientId isEqualToString:clientId]) {
@@ -889,14 +907,13 @@ static NSInteger const kOnePageSize = 10;
         
     } else {
         
-        return self.conversation.otherHeadUrl;
-        
+        return [self.conversation headUrl:clientId];
     }
 }
 
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
     
-    NSString *nickName = [self userNameByClientId:msg.clientId];
+    NSString *nickName = [self.conversation memberName:msg.clientId];//查找该条消息发送的昵称
     
     XHMessage *xhMessage;
     

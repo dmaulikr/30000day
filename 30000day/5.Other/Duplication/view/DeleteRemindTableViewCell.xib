@@ -27,6 +27,9 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96078431372549022" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="titleLabel" destination="Lmx-om-PBX" id="a9P-jD-qpQ"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

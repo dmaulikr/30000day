@@ -84,7 +84,6 @@
     [self.navigationController pushViewController:addfvc animated:YES];
 }
 
-
 - (void)headerRefreshing {
     
     [self getMyFriends];

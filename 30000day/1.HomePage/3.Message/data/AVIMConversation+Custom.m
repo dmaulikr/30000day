@@ -49,19 +49,41 @@
     return [[self.attributes objectForKey:CONVERSATION_TYPE] intValue];
 }
 
-- (NSString *)displayName {
+/**
+ *  对话中会员的的名称
+ */
+- (NSString *)memberName:(NSString *)memberClientId {
+    
+    NSDictionary *otherDictionary = self.attributes;
+    
+    NSDictionary *newDictionay = [otherDictionary objectForKey:memberClientId];
+    
+    if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName]) {
+        
+        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName;
+        
+    } else {
+        
+        return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+    }
+}
+
+/**
+ *  对话显示的名称。单聊显示对方名字，群聊显示对话的name
+ */
+- (NSString *)conversationDisplayName {
     
     if ([self type] == CDConversationTypeSingle) {
         
-        NSString *otherId = [self otherId];
-        
         NSDictionary *otherDictionary = self.attributes;
         
-        NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
+        NSString *clientId = [self otherId];
         
-        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].nickName]) {
+        NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
+        
+        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName]) {
             
-            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].nickName;
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName;
             
         } else {
             
@@ -74,39 +96,77 @@
     }
 }
 
-- (NSString *)otherHeadUrl {
+/**
+ *  对话显示的公告，目前只限于群聊
+ */
+- (NSString *)groupChatNotice {
     
-    if ([self type] == CDConversationTypeSingle) {
+    NSDictionary *dictionary = self.attributes;
+    
+    NSString *notice = [dictionary objectForKey:CONVERSATION_NOTICE];
+    
+    if (notice) {//表示有设置自定义的属性
         
-        NSString *otherId = [self otherId];
+        return notice;
         
-        NSDictionary *otherDictionary = self.attributes;
+    } else {//表示没有设置自定义的属性
         
-        NSDictionary *newDictionay = [otherDictionary objectForKey:otherId];
+        return @"暂无公告";
+    }
+}
+
+/**
+ * 获取群主的名字，如何当前有给群主昵称那么显示昵称,目前仅限于群聊
+ */
+- (NSString *)groupChatAdminName {
+    
+    NSDictionary *otherDictionary = self.attributes;
+    
+    NSString *clientId = self.creator;
+    
+    NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
+    
+    if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName]) {
         
-        if ([[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]] && ![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].headImg]) {
+        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName;
+        
+    } else {
+        
+        return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+    }
+}
+
+/**
+ *  对话对方的头像url。单聊对方的头像，群聊头像根据clientId去匹配
+ */
+- (NSString *)headUrl:(NSString *)clientId {
+    
+    NSDictionary *otherDictionary = self.attributes;
+    
+    NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
+    
+    if ([[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]] && ![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg]) {
+        
+        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg;
+        
+    } else {
+        
+        if ([Common isObjectNull:[newDictionay objectForKey:ORIGINAL_IMG_URL]]) {//表示这人在attributes无记录
             
-            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[otherId longLongValue]]].headImg;
+            return @"";
             
         } else {
             
             return [newDictionay objectForKey:ORIGINAL_IMG_URL];
         }
-        
-    } else {
-        
-        return @"正在开发";
     }
 }
-
 
 - (NSString *)otherId {
     
     NSArray *members = self.members;
     
     if (members.count == 0) {
-        
-//        [NSException raise:@"invalid conversation" format:@"invalid conversation"];
         return INVALID_CONVERSATION;
     }
     
@@ -129,23 +189,26 @@
     return otherId;
 }
 
-- (NSString *)title {
+/**
+ * 获取群聊的群头像URL,目前仅限于群聊
+ */
+- (NSString *)groupChatImageURL {
     
-    if (self.type == CDConversationTypeSingle) {
-        
-        return self.displayName;
-        
-    } else {
-        
-        return [NSString stringWithFormat:@"%@(%ld)", self.displayName, (long)self.members.count];
-    }
+    NSDictionary *otherDictionary = self.attributes;
+    
+    return [otherDictionary objectForKey:CONVERSATION_IMAGE_URL];
 }
 
+
 - (UIImage *)icon {
+    
     NSString *name = self.name;
+    
     if (name.length == 0) {
+        
         name = @"Conversation";
     }
+    
     return [UIImage imageWithHashString:self.conversationId displayString:[[name substringWithRange:NSMakeRange(0, 1)] capitalizedString]];
 }
 

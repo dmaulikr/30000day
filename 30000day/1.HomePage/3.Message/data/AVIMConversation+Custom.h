@@ -45,20 +45,34 @@ typedef enum : NSUInteger {
 - (NSString *)otherId;
 
 /**
- *  对话显示的名称。单聊显示对方名字，群聊显示对话的 name
+ *  对话中会员的的名称
  */
-- (NSString *)displayName;
-
-
-/**
- *  对话对方的头像url。单聊对方的头像，群聊有待开发
- */
-- (NSString *)otherHeadUrl;
+- (NSString *)memberName:(NSString *)memberClientId;
 
 /**
- *  对话的标题。如 兴趣群(30)
+ *  对话显示的名称。单聊显示对方名字，群聊显示对话的name
  */
-- (NSString *)title;
+- (NSString *)conversationDisplayName;
+
+/**
+ *  对话对方的头像url。单聊对方的头像，群聊头像根据clientId去匹配
+ */
+- (NSString *)headUrl:(NSString *)clientId;
+
+/**
+ *  对话显示的公告，目前只限于群聊
+ */
+- (NSString *)groupChatNotice;
+
+/**
+ * 获取群主的名字，如何当前有给群主昵称那么显示昵称,目前仅限于群聊
+ */
+- (NSString *)groupChatAdminName;
+
+/**
+ * 获取群聊的群头像URL,目前仅限于群聊
+ */
+- (NSString *)groupChatImageURL;
 
 
 /**

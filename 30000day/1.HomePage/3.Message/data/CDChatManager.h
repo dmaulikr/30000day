@@ -106,12 +106,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 - (void)fetchConversationWithMembers:(NSArray *)members callback:(AVIMConversationResultBlock)callback;
 
-/**
- *  获取我在其中的群聊对话，优先从缓存中获取
- *  @param block 对话数组回调
- */
-- (void)findGroupedConversationsWithBlock:(AVIMArrayResultBlock)block;
-
 /*!
  *  获取我在其中的群聊对话
  *  @param networkFirst 是否网络优先
@@ -176,12 +170,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (void)findRecentConversationsWithBlock:(CDRecentConversationsCallback)block;
 
 /**
- *  从本地最近对话的数据库中删除对话
- *  @param conversation 要删除的对话
- */
-- (void)deleteConversation:(AVIMConversation *)conversation;
-
-/**
  *  在 ApplicationDelegate 中的 application:didRemoteNotification 调用，来记录推送时的 convid，这样点击弹框打开后进入相应的对话
  *  @param userInfo
  *  @return 是否检测到 convid 做了处理
@@ -213,5 +201,11 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (NSString *)uuid;
 
 + (NSError *)errorWithText:(NSString *)text;
+
+/**
+ * 退出对话并删除
+ */
+- (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack;
+
 
 @end

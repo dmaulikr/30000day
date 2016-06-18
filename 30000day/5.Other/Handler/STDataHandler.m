@@ -446,6 +446,8 @@
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                                             
                                                                             [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+                                                                            
+                                                                            NSLog(@"---连接凌云聊天服务器成功");
                                                                         });
                                                                         
                                                                     } else {
