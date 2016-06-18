@@ -142,12 +142,12 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [CDChatManager manager].chattingConversationId = self.conversation.conversationId;
+    [CDChatManager sharedManager].chattingConversationId = self.conversation.conversationId;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [CDChatManager manager].chattingConversationId = nil;
+    [CDChatManager sharedManager].chattingConversationId = nil;
     if (self.msgs.count > 0) {
         [self updateConversationAsRead];
     }
@@ -228,17 +228,38 @@ static NSInteger const kOnePageSize = 10;
             
         case XHBubbleMessageMediaTypePhoto: {
             
-            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:@[message.originPhotoUrl]];
+           NSMutableArray *messageArray =  [[CDChatManager sharedManager] typeMessageArrayWith:kAVIMMessageMediaTypeImage conversation:self.conversation];
+            
+            NSMutableArray *photoUrlArray = [[NSMutableArray alloc] init];
+            
+            for (AVIMImageMessage *message in messageArray) {
+                
+                AVFile *file = message.file;
+                
+                [photoUrlArray addObject:file.url];
+            }
+            
+            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:photoUrlArray];
             
             browser.forceHideStatusBar = YES;
             
             browser.displayDoneButton = NO;
             
-            browser.displayToolbar = NO;
+            browser.displayToolbar = YES;
             
             browser.autoHideInterface = false;
             
+            browser.displayActionButton = NO;
+            
+            browser.displayArrowButton = YES;
+            
+            browser.displayCounterLabel = YES;
+            
             browser.animationDuration = 1.0f;
+            
+            browser.disableVerticalSwipe = YES;
+            
+            [browser setInitialPageIndex:[photoUrlArray indexOfObject:message.originPhotoUrl]];
             
             self.browser = browser;
             
@@ -373,7 +394,7 @@ static NSInteger const kOnePageSize = 10;
 //发送文本消息的回调方法
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
         
@@ -420,7 +441,7 @@ static NSInteger const kOnePageSize = 10;
     
     [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
     
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@""];
         
@@ -467,7 +488,7 @@ static NSInteger const kOnePageSize = 10;
     
     [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
     
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
         
@@ -583,7 +604,7 @@ static NSInteger const kOnePageSize = 10;
 //发送语音消息的回调方法
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
     
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
         
@@ -598,7 +619,7 @@ static NSInteger const kOnePageSize = 10;
 // 发送表情消息的回调方法
 - (void)didSendEmotion:(NSString *)emotion fromSender:(NSString *)sender onDate:(NSDate *)date {
     
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
         
@@ -635,7 +656,7 @@ static NSInteger const kOnePageSize = 10;
 }
 
 - (void)didSendGeoLocationsPhoto:(UIImage *)geoLocationsPhoto geolocations:(NSString *)geolocations location:(CLLocation *)location fromSender:(NSString *)sender onDate:(NSDate *)date {
-    if ([CDChatManager manager].client.status != AVIMClientStatusOpened) {
+    if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         return;
     }
     [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeLocalPosition];
@@ -771,7 +792,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)sendMsg:(AVIMTypedMessage *)msg {
     
-    [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+    [[CDChatManager sharedManager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
         
         if (error) {
             
@@ -811,7 +832,7 @@ static NSInteger const kOnePageSize = 10;
     
     NSString *recordId = msg.messageId;
     
-    [[CDChatManager manager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+    [[CDChatManager sharedManager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
         
         if (error) {
             
@@ -901,7 +922,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (NSString *)avatorUrlByClientId:(NSString *)clientId {
     
-    if ([[CDChatManager manager].clientId isEqualToString:clientId]) {
+    if ([[CDChatManager sharedManager].clientId isEqualToString:clientId]) {
         
         return STUserAccountHandler.userProfile.headImg;
         
@@ -997,7 +1018,7 @@ static NSInteger const kOnePageSize = 10;
     
     xhMessage.avatorUrl = [self avatorUrlByClientId:msg.clientId];
     
-    if ([[CDChatManager manager].clientId isEqualToString:msg.clientId]) {
+    if ([[CDChatManager sharedManager].clientId isEqualToString:msg.clientId]) {
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeSending;
         
@@ -1042,7 +1063,7 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)queryAndCacheMessagesWithTimestamp:(int64_t)timestamp block:(AVIMArrayResultBlock)block {
     
-    [[CDChatManager manager] queryTypedMessagesWithConversation:self.conversation timestamp:timestamp limit:kOnePageSize block:^(NSArray *msgs, NSError *error) {
+    [[CDChatManager sharedManager] queryTypedMessagesWithConversation:self.conversation timestamp:timestamp limit:kOnePageSize block:^(NSArray *msgs, NSError *error) {
         
         if (error) {
             
@@ -1096,7 +1117,7 @@ static NSInteger const kOnePageSize = 10;
                 }
                 
                 // 如果连接上，则重发所有的失败消息。若夹杂在历史消息中间不好处理
-                if ([CDChatManager manager].connect) {
+                if ([CDChatManager sharedManager].connect) {
                     
                     for (NSInteger row = msgs.count;row < allMessages.count; row ++) {
                         

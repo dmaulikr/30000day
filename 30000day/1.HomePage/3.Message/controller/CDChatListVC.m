@@ -124,7 +124,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     self.isRefreshing = YES;
     
-    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
+    [[CDChatManager sharedManager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
         
         dispatch_block_t finishBlock = ^{
             
@@ -155,14 +155,14 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (void)selectConversationIfHasRemoteNotificatoinConvid {
     
-    if ([CDChatManager manager].remoteNotificationConvid) {
+    if ([CDChatManager sharedManager].remoteNotificationConvid) {
         
         // 进入之前推送弹框点击的对话
         BOOL found = NO;
         
         for (AVIMConversation *conversation in self.conversations) {
             
-            if ([conversation.conversationId isEqualToString:[CDChatManager manager].remoteNotificationConvid]) {
+            if ([conversation.conversationId isEqualToString:[CDChatManager sharedManager].remoteNotificationConvid]) {
                 
                 if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
                     
@@ -177,7 +177,7 @@ static NSString *cellIdentifier = @"ContactCell";
             DLog(@"not found remoteNofitciaonID");
         }
         
-        [CDChatManager manager].remoteNotificationConvid = nil;
+        [CDChatManager sharedManager].remoteNotificationConvid = nil;
     }
 }
 

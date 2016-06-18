@@ -177,7 +177,7 @@
     
     NSString *otherId;
     
-    if ([members[0] isEqualToString:[CDChatManager manager].clientId]) {
+    if ([members[0] isEqualToString:[CDChatManager sharedManager].clientId]) {
         
         otherId = members[1];
         

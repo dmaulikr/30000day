@@ -34,7 +34,7 @@ static CDChatManager *instance;
 
 #pragma mark - lifecycle
 
-+ (instancetype)manager {
++ (instancetype)sharedManager {
     
     static dispatch_once_t token;
     
@@ -44,10 +44,6 @@ static CDChatManager *instance;
     });
     
     return instance;
-}
-
-+ (instancetype)sharedManager {
-    return [self manager];
 }
 
 - (instancetype)init {
@@ -604,67 +600,6 @@ static CDChatManager *instance;
     }
 }
 
-#pragma mark - File Utils
-
-- (NSString *)getFilesPath {
-    
-    NSString *appPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSString *filesPath = [appPath stringByAppendingString:@"/files/"];
-    
-    NSFileManager *fileMan = [NSFileManager defaultManager];
-    
-    NSError *error;
-    
-    BOOL isDir = YES;
-    
-    if ([fileMan fileExistsAtPath:filesPath isDirectory:&isDir] == NO) {
-        
-        [fileMan createDirectoryAtPath:filesPath withIntermediateDirectories:YES attributes:nil error:&error];
-        
-        if (error) {
-            
-            [NSException raise:@"error when create dir" format:@"error"];
-        }
-    }
-    
-    return filesPath;
-}
-
-- (NSString *)getPathByObjectId:(NSString *)objectId {
-    return [[self getFilesPath] stringByAppendingFormat:@"%@", objectId];
-}
-
-- (NSString *)videoPathOfMessag:(AVIMVideoMessage *)message {
-    //视频播放会根据文件扩展名来识别格式
-    return [[self getFilesPath] stringByAppendingFormat:@"%@.mp4", message.messageId];
-}
-
-- (NSString *)tmpPath {
-    return [[self getFilesPath] stringByAppendingFormat:@"tmp"];
-}
-
-- (NSString *)uuid {
-    
-    NSString *chars = @"abcdefghijklmnopgrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    
-    assert(chars.length == 62);
-    
-    int len = (int)chars.length;
-    
-    NSMutableString *result = [[NSMutableString alloc] init];
-    
-    for (int i = 0; i < 24; i++) {
-        
-        int p = arc4random_uniform(len);
-        
-        NSRange range = NSMakeRange(p, 1);
-        
-        [result appendString:[chars substringWithRange:range]];
-    }
-    
-    return result;
-}
 
 + (NSError *)errorWithText:(NSString *)text {
     
@@ -872,5 +807,25 @@ static CDChatManager *instance;
         }
     }];
 }
+
+/**
+ * 根据对话来查找某种特定类型的消息
+ */
+- (NSMutableArray *)typeMessageArrayWith:(AVIMMessageMediaType )mediaType conversation:(AVIMConversation *)conversation {
+    
+    NSArray *typeArray = [conversation queryMessagesFromCacheWithLimit:1000];//这里暂时做成这样只查询1000条,以后要自己从重新写数据库存储
+    
+    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+    
+    for (AVIMTypedMessage *message in typeArray) {
+        
+        if (message.mediaType == mediaType) {
+            
+            [dataArray addObject:message];
+        }
+    }
+    return dataArray;
+}
+
 
 @end

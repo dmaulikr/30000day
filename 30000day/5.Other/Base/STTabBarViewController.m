@@ -56,7 +56,7 @@
 
 - (void)getUnreadMessageBadge {
 
-    [[CDChatManager manager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
+    [[CDChatManager sharedManager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
         
         dispatch_block_t finishBlock = ^{
     

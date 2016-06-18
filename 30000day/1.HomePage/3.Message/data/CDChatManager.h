@@ -66,11 +66,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 /**
  *  获取单例
  */
-+ (instancetype)manager;
-
-/**
- *  获取单例，专门提供给 Swift 调用。与 manager 的实现没有区别
- */
 + (instancetype)sharedManager;
 
 /**
@@ -177,35 +172,13 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (BOOL)didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 /**
- *  根据消息的 id 获取声音文件的路径
- *  @param objectId 消息的 id
- *  @return 文件路径
- */
-- (NSString *)getPathByObjectId:(NSString *)objectId;
-
-/*!
- *  根据消息来获取视频文件的路径。
- */
-- (NSString *)videoPathOfMessag:(AVIMVideoMessage *)message;
-
-/**
- *  图片消息，临时的压缩图片路径
- *  @return
- */
-- (NSString *)tmpPath;
-
-/**
- *  发送失败的消息的临时的 id
- *  @return
- */
-- (NSString *)uuid;
-
-+ (NSError *)errorWithText:(NSString *)text;
-
-/**
  * 退出对话并删除
  */
 - (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack;
 
+/**
+ * 根据对话来查找某种特定类型的消息
+ */
+- (NSMutableArray *)typeMessageArrayWith:(AVIMMessageMediaType )mediaType conversation:(AVIMConversation *)conversation;
 
 @end

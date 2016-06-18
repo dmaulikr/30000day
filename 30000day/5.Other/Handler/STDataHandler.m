@@ -439,7 +439,7 @@
                                                                 
                                                                 
                                                                 //登录凌云服务器
-                                                                [[CDChatManager manager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
+                                                                [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
                                                                     
                                                                     if (succeeded) {
                                                                         

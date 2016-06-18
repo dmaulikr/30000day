@@ -394,7 +394,7 @@
         
         [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
     
-        [[CDChatManager manager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
+        [[CDChatManager sharedManager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
             
         }];
         

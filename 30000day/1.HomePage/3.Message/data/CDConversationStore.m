@@ -107,7 +107,7 @@
 
 - (AVIMConversation *)conversationFromData:(NSData *)data{
     AVIMKeyedConversation *keyedConversation = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    return [[CDChatManager manager].client conversationWithKeyedConversation:keyedConversation];
+    return [[CDChatManager sharedManager].client conversationWithKeyedConversation:keyedConversation];
 }
 
 - (void)updateUnreadCountToZeroWithConversation:(AVIMConversation *)conversation {
