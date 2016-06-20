@@ -14,6 +14,7 @@
 #import "AgeTableViewCell.h"
 #import "CalendarTableViewCell.h"
 #import "AllRemindViewController.h"
+#import "CountDownTableViewCell.h"
 
 //#define  CHOOSE_AGE_STRING    [Common isObjectNull:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]] ? @"80" : [Common readAppDataForKey:USER_CHOOSE_AGENUMBER] //用户所选择的年龄比如:100、90、80
 
@@ -27,10 +28,13 @@
 
 @property (nonatomic,strong) AgeTableViewCell *ageCell;
 
+@property (nonatomic,strong) CountDownTableViewCell *countDownCell;
+
 @property (nonatomic,strong) CalendarTableViewCell *calendarCell;//日期cell
 
 @property (nonatomic,copy) NSString *chooseDateString;//比如2015-05-12等等
 
+@property (nonatomic,strong) NSDate *countDownDate;//倒计时
 
 @end
 
@@ -130,6 +134,8 @@
         int birthdayNumber = birthdayInterval/86400.0f;
         
         self.birthdayCell.titleLabel.text = [NSString stringWithFormat:@"您出生到这天过去了%d天。",birthdayNumber];
+        
+        
     }
     
     NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
@@ -137,6 +143,26 @@
     NSString *age = [Common isObjectNull:userConfigure[@"Age"]] ? @"80" : userConfigure[@"Age"];
     
     [self.ageCell.ageButton setTitle:[NSString stringWithFormat:@"%@岁",age] forState:UIControlStateNormal];//显示用户选择的年龄
+    
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy年MM月dd日"];
+    
+    NSString *timeString = [formatter stringFromDate:self.countDownDate] == nil ? [formatter stringFromDate:[NSDate date]]:[formatter stringFromDate:self.countDownDate];
+    
+    [self.countDownCell.timeButton setTitle:[NSString stringWithFormat:@"%@",timeString] forState:UIControlStateNormal];
+    
+
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    unsigned int unitFlags = NSCalendarUnitDay;
+    
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:[NSDate date] toDate:self.countDownDate options:0];
+    
+    [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
     
     [self.tableView reloadData];
 }
@@ -224,6 +250,33 @@
     return _ageCell;
 }
 
+- (CountDownTableViewCell *)countDownCell {
+    
+    if (!_countDownCell) {
+        
+        _countDownCell =  [[[NSBundle mainBundle] loadNibNamed:@"CountDownTableViewCell" owner:nil options:nil] lastObject];
+        
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [_countDownCell setChooseAgeBlock:^{
+       
+        QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+        
+        [picker setTag:1];
+        
+        picker.delegate = weakSelf;
+        
+        picker.titleText = @"选择年龄";
+        
+        [picker showDataPickView:[UIApplication sharedApplication].keyWindow  WithDate:nil datePickerMode:UIDatePickerModeDate minimumDate:[NSDate date] maximumDate:[NSDate dateWithTimeIntervalSinceNow:(500.00000*365.00000*24.000000*60.00000*60.00000)]];
+        
+    }];
+    
+    return _countDownCell;
+}
+
 - (CalendarTableViewCell *)calendarCell {
     
     if (!_calendarCell) {
@@ -253,6 +306,8 @@
         [_calendarCell setDateBlock:^(NSDate *chooseDate) {
             
             weakSelf.selectorDate = chooseDate;
+            
+            weakSelf.countDownDate = chooseDate;
             
             //刷新日期的控件
             [weakSelf reloadShowCalendarDateWith:weakSelf.selectorDate];
@@ -315,9 +370,19 @@
 
 - (void)didSelectPickView:(QGPickerView *)pickView selectDate:(NSDate *)selectorDate {
     
-    self.selectorDate = selectorDate;
+    if (pickView.tag == 1) {
+        
+        self.countDownDate = selectorDate;
+        
+        [self reloadDate];
+        
+    } else {
     
-    [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
+        self.selectorDate = selectorDate;
+        
+        [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
+        
+    }
 }
 
 #pragma -----
@@ -336,7 +401,7 @@
         
     } else if (section == 1) {
         
-        return 2;
+        return 3;
         
     } else if (section == 2) {
         
@@ -385,6 +450,10 @@
             
             return self.ageCell;
             
+        } else {
+        
+            return self.countDownCell;
+        
         }
         
     } else if (indexPath.section == 2) {

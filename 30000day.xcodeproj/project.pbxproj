@@ -653,6 +653,8 @@
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
+		F5F8E7EC1D1792CA00B96756 /* CountDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8E7EA1D1792CA00B96756 /* CountDownTableViewCell.m */; };
+		F5F8E7ED1D1792CA00B96756 /* CountDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F8E7EB1D1792CA00B96756 /* CountDownTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1794,6 +1796,9 @@
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
+		F5F8E7E91D1792CA00B96756 /* CountDownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownTableViewCell.h; sourceTree = "<group>"; };
+		F5F8E7EA1D1792CA00B96756 /* CountDownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownTableViewCell.m; sourceTree = "<group>"; };
+		F5F8E7EB1D1792CA00B96756 /* CountDownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountDownTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2826,6 +2831,9 @@
 				B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */,
 				B83B7A301CAA848E00D2CC6A /* CalendarTableViewCell.h */,
 				B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */,
+				F5F8E7E91D1792CA00B96756 /* CountDownTableViewCell.h */,
+				F5F8E7EA1D1792CA00B96756 /* CountDownTableViewCell.m */,
+				F5F8E7EB1D1792CA00B96756 /* CountDownTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4682,6 +4690,7 @@
 				B601197A1C9404BC0061AD89 /* CommentViewController.xib in Resources */,
 				B8F6486F1C9424AA001A3119 /* AppointmentViewController.xib in Resources */,
 				B804FD821C8AC9A900DFD1CF /* loudReceive.caf in Resources */,
+				F5F8E7ED1D1792CA00B96756 /* CountDownTableViewCell.xib in Resources */,
 				B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */,
 				B804FD771C8AC9A900DFD1CF /* face_HL@2x.png in Resources */,
 				B665F8C41CC4BF5200070458 /* btn_unselected.png in Resources */,
@@ -4980,6 +4989,7 @@
 				B8FD3E191C8A7903007BCA6B /* XHBaseTableViewCell.m in Sources */,
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B612DD831CACFE21004C428C /* ShopTitleTableViewCell.m in Sources */,
+				F5F8E7EC1D1792CA00B96756 /* CountDownTableViewCell.m in Sources */,
 				B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */,
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
