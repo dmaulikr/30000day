@@ -69,6 +69,9 @@ static NSString *const STDidSuccessDeleteRemindSendNotification = @"STDidSuccess
 //日历提醒成功或者增加发出的通知
 static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSuccessChangeOrAddRemindSendNotification";
 
+//退出群聊
+static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSuccessQuitGroupChatSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;

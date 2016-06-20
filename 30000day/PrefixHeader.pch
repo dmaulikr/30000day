@@ -267,11 +267,15 @@
 #define  CHECK_PASS                  @"/stapi/user/checkPassword"              //检测密码是否正确
 
 //凌云用到的宏
-#define NICK_NAME             @"nickName"
-#define USER_ID               @"userId"
-#define IMG_URL               @"imgUrl"
-#define ORIGINAL_NICK_NAME    @"originalNickName"
-#define ORIGINAL_IMG_URL      @"originalHeadImg"
+#define NICK_NAME                  @"nickName"
+#define USER_ID                    @"userId"
+#define IMG_URL                    @"imgUrl"
+#define ORIGINAL_NICK_NAME         @"originalNickName"
+#define ORIGINAL_IMG_URL           @"originalHeadImg"
+#define CONVERSATION_NAME          @"conversationName"//聊天名称（群聊名字）
+#define CONVERSATION_IMAGE_URL     @"conversationImageURL"//聊天头像URL（群聊的头像）
+#define CONVERSATION_NOTICE        @"conversationNotice"//聊天公告（群聊才会显示）
+
 
 #define REQUEST_TYPE               @"Once, I'd found my best love, but I didn't treasure her!@#$%^233" //请求加为好友
 #define ACCEPT_TYPE                @"Once, I'd found my best love, but I didn't treasure her!@#$%^234" //接受别人的请求

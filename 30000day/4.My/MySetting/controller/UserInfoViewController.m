@@ -502,9 +502,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = info[UIImagePickerControllerEditedImage];
-    
-    UIImage *originImage = info[UIImagePickerControllerOriginalImage];
-    
+
     self.editorImage = image;
     
     //判断按钮是否可用
@@ -512,19 +510,10 @@
     
     self.portraitImageView.image = image;
     
-    //保存图片到本地相册
-    UIImageWriteToSavedPhotosAlbum(originImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
-    
     //保存headImage字段
     [self updateImage:image];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
-    
 }
 
 //判断保存按钮是否可用

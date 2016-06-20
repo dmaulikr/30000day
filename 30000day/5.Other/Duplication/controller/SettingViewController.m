@@ -23,7 +23,7 @@
     
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    self.title = @"修改备注";
+    self.title = @"修改";
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     

@@ -40,7 +40,7 @@
 
 + (UIImage *)imageWithColor:(UIColor *)color string:(NSString *)string {
     CGSize size = CGSizeMake(50, 50);
-    CGFloat radius = 4;
+    CGFloat radius = 0;
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     [[UIBezierPath bezierPathWithRoundedRect:rect

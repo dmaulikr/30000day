@@ -48,7 +48,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 @property (nonatomic, strong) AVIMClient *client;
 
-
 /**
  *  即 openClient 时的 clientId
  */
@@ -65,18 +64,7 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 @property (nonatomic, strong) NSString *chattingConversationId;
 
 /**
- *  是否使用开发证书去推送，默认为 NO。如果设为 YES 的话每条消息会带上这个参数，云代码利用 Hook 设置证书
- *  参考 https://github.com/leancloud/leanchat-cloudcode/blob/master/cloud/mchat.js
- */
-@property (nonatomic, assign) BOOL useDevPushCerticate;
-
-/**
  *  获取单例
- */
-+ (instancetype)manager;
-
-/**
- *  获取单例，专门提供给 Swift 调用。与 manager 的实现没有区别
  */
 + (instancetype)sharedManager;
 
@@ -98,14 +86,12 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 - (void)fecthConversationWithConversationId:(NSString *)conversationId callback:(AVIMConversationResultBlock)callback;
 
+#pragma mark ---- 新加的
 /**
  *  获取单聊对话
  *  @param otherId  对方的 clientId
  *  @param callback
  */
-- (void)fetchConversationWithOtherId:(NSString *)otherId callback:(AVIMConversationResultBlock)callback;
-
-#pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
 
 /**
@@ -114,12 +100,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  @param callback
  */
 - (void)fetchConversationWithMembers:(NSArray *)members callback:(AVIMConversationResultBlock)callback;
-
-/**
- *  获取我在其中的群聊对话，优先从缓存中获取
- *  @param block 对话数组回调
- */
-- (void)findGroupedConversationsWithBlock:(AVIMArrayResultBlock)block;
 
 /*!
  *  获取我在其中的群聊对话
@@ -133,10 +113,11 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  @param members  初始成员
  *  @param type     单聊或群聊
  *  @param unique   是否唯一，如果有相同 members 的成员且要求唯一的话，将不创建返回原来的对话。
+ *  @param attributes 回话的自定义字典
  *  @param callback 对话回调
  *  @attention  Always consider unique params.
  */
-- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique callback:(AVIMConversationResultBlock)callback;
+- (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
 
 /**
  *  更新对话 name 或 attrs
@@ -170,14 +151,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (void)sendMessage:(AVIMTypedMessage*)message conversation:(AVIMConversation *)conversation callback:(AVIMBooleanResultBlock)block;
 
 /**
- *  发送 "已经是好友了，我们来聊天吧" 之类的消息
- *  @param other 对方的 clientId
- *  @param text  消息文本
- *  @param block
- */
-- (void)sendWelcomeMessageToOther:(NSString *)other text:(NSString *)text block:(AVIMBooleanResultBlock)block;
-
-/**
  *  查询时间戳之前的历史消息
  *  @param conversation 需要查询的对话
  *  @param timestamp    起始时间戳
@@ -192,12 +165,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (void)findRecentConversationsWithBlock:(CDRecentConversationsCallback)block;
 
 /**
- *  从本地最近对话的数据库中删除对话
- *  @param conversation 要删除的对话
- */
-- (void)deleteConversation:(AVIMConversation *)conversation;
-
-/**
  *  在 ApplicationDelegate 中的 application:didRemoteNotification 调用，来记录推送时的 convid，这样点击弹框打开后进入相应的对话
  *  @param userInfo
  *  @return 是否检测到 convid 做了处理
@@ -205,29 +172,13 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (BOOL)didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 /**
- *  根据消息的 id 获取声音文件的路径
- *  @param objectId 消息的 id
- *  @return 文件路径
+ * 退出对话并删除
  */
-- (NSString *)getPathByObjectId:(NSString *)objectId;
-
-/*!
- *  根据消息来获取视频文件的路径。
- */
-- (NSString *)videoPathOfMessag:(AVIMVideoMessage *)message;
+- (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack;
 
 /**
- *  图片消息，临时的压缩图片路径
- *  @return
+ * 根据对话来查找某种特定类型的消息
  */
-- (NSString *)tmpPath;
-
-/**
- *  发送失败的消息的临时的 id
- *  @return
- */
-- (NSString *)uuid;
-
-+ (NSError *)errorWithText:(NSString *)text;
+- (NSMutableArray *)typeMessageArrayWith:(AVIMMessageMediaType )mediaType conversation:(AVIMConversation *)conversation;
 
 @end

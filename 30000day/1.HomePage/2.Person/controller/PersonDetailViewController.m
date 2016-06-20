@@ -218,7 +218,7 @@
     if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile]]) {
         
         //查询conversation
-        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
             if ([self filterError:error]) {
                 
@@ -272,10 +272,10 @@
         
         if (cell == nil) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][4];
+            cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][5];
         }
-        
-        cell.userNameLable.text = [NSString stringWithFormat:@"%@",self.userName];
+
+        cell.label_sixth.text = [NSString stringWithFormat:@"%@",self.informationModel.userName];
         
         return cell;
         

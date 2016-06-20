@@ -78,7 +78,7 @@
     
     NSString *nowStr = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:[NSDate date]];
     
-    //在转回去是因为要比较day的区别
+    //再次回去比较day的区别
     NSDate *date2 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:dateStr];
     
     NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
@@ -89,7 +89,7 @@
     
     NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
     
-    return cmps.day == -1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+    return cmps.day == -1 && cmps.year == 0 && cmps.month == 0;//相差一天,昨天
 }
 
 /** 判断是否为明天 */
@@ -107,13 +107,13 @@
     
     NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
     
-    NSCalendar *calendar  = [NSCalendar currentCalendar];//[[NSCalendar alloc] init]这样才对
+    NSCalendar *calendar  = [NSCalendar currentCalendar];
     
     NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
     
     NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
     
-    return cmps.day == 1 && cmps.year == 0 && cmps.month == 0;//这样才是相差一天,昨天
+    return cmps.day == 1 && cmps.year == 0 && cmps.month == 0;//相差一天,昨天
 }
 
 /** 判断某个时间是否为今天--年月日一样*/

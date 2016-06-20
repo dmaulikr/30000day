@@ -40,6 +40,8 @@
 //获取数据
 - (void)getDataFromServer {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [STDataHandler sendFindAllApplyAddFriendWithUserId:STUserAccountHandler.userProfile.userId success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -50,6 +52,8 @@
             
             [self.tableView.mj_header endRefreshing];
             
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
         });
         
     } failure:^(NSError *error) {
@@ -57,6 +61,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView.mj_header endRefreshing];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         });
     }];
 }

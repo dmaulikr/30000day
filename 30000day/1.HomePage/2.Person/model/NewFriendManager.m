@@ -20,7 +20,7 @@
     
     if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {//为空
         //查询conversation
-        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
             if (![Common isObjectNull:error]) {
                 
@@ -51,7 +51,7 @@
      if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {//为空
     
          //查询conversation
-         [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+         [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
              
              if (![Common isObjectNull:error]) {
                  
@@ -83,7 +83,7 @@
     if ([Common isObjectNull:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]]) {//为空
         
         //查询conversation
-        [[CDChatManager manager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",model.userId] attributes:[UserInformationModel attributesDictionay:model userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
             if (![Common isObjectNull:error]) {
                 

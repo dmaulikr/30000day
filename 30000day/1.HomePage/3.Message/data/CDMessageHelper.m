@@ -98,7 +98,7 @@
     
     if (conversation.type == CDConversationTypeGroup) {
         
-        title = [NSString stringWithFormat:@"%@: %@", STUserAccountHandler.userProfile.nickName, title];
+        title = [NSString stringWithFormat:@"%@: %@",[conversation memberName:message.clientId], title];
     }
     
     if (conversation.muted && conversation.unreadCount > 0) {

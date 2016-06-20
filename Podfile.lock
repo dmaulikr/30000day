@@ -28,10 +28,6 @@ PODS:
     - FMDB/standard (= 2.6)
   - FMDB/standard (2.6)
   - FSCalendar (2.0.1)
-  - IDMPhotoBrowser (1.8.4):
-    - DACircularProgress
-    - pop
-    - SDWebImage
   - iVersion (1.11.4)
   - JSBadgeView (1.4.1)
   - JZNavigationExtension (1.4.7)
@@ -55,7 +51,6 @@ DEPENDENCIES:
   - AVOSCloudIM
   - FMDB
   - FSCalendar
-  - IDMPhotoBrowser
   - iVersion
   - JSBadgeView
   - JZNavigationExtension
@@ -63,6 +58,7 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh
   - MWPhotoBrowser
+  - pop
   - SDWebImage
   - UMengSocial
   - YYModel
@@ -74,7 +70,6 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   FSCalendar: 18117308f5876a8f6f0fe572085d543580c2c5e5
-  IDMPhotoBrowser: b574fe3229754e701f32df271afbc4ac7e4e1997
   iVersion: 2b6ffe708672cb494ba3cab150a94800c2892e81
   JSBadgeView: 3861ddee41094284d9468e6d0af5107f703aaac5
   JZNavigationExtension: 235f57793791de029dd3e6cf785821abf75eeff1
