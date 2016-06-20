@@ -1433,11 +1433,6 @@ static CGPoint  delayOffset = {0.0};
     
     messageTableViewCell.indexPath = indexPath;
     
-//    if (self.messageTableView.dragging == NO && self.messageTableView.decelerating == NO) {
-//        
-//            [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
-//    }
-    
     [messageTableViewCell configureCellWithMessage:message displaysTimestamp:displayTimestamp];
     
     if ([self.delegate respondsToSelector:@selector(configureCell:atIndexPath:)]) {

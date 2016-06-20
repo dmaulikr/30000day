@@ -20,6 +20,16 @@
 //踢人操作
 + (void)removeMemberFromController:(UIViewController *)viewController fromClientId:(NSString *)fromClientId fromConversation:(AVIMConversation * )conversation callBack:(void (^)(BOOL success,NSError *error))callBack;
 
+//修改群名字
++ (void)modifiedGroupChatNameWithName:(NSString *)newName fromConversation:(AVIMConversation *)conversation callback:(void (^)(BOOL succeeded,NSError *error))callback;
 
+/**
+ * 给某个特定的conversation的attributes增加或者修改键值对
+ * @param conversation 带更新的conversation
+ * @param value conversation的attributes需要设置键值对的值
+ * @param key   conversation的attributes需要设置键值对的键
+ * @param messageBody 发送成功后发送message（这里暂定为暂态消息）的消息主体
+ */
++ (void)setAttributesKeyValueFromConversation:(AVIMConversation *)conversation value:(id)value key:(NSString *)key successedSentMessageBody:(NSString *)messageBody callback:(void (^)(BOOL succeeded,NSError *error))callback;
 
 @end

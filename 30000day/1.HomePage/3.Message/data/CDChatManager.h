@@ -120,15 +120,6 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
 - (void)createConversationWithMembers:(NSArray *)members type:(CDConversationType)type unique:(BOOL)unique attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback;
 
 /**
- *  更新对话 name 或 attrs
- *  @param Conversation     要更新的对话
- *  @param name     对话名字
- *  @param attrs    对话的附加属性
- *  @param callback
- */
-- (void)updateConversation:(AVIMConversation *)conversation name:(NSString *)name attrs:(NSDictionary *)attrs callback:(AVIMBooleanResultBlock)callback;
-
-/**
  *  将对话缓存在内存中
  *  @param conversationIds  需要缓存的对话 ids
  *  @param callback

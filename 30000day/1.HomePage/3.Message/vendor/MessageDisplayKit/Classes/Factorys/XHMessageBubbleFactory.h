@@ -17,13 +17,14 @@ typedef NS_ENUM(NSUInteger, XHBubbleImageViewStyle) {
     XHBubbleImageViewStyleWeChat = 0
 };
 
-typedef NS_ENUM(NSInteger, XHBubbleMessageMediaType) {
+typedef NS_ENUM(NSInteger, XHBubbleMessageMediaType) {//这个结构体会继续扩展
     XHBubbleMessageMediaTypeText = 0,
     XHBubbleMessageMediaTypePhoto = 1,
     XHBubbleMessageMediaTypeVideo = 2,
     XHBubbleMessageMediaTypeVoice = 3,
     XHBubbleMessageMediaTypeEmotion = 4,
     XHBubbleMessageMediaTypeLocalPosition = 5,
+    XHBubbleMessageMediaTypeNotification = 6,//通知类型的消息，比如xxx加入到群里
 };
 
 typedef NS_ENUM(NSInteger, XHBubbleMessageMenuSelecteType) {

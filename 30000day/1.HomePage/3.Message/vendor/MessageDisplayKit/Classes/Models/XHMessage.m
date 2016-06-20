@@ -190,6 +190,21 @@
     return self;
 }
 
+- (instancetype)initWithNotificationMessageText:(NSString *)messageText
+                                         sender:(NSString *)sender
+                                      timestamp:(NSDate *)timestamp {
+    self = [super init];
+    if (self) {
+        
+        self.text = messageText;
+        self.sender = sender;
+        self.timestamp = timestamp;
+        
+        self.messageMediaType = XHBubbleMessageMediaTypeNotification;
+    }
+    return self;
+}
+
 - (void)dealloc {
     _text = nil;
     

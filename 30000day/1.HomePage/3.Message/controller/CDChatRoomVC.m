@@ -130,6 +130,8 @@ static NSInteger const kOnePageSize = 10;
     
     [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
 
+    [STNotificationCenter addObserver:self selector:@selector(conversationChange:) name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
+    
     [self loadMessagesWhenInit];
 }
 
@@ -142,6 +144,12 @@ static NSInteger const kOnePageSize = 10;
     controller.conversation = self.conversation;
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+//接收修改群资料的通知
+- (void)conversationChange:(NSNotification *)notification {
+    
+    self.title = [self.conversation conversationDisplayName];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -165,6 +173,8 @@ static NSInteger const kOnePageSize = 10;
     [STNotificationCenter removeObserver:self name:kCDNotificationMessageDelivered object:nil];
     
     [STNotificationCenter removeObserver:self name:kCDNotificationConversationUpdated object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
     
     [[XHAudioPlayerHelper shareInstance] setDelegate:nil];
     self.browser = nil;
@@ -705,18 +715,18 @@ static NSInteger const kOnePageSize = 10;
     
     XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
     
-    if ([self shouldDisplayTimestampForRowAtIndexPath:indexPath]) {
-        
-        NSDate *ts = msg.timestamp;
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        
-        [dateFormatter setDateFormat:@"MM-dd HH:mm"];
-        
-        NSString *str = [dateFormatter stringFromDate:ts];
-        
-        cell.timestampLabel.text = str;
-    }
+//    if ([self shouldDisplayTimestampForRowAtIndexPath:indexPath]) {
+//        
+//        NSDate *ts = msg.timestamp;
+//        
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        
+//        [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+//        
+//        NSString *str = [dateFormatter stringFromDate:ts];
+//        
+//        cell.timestampLabel.text = str;
+//    }
     
     SETextView *textView = cell.messageBubbleView.displayTextView;
     
@@ -952,9 +962,17 @@ static NSInteger const kOnePageSize = 10;
     
     if (msg.mediaType == kAVIMMessageMediaTypeText) {
         
-        AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
-        
-        xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
+        if ([msg.text hasPrefix:@"通知类型消息"]) {//新的通知类型的消息
+            
+            xhMessage = [[XHMessage alloc] initWithNotificationMessageText:[msg.text substringFromIndex:6]
+                                                                    sender:nickName
+                                                                 timestamp:time];
+        } else {
+            
+            AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
+            
+            xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
+        }
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
         
@@ -1016,7 +1034,8 @@ static NSInteger const kOnePageSize = 10;
                                                         photoWitdh:width
                                                     photoHeight:height
                                                          sender:nickName
-                                                      timestamp:time];     
+                                                      timestamp:time];
+        
     } else {
         
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
@@ -1038,23 +1057,30 @@ static NSInteger const kOnePageSize = 10;
     }
     
     NSInteger msgStatuses[4] = { AVIMMessageStatusSending, AVIMMessageStatusSent, AVIMMessageStatusDelivered, AVIMMessageStatusFailed };
+    
     NSInteger xhMessageStatuses[4] = { XHMessageStatusSending, XHMessageStatusSent, XHMessageStatusReceived, XHMessageStatusFailed };
     
     if (xhMessage.bubbleMessageType == XHBubbleMessageTypeSending) {
+        
         XHMessageStatus status = XHMessageStatusReceived;
-        int i;
-        for (i = 0; i < 4; i++) {
+        
+        for ( int i = 0; i < 4; i++) {
+            
             if (msgStatuses[i] == msg.status) {
+                
                 status = xhMessageStatuses[i];
+                
                 break;
             }
         }
+        
         xhMessage.status = status;
         
     } else {
         
         xhMessage.status = XHMessageStatusReceived;
     }
+    
     return xhMessage;
 }
 

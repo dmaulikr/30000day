@@ -72,6 +72,9 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 //退出群聊
 static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSuccessQuitGroupChatSendNotification";
 
+//修改群资料
+static NSString *const STDidSuccessModifiedGroupChatInformationSendNotification = @"STDidSuccessModifiedGroupChatInformationSendNotification";
+
 @class STNetError;
 
 @class WeatherInformationModel;
