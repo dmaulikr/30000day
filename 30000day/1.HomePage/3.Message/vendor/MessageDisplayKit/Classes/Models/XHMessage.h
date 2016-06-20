@@ -145,5 +145,17 @@
                                   location:(CLLocation *)location
                                     sender:(NSString *)sender
                                  timestamp:(NSDate *)timestamp;
+/**
+ *  初始化通知类型的消息
+ *
+ *  @param messageText      通知消息的正文
+ *  @param sender           发送者
+ *  @param timestamp        发送时间
+ *
+ *  @return 返回Message model 对象
+ */
+- (instancetype)initWithNotificationMessageText:(NSString *)messageText
+                                         sender:(NSString *)sender
+                                      timestamp:(NSDate *)timestamp;
 
 @end

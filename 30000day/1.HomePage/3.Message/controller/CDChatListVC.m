@@ -82,6 +82,8 @@ static NSString *cellIdentifier = @"ContactCell";
     
     //成功的退出群聊
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessQuitGroupChatSendNotification object:nil];
+    //修改群资料
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     //获取我的好友-----目的是取出当前用户是否设置备注头像
@@ -491,6 +493,8 @@ static NSString *cellIdentifier = @"ContactCell";
     [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STDidSuccessQuitGroupChatSendNotification object:nil];
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
 }
 
 @end

@@ -42,7 +42,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
  *
  *  @param message 需要配置的目标消息Model
  */
-- (void)configureTimestamp:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message;
+- (void)configureTimestampAndnotificationTextLabel:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message;
 
 /**
  *  2、配置头像
@@ -144,6 +144,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         case XHBubbleMessageMediaTypeEmotion:
         case XHBubbleMessageMediaTypeVideo:
         case XHBubbleMessageMediaTypeVoice:
+        case XHBubbleMessageMediaTypeNotification:
             break;
     }
     [self resignFirstResponder];
@@ -166,8 +167,8 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 - (void)configureCellWithMessage:(id <XHMessageModel>)message
                displaysTimestamp:(BOOL)displayTimestamp {
-    // 1、是否显示Time Line的label
-    [self configureTimestamp:displayTimestamp atMessage:message];
+    // 1、判断timestampLabel和notificationTextLabel到底谁显示
+    [self configureTimestampAndnotificationTextLabel:displayTimestamp atMessage:message];
     
     // 2、配置头像
     [self configAvatorWithMessage:message];
@@ -181,16 +182,41 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     [self configStatusViewWithMessage:message];
 }
 
-- (void)configureTimestamp:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message {
+- (void)configureTimestampAndnotificationTextLabel:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message {
     
-    self.displayTimestamp = displayTimestamp;
-    
-    self.timestampLabel.hidden = !self.displayTimestamp;
-    
-    if (displayTimestamp) {
-        self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:message.timestamp
-                                                                  dateStyle:NSDateFormatterMediumStyle
-                                                                  timeStyle:NSDateFormatterShortStyle];
+    if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {//XHBubbleMessageMediaTypeNotification类型的消息和timestampLabel控件重合的
+        
+        self.timestampLabel.hidden = YES;
+        
+        self.notificationTextLabel.hidden = NO;
+        
+        self.messageBubbleView.hidden = YES;
+        
+        self.avatorButton.hidden = YES;
+        
+        self.userNameLabel.hidden = YES;
+        
+        self.notificationTextLabel.text = message.text;
+
+    } else {
+
+        self.notificationTextLabel.hidden = YES;
+        
+        self.messageBubbleView.hidden = NO;
+        
+        self.avatorButton.hidden = NO;
+        
+        self.userNameLabel.hidden = NO;
+        
+        self.displayTimestamp = displayTimestamp;
+        
+        self.timestampLabel.hidden = !self.displayTimestamp;
+        
+        if (displayTimestamp) {
+            
+            self.timestampLabel.text = [NSDateFormatter localizedStringFromDate:message.timestamp
+                                                                      dateStyle:NSDateFormatterMediumStyle                                                          timeStyle:NSDateFormatterShortStyle];
+        }
     }
 }
 
@@ -200,7 +226,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         [self.avatorButton setImage:message.avator forState:UIControlStateNormal];
         
-    } else if(message.avatorUrl){
+    } else if(message.avatorUrl) {
         
         [self.avatorButton setImage:[UIImage imageNamed:@"placeholder"] forState:UIControlStateNormal];
         
@@ -335,6 +361,8 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             
         case XHBubbleMessageMediaTypeVoice:
             
+        case XHBubbleMessageMediaTypeNotification:
+            
 //            [menu setMenuItems:[NSArray arrayWithObjects:transpond, favorites, more, nil]];
             break;
     }
@@ -407,16 +435,24 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 + (CGFloat)calculateCellHeightWithMessage:(id <XHMessageModel>)message
                         displaysTimestamp:(BOOL)displayTimestamp {
     
-    CGFloat timestampHeight = displayTimestamp ? (kXHTimeStampLabelHeight + kXHLabelPadding * 2) : kXHLabelPadding;
-    CGFloat avatarHeight = kXHAvatarImageSize;
-    
-    CGFloat userNameHeight = 20;
-    
-    CGFloat subviewHeights = timestampHeight + kXHBubbleMessageViewPadding * 2 + userNameHeight;
-    
-    CGFloat bubbleHeight = [XHMessageBubbleView calculateCellHeightWithMessage:message];
-    
-    return subviewHeights + MAX(avatarHeight, bubbleHeight);
+    if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {
+        
+        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [Common heightWithText:message.text width:[UIScreen mainScreen].bounds.size.width - 20 fontSize:13.0f];
+
+    } else {
+        
+        CGFloat timestampHeight = displayTimestamp ? (kXHTimeStampLabelHeight + kXHLabelPadding * 2) : kXHLabelPadding;
+        
+        CGFloat avatarHeight = kXHAvatarImageSize;
+        
+        CGFloat userNameHeight = 20;
+        
+        CGFloat subviewHeights = timestampHeight + kXHBubbleMessageViewPadding * 2 + userNameHeight;
+        
+        CGFloat bubbleHeight = [XHMessageBubbleView calculateCellHeightWithMessage:message];
+        
+        return subviewHeights + MAX(avatarHeight, bubbleHeight);
+    }
 }
 
 #pragma mark - Life cycle
@@ -439,26 +475,59 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 - (instancetype)initWithMessage:(id <XHMessageModel>)message
               displaysTimestamp:(BOOL)displayTimestamp
                 reuseIdentifier:(NSString *)cellIdentifier {
+    
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
     if (self) {
         // 如果初始化成功，那就根据Message类型进行初始化控件，比如配置头像，配置发送和接收的样式
         
         // 1、是否显示Time Line的label
         if (!_timestampLabel) {
+            
             LKBadgeView *timestampLabel = [[LKBadgeView alloc] initWithFrame:CGRectMake(0, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width, kXHTimeStampLabelHeight)];
+            
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            timestampLabel.badgeColor = [UIColor colorWithWhite:0.000 alpha:0.380];
+            
+            timestampLabel.badgeColor = RGBACOLOR(200, 200, 200, 1);
+            
             timestampLabel.textColor = [UIColor whiteColor];
+            
             timestampLabel.font = [UIFont systemFontOfSize:13.0f];
+            
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
+            
             [self.contentView addSubview:timestampLabel];
+            
             [self.contentView bringSubviewToFront:timestampLabel];
+            
             _timestampLabel = timestampLabel;
         }
         
-        // 2、配置头像
-        // avator
+        if (!_notificationTextLabel) {
+            
+            UILabel *notificationTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 20, kXHTimeStampLabelHeight)];
+            
+            notificationTextLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
+            
+            notificationTextLabel.backgroundColor = RGBACOLOR(200, 200, 200, 1);
+            
+            notificationTextLabel.textColor = [UIColor whiteColor];
+            
+            notificationTextLabel.font = [UIFont systemFontOfSize:13.0f];
+            
+            notificationTextLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, notificationTextLabel.center.y);
+            notificationTextLabel.numberOfLines = 0;
+            
+            notificationTextLabel.textAlignment = NSTextAlignmentCenter;
+            
+            [self.contentView addSubview:notificationTextLabel];
+            
+            [self.contentView sendSubviewToBack:notificationTextLabel];
+            
+            _notificationTextLabel = notificationTextLabel;
+        }
         
+        // 2、配置头像
         if (!self.avatorButton) {
             
             CGRect avatorButtonFrame;
@@ -520,13 +589,17 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         // 4、配置需要显示什么消息内容，比如语音、文字、视频、图片
         if (!_messageBubbleView) {
+            
             CGFloat bubbleX = 0.0f;
             
             CGFloat offsetX = 0.0f;
             
             if (message.bubbleMessageType == XHBubbleMessageTypeReceiving)
+                
                 bubbleX = kXHAvatarImageSize + kXHAvatorPaddingX + kXHAvatorPaddingX;
+            
             else
+                
                 offsetX = kXHAvatarImageSize + kXHAvatorPaddingX + kXHAvatorPaddingX;
             
             CGRect frame = CGRectMake(bubbleX,
@@ -536,11 +609,15 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             
             // bubble container
             XHMessageBubbleView *messageBubbleView = [[XHMessageBubbleView alloc] initWithFrame:frame message:message];
+            
             messageBubbleView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
                                                   | UIViewAutoresizingFlexibleHeight
                                                   | UIViewAutoresizingFlexibleBottomMargin);
+            
             [self.contentView addSubview:messageBubbleView];
+            
             [self.contentView sendSubviewToBack:messageBubbleView];
+            
             self.messageBubbleView = messageBubbleView;
         }
         
@@ -635,16 +712,20 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         self.statusView.hidden = YES;
     }
-//    self.messageBubbleView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
-//    self.avatorButton.backgroundColor=[UIColor redColor];
-//    self.userNameLabel.backgroundColor=[UIColor greenColor];
 }
 
 - (void)dealloc {
+    
     _avatorButton = nil;
+    
     _timestampLabel = nil;
+    
     _messageBubbleView = nil;
+    
     _indexPath = nil;
+    
+    _notificationTextLabel = nil;
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -659,6 +740,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     self.messageBubbleView.bubblePhotoImageView.messagePhoto = nil;
     self.messageBubbleView.emotionImageView.animatedImage = nil;
     self.timestampLabel.text = nil;
+    self.notificationTextLabel.text = nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

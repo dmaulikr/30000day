@@ -229,23 +229,6 @@ static CDChatManager *instance;
     }
 }
 
-- (void)updateConversation:(AVIMConversation *)conversation name:(NSString *)name attrs:(NSDictionary *)attrs callback:(AVIMBooleanResultBlock)callback {
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    if (name) {
-        
-        [dict setObject:name forKey:@"name"];
-    }
-    
-    if (attrs) {
-        
-        [dict setObject:attrs forKey:@"attrs"];
-    }
-    
-    [conversation update:dict callback:callback];
-}
-
 - (void)fetchConversationsWithConversationIds:(NSSet *)conversationIds callback:(AVIMArrayResultBlock)callback {
     
     if (conversationIds.count > 0) {
@@ -377,8 +360,6 @@ static CDChatManager *instance;
 - (void)updateConnectStatus {
     
     self.connect = self.client.status == AVIMClientStatusOpened;
-    
-    NSLog(@"---%d",self.connect);
     
     [STNotificationCenter postNotificationName:kCDNotificationConnectivityUpdated object:@(self.connect)];
 }

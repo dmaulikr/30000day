@@ -122,8 +122,15 @@
                         callBack(YES,error);
                         
                         //1.要在群里发送暂态消息
+                        AVIMTextMessage *message = [AVIMTextMessage messageWithText:@"通知类型消息添加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人__1" attributes:nil];
                         
-                        
+                        [[CDChatManager sharedManager] sendMessage:message conversation:weakConversation callback:^(BOOL succeeded, NSError *error) {
+                            
+                            if (succeeded) {
+                            
+                            }
+                            
+                        }];
                         
                     } else {//信息添加的失败，要把之前添加进去的人移除,并把可能存在于attributes中的信息也移除
                         
@@ -271,6 +278,64 @@
             }
         }];
         
+    }];
+}
+
+//修改群名字
++ (void)modifiedGroupChatNameWithName:(NSString *)newName fromConversation:(AVIMConversation *)conversation callback:(void (^)(BOOL succeeded,NSError *error))callback {
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    if (newName) {
+        
+        [dictionary setObject:newName forKey:@"name"];
+    }
+    
+    [conversation update:dictionary callback:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded) {
+            //1.要在群里发送暂态消息
+            
+            
+            
+        } else {
+            
+            
+        }
+        
+        callback(succeeded,error);//回调
+    }];
+}
+
+//给某个特定的conversation的attributes增加或者修改键值对
++ (void)setAttributesKeyValueFromConversation:(AVIMConversation *)conversation value:(id)value key:(NSString *)key successedSentMessageBody:(NSString *)messageBody callback:(void (^)(BOOL succeeded,NSError *error))callback {
+    
+    AVIMConversationUpdateBuilder *updateBuilder = [conversation newUpdateBuilder];
+    
+    // ---------  非常重要！！！--------------
+    // 将所有属性转交给 updateBuilder 统一处理。
+    // 如果缺失这一步，下面没有改动过的属性，如上例中的 isSticky，
+    // 在保存后会被删除。
+    // -------------------------------------
+    updateBuilder.attributes = conversation.attributes;
+    
+    // 将 type 值改为 public
+    [updateBuilder setObject:value forKey:key];
+    
+    // 将更新后的全部属性写回对话
+    [conversation update:[updateBuilder dictionary] callback:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded) {
+            
+            [[CDConversationStore store] updateConversations:@[conversation]];
+            
+            //1.要在群里发送暂态消息
+
+        } else {
+            
+        }
+        
+        callback(succeeded,error);
     }];
 }
 

@@ -178,7 +178,6 @@
                     
                 } else {//点击了普通按钮
                     
-                    
                 }
                 
             } else {
@@ -352,8 +351,8 @@
             
             [controller setDoneBlock:^(NSString *conformString) {//点击确定回调
                 
-                [[CDChatManager sharedManager] updateConversation:self.conversation name:conformString attrs:nil callback:^(BOOL succeeded, NSError *error) {
-                    
+                [GroupSettingManager modifiedGroupChatNameWithName:conformString fromConversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+                   
                     if (succeeded) {
                         
                         [[CDConversationStore store] updateConversations:@[self.conversation]];
@@ -362,14 +361,14 @@
                         
                         [self.tableView reloadData];
                         
-                        //1.要在群里发送暂态消息
+                        [STNotificationCenter postNotificationName:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
                         
                     } else {
                         
                         [self showToast:[Common errorStringWithError:error]];
                     }
-                    
                 }];
+                
             }];
             
             [self.navigationController pushViewController:controller animated:YES];
@@ -395,21 +394,8 @@
             
             [controller setDoneBlock:^(NSString *conformString) {//开始设置群公告
                 
-                AVIMConversationUpdateBuilder *updateBuilder = [self.conversation newUpdateBuilder];
-                
-                // ---------  非常重要！！！--------------
-                // 将所有属性转交给 updateBuilder 统一处理。
-                // 如果缺失这一步，下面没有改动过的属性，如上例中的 isSticky，
-                // 在保存后会被删除。
-                // -------------------------------------
-                updateBuilder.attributes = self.conversation.attributes;
-                
-                // 将 type 值改为 public
-                [updateBuilder setObject:conformString forKey:CONVERSATION_NOTICE];
-                
-                // 将更新后的全部属性写回对话
-                [self.conversation update:[updateBuilder dictionary] callback:^(BOOL succeeded, NSError *error) {
-                    
+                [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:conformString key:CONVERSATION_NOTICE successedSentMessageBody:@"更新群聊成功" callback:^(BOOL succeeded, NSError *error) {
+                   
                     if (succeeded) {
                         
                         [[CDConversationStore store] updateConversations:@[self.conversation]];
@@ -417,9 +403,7 @@
                         [self showToast:@"更新群聊名称成功"];
                         
                         [self.tableView reloadData];
-                        
-                        //1.要在群里发送暂态消息
-                        
+
                     } else {
                         
                         [self showToast:[Common errorStringWithError:error]];
@@ -526,21 +510,8 @@
     
     [STDataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
         
-        AVIMConversationUpdateBuilder *updateBuilder = [self.conversation newUpdateBuilder];
-        
-        // ---------  非常重要！！！--------------
-        // 将所有属性转交给 updateBuilder 统一处理。
-        // 如果缺失这一步，下面没有改动过的属性，如上例中的 isSticky，
-        // 在保存后会被删除。
-        // -------------------------------------
-        updateBuilder.attributes = self.conversation.attributes;
-        
-        // 将 type 值改为 public
-        [updateBuilder setObject:imageUrl forKey:CONVERSATION_IMAGE_URL];
-        
-        // 将更新后的全部属性写回对话
-        [self.conversation update:[updateBuilder dictionary] callback:^(BOOL succeeded, NSError *error) {
-            
+        [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:imageUrl key:CONVERSATION_IMAGE_URL successedSentMessageBody:@"更新群聊头像成功" callback:^(BOOL succeeded, NSError *error) {
+           
             if (succeeded) {
                 
                 [[CDConversationStore store] updateConversations:@[self.conversation]];
@@ -551,8 +522,6 @@
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 
-                //1.要在群里发送暂态消息
-                
             } else {
                 
                 [self showToast:[Common errorStringWithError:error]];
@@ -560,7 +529,7 @@
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             }
         }];
-        
+
     } failure:^(NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -572,8 +541,6 @@
         });
     }];
 }
-
-
 
 /*
 #pragma mark - Navigation

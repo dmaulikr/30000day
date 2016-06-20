@@ -80,6 +80,12 @@
 @property (nonatomic, weak, readonly) LKBadgeView *timestampLabel;
 
 /**
+ * 通知内容label
+ */
+@property (nonatomic, weak, readonly) UILabel *notificationTextLabel;
+
+
+/**
  *  Cell所在的位置，用于Cell delegate回调
  */
 @property (nonatomic, strong) NSIndexPath *indexPath;
