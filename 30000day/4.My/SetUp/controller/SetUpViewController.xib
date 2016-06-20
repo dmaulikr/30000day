@@ -33,7 +33,7 @@
                 <constraint firstItem="LRA-uz-J56" firstAttribute="top" secondItem="fAV-1P-nDo" secondAttribute="top" id="jdp-KB-vDb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="124" y="59"/>
+            <point key="canvasLocation" x="254" y="50"/>
         </view>
     </objects>
 </document>
