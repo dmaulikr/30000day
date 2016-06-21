@@ -188,19 +188,38 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         self.timestampLabel.hidden = YES;
         
-        self.notificationTextLabel.hidden = NO;
-        
+        self.notificationTextView.hidden = NO;
+
         self.messageBubbleView.hidden = YES;
         
         self.avatorButton.hidden = YES;
         
         self.userNameLabel.hidden = YES;
         
-        self.notificationTextLabel.text = message.text;
-
+        self.notificationTextView.displayNotificationTextLabel.text = message.text;
+        
+        if ([Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f] > 22) {
+            
+            self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentLeft;
+            
+            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
+            
+            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + 5.0f);
+            
+        } else {
+            
+            self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentCenter;
+            
+            self.notificationTextView.height = [Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f];
+            
+            self.notificationTextView.width = [Common widthWithText:message.text height:[Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f] fontSize:13.0f];
+            
+            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + 5.0f);
+        }
+        
     } else {
 
-        self.notificationTextLabel.hidden = YES;
+        self.notificationTextView.hidden = YES;
         
         self.messageBubbleView.hidden = NO;
         
@@ -437,7 +456,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {
         
-        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [Common heightWithText:message.text width:[UIScreen mainScreen].bounds.size.width - 20 fontSize:13.0f];
+        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [XHMessageDisplayNotificationTextView textViewHeightWithWidth:[UIScreen mainScreen].bounds.size.width - 46 withFont:[UIFont systemFontOfSize:13.0f]];
 
     } else {
         
@@ -503,28 +522,25 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             _timestampLabel = timestampLabel;
         }
         
-        if (!_notificationTextLabel) {
+        if (!_notificationTextView) {//显示通知类型消息控件
             
-            UILabel *notificationTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 20, kXHTimeStampLabelHeight)];
+            XHMessageDisplayNotificationTextView *notificationTextView = [[XHMessageDisplayNotificationTextView alloc] initWithFrame:CGRectMake(23, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 46, kXHTimeStampLabelHeight)];
+      
+            notificationTextView.backgroundColor = RGBACOLOR(200, 200, 200, 1);
             
-            notificationTextLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
+            notificationTextView.displayNotificationTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
             
-            notificationTextLabel.backgroundColor = RGBACOLOR(200, 200, 200, 1);
+            notificationTextView.displayNotificationTextLabel.numberOfLines = 0;
             
-            notificationTextLabel.textColor = [UIColor whiteColor];
+            notificationTextView.layer.cornerRadius = 5;
             
-            notificationTextLabel.font = [UIFont systemFontOfSize:13.0f];
+            notificationTextView.layer.masksToBounds = YES;
             
-            notificationTextLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, notificationTextLabel.center.y);
-            notificationTextLabel.numberOfLines = 0;
+            [self.contentView addSubview:notificationTextView];
             
-            notificationTextLabel.textAlignment = NSTextAlignmentCenter;
+            [self.contentView sendSubviewToBack:notificationTextView];
             
-            [self.contentView addSubview:notificationTextLabel];
-            
-            [self.contentView sendSubviewToBack:notificationTextLabel];
-            
-            _notificationTextLabel = notificationTextLabel;
+            _notificationTextView = notificationTextView;
         }
         
         // 2、配置头像
@@ -724,7 +740,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     _indexPath = nil;
     
-    _notificationTextLabel = nil;
+    _notificationTextView = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -740,7 +756,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     self.messageBubbleView.bubblePhotoImageView.messagePhoto = nil;
     self.messageBubbleView.emotionImageView.animatedImage = nil;
     self.timestampLabel.text = nil;
-    self.notificationTextLabel.text = nil;
+    self.notificationTextView.displayNotificationTextLabel.text = nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
