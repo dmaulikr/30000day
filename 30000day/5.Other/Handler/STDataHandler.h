@@ -75,6 +75,9 @@ static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSucces
 //修改群资料
 static NSString *const STDidSuccessModifiedGroupChatInformationSendNotification = @"STDidSuccessModifiedGroupChatInformationSendNotification";
 
+//从后台进入前台发送通知刷新主页
+static NSString *const STFreshenGraph = @"freshenGraph";
+
 @class STNetError;
 
 @class WeatherInformationModel;
