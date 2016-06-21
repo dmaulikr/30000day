@@ -171,7 +171,7 @@
     
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? date:self.countDownDate toDate:self.countDownbuttonDate == nil ? date:self.countDownbuttonDate options:0];
     
-    [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
+    [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"倒计时%ld天。",[comps day]]];
     
     [self.tableView reloadData];
 }
@@ -397,7 +397,7 @@
 
         NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.selectorDate == nil ? [NSDate date]:self.selectorDate toDate:selectorDate options:0];
 
-        [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
+        [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"倒计时%ld天。",[comps day]]];
         
         
         NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];

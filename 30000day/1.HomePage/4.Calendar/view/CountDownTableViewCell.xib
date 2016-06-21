@@ -14,32 +14,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="从今天到所选日期还有0天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuX-zC-HNf">
-                        <rect key="frame" x="15" y="13" width="174.5" height="18"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ke8-xB-hQj">
+                        <rect key="frame" x="205" y="8" width="100" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="6gE-GP-i2O"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="2016年12月12日">
+                            <color key="titleColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="倒计时0天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuX-zC-HNf">
+                        <rect key="frame" x="15" y="12.5" width="185" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ke8-xB-hQj">
-                        <rect key="frame" x="222" y="8" width="83" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="2016年10月1日">
-                            <color key="titleColor" red="0.2901960784" green="0.48627450979999998" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ke8-xB-hQj" firstAttribute="centerY" secondItem="YuX-zC-HNf" secondAttribute="centerY" id="1Wh-LL-wN7"/>
                     <constraint firstItem="YuX-zC-HNf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="EhE-gV-KzD"/>
                     <constraint firstAttribute="trailing" secondItem="ke8-xB-hQj" secondAttribute="trailing" constant="15" id="bAa-rR-nW2"/>
                     <constraint firstItem="YuX-zC-HNf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kYR-Dc-Mi8"/>
+                    <constraint firstItem="ke8-xB-hQj" firstAttribute="leading" secondItem="YuX-zC-HNf" secondAttribute="trailing" constant="5" id="rHt-co-kNH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="countDownLable" destination="YuX-zC-HNf" id="G0r-yq-pAB"/>
                 <outlet property="timeButton" destination="ke8-xB-hQj" id="66l-Ql-64N"/>
             </connections>
-            <point key="canvasLocation" x="351" y="296"/>
+            <point key="canvasLocation" x="241" y="300"/>
         </tableViewCell>
     </objects>
 </document>
