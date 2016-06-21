@@ -162,7 +162,7 @@
     
     NSLog(@"%@",selectorDate);
     
-    //NSLog(@"%@",[NSDate date]);
+    NSLog(@"%@",[NSDate date]);
     
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? [NSDate date]:self.countDownDate toDate:self.countDownbuttonDate == nil ? [NSDate date]:self.countDownbuttonDate options:0];
     
