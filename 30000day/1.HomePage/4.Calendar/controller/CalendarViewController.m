@@ -160,11 +160,11 @@
     
     unsigned int unitFlags = NSCalendarUnitDay;
     
-    NSLog(@"%@",selectorDate);
+    NSString *stringTime = [formatter stringFromDate:[NSDate date]];
     
-    NSLog(@"%@",[NSDate date]);
+    NSDate *date = [formatter dateFromString:stringTime];
     
-    NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? [NSDate date]:self.countDownDate toDate:self.countDownbuttonDate == nil ? [NSDate date]:self.countDownbuttonDate options:0];
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? date:self.countDownDate toDate:self.countDownbuttonDate == nil ? date:self.countDownbuttonDate options:0];
     
     [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
     
