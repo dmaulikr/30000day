@@ -80,7 +80,7 @@
     
     [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"b8edc3cdc6e18f7a91983233470f3a48" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"www.30000day.com"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://www.30000day.com"];
     
     [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
