@@ -12,7 +12,7 @@
 
 #import "XHMessageBubbleView.h"
 #import "UIView+XHRemoteImage.h"
-
+#import "XHMessageDisplayNotificationTextView.h"
 #import "LKBadgeView.h"
 
 @class XHMessageTableViewCell;
@@ -82,8 +82,7 @@
 /**
  * 通知内容label
  */
-@property (nonatomic, weak, readonly) UILabel *notificationTextLabel;
-
+@property (nonatomic, weak, readonly) XHMessageDisplayNotificationTextView *notificationTextView;
 
 /**
  *  Cell所在的位置，用于Cell delegate回调

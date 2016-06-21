@@ -649,6 +649,7 @@
 		B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E401C8A7BBA007BCA6B /* README.md */; };
 		B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E501C8A8178007BCA6B /* CDChatVC.m */; };
 		B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */; };
+		B8FD41DF1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
@@ -1786,6 +1787,8 @@
 		B8FD3E511C8A8178007BCA6B /* CDConvsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDConvsVC.h; sourceTree = "<group>"; };
 		B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDConvsVC.m; sourceTree = "<group>"; };
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
+		B8FD41DD1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMessageDisplayNotificationTextView.h; sourceTree = "<group>"; };
+		B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHMessageDisplayNotificationTextView.m; sourceTree = "<group>"; };
 		B8FFBF041CE30F72009AA425 /* NewFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendModel.h; sourceTree = "<group>"; };
 		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
 		B8FFBF071CE4588E009AA425 /* NewFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendManager.h; sourceTree = "<group>"; };
@@ -4332,6 +4335,8 @@
 				B8FD3DA81C8A7903007BCA6B /* XHMessageTableView.m */,
 				B8FD3DA91C8A7903007BCA6B /* XHMessageTableViewCell.h */,
 				B8FD3DAA1C8A7903007BCA6B /* XHMessageTableViewCell.m */,
+				B8FD41DD1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.h */,
+				B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */,
 			);
 			path = MessageContentViews;
 			sourceTree = "<group>";
@@ -5050,6 +5055,7 @@
 				B8FD3E141C8A7903007BCA6B /* XHZoomingImageView.m in Sources */,
 				B8F719911CEB2613000D859D /* NSMutableDictionary+parameter.m in Sources */,
 				B8FD3E1E1C8A7903007BCA6B /* XHMessageTableView.m in Sources */,
+				B8FD41DF1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m in Sources */,
 				B6114CAB1CA27FE60088EED2 /* CommentDetailsLastTableViewCell.m in Sources */,
 				B8FD3DDD1C8A7903007BCA6B /* UIView+XHRemoteImage.m in Sources */,
 				B8FD3E0B1C8A7903007BCA6B /* SETextInput.m in Sources */,

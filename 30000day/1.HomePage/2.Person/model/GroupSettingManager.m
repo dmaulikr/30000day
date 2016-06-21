@@ -122,7 +122,7 @@
                         callBack(YES,error);
                         
                         //1.要在群里发送暂态消息
-                        AVIMTextMessage *message = [AVIMTextMessage messageWithText:@"通知类型消息添加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人成功加人__1" attributes:nil];
+                        AVIMTextMessage *message = [AVIMTextMessage messageWithText:@"通知类型消息成功加人__1" attributes:nil];
                         
                         [[CDChatManager sharedManager] sendMessage:message conversation:weakConversation callback:^(BOOL succeeded, NSError *error) {
                             
