@@ -14,8 +14,10 @@
  * 显示通知类型消息正文的label
  *
  */
-@property (nonatomic,weak,readonly) UILabel *displayNotificationTextLabel;
+@property (nonatomic,strong) UILabel *displayNotificationTextLabel;
 
-+ (CGFloat)textViewHeightWithWidth:(CGFloat)width withFont:(UIFont *)font;
++ (CGFloat)textViewHeightWithDisplayText:(NSString *)text withWidth:(CGFloat)width withFont:(UIFont *)font;
+
++ (CGFloat)textViewWidthWithDisplayText:(NSString *)text withHeight:(CGFloat)height withFont:(UIFont *)font;
 
 @end

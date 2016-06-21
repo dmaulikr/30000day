@@ -198,23 +198,23 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         self.notificationTextView.displayNotificationTextLabel.text = message.text;
         
-        if ([Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f] > 22) {
+        if ([XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]] > 22) {
             
             self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentLeft;
             
-            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
+            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
             
-            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + 5.0f);
+            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + kXHLabelPadding);
             
         } else {
             
             self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentCenter;
             
-            self.notificationTextView.height = [Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f];
+            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
             
-            self.notificationTextView.width = [Common widthWithText:message.text height:[Common heightWithText:message.text width:SCREEN_WIDTH - 46 fontSize:13.0f] fontSize:13.0f];
+            self.notificationTextView.width = [XHMessageDisplayNotificationTextView textViewWidthWithDisplayText:message.text withHeight:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
             
-            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + 5.0f);
+            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + kXHLabelPadding);
         }
         
     } else {
@@ -456,7 +456,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {
         
-        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [XHMessageDisplayNotificationTextView textViewHeightWithWidth:[UIScreen mainScreen].bounds.size.width - 46 withFont:[UIFont systemFontOfSize:13.0f]];
+        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
 
     } else {
         
@@ -537,8 +537,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             notificationTextView.layer.masksToBounds = YES;
             
             [self.contentView addSubview:notificationTextView];
-            
-            [self.contentView sendSubviewToBack:notificationTextView];
             
             _notificationTextView = notificationTextView;
         }
