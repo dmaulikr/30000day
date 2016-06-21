@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AgreementWebViewController : ShowBackItemViewController
+@interface AgreementWebViewController : STBaseViewController
 
 @property (nonatomic,assign) int type; //0:用户协议  1:隐私协议
 

@@ -66,7 +66,7 @@
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:STFreshenGraph object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessEnterForegroundSendNotification object:nil];
     
 }
 

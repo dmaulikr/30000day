@@ -76,7 +76,7 @@ static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSucces
 static NSString *const STDidSuccessModifiedGroupChatInformationSendNotification = @"STDidSuccessModifiedGroupChatInformationSendNotification";
 
 //从后台进入前台发送通知刷新主页
-static NSString *const STFreshenGraph = @"freshenGraph";
+static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSuccessEnterForegroundSendNotification";
 
 @class STNetError;
 
