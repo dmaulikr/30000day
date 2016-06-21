@@ -149,6 +149,11 @@
     
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy年MM月dd日"];
     
+    NSString *countDownTimeString = [formatter stringFromDate:selectorDate];
+    
+    self.countDownDate = [formatter dateFromString:countDownTimeString];
+    
+    
     NSString *dateTime = userConfigure[COUNTDOWN] == nil ? [formatter stringFromDate:[NSDate date]]:userConfigure[COUNTDOWN];
     
     self.countDownbuttonDate = [formatter dateFromString:dateTime];
@@ -413,6 +418,8 @@
         self.selectorDate = selectorDate;
         
         [self.calendarCell.calendar selectDate:self.selectorDate scrollToDate:YES];
+        
+        [self reloadShowCalendarDateWith:selectorDate];
         
     }
 }
