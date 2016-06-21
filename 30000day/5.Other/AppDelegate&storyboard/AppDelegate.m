@@ -78,7 +78,7 @@
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     
-    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"6ef9e5d4cfee4b009c3705aa0b24e727" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
+    [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"b8edc3cdc6e18f7a91983233470f3a48" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
