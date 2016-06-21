@@ -36,6 +36,8 @@
 
 @property (nonatomic,strong) NSDate *countDownDate;//倒计时
 
+@property (nonatomic,strong) NSDate *countDownbuttonDate;//倒计时日期
+
 @end
 
 // 选一个有意义的日期作倒计时（备注：可添加多个？）
@@ -147,20 +149,22 @@
     
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy年MM月dd日"];
     
-    NSString *timeString = [formatter stringFromDate:self.countDownDate] == nil ? [formatter stringFromDate:[NSDate date]]:[formatter stringFromDate:self.countDownDate];
+    NSString *dateTime = userConfigure[COUNTDOWN] == nil ? [formatter stringFromDate:[NSDate date]]:userConfigure[COUNTDOWN];
     
-    [self.countDownCell.timeButton setTitle:[NSString stringWithFormat:@"%@",timeString] forState:UIControlStateNormal];
+    self.countDownbuttonDate = [formatter dateFromString:dateTime];
     
+    [self.countDownCell.timeButton setTitle:[NSString stringWithFormat:@"%@",dateTime] forState:UIControlStateNormal];
 
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     unsigned int unitFlags = NSCalendarUnitDay;
     
-    NSDateComponents *comps = [gregorian components:unitFlags fromDate:[NSDate date] toDate:self.countDownDate options:0];
+    NSLog(@"%@",selectorDate);
+    
+    //NSLog(@"%@",[NSDate date]);
+    
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? [NSDate date]:self.countDownDate toDate:self.countDownbuttonDate == nil ? [NSDate date]:self.countDownbuttonDate options:0];
     
     [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
     
@@ -374,7 +378,35 @@
         
         self.countDownDate = selectorDate;
         
-        [self reloadDate];
+        self.countDownbuttonDate = selectorDate;
+        
+        NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy年MM月dd日"];
+        
+        NSString *timeString = [formatter stringFromDate:selectorDate] == nil ? [formatter stringFromDate:[NSDate date]]:[formatter stringFromDate:self.countDownDate];
+        
+        [self.countDownCell.timeButton setTitle:[NSString stringWithFormat:@"%@",timeString] forState:UIControlStateNormal];
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+
+        unsigned int unitFlags = NSCalendarUnitDay;
+
+        NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.selectorDate == nil ? [NSDate date]:self.selectorDate toDate:selectorDate options:0];
+
+        [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"从今天到所选日期还有%ld天。",[comps day]]];
+        
+        
+        NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+        
+        if (userConfigure == nil) {
+            
+            userConfigure = [NSMutableDictionary dictionary];
+            
+        }
+        
+        [userConfigure setObject:[formatter stringFromDate:selectorDate] forKey:COUNTDOWN];
+        
+        [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+        
         
     } else {
     
