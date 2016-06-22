@@ -144,7 +144,7 @@
             if (isAdmin) {//群主
                 
                 if (imageViewIndex == [self getMemberModelArray].count + 1) {//点击了踢人按钮
-                    
+
                     [GroupSettingManager removeMemberFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] fromConversation:self.conversation callBack:^(BOOL success, NSError *error) {
                        
                         if (success) {
@@ -184,19 +184,19 @@
                 
                 if (imageViewIndex == [self getMemberModelArray].count) {//点击了增加人按钮
                     
-                 [GroupSettingManager addMemberFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] fromConversation:self.conversation callBack:^(BOOL success, NSError *error) {
-                    
-                     if (success) {
-                         
-                         [self showToast:@"添加成功"];
-                         
-                         [self.tableView reloadData];
-                         
-                     } else {
-                         
-                         [self showToast:[Common errorStringWithError:error]];
-                     }
-                 }];
+                     [GroupSettingManager addMemberFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] fromConversation:self.conversation callBack:^(BOOL success, NSError *error) {
+                        
+                         if (success) {
+                             
+                             [self showToast:@"添加成功"];
+                             
+                             [self.tableView reloadData];
+                             
+                         } else {
+                             
+                             [self showToast:[Common errorStringWithError:error]];
+                         }
+                     }];
                     
                 } else {//点击了普通按钮
                     
@@ -351,7 +351,7 @@
             
             [controller setDoneBlock:^(NSString *conformString) {//点击确定回调
                 
-                [GroupSettingManager modifiedGroupChatNameWithName:conformString fromConversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
+                [GroupSettingManager modifiedGroupChatNameWithName:conformString fromConversation:self.conversation fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback:^(BOOL succeeded, NSError *error) {
                    
                     if (succeeded) {
                         
@@ -394,7 +394,7 @@
             
             [controller setDoneBlock:^(NSString *conformString) {//开始设置群公告
                 
-                [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:conformString key:CONVERSATION_NOTICE successedSentMessageBody:@"更新群聊成功" callback:^(BOOL succeeded, NSError *error) {
+                [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:conformString key:CONVERSATION_NOTICE successedSentMessageBody:@"更新群聊成功" fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback:^(BOOL succeeded, NSError *error) {
                    
                     if (succeeded) {
                         
@@ -510,7 +510,7 @@
     
     [STDataHandler sendUpdateUserHeadPortrait:STUserAccountHandler.userProfile.userId headImage:image success:^(NSString *imageUrl) {
         
-        [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:imageUrl key:CONVERSATION_IMAGE_URL successedSentMessageBody:@"更新群聊头像成功" callback:^(BOOL succeeded, NSError *error) {
+        [GroupSettingManager setAttributesKeyValueFromConversation:self.conversation value:imageUrl key:CONVERSATION_IMAGE_URL successedSentMessageBody:@"更新群聊头像成功" fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback:^(BOOL succeeded, NSError *error) {
            
             if (succeeded) {
                 

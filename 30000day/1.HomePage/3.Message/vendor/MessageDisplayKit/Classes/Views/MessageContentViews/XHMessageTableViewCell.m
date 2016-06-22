@@ -18,6 +18,8 @@ static const CGFloat kXHAvatorPaddingY = 15;
 static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 
+
+
 @interface XHMessageTableViewCell () {
     
 }
@@ -31,6 +33,8 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 @property (nonatomic, weak, readwrite) XHMessageStatusView *statusView;
 
 @property (nonatomic, weak, readwrite) LKBadgeView *timestampLabel;
+
+@property (nonatomic, weak, readwrite) XHMessageDisplayNotificationTextView *notificationTextView;
 
 /**
  *  是否显示时间轴Label
@@ -184,7 +188,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 - (void)configureTimestampAndnotificationTextLabel:(BOOL)displayTimestamp atMessage:(id <XHMessageModel>)message {
     
-    if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {//XHBubbleMessageMediaTypeNotification类型的消息和timestampLabel控件重合的
+    if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {//XHBubbleMessageMediaTypeNotification类型的消息和timestampLabel控件重合,所有要根据消息类型去隐藏一个
         
         self.timestampLabel.hidden = YES;
         
@@ -197,25 +201,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         self.userNameLabel.hidden = YES;
         
         self.notificationTextView.displayNotificationTextLabel.text = message.text;
-        
-        if ([XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]] > 22) {
-            
-            self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentLeft;
-            
-            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
-            
-            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + kXHLabelPadding);
-            
-        } else {
-            
-            self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentCenter;
-            
-            self.notificationTextView.height = [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
-            
-            self.notificationTextView.width = [XHMessageDisplayNotificationTextView textViewWidthWithDisplayText:message.text withHeight:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
-            
-            self.notificationTextView.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, self.notificationTextView.height / 2 + kXHLabelPadding);
-        }
         
     } else {
 
@@ -250,7 +235,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         [self.avatorButton setImage:[UIImage imageNamed:@"placeholder"] forState:UIControlStateNormal];
         
         [self.avatorButton.imageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
             //下载进度
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -456,7 +440,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {
         
-        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:SCREEN_WIDTH - 46 withFont:[UIFont systemFontOfSize:13.0f]];
+        return kXHLabelPadding * 2 + kXHTimeStampLabelHeight + [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:message.text withWidth:KXHNoticationView withFont:[UIFont systemFontOfSize:13.0f]];
 
     } else {
         
@@ -524,7 +508,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         if (!_notificationTextView) {//显示通知类型消息控件
             
-            XHMessageDisplayNotificationTextView *notificationTextView = [[XHMessageDisplayNotificationTextView alloc] initWithFrame:CGRectMake(23, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 46, kXHTimeStampLabelHeight)];
+            XHMessageDisplayNotificationTextView *notificationTextView = [[XHMessageDisplayNotificationTextView alloc] initWithFrame:CGRectMake(NOTIFICATION_TEXT_VIEW_MARGIN, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 46, kXHTimeStampLabelHeight)];
       
             notificationTextView.backgroundColor = RGBACOLOR(200, 200, 200, 1);
             
@@ -725,6 +709,24 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     } else {
         
         self.statusView.hidden = YES;
+    }
+    
+    //设置显示通知类型的控件的坐标
+    if ([XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:self.messageBubbleView.message.text withWidth:KXHNoticationView withFont:[UIFont systemFontOfSize:13.0f]] > KXHNoticationViewStandard) {
+        
+        self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentLeft;
+        
+        self.notificationTextView.frame = CGRectMake(NOTIFICATION_TEXT_VIEW_MARGIN,kXHLabelPadding, KXHNoticationView, [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:self.messageBubbleView.message.text withWidth:KXHNoticationView withFont:[UIFont systemFontOfSize:13.0f]]);
+        
+    } else {
+        
+        self.notificationTextView.displayNotificationTextLabel.textAlignment = NSTextAlignmentCenter;
+        
+        CGFloat height = [XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:self.messageBubbleView.message.text withWidth:KXHNoticationView withFont:[UIFont systemFontOfSize:13.0f]];
+        
+        CGFloat width = [XHMessageDisplayNotificationTextView textViewWidthWithDisplayText:self.messageBubbleView.message.text withHeight:[XHMessageDisplayNotificationTextView textViewHeightWithDisplayText:self.messageBubbleView.message.text withWidth:KXHNoticationView withFont:[UIFont systemFontOfSize:13.0f]] withFont:[UIFont systemFontOfSize:13.0f]];
+        
+        self.notificationTextView.frame = CGRectMake(SCREEN_WIDTH / 2.0 - width / 2.0,kXHLabelPadding, width, height);
     }
 }
 

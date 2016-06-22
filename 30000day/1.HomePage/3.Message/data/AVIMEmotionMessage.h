@@ -10,7 +10,7 @@
 
 static AVIMMessageMediaType const kAVIMMessageMediaTypeEmotion = 1;
 
-@interface AVIMEmotionMessage : AVIMTypedMessage<AVIMTypedMessageSubclassing>
+@interface AVIMEmotionMessage : AVIMTypedMessage <AVIMTypedMessageSubclassing>
 
 + (instancetype)messageWithEmotionPath:(NSString *)emotionPath;
 

@@ -693,9 +693,27 @@
             
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
-                NSMutableArray *array = [UserInformationModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
+                NSArray *dictinaryArray = recvDic[@"value"];
                 
-                success(array);
+                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < dictinaryArray.count; i++) {//过滤不合法的好友
+                    
+                    NSDictionary *dictionary = dictinaryArray[i];
+                    
+                    UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
+                    
+                    NSString *userIdString = [NSString stringWithFormat:@"%@",model.userId];
+                    
+                    if ([Common isObjectNull:model.originalNickName] || (userIdString.length <= 1)) {
+                        
+                    } else {
+                        
+                        [dataArray addObject:model];
+                    }
+                }
+                
+                success(dataArray);
                 
             } else {
                 
@@ -2941,9 +2959,7 @@
                     ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
                     
                     [dataArray addObject:commentModel];
-                    
                 }
-
                     success(dataArray);
                 
             } else {

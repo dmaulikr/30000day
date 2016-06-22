@@ -13,6 +13,7 @@
 #import "CDFailedMessageStore.h"
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
+#import "AVIMNoticationMessage.h"
 
 static CDChatManager *instance;
 
@@ -714,9 +715,16 @@ static CDChatManager *instance;
                         
                     } else {//正常的消息
                         
-                        conversation.lastMessage = message;
-                        
-                        break;
+                        if (message.mediaType == AVIMMessageMediaTypeNotification) {//通知类型的消息，不显示
+                            
+                            
+                        } else {//非通知类型的消息，才显示最后一条消息
+                            
+                            conversation.lastMessage = message;
+                            
+                            break;
+                            
+                        }
                     }
                 }
             }

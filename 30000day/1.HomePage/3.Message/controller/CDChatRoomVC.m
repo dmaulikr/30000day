@@ -27,6 +27,7 @@
 #import "IDMPhotoBrowser.h"
 #import "TZImageManager.h"
 #import "STCroupSettingViewController.h"
+#import "AVIMNoticationMessage.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -132,6 +133,8 @@ static NSInteger const kOnePageSize = 10;
 
     [STNotificationCenter addObserver:self selector:@selector(conversationChange:) name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
     
+    [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:STDidSuccessGroupChatSettingSendNotification object:nil];
+    
     [self loadMessagesWhenInit];
 }
 
@@ -176,13 +179,22 @@ static NSInteger const kOnePageSize = 10;
     
     [STNotificationCenter removeObserver:self name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
     
+    [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
+    
     [[XHAudioPlayerHelper shareInstance] setDelegate:nil];
+    
     self.browser = nil;
+    
     self.sendMessageTimer = nil;
+    
     self.pickerBrowserPhotoArray = nil;
+    
     self.emotionManagers = nil;
+    
     self.msgs = nil;
+    
     self.currentSelectedCell = nil;
+    
     self.conversation = nil;
 }
 
@@ -962,17 +974,9 @@ static NSInteger const kOnePageSize = 10;
     
     if (msg.mediaType == kAVIMMessageMediaTypeText) {
         
-        if ([msg.text hasPrefix:@"通知类型消息"]) {//新的通知类型的消息
-            
-            xhMessage = [[XHMessage alloc] initWithNotificationMessageText:[msg.text substringFromIndex:6]
-                                                                    sender:nickName
-                                                                 timestamp:time];
-        } else {
-            
-            AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
-            
-            xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
-        }
+        AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
+        
+        xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
         
@@ -1036,8 +1040,12 @@ static NSInteger const kOnePageSize = 10;
                                                          sender:nickName
                                                       timestamp:time];
         
-    } else {
+    } else if (msg.mediaType == AVIMMessageMediaTypeNotification) {
         
+        xhMessage = [[XHMessage alloc] initWithNotificationMessageText:msg.text sender:nickName timestamp:time];
+        
+    } else {
+
         xhMessage = [[XHMessage alloc] initWithText:@"未知消息" sender:nickName  timestamp:time];
         
         DLog("unkonwMessage");
