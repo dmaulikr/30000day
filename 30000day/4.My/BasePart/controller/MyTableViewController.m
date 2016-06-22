@@ -21,6 +21,7 @@
 #import "MyOrderViewController.h"
 #import "JPUSHService.h"
 #import "AgreementWebViewController.h"
+#import "AboutTableViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -159,7 +160,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -180,7 +181,11 @@
         
         return 2;
         
-    } else if (section == 4){
+    } else if (section == 4) {
+    
+        return 1;
+    
+    } else if (section == 5) {
     
         return 1;
     
@@ -294,6 +299,14 @@
         return cell;
     
     } else if (indexPath.section == 4 ) {
+            
+        [cell.leftImage setImage:[UIImage imageNamed:@"about_us.png"]];
+        
+        [cell.titleLabel setText:@"关于30000天"];
+        
+        return cell;
+    
+    } else if (indexPath.section == 5 ) {
         
         LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
         
@@ -373,7 +386,17 @@
         
     } else if (indexPath.section == 4) {
         
+        AboutTableViewController *controller = [[AboutTableViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+        
+    } else if (indexPath.section == 5) {
+        
         [self cancelAction];
+    
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
