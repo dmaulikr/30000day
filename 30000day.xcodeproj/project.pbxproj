@@ -654,6 +654,9 @@
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
+		F5D6E5911D1A2A8900F5E147 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */; };
+		F5D6E5951D1A2AD800F5E147 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D6E5931D1A2AD800F5E147 /* AboutTableViewCell.m */; };
+		F5D6E5961D1A2AD800F5E147 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D6E5941D1A2AD800F5E147 /* AboutTableViewCell.xib */; };
 		F5F8E7EC1D1792CA00B96756 /* CountDownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8E7EA1D1792CA00B96756 /* CountDownTableViewCell.m */; };
 		F5F8E7ED1D1792CA00B96756 /* CountDownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5F8E7EB1D1792CA00B96756 /* CountDownTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -1799,6 +1802,11 @@
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
+		F5D6E58D1D1A2A8900F5E147 /* AboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewController.h; sourceTree = "<group>"; };
+		F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewController.m; sourceTree = "<group>"; };
+		F5D6E5921D1A2AD800F5E147 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
+		F5D6E5931D1A2AD800F5E147 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
+		F5D6E5941D1A2AD800F5E147 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
 		F5F8E7E91D1792CA00B96756 /* CountDownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDownTableViewCell.h; sourceTree = "<group>"; };
 		F5F8E7EA1D1792CA00B96756 /* CountDownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDownTableViewCell.m; sourceTree = "<group>"; };
 		F5F8E7EB1D1792CA00B96756 /* CountDownTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountDownTableViewCell.xib; sourceTree = "<group>"; };
@@ -2854,6 +2862,7 @@
 		B88C918E1C5A08D00089BEAE /* 4.My */ = {
 			isa = PBXGroup;
 			children = (
+				F5D6E58B1D1A2A8900F5E147 /* about */,
 				B8F2D8E01C5B3A39002C7712 /* HealthSetUp */,
 				B886ADDA1CB3C1B9005E262A /* MyOrder */,
 				B8F2DA191C5F3D04002C7712 /* SignInANDSignOut */,
@@ -4437,6 +4446,42 @@
 			path = DateTools;
 			sourceTree = "<group>";
 		};
+		F5D6E58B1D1A2A8900F5E147 /* about */ = {
+			isa = PBXGroup;
+			children = (
+				F5D6E58C1D1A2A8900F5E147 /* controller */,
+				F5D6E58F1D1A2A8900F5E147 /* model */,
+				F5D6E5901D1A2A8900F5E147 /* view */,
+			);
+			path = about;
+			sourceTree = "<group>";
+		};
+		F5D6E58C1D1A2A8900F5E147 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				F5D6E58D1D1A2A8900F5E147 /* AboutTableViewController.h */,
+				F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		F5D6E58F1D1A2A8900F5E147 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F5D6E5901D1A2A8900F5E147 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				F5D6E5921D1A2AD800F5E147 /* AboutTableViewCell.h */,
+				F5D6E5931D1A2AD800F5E147 /* AboutTableViewCell.m */,
+				F5D6E5941D1A2AD800F5E147 /* AboutTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4574,6 +4619,7 @@
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
 				B804FD5E1C8AC9A900DFD1CF /* tusiji_13.gif in Resources */,
+				F5D6E5961D1A2AD800F5E147 /* AboutTableViewCell.xib in Resources */,
 				B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */,
 				B804FD651C8AC9A900DFD1CF /* tusiji_2.gif in Resources */,
 				B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */,
@@ -5127,6 +5173,7 @@
 				B8FD3AF51C86FAB4007BCA6B /* QuestionAnswerModel.m in Sources */,
 				B8FD3DE91C8A7903007BCA6B /* XHBaseViewController.m in Sources */,
 				B88C91301C59F2260089BEAE /* main.m in Sources */,
+				F5D6E5951D1A2AD800F5E147 /* AboutTableViewCell.m in Sources */,
 				B6E30CA71CE1CB2500C510A5 /* PromoteAgeViewController.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
 				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
@@ -5161,6 +5208,7 @@
 				B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */,
 				B80B55AA1CD1B20F003E2C36 /* PriceModel.m in Sources */,
 				B8FD3E151C8A7903007BCA6B /* XHPathCover.m in Sources */,
+				F5D6E5911D1A2A8900F5E147 /* AboutTableViewController.m in Sources */,
 				B8F6E2421CB91989000CC117 /* Order.m in Sources */,
 				B612DD871CAD1941004C428C /* CompanyModel.m in Sources */,
 				B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */,
