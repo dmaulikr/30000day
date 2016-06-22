@@ -131,8 +131,6 @@ static NSInteger const kOnePageSize = 10;
     
     [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
 
-    [STNotificationCenter addObserver:self selector:@selector(conversationChange:) name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
-    
     [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:STDidSuccessGroupChatSettingSendNotification object:nil];
     
     [self loadMessagesWhenInit];
@@ -150,7 +148,7 @@ static NSInteger const kOnePageSize = 10;
 }
 
 //接收修改群资料的通知
-- (void)conversationChange:(NSNotification *)notification {
+- (void)conversationChange {
     
     self.title = [self.conversation conversationDisplayName];
 }
@@ -176,8 +174,6 @@ static NSInteger const kOnePageSize = 10;
     [STNotificationCenter removeObserver:self name:kCDNotificationMessageDelivered object:nil];
     
     [STNotificationCenter removeObserver:self name:kCDNotificationConversationUpdated object:nil];
-    
-    [STNotificationCenter removeObserver:self name:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
     
     [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
     
@@ -903,8 +899,7 @@ static NSInteger const kOnePageSize = 10;
         
         [self insertMessage:message];
         
-//        [[CDChatManager manager] setZeroUnreadWithConversationId:self.conversation.conversationId];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationMessageReceived object:nil];
+        [self conversationChange];//也会接受群消息的变化，所以需要去修改下群资料
     }
 }
 

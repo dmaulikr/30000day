@@ -94,4 +94,7 @@
 
 + (NSError *)errorWithString:(NSString *)errorString;
 
+//表示如果该error的NSLocalizedDescriptionKey存在那么返回NSLocalizedDescriptionKey，如果不不存在返回optionalString
++ (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString;
+
 @end

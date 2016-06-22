@@ -10,6 +10,7 @@
 #import "CDChatManager.h"
 #import "CDEmotionUtils.h"
 #import "AVIMEmotionMessage.h"
+#import "AVIMNoticationMessage.h"
 
 @interface CDMessageHelper ()
 
@@ -81,6 +82,12 @@
                 
                 title = @"视频";
                 
+                break;
+                
+            case AVIMMessageMediaTypeNotification:
+                
+                title = [CDEmotionUtils emojiStringFromString:msg.text];
+                
             default:
                 
                 break;
@@ -98,7 +105,13 @@
     
     if (conversation.type == CDConversationTypeGroup) {
         
-        title = [NSString stringWithFormat:@"%@: %@",[conversation memberName:message.clientId], title];
+        if (message.mediaType == AVIMMessageMediaTypeNotification) {//通知类型的消息就不显示是谁发的了
+            
+
+        } else {
+            
+            title = [NSString stringWithFormat:@"%@: %@",[conversation memberName:message.clientId], title];
+        }
     }
     
     if (conversation.muted && conversation.unreadCount > 0) {

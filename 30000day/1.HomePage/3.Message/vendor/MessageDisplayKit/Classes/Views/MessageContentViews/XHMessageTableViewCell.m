@@ -26,7 +26,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 @property (nonatomic, weak, readwrite) XHMessageBubbleView *messageBubbleView;
 
-@property (nonatomic, weak, readwrite) UIButton *avatorButton;
+@property (nonatomic, weak, readwrite) UIImageView *avatorImageView;
 
 @property (nonatomic, weak, readwrite) UILabel *userNameLabel;
 
@@ -67,7 +67,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
  *
  *  @param sender 头像按钮对象
  */
-- (void)avatorButtonClicked:(UIButton *)sender;
+- (void)avatorButtonClicked;
 
 /**
  *  统一一个方法隐藏MenuController，多处需要调用
@@ -106,7 +106,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 @implementation XHMessageTableViewCell
 
-- (void)avatorButtonClicked:(UIButton *)sender {
+- (void)avatorButtonClicked {
     if ([self.delegate respondsToSelector:@selector(didSelectedAvatorOnMessage:atIndexPath:)]) {
         [self.delegate didSelectedAvatorOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
     }
@@ -196,7 +196,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
         self.messageBubbleView.hidden = YES;
         
-        self.avatorButton.hidden = YES;
+        self.avatorImageView.hidden = YES;
         
         self.userNameLabel.hidden = YES;
         
@@ -208,7 +208,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         
         self.messageBubbleView.hidden = NO;
         
-        self.avatorButton.hidden = NO;
+        self.avatorImageView.hidden = NO;
         
         self.userNameLabel.hidden = NO;
         
@@ -228,23 +228,12 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     if (message.avator) {
         
-        [self.avatorButton setImage:message.avator forState:UIControlStateNormal];
-        
+        self.avatorImageView.image = message.avator;
+
     } else if(message.avatorUrl) {
         
-        [self.avatorButton setImage:[UIImage imageNamed:@"placeholder"] forState:UIControlStateNormal];
+        [self.avatorImageView sd_setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
         
-        [self.avatorButton.imageView sd_setImageWithPreviousCachedImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            //下载进度
-            
-        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-           
-            [self.avatorButton setImage:image forState:UIControlStateNormal];
-        }];
-        
-    } else {
-        
-        [self.avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"placeholder"] messageAvatorType:XHMessageAvatorTypeSquare] forState:UIControlStateNormal];
     }
 }
 
@@ -526,7 +515,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         }
         
         // 2、配置头像
-        if (!self.avatorButton) {
+        if (!self.avatorImageView) {
             
             CGRect avatorButtonFrame;
             
@@ -549,29 +538,49 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
                     break;
             }
             
-            UIButton *avatorButton = [[UIButton alloc] initWithFrame:avatorButtonFrame];
+//            UIButton *avatorButton = [[UIButton alloc] initWithFrame:avatorButtonFrame];
+//            
+//            [avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatorType:XHMessageAvatorTypeCircle] forState:UIControlStateNormal];
+//            
+//            [avatorButton addTarget:self action:@selector(avatorButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            avatorButton.layer.cornerRadius = 3;
+//            
+//            avatorButton.layer.masksToBounds = YES;
+//            
+//            avatorButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//            
+//            avatorButton.imageView.backgroundColor = [UIColor blackColor];
+//            
+//            [self.contentView addSubview:avatorButton];
+//            
+//            self.avatorButton = avatorButton;
             
-            [avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatorType:XHMessageAvatorTypeCircle] forState:UIControlStateNormal];
+            UIImageView *avatorImageView = [[UIImageView alloc] initWithFrame:avatorButtonFrame];
             
-            [avatorButton addTarget:self action:@selector(avatorButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            avatorImageView.layer.cornerRadius = 3;
             
-            avatorButton.layer.cornerRadius = 3;
+            avatorImageView.layer.masksToBounds = YES;
             
-            avatorButton.layer.masksToBounds = YES;
+            avatorImageView.contentMode = UIViewContentModeScaleAspectFit;
             
-            avatorButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            avatorImageView.backgroundColor = [UIColor blackColor];
             
-            avatorButton.imageView.backgroundColor = [UIColor blackColor];
+            avatorImageView.userInteractionEnabled = YES;
             
-            [self.contentView addSubview:avatorButton];
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatorButtonClicked)];
             
-            self.avatorButton = avatorButton;
+            [avatorImageView addGestureRecognizer:tap];
+            
+            [self.contentView addSubview:avatorImageView];
+            
+            self.avatorImageView = avatorImageView;
         }
         
         // 3、配置用户名
         if (!self.userNameLabel) {
             
-            UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatorButton.bounds) + 15, 20)];
+            UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatorImageView.bounds) + 15, 20)];
             userNameLabel.textAlignment = NSTextAlignmentCenter;
             
             userNameLabel.backgroundColor = [UIColor clearColor];
@@ -659,7 +668,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
     CGFloat layoutOriginY = kXHAvatorPaddingY + (self.displayTimestamp ? kXHTimeStampLabelHeight : 0);
     
-    CGRect avatorButtonFrame = self.avatorButton.frame;
+    CGRect avatorButtonFrame = self.avatorImageView.frame;
     
     avatorButtonFrame.origin.y = layoutOriginY;
     
@@ -679,7 +688,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     
     bubbleMessageViewFrame.origin.x = bubbleX;
     
-    self.avatorButton.frame = avatorButtonFrame;
+    self.avatorImageView.frame = avatorButtonFrame;
     
     self.userNameLabel.center = CGPointMake(CGRectGetMidX(avatorButtonFrame), CGRectGetMaxY(avatorButtonFrame) + CGRectGetMidY(self.userNameLabel.bounds));
     
@@ -732,15 +741,15 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 - (void)dealloc {
     
-    _avatorButton = nil;
+    self.avatorImageView = nil;
     
-    _timestampLabel = nil;
+    self.timestampLabel = nil;
     
-    _messageBubbleView = nil;
+    self.messageBubbleView = nil;
     
-    _indexPath = nil;
+    self.indexPath = nil;
     
-    _notificationTextView = nil;
+    self.notificationTextView = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

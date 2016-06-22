@@ -72,11 +72,8 @@ static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSu
 //退出群聊
 static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSuccessQuitGroupChatSendNotification";
 
-//邀请人，踢人，创建群发出的通知
+//邀请人，踢人、修改群资料发出的通知
 static NSString *const STDidSuccessGroupChatSettingSendNotification = @"STDidSuccessGroupChatSettingSendNotification";
-
-//修改群资料
-static NSString *const STDidSuccessModifiedGroupChatInformationSendNotification = @"STDidSuccessModifiedGroupChatInformationSendNotification";
 
 //从后台进入前台发送通知刷新主页
 static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSuccessEnterForegroundSendNotification";

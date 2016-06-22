@@ -67,7 +67,7 @@
 /**
  *  头像按钮
  */
-@property (nonatomic, weak, readonly) UIButton *avatorButton;
+@property (nonatomic, weak, readonly) UIImageView *avatorImageView;
 
 /**
  *  用户名标签

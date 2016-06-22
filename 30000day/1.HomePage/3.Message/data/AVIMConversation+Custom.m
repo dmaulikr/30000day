@@ -229,7 +229,7 @@
         name = @"Conversation";
     }
     
-    return [UIImage imageWithHashString:self.conversationId displayString:[[name substringWithRange:NSMakeRange(0, 1)] capitalizedString]];
+    return [UIImage imageWithColor:LOWBLUECOLOR string:[[name substringWithRange:NSMakeRange(0, 1)] capitalizedString]];
 }
 
 @end

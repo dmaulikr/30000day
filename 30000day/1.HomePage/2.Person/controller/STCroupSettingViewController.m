@@ -361,8 +361,6 @@
                         
                         [self.tableView reloadData];
                         
-                        [STNotificationCenter postNotificationName:STDidSuccessModifiedGroupChatInformationSendNotification object:nil];
-                        
                     } else {
                         
                         [self showToast:[Common errorStringWithError:error]];
