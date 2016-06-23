@@ -45,6 +45,13 @@
 - (void)didSelectedAvatorOnMessage:(id <XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
 
 /**
+ *  长按消息发送者的头像回调方法,用于群聊中@某人
+ *
+ *  @param indexPath 该目标消息在哪个IndexPath里面
+ */
+- (void)didLongPressAvatorOnMessage:(id <XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath;
+
+/**
  *  Menu Control Selected Item
  *
  *  @param bubbleMessageMenuSelecteType 点击item后，确定点击类型

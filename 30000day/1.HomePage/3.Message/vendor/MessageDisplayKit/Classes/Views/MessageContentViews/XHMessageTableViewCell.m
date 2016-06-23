@@ -89,6 +89,13 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 - (void)longPressGestureRecognizerHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer;
 
 /**
+ *  长按消息发送者头像的手势处理方法，用于群聊中@某人
+ *
+ *  @param longPressGestureRecognizer 长按手势对象
+ */
+- (void)longPressGestureRecognizerAvatorImageViewHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer;
+
+/**
  *  单击手势处理方法，用于点击多媒体消息触发方法，比如点击语音需要播放的回调、点击图片需要查看大图的回调
  *
  *  @param tapGestureRecognizer 点击手势对象
@@ -107,13 +114,17 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 @implementation XHMessageTableViewCell
 
 - (void)avatorButtonClicked {
+    
     if ([self.delegate respondsToSelector:@selector(didSelectedAvatorOnMessage:atIndexPath:)]) {
+        
         [self.delegate didSelectedAvatorOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
     }
 }
 
 -(void)retryButtonClicked:(UIButton*)sender{
+    
     if([_delegate respondsToSelector:@selector(didRetrySendMessage:atIndexPath:)]){
+        
         [_delegate didRetrySendMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
     }
 }
@@ -191,29 +202,19 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     if (message.messageMediaType == XHBubbleMessageMediaTypeNotification) {//XHBubbleMessageMediaTypeNotification类型的消息和timestampLabel控件重合,所有要根据消息类型去隐藏一个
         
         self.timestampLabel.hidden = YES;
-        
         self.notificationTextView.hidden = NO;
-
         self.messageBubbleView.hidden = YES;
-        
         self.avatorImageView.hidden = YES;
-        
         self.userNameLabel.hidden = YES;
-        
         self.notificationTextView.displayNotificationTextLabel.text = message.text;
         
     } else {
 
         self.notificationTextView.hidden = YES;
-        
         self.messageBubbleView.hidden = NO;
-        
         self.avatorImageView.hidden = NO;
-        
         self.userNameLabel.hidden = NO;
-        
         self.displayTimestamp = displayTimestamp;
-        
         self.timestampLabel.hidden = !self.displayTimestamp;
         
         if (displayTimestamp) {
@@ -226,6 +227,19 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 - (void)configAvatorWithMessage:(id <XHMessageModel>)message {
     
+    for (UIGestureRecognizer *gesTureRecognizer in self.avatorImageView.gestureRecognizers) {//移除手势
+        [self.avatorImageView removeGestureRecognizer:gesTureRecognizer];
+    }
+    
+    //点击手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatorButtonClicked)];
+    [self.avatorImageView addGestureRecognizer:tap];
+    
+    //长按手势
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerAvatorImageViewHandle:)];
+    [longPressGestureRecognizer setMinimumPressDuration:0.5];
+    [self.avatorImageView addGestureRecognizer:longPressGestureRecognizer];
+    
     if (message.avator) {
         
         self.avatorImageView.image = message.avator;
@@ -233,7 +247,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     } else if(message.avatorUrl) {
         
         [self.avatorImageView sd_setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        
     }
 }
 
@@ -249,7 +262,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     for (UIGestureRecognizer *gesTureRecognizer in self.messageBubbleView.bubbleImageView.gestureRecognizers) {
         
         [self.messageBubbleView.bubbleImageView removeGestureRecognizer:gesTureRecognizer];
-        
     }
     
     for (UIGestureRecognizer *gesTureRecognizer in self.messageBubbleView.bubblePhotoImageView.gestureRecognizers) {
@@ -398,6 +410,17 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     }
 }
 
+- (void)longPressGestureRecognizerAvatorImageViewHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
+    
+    NSLog(@"111111");
+    
+    if ([self.delegate respondsToSelector:@selector(didLongPressAvatorOnMessage:atIndexPath:)]) {
+        
+        [self.delegate didLongPressAvatorOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
+    }
+}
+
+
 #pragma mark - Notifications
 
 - (void)handleMenuWillHideNotification:(NSNotification *)notification {
@@ -455,11 +478,6 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     self.accessoryType = UITableViewCellAccessoryNone;
     self.accessoryView = nil;
     
-    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerHandle:)];
-    [recognizer setMinimumPressDuration:0.4f];
-    [self addGestureRecognizer:recognizer];
-    
-    
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizerHandle:)];
     [self addGestureRecognizer:tapGestureRecognizer];
 }
@@ -477,40 +495,25 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
         if (!_timestampLabel) {
             
             LKBadgeView *timestampLabel = [[LKBadgeView alloc] initWithFrame:CGRectMake(0, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width, kXHTimeStampLabelHeight)];
-            
             timestampLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-            
             timestampLabel.badgeColor = RGBACOLOR(200, 200, 200, 1);
-            
             timestampLabel.textColor = [UIColor whiteColor];
-            
             timestampLabel.font = [UIFont systemFontOfSize:13.0f];
-            
             timestampLabel.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) / 2.0, timestampLabel.center.y);
-            
             [self.contentView addSubview:timestampLabel];
-            
             [self.contentView bringSubviewToFront:timestampLabel];
-            
             _timestampLabel = timestampLabel;
         }
         
         if (!_notificationTextView) {//显示通知类型消息控件
             
             XHMessageDisplayNotificationTextView *notificationTextView = [[XHMessageDisplayNotificationTextView alloc] initWithFrame:CGRectMake(NOTIFICATION_TEXT_VIEW_MARGIN, kXHLabelPadding, [UIScreen mainScreen].bounds.size.width - 46, kXHTimeStampLabelHeight)];
-      
             notificationTextView.backgroundColor = RGBACOLOR(200, 200, 200, 1);
-            
             notificationTextView.displayNotificationTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
-            
             notificationTextView.displayNotificationTextLabel.numberOfLines = 0;
-            
             notificationTextView.layer.cornerRadius = 5;
-            
             notificationTextView.layer.masksToBounds = YES;
-            
             [self.contentView addSubview:notificationTextView];
-            
             _notificationTextView = notificationTextView;
         }
         
@@ -522,15 +525,11 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             switch (message.bubbleMessageType) {
                     
                 case XHBubbleMessageTypeReceiving:
-                    
                     avatorButtonFrame = CGRectMake(kXHAvatorPaddingX, kXHAvatorPaddingY + (self.displayTimestamp ? kXHTimeStampLabelHeight : 0), kXHAvatarImageSize, kXHAvatarImageSize);
-                    
                     break;
                     
                 case XHBubbleMessageTypeSending:
-                    
                     avatorButtonFrame = CGRectMake(CGRectGetWidth(self.bounds) - kXHAvatarImageSize - kXHAvatorPaddingX, kXHAvatorPaddingY + (self.displayTimestamp ? kXHTimeStampLabelHeight : 0), kXHAvatarImageSize, kXHAvatarImageSize);
-                    
                     break;
                     
                 default:
@@ -538,42 +537,13 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
                     break;
             }
             
-//            UIButton *avatorButton = [[UIButton alloc] initWithFrame:avatorButtonFrame];
-//            
-//            [avatorButton setImage:[XHMessageAvatorFactory avatarImageNamed:[UIImage imageNamed:@"avator"] messageAvatorType:XHMessageAvatorTypeCircle] forState:UIControlStateNormal];
-//            
-//            [avatorButton addTarget:self action:@selector(avatorButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//            
-//            avatorButton.layer.cornerRadius = 3;
-//            
-//            avatorButton.layer.masksToBounds = YES;
-//            
-//            avatorButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-//            
-//            avatorButton.imageView.backgroundColor = [UIColor blackColor];
-//            
-//            [self.contentView addSubview:avatorButton];
-//            
-//            self.avatorButton = avatorButton;
-            
             UIImageView *avatorImageView = [[UIImageView alloc] initWithFrame:avatorButtonFrame];
-            
             avatorImageView.layer.cornerRadius = 3;
-            
             avatorImageView.layer.masksToBounds = YES;
-            
             avatorImageView.contentMode = UIViewContentModeScaleAspectFit;
-            
             avatorImageView.backgroundColor = [UIColor blackColor];
-            
             avatorImageView.userInteractionEnabled = YES;
-            
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatorButtonClicked)];
-            
-            [avatorImageView addGestureRecognizer:tap];
-            
             [self.contentView addSubview:avatorImageView];
-            
             self.avatorImageView = avatorImageView;
         }
         
@@ -582,15 +552,10 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             
             UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.avatorImageView.bounds) + 15, 20)];
             userNameLabel.textAlignment = NSTextAlignmentCenter;
-            
             userNameLabel.backgroundColor = [UIColor clearColor];
-            
             userNameLabel.font = [UIFont systemFontOfSize:12];
-            
             userNameLabel.textColor = LOWBLUECOLOR;
-            
             [self.contentView addSubview:userNameLabel];
-            
             self.userNameLabel = userNameLabel;
         }
         
@@ -616,16 +581,18 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
             
             // bubble container
             XHMessageBubbleView *messageBubbleView = [[XHMessageBubbleView alloc] initWithFrame:frame message:message];
-            
             messageBubbleView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
                                                   | UIViewAutoresizingFlexibleHeight
                                                   | UIViewAutoresizingFlexibleBottomMargin);
-            
             [self.contentView addSubview:messageBubbleView];
-            
             [self.contentView sendSubviewToBack:messageBubbleView];
-            
             self.messageBubbleView = messageBubbleView;
+            
+            //长按手势
+            UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerHandle:)];
+            [recognizer setMinimumPressDuration:0.4f];
+            [self.messageBubbleView addGestureRecognizer:recognizer];
+            
         }
         
 //        if(!self.statusView) {

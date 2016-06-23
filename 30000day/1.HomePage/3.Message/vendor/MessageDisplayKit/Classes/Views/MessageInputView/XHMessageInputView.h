@@ -175,5 +175,10 @@ typedef NS_ENUM(NSInteger, XHMessageInputViewStyle) {
  */
 + (CGFloat)maxHeight;
 
+/**
+ *
+ * 主动给textView赋值
+ */
+- (void)setTextViewWithText:(NSString *)text;
 
 @end

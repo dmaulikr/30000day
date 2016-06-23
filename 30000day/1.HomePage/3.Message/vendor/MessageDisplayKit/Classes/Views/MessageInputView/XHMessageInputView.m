@@ -535,6 +535,15 @@
     return ([XHMessageInputView maxLines] + 1.0f) * [XHMessageInputView textViewLineHeight];
 }
 
+/**
+ *
+ * 主动给textView赋值
+ */
+- (void)setTextViewWithText:(NSString *)text {
+    self.inputTextView.text = text;
+    [self.inputTextView becomeFirstResponder];
+}
+
 #pragma mark - Text view delegate
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
