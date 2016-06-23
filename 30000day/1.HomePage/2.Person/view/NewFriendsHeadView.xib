@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NewFriendsHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索好友/账号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aD4-D4-JUj">
+                    <rect key="frame" x="137" y="5" width="101.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifier" translatesAutoresizingMaskIntoConstraints="NO" id="qie-mJ-546">
+                    <rect key="frame" x="112" y="5" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Flq-mt-pzS"/>
+                        <constraint firstAttribute="width" constant="20" id="XgN-jy-M1K"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="aD4-D4-JUj" firstAttribute="leading" secondItem="qie-mJ-546" secondAttribute="trailing" constant="5" id="4eT-A2-cap"/>
+                <constraint firstItem="aD4-D4-JUj" firstAttribute="centerY" secondItem="qie-mJ-546" secondAttribute="centerY" id="hXF-TL-rR7"/>
+                <constraint firstItem="aD4-D4-JUj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uqA-nb-O4w"/>
+                <constraint firstItem="aD4-D4-JUj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="wL3-ON-qlL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-80.5" y="290"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="magnifier" width="100" height="100"/>
+    </resources>
+</document>
