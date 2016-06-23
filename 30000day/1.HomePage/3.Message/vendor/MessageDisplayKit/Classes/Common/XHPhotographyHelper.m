@@ -52,9 +52,11 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+    
     if (self.didFinishTakeMediaCompled) {
         self.didFinishTakeMediaCompled(image, editingInfo);
     }
+    
     [self dismissPickerViewController:picker];
 }
 

@@ -641,11 +641,11 @@ static CDChatManager *instance;
 
 - (void)selectOrRefreshConversationsWithBlock:(AVIMArrayResultBlock)block {
     
-    static BOOL refreshedFromServer = NO;//这里设置只会调用一次
-    
     NSArray *conversations = [[CDConversationStore store] selectAllConversations];
     
-    if (refreshedFromServer == NO && self.connect) {
+    __block NSInteger refreshedFromServer = 0;
+    
+    if (refreshedFromServer == 0 && self.connect) {
         
         NSMutableSet *conversationIds = [NSMutableSet set];
         
@@ -660,16 +660,14 @@ static CDChatManager *instance;
                 
                 block(conversations, nil);
                 
-                refreshedFromServer = YES;
-                
             } else {
-                
-                refreshedFromServer = YES;
-                
+
                 [[CDConversationStore store] updateConversations:objects];
                 
                 block([[CDConversationStore store] selectAllConversations], nil);
             }
+            
+            refreshedFromServer = 1;
         }];
         
     } else {

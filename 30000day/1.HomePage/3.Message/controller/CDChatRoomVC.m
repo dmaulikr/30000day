@@ -483,7 +483,7 @@ static NSInteger const kOnePageSize = 10;
             }];
         }
 
-    } else {//缩略图
+    } else {//非原图
         
         for (int i = 0; i < photo.count; i++) {
             
@@ -768,10 +768,11 @@ static NSInteger const kOnePageSize = 10;
 #pragma mark - conversations store
 
 - (void)updateConversationAsRead {
+    
     [[CDConversationStore store] insertConversation:self.conversation];
     [[CDConversationStore store] updateUnreadCountToZeroWithConversation:self.conversation];
     [[CDConversationStore store] updateMentioned:NO conversation:self.conversation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCDNotificationUnreadsUpdated object:nil];
+    [STNotificationCenter postNotificationName:kCDNotificationUnreadsUpdated object:nil];
 }
 
 #pragma mark - send message

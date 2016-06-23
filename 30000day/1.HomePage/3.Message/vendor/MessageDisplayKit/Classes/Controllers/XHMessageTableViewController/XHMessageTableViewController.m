@@ -1228,6 +1228,8 @@ static CGPoint  delayOffset = {0.0};
             } else {
                 
                 [weakSelf didSendMessageWithPhotoArray:@[[editingInfo objectForKey:UIImagePickerControllerOriginalImage]] isSpecialPhoto:NO];
+                //保存到相册
+                UIImageWriteToSavedPhotosAlbum([editingInfo objectForKey:UIImagePickerControllerOriginalImage], nil, nil, nil);
             }
         }
     };
