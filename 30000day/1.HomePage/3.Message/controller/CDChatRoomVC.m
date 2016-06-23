@@ -238,17 +238,11 @@ static NSInteger const kOnePageSize = 10;
             
             //1.创建播放器
             AVPlayerViewController *controller = [[AVPlayerViewController alloc]  init];
-
             AVPlayerItem *item =  [AVPlayerItem playerItemWithURL:[NSURL URLWithString:message.videoUrl]];//改到这
-            
             AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
-        
             controller.player = player;
-            
             [player play];
-            
             [self presentViewController:controller animated:YES completion:nil];
-
             break;
         }
             
@@ -257,44 +251,26 @@ static NSInteger const kOnePageSize = 10;
            NSMutableArray *messageArray =  [[CDChatManager sharedManager] typeMessageArrayWith:kAVIMMessageMediaTypeImage conversation:self.conversation];
             
             NSMutableArray *photoUrlArray = [[NSMutableArray alloc] init];
-            
             for (AVIMImageMessage *message in messageArray) {
-                
                 AVFile *file = message.file;
-                
                 [photoUrlArray addObject:file.url];
             }
             
             IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:photoUrlArray];
-            
             browser.forceHideStatusBar = YES;
-            
             browser.displayDoneButton = NO;
-            
             browser.displayToolbar = YES;
-            
             browser.autoHideInterface = false;
-            
             browser.displayActionButton = NO;
-            
             browser.displayArrowButton = YES;
-            
             browser.displayCounterLabel = YES;
-            
             browser.animationDuration = 1.0f;
-            
             browser.disableVerticalSwipe = YES;
-            
             browser.usePopAnimation = YES;
-            
             [browser setInitialPageIndex:[photoUrlArray indexOfObject:message.originPhotoUrl]];
-
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-            
             [browser.view addGestureRecognizer:tap];
-            
             [self presentViewController:browser animated:YES completion:nil];
-            
             self.browser = browser;
             
             break;
@@ -373,6 +349,22 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)didRetrySendMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
     [self resendMessageAtIndexPath:indexPath discardIfFailed:false];
+}
+
+/**
+ *  长按消息发送者的头像回调方法,用于群聊中@某人
+ *
+ *  @param indexPath 该目标消息在哪个IndexPath里面
+ */
+- (void)didLongPressAvatorOnMessage:(id <XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.conversation type] == CDConversationTypeGroup) {//群聊才能@人
+        
+        if (message.bubbleMessageType == XHBubbleMessageTypeReceiving) {//只能@对方
+            
+            [self.messageInputView setTextViewWithText:[NSString stringWithFormat:@"@%@ ",message.senderOriginNickNname]];
+        }
+    }
 }
 
 #pragma mark - XHAudioPlayerHelper Delegate
@@ -1058,6 +1050,8 @@ static NSInteger const kOnePageSize = 10;
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
     }
+    //给消息接收方/发送方原本的昵称赋值
+    xhMessage.senderOriginNickNname = [self.conversation originNickName:msg.clientId];
     
     NSInteger msgStatuses[4] = { AVIMMessageStatusSending, AVIMMessageStatusSent, AVIMMessageStatusDelivered, AVIMMessageStatusFailed };
     

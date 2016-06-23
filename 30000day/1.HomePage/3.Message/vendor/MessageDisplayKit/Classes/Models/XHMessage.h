@@ -42,6 +42,8 @@
 
 @property (nonatomic, copy) NSString *sender;
 
+@property (nonatomic, copy) NSString *senderOriginNickNname;//发送者原本的昵称,用来比对群聊的中是否有人@你
+
 @property (nonatomic, strong) NSDate *timestamp;
 
 @property (nonatomic, assign) BOOL sended;

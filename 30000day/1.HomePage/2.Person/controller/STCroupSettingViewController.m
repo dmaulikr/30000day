@@ -472,22 +472,36 @@
         
     } else if (indexPath.section == 2) {
         
-        //离开对话
-        [[CDChatManager sharedManager] deleteAndDeleteConversation:self.conversation callBack:^(BOOL successed, NSError *error) {
-
-            if (successed) {
-
-                [self showToast:@"退出群聊成功"];
-
-                [self.navigationController popToRootViewControllerAnimated:YES];//退回到根控制器
-
-                [STNotificationCenter postNotificationName:STDidSuccessQuitGroupChatSendNotification object:nil];
-
-            } else {
-
-                [self showToast:@"退出群聊失败"];
-            }
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"确定退出群聊？" message:@"点击确定会退出该群聊并删除本地聊天记录" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            //离开对话
+            [[CDChatManager sharedManager] deleteAndDeleteConversation:self.conversation callBack:^(BOOL successed, NSError *error) {
+                
+                if (successed) {
+                    
+                    [self showToast:@"退出群聊成功"];
+                    
+                    [self.navigationController popToRootViewControllerAnimated:YES];//退回到根控制器
+                    
+                    [STNotificationCenter postNotificationName:STDidSuccessQuitGroupChatSendNotification object:nil];
+                    
+                } else {
+                    
+                    [self showToast:@"退出群聊失败"];
+                }
+            }];
         }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [controller addAction:cancelAction];
+        
+        [controller addAction:action];
+        
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 

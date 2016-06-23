@@ -775,7 +775,7 @@ static CDChatManager *instance;
         
         NSString *text = ((AVIMTextMessage *)message).text;
         
-        NSString *pattern = [NSString stringWithFormat:@"@%@ ",STUserAccountHandler.userProfile.nickName];
+        NSString *pattern = [NSString stringWithFormat:@"@%@",STUserAccountHandler.userProfile.nickName];
         
         if([text rangeOfString:pattern].length > 0) {
             

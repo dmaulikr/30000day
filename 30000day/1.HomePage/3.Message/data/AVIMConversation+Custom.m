@@ -76,6 +76,27 @@
 }
 
 /**
+ *
+ * 根据对方Id取到对方原本的昵称
+ **/
+- (NSString *)originNickName:(NSString *)memberClientId {
+    
+    NSDictionary *otherDictionary = self.attributes;
+    
+    NSDictionary *newDictionay = [otherDictionary objectForKey:memberClientId];
+    
+    if (newDictionay) {//对话中字典存在才会取得
+        
+       return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+        
+    } else {
+        
+        return @"";
+    }
+}
+
+
+/**
  *  对话显示的名称。单聊显示对方名字，群聊显示对话的name
  */
 - (NSString *)conversationDisplayName {
