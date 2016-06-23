@@ -315,6 +315,8 @@
                 cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][0];
             }
             
+            cell.jinSuoSupView.hidden = YES;
+            
             cell.informationModel = _dataArray[indexPath.row];
             
             return cell;
@@ -329,6 +331,9 @@
                 
                 cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][1];
             }
+            
+            cell.jinSuoSupView.hidden = YES;
+            
             cell.informationModel_second = _dataArray[indexPath.row];
             
              return cell;

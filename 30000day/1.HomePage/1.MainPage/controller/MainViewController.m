@@ -609,9 +609,9 @@
         } else if (life <= 90) {
             return [UIImage imageNamed:@"age_8_f"];
         } else if (life <= 100 || life > 100) {
-            return [UIImage imageNamed:@"age_9_f"];
+            return [UIImage imageNamed:@"age_9"];
         } else {
-            return [UIImage imageNamed:@"age_9_f"];
+            return [UIImage imageNamed:@"age_9"];
         }
         
     } else {

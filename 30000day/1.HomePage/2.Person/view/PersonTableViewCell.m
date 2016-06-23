@@ -38,6 +38,12 @@
     self.imageView_fifth.layer.cornerRadius = 3;
     
     self.imageView_fifth.layer.masksToBounds = YES;
+    
+    self.jinSuoSupView.layer.cornerRadius = 20;
+    
+    self.jinSuoSupView.layer.borderWidth = 1.0;
+    
+    self.jinSuoSupView.layer.borderColor = [UIColor colorWithRed:207.0/255.0 green:208.0/255.0 blue:209.0/255.0 alpha:1.0].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -114,11 +120,21 @@
     
     [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:[informationModel showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
+    //金锁
+    [self.jinSuoImageView setImage:[self lifeDay:_informationModel.curLife gender:_informationModel.gender]];
+    
+    //详情金锁
+    [self.jinSuoSmallImageView setImage:[self lifeDay:_informationModel.curLife gender:_informationModel.gender]];
+    
+    //age
+    [self.ageLable setText:[NSString stringWithFormat:@"%ld岁",(long)[self lifeDay:_informationModel.curLife]]];
+    
     //昵称
     self.labelFirst_first.text = [informationModel showNickName];
     
     //个性签名
     self.labelSecond_first.text = [NSString stringWithFormat:@"%@",[Common isObjectNull:informationModel.memo] ? @"" : informationModel.memo];
+    
 }
 
 - (void)setInformationModel_second:(UserInformationModel *)informationModel_second {
@@ -293,6 +309,73 @@
         
         self.button_fourth.backgroundColor = [UIColor whiteColor];
     }
+}
+
+- (UIImage *)lifeDay:(NSNumber *)curLife gender:(NSNumber *)gender {
+    
+    NSInteger life = [self lifeDay:curLife];
+    
+    if (gender.integerValue == 2) {
+        
+        if (life <= 20) {
+            return [UIImage imageNamed:@"age_1_f"];
+        } else if (life <= 30) {
+            return [UIImage imageNamed:@"age_2_f"];
+        } else if (life <= 40) {
+            return [UIImage imageNamed:@"age_3_f"];
+        } else if (life <= 50) {
+            return [UIImage imageNamed:@"age_4_f"];
+        } else if (life <= 60) {
+            return [UIImage imageNamed:@"age_5_f"];
+        } else if (life <= 70) {
+            return [UIImage imageNamed:@"age_6_f"];
+        } else if (life <= 80) {
+            return [UIImage imageNamed:@"age_7_f"];
+        } else if (life <= 90) {
+            return [UIImage imageNamed:@"age_8_f"];
+        } else if (life <= 100 || life > 100) {
+            return [UIImage imageNamed:@"age_9_f"];
+        } else {
+            return [UIImage imageNamed:@"age_9_f"];
+        }
+        
+    } else {
+        
+        if (life <= 20) {
+            return [UIImage imageNamed:@"age_1"];
+        } else if (life <= 30) {
+            return [UIImage imageNamed:@"age_2"];
+        } else if (life <= 40) {
+            return [UIImage imageNamed:@"age_3"];
+        } else if (life <= 50) {
+            return [UIImage imageNamed:@"age_4"];
+        } else if (life <= 60) {
+            return [UIImage imageNamed:@"age_5"];
+        } else if (life <= 70) {
+            return [UIImage imageNamed:@"age_6"];
+        } else if (life <= 80) {
+            return [UIImage imageNamed:@"age_7"];
+        } else if (life <= 90) {
+            return [UIImage imageNamed:@"age_8"];
+        } else if (life <= 100 || life > 100) {
+            return [UIImage imageNamed:@"age_9"];
+        } else {
+            return [UIImage imageNamed:@"age_9"];
+        }
+    }
+
+}
+
+- (NSInteger)lifeDay:(NSNumber *)curLife {
+
+    NSInteger day = curLife.integerValue;
+    
+    NSNumber *lifeYear = [NSNumber numberWithFloat:day/365];
+    
+    NSInteger life = [lifeYear integerValue];
+    
+    return life;
+
 }
 
 @end

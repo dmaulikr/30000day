@@ -27,11 +27,14 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 //第一个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_first;
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_first;
+@property (weak, nonatomic) IBOutlet UIImageView *jinSuoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *labelFirst_first;
 @property (weak, nonatomic) IBOutlet UILabel *labelSecond_first;//第二个label
 @property (weak, nonatomic) IBOutlet MDRadialProgressView *progressView;
 @property (nonatomic,strong)UserInformationModel *informationModel;
-
+@property (weak, nonatomic) IBOutlet UIView *jinSuoSupView;
+@property (weak, nonatomic) IBOutlet UIImageView *jinSuoSmallImageView;
+@property (weak, nonatomic) IBOutlet UILabel *ageLable;
 
 //第二个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageBig_second;

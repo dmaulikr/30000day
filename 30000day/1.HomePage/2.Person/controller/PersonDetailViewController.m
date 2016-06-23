@@ -262,6 +262,8 @@
         
         cell.progressView.hidden = YES;
         
+        cell.jinSuoImageView.hidden = YES;
+        
         cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId];
         
         return cell;
