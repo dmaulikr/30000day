@@ -650,6 +650,7 @@
 		B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E501C8A8178007BCA6B /* CDChatVC.m */; };
 		B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */; };
 		B8FD41DF1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */; };
+		B8FD41E21D193DCD00CB2059 /* AVIMNoticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD41E11D193DCD00CB2059 /* AVIMNoticationMessage.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
@@ -1794,6 +1795,8 @@
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
 		B8FD41DD1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMessageDisplayNotificationTextView.h; sourceTree = "<group>"; };
 		B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHMessageDisplayNotificationTextView.m; sourceTree = "<group>"; };
+		B8FD41E01D193DCC00CB2059 /* AVIMNoticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVIMNoticationMessage.h; sourceTree = "<group>"; };
+		B8FD41E11D193DCD00CB2059 /* AVIMNoticationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMNoticationMessage.m; sourceTree = "<group>"; };
 		B8FFBF041CE30F72009AA425 /* NewFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendModel.h; sourceTree = "<group>"; };
 		B8FFBF051CE30F72009AA425 /* NewFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendModel.m; sourceTree = "<group>"; };
 		B8FFBF071CE4588E009AA425 /* NewFriendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendManager.h; sourceTree = "<group>"; };
@@ -3852,6 +3855,8 @@
 				B8FD3CAA1C8A77EB007BCA6B /* AVIMConversation+Custom.m */,
 				B8FD3CAB1C8A77EB007BCA6B /* AVIMEmotionMessage.h */,
 				B8FD3CAC1C8A77EB007BCA6B /* AVIMEmotionMessage.m */,
+				B8FD41E01D193DCC00CB2059 /* AVIMNoticationMessage.h */,
+				B8FD41E11D193DCD00CB2059 /* AVIMNoticationMessage.m */,
 				B8FD3CB91C8A77EB007BCA6B /* CDSoundManager.h */,
 				B8FD3CBA1C8A77EB007BCA6B /* CDSoundManager.m */,
 				B8FD3CAD1C8A77EB007BCA6B /* CDChatManager.h */,
@@ -4952,6 +4957,7 @@
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
 				B612DD811CACFE21004C428C /* ShopOneLineDataTableViewCell.m in Sources */,
+				B8FD41E21D193DCD00CB2059 /* AVIMNoticationMessage.m in Sources */,
 				B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */,
 				B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,

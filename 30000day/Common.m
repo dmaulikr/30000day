@@ -568,4 +568,16 @@
     }
 }
 
++ (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString {
+    
+    if ([Common isObjectNull:error.userInfo[NSLocalizedDescriptionKey]]) {
+        
+        return optionalString;
+        
+    } else {
+        
+        return error.userInfo[NSLocalizedDescriptionKey];
+    }
+}
+
 @end

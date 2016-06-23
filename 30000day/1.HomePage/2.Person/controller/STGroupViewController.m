@@ -13,6 +13,8 @@
 #import "CDIMService.h"
 #import "UIImageView+WebCache.h"
 #import "GroupSettingManager.h"
+#import "CDIMService.h"
+#import "MTProgressHUD.h"
 
 @interface STGroupViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -39,6 +41,8 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(creatNewGroup)];
     
     self.navigationItem.rightBarButtonItem = item;
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadGroupChat) name:STDidSuccessGroupChatSettingSendNotification object:nil];
 }
 
 //新建一个群聊
@@ -51,14 +55,14 @@
         return;
     }
     
-    [GroupSettingManager createNewGroupChatFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.  userProfile.userId] callBack:^(BOOL success, NSError *error) {
+    [GroupSettingManager createNewGroupChatFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.  userProfile.userId] callBack:^(BOOL success, NSError *error,AVIMConversation *conversation) {
         
         if (success) {
-            
-            [self showToast:@"创建群成功"];
-            
+  
             //创建群成功后再去下载所有群
             [self loadGroupConversation];
+            
+            [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
             
         } else {
             
@@ -67,19 +71,65 @@
     }];
 }
 
+- (void)reloadGroupChat {
+    
+    [[CDChatManager sharedManager] findGroupedConversationsWithNetworkFirst:YES block:^(NSArray *objects, NSError *error) {
+        
+        if ([Common isObjectNull:error]) {
+            
+            self.dataArray = [NSMutableArray arrayWithArray:objects];
+            
+            [self.tableView reloadData];
+            
+        } else {
+            
+            [self showToast:[Common errorStringWithError:error optionalString:@"发生了未知因素"]];
+        }
+    }];
+}
+
 - (void)loadGroupConversation {//这地方如果没有网络的会崩溃
+    
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(hideMTProgressHUD:) userInfo:nil repeats:nil];
+    
+    timer.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0f];
     
     [[CDChatManager sharedManager] findGroupedConversationsWithNetworkFirst:YES block:^(NSArray *objects, NSError *error) {
        
-        self.dataArray = [NSMutableArray arrayWithArray:objects];
-        
-        [self.tableView reloadData];
+        if ([Common isObjectNull:error]) {
+            
+            self.dataArray = [NSMutableArray arrayWithArray:objects];
+            
+            [self.tableView reloadData];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        } else {
+            
+            [self showToast:[Common errorStringWithError:error optionalString:@"发生了未知因素"]];
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        }
     }];
+}
+
+- (void)hideMTProgressHUD:(NSTimer *)timer {
+    
+    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+    
+    [timer invalidate];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    
+    [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
 }
 
 #pragma ---

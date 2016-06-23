@@ -13,6 +13,7 @@
 #import "CDFailedMessageStore.h"
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
+#import "AVIMNoticationMessage.h"
 
 static CDChatManager *instance;
 
@@ -142,7 +143,7 @@ static CDChatManager *instance;
     
     if (type == CDConversationTypeGroup) {
         // 群聊默认名字， 老王、小李
-        name = @"群组";
+        name = @"群聊";
     }
     
     AVIMConversationOption options;
@@ -226,6 +227,10 @@ static CDChatManager *instance;
         q.limit = 1000;
         
         [q findConversationsWithCallback:block];
+        
+    } else {
+        
+        block([NSMutableArray array],[Common errorWithString:@"用户ID不存在"]);
     }
 }
 
@@ -714,9 +719,18 @@ static CDChatManager *instance;
                         
                     } else {//正常的消息
                         
-                        conversation.lastMessage = message;
-                        
-                        break;
+                        if (message.mediaType == AVIMMessageMediaTypeNotification) {//通知类型的消息，也显示
+                            
+                            conversation.lastMessage = message;
+                            
+                            break;
+                            
+                        } else {//非通知类型的消息，才显示最后一条消息
+                            
+                            conversation.lastMessage = message;
+                            
+                            break;
+                        }
                     }
                 }
             }

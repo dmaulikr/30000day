@@ -25,7 +25,7 @@
 #import "SearchVersionManager.h"
 #import "NewFriendManager.h"
 #import "STDataHandler.h"
-
+#import "AVIMNoticationMessage.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -90,6 +90,8 @@
     [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
     [iVersion sharedInstance].previewMode = NO;
+    
+    [AVIMNoticationMessage registerSubclass];
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
 //    _mapManager = [[BMKMapManager alloc] init];

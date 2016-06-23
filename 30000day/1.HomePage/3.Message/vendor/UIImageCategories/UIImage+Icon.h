@@ -12,4 +12,6 @@
 
 + (UIImage *)imageWithHashString:(NSString *)hashString displayString:(NSString *)displayString;
 
++ (UIImage *)imageWithColor:(UIColor *)color string:(NSString *)string;
+
 @end

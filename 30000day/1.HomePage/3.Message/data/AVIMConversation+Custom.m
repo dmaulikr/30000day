@@ -57,14 +57,21 @@
     NSDictionary *otherDictionary = self.attributes;
     
     NSDictionary *newDictionay = [otherDictionary objectForKey:memberClientId];
-    
-    if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName]) {
+
+    if (newDictionay) {//对话中字典存在才会取得
         
-        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName;
+        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName]) {
+            
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[memberClientId longLongValue]]].nickName;
+            
+        } else {
+            
+            return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+        }
         
     } else {
         
-        return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+        return @"";
     }
 }
 
@@ -126,13 +133,20 @@
     
     NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
     
-    if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName]) {
+    if (newDictionay) {
         
-        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName;
+        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName]) {
+            
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName;
+            
+        } else {
+            
+            return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+        }
         
     } else {
-        
-        return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
+     
+        return @"";
     }
 }
 
@@ -145,20 +159,27 @@
     
     NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
     
-    if ([[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]] && ![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg]) {
+    if (newDictionay) {//存在
         
-        return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg;
-        
-    } else {
-        
-        if ([Common isObjectNull:[newDictionay objectForKey:ORIGINAL_IMG_URL]]) {//表示这人在attributes无记录
+        if ([[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]] && ![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg]) {
             
-            return @"";
+            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].headImg;
             
         } else {
             
-            return [newDictionay objectForKey:ORIGINAL_IMG_URL];
+            if ([Common isObjectNull:[newDictionay objectForKey:ORIGINAL_IMG_URL]]) {//表示这人在attributes无记录
+                
+                return @"";
+                
+            } else {
+                
+                return [newDictionay objectForKey:ORIGINAL_IMG_URL];
+            }
         }
+        
+    } else {
+        
+        return @"";
     }
 }
 
@@ -208,7 +229,7 @@
         name = @"Conversation";
     }
     
-    return [UIImage imageWithHashString:self.conversationId displayString:[[name substringWithRange:NSMakeRange(0, 1)] capitalizedString]];
+    return [UIImage imageWithColor:LOWBLUECOLOR string:[[name substringWithRange:NSMakeRange(0, 1)] capitalizedString]];
 }
 
 @end

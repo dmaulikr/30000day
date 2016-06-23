@@ -12,11 +12,19 @@
 #import "STFriendsViewController.h"
 #import "CDChatManager.h"
 #import "CDConversationStore.h"
+#import "AVIMNoticationMessage.h"
 
 @implementation GroupSettingManager
 
 //新建一个群
-+ (void)createNewGroupChatFromController:(UIViewController *)viewController fromClientId:(NSString *)fromClientId callBack:(void (^)(BOOL success,NSError *error))callBack {
++ (void)createNewGroupChatFromController:(UIViewController *)viewController fromClientId:(NSString *)fromClientId callBack:(void (^)(BOOL success,NSError *error,AVIMConversation *conversation))callBack {
+    
+    if ([Common isObjectNull:fromClientId]) {//如果用户ID不存在，则返回
+        
+        callBack(NO,[Common errorWithString:@"用户ID不存在"],nil);
+        
+        return;
+    }
     
     STFriendsViewController *controller = [[STFriendsViewController alloc] init];
     
@@ -36,17 +44,24 @@
             [[CDChatManager sharedManager] createConversationWithMembers:memberClientIdArray type:CDConversationTypeGroup unique:NO attributes:dictonary callback:^(AVIMConversation *conversation, NSError *error) {
         
                 if ([Common isObjectNull:error]) {
-        
-                    [weakController.navigationController popViewControllerAnimated:YES];
+
+                    [weakController.navigationController popViewControllerAnimated:NO];
                     
-                    callBack(YES,error);
-        
-                    //1.并发送一条群创建成功暂态消息
+                    callBack(YES,error,conversation);
                     
+                    AVIMNoticationMessage *message = [AVIMNoticationMessage messageWithText:[NSString stringWithFormat:@"%@创建了一个群聊",[conversation memberName:fromClientId]] attachedFilePath:nil attributes:nil];
+                    
+                    [[CDChatManager sharedManager] sendMessage:message conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+                        
+                        if (succeeded) {
+                            
+                            [[CDConversationStore store] updateConversations:@[conversation]];
+                        }
+                    }];
                     
                 } else {
                     
-                    callBack(NO,error);
+                    callBack(NO,error,nil);
                 }
             }];
     }];
@@ -56,6 +71,13 @@
 
 //添加人
 + (void)addMemberFromController:(UIViewController *)viewController fromClientId:(NSString *)fromClientId fromConversation:(AVIMConversation * )conversation callBack:(void (^)(BOOL success,NSError *error))callBack {
+    
+    if ([Common isObjectNull:fromClientId]) {//如果用户ID不存在，则返回
+        
+        callBack(NO,[Common errorWithString:@"用户ID不存在"]);
+        
+        return;
+    }
     
     STFriendsViewController *controller = [[STFriendsViewController alloc] init];
     
@@ -101,6 +123,8 @@
                 
                 updateBuilder.attributes = weakConversation.attributes;
                 
+                NSString *joinGroupChatString = @"";//用来显示到底谁加入到群聊里面了
+                
                 for (int i = 0; i < modifiedArray.count; i++) {//循环在attributes中设置新加的个人信息
                     
                     UserInformationModel *model = modifiedArray[i];
@@ -108,6 +132,15 @@
                     NSMutableDictionary *dictionary = [UserInformationModel dictionaryWithModel:model];
                     
                     [updateBuilder setObject:dictionary forKey:[NSString stringWithFormat:@"%@",model.userId]];
+                    
+                    if ( i == modifiedArray.count - 1) {
+                        
+                        joinGroupChatString = [NSString stringWithFormat:@"%@%@",joinGroupChatString,model.originalNickName];
+                        
+                    } else {
+                        
+                        joinGroupChatString = [NSString stringWithFormat:@"%@、%@",joinGroupChatString,model.originalNickName];
+                    }
                 }
 
                 //将更新后的全部属性写回对话
@@ -122,12 +155,13 @@
                         callBack(YES,error);
                         
                         //1.要在群里发送暂态消息
-                        AVIMTextMessage *message = [AVIMTextMessage messageWithText:@"通知类型消息成功加人__1" attributes:nil];
-                        
+                        AVIMNoticationMessage *message = [AVIMNoticationMessage messageWithText:[NSString stringWithFormat:@"%@加入群聊,邀请者为%@",joinGroupChatString,[weakConversation memberName:fromClientId]] attachedFilePath:nil attributes:nil];
+
                         [[CDChatManager sharedManager] sendMessage:message conversation:weakConversation callback:^(BOOL succeeded, NSError *error) {
                             
                             if (succeeded) {
-                            
+                                //邀请人要发送通知
+                                [STNotificationCenter postNotificationName:STDidSuccessGroupChatSettingSendNotification object:message];
                             }
                             
                         }];
@@ -175,6 +209,13 @@
 //踢人操作
 + (void)removeMemberFromController:(UIViewController *)viewController fromClientId:(NSString *)fromClientId fromConversation:(AVIMConversation * )conversation callBack:(void (^)(BOOL success,NSError *error))callBack {
     
+    if ([Common isObjectNull:fromClientId]) {//如果用户ID不存在，则返回
+        
+        callBack(NO,[Common errorWithString:@"用户ID不存在"]);
+        
+        return;
+    }
+    
     STFriendsViewController *controller = [[STFriendsViewController alloc] init];
     
     controller.title = @"踢人(显示已有成员)";
@@ -196,7 +237,15 @@
             
             UserInformationModel *model = [UserInformationModel modelWitDictionary:subDictionary];
             
-            [newDataArray addObject:model];
+            NSString *userIdString = [NSString stringWithFormat:@"%@",model.userId];
+            
+            if ([Common isObjectNull:model.originalNickName] || (userIdString.length <= 1)) {
+             
+                
+            } else {
+                
+                [newDataArray addObject:model];
+            }
         }
     }
     
@@ -215,60 +264,37 @@
             
             if (succeeded) {//移除成功
                 
-                AVIMConversationUpdateBuilder *updateBuilder = [weakConversation newUpdateBuilder];
-                
-                updateBuilder.attributes = weakConversation.attributes;
+                NSString *joinGroupChatString = @"";//用来显示到底谁加入到群聊里面了
                 
                 for (int i = 0; i < modifiedArray.count; i++) {//循环在attributes中移除个人信息
                     
                     UserInformationModel *model = modifiedArray[i];
                     
-                    [updateBuilder removeObjectForKey:[NSString stringWithFormat:@"%@",model.userId]];//移除
+                    if ( i == modifiedArray.count - 1) {
+                        
+                        joinGroupChatString = [NSString stringWithFormat:@"%@%@",joinGroupChatString,model.originalNickName];
+                        
+                    } else {
+                        
+                        joinGroupChatString = [NSString stringWithFormat:@"%@、%@",joinGroupChatString,model.originalNickName];
+                        
+                    }
                 }
                 
-                //将更新后的全部属性写回对话
-                [weakConversation update:[updateBuilder dictionary] callback:^(BOOL succeeded, NSError *error) {
-                    
+                [[CDConversationStore store] updateConversations:@[conversation]];
+
+                [weakController.navigationController popViewControllerAnimated:YES];
+
+                callBack(YES,error);
+                
+                //1.要在群里发送暂态消息
+                AVIMNoticationMessage *message = [AVIMNoticationMessage messageWithText:[NSString stringWithFormat:@"%@被移出群聊,移出者为%@",joinGroupChatString,[weakConversation memberName:fromClientId]] attachedFilePath:nil attributes:nil];
+
+                [[CDChatManager sharedManager] sendMessage:message conversation:weakConversation callback:^(BOOL succeeded, NSError *error) {
+
                     if (succeeded) {
-                        
-                        [[CDConversationStore store] updateConversations:@[weakConversation]];
-                        
-                        [weakController.navigationController popViewControllerAnimated:YES];
-                        
-                        callBack(YES,error);
-                        //1.要在群里发送暂态消息
-                        
-                        
-                        
-                    } else {//移除信息添加的失败，要把之前添加进去的人移除,并把可能存在于attributes中的信息也移除
-                        
-                        [weakConversation addMembersWithClientIds:memberClientIdArray callback:^(BOOL succeeded, NSError *error) {
-                            
-                            if (succeeded) {
-                                
-                                AVIMConversationUpdateBuilder *updateBuilder = [weakConversation newUpdateBuilder];
-                                
-                                updateBuilder.attributes = weakConversation.attributes;
-                                
-                                for (int i = 0; i < modifiedArray.count; i++) {//循环在attributes中设置新加的个人信息
-                                    
-                                    UserInformationModel *model = modifiedArray[i];
-                                    
-                                    NSMutableDictionary *dictionary = [UserInformationModel dictionaryWithModel:model];
-                                    
-                                    [updateBuilder setObject:dictionary forKey:[NSString stringWithFormat:@"%@",model.userId]];
-                                }
-                                
-                                [weakConversation update:[updateBuilder dictionary] callback:^(BOOL succeeded, NSError *error) {//还原操作
-                                    
-                                    callBack(NO,[Common errorWithString:@"移除失败"]);
-                                }];
-                                
-                            } else {//移除之前添加的失败
-                                
-                                callBack(NO,[Common errorWithString:@"移除失败"]);
-                            }
-                        }];
+                        //踢人成功后发送通知
+                        [STNotificationCenter postNotificationName:STDidSuccessGroupChatSettingSendNotification object:message];
                     }
                 }];
                 
@@ -282,7 +308,14 @@
 }
 
 //修改群名字
-+ (void)modifiedGroupChatNameWithName:(NSString *)newName fromConversation:(AVIMConversation *)conversation callback:(void (^)(BOOL succeeded,NSError *error))callback {
++ (void)modifiedGroupChatNameWithName:(NSString *)newName fromConversation:(AVIMConversation *)conversation fromClientId:(NSString *)fromClientId callback:(void (^)(BOOL succeeded,NSError *error))callback {
+    
+    if ([Common isObjectNull:fromClientId]) {//如果用户ID不存在，则返回
+        
+        callback(NO,[Common errorWithString:@"用户ID不存在"]);
+        
+        return;
+    }
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
@@ -296,7 +329,15 @@
         if (succeeded) {
             //1.要在群里发送暂态消息
             
+            AVIMNoticationMessage *message = [AVIMNoticationMessage messageWithText:[NSString stringWithFormat:@"%@把群名修改为%@",[conversation memberName:fromClientId],newName] attachedFilePath:nil attributes:nil];
             
+            [[CDChatManager sharedManager] sendMessage:message conversation:conversation callback:^(BOOL succeeded, NSError *error) {
+                
+                if (succeeded) {
+                    
+                    [STNotificationCenter postNotificationName:STDidSuccessGroupChatSettingSendNotification object:message];
+                }
+            }];
             
         } else {
             
@@ -308,7 +349,14 @@
 }
 
 //给某个特定的conversation的attributes增加或者修改键值对
-+ (void)setAttributesKeyValueFromConversation:(AVIMConversation *)conversation value:(id)value key:(NSString *)key successedSentMessageBody:(NSString *)messageBody callback:(void (^)(BOOL succeeded,NSError *error))callback {
++ (void)setAttributesKeyValueFromConversation:(AVIMConversation *)conversation value:(id)value key:(NSString *)key successedSentMessageBody:(NSString *)messageBody fromClientId:(NSString *)fromClientId callback:(void (^)(BOOL succeeded,NSError *error))callback {
+    
+    if ([Common isObjectNull:fromClientId]) {//如果用户ID不存在，则返回
+        
+        callback(NO,[Common errorWithString:@"用户ID不存在"]);
+        
+        return;
+    }
     
     AVIMConversationUpdateBuilder *updateBuilder = [conversation newUpdateBuilder];
     
@@ -330,8 +378,9 @@
             [[CDConversationStore store] updateConversations:@[conversation]];
             
             //1.要在群里发送暂态消息
-
+            
         } else {
+            
             
         }
         
@@ -341,13 +390,3 @@
 
 
 @end
-
-
-//更新对话
-
-
-//1.邀请人
-
-//2.踢人
-
-//3.群公告，群名称
