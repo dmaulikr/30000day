@@ -10,6 +10,9 @@
 #import "PersonTableViewCell.h"
 #import "MTProgressHUD.h"
 #import "NewFriendManager.h"
+#import "NewFriendsHeadView.h"
+#import "SearchFriendsViewController.h"
+#import "MailListViewController.h"
 
 @interface NewFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -22,11 +25,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"新的朋友";
+    
     self.isShowBackItem = YES;
-    self.tableViewStyle = STRefreshTableViewPlain;
-    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
+    self.tableViewStyle = STRefreshTableViewGroup;
+    
+    self.tableView.frame = CGRectMake(0, 0 , SCREEN_WIDTH, SCREEN_HEIGHT + 38);
+    
     self.tableView.delegate = self;
+    
     self.tableView.dataSource = self;
+    
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
     [self getDataFromServer];
@@ -83,6 +92,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return self.dataArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+    return 130.0f;
+
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    return [self tableViewHeadView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -193,6 +213,70 @@
             });
         }];   
     }
+}
+
+- (UIView *)tableViewHeadView {
+
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+    
+    NewFriendsHeadView *headView = [[[NSBundle mainBundle] loadNibNamed:@"NewFriendsHeadView" owner:nil options:nil] lastObject];
+    
+    [headView setFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, 30)];
+    
+    [headView setViewClickBlock:^{
+        
+        SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }];
+    
+    [view addSubview:headView];
+    
+    
+    UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, 60)];
+    
+    [downView setBackgroundColor:[UIColor whiteColor]];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20) / 2, 10, 20, 20)];
+    
+    [imageView setImage:[UIImage imageNamed:@"book"]];
+    
+    [downView addSubview:imageView];
+    
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downViewClick)];
+    
+    [downView addGestureRecognizer:tapGesture];
+    
+    
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100) / 2, 35, 100, 20)];
+    
+    [lable setTextAlignment:NSTextAlignmentCenter];
+    
+    [lable setFont:[UIFont systemFontOfSize:12.0f]];
+    
+    [lable setText:@"添加手机联系人"];
+    
+    [lable setTextColor:VIEWBORDERLINECOLOR];
+    
+    [downView addSubview:lable];
+    
+    
+    [view addSubview:downView];
+    
+    return view;
+
+}
+
+- (void)downViewClick {
+ 
+    MailListViewController *mlvc = [[MailListViewController alloc] init];
+    
+    [self.navigationController pushViewController:mlvc animated:YES];
+    
 }
 
 /*
