@@ -130,7 +130,7 @@
         <!--消息-->
         <scene sceneID="oVM-q3-9WT">
             <objects>
-                <viewController id="QJm-Xh-jgR" customClass="CDConvsVC" sceneMemberID="viewController">
+                <viewController id="QJm-Xh-jgR" customClass="CDChatListVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yMI-ng-iiS"/>
                         <viewControllerLayoutGuide type="bottom" id="FIg-gT-d1M"/>

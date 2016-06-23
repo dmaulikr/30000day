@@ -20,7 +20,7 @@
 #import "ShopModel.h"
 #import "CompanyViewController.h"
 #import "ShopDetailMapViewController.h"
-#import "CDChatVC.h"
+#import "CDChatRoomVC.h"
 #import "CDIMService.h"
 #import "MTProgressHUD.h"
 #import "InformationCommentModel.h"

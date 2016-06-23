@@ -8,7 +8,7 @@
 
 #import "MainPageBaseViewController.h"
 #import "PersonViewController.h"
-#import "CDConvsVC.h"
+#import "CDChatListVC.h"
 #import "CalendarViewController.h"
 #import "AddFriendsViewController.h"
 #import "UserAccountHandler.h"

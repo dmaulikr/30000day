@@ -8,7 +8,7 @@
 
 #import "CDIMService.h"
 #import "CDUtils.h"
-#import "CDChatVC.h"
+#import "CDChatRoomVC.h"
 #import "CDEmotionUtils.h"
 #import "AppDelegate.h"
 
@@ -32,9 +32,9 @@
     //如果从单聊聊天界面跳转到单聊页面，根据当前的业务可以认为这两个单聊是同一个页面，则直接 pop 回聊天界面
     for (UIViewController *viewController in navigation.viewControllers) {
         
-        if ([viewController isKindOfClass:[CDChatVC class]] ) {
+        if ([viewController isKindOfClass:[CDChatRoomVC class]] ) {
             
-            AVIMConversation  *conversationInCDChatVC = [(CDChatVC *)viewController conversation];
+            AVIMConversation  *conversationInCDChatVC = [(CDChatRoomVC *)viewController conversation];
             
             if (conversation.members.count == 2 && conversationInCDChatVC.members.count == 2) {
                 
@@ -51,7 +51,7 @@
     
     UITabBarController *tabbarController = (UITabBarController *)window.rootViewController;
     
-    CDChatVC *chatVC = [[CDChatVC alloc] initWithConversation:conversation];
+    CDChatRoomVC *chatVC = [[CDChatRoomVC alloc] initWithConversation:conversation];
     
     chatVC.hidesBottomBarWhenPushed = YES;
     
@@ -69,9 +69,9 @@
     //如果从单聊聊天界面跳转到单聊页面，根据当前的业务可以认为这两个单聊是同一个页面，则直接 pop 回聊天界面
     for (UIViewController *viewController in navigationController.viewControllers) {
         
-        if ([viewController isKindOfClass:[CDChatVC class]] ) {
+        if ([viewController isKindOfClass:[CDChatRoomVC class]] ) {
             
-            AVIMConversation  *conversationInCDChatVC = [(CDChatVC *)viewController conversation];
+            AVIMConversation  *conversationInCDChatVC = [(CDChatRoomVC *)viewController conversation];
             
             if (conversation.members.count == 2 && conversationInCDChatVC.members.count == 2) {
                 
@@ -82,7 +82,7 @@
         }
     }
     
-    CDChatVC *chatVC = [[CDChatVC alloc] initWithConversation:conversation];
+    CDChatRoomVC *chatVC = [[CDChatRoomVC alloc] initWithConversation:conversation];
     
     chatVC.hidesBottomBarWhenPushed = YES;
     

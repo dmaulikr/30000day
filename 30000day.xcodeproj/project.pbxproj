@@ -647,8 +647,6 @@
 		B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E3E1C8A7BBA007BCA6B /* NSDate+DateTools.m */; };
 		B8FD3E481C8A7BBA007BCA6B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3E3F1C8A7BBA007BCA6B /* LICENSE */; };
 		B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E401C8A7BBA007BCA6B /* README.md */; };
-		B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E501C8A8178007BCA6B /* CDChatVC.m */; };
-		B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */; };
 		B8FD41DF1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */; };
 		B8FD41E21D193DCD00CB2059 /* AVIMNoticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD41E11D193DCD00CB2059 /* AVIMNoticationMessage.m */; };
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
@@ -1788,10 +1786,6 @@
 		B8FD3E3E1C8A7BBA007BCA6B /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
 		B8FD3E3F1C8A7BBA007BCA6B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B8FD3E401C8A7BBA007BCA6B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B8FD3E4F1C8A8178007BCA6B /* CDChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDChatVC.h; sourceTree = "<group>"; };
-		B8FD3E501C8A8178007BCA6B /* CDChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDChatVC.m; sourceTree = "<group>"; };
-		B8FD3E511C8A8178007BCA6B /* CDConvsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDConvsVC.h; sourceTree = "<group>"; };
-		B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDConvsVC.m; sourceTree = "<group>"; };
 		B8FD3EC51C8A8495007BCA6B /* LeanChatLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeanChatLib.h; sourceTree = "<group>"; };
 		B8FD41DD1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMessageDisplayNotificationTextView.h; sourceTree = "<group>"; };
 		B8FD41DE1D18D0C800CB2059 /* XHMessageDisplayNotificationTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHMessageDisplayNotificationTextView.m; sourceTree = "<group>"; };
@@ -2803,10 +2797,6 @@
 		B88C91771C5A07940089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8FD3E4F1C8A8178007BCA6B /* CDChatVC.h */,
-				B8FD3E501C8A8178007BCA6B /* CDChatVC.m */,
-				B8FD3E511C8A8178007BCA6B /* CDConvsVC.h */,
-				B8FD3E521C8A8178007BCA6B /* CDConvsVC.m */,
 				B8FD3CA51C8A7777007BCA6B /* CDChatRoomVC.h */,
 				B8FD3CA61C8A7777007BCA6B /* CDChatRoomVC.m */,
 				B8FD3CA21C8A7763007BCA6B /* CDChatListVC.h */,
@@ -4915,7 +4905,6 @@
 				B8FD3E1C1C8A7903007BCA6B /* XHMessageDisplayTextView.m in Sources */,
 				B8FD3B111C87DDD1007BCA6B /* UIImage+WF.m in Sources */,
 				B8FD3CC21C8A77EB007BCA6B /* CDMessageHelper.m in Sources */,
-				B8FD3E541C8A8178007BCA6B /* CDConvsVC.m in Sources */,
 				B8FD3DE41C8A7903007BCA6B /* XHVoiceCommonHelper.m in Sources */,
 				B8BD78941CC2478200362C89 /* STRequest.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
@@ -5074,7 +5063,6 @@
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
 				B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
-				B8FD3E531C8A8178007BCA6B /* CDChatVC.m in Sources */,
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
 				B8FD3DD11C8A7903007BCA6B /* NSString+MessageInputView.m in Sources */,

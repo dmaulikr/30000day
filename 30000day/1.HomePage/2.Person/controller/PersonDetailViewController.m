@@ -11,7 +11,7 @@
 #import "ActivityIndicatorTableViewCell.h"
 #import "ChartTableViewCell.h"
 #import "UserLifeModel.h"
-#import "CDChatVC.h"
+#import "CDChatRoomVC.h"
 #import "CDIMService.h"
 #import "UIImageView+WebCache.h"
 #import "UserInformationModel.h"

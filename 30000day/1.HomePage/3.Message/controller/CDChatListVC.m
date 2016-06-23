@@ -23,12 +23,19 @@
 #import "STConversationCell.h"
 #import "PersonHeadView.h"
 #import "PersonInformationsManager.h"
+#import "CDIMService.h"
 
 @interface CDChatListVC () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *conversations;
 
 @property (atomic, assign) BOOL isRefreshing;
+
+/**
+ *  来设置 tabbar 的 badge。
+ *  @param totalUnreadCount 未读数总和。没有算免打扰对话的未读数。
+ */
+- (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount;
 
 @end
 
@@ -56,13 +63,9 @@ static NSString *cellIdentifier = @"ContactCell";
     [super viewDidLoad];
     
     self.tableViewStyle =  STRefreshTableViewPlain;
-    
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
     self.tableView.dataSource = self;
-    
     self.tableView.delegate = self;
-    
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
     [LZConversationCell registerCellToTableView:self.tableView];
@@ -138,10 +141,7 @@ static NSString *cellIdentifier = @"ContactCell";
                 
                 [self.tableView reloadData];
                 
-                if ([self.chatListDelegate respondsToSelector:@selector(setBadgeWithTotalUnreadCount:)]) {
-                    
-                    [self.chatListDelegate setBadgeWithTotalUnreadCount:totalUnreadCount];
-                }
+                [self setBadgeWithTotalUnreadCount:totalUnreadCount];//设置未读消息
                 
                 [self selectConversationIfHasRemoteNotificatoinConvid];
             }
@@ -152,6 +152,31 @@ static NSString *cellIdentifier = @"ContactCell";
         finishBlock();
     }];
 }
+
+- (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {
+    
+    if (totalUnreadCount > 0) {
+        
+        if (totalUnreadCount >= 100) {
+            
+            [[self navigationController] tabBarItem].badgeValue = @"99+";
+            
+        } else {
+            
+            [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
+            
+        }
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
+        
+    } else {
+        
+        [[self navigationController] tabBarItem].badgeValue = nil;
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
+}
+
 
 #pragma mark - client status view
 
@@ -166,12 +191,9 @@ static NSString *cellIdentifier = @"ContactCell";
             
             if ([conversation.conversationId isEqualToString:[CDChatManager sharedManager].remoteNotificationConvid]) {
                 
-                if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
-                    
-                    [self.chatListDelegate viewController:self didSelectConv:conversation];
-                    
-                    found = YES;
-                }
+                [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
+                
+                found = YES;
             }
         }
         
@@ -368,14 +390,7 @@ static NSString *cellIdentifier = @"ContactCell";
                 [self presentViewController:controller animated:YES completion:nil];
             }];
             
-            if ([self.chatListDelegate respondsToSelector:@selector(defaultAvatarImageView)]) {
-                
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[self.chatListDelegate defaultAvatarImageView]];
-                
-            } else {
-                
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-            }
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
             
         } else {
             
@@ -440,12 +455,6 @@ static NSString *cellIdentifier = @"ContactCell";
             }
         }
         
-        if ([self.chatListDelegate respondsToSelector:@selector(configureCell:atIndexPath:withConversation:)]) {
-            
-            [self.chatListDelegate configureCell:cell atIndexPath:indexPath withConversation:conversation];
-            
-        }
-        
         return cell;
     }
 }
@@ -458,10 +467,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     [self headerRefreshing];
     
-    if ([self.chatListDelegate respondsToSelector:@selector(viewController:didSelectConv:)]) {
-        
-        [self.chatListDelegate viewController:self didSelectConv:conversation];
-    }
+    [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
