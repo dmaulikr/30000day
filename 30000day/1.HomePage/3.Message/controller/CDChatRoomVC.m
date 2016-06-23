@@ -358,7 +358,13 @@ static NSInteger const kOnePageSize = 10;
  */
 - (void)didLongPressAvatorOnMessage:(id <XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
     
-    [self.messageInputView setTextViewWithText:@"@11"];
+    if ([self.conversation type] == CDConversationTypeGroup) {//群聊才能@人
+        
+        if (message.bubbleMessageType == XHBubbleMessageTypeReceiving) {//只能@对方
+            
+            [self.messageInputView setTextViewWithText:[NSString stringWithFormat:@"@%@ ",message.senderOriginNickNname]];
+        }
+    }
 }
 
 #pragma mark - XHAudioPlayerHelper Delegate
@@ -1044,6 +1050,8 @@ static NSInteger const kOnePageSize = 10;
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
     }
+    //给消息接收方/发送方原本的昵称赋值
+    xhMessage.senderOriginNickNname = [self.conversation originNickName:msg.clientId];
     
     NSInteger msgStatuses[4] = { AVIMMessageStatusSending, AVIMMessageStatusSent, AVIMMessageStatusDelivered, AVIMMessageStatusFailed };
     

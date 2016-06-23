@@ -50,6 +50,12 @@ typedef enum : NSUInteger {
 - (NSString *)memberName:(NSString *)memberClientId;
 
 /**
+ *
+ * 根据对方Id取到对方原本的昵称
+ **/
+- (NSString *)originNickName:(NSString *)memberClientId;
+
+/**
  *  对话显示的名称。单聊显示对方名字，群聊显示对话的name
  */
 - (NSString *)conversationDisplayName;

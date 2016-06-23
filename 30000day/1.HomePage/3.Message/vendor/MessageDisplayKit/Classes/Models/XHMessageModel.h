@@ -57,6 +57,8 @@ typedef NS_ENUM(NSInteger, XHMessageStatus){
 
 - (NSString *)sender;
 
+- (NSString *)senderOriginNickNname;//发送消息原本的昵称
+
 - (NSDate *)timestamp;
 
 - (BOOL)isRead;

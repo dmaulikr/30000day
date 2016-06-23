@@ -269,6 +269,7 @@
         
         _sender = [aDecoder decodeObjectForKey:@"sender"];
         _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
+        _senderOriginNickNname = [aDecoder decodeObjectForKey:@"senderOriginNickNname"];
         
     }
     return self;
@@ -300,6 +301,7 @@
     
     [aCoder encodeObject:self.sender forKey:@"sender"];
     [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
+    [aCoder encodeObject:self.senderOriginNickNname forKey:@"senderOriginNickNname"];
     
 }
 

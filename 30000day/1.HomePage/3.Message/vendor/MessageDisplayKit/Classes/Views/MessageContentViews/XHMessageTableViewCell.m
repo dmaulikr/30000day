@@ -20,7 +20,7 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 
 
 
-@interface XHMessageTableViewCell () {
+@interface XHMessageTableViewCell () <UIGestureRecognizerDelegate> {
     
 }
 
@@ -236,16 +236,14 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
     [self.avatorImageView addGestureRecognizer:tap];
     
     //长按手势
-    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerAvatorImageViewHandle:)];
-    [longPressGestureRecognizer setMinimumPressDuration:0.5];
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] init];
+    longPressGestureRecognizer.delegate = self;
+    [longPressGestureRecognizer setMinimumPressDuration:0.4];
     [self.avatorImageView addGestureRecognizer:longPressGestureRecognizer];
     
     if (message.avator) {
-        
         self.avatorImageView.image = message.avator;
-
     } else if(message.avatorUrl) {
-        
         [self.avatorImageView sd_setImageWithURL:[NSURL URLWithString:message.avatorUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
 }
@@ -411,15 +409,23 @@ static const CGFloat kXHBubbleMessageViewPadding = 8;
 }
 
 - (void)longPressGestureRecognizerAvatorImageViewHandle:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
-    
-    NSLog(@"111111");
-    
+
     if ([self.delegate respondsToSelector:@selector(didLongPressAvatorOnMessage:atIndexPath:)]) {
         
         [self.delegate didLongPressAvatorOnMessage:self.messageBubbleView.message atIndexPath:self.indexPath];
     }
 }
 
+#pragma mark --- UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        
+        [self longPressGestureRecognizerAvatorImageViewHandle:(UILongPressGestureRecognizer *)gestureRecognizer];
+    }
+    
+    return YES;
+}
 
 #pragma mark - Notifications
 
