@@ -202,6 +202,9 @@
         
     }
     
+    //金锁
+    [self.jinSuoBigImageView setImage:[self lifeDay:_informationModel_second.curLife gender:_informationModel_second.gender]];
+    
     //头像
     [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:[informationModel_second showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
