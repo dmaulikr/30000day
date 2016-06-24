@@ -926,7 +926,7 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     
     [lable setFont:[UIFont systemFontOfSize:10.0f]];
     
-    [lable setText:@"天龄"];
+    [lable setText:@"总天龄"];
     
     [lable setTextColor:[UIColor colorWithRed:97.0/255.0 green:97.0/255.0 blue:97.0/255.0 alpha:1.0]];
     
