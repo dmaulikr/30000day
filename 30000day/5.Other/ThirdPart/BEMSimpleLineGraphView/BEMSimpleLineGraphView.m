@@ -913,6 +913,28 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     if (self.colorBackgroundYaxis == nil) backgroundYaxis.backgroundColor = self.colorTop;
     else backgroundYaxis.backgroundColor = self.colorBackgroundYaxis;
     backgroundYaxis.alpha = self.alphaBackgroundYaxis;
+    
+    //蓝点点
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, self.bounds.size.height - 20, 10, 10)];
+    
+    [view setBackgroundColor:LOWBLUECOLOR];
+    
+    [backgroundYaxis addSubview:view];
+    
+    
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(18, self.bounds.size.height - 20, 30, 10)];
+    
+    [lable setFont:[UIFont systemFontOfSize:10.0f]];
+    
+    [lable setText:@"天龄"];
+    
+    [lable setTextColor:[UIColor colorWithRed:97.0/255.0 green:97.0/255.0 blue:97.0/255.0 alpha:1.0]];
+    
+    [lable setTextAlignment:NSTextAlignmentLeft];
+    
+    [backgroundYaxis addSubview:lable];
+    
+    
     [self addSubview:backgroundYaxis];
     
     NSMutableArray *yAxisLabels = [NSMutableArray arrayWithCapacity:0];
