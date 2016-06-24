@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 @property (weak, nonatomic) IBOutlet UILabel *labelSecond_second;
 @property (weak, nonatomic) IBOutlet UIImageView *imageRight_second;
 @property (nonatomic,strong)UserInformationModel *informationModel_second;
+@property (weak, nonatomic) IBOutlet UIImageView *jinSuoBigImageView;
+
 
 //第三个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageView_third;
