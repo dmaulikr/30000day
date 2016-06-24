@@ -915,16 +915,16 @@ typedef NS_ENUM(NSInteger, BEMInternalTags)
     backgroundYaxis.alpha = self.alphaBackgroundYaxis;
     
     //蓝点点
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, self.bounds.size.height - 20, 10, 10)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, self.bounds.size.height - 20, 6, 6)];
     
     [view setBackgroundColor:LOWBLUECOLOR];
     
     [backgroundYaxis addSubview:view];
     
     
-    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(18, self.bounds.size.height - 20, 30, 10)];
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(15, self.bounds.size.height - 22, 30, 10)];
     
-    [lable setFont:[UIFont systemFontOfSize:10.0f]];
+    [lable setFont:[UIFont systemFontOfSize:7.0f]];
     
     [lable setText:@"总天龄"];
     
