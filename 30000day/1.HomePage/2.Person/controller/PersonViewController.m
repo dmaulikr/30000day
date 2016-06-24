@@ -63,7 +63,6 @@
 //    
 //    self.navigationItem.rightBarButtonItem = addFriendItem;
 
-    
     //有人请求加为好友
     [STNotificationCenter addObserver:self selector:@selector(changeState) name:STDidApplyAddFriendSendNotification object:nil];
 }
@@ -216,7 +215,7 @@
     
     if (section == 0) {
         
-        return 2;
+        return 1;
         
     }  else {
         

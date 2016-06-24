@@ -201,12 +201,15 @@
 }
 
 - (void)holdDownButtonTouchDown {
+
     if (![self audioRecordingShouldBegin]) {
+        
         return;
     }
 
     self.isCancelled = NO;
     self.isRecording = NO;
+    
     if ([self.delegate respondsToSelector:@selector(prepareRecordingVoiceActionWithCompletion:)]) {
         WEAKSELF
         
@@ -216,10 +219,13 @@
             
             //這邊要判斷回調回來的時候, 使用者是不是已經早就鬆開手了
             if (strongSelf && !strongSelf.isCancelled) {
+
                 strongSelf.isRecording = YES;
                 [strongSelf.delegate didStartRecordingVoiceAction];
                 return YES;
+                
             } else {
+                
                 return NO;
             }
         }];
@@ -230,10 +236,13 @@
     
     //如果已經開始錄音了, 才需要做取消的動作, 否則只要切換 isCancelled, 不讓錄音開始.
     if (self.isRecording) {
+        
         if ([self.delegate respondsToSelector:@selector(didCancelRecordingVoiceAction)]) {
             [self.delegate didCancelRecordingVoiceAction];
         }
+        
     } else {
+        
         self.isCancelled = YES;
     }
 }
@@ -242,10 +251,13 @@
     
     //如果已經開始錄音了, 才需要做結束的動作, 否則只要切換 isCancelled, 不讓錄音開始.
     if (self.isRecording) {
+        
         if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction)]) {
             [self.delegate didFinishRecoingVoiceAction];
         }
+        
     } else {
+        
         self.isCancelled = YES;
     }
 }
@@ -348,16 +360,16 @@
         buttonFrame = button.frame;
         if (self.allowsSendMultiMedia) {
 //            buttonFrame.origin = CGPointMake(CGRectGetMinX(self.voiceChangeButton.frame) - CGRectGetWidth(buttonFrame) - horizontalPadding, verticalPadding);
-            buttonFrame.origin=CGPointMake(CGRectGetMaxX(buttonFrame)+horizontalPadding,verticalPadding);
+            buttonFrame.origin = CGPointMake(CGRectGetMaxX(buttonFrame)+horizontalPadding,verticalPadding);
             allButtonWidth += CGRectGetWidth(buttonFrame) + horizontalPadding * 1.5;
         } else {
 //            buttonFrame.origin = CGPointMake(CGRectGetWidth(self.bounds) - horizontalPadding - CGRectGetWidth(buttonFrame), verticalPadding);
-            buttonFrame.origin=CGPointMake(horizontalPadding, verticalPadding);
+            buttonFrame.origin = CGPointMake(horizontalPadding, verticalPadding);
             allButtonWidth += CGRectGetWidth(buttonFrame) + horizontalPadding * 1.5;
         }
         button.frame = buttonFrame;
         [self addSubview:button];
-        textViewLeftMargin+=CGRectGetWidth(buttonFrame);
+        textViewLeftMargin += CGRectGetWidth(buttonFrame);
         
         self.faceSendButton = button;
     }
@@ -415,18 +427,15 @@
     
     // 如果是可以发送语言的，那就需要一个按钮录音的按钮，事件可以在外部添加
     if (self.allowsSendVoice) {
+        
 //        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(9, 9, 9, 9);
 //        button = [self createButtonWithImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_Black"], edgeInsets) HLImage:XH_STRETCH_IMAGE([UIImage imageNamed:@"VoiceBtn_BlackHL"], edgeInsets)];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        
         button.layer.cornerRadius = 5;
         button.layer.masksToBounds = YES;
-        
         button.layer.borderWidth = 1.0f;
-
         button.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [button setTitle:kXHTouchToRecord forState:UIControlStateNormal];
         [button setTitle:kXHTouchToFinish forState:UIControlStateHighlighted];
