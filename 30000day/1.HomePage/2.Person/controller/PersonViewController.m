@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     self.tableViewStyle = STRefreshTableViewGroup;
-    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
+    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self showHeadRefresh:YES showFooterRefresh:NO];
