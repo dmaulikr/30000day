@@ -103,20 +103,9 @@
     
     if ([self type] == CDConversationTypeSingle) {
         
-        NSDictionary *otherDictionary = self.attributes;
-        
         NSString *clientId = [self otherId];
         
-        NSDictionary *newDictionay = [otherDictionary objectForKey:clientId];
-        
-        if (![Common isObjectNull:[[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName]) {
-            
-            return [[PersonInformationsManager shareManager] infoWithFriendId:[NSNumber numberWithLongLong:[clientId longLongValue]]].nickName;
-            
-        } else {
-            
-            return [newDictionay objectForKey:ORIGINAL_NICK_NAME];
-        }
+       return [self memberName:clientId];
         
     } else {
         

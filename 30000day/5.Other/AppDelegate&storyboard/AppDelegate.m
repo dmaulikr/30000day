@@ -26,6 +26,8 @@
 #import "NewFriendManager.h"
 #import "STDataHandler.h"
 #import "AVIMNoticationMessage.h"
+#import "CDConversationStore.h"
+#import "CDFailedMessageStore.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -86,6 +88,10 @@
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
+    
+    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
+        
+    }];
 
     [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
     
@@ -111,6 +117,13 @@
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+- (NSString *)databasePathWithUserId:(NSString *)userId {
+    
+    NSString *libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    return [libPath stringByAppendingPathComponent:[NSString stringWithFormat:@"com.shutian.30000day.%@.db3", userId]];
 }
 
 //如果此时你的客户端 软件仍在打开，则会调用
