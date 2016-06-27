@@ -9,6 +9,7 @@
 #import "AddFriendsViewController.h"
 #import "MailListViewController.h"
 #import "SearchFriendsViewController.h"
+#import "QRReaderViewController.h"
 
 @interface AddFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -32,7 +33,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -41,7 +42,7 @@
         
         return [[[NSBundle mainBundle] loadNibNamed:@"SearchFriendsTableViewCell" owner:nil options:nil] lastObject];
         
-    } else {
+    } else if(indexPath.section == 1) {
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
         
@@ -55,6 +56,22 @@
         cell.textLabel.text = @"通讯录好友";
         
         return cell;
+        
+    } else {
+    
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SweepCell"];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SweepCell"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.textLabel.text = @"扫一扫";
+        
+        return cell;
+    
     }
 }
 
@@ -68,11 +85,20 @@
         
         [self.navigationController pushViewController:controller animated:YES];
     
-    } else {
+    } else if(indexPath.section == 1) {
         
         MailListViewController *mlvc = [[MailListViewController alloc] init];
         
         [self.navigationController pushViewController:mlvc animated:YES];
+        
+    } else {
+    
+        QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
+        
+        QRController.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:QRController animated:YES];
+    
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

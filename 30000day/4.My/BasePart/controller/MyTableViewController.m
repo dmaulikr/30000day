@@ -22,6 +22,7 @@
 #import "JPUSHService.h"
 #import "AgreementWebViewController.h"
 #import "AboutTableViewController.h"
+#import "QuickResponseCodeViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -171,7 +172,7 @@
         
     } else if (section == 1) {
         
-        return 0;
+        return 1;
         
     } else if (section == 2) {
         
@@ -253,9 +254,9 @@
         
         if (indexPath.row == 0) {
             
-            [cell.leftImage setImage:[UIImage imageNamed:@"consumption.png"]];
+            [cell.leftImage setImage:[UIImage imageNamed:@"two_code.png"]];
             
-            [cell.titleLabel setText:@"我的订单"];
+            [cell.titleLabel setText:@"我的二维码"];
             
             cell.seperatorLineView.hidden = YES;
             
@@ -338,7 +339,7 @@
         
         if (indexPath.row == 0) {
             
-            MyOrderViewController *controller = [[MyOrderViewController alloc] init];
+            QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
             
             controller.hidesBottomBarWhenPushed = YES;
             
