@@ -61,7 +61,7 @@ typedef enum : NSUInteger {
 - (NSString *)conversationDisplayName;
 
 /**
- *  对话对方的头像url。单聊对方的头像，群聊头像根据clientId去匹配
+ *  对话对方的头像url,头像根据clientId去匹配
  */
 - (NSString *)headUrl:(NSString *)clientId;
 

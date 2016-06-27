@@ -88,9 +88,11 @@
 }
 
 - (void)setupStoreWithDatabasePath:(NSString *)path {
+    
     if (self.databaseQueue) {
         DLog(@"database queue should not be nil !!!!");
     }
+    
     self.databaseQueue = [FMDatabaseQueue databaseQueueWithPath:path];
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:kCDConversatoinTableCreateSQL];
@@ -105,7 +107,7 @@
     return data;
 }
 
-- (AVIMConversation *)conversationFromData:(NSData *)data{
+- (AVIMConversation *)conversationFromData:(NSData *)data {
     AVIMKeyedConversation *keyedConversation = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     return [[CDChatManager sharedManager].client conversationWithKeyedConversation:keyedConversation];
 }
@@ -167,12 +169,18 @@
 }
 
 - (NSArray *)selectAllConversations {
+    
     NSMutableArray *conversations = [NSMutableArray array];
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
         FMResultSet  *resultSet = [db executeQuery:kCDConversationTableSelectSQL withArgumentsInArray:@[]];
+        
         while ([resultSet next]) {
-            [conversations addObject:[self createConversationFromResultSet:resultSet]];
+            
+            if ([self createConversationFromResultSet:resultSet]) {
+                [conversations addObject:[self createConversationFromResultSet:resultSet]];
+            }
         }
+        
         [resultSet close];
     }];
     return conversations;

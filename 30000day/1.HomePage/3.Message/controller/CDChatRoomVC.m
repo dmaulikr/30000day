@@ -123,7 +123,7 @@ static NSInteger const kOnePageSize = 10;
     [self initBottomMenuAndEmotionView];
 
     // 设置自身用户名
-    self.messageSender = STUserAccountHandler.userProfile.nickName;
+    self.messageSender = [self.conversation originNickName:[CDChatManager sharedManager].clientId];
     
     [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:kCDNotificationMessageReceived object:nil];
     
@@ -1041,16 +1041,17 @@ static NSInteger const kOnePageSize = 10;
     
     xhMessage.avator = nil;
     
-    xhMessage.avatorUrl = [self avatorUrlByClientId:msg.clientId];
+    xhMessage.avatorUrl = [self.conversation headUrl:msg.clientId];
     
-    if ([[CDChatManager sharedManager].clientId isEqualToString:msg.clientId]) {
+    if (msg.ioType == AVIMMessageIOTypeIn) {//接受
         
-        xhMessage.bubbleMessageType = XHBubbleMessageTypeSending;
+        xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
         
     } else {
         
-        xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
+        xhMessage.bubbleMessageType = XHBubbleMessageTypeSending;
     }
+
     //给消息接收方/发送方原本的昵称赋值
     xhMessage.senderOriginNickNname = [self.conversation originNickName:msg.clientId];
     
