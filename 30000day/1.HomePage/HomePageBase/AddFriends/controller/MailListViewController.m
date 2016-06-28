@@ -579,8 +579,8 @@
             
         } else if (tag == 1 ) {
             
-            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天";
+            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
         }
     }];
