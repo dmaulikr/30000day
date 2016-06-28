@@ -20,6 +20,9 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *twoRight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+
+
 
 //类方法，动画般的把ShareAnimatonView从父视图上移除
 - (void)annimateRemoveFromSuperView;

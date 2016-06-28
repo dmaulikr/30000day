@@ -8,6 +8,8 @@
 
 #import "DaysOfAgeOption.h"
 
+#define CELLHEIGHT ((SCREEN_HEIGHT - 188) / 2.0f) / 2;
+
 @implementation DaysOfAgeOption
 
 -(void)awakeFromNib {
@@ -25,6 +27,8 @@
     UITapGestureRecognizer *promoteImageViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(promoteImageViewTapAction:)];
     
     [self.promoteImageView addGestureRecognizer:promoteImageViewTap];
+    
+    self.imageHeight.constant = CELLHEIGHT;
 
 }
 
@@ -77,11 +81,13 @@
     
     CGFloat x = (SCREEN_WIDTH - 200) / 3;
     
+    CGFloat y = CELLHEIGHT;
+    
     [self setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-    [self.perfectImageView setFrame:CGRectMake(x, SCREEN_HEIGHT - 150, 100, 100)];
+    [self.perfectImageView setFrame:CGRectMake(x, SCREEN_HEIGHT - y, 100, 100)];
     
-    [self.promoteImageView setFrame:CGRectMake(SCREEN_WIDTH - x - 100, SCREEN_HEIGHT - 150, 100, 100)];
+    [self.promoteImageView setFrame:CGRectMake(SCREEN_WIDTH - x - 100, SCREEN_HEIGHT - y, 100, 100)];
     
     [[[UIApplication sharedApplication].delegate window] addSubview:self];
     
