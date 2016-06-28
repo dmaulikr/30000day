@@ -30,6 +30,10 @@
     
     self.userName.text = STUserAccountHandler.userProfile.nickName;
     
+    self.mainView.layer.borderWidth = 1.0f;
+    
+    self.mainView.layer.borderColor = VIEWBORDERLINECOLOR.CGColor;
+    
     self.userImageView.layer.masksToBounds = YES;
     
     self.userImageView.layer.cornerRadius = 5.0f;
