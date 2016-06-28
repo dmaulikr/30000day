@@ -218,7 +218,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-sR-dim">
-                    <rect key="frame" x="134" y="309" width="52" height="28"/>
+                    <rect key="frame" x="253" y="309" width="52" height="28"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="暂不绑定"/>
                     <connections>
@@ -233,12 +233,12 @@
                 <constraint firstItem="kUZ-b8-QZ4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NKM-HL-YpS"/>
                 <constraint firstItem="kUZ-b8-QZ4" firstAttribute="top" secondItem="rJL-U8-AFb" secondAttribute="bottom" constant="5" id="PB8-jb-nSB"/>
                 <constraint firstItem="1KT-2j-jn6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="UuA-S6-CYt"/>
+                <constraint firstItem="dCe-sR-dim" firstAttribute="trailing" secondItem="1KT-2j-jn6" secondAttribute="trailing" id="Z8m-NG-ZgU"/>
                 <constraint firstItem="rJL-U8-AFb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="cV7-7B-qgq"/>
                 <constraint firstItem="Y7u-xA-NW9" firstAttribute="leading" secondItem="1KT-2j-jn6" secondAttribute="leading" id="dQf-CM-Csn"/>
                 <constraint firstItem="Y7u-xA-NW9" firstAttribute="top" secondItem="1KT-2j-jn6" secondAttribute="bottom" constant="50" id="eqA-bT-ro9"/>
                 <constraint firstItem="rJL-U8-AFb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="fUh-eg-LMf"/>
                 <constraint firstItem="kUZ-b8-QZ4" firstAttribute="top" secondItem="rJL-U8-AFb" secondAttribute="bottom" constant="5" id="hXZ-iV-5V6"/>
-                <constraint firstItem="dCe-sR-dim" firstAttribute="centerX" secondItem="1KT-2j-jn6" secondAttribute="centerX" id="lNO-8n-j3p"/>
                 <constraint firstItem="1KT-2j-jn6" firstAttribute="top" secondItem="kUZ-b8-QZ4" secondAttribute="bottom" constant="25" id="ow9-ZS-aNh"/>
                 <constraint firstItem="Y7u-xA-NW9" firstAttribute="trailing" secondItem="1KT-2j-jn6" secondAttribute="trailing" id="p5z-aW-xKu"/>
                 <constraint firstItem="dCe-sR-dim" firstAttribute="top" secondItem="1KT-2j-jn6" secondAttribute="bottom" constant="10" id="wkT-m5-jsQ"/>
