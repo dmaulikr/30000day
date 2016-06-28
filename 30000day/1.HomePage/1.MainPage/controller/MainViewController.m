@@ -197,10 +197,12 @@
                                              
                                              [self jumpToSignInViewController];
                                              
-                                         } else  {
-                                             
-                                             [self showToast:@"网络繁忙，请再次刷新"];
                                          }
+                                         
+//                                         else  {
+//                                             
+//                                             [self showToast:@"网络繁忙，请再次刷新"];
+//                                         }
                                          
                                          [self.tableView.mj_header endRefreshing];
                                      }];
