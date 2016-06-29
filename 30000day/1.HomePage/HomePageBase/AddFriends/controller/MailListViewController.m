@@ -554,9 +554,9 @@
                 [self showToast:@"该设备没有设置邮箱账号"];
             }
             
-        } else if (tag == 5) {
-            [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天,http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        } else if (tag == 5) {//1086080481
+            [UMSocialData defaultData].extConfig.qqData.title = @"30000天"; //1086080481
+            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天,http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086080481&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
             
         }  else if (tag == 4) {
