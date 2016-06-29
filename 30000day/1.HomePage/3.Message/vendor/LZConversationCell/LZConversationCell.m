@@ -78,14 +78,28 @@ static CGFloat kLZLittleBadgeSize = 10;
 - (void)setup {
     
     kLZNameLabelHeight = kLZImageSize * kLZNameLabelHeightProportion;
-    
     kLZMessageLabelHeight = kLZImageSize - kLZNameLabelHeight;
-    
+
     [self addSubview:self.avatarImageView];
     [self addSubview:self.timestampLabel];
     [self addSubview:self.litteBadgeView];
     [self addSubview:self.nameLabel];
     [self addSubview:self.messageTextLabel];
+    [self addSubview:self.indicatorView];
+}
+
+//在父视图上增加一个提示视图
+- (UIActivityIndicatorView *)setUpActivityIndicatorViewWithSuperView:(UIView *)superView {
+    
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicatorView.hidesWhenStopped = YES;
+    [superView addSubview:indicatorView];
+    indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *content_X = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+    [superView addConstraint:content_X];
+    NSLayoutConstraint *content_Y = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
+    [superView addConstraint:content_Y];
+    return indicatorView;
 }
 
 - (UIImageView *)avatarImageView {
@@ -93,17 +107,25 @@ static CGFloat kLZLittleBadgeSize = 10;
     if (_avatarImageView == nil) {
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kLZHorizontalSpacing, kLZVerticalSpacing, kLZImageSize, kLZImageSize)];
-        
         _avatarImageView.layer.cornerRadius = 3;
-        
         _avatarImageView.layer.masksToBounds = YES;
-        
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
-        
         _avatarImageView.backgroundColor = [UIColor blackColor];
     }
     
     return _avatarImageView;
+}
+
+- (UIActivityIndicatorView *)indicatorView {
+    
+    if (_indicatorView == nil) {
+        
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.center = self.avatarImageView.center;
+        _indicatorView.hidesWhenStopped = YES;
+    }
+    
+    return _indicatorView;
 }
 
 - (UIView *)litteBadgeView {
@@ -111,15 +133,10 @@ static CGFloat kLZLittleBadgeSize = 10;
     if (_litteBadgeView == nil) {
         
         _litteBadgeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLZLittleBadgeSize, kLZLittleBadgeSize)];
-        
         _litteBadgeView.backgroundColor = [UIColor redColor];
-        
         _litteBadgeView.layer.masksToBounds = YES;
-        
         _litteBadgeView.layer.cornerRadius = kLZLittleBadgeSize / 2;
-        
         _litteBadgeView.center = CGPointMake(CGRectGetMaxX(_avatarImageView.frame), CGRectGetMinY(_avatarImageView.frame));
-        
         _litteBadgeView.hidden = YES;
     }
     
@@ -131,11 +148,8 @@ static CGFloat kLZLittleBadgeSize = 10;
     if (_timestampLabel == nil) {
         
         _timestampLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - kLZHorizontalSpacing - kLZTimestampeLabelWidth, CGRectGetMinY(_avatarImageView.frame), kLZTimestampeLabelWidth, kLZNameLabelHeight)];
-        
         _timestampLabel.font = [UIFont systemFontOfSize:13];
-        
         _timestampLabel.textAlignment = NSTextAlignmentRight;
-        
         _timestampLabel.textColor = [UIColor grayColor];
     }
     
@@ -147,17 +161,20 @@ static CGFloat kLZLittleBadgeSize = 10;
     if (_nameLabel == nil) {
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_avatarImageView.frame) + kLZHorizontalSpacing, CGRectGetMinY(_avatarImageView.frame), CGRectGetMinX(_timestampLabel.frame) - kLZHorizontalSpacing * 3 - kLZImageSize, kLZNameLabelHeight)];
-        
         _nameLabel.font = [UIFont systemFontOfSize:15];
     }
     return _nameLabel;
 }
 
 - (UILabel *)messageTextLabel {
+    
     if (_messageTextLabel == nil) {
+        
         _messageTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_nameLabel.frame), CGRectGetMaxY(_nameLabel.frame) - 2, CGRectGetWidth([UIScreen mainScreen].bounds)- 3 * kLZHorizontalSpacing - kLZImageSize, kLZMessageLabelHeight)];
         _messageTextLabel.backgroundColor = [UIColor clearColor];
+        
     }
+    
     return _messageTextLabel;
 }
 

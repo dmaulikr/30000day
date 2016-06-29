@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger,ButtonType) {
 @property (weak, nonatomic) IBOutlet UIView *jinSuoSupView;
 @property (weak, nonatomic) IBOutlet UIImageView *jinSuoSmallImageView;
 @property (weak, nonatomic) IBOutlet UILabel *ageLable;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView_first;
 
 //第二个xib
 @property (weak, nonatomic) IBOutlet UIImageView *imageBig_second;

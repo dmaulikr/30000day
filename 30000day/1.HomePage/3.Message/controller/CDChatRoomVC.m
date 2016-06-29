@@ -31,6 +31,8 @@
 
 static NSInteger const kOnePageSize = 10;
 
+static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消息隐藏HUD的间隔
+
 @interface CDChatRoomVC ()
 
 @property (nonatomic, strong, readwrite) AVIMConversation *conversation;
@@ -84,8 +86,8 @@ static NSInteger const kOnePageSize = 10;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = [self.conversation conversationDisplayName];
     
     if (self.conversation.type == CDConversationTypeSingle) {
@@ -94,7 +96,6 @@ static NSInteger const kOnePageSize = 10;
     } else if (self.conversation.type == CDConversationTypeGroup) {
         
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"群设" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
-        
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
@@ -124,26 +125,18 @@ static NSInteger const kOnePageSize = 10;
 
     // 设置自身用户名
     self.messageSender = [self.conversation originNickName:[CDChatManager sharedManager].clientId];
-    
     [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:kCDNotificationMessageReceived object:nil];
-    
     [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationMessageDelivered object:nil];
-    
     [STNotificationCenter addObserver:self selector:@selector(onMessageDelivered:) name:kCDNotificationConversationUpdated object:nil];
-
     [STNotificationCenter addObserver:self selector:@selector(receiveMessage:) name:STDidSuccessGroupChatSettingSendNotification object:nil];
-    
     [self loadMessagesWhenInit];
 }
 
 - (void)rightAction {
     
     STCroupSettingViewController *controller = [[STCroupSettingViewController alloc] init];
-    
     controller.hidesBottomBarWhenPushed = YES;
-    
     controller.conversation = self.conversation;
-    
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -170,27 +163,16 @@ static NSInteger const kOnePageSize = 10;
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:kCDNotificationMessageReceived object:nil];
-    
     [STNotificationCenter removeObserver:self name:kCDNotificationMessageDelivered object:nil];
-    
     [STNotificationCenter removeObserver:self name:kCDNotificationConversationUpdated object:nil];
-    
     [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
-    
     [[XHAudioPlayerHelper shareInstance] setDelegate:nil];
-    
     self.browser = nil;
-    
     self.sendMessageTimer = nil;
-    
     self.pickerBrowserPhotoArray = nil;
-    
     self.emotionManagers = nil;
-    
     self.msgs = nil;
-    
     self.currentSelectedCell = nil;
-    
     self.conversation = nil;
 }
 
@@ -199,26 +181,19 @@ static NSInteger const kOnePageSize = 10;
 - (void)initBottomMenuAndEmotionView {
     
     NSMutableArray *shareMenuItems = [NSMutableArray array];
-    
     NSArray *plugIcons = @[@"sharemore_pic", @"sharemore_video"];
-    
     NSArray *plugTitle = @[@"图片", @"拍摄"];
     
     for (NSString *plugIcon in plugIcons) {
         
         XHShareMenuItem *shareMenuItem = [[XHShareMenuItem alloc] initWithNormalIconImage:[UIImage imageNamed:plugIcon] title:[plugTitle objectAtIndex:[plugIcons indexOfObject:plugIcon]]];
-        
         [shareMenuItems addObject:shareMenuItem];
     }
     
     self.shareMenuItems = shareMenuItems;
-    
     [self.shareMenuView reloadData];
-    
     _emotionManagers = [CDEmotionUtils emotionManagers];
-    
     self.emotionManagerView.isShowEmotionStoreButton = YES;
-    
     [self.emotionManagerView reloadData];
 }
 
@@ -290,17 +265,13 @@ static NSInteger const kOnePageSize = 10;
             if (_currentSelectedCell == messageTableViewCell) {
                 
                 [messageTableViewCell.messageBubbleView.animationVoiceImageView stopAnimating];
-                
                 [[XHAudioPlayerHelper shareInstance] stopAudio];
-                
                 self.currentSelectedCell = nil;
                 
             } else {
                 
                 self.currentSelectedCell = messageTableViewCell;
-                
                 [messageTableViewCell.messageBubbleView.animationVoiceImageView startAnimating];
-                
                 [[XHAudioPlayerHelper shareInstance] managerAudioWithFileName:message.voicePath toPlay:YES];
             }
             
@@ -316,13 +287,9 @@ static NSInteger const kOnePageSize = 10;
         case XHBubbleMessageMediaTypeLocalPosition: {
             
             DLog(@"facePath : %@", message.localPositionPhoto);
-            
             XHDisplayLocationViewController *displayLocationViewController = [[XHDisplayLocationViewController alloc] init];
-            
             displayLocationViewController.message = message;
-            
             disPlayViewController = displayLocationViewController;
-            
             break;
         }
         default:
@@ -417,16 +384,13 @@ static NSInteger const kOnePageSize = 10;
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
-        
         return;
     }
     
     if ([text length] > 0 ) {
         
         AVIMTextMessage *msg = [AVIMTextMessage messageWithText:[CDEmotionUtils plainStringFromEmojiString:text] attributes:nil];
-        
         [self sendMsg:msg];
-        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeText];
     }
 }
@@ -436,14 +400,12 @@ static NSInteger const kOnePageSize = 10;
 - (void)setHidHUDTimerWithFireDate:(NSDate *)fireDate {
     
     _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(overTimeAction:) userInfo:nil repeats:NO];
-    
     _sendMessageTimer.fireDate = fireDate;
 }
 
 - (void)overTimeAction:(NSTimer *)timer {
     
     [self hideHUD:YES];//隐藏提示控件
-    
     [timer invalidate];
 }
 
@@ -458,15 +420,12 @@ static NSInteger const kOnePageSize = 10;
 - (void)didSendPhotoArray:(NSArray *)photo fromSender:(NSString *)sender onDate:(NSDate *)date isSpecialPhoto:(BOOL)isSpecialPhoto {
     
     [self showHUDWithContent:@"正在发送" animated:YES];
-    
-    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:_timeInterval]];
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@""];
-        
         [self hideHUD:YES];
-        
         return;
     }
     
@@ -475,11 +434,8 @@ static NSInteger const kOnePageSize = 10;
         for (int i = 0; i < photo.count; i++) {
             
             [[TZImageManager manager] getOriginalPhotoWithAsset:photo[i] completion:^(UIImage *photo, NSDictionary *info) {//再次进行异步操作
-               
                 [self sendImage:photo];
-                
                 [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
-                
             }];
         }
 
@@ -488,9 +444,7 @@ static NSInteger const kOnePageSize = 10;
         for (int i = 0; i < photo.count; i++) {
             
             UIImage *image = photo[i];
-            
             [self sendImage:image];
-            
             [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypePhoto];
         }
     }
@@ -505,15 +459,12 @@ static NSInteger const kOnePageSize = 10;
 - (void)didSendVideoConverPhoto:(UIImage *)videoConverPhoto videoPath:(NSString *)videoPath fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     [self showHUDWithContent:@"正在发送" animated:YES];
-    
-    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:15.0000]];
+    [self setHidHUDTimerWithFireDate:[NSDate dateWithTimeIntervalSinceNow:_timeInterval]];
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
-        
         [self hideHUD:YES];
-        
         return;
     }
     
@@ -521,21 +472,16 @@ static NSInteger const kOnePageSize = 10;
         
         //.MOV 转换成MP4格式（因安卓那边只能播放MP4格式，且在存储本地的时候也存储MP4格式）
         AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:videoPath] options:nil];
-        
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
     
         if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
             
             AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
-            
             NSString *exportPath = [[videoPath componentsSeparatedByString:@".MOV"] firstObject];
-            
             exportPath = [NSString stringWithFormat:@"%@.mp4",exportPath];
-            
             exportSession.outputURL = [NSURL fileURLWithPath:exportPath];
-            
             exportSession.outputFileType = AVFileTypeMPEG4;
-            
+    
             [exportSession exportAsynchronouslyWithCompletionHandler:^{
                 
                 switch ([exportSession status]) {
@@ -553,7 +499,6 @@ static NSInteger const kOnePageSize = 10;
                         dispatch_async(dispatch_get_main_queue(), ^{//主线隐藏
                             
                             AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(videoConverPhoto, 0.5)];
-
                             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                
                                 if (succeeded) {//保存成功，才会发送
@@ -627,12 +572,10 @@ static NSInteger const kOnePageSize = 10;
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
-        
         return;
     }
     
     AVIMTypedMessage *msg = [AVIMAudioMessage messageWithText:nil attachedFilePath:voicePath attributes:nil];
-
     [self sendMsg:msg];
 }
 
@@ -642,7 +585,6 @@ static NSInteger const kOnePageSize = 10;
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
         [self showToast:@"网络不给力，请稍后再试"];
-        
         return;
     }
     
@@ -650,35 +592,29 @@ static NSInteger const kOnePageSize = 10;
         
         // 普通表情
         UITextView *textView = self.messageInputView.inputTextView;
-        
         NSRange range = [textView selectedRange];
-        
         NSMutableString *str = [[NSMutableString alloc] initWithString:textView.text];
-        
         [str deleteCharactersInRange:range];
-        
         [str insertString:emotion atIndex:range.location];
-        
         textView.text = [CDEmotionUtils emojiStringFromString:str];
-        
         textView.selectedRange = NSMakeRange(range.location + emotion.length, 0);
-        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeEmotion];
         
     } else {
         
         AVIMEmotionMessage *msg = [AVIMEmotionMessage messageWithEmotionPath:emotion];
-        
         [self sendMsg:msg];
-        
         [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeEmotion];
     }
 }
 
 - (void)didSendGeoLocationsPhoto:(UIImage *)geoLocationsPhoto geolocations:(NSString *)geolocations location:(CLLocation *)location fromSender:(NSString *)sender onDate:(NSDate *)date {
+    
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
+        
         return;
     }
+    
     [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeLocalPosition];
 }
 
@@ -694,9 +630,7 @@ static NSInteger const kOnePageSize = 10;
     } else {
         
         XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
-        
         XHMessage *lastMsg = [self.messages objectAtIndex:indexPath.row - 1];
-        
         int interval = [msg.timestamp timeIntervalSinceDate:lastMsg.timestamp];
         
         if (interval > 60 * 3) {
@@ -780,7 +714,6 @@ static NSInteger const kOnePageSize = 10;
 - (void)sendImage:(UIImage *)image {
     
     NSData *imageData = UIImageJPEGRepresentation(image,1);
-    
     AVFile *file = [AVFile fileWithData:imageData];
     
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -788,7 +721,6 @@ static NSInteger const kOnePageSize = 10;
         if (succeeded) {
             
             AVIMImageMessage *msg = [AVIMImageMessage messageWithText:nil file:file attributes:nil];
-            
             [self sendMsg:msg];
             
         } else {
@@ -818,17 +750,13 @@ static NSInteger const kOnePageSize = 10;
         if (error) {
             
             msg.sendTimestamp = [[NSDate date] timeIntervalSince1970] * 1000;
-            
             [[CDFailedMessageStore store] insertFailedMessage:msg];
-            
             [[CDSoundManager manager] playSendSoundIfNeed];
-            
             [self insertMessage:msg];
             
         } else {
             
             [[CDSoundManager manager] playSendSoundIfNeed];
-            
             [self insertMessage:msg];
         }
     }];
@@ -837,20 +765,15 @@ static NSInteger const kOnePageSize = 10;
 - (void)replaceMesssage:(AVIMTypedMessage *)message atIndexPath:(NSIndexPath *)indexPath {
     
     self.msgs[indexPath.row] = message;
-    
     XHMessage *xhMessage = [self getXHMessageByMsg:message];
-    
     self.messages[indexPath.row] = xhMessage;
-    
     [self.messageTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)resendMessageAtIndexPath:(NSIndexPath *)indexPath discardIfFailed:(BOOL)discardIfFailed {
     
     AVIMTypedMessage *msg = self.msgs[indexPath.row];
-    
     [self replaceMesssage:msg atIndexPath:indexPath];
-    
     NSString *recordId = msg.messageId;
     
     [[CDChatManager sharedManager] sendMessage:msg conversation:self.conversation callback:^(BOOL succeeded, NSError *error) {
@@ -871,7 +794,6 @@ static NSInteger const kOnePageSize = 10;
         } else {
             
             [[CDFailedMessageStore store] deleteFailedMessageByRecordId:recordId];
-            
             [self replaceMesssage:msg atIndexPath:indexPath];
         }
     }];
@@ -891,7 +813,6 @@ static NSInteger const kOnePageSize = 10;
         }
         
         [self insertMessage:message];
-        
         [self conversationChange];//也会接受群消息的变化，所以需要去修改下群资料
     }
 }
@@ -903,7 +824,6 @@ static NSInteger const kOnePageSize = 10;
     if ([message.conversationId isEqualToString:self.conversation.conversationId]) {
         
         AVIMTypedMessage *foundMessage;
-        
         NSInteger pos;
         
         for (pos = 0; pos < self.msgs.count; pos++) {
@@ -913,7 +833,6 @@ static NSInteger const kOnePageSize = 10;
             if ([msg.messageId isEqualToString:message.messageId]) {
                 
                 foundMessage = msg;
-                
                 break;
             }
         }
@@ -921,13 +840,9 @@ static NSInteger const kOnePageSize = 10;
         if (foundMessage != nil) {
             
             XHMessage *xhMsg = [self getXHMessageByMsg:foundMessage];
-            
             [self.messages setObject:xhMsg atIndexedSubscript:pos];
-            
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:pos inSection:0];
-            
             [self.messageTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            
             [self scrollToBottomAnimated:YES];
         }
     }
@@ -955,49 +870,37 @@ static NSInteger const kOnePageSize = 10;
 - (XHMessage *)getXHMessageByMsg:(AVIMTypedMessage *)msg {
     
     NSString *nickName = [self.conversation memberName:msg.clientId];//查找该条消息发送的昵称
-    
     XHMessage *xhMessage;
-    
     NSDate *time = [self getTimestampDate:msg.sendTimestamp];
     
     if (msg.mediaType == kAVIMMessageMediaTypeText) {
         
         AVIMTextMessage *textMsg = (AVIMTextMessage *)msg;
-        
         xhMessage = [[XHMessage alloc] initWithText:[CDEmotionUtils emojiStringFromString:textMsg.text] sender:nickName timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeAudio) {
         
         AVIMAudioMessage *audioMsg = (AVIMAudioMessage *)msg;
-        
         NSString *duration = [NSString stringWithFormat:@"%.0f", audioMsg.duration];
-        
         xhMessage = [[XHMessage alloc] initWithVoicePath:audioMsg.file.localPath voiceUrl:nil voiceDuration:duration sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeLocation) {
         
         AVIMLocationMessage *locationMsg = (AVIMLocationMessage *)msg;
-        
         xhMessage = [[XHMessage alloc] initWithLocalPositionPhoto:[UIImage imageNamed:@"Fav_Cell_Loc"] geolocations:locationMsg.text location:[[CLLocation alloc] initWithLatitude:locationMsg.latitude longitude:locationMsg.longitude] sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeImage) {
         
         AVIMImageMessage *imageMsg = (AVIMImageMessage *)msg;
-        
         AVFile *file = imageMsg.file;
-        
         NSString *thumbnailUrl = [file getThumbnailURLWithScaleToFit:YES width:THUMBNAIL_PHOTO_WIDTH height:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height];
-        
         NSString *originPhotoUrl = [file url];
-
         xhMessage = [[XHMessage alloc] initWithPhoto:nil thumbnailUrl:thumbnailUrl originPhotoUrl:originPhotoUrl photoWitdh:THUMBNAIL_PHOTO_WIDTH photoHeight:THUMBNAIL_PHOTO_WIDTH / imageMsg.width * imageMsg.height sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeEmotion) {
         
         AVIMEmotionMessage *emotionMsg = (AVIMEmotionMessage *)msg;
-        
         NSString *path = [[NSBundle mainBundle] pathForResource:emotionMsg.emotionPath ofType:@"gif"];
-        
         xhMessage = [[XHMessage alloc] initWithEmotionPath:path sender:nickName  timestamp:time];
         
     } else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
@@ -1040,16 +943,18 @@ static NSInteger const kOnePageSize = 10;
     }
     
     xhMessage.avator = nil;
-    
-    xhMessage.avatorUrl = [self.conversation headUrl:msg.clientId];
-    
+
     if (msg.ioType == AVIMMessageIOTypeIn) {//接受
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
         
+        xhMessage.avatorUrl = [self.conversation headUrl:msg.clientId];
+        
     } else {
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeSending;
+        
+        xhMessage.avatorUrl = STUserAccountHandler.userProfile.headImg;
     }
 
     //给消息接收方/发送方原本的昵称赋值

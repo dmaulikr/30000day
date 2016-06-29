@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
+
 @property (nonatomic ,strong) UserProfile *userProfile;
 
 @end

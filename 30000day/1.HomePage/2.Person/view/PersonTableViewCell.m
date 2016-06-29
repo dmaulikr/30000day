@@ -118,7 +118,14 @@
         
     }
     
-    [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:[informationModel showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:[informationModel showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        [self.activityView_first startAnimating];
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+       
+        [self.activityView_first stopAnimating];
+    }];
     
     //金锁
     [self.jinSuoImageView setImage:[self lifeDay:_informationModel.curLife gender:_informationModel.gender]];
@@ -204,12 +211,19 @@
     
     //金锁
     [self.jinSuoBigImageView setImage:[self lifeDay:_informationModel_second.curLife gender:_informationModel_second.gender]];
-    
-    //头像
-    [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:[informationModel_second showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
+
+    //提示视图,头像
+    UIActivityIndicatorView *activityView = [self setUpActivityIndicatorViewWithSuperView:self.imageBig_second];
+    [self.imageBig_second sd_setImageWithURL:[NSURL URLWithString:[informationModel_second showHeadImageUrlString]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        [activityView startAnimating];
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [activityView stopAnimating];
+    }];
+
     self.labelFirst_second.text = [informationModel_second showNickName];
-    
     //个性签名
     self.labelSecond_second.text = [Common isObjectNull:informationModel_second.memo] ? @"" : informationModel_second.memo;
 }
@@ -217,39 +231,26 @@
 - (int)getDays:(NSString *)dateString {
     
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
-
     NSDate *birthdayDate = [formatter dateFromString:dateString];
-    
     NSTimeInterval birthdayInterval = [birthdayDate timeIntervalSince1970]*1;
-    
     //获取当前系统时间
     NSDate *currentDate = [NSDate date];
-    
     NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    
     NSInteger interval = [zone secondsFromGMTForDate: currentDate];
-    
     NSDate *localeDate = [currentDate  dateByAddingTimeInterval: interval];
-    
     NSTimeInterval now = [localeDate timeIntervalSince1970]*1;
-    
     NSString *timeString = @"";
-    
     NSTimeInterval cha = now - birthdayInterval;
-    
     timeString = [NSString stringWithFormat:@"%f", cha/86400];
-    
     timeString = [timeString substringToIndex:timeString.length - 7];
-    
     int iDays = [timeString intValue];
-    
     return iDays;
 }
 
 - (void)setFriendModel:(NewFriendModel *)friendModel {
     
     _friendModel = friendModel;
-    
+
     [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:friendModel.friendHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     self.labelFirst_fourth.text = friendModel.friendNickName;
@@ -378,7 +379,21 @@
     NSInteger life = [lifeYear integerValue];
     
     return life;
-
 }
+
+//在父视图上增加一个提示视图
+- (UIActivityIndicatorView *)setUpActivityIndicatorViewWithSuperView:(UIView *)superView {
+    
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicatorView.hidesWhenStopped = YES;
+    [superView addSubview:indicatorView];
+    indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *content_X = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+    [superView addConstraint:content_X];
+    NSLayoutConstraint *content_Y = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f];
+    [superView addConstraint:content_Y];
+    return indicatorView;
+}
+
 
 @end

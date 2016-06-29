@@ -28,11 +28,18 @@
     
     _userProfile = userProfile;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
     self.nameLabel.text =  _userProfile.nickName;
     
     self.phoneNumberLabel.text = _userProfile.userName;
+    
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+        [self.activityView startAnimating];
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [self.activityView stopAnimating];
+    }];
 }
 
 @end

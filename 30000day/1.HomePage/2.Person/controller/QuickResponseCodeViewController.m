@@ -30,9 +30,9 @@
     
     self.userName.text = STUserAccountHandler.userProfile.nickName;
     
-    self.mainView.layer.borderWidth = 1.0f;
+    self.mainView.layer.borderWidth = 0.5f;
     
-    self.mainView.layer.borderColor = VIEWBORDERLINECOLOR.CGColor;
+    self.mainView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
     self.userImageView.layer.masksToBounds = YES;
     
@@ -68,21 +68,16 @@
     self.customImageView.layer.shadowRadius = 1;  // 设置阴影的半径
     self.customImageView.layer.shadowColor = [UIColor blackColor].CGColor; // 设置阴影的颜色为黑色
     self.customImageView.layer.shadowOpacity = 0.3; // 设置阴影的不透明度
-    
     self.customImageView.image = [self createNonInterpolatedUIImageFormCIImage:ciImage size: 500];
-    
     [self.QRCodeView addSubview:self.customImageView];
     
     UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithTitle:@"保存图片" style:UIBarButtonItemStyleDone target:self action:@selector(keepImage)];
-    
     [self.navigationItem setRightBarButtonItem:bar];
-    
 }
 
 - (void)keepImage {
     
     UIImage *img = [self showWithView:self.mainView];
-    
     UIImageWriteToSavedPhotosAlbum(img, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     
 }
@@ -90,21 +85,20 @@
 - (UIImage *)showWithView:(UIView *)view {
     
     UIGraphicsBeginImageContext(view.bounds.size);
-    
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
-    
     return image;
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     
-    if(!error){
+    if (!error) {
+        
         [self showToast:@"保存成功"];
-    }else{
+        
+    } else {
+        
         [self showToast:@"保存失败"];
     }
 }
@@ -137,8 +131,8 @@
     return [self imageBlackToTransparent:newImage withRed:0 andGreen:0 andBlue:0];
 }
 
-
-- (UIImage*)imageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue{
+- (UIImage *)imageBlackToTransparent:(UIImage *)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue {
+    
     const int imageWidth = image.size.width;
     const int imageHeight = image.size.height;
     size_t      bytesPerRow = imageWidth * 4;
@@ -179,7 +173,8 @@
     return resultUIImage;
 }
 
-void ProviderReleaseData (void *info, const void *data, size_t size){
+void ProviderReleaseData (void *info, const void *data, size_t size) {
+    
     free((void*)data);
 }
 

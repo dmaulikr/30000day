@@ -18,15 +18,11 @@
 + (void)registerCellToTableView: (UITableView *)tableView ;
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
-
+@property (nonatomic,strong)  UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) UILabel *nameLabel;
-
 @property (nonatomic, strong) UILabel  *messageTextLabel;
-
 @property (nonatomic, strong) JSBadgeView *badgeView;
-
 @property (nonatomic, strong) UILabel *timestampLabel;
-
 //新增加的长按手势
 @property (nonatomic,copy) void (^longPressBlock)();
 

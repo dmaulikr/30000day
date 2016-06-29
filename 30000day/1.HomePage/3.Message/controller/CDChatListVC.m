@@ -293,7 +293,14 @@ static NSString *cellIdentifier = @"ContactCell";
                 [self presentViewController:controller animated:YES completion:nil];
             }];
             
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+               
+                [cell.indicatorView startAnimating];
+                
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [cell.indicatorView stopAnimating];
+            }];
 
         } else {
             
@@ -325,7 +332,14 @@ static NSString *cellIdentifier = @"ContactCell";
                 
             } else {
                 
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                    
+                    [cell.indicatorView startAnimating];
+                    
+                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    
+                    [cell.indicatorView stopAnimating];
+                }];
             }
             
             cell.nameLabel.text = [conversation conversationDisplayName];
@@ -389,8 +403,15 @@ static NSString *cellIdentifier = @"ContactCell";
                 
                 [self presentViewController:controller animated:YES completion:nil];
             }];
-            
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                
+                [cell.indicatorView startAnimating];
+                
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [cell.indicatorView stopAnimating];
+            }];
             
         } else {
             
@@ -421,8 +442,15 @@ static NSString *cellIdentifier = @"ContactCell";
                 cell.avatarImageView.image = conversation.icon;
                 
             } else {
-                
-                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+            
+                [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                    
+                    [cell.indicatorView startAnimating];
+                    
+                } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    
+                    [cell.indicatorView stopAnimating];
+                }];
                 
             }
             

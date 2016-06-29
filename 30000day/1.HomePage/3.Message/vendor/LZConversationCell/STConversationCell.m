@@ -70,16 +70,13 @@ static CGFloat kLZMessageLabelHeight;
 - (void)setup {
     
     kLZNameLabelHeight = kLZImageSize * kLZNameLabelHeightProportion;
-    
     kLZMessageLabelHeight = kLZImageSize - kLZNameLabelHeight;
     
     [self addSubview:self.avatarImageView];
-    
     [self addSubview:self.timestampLabel];
-    
     [self addSubview:self.nameLabel];
-    
     [self addSubview:self.messageTextLabel];
+    [self addSubview:self.indicatorView];
 }
 
 - (UIImageView *)avatarImageView {
@@ -87,13 +84,23 @@ static CGFloat kLZMessageLabelHeight;
     if (_avatarImageView == nil) {
         
         _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH,SCREEN_WIDTH)];
-        
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
-        
         _avatarImageView.backgroundColor = [UIColor blackColor];
     }
     
     return _avatarImageView;
+}
+
+- (UIActivityIndicatorView *)indicatorView {
+    
+    if (_indicatorView == nil) {
+        
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.center = self.avatarImageView.center;
+        _indicatorView.hidesWhenStopped = YES;
+    }
+    
+    return _indicatorView;
 }
 
 - (UILabel *)timestampLabel {
@@ -101,11 +108,8 @@ static CGFloat kLZMessageLabelHeight;
     if (_timestampLabel == nil) {
         
         _timestampLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - kLZTimestampeLabelWidth - 15, SCREEN_WIDTH + 15, kLZTimestampeLabelWidth, 18.0f)];
-        
         _timestampLabel.font = [UIFont systemFontOfSize:13];
-        
         _timestampLabel.textAlignment = NSTextAlignmentRight;
-        
         _timestampLabel.textColor = [UIColor grayColor];
     }
     
@@ -140,7 +144,6 @@ static CGFloat kLZMessageLabelHeight;
     if (_badgeView == nil) {
         
         _badgeView = [[JSBadgeView alloc] initWithParentView:self.nameLabel alignment:JSBadgeViewAlignmentTopLeft];
-        
         _badgeView.badgePositionAdjustment = CGPointMake(-2.0f,-2.0f);
     }
     
@@ -159,11 +162,8 @@ static CGFloat kLZMessageLabelHeight;
     [super prepareForReuse];
     
     self.badgeView.badgeText = nil;
-    
     self.messageTextLabel.text = nil;
-    
     self.timestampLabel.text = nil;
-    
     self.nameLabel.text = nil;
 }
 

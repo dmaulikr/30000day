@@ -151,11 +151,8 @@
                   [userConfigure setObject:@(NO) forKey:HIGH_ALERT];
                   
                   [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
-              
           }
-
                                                       
-        
     } failure:^(NSError *error) {
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -166,14 +163,19 @@
 
 - (void)updateImage:(UIImage *)image {
     
+    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    
     [STDataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
         self.headImageURLString = imageUrl;
         
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        
     } failure:^(NSError *error) {
         
         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     }];
 }
 

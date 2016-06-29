@@ -25,11 +25,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *ageLable;
 
-
-@property (nonatomic,copy) void (^(changeStateBlock))();
+@property (nonatomic,strong) UIActivityIndicatorView *acitivityView;
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 
 @property (weak, nonatomic) IBOutlet UIView *jinSuoView;
+
+@property (nonatomic,copy) void (^(changeStateBlock))();
 
 @end

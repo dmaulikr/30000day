@@ -25,6 +25,17 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jinSuoViewClick)];
     
     [self.jinSuoView addGestureRecognizer:tapGesture];
+    
+    //提示视图
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicatorView.hidesWhenStopped = YES;
+    [self.contentView addSubview:indicatorView];
+    self.acitivityView = indicatorView;
+    indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *content_X = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+    [self.contentView addConstraint:content_X];
+    NSLayoutConstraint *leading_X = [NSLayoutConstraint constraintWithItem:indicatorView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0f constant:32.0f];
+    [self.contentView addConstraint:leading_X];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,8 +54,7 @@
     
     self.temperatureLabel.text = _informationModel.temperatureString;
     
-    self.airLabel.text = _informationModel.pm25Quality;
-    
+    self.airLabel.text = _informationModel.pm25Quality;    
 }
 
 - (void)jinSuoViewClick {

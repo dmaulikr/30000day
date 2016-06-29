@@ -435,6 +435,7 @@
         }
         
         [cell.ageLable setText:[NSString stringWithFormat:@"%ld岁",(long)[self daysToYear]]];
+        
         [cell.jinSuoImageView setImage:[self lifeToYear]];
         
         [cell setChangeStateBlock:^() {
@@ -444,8 +445,15 @@
         cell.informationModel = self.informationModel;
         
         //下载头像
-        [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:STUserAccountHandler.userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        
+        [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:STUserAccountHandler.userProfile.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+           
+            [cell.acitivityView startAnimating];
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            [cell.acitivityView stopAnimating];
+        }];
+
         return cell;
         
     } else if (indexPath.row == 1) {
