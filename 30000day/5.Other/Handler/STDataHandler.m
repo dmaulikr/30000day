@@ -670,17 +670,11 @@
                        failure:(void (^)(NSError *))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:userId forKey:@"userId"];
-    
     [parameters addParameter:order forKey:@"order"];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("getMyFriendsWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_MY_FRIENDS] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -694,18 +688,15 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSArray *dictinaryArray = recvDic[@"value"];
-                
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                 
                 for (int i = 0; i < dictinaryArray.count; i++) {//过滤不合法的好友
                     
                     NSDictionary *dictionary = dictinaryArray[i];
-                    
                     UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
-                    
                     NSString *userIdString = [NSString stringWithFormat:@"%@",model.userId];
                     
-                    if ([Common isObjectNull:model.originalNickName] || (userIdString.length <= 1)) {
+                    if ([Common isObjectNull:model.originalNickName] || ([userIdString isEqualToString:@"0"])) {//过虐非法的UserId
                         
                     } else {
                         
@@ -718,7 +709,6 @@
             } else {
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
                 failure(failureError);
             }
             
