@@ -408,6 +408,8 @@
         
         self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的总天龄已经击败%.2f%%用户",[dataString floatValue] * 100];
         
+        [Common saveAppDataForKey:DEFEATDATA withObject:[NSString stringWithFormat:@"%.2f",[dataString floatValue] * 100]];
+        
     } failure:^(NSError *error) {
         
     }];

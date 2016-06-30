@@ -670,6 +670,8 @@
 		F54BBC741D21045400556B6D /* qr_vc_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC651D21045400556B6D /* qr_vc_left@3x.png */; };
 		F54BBC751D21045400556B6D /* qr_vc_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC661D21045400556B6D /* qr_vc_right@2x.png */; };
 		F54BBC761D21045400556B6D /* qr_vc_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC671D21045400556B6D /* qr_vc_right@3x.png */; };
+		F57A23F81D24C73400FBEF7C /* ShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */; };
+		F57A23F91D24C73400FBEF7C /* ShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
@@ -1837,6 +1839,9 @@
 		F54BBC651D21045400556B6D /* qr_vc_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr_vc_left@3x.png"; sourceTree = "<group>"; };
 		F54BBC661D21045400556B6D /* qr_vc_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr_vc_right@2x.png"; sourceTree = "<group>"; };
 		F54BBC671D21045400556B6D /* qr_vc_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr_vc_right@3x.png"; sourceTree = "<group>"; };
+		F57A23F51D24C73400FBEF7C /* ShareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTableViewCell.h; sourceTree = "<group>"; };
+		F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTableViewCell.m; sourceTree = "<group>"; };
+		F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareTableViewCell.xib; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
@@ -3088,6 +3093,9 @@
 				B6DFF1E61CE07158004B81A7 /* DaysOfAgeOption.h */,
 				B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */,
 				B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */,
+				F57A23F51D24C73400FBEF7C /* ShareTableViewCell.h */,
+				F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */,
+				F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4690,6 +4698,7 @@
 				B88C916B1C59F9AF0089BEAE /* Main.storyboard in Resources */,
 				B804FDB61C8AC9A900DFD1CF /* weChatBubble_Sending_Cavern@2x.png in Resources */,
 				B804FDAA1C8AC9A900DFD1CF /* sharemore_video@2x.png in Resources */,
+				F57A23F91D24C73400FBEF7C /* ShareTableViewCell.xib in Resources */,
 				B86EFCA51D154DC4007A2108 /* IDMPBLocalizations.bundle in Resources */,
 				B804FD601C8AC9A900DFD1CF /* tusiji_14.gif in Resources */,
 				B8F2D8E81C5B3A5D002C7712 /* HealthySetUpViewController.xib in Resources */,
@@ -5218,6 +5227,7 @@
 				B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */,
 				B665F8D61CC4BF5200070458 /* ZLPhotoActionSheet.m in Sources */,
 				B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */,
+				F57A23F81D24C73400FBEF7C /* ShareTableViewCell.m in Sources */,
 				B8F2D8EC1C5B3A67002C7712 /* HealthyTableViewCell.m in Sources */,
 				B86EFC171D0D43A2007A2108 /* CDBaseVC.m in Sources */,
 				B8BD78721CBE2D8E00362C89 /* PaymentViewController.m in Sources */,

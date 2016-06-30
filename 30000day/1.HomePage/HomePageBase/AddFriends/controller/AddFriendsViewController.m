@@ -18,6 +18,7 @@
 #import "UMSocialSinaSSOHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "ShareTableViewCell.h"
 
 @interface AddFriendsViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -42,6 +43,32 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if (indexPath.section == 3) {
+        
+        CGFloat h = ((SCREEN_WIDTH - 104) / 4) * 2 + 50;
+        
+        return h;
+        
+    }
+    
+    return 44;
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+
+    if (section == 3) {
+        
+        return @"分享";
+        
+    }
+    
+    return nil;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,16 +109,18 @@
     
     } else {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SweepCell"];
+        ShareTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareTableViewCell"];
         
         if (cell == nil) {
             
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SweepCell"];
-            
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareTableViewCell" owner:nil options:nil] lastObject];
         }
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-        cell.textLabel.text = @"分享";
+        
+        [cell setButtonBlock:^(NSInteger tag) {
+            
+            [self share:tag];
+            
+        }];
         
         return cell;
     }
@@ -121,88 +150,9 @@
         
         [self.navigationController pushViewController:QRController animated:YES];
     
-    } else {
-        
-        [self showShareAnimatonView:indexPath];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-//显示分享界面
-- (void)showShareAnimatonView:(NSIndexPath *)indexPath {
-    
-    ShareAnimatonView *shareAnimationView = [[[NSBundle mainBundle] loadNibNamed:@"ShareAnimatonView" owner:self options:nil] lastObject];
-    
-    //封装的动画般推出视图
-    [ShareAnimatonView animateWindowsAddSubView:shareAnimationView];
-    
-    //按钮点击回调
-    [shareAnimationView setShareButtonBlock:^(NSInteger tag,ShareAnimatonView *animationView) {
-        
-        [ShareAnimatonView annimateRemoveFromSuperView:animationView];
-        
-        if (tag == 8) {
-            
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            pasteboard.string = @"http://www.30000day.com";
-            [self showToast:@"已经复制到剪贴板"];
-            
-        } else if (tag == 7) {//发送短信
-            
-            
-        } else if (tag == 6) {//发送邮件
-            
-            if ([MFMailComposeViewController canSendMail]) {
-                
-                MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-                
-                controller.mailComposeDelegate = self;
-                
-                [controller setSubject:@"My Subject"];
-                
-                [controller setMessageBody:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天" isHTML:NO];
-                
-                if (controller) {
-                    
-                    [self presentViewController:controller animated:YES completion:nil];
-                }
-                
-            } else {
-                
-                [self showToast:@"该设备没有设置邮箱账号"];
-            }
-            
-        } else if (tag == 5) {
-            [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天,苹果http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086080481&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8 安卓http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-        }  else if (tag == 4) {
-            
-            [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-        } else if (tag == 3) {
-            
-            [UMSocialData defaultData].extConfig.qzoneData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQzone].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-        } else if (tag == 2 ) {
-            
-            [UMSocialData defaultData].extConfig.wechatSessionData.title = @"30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-            
-        } else if (tag == 1 ) {
-            
-            [UMSocialData defaultData].extConfig.wechatTimelineData.title = @"我的预期寿命超过了30000天，击败了90%的人，你呢？守护我爱的人，30000天";
-            [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
-            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-        }
-    }];
 }
 
 #pragma mark ---- MFMessageComposeViewControllerDelegate
@@ -270,6 +220,73 @@
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)share:(NSInteger)tag {
+
+    NSString *shareString = [NSString stringWithFormat:@"我的预期寿命超过了30000天，击败了%@%%的人，你呢？守护我爱的人，30000天",[Common readAppDataForKey:DEFEATDATA]];
+    
+    if (tag == 8) {
+        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = @"http://www.30000day.com";
+        [self showToast:@"已经复制到剪贴板"];
+        
+    } else if (tag == 7) {//发送短信
+        
+        
+    } else if (tag == 6) {//发送邮件
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+            
+            controller.mailComposeDelegate = self;
+            
+            [controller setSubject:@"My Subject"];
+            
+            [controller setMessageBody:shareString isHTML:NO];
+            
+            if (controller) {
+                
+                [self presentViewController:controller animated:YES completion:nil];
+            }
+            
+        } else {
+            
+            [self showToast:@"该设备没有设置邮箱账号"];
+        }
+        
+    } else if (tag == 5) {
+        [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
+        [[UMSocialControllerService defaultControllerService] setShareText:[NSString stringWithFormat:@"%@,%@",shareString,@"苹果http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086080481&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8 安卓http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"] shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+        
+    }  else if (tag == 4) {
+        
+        [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
+        [[UMSocialControllerService defaultControllerService] setShareText:shareString shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+        
+    } else if (tag == 3) {
+        
+        [UMSocialData defaultData].extConfig.qzoneData.title = @"30000天";
+        [[UMSocialControllerService defaultControllerService] setShareText:shareString shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQzone].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+        
+    } else if (tag == 2 ) {
+        
+        [UMSocialData defaultData].extConfig.wechatSessionData.title = @"30000天";
+        [[UMSocialControllerService defaultControllerService] setShareText:shareString shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+        
+    } else if (tag == 1 ) {
+        
+        [UMSocialData defaultData].extConfig.wechatTimelineData.title = shareString;
+        [[UMSocialControllerService defaultControllerService] setShareText:@"30000天" shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
+        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+    }
+    
 }
 
 #pragma mark --- UMSocialUIDelegate

@@ -49,7 +49,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -111,14 +111,12 @@
         
         return cell;
         
-    }
+    } else if (indexPath.row == 1) {
+        
+        cell.textLabel.text = @"去官网";
+        return cell;
     
-//    else if (indexPath.row == 1) {
-//        
-//        cell.textLabel.text = @"投诉";
-//        return cell;
-//    
-//    }
+    }
     
     return nil;
 }
@@ -128,6 +126,10 @@
     if (indexPath.row == 0) {
         
          [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086080481&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+    } else {
+    
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.30000day.com"]];
+    
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
