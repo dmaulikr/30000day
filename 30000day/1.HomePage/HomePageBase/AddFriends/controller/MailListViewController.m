@@ -501,7 +501,7 @@
         
         [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
-        NSString *shareString = [NSString stringWithFormat:@"我的预期寿命超过了30000天，击败了%@%%的人，你呢？守护我爱的人，30000天",[Common readAppDataForKey:DEFEATDATA]];
+        NSString *shareString = [NSString stringWithFormat:@"我的预期寿命超过了%@天，击败了%@%%的人，你呢？守护我爱的人，30000天",[Common readAppDataForKey:DAYS_AGE],[Common readAppDataForKey:DEFEATDATA]];
         
         if (tag == 8) {
          

@@ -83,6 +83,8 @@
 
 #define DEFEATDATA                    @"Defeat_Data"          //击败多少用户
 
+#define DAYS_AGE                      @"Days_age"             //用户当前天龄
+
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height

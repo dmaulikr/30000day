@@ -282,6 +282,8 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
+                    [Common saveAppDataForKey:DAYS_AGE withObject:[NSString stringWithFormat:@"%.2f",[[self.allDayArray lastObject] floatValue]]]; //保存今天的天龄 用户分享
+                    
                     [self.tableView reloadData];
                     
                     [self.tableView.mj_header endRefreshing];
@@ -408,7 +410,7 @@
         
         self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的总天龄已经击败%.2f%%用户",[dataString floatValue] * 100];
         
-        [Common saveAppDataForKey:DEFEATDATA withObject:[NSString stringWithFormat:@"%.2f",[dataString floatValue] * 100]];
+        [Common saveAppDataForKey:DEFEATDATA withObject:[NSString stringWithFormat:@"%.2f",[dataString floatValue] * 100]]; //保存当前击败的用户 用于分享
         
     } failure:^(NSError *error) {
         
