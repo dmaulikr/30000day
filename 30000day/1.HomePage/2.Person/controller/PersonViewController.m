@@ -59,9 +59,9 @@
     [self getMyFriends];
     
     //设置右面的按钮
-    UIBarButtonItem *addFriendItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addFriends"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addFriendsAction)];
-    
-    self.navigationItem.rightBarButtonItem = addFriendItem;
+//    UIBarButtonItem *addFriendItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addFriends"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addFriendsAction)];
+//    
+//    self.navigationItem.rightBarButtonItem = addFriendItem;
 
     //有人请求加为好友
     [STNotificationCenter addObserver:self selector:@selector(changeState) name:STDidApplyAddFriendSendNotification object:nil];
@@ -72,12 +72,12 @@
     self.firstCell.badgeView.hidden = NO;//显示cell的badge
 }
 
-- (void)addFriendsAction {
-    
-    AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
-    addfvc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:addfvc animated:YES];
-}
+//- (void)addFriendsAction {
+//    
+//    AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
+//    addfvc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:addfvc animated:YES];
+//}
 
 - (void)headerRefreshing {
     

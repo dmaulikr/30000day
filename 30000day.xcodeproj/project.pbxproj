@@ -675,6 +675,8 @@
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
+		F5D146141D260E620067B7D1 /* PersonScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D146121D260E620067B7D1 /* PersonScrollViewController.m */; };
+		F5D146151D260E620067B7D1 /* PersonScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D146131D260E620067B7D1 /* PersonScrollViewController.xib */; };
 		F5D6E5911D1A2A8900F5E147 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */; };
 		F5D6E5951D1A2AD800F5E147 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D6E5931D1A2AD800F5E147 /* AboutTableViewCell.m */; };
 		F5D6E5961D1A2AD800F5E147 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D6E5941D1A2AD800F5E147 /* AboutTableViewCell.xib */; };
@@ -1847,6 +1849,9 @@
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
 		F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendsHeadView.m; sourceTree = "<group>"; };
 		F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFriendsHeadView.xib; sourceTree = "<group>"; };
+		F5D146111D260E620067B7D1 /* PersonScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonScrollViewController.h; sourceTree = "<group>"; };
+		F5D146121D260E620067B7D1 /* PersonScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonScrollViewController.m; sourceTree = "<group>"; };
+		F5D146131D260E620067B7D1 /* PersonScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonScrollViewController.xib; sourceTree = "<group>"; };
 		F5D6E58D1D1A2A8900F5E147 /* AboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewController.h; sourceTree = "<group>"; };
 		F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewController.m; sourceTree = "<group>"; };
 		F5D6E5921D1A2AD800F5E147 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
@@ -2798,6 +2803,9 @@
 		B88C91751C5A07630089BEAE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				F5D146111D260E620067B7D1 /* PersonScrollViewController.h */,
+				F5D146121D260E620067B7D1 /* PersonScrollViewController.m */,
+				F5D146131D260E620067B7D1 /* PersonScrollViewController.xib */,
 				B8F2D9131C5B5DA1002C7712 /* PersonViewController.h */,
 				B8F2D9141C5B5DA1002C7712 /* PersonViewController.m */,
 				B8FD3ACF1C83EDA3007BCA6B /* PersonDetailViewController.h */,
@@ -4819,6 +4827,7 @@
 				B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */,
 				B665F8CE1CC4BF5200070458 /* ZLPhotoBrowser.bundle in Resources */,
 				B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */,
+				F5D146151D260E620067B7D1 /* PersonScrollViewController.xib in Resources */,
 				B804FD6B1C8AC9A900DFD1CF /* tusiji_5.gif in Resources */,
 				B8F2DA4B1C5F3D04002C7712 /* SignInViewController.xib in Resources */,
 				B665F8BE1CC4BF5200070458 /* btn_original_circle.png in Resources */,
@@ -5219,6 +5228,7 @@
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
 				B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
+				F5D146141D260E620067B7D1 /* PersonScrollViewController.m in Sources */,
 				B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */,
 				B88C91591C59F9010089BEAE /* AppDelegate.m in Sources */,
 				B89216BD1C6045070023F8A8 /* UserProfile.m in Sources */,
