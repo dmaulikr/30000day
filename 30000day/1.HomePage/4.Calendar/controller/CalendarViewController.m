@@ -62,6 +62,14 @@
     [STNotificationCenter addObserver:self selector:@selector(deleteOrChangeData) name:STDidSuccessDeleteRemindSendNotification object:nil];
     
     [STNotificationCenter addObserver:self selector:@selector(deleteOrChangeData) name:STDidSuccessChangeOrAddRemindSendNotification object:nil];
+    
+    [STNotificationCenter addObserver:self selector:@selector(reloadCalendar) name:STDidSuccessEnterForegroundSendNotification object:nil];
+}
+
+- (void)reloadCalendar {
+
+    [self.calendarCell.calendar reloadData];
+    
 }
 
 - (void)deleteOrChangeData {
