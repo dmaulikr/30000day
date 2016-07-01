@@ -94,7 +94,7 @@
     
     _activityIndicatorView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0, CGRectGetHeight(self.bounds) / 2.0);
     
-    _imageView.frame = CGRectMake(9, 9, self.bounds.size.width - 18, self.bounds.size.height - 18);
+    _imageView.frame = CGRectMake(9, 9, self.bounds.size.width - 18, self.bounds.size.height - 17);
     
     
 //    CGMutablePathRef path = CGPathCreateMutable();

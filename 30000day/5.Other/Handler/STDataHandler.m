@@ -636,14 +636,35 @@
                 
                 NSDictionary *jsonDictionary = recvDic[@"value"];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                
                     //设置个人信息
                     [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
+                    
+                    //登录凌云服务器
+                    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
+                        
+                        if (succeeded) {
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+                                
+                                NSLog(@"---连接凌云聊天服务器成功");
+                            });
+                            
+                        } else {
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                failure(error);
+                                
+                            });
+                        }
+                    }];
                 
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    success(YES);
                 });
-
-                success(YES);
                 
             } else {
                 
