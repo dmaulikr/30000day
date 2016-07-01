@@ -269,9 +269,13 @@
                         
                         NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
                         
-                        [dayNumberArray addObject:newString];
+                        NSString *month = array[1];
                         
-                        [dayNumberArray addObject:newString];
+                        NSString *dateString = [NSString stringWithFormat:@"%@-%@",month,newString];
+                        
+                        [dayNumberArray addObject:dateString];
+                        
+                        [dayNumberArray addObject:dateString];
                         
                         self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
                         
