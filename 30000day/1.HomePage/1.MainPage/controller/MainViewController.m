@@ -25,6 +25,7 @@
 #import "PromoteAgeViewController.h"
 #import "FactorVerificationView.h"
 #import "IntroduceView.h"
+#import "SportTrajectoryViewController.h"
 
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
@@ -108,9 +109,6 @@
 - (void)reloadData {
     
     //获取用户的天龄
-    [self getUserLifeList];
-    
-    //更新个人运动信息
     [self uploadMotionData];
     
     //获取用户击败的用户
@@ -183,7 +181,7 @@
                                      success:^(BOOL success) {
                                          
                                          //获取用户的天龄
-                                         [self getUserLifeList];
+                                         [self uploadMotionData];
                                          
                                          [self.tableView.mj_header endRefreshing];
                                          
@@ -517,7 +515,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+      
+        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+        
+        controller.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else if (indexPath.row == 1) {
         
         QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
         
