@@ -243,8 +243,6 @@
 		B80B55921CD053B2003E2C36 /* tusiji.plist in Resources */ = {isa = PBXBuildFile; fileRef = B80B55911CD053B2003E2C36 /* tusiji.plist */; };
 		B80B55991CD0B2EC003E2C36 /* DiscountCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80B55971CD0B2EC003E2C36 /* DiscountCouponViewController.m */; };
 		B80B559A1CD0B2EC003E2C36 /* DiscountCouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80B55981CD0B2EC003E2C36 /* DiscountCouponViewController.xib */; };
-		B80B559E1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B559C1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework */; };
-		B80B559F1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B559D1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework */; };
 		B80B55A11CD1013C003E2C36 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B55A01CD1013C003E2C36 /* OpenGLES.framework */; };
 		B80B55A31CD1015B003E2C36 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B55A21CD1015B003E2C36 /* Security.framework */; };
 		B80B55A51CD10176003E2C36 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B55A41CD10176003E2C36 /* libsqlite3.0.tbd */; };
@@ -1003,8 +1001,6 @@
 		B80B55961CD0B2EC003E2C36 /* DiscountCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscountCouponViewController.h; sourceTree = "<group>"; };
 		B80B55971CD0B2EC003E2C36 /* DiscountCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscountCouponViewController.m; sourceTree = "<group>"; };
 		B80B55981CD0B2EC003E2C36 /* DiscountCouponViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCouponViewController.xib; sourceTree = "<group>"; };
-		B80B559C1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
-		B80B559D1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
 		B80B55A01CD1013C003E2C36 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B80B55A21CD1015B003E2C36 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B80B55A41CD10176003E2C36 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -1876,8 +1872,6 @@
 				B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */,
 				B6E548B61CF055F700002650 /* HealthKit.framework in Frameworks */,
 				B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */,
-				B80B559E1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework in Frameworks */,
-				B80B559F1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework in Frameworks */,
 				B8F6E3951CB92093000CC117 /* CoreMotion.framework in Frameworks */,
 				B8F6E3931CB9208A000CC117 /* CFNetwork.framework in Frameworks */,
 				B8F6E3911CB9207F000CC117 /* CoreGraphics.framework in Frameworks */,
@@ -2346,15 +2340,6 @@
 				B80B55911CD053B2003E2C36 /* tusiji.plist */,
 			);
 			path = emoticons;
-			sourceTree = "<group>";
-		};
-		B80B559B1CD0FFD8003E2C36 /* BaiduMap */ = {
-			isa = PBXGroup;
-			children = (
-				B80B559C1CD0FFD8003E2C36 /* BaiduMapAPI_Base.framework */,
-				B80B559D1CD0FFD8003E2C36 /* BaiduMapAPI_Map.framework */,
-			);
-			path = BaiduMap;
 			sourceTree = "<group>";
 		};
 		B8365A491C7081FD00063269 /* Extension */ = {
@@ -2936,7 +2921,6 @@
 				B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */,
 				B8F6E95D1D02CD0400AD6745 /* TZImagePickerController */,
 				B8381DD51CE05FAB00E3AC08 /* JPush */,
-				B80B559B1CD0FFD8003E2C36 /* BaiduMap */,
 				B665F88A1CC4BF5200070458 /* PhotoBrowser */,
 				B8F6E0E21CB915B6000CC117 /* Alipay */,
 				B886ADE21CB3C5F4005E262A /* SwithTitleView */,
