@@ -670,9 +670,11 @@
 		F54BBC761D21045400556B6D /* qr_vc_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC671D21045400556B6D /* qr_vc_right@3x.png */; };
 		F57A23F81D24C73400FBEF7C /* ShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */; };
 		F57A23F91D24C73400FBEF7C /* ShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */; };
-		F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */; };
+		F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */; };
 		F58362BF1D2A49DE0040E673 /* SportTrajectoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
+		F5C23E1D1D2B99100034753B /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C23E1B1D2B99100034753B /* MapViewController.xib */; };
+		F5C23E1F1D2B992B0034753B /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F5C23E1E1D2B992B0034753B /* MapViewController.mm */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
 		F5D146141D260E620067B7D1 /* PersonScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D146121D260E620067B7D1 /* PersonScrollViewController.m */; };
@@ -1843,10 +1845,13 @@
 		F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTableViewCell.m; sourceTree = "<group>"; };
 		F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareTableViewCell.xib; sourceTree = "<group>"; };
 		F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTrajectoryViewController.h; sourceTree = "<group>"; };
-		F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTrajectoryViewController.m; sourceTree = "<group>"; };
+		F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SportTrajectoryViewController.mm; sourceTree = "<group>"; };
 		F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportTrajectoryViewController.xib; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
+		F5C23E191D2B99100034753B /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		F5C23E1B1D2B99100034753B /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		F5C23E1E1D2B992B0034753B /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewController.mm; sourceTree = "<group>"; };
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
 		F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendsHeadView.m; sourceTree = "<group>"; };
 		F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFriendsHeadView.xib; sourceTree = "<group>"; };
@@ -2752,8 +2757,11 @@
 				B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */,
 				B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */,
 				F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */,
-				F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */,
+				F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */,
 				F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */,
+				F5C23E191D2B99100034753B /* MapViewController.h */,
+				F5C23E1E1D2B992B0034753B /* MapViewController.mm */,
+				F5C23E1B1D2B99100034753B /* MapViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4664,6 +4672,7 @@
 				B665F8C21CC4BF5200070458 /* btn_selected@2x.png in Resources */,
 				B86A102C1CC870DA00D3E01B /* SubscribeCentreViewController.xib in Resources */,
 				B665F8C81CC4BF5200070458 /* lock.png in Resources */,
+				F5C23E1D1D2B99100034753B /* MapViewController.xib in Resources */,
 				B804FD8E1C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				B6E30CA81CE1CB2500C510A5 /* PromoteAgeViewController.xib in Resources */,
 				B804FD631C8AC9A900DFD1CF /* tusiji_15_cover@2x.png in Resources */,
@@ -5044,7 +5053,7 @@
 				B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */,
 				B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
-				F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.m in Sources */,
+				F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.mm in Sources */,
 				B8FD3E201C8A7903007BCA6B /* XHMessageInputView.m in Sources */,
 				B8FD3E181C8A7903007BCA6B /* XHBaseCollectionViewCell.m in Sources */,
 				B8FD3DD71C8A7903007BCA6B /* UIImage+RoundedCorner.m in Sources */,
@@ -5217,6 +5226,7 @@
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
+				F5C23E1F1D2B992B0034753B /* MapViewController.mm in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,

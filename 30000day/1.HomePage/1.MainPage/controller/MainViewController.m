@@ -26,6 +26,7 @@
 #import "FactorVerificationView.h"
 #import "IntroduceView.h"
 #import "SportTrajectoryViewController.h"
+#import "MapViewController.h"
 
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
@@ -517,11 +518,9 @@
     
     if (indexPath.row == 0) {
       
-        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
-        
-        controller.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:controller animated:YES];
+//        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+//        
+//        [self.navigationController presentViewController:controller animated:YES completion:nil];
         
     } else if (indexPath.row == 1) {
         
