@@ -100,14 +100,14 @@
     [AVIMNoticationMessage registerSubclass];
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
-//    _mapManager = [[BMKMapManager alloc] init];
-//    
-//    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
-//    
-//    if (!ret) {
-//        
-//        NSLog(@"manager start failed!");
-//    }
+    _mapManager = [[BMKMapManager alloc] init];
+    
+    BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
+    
+    if (!ret) {
+        
+        NSLog(@"manager start failed!");
+    }
     
     //初始化版本控制器
     [[SearchVersionManager shareManager] synchronizedDataFromServer];

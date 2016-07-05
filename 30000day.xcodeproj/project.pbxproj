@@ -670,6 +670,8 @@
 		F54BBC761D21045400556B6D /* qr_vc_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC671D21045400556B6D /* qr_vc_right@3x.png */; };
 		F57A23F81D24C73400FBEF7C /* ShareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */; };
 		F57A23F91D24C73400FBEF7C /* ShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */; };
+		F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */; };
+		F58362BF1D2A49DE0040E673 /* SportTrajectoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
@@ -1840,6 +1842,9 @@
 		F57A23F51D24C73400FBEF7C /* ShareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTableViewCell.h; sourceTree = "<group>"; };
 		F57A23F61D24C73400FBEF7C /* ShareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTableViewCell.m; sourceTree = "<group>"; };
 		F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareTableViewCell.xib; sourceTree = "<group>"; };
+		F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTrajectoryViewController.h; sourceTree = "<group>"; };
+		F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTrajectoryViewController.m; sourceTree = "<group>"; };
+		F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportTrajectoryViewController.xib; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
@@ -2746,6 +2751,9 @@
 				B8F1FCC21CEAF97C00C8A0FA /* PhysicalExaminationViewController.h */,
 				B8F1FCC31CEAF97C00C8A0FA /* PhysicalExaminationViewController.m */,
 				B8F1FCC41CEAF97C00C8A0FA /* PhysicalExaminationViewController.xib */,
+				F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */,
+				F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.m */,
+				F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4703,6 +4711,7 @@
 				B8F2D9461C5B7267002C7712 /* HealthKit.entitlements in Resources */,
 				B8F6E24E1CB919E1000CC117 /* AlipaySDK.bundle in Resources */,
 				B804FD931C8AC9A900DFD1CF /* RecordCancel@2x.png in Resources */,
+				F58362BF1D2A49DE0040E673 /* SportTrajectoryViewController.xib in Resources */,
 				F54BBC6D1D21045400556B6D /* qr_scan_line@2x.png in Resources */,
 				B8F648871C942C9F001A3119 /* PersonInformationTableViewCell.xib in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
@@ -5035,6 +5044,7 @@
 				B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */,
 				B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
+				F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.m in Sources */,
 				B8FD3E201C8A7903007BCA6B /* XHMessageInputView.m in Sources */,
 				B8FD3E181C8A7903007BCA6B /* XHBaseCollectionViewCell.m in Sources */,
 				B8FD3DD71C8A7903007BCA6B /* UIImage+RoundedCorner.m in Sources */,
