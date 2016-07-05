@@ -80,7 +80,6 @@
         if (error) {
             
             NSLog(@"error: %@", error);
-        
             [[CDMediaMessageManager shareCoreDataHandler].mainObjectContext performBlock:^{
                 
                 handler(@[], nil);
@@ -96,11 +95,9 @@
         }
         
         NSMutableArray *result_ids = [[NSMutableArray alloc] init];
-        
         for (NSManagedObject *item  in results) {
             
             [result_ids addObject:item.objectID];
-            
         }
         
         [[CDMediaMessageManager shareCoreDataHandler].mainObjectContext performBlock:^{
@@ -119,9 +116,7 @@
 + (id)one:(NSPredicate *)predicate {
     
     NSManagedObjectContext *ctx = [CDMediaMessageManager shareCoreDataHandler].mainObjectContext;
-    
     NSFetchRequest *fetchRequest = [self makeRequest:ctx predicate:predicate orderby:nil offset:0 limit:1];
-    
     NSError* error = nil;
     
     NSArray* results = [ctx executeFetchRequest:fetchRequest error:&error];
@@ -198,7 +193,6 @@
             if ([resultList isKindOfClass:[NSArray class]]) {
                 
                 NSMutableArray *idArray = [[NSMutableArray alloc] init];
-                
                 for (NSManagedObject *obj in resultList) {
                     
                     [idArray addObject:obj.objectID];

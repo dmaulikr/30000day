@@ -131,23 +131,19 @@
     if (indexPath.section == 0) {
         
         SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
-
         controller.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:controller animated:YES];
     
     } else if(indexPath.section == 1) {
         
-        MailListViewController *mlvc = [[MailListViewController alloc] init];
-        
-        [self.navigationController pushViewController:mlvc animated:YES];
+        MailListViewController *controller = [[MailListViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.section == 2) {
     
         QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
-        
         QRController.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:QRController animated:YES];
     
     }
