@@ -27,15 +27,10 @@
     self.title = @"新的朋友";
     
     self.isShowBackItem = YES;
-    
     self.tableViewStyle = STRefreshTableViewGroup;
-    
     self.tableView.frame = CGRectMake(0, 0 , SCREEN_WIDTH, SCREEN_HEIGHT + 38);
-    
     self.tableView.delegate = self;
-    
     self.tableView.dataSource = self;
-    
     [self showHeadRefresh:YES showFooterRefresh:NO];
     
     [self getDataFromServer];
@@ -56,11 +51,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.dataArray = dataArray;
-            
             [self.tableView reloadData];
-            
             [self.tableView.mj_header endRefreshing];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             
         });
@@ -70,7 +62,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView.mj_header endRefreshing];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         });
     }];

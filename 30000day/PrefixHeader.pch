@@ -123,7 +123,7 @@
 
 #define STAppDelegate                 (AppDelegate *)[UIApplication sharedApplication].delegate
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8081"
+#define  ST_API_SERVER                @"http://121.196.223.175:8082"
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
 
