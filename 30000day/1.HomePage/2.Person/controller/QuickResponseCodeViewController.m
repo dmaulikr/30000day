@@ -79,7 +79,6 @@
     
     UIImage *img = [self showWithView:self.mainView];
     UIImageWriteToSavedPhotosAlbum(img, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    
 }
 
 - (UIImage *)showWithView:(UIView *)view {

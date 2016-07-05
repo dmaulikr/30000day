@@ -20,7 +20,6 @@
 
 #import <iVersion/iVersion.h>
 #import "CDChatManager.h"
-#import "STCoreDataHandler.h"
 #import "STLocationMananger.h"
 #import "SearchVersionManager.h"
 #import "NewFriendManager.h"
@@ -79,11 +78,8 @@
     
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
-    
     [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"b8edc3cdc6e18f7a91983233470f3a48" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
-    
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://www.30000day.com"];
-    
     [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
     //***********************************初始化LeanCloud*********************************//
@@ -94,9 +90,7 @@
     }];
 
     [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    
     [iVersion sharedInstance].previewMode = NO;
-    
     [AVIMNoticationMessage registerSubclass];
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
@@ -113,7 +107,6 @@
     [[SearchVersionManager shareManager] synchronizedDataFromServer];
     
     self.window.backgroundColor = [UIColor whiteColor];
-    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -188,7 +181,6 @@
                  if ([resultDic[@"resultStatus"] isEqualToString:@"6001"] ) {
                      
                      UIAlertView *alertview = [[UIAlertView alloc]initWithTitle:nil message:@"您已取消支付" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                     
                      [alertview show];
                      
                  } else if ([resultDic[@"resultStatus"] isEqualToString:@"9000"]) {
@@ -214,18 +206,8 @@
 //点击了home键,程序进入后台了
 - (void)applicationWillTerminate:(UIApplication *)application {
     
-    [self saveContext];//保存还未保存的变化
 }
 
-- (void)saveContext {
-    
-    NSError *error = nil;
-    
-    if ([[STCoreDataHandler shareCoreDataHandler].bgObjectContext hasChanges]) {
-        
-        [[STCoreDataHandler shareCoreDataHandler].bgObjectContext save:&error];
-    }
-}
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
@@ -235,7 +217,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [JPUSHService handleRemoteNotification:userInfo];
-    
     [JPUSHService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
     
     if (application.applicationState == UIApplicationStateActive) {
@@ -257,9 +238,7 @@
 - (NSSet *)dataTypesToRead {
     
     HKQuantityType *stepCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
-    
     HKQuantityType *stairsCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
-    
     HKQuantityType *movingDistanceCountType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     
     return [NSSet setWithObjects: stepCountType,stairsCountType,movingDistanceCountType, nil];

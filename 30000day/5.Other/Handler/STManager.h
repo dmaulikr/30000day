@@ -10,7 +10,6 @@
 
 @interface STManager : NSObject
 
-#pragma mark ---- 以下2个方法要在主线程中调用，防止出现bug
 //自定义对象归档到文件（该自定义对象一定要实现NSCoding协议）
 //存储入系统的文件名字为:该类名.src
 - (void)encodeDataObject:(id)object;

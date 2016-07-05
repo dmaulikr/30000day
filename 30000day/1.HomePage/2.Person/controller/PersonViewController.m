@@ -57,11 +57,6 @@
     [STNotificationCenter addObserver:self selector:@selector(getMyFriends) name:STDidApplyAddFriendSuccessSendNotification object:nil];
     
     [self getMyFriends];
-    
-    //设置右面的按钮
-//    UIBarButtonItem *addFriendItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addFriends"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addFriendsAction)];
-//    
-//    self.navigationItem.rightBarButtonItem = addFriendItem;
 
     //有人请求加为好友
     [STNotificationCenter addObserver:self selector:@selector(changeState) name:STDidApplyAddFriendSendNotification object:nil];
@@ -71,13 +66,6 @@
     
     self.firstCell.badgeView.hidden = NO;//显示cell的badge
 }
-
-//- (void)addFriendsAction {
-//    
-//    AddFriendsViewController *addfvc = [[AddFriendsViewController alloc] init];
-//    addfvc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:addfvc animated:YES];
-//}
 
 - (void)headerRefreshing {
     
@@ -117,7 +105,7 @@
         
         _firstCell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         _firstCell.badgeView.hidden = [Common readAppIntegerDataForKey:USER_BADGE_NUMBER] ? NO : YES;//显示cell的badge
-        self.tabBarItem.badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;//显示底部badge
+        self.parentViewController.tabBarItem.badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;//显示底部badge
     }
     return _firstCell;
 }
@@ -276,7 +264,6 @@
             }
             
             cell.jinSuoSupView.hidden = YES;
-            
             cell.informationModel = _dataArray[indexPath.row];
             return cell;
             
@@ -289,7 +276,6 @@
             }
             
             cell.jinSuoSupView.hidden = YES;
-            
             cell.informationModel_second = _dataArray[indexPath.row];
              return cell;
             
@@ -310,7 +296,7 @@
             [self.navigationController pushViewController:controller animated:YES];
             self.firstCell.badgeView.hidden = YES;//清除cell的badge
             [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];//把plist里面存储的badge清空
-            self.tabBarItem.badgeValue = nil;//清除底部按钮badge
+            self.parentViewController.tabBarItem.badgeValue = nil;//清除底部按钮badge
             
         } else if (indexPath.row == 1) {
             

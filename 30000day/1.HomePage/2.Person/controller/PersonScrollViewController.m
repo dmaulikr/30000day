@@ -37,40 +37,24 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     scrollView.delegate = self;
-    
     scrollView.showsHorizontalScrollIndicator = NO;
-    
     scrollView.pagingEnabled = YES;
-
     scrollView.bounces = NO;
     
-    
     PersonViewController *person = [[PersonViewController alloc] init];
-    
     [person.view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     [self addChildViewController:person];
-    
     [scrollView addSubview:person.view];
     
-    
     AddFriendsViewController *addFrieds = [[AddFriendsViewController alloc] init];
-    
     [addFrieds.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     [self addChildViewController:addFrieds];
-    
     [scrollView addSubview:addFrieds.view];
     
-    
     [scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 2, SCREEN_HEIGHT)];
-    
     [self.view addSubview:scrollView];
-    
     self.scrollView = scrollView;
-    
 }
 
 - (void)createButton {
