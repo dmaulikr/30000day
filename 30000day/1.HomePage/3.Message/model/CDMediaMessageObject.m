@@ -2,7 +2,7 @@
 //  CDMediaMessageObject.m
 //  30000day
 //
-//  Created by GuoJia on 16/7/5.
+//  Created by GuoJia on 16/7/6.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  CDMediaMessageObject+CoreDataProperties.m
 //  30000day
 //
-//  Created by GuoJia on 16/7/5.
+//  Created by GuoJia on 16/7/6.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,11 +14,11 @@
 @implementation CDMediaMessageObject (CoreDataProperties)
 
 @dynamic conversationId;
-@dynamic imageMessageId;
-@dynamic userId;
 @dynamic image;
+@dynamic imageMessageId;
 @dynamic localURLString;
-@dynamic remoteURLString;
 @dynamic messageDate;
+@dynamic remoteURLString;
+@dynamic userId;
 
 @end

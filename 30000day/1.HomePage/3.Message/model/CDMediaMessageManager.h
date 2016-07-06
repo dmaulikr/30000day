@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CDMediaMessageModel.h"
 
 typedef void(^OperationResult)(NSError *error);
 @interface CDMediaMessageManager : NSObject
@@ -15,8 +16,12 @@ typedef void(^OperationResult)(NSError *error);
 @property (readonly ,strong, nonatomic) NSManagedObjectContext *bgObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *mainObjectContext;
 
-+ (CDMediaMessageManager *)shareCoreDataHandler;
++ (CDMediaMessageManager *)shareManager;
 - (NSError *)save:(OperationResult)handler;
 - (NSManagedObjectContext *)createPrivateObjectContext;
+
+- (void)addMediaMessageWithModel:(CDMediaMessageModel *)model;//新增或者刷新
++ (NSMutableArray *)mediaModelArrayUserId:(NSString *)userId withConversationId:(NSString *)conversationId;
++ (NSInteger)indexModelsArray:(NSMutableArray *)modelsArray WithModel:(CDMediaMessageModel *)model;
 
 @end

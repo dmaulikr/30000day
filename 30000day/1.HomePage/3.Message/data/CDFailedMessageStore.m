@@ -107,14 +107,16 @@
 
 - (void)insertFailedMessage:(AVIMTypedMessage *)message {
     if (message.conversationId == nil) {
-        @throw [NSException exceptionWithName:NSGenericException
-                                       reason:@"conversationId is nil"
-                                     userInfo:nil];
+        
+        NSLog(@"conversationId is nil");
+        
+    } else {
+        
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:message];
+        [self.databaseQueue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:kCDInsertMessageSQL, message.messageId, message.conversationId, data];
+        }];
     }
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:message];
-    [self.databaseQueue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:kCDInsertMessageSQL, message.messageId, message.conversationId, data];
-    }];
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "CDMacros.h"
 #import "CDChatManager_Internal.h"
 #import "AVIMNoticationMessage.h"
+#import "CDMediaMessageManager.h"
 
 static CDChatManager *instance;
 
@@ -399,6 +400,17 @@ static CDChatManager *instance;
     }
     
     [STNotificationCenter postNotificationName:kCDNotificationMessageReceived object:message];
+    
+    //增加缓存
+    CDMediaMessageModel *model = [[CDMediaMessageModel alloc] init];
+    model.userId = self.clientId;
+    model.conversationId = message.conversationId;
+    model.imageMessageId = message.messageId;
+    model.messageDate = [NSDate dateWithTimeIntervalSince1970:message.sendTimestamp / 1000];
+    model.remoteURLString = message.file.url;
+    model.localURLString = message.file.localPath;
+    model.image = [message.file getData];
+    [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
 }
 
 #pragma mark - AVIMMessageDelegate

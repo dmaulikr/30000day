@@ -141,14 +141,14 @@ static STCoreDataHandler *onlyInstance;
     //获取所有的健康因子
     [STDataHandler sendGetFactors:^(NSMutableArray *dataArray) {
         
-        for (GetFactorObject *object in [GetFactorObject filter:nil orderby:nil offset:0 limit:0]) {
+        for (GetFactorObject *object in [GetFactorObject filterWithContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext predicate:nil orderby:nil offset:0 limit:0]) {
             
-            [GetFactorObject deleteObject:object];
+            [GetFactorObject deleteObjectWithMainContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext object:object];
         }
         
         for (int i = 0; i < dataArray.count; i++) {
             
-            GetFactorObject *object =  [GetFactorObject createNewObject];
+            GetFactorObject *object =  [GetFactorObject createObjectWithMainContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext];
             
             GetFactorModel *model = dataArray[i];
             
@@ -163,9 +163,13 @@ static STCoreDataHandler *onlyInstance;
             object.gender = model.gender;
         }
         
-        [GetFactorObject save:^(NSError *error) {
-           
-            if (!error) {
+        [self save:^(NSError *error) {
+            
+            if (error) {
+                
+                isSuccess(NO);
+                
+            } else {
                 
                 isSuccess(YES);
             }
@@ -174,7 +178,6 @@ static STCoreDataHandler *onlyInstance;
     } failure:^(NSError *error) {
         
         isSuccess(NO);
-        
     }];
 }
 
