@@ -12,6 +12,8 @@
 #import <BaiduMapAPI_Map/BMKPolyline.h>
 #import <BaiduMapAPI_Map/BMKPolylineView.h>
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>//引入计算工具所有的头文件
+#import "MotionData.h"
+#import "SportInformationModel.h"
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate>
 
@@ -30,6 +32,12 @@
 @property (nonatomic,strong) NSTimer *timer; //计时器
 
 @property (nonatomic,assign) NSInteger timerInt; //跑步时间
+
+@property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
+
+@property (nonatomic,strong) MotionData *motionData;
+
+@property (nonatomic,strong) SportInformationModel *sportModel;
 
 
 @property (nonatomic,strong) UIView *belowView;
@@ -51,12 +59,35 @@
     
     self.locationArrayM = [NSMutableArray array];
     
+    [self getLastTimeStepCount];
+    
     [self loadMapView];
     
     [self loadOtherView];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timing) userInfo:nil repeats:YES];
 
+}
+
+//获取上次运动步数
+- (void)getLastTimeStepCount {
+    
+    self.sportModel = [[SportInformationModel alloc] init];
+    
+    MotionData *mdata = [[MotionData alloc]init];
+    
+    self.motionData = mdata;
+    
+    [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+        
+        self.lastTimeStepNumber = birthString.integerValue;
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"获取上次步数失败");
+        
+    }];
+    
 }
 
 //加载地图
@@ -173,9 +204,9 @@
     
     [circleButton setBackgroundColor:LOWBLUECOLOR];
     
-    circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
+    circleButton.layer.masksToBounds = YES;
     
-    circleButton.clipsToBounds = YES;
+    circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
     
     [circleButton addTarget:self action:@selector(startClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -198,73 +229,8 @@
 
 }
 
-//点击开始
-- (void)startClick:(UIButton *)sender {
-
-//    if (!sender.tag) {  //开始
-//
-//        [self.service startUserLocationService];
-//        
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
-//        
-//        sender.tag = 1;
-//        
-//        self.startLable.text = @"结束";
-//        
-//    } else {  //结束
-//    
-//        [self.service stopUserLocationService];
-//        
-//        [self.timer invalidate];
-//        
-//        [self.locationArrayM removeAllObjects];
-//        
-//        self.preLocation = nil;
-//        
-//        self.polyLine = nil;
-//        
-//        self.sumDistance = 0;
-//        
-//        self.timerInt = 0;
-//        
-//        sender.tag = 0;
-//        
-//        self.startLable.text = @"开始";
-// 
-//    }
-    
-    if (!sender.tag) {
-        
-        [self.service stopUserLocationService];
-        
-        [self.timer invalidate];
-        
-        [self.locationArrayM removeAllObjects];
-        
-        self.preLocation = nil;
-        
-        self.polyLine = nil;
-        
-        self.sumDistance = 0;
-        
-        self.timerInt = 0;
-        
-        sender.tag = 1;
-        
-        self.startLable.text = @"关闭";
-        
-        [self.circleButton setBackgroundColor:[UIColor redColor]];
-        
-    } else {
-        
-        [self colseView];
-    
-    }
-    
-}
-
 //计时器
-- (void)repeatAction {
+- (void)timing {
 
     self.timerInt += 1;
     
@@ -297,10 +263,6 @@
     
     self.mapView.centerCoordinate = userLocation.location.coordinate;
     
-    //UIAlertView *gpsSignal = [[UIAlertView alloc]initWithTitle:@"开始了" message:nil delegate:nil cancelButtonTitle:@"okay" otherButtonTitles:nil, nil];
-    
-    //[gpsSignal show];
-    
     // 2. 将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
     
@@ -316,7 +278,7 @@
     
     NSRange range = [num rangeOfString:@"."];
     
-    num = [num substringToIndex:range.location + 2];
+    num = [num substringToIndex:range.location + 3];
     
     self.distanceLable.text = [NSString stringWithFormat:@"%@",num];
     
@@ -381,6 +343,99 @@
     }
     
     return nil;
+}
+
+//点击结束
+- (void)startClick:(UIButton *)sender {
+    
+    //    if (!sender.tag) {  //开始
+    //
+    //        [self.service startUserLocationService];
+    //
+    //        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
+    //
+    //        sender.tag = 1;
+    //
+    //        self.startLable.text = @"结束";
+    //
+    //    } else {  //结束
+    //
+    //        [self.service stopUserLocationService];
+    //
+    //        [self.timer invalidate];
+    //
+    //        [self.locationArrayM removeAllObjects];
+    //
+    //        self.preLocation = nil;
+    //
+    //        self.polyLine = nil;
+    //
+    //        self.sumDistance = 0;
+    //
+    //        self.timerInt = 0;
+    //
+    //        sender.tag = 0;
+    //
+    //        self.startLable.text = @"开始";
+    //
+    //    }
+    
+    if (!sender.tag) {  //结束
+        
+        [self over];
+        
+        [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
+            
+            NSInteger stepNumber = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
+            
+            self.sportModel.stepNumber = stepNumber;
+            
+            CGFloat distance = self.sumDistance / 1000.0;
+            
+            CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
+            
+            self.sportModel.calorie = calorie;
+            
+            self.sportModel.time = self.timerInt;
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"获取步数失败");
+            
+        }];
+        
+        
+    } else {  //关闭页面
+        
+        [self colseView];
+        
+    }
+    
+}
+
+//结束  清空数据关闭定位
+- (void)over {
+
+    [self.service stopUserLocationService];
+    
+    [self.timer invalidate];
+    
+    [self.locationArrayM removeAllObjects];
+    
+    self.preLocation = nil;
+    
+    self.polyLine = nil;
+    
+    self.sumDistance = 0;
+    
+    self.timerInt = 0;
+    
+    self.circleButton.tag = 1;
+    
+    self.startLable.text = @"关闭";
+    
+    [self.circleButton setBackgroundColor:[UIColor redColor]];
+    
 }
 
 
