@@ -237,6 +237,15 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 	return self;
 }
 
+- (id)initWithIDMPhotoArray:(NSArray <IDMPhoto *>*)IDMPhotoArray {
+    
+    if ((self = [self init])) {
+        
+        _photos = [[NSMutableArray alloc] initWithArray:IDMPhotoArray];
+    }
+    return self;
+}
+
 - (id)initWithPhotoURLs:(NSArray *)photoURLsArray animatedFromView:(UIView*)view {
     if ((self = [self init])) {
         NSArray *photosArray = [IDMPhoto photosWithURLs:photoURLsArray];

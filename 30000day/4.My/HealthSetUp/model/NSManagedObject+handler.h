@@ -17,19 +17,17 @@ typedef id(^AsyncProcess)(NSManagedObjectContext *ctx, NSString *className);
 
 @interface NSManagedObject (handler)
 
-+ (id)createNewObject;
++ (id)createObjectWithMainContext:(NSManagedObjectContext *)mainContext;
 
-+ (NSError *)save:(OperationResult)handler;
++ (NSArray *)filterWithContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;
 
-+ (NSArray *)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;
++ (void)filterWithMainContext:(NSManagedObjectContext *)mainContext withPrivateContext:(NSManagedObjectContext *)privateContext predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler;
 
-+ (void)filter:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler;
-
-+ (id)one:(NSPredicate *)predicate;
-
-+ (void)one:(NSPredicate *)predicate on:(ObjectResult)handler;
-
-+ (void)deleteObject:(id)object;
+//+ (id)one:(NSPredicate *)predicate;
+//
+//+ (void)one:(NSPredicate *)predicate on:(ObjectResult)handler;
+//
++ (void)deleteObjectWithMainContext:(NSManagedObjectContext *)mainContext object:(id)object;
 
 + (void)async:(AsyncProcess)processBlock result:(ListResult)resultBlock;
 

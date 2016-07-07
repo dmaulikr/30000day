@@ -48,7 +48,7 @@
     [scrollView addSubview:person.view];
     
     AddFriendsViewController *addFrieds = [[AddFriendsViewController alloc] init];
-    [addFrieds.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [addFrieds.view setFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50)];
     [self addChildViewController:addFrieds];
     [scrollView addSubview:addFrieds.view];
     

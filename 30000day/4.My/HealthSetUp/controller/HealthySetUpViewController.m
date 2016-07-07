@@ -109,7 +109,7 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"factorId" ascending:YES];
     
-    NSArray *factorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[sort] offset:0 limit:0];
+    NSArray *factorArray = [GetFactorObject filterWithContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext predicate:[NSPredicate predicateWithFormat:@"level == 1"] orderby:@[sort] offset:0 limit:0];
     
     self.getFactorArray = [[NSMutableArray alloc] init];
     
@@ -120,17 +120,12 @@
             if ([object.gender isEqualToNumber:@2] || [object.gender isEqualToNumber:STUserAccountHandler.userProfile.gender]) {//过滤当前性别
                 
                 GetFactorModel *model = [[GetFactorModel alloc] init];
-                
                 model.factorId = object.factorId;
-                
                 model.factor = object.factor;
-                
                 model.level = object.level;
-                
                 model.pid = object.pid;
                 
-                NSArray *subFactorArray = [GetFactorObject filter:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
-                
+                NSArray *subFactorArray = [GetFactorObject filterWithContext:[STCoreDataHandler shareCoreDataHandler].mainObjectContext predicate:[NSPredicate predicateWithFormat:@"level == 2 AND pid == %@",model.factorId] orderby:@[sort] offset:0 limit:0];
                 model.subFactorArray  = [[NSMutableArray alloc] init];
                 
                 for (int j = 0; j < subFactorArray.count; j++) {

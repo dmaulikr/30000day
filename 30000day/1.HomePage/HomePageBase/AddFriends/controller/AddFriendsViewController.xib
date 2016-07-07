@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddFriendsViewController">
@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tJF-E1-AFd">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="23Q-lh-Qla"/>
@@ -29,7 +29,7 @@
                 <constraint firstItem="tJF-E1-AFd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1Th-Y8-AGZ"/>
                 <constraint firstItem="tJF-E1-AFd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2O5-bf-Enb"/>
                 <constraint firstAttribute="trailing" secondItem="tJF-E1-AFd" secondAttribute="trailing" id="Zf9-Z4-Fbm"/>
-                <constraint firstAttribute="bottom" secondItem="tJF-E1-AFd" secondAttribute="bottom" id="lHG-df-bbq"/>
+                <constraint firstAttribute="bottom" secondItem="tJF-E1-AFd" secondAttribute="bottom" constant="50" id="lHG-df-bbq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="27" y="-164"/>

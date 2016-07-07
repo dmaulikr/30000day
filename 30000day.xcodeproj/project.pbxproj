@@ -511,11 +511,7 @@
 		B8F880301C901A0700B5DA18 /* RemindObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8802E1C901A0700B5DA18 /* RemindObject.m */; };
 		B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8F880341C9028AB00B5DA18 /* RemindModel.xcdatamodeld */; };
 		B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F880511C92A75700B5DA18 /* STRefreshViewController.m */; };
-		B8F894791D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8F894771D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodeld */; };
 		B8F8947C1D2B83F700289129 /* CDMediaMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8947B1D2B83F700289129 /* CDMediaMessageManager.m */; };
-		B8F894871D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F894841D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.m */; };
-		B8F894881D2B894B00289129 /* CDMediaMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F894861D2B894B00289129 /* CDMediaMessageObject.m */; };
-		B8F8948C1D2B8F1900289129 /* NSManagedObject+media.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F8948B1D2B8F1900289129 /* NSManagedObject+media.m */; };
 		B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */; };
 		B8F9314C1C7AF1B3000FED7C /* AddRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */; };
 		B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F9314E1C7AFB3A000FED7C /* AddRemindTextTableViewCell.m */; };
@@ -527,6 +523,10 @@
 		B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA52291C802CE100498E34 /* AddContentTableViewCell.m */; };
 		B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */; };
 		B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */; };
+		B8FCA7B51D2BAD2C00CA6D91 /* CDMediaMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7B41D2BAD2C00CA6D91 /* CDMediaMessageModel.m */; };
+		B8FCA7B81D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7B61D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld */; };
+		B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7BA1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m */; };
+		B8FCA7BE1D2CAEAF00CA6D91 /* CDMediaMessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7BC1D2CAEAF00CA6D91 /* CDMediaMessageObject.m */; };
 		B8FD3AD21C83EDA3007BCA6B /* PersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3AD01C83EDA3007BCA6B /* PersonDetailViewController.m */; };
 		B8FD3AD31C83EDA3007BCA6B /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FD3AD11C83EDA3007BCA6B /* PersonDetailViewController.xib */; };
 		B8FD3AD71C852BE3007BCA6B /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FD3AD51C852BE3007BCA6B /* ChangePasswordViewController.m */; };
@@ -1542,15 +1542,8 @@
 		B8F880351C9028AB00B5DA18 /* RemindModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemindModel.xcdatamodel; sourceTree = "<group>"; };
 		B8F880501C92A75600B5DA18 /* STRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefreshViewController.h; sourceTree = "<group>"; };
 		B8F880511C92A75700B5DA18 /* STRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshViewController.m; sourceTree = "<group>"; };
-		B8F894781D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDMediaMessageStoreModel.xcdatamodel; sourceTree = "<group>"; };
 		B8F8947A1D2B83F700289129 /* CDMediaMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMediaMessageManager.h; sourceTree = "<group>"; };
 		B8F8947B1D2B83F700289129 /* CDMediaMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMediaMessageManager.m; sourceTree = "<group>"; };
-		B8F894831D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDMediaMessageObject+CoreDataProperties.h"; sourceTree = "<group>"; };
-		B8F894841D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDMediaMessageObject+CoreDataProperties.m"; sourceTree = "<group>"; };
-		B8F894851D2B894B00289129 /* CDMediaMessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMediaMessageObject.h; sourceTree = "<group>"; };
-		B8F894861D2B894B00289129 /* CDMediaMessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMediaMessageObject.m; sourceTree = "<group>"; };
-		B8F8948A1D2B8F1900289129 /* NSManagedObject+media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+media.h"; sourceTree = "<group>"; };
-		B8F8948B1D2B8F1900289129 /* NSManagedObject+media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+media.m"; sourceTree = "<group>"; };
 		B8F931481C7AF1B3000FED7C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
 		B8F931491C7AF1B3000FED7C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
 		B8F9314A1C7AF1B3000FED7C /* AddRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddRemindViewController.xib; sourceTree = "<group>"; };
@@ -1569,6 +1562,13 @@
 		B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddContentTableViewCell.xib; sourceTree = "<group>"; };
 		B8FA522D1C804BAF00498E34 /* STTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTabBarViewController.h; sourceTree = "<group>"; };
 		B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTabBarViewController.m; sourceTree = "<group>"; };
+		B8FCA7B31D2BAD2C00CA6D91 /* CDMediaMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMediaMessageModel.h; sourceTree = "<group>"; };
+		B8FCA7B41D2BAD2C00CA6D91 /* CDMediaMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMediaMessageModel.m; sourceTree = "<group>"; };
+		B8FCA7B71D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDMediaMessageStore.xcdatamodel; sourceTree = "<group>"; };
+		B8FCA7B91D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDMediaMessageObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B8FCA7BA1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDMediaMessageObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B8FCA7BB1D2CAEAF00CA6D91 /* CDMediaMessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMediaMessageObject.h; sourceTree = "<group>"; };
+		B8FCA7BC1D2CAEAF00CA6D91 /* CDMediaMessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMediaMessageObject.m; sourceTree = "<group>"; };
 		B8FD3ACF1C83EDA3007BCA6B /* PersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonDetailViewController.h; sourceTree = "<group>"; };
 		B8FD3AD01C83EDA3007BCA6B /* PersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonDetailViewController.m; sourceTree = "<group>"; };
 		B8FD3AD11C83EDA3007BCA6B /* PersonDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonDetailViewController.xib; sourceTree = "<group>"; };
@@ -3899,15 +3899,15 @@
 		B8F894701D2B7ECC00289129 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				B8F894771D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodeld */,
 				B8F8947A1D2B83F700289129 /* CDMediaMessageManager.h */,
 				B8F8947B1D2B83F700289129 /* CDMediaMessageManager.m */,
-				B8F894831D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.h */,
-				B8F894841D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.m */,
-				B8F894851D2B894B00289129 /* CDMediaMessageObject.h */,
-				B8F894861D2B894B00289129 /* CDMediaMessageObject.m */,
-				B8F8948A1D2B8F1900289129 /* NSManagedObject+media.h */,
-				B8F8948B1D2B8F1900289129 /* NSManagedObject+media.m */,
+				B8FCA7B31D2BAD2C00CA6D91 /* CDMediaMessageModel.h */,
+				B8FCA7B41D2BAD2C00CA6D91 /* CDMediaMessageModel.m */,
+				B8FCA7B61D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld */,
+				B8FCA7B91D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.h */,
+				B8FCA7BA1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m */,
+				B8FCA7BB1D2CAEAF00CA6D91 /* CDMediaMessageObject.h */,
+				B8FCA7BC1D2CAEAF00CA6D91 /* CDMediaMessageObject.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5033,6 +5033,7 @@
 				B8BD78941CC2478200362C89 /* STRequest.m in Sources */,
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B83B7A711CAD072500D2CC6A /* DYRateView.m in Sources */,
+				B8FCA7BE1D2CAEAF00CA6D91 /* CDMediaMessageObject.m in Sources */,
 				B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */,
 				B8FD3DF91C8A7903007BCA6B /* XHAnnotation.m in Sources */,
 				B8FD3DFE1C8A7903007BCA6B /* XHShareMenuItem.m in Sources */,
@@ -5089,7 +5090,6 @@
 				B86EFC8F1D139280007A2108 /* STGroupTableViewCell.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
-				B8F894881D2B894B00289129 /* CDMediaMessageObject.m in Sources */,
 				B801378D1CD89AE300ED0566 /* DuplicationTableViewCell.m in Sources */,
 				B8F6E3831CB91BEE000CC117 /* DataSigner.m in Sources */,
 				B8F6E3891CB91BEE000CC117 /* RSADataVerifier.m in Sources */,
@@ -5133,12 +5133,11 @@
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
-				B8F894791D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodeld in Sources */,
+				B8FCA7B51D2BAD2C00CA6D91 /* CDMediaMessageModel.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
-				B8F8948C1D2B8F1900289129 /* NSManagedObject+media.m in Sources */,
 				B8FD3DFD1C8A7903007BCA6B /* XHMessage.m in Sources */,
 				B8FD3E0A1C8A7903007BCA6B /* SETextGeometry.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
@@ -5252,6 +5251,8 @@
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
+				B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
+				F5C23E1F1D2B992B0034753B /* MapViewController.mm in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
@@ -5292,7 +5293,6 @@
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
 				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
-				B8F894871D2B894B00289129 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B86EFCA41D154DC4007A2108 /* IDMCaptionView.m in Sources */,
@@ -5329,6 +5329,7 @@
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */,
 				B8FD3DF01C8A7903007BCA6B /* XHFileAttribute.m in Sources */,
+				B8FCA7B81D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld in Sources */,
 				B8FD3DD21C8A7903007BCA6B /* NSString+XHDiskSizeTransfrom.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
@@ -5640,13 +5641,13 @@
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		B8F894771D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodeld */ = {
+		B8FCA7B61D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				B8F894781D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodel */,
+				B8FCA7B71D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodel */,
 			);
-			currentVersion = B8F894781D2B805200289129 /* CDMediaMessageStoreModel.xcdatamodel */;
-			path = CDMediaMessageStoreModel.xcdatamodeld;
+			currentVersion = B8FCA7B71D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodel */;
+			path = CDMediaMessageStore.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

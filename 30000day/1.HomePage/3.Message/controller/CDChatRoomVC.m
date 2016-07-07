@@ -28,28 +28,25 @@
 #import "TZImageManager.h"
 #import "STCroupSettingViewController.h"
 #import "AVIMNoticationMessage.h"
+#import "CDMediaMessageManager.h"
 
 static NSInteger const kOnePageSize = 10;
 
 static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消息隐藏HUD的间隔
 
-@interface CDChatRoomVC ()
+@interface CDChatRoomVC () <IDMPhotoBrowserDelegate> {
+    NSInteger _chooseImageMessageIndex;//选择图片消息的index
+}
 
 @property (nonatomic, strong, readwrite) AVIMConversation *conversation;
-
 @property (atomic, assign) BOOL isLoadingMsg;
 
 //TODO:msgs and messages are repeated
 @property (nonatomic, strong, readwrite) NSMutableArray *msgs;
-
 @property (nonatomic, strong) XHMessageTableViewCell *currentSelectedCell;
-
 @property (nonatomic, strong) NSArray *emotionManagers;
-
 @property (nonatomic,strong) NSMutableArray *pickerBrowserPhotoArray;
-
 @property (nonatomic,strong) IDMPhotoBrowser *browser;
-
 @property (nonatomic,strong) NSTimer *sendMessageTimer;//发送消息的超时定时器
 
 @end
@@ -65,7 +62,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     if (self) {
 
         _isLoadingMsg = NO;
-        
         _msgs = [NSMutableArray array];
     }
     
@@ -202,6 +198,48 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     [self.browser dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark --- IDMPhotoBrowserDelegate
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index {
+    
+    _chooseImageMessageIndex = index;
+}
+
+- (void)longPressAction:(UILongPressGestureRecognizer *)gesture {
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存到相册" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSMutableArray *mediaModelArray = [CDMediaMessageManager mediaModelArrayUserId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] withConversationId:self.conversation.conversationId];
+        
+        if (_chooseImageMessageIndex >= 0 && _chooseImageMessageIndex <= mediaModelArray.count - 1) {
+            
+            CDMediaMessageModel *model = mediaModelArray[_chooseImageMessageIndex];
+            [self showHUDWithContent:@"正在保存" animated:YES];
+            UIImageWriteToSavedPhotosAlbum([UIImage imageWithData:model.image], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            
+        } else {
+            
+            [self showToast:@"数据获取有误"];
+        }
+    }];
+    
+    [controller addAction:cancelAction];
+    [controller addAction:saveAction];
+    [self.browser presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    [self hideHUD:YES];
+    if (!error) {
+        [self showToast:@"保存成功"];
+    } else {
+        [self showToast:@"保存失败"];
+    }
+}
+
+
 #pragma mark - XHMessageTableViewCell delegate
 - (void)multiMediaMessageDidSelectedOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath onMessageTableViewCell:(XHMessageTableViewCell *)messageTableViewCell {
     
@@ -223,30 +261,65 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             
         case XHBubbleMessageMediaTypePhoto: {
             
-           NSMutableArray *messageArray =  [[CDChatManager sharedManager] typeMessageArrayWith:kAVIMMessageMediaTypeImage conversation:self.conversation];
+//           NSMutableArray *messageArray =  [[CDChatManager sharedManager] typeMessageArrayWith:kAVIMMessageMediaTypeImage conversation:self.conversation];
+//            
+//            NSMutableArray *photoUrlArray = [[NSMutableArray alloc] init];
+//            for (AVIMImageMessage *message in messageArray) {
+//                AVFile *file = message.file;
+//                [photoUrlArray addObject:file.url];
+//            }
             
-            NSMutableArray *photoUrlArray = [[NSMutableArray alloc] init];
-            for (AVIMImageMessage *message in messageArray) {
-                AVFile *file = message.file;
-                [photoUrlArray addObject:file.url];
+            NSMutableArray *mediaModelArray = [CDMediaMessageManager mediaModelArrayUserId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] withConversationId:self.conversation.conversationId];
+            NSMutableArray *photoModelArray = [[NSMutableArray alloc] init];
+        
+            for (CDMediaMessageModel *model in mediaModelArray) {
+                
+                if (model.image.length > 0) {
+                    
+                    IDMPhoto *photo = [IDMPhoto photoWithImage:[UIImage imageWithData:model.image]];
+                    [photoModelArray addObject:photo];
+                    
+                } else if (![Common isObjectNull:model.remoteURLString]) {
+                    
+                    IDMPhoto *photo = [IDMPhoto photoWithURL:[NSURL URLWithString:model.remoteURLString]];
+                    [photoModelArray addObject:photo];
+                }
             }
             
-            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:photoUrlArray];
-            browser.forceHideStatusBar = YES;
-            browser.displayDoneButton = NO;
-            browser.displayToolbar = YES;
-            browser.autoHideInterface = false;
-            browser.displayActionButton = NO;
-            browser.displayArrowButton = YES;
-            browser.displayCounterLabel = YES;
-            browser.animationDuration = 1.0f;
-            browser.disableVerticalSwipe = YES;
-            browser.usePopAnimation = YES;
-            [browser setInitialPageIndex:[photoUrlArray indexOfObject:message.originPhotoUrl]];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-            [browser.view addGestureRecognizer:tap];
-            [self presentViewController:browser animated:YES completion:nil];
-            self.browser = browser;
+            int index = 0;
+            for (int i = 0; i < mediaModelArray.count; i++) {//目前只是以远程的URL来区分
+                
+                CDMediaMessageModel *model = mediaModelArray[i];
+                if ([model.remoteURLString isEqualToString:message.originPhotoUrl]) {
+                    
+                    index = i;
+                }
+            }
+            
+            if (photoModelArray.count) {
+                IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithIDMPhotoArray:photoModelArray];
+                browser.forceHideStatusBar = YES;
+                browser.displayDoneButton = NO;
+                browser.displayToolbar = YES;
+                browser.autoHideInterface = false;
+                browser.displayActionButton = NO;
+                browser.displayArrowButton = YES;
+                browser.displayCounterLabel = YES;
+                browser.animationDuration = 1.0f;
+                browser.disableVerticalSwipe = YES;
+                browser.usePopAnimation = YES;
+                [browser setInitialPageIndex:index];
+                browser.delegate = self;
+                
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+                [browser.view addGestureRecognizer:tap];
+                
+                UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
+                [browser.view addGestureRecognizer:longPress];
+                
+                [self presentViewController:browser animated:YES completion:nil];
+                self.browser = browser;
+            }
             
             break;
         }
@@ -758,6 +831,19 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             
             [[CDSoundManager manager] playSendSoundIfNeed];
             [self insertMessage:msg];
+        }
+        //增加到缓存中
+        if ([msg isKindOfClass:[AVIMImageMessage class]]) {
+            
+            CDMediaMessageModel *model = [[CDMediaMessageModel alloc] init];
+            model.userId = msg.clientId;
+            model.conversationId = msg.conversationId;
+            model.imageMessageId = msg.messageId;
+            model.messageDate = [NSDate date];
+            model.remoteURLString = msg.file.url;
+            model.localURLString = msg.file.localPath;
+            model.image = [msg.file getData];
+           [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
         }
     }];
 }
