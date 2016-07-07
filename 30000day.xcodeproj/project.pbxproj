@@ -13,7 +13,6 @@
 		B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60119771C9404BC0061AD89 /* CommentOptionsTableViewCell.m */; };
 		B601197C1C9404BC0061AD89 /* CommentOptionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */; };
 		B60435F31CB6077B00752CCB /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B60435F21CB6077B00752CCB /* InformationModel.m */; };
-		B604C47E1C8930D000F21107 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = B604C47D1C8930D000F21107 /* MotionData.m */; };
 		B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B606AE671CBCF97300830D28 /* JavaScriptCore.framework */; };
 		B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B606AE6D1CBCFDE200830D28 /* InformationWebJSObject.m */; };
 		B60D85831C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B60D85811C81AC5B0091F4EE /* PasswordVerifiedTableViewCell.m */; };
@@ -655,6 +654,10 @@
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
+		F52C6C261D2E5398008933D2 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C251D2E5398008933D2 /* MotionData.m */; };
+		F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C281D2E57C4008933D2 /* SportTableViewController.m */; };
+		F52C6C2D1D2E5943008933D2 /* SportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */; };
+		F52C6C2E1D2E5943008933D2 /* SportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F52C6C2C1D2E5943008933D2 /* SportTableViewCell.xib */; };
 		F54BBC141D20CEBF00556B6D /* QuickResponseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54BBC121D20CEBF00556B6D /* QuickResponseCodeViewController.m */; };
 		F54BBC151D20CEBF00556B6D /* QuickResponseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54BBC131D20CEBF00556B6D /* QuickResponseCodeViewController.xib */; };
 		F54BBC181D20FE6900556B6D /* QRReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54BBC171D20FE6900556B6D /* QRReaderViewController.m */; };
@@ -680,6 +683,7 @@
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
+		F5CF8A941D2E431D00564756 /* SportInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF8A931D2E431D00564756 /* SportInformationModel.m */; };
 		F5D146141D260E620067B7D1 /* PersonScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D146121D260E620067B7D1 /* PersonScrollViewController.m */; };
 		F5D146151D260E620067B7D1 /* PersonScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5D146131D260E620067B7D1 /* PersonScrollViewController.xib */; };
 		F5D6E5911D1A2A8900F5E147 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */; };
@@ -699,8 +703,6 @@
 		B60119781C9404BC0061AD89 /* CommentOptionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentOptionsTableViewCell.xib; sourceTree = "<group>"; };
 		B60435F11CB6077B00752CCB /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
 		B60435F21CB6077B00752CCB /* InformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationModel.m; sourceTree = "<group>"; };
-		B604C47C1C8930D000F21107 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MotionData.h; path = ../../../1.HomePage/1.MainPage/model/MotionData.h; sourceTree = "<group>"; };
-		B604C47D1C8930D000F21107 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MotionData.m; path = ../../../1.HomePage/1.MainPage/model/MotionData.m; sourceTree = "<group>"; };
 		B606AE671CBCF97300830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE691CBCF9DB00830D28 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		B606AE6C1CBCFDE200830D28 /* InformationWebJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationWebJSObject.h; sourceTree = "<group>"; };
@@ -1833,6 +1835,13 @@
 		B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVersionManager.mm; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F52C6C241D2E5398008933D2 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionData.h; sourceTree = "<group>"; };
+		F52C6C251D2E5398008933D2 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionData.m; sourceTree = "<group>"; };
+		F52C6C271D2E57C4008933D2 /* SportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTableViewController.h; sourceTree = "<group>"; };
+		F52C6C281D2E57C4008933D2 /* SportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTableViewController.m; sourceTree = "<group>"; };
+		F52C6C2A1D2E5943008933D2 /* SportTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTableViewCell.h; sourceTree = "<group>"; };
+		F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTableViewCell.m; sourceTree = "<group>"; };
+		F52C6C2C1D2E5943008933D2 /* SportTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportTableViewCell.xib; sourceTree = "<group>"; };
 		F54BBC111D20CEBF00556B6D /* QuickResponseCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickResponseCodeViewController.h; sourceTree = "<group>"; };
 		F54BBC121D20CEBF00556B6D /* QuickResponseCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickResponseCodeViewController.m; sourceTree = "<group>"; };
 		F54BBC131D20CEBF00556B6D /* QuickResponseCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuickResponseCodeViewController.xib; sourceTree = "<group>"; };
@@ -1864,6 +1873,8 @@
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
 		F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendsHeadView.m; sourceTree = "<group>"; };
 		F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFriendsHeadView.xib; sourceTree = "<group>"; };
+		F5CF8A921D2E431D00564756 /* SportInformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportInformationModel.h; sourceTree = "<group>"; };
+		F5CF8A931D2E431D00564756 /* SportInformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportInformationModel.m; sourceTree = "<group>"; };
 		F5D146111D260E620067B7D1 /* PersonScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonScrollViewController.h; sourceTree = "<group>"; };
 		F5D146121D260E620067B7D1 /* PersonScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonScrollViewController.m; sourceTree = "<group>"; };
 		F5D146131D260E620067B7D1 /* PersonScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonScrollViewController.xib; sourceTree = "<group>"; };
@@ -2769,6 +2780,8 @@
 				F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */,
 				F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */,
 				F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */,
+				F52C6C271D2E57C4008933D2 /* SportTableViewController.h */,
+				F52C6C281D2E57C4008933D2 /* SportTableViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2804,6 +2817,9 @@
 				B6E548BB1CF0661200002650 /* FactorVerificationView.xib */,
 				F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */,
 				F5A4F8801D0D3BE300B18988 /* IntroduceView.m */,
+				F52C6C2A1D2E5943008933D2 /* SportTableViewCell.h */,
+				F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */,
+				F52C6C2C1D2E5943008933D2 /* SportTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3372,8 +3388,8 @@
 		B8F2D9411C5B7260002C7712 /* HealthKit */ = {
 			isa = PBXGroup;
 			children = (
-				B604C47C1C8930D000F21107 /* MotionData.h */,
-				B604C47D1C8930D000F21107 /* MotionData.m */,
+				F52C6C241D2E5398008933D2 /* MotionData.h */,
+				F52C6C251D2E5398008933D2 /* MotionData.m */,
 				B8F2D9441C5B7267002C7712 /* HealthKit.entitlements */,
 			);
 			path = HealthKit;
@@ -3388,6 +3404,8 @@
 				B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */,
 				B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */,
 				B808FB561C7718D20000449C /* UserLifeModel.h */,
+				F5CF8A921D2E431D00564756 /* SportInformationModel.h */,
+				F5CF8A931D2E431D00564756 /* SportInformationModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4866,6 +4884,7 @@
 				B8F6486F1C9424AA001A3119 /* AppointmentViewController.xib in Resources */,
 				B804FD821C8AC9A900DFD1CF /* loudReceive.caf in Resources */,
 				F5F8E7ED1D1792CA00B96756 /* CountDownTableViewCell.xib in Resources */,
+				F52C6C2E1D2E5943008933D2 /* SportTableViewCell.xib in Resources */,
 				B6171DCE1C8D70DC00116B13 /* SelectionMethodTableViewCell.xib in Resources */,
 				B804FD771C8AC9A900DFD1CF /* face_HL@2x.png in Resources */,
 				B665F8C41CC4BF5200070458 /* btn_unselected.png in Resources */,
@@ -4984,7 +5003,6 @@
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
 				B8F6E9731D02CD0400AD6745 /* TZImageManager.m in Sources */,
 				B8FD3E431C8A7BBA007BCA6B /* DTTimePeriod.m in Sources */,
-				B604C47E1C8930D000F21107 /* MotionData.m in Sources */,
 				B60D85881C81B0DA0091F4EE /* PasswordVerifiedTableViewFirstCell.m in Sources */,
 				B8FD3E2D1C8A7903007BCA6B /* UIImage+Icon.m in Sources */,
 				B6114CA11CA277FA0088EED2 /* CommentDetailsTableViewCell.m in Sources */,
@@ -5003,6 +5021,7 @@
 				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
+				F52C6C261D2E5398008933D2 /* MotionData.m in Sources */,
 				B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
@@ -5124,6 +5143,7 @@
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */,
+				F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */,
 				B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */,
@@ -5139,6 +5159,7 @@
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B8FD3DFD1C8A7903007BCA6B /* XHMessage.m in Sources */,
+				F52C6C2D1D2E5943008933D2 /* SportTableViewCell.m in Sources */,
 				B8FD3E0A1C8A7903007BCA6B /* SETextGeometry.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
 				B86EFCA91D154DC4007A2108 /* IDMTapDetectingImageView.m in Sources */,
@@ -5247,12 +5268,12 @@
 				B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */,
 				B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */,
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
+				F5CF8A941D2E431D00564756 /* SportInformationModel.m in Sources */,
 				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
-				F5C23E1F1D2B992B0034753B /* MapViewController.mm in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,

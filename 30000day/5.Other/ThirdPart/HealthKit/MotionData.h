@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@import HealthKit;
-@interface MotionData : NSObject
+#import <HealthKit/HealthKit.h>
 
+@interface MotionData : NSObject
 
 //判断设备是否支持
 - (void)getHealtHequipmentWhetherSupport:(void (^)(BOOL scs))scs

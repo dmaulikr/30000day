@@ -12,7 +12,7 @@
 #import "SettingBirthdayView.h"
 #import "LifeDescendFactorsViewController.h"
 #import "FactorVerificationView.h"
-#import "SportTrajectoryViewController.h"
+#import "SportTableViewController.h"
 
 @interface PromoteAgeViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -268,9 +268,9 @@
         
     } else {
     
-        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+        SportTableViewController *controller = [[SportTableViewController alloc] init];
         
-        [self.navigationController presentViewController:controller animated:YES completion:nil];
+        [self.navigationController pushViewController:controller animated:YES];
     
     }
     
