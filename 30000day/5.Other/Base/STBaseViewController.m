@@ -39,15 +39,10 @@
 - (void)backBarButtonItem {
     
     UIImage *image = [UIImage imageNamed:@"back.png"];
-    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
-    
     [item setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
     [item setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    
     self.navigationItem.backBarButtonItem = item;
-    
     self.navigationItem.backBarButtonItem.title = @"";
 }
 
@@ -89,32 +84,21 @@
 - (void)showToast:(NSString *)content {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
     hud.mode = MBProgressHUDModeText;
-    
 //  hud.yOffset = SCREEN_HEIGHT / 2 - 100;
-    
     hud.labelText = content;
-    
     hud.removeFromSuperViewOnHide = YES;
-    
     [hud hide:YES afterDelay:0.8];
 }
 
 - (void)showToast:(NSString *)content complition:(MBProgressHUDCompletionBlock)complitionBlock {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
     hud.mode = MBProgressHUDModeText;
-    
     hud.yOffset = SCREEN_HEIGHT / 2 - 100;
-    
     hud.labelText = content;
-    
     hud.removeFromSuperViewOnHide = YES;
-    
     hud.completionBlock = complitionBlock;
-    
     [hud hide:YES afterDelay:0.5];
 }
 
@@ -126,13 +110,9 @@
 - (void)showHUDWithContent:(NSString *)content animated:(BOOL)animated{
     
     self.HUD = [[MBProgressHUD alloc] initWithWindow:[[UIApplication sharedApplication].delegate window]];
-    
     [[[UIApplication sharedApplication].delegate window] addSubview:self.HUD];
-    
     self.HUD.labelText = content;
-    
     self.HUD.removeFromSuperViewOnHide = YES;
-    
     [self.HUD show:animated];
 }
 
