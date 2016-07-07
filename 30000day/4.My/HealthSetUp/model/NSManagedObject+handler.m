@@ -63,8 +63,6 @@
 
 + (void)filterWithMainContext:(NSManagedObjectContext *)mainContext withPrivateContext:(NSManagedObjectContext *)privateContext predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler {
     
-//    NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
-    
     [privateContext performBlock:^{
         
         NSFetchRequest *fetchRequest = [self makeRequest:privateContext predicate:predicate orderby:orders offset:offset limit:limit];
@@ -102,8 +100,6 @@
                 
                 [final_results addObject:[mainContext objectWithID:oid]];
             }
-            
-            handler(final_results, nil);
         }];
     }];
 }

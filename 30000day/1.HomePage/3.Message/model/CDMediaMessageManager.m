@@ -121,29 +121,80 @@ static CDMediaMessageManager *instance;
     return error;
 }
 
+//新增一条数据
 - (void)addMediaMessageWithModel:(CDMediaMessageModel *)model {
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND imageMessageId == %@ AND conversationId == %@",model.userId,model.imageMessageId,model.conversationId];
-    
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageDate" ascending:YES];
-    NSArray *dataArray = [CDMediaMessageObject filterWithContext:self.mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
-    if (dataArray.count) {
-        
-        for (int i = 0; i < dataArray.count; i++) {
-            
-            CDMediaMessageObject *object = dataArray[i];
-            if ([CDMediaMessageManager object:object isDifferentWithModel:model]) {//不同
-                [self refreshObject:object withModel:model];//刷新
-            }
-        }
-    } else {
-        
-         [self addObjectWithModel:model];
-    }
+    [self addObjectWithModel:model];
     
     [self save:^(NSError *error) {
         
     }];
+}
+
+- (void)refreshMediaMessageWithModelArray:(NSMutableArray *)modelArray userId:(NSString *)userId withConversationId:(NSString *)conversationId callback:(void (^)(BOOL successed,NSError *error))callback {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@",userId,conversationId];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageDate" ascending:YES];
+    
+    //获取模型数组和object数组
+    NSArray *dataArray = [CDMediaMessageObject filterWithContext:[CDMediaMessageManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
+    
+    NSMutableArray *storeModelArray = [[NSMutableArray alloc] init];//该数组为数据库查询出来的，modelArray为被分割的数组
+    for (int i = 0; i < dataArray.count; i++) {
+        
+        CDMediaMessageObject *object = dataArray[i];
+        CDMediaMessageModel *model = [[CDMediaMessageModel alloc] init];
+        model.userId = object.userId;
+        model.conversationId = object.conversationId;
+        model.imageMessageId = object.imageMessageId;
+        model.image = object.image;
+        model.localURLString = object.localURLString;
+        model.remoteURLString = object.remoteURLString;
+        model.messageDate = object.messageDate;
+        [storeModelArray addObject:model];
+    }
+    //异步处理数据
+    dispatch_async(dispatch_queue_create("aaa", DISPATCH_QUEUE_SERIAL), ^{
+        
+        NSMutableArray *existModelArray = [[NSMutableArray alloc] init];//筛选出那些已经存在数据库的数据
+        
+        for (int i = 0; i < storeModelArray.count; i++) {
+            
+            CDMediaMessageModel *model = storeModelArray[i];
+            NSPredicate *subPredicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@ AND imageMessageId == %@",model.userId,model.conversationId,model.imageMessageId];
+            NSArray *array = [modelArray filteredArrayUsingPredicate:subPredicate];
+            [existModelArray addObjectsFromArray:array];
+        }
+        
+        //1.留下需要保存的
+        [modelArray removeObjectsInArray:existModelArray];
+        //2.保存数据库不存在的数据
+        for (int i = 0; i < modelArray.count; i++) {
+            
+            CDMediaMessageModel *model = modelArray[i];
+            [self addMediaMessageWithModel:model];
+        }
+        //3.更新数据库存在的数据
+        for (int i = 0 ; i < existModelArray.count; i++) {//先筛选出数据库之前存在的数据
+            
+            CDMediaMessageModel *oldModel = existModelArray[i];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@ AND imageMessageId == %@",oldModel.userId,oldModel.conversationId,oldModel.imageMessageId];
+            CDMediaMessageObject *object = [dataArray filteredArrayUsingPredicate:predicate][0];
+            [self refreshObject:object withModel:oldModel];//开始更新
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{//主线程保存
+           
+            [self save:^(NSError *error) {
+                if (error) {
+                    callback(NO,error);
+                } else {
+                    callback(YES,error);
+                }
+            }];
+        });
+
+    });
 }
 
 - (void)refreshObject:(CDMediaMessageObject *)object withModel:(CDMediaMessageModel *)model {
@@ -193,19 +244,6 @@ static CDMediaMessageManager *instance;
     }
 }
 
-//是否相同，如果YES表示两个不同，NO表示相同
-+ (BOOL)object:(CDMediaMessageObject *)object isDifferentWithModel:(CDMediaMessageModel *)model {
-    
-    if ([object.userId isEqualToString:model.userId] && [object.conversationId isEqualToString:model.conversationId] && [object.imageMessageId isEqualToString:model.imageMessageId]) {
-        
-        return NO;
-        
-    } else {
-        
-        return YES;
-    }
-}
-
 + (NSMutableArray *)mediaModelArrayUserId:(NSString *)userId withConversationId:(NSString *)conversationId {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@",userId,conversationId];
@@ -229,20 +267,24 @@ static CDMediaMessageManager *instance;
     return modelsArray;
 }
 
-+ (NSInteger)indexModelsArray:(NSMutableArray *)modelsArray WithModel:(CDMediaMessageModel *)model {
+//根据conversationId和userId来删除聊天信息图片消息
+- (void)deleteMediaModelArrayWithUserId:(NSString *)userId withConversationId:(NSString *)conversationId callback:(void (^)(BOOL successed,NSError *error))callback {
     
-    NSInteger index = 0;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@",userId,conversationId];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageDate" ascending:YES];
     
-    for (int i = 0; i < modelsArray.count; i++) {
+    for (CDMediaMessageObject *object in [CDMediaMessageObject filterWithContext:self.mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0]) {
         
-        CDMediaMessageModel *localModel = modelsArray[i];
-        
-        if ([localModel.userId isEqualToString:model.userId] && [localModel.conversationId isEqualToString:localModel.conversationId] && [localModel.imageMessageId isEqualToString:model.imageMessageId]) {
-            
-            index = i;
-        }
+        [CDMediaMessageObject deleteObjectWithMainContext:self.mainObjectContext object:object];
     }
-    return index;
+    
+    [self save:^(NSError *error) {
+        if (error) {
+            callback(NO,error);
+        } else {
+            callback(YES,error);
+        }
+    }];
 }
 
 @end

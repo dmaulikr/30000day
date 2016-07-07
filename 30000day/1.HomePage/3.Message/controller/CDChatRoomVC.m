@@ -261,14 +261,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             
         case XHBubbleMessageMediaTypePhoto: {
             
-//           NSMutableArray *messageArray =  [[CDChatManager sharedManager] typeMessageArrayWith:kAVIMMessageMediaTypeImage conversation:self.conversation];
-//            
-//            NSMutableArray *photoUrlArray = [[NSMutableArray alloc] init];
-//            for (AVIMImageMessage *message in messageArray) {
-//                AVFile *file = message.file;
-//                [photoUrlArray addObject:file.url];
-//            }
-            
             NSMutableArray *mediaModelArray = [CDMediaMessageManager mediaModelArrayUserId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] withConversationId:self.conversation.conversationId];
             NSMutableArray *photoModelArray = [[NSMutableArray alloc] init];
         
@@ -842,7 +834,9 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             model.messageDate = [NSDate date];
             model.remoteURLString = msg.file.url;
             model.localURLString = msg.file.localPath;
-            model.image = [msg.file getData];
+            if ([msg.file isDataAvailable]) {//如果可以获取到数据
+                model.image = [msg.file getData];
+            }
            [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
         }
     }];
@@ -1121,19 +1115,12 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             if (!error) {
                 // 失败消息加到末尾，因为 SDK 缓存不保存它们
                 NSArray *failedMessages = [[CDFailedMessageStore store] selectFailedMessagesByConversationId:self.conversation.conversationId];
-    
                 NSMutableArray *allMessages = [NSMutableArray arrayWithArray:msgs];
-                
                 [allMessages addObjectsFromArray:failedMessages];
-                
                 NSMutableArray *xhMsgs = [self getXHMessages:allMessages];
-                
                 self.messages = xhMsgs;
-                
                 self.msgs = allMessages;
-                
                 [self.messageTableView reloadData];
-                
                 [self scrollToBottomAnimated:NO];
                 
                 if (self.msgs.count > 0) {

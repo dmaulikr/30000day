@@ -64,30 +64,22 @@ static CDChatManager *instance;
 - (NSString *)databasePathWithUserId:(NSString *)userId {
     
     NSString *libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
     return [libPath stringByAppendingPathComponent:[NSString stringWithFormat:@"com.shutian.30000day.%@.db3", userId]];
 }
 
 - (void)openWithClientId:(NSString *)clientId callback:(AVIMBooleanResultBlock)callback {
     
     _clientId = clientId;
-    
     NSString *dbPath = [self databasePathWithUserId:_clientId];
-    
     [[CDConversationStore store] setupStoreWithDatabasePath:dbPath];
-    
     [[CDFailedMessageStore store] setupStoreWithDatabasePath:dbPath];
-    
     self.client = [[AVIMClient alloc] initWithClientId:clientId];//开启单点登录
-    
     self.client.delegate = self;
-    
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
             
             self.connect = YES;
-            
             callback(succeeded, error);
         }
     }];
@@ -108,11 +100,8 @@ static CDChatManager *instance;
     } else {
         
         NSMutableArray *array = [[NSMutableArray alloc] init];
-        
         [array addObject:self.client.clientId];
-        
         [array addObject:otherId];
-        
         [self fetchConversationWithMembers:array type:CDConversationTypeSingle attributes:attributes callback:callback];
     }
 }
@@ -167,13 +156,9 @@ static CDChatManager *instance;
 - (void)fecthConversationWithConversationId:(NSString *)conversationId callback:(AVIMConversationResultBlock)callback {
     
     NSAssert(conversationId.length > 0, @"Conversation id is nil");
-    
     AVIMConversationQuery *q = [self.client conversationQuery];
-    
     q.cachePolicy = kAVCachePolicyNetworkElseCache;
-    
     [q whereKey:@"objectId" equalTo:conversationId];
-    
     [q findConversationsWithCallback: ^(NSArray *objects, NSError *error) {
         
         if (error) {
@@ -211,7 +196,6 @@ static CDChatManager *instance;
     if (![Common isObjectNull:self.clientId]) {
         
         [q whereKey:AVIMAttr(CONVERSATION_TYPE) equalTo:@(CDConversationTypeGroup)];
-        
         [q whereKey:kAVIMKeyMember containedIn:@[self.clientId]];
         
         if (networkFirst) {
@@ -221,12 +205,10 @@ static CDChatManager *instance;
         } else {
             
             q.cachePolicy = kAVCachePolicyCacheElseNetwork;
-            
             q.cacheMaxAge = 60 * 30; // 半小时
         }
         // 默认 limit 为10
         q.limit = 1000;
-        
         [q findConversationsWithCallback:block];
         
     } else {
@@ -240,13 +222,9 @@ static CDChatManager *instance;
     if (conversationIds.count > 0) {
         
         AVIMConversationQuery *q = [self.client conversationQuery];
-        
         [q whereKey:@"objectId" containedIn:[conversationIds allObjects]];
-        
         q.cachePolicy = kAVCachePolicyNetworkElseCache;
-        
         q.limit = 1000;  // default limit:10
-        
         [q findConversationsWithCallback:callback];
         
     } else {
@@ -294,27 +272,45 @@ static CDChatManager *instance;
         
         //以下过滤为了避免非法的消息，引起崩溃
         NSMutableArray *typedMessages = [NSMutableArray array];
+        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
         
         for (AVIMTypedMessage *message in messages) {
             
             if ([message isKindOfClass:[AVIMTypedMessage class]]) {
                 
-                
                 if ([message.text isEqualToString:REQUEST_TYPE]) {//请求添好友
-
-                    
+    
                 } else if ([message.text isEqualToString:ACCEPT_TYPE]) {//同意请求
                     
-                    
                 } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接添加好友
-                    
                     
                 } else { //正常的消息
                     
                     [typedMessages addObject:message];
+                    
+                    if ([message isKindOfClass:[AVIMImageMessage class]]) {
+                        
+                        //把图片类型的消息缓存到本地
+                        CDMediaMessageModel *model = [[CDMediaMessageModel alloc] init];
+                        model.userId = self.clientId;
+                        model.conversationId = message.conversationId;
+                        model.imageMessageId = message.messageId;
+                        model.messageDate = [NSDate dateWithTimeIntervalSince1970:message.sendTimestamp/1000];
+                        model.remoteURLString = message.file.url;
+                        model.localURLString = message.file.localPath;
+                        if ([message.file isDataAvailable]) {
+                            model.image = [message.file getData];
+                        }
+                        [dataArray addObject:model];
+                    }
                 }
             }
         }
+        
+        //保存或者刷新
+        [[CDMediaMessageManager shareManager] refreshMediaMessageWithModelArray:dataArray userId:self.clientId withConversationId:conversation.conversationId callback:^(BOOL successed, NSError *error) {
+            
+        }];
         
         block(typedMessages, error);
     };
@@ -336,7 +332,6 @@ static CDChatManager *instance;
     if (userInfo[@"convid"]) {
         
         self.remoteNotificationConvid = userInfo[@"convid"];
-        
         return YES;
     }
     
@@ -366,7 +361,6 @@ static CDChatManager *instance;
 - (void)updateConnectStatus {
     
     self.connect = self.client.status == AVIMClientStatusOpened;
-    
     [STNotificationCenter postNotificationName:kCDNotificationConnectivityUpdated object:@(self.connect)];
 }
 
@@ -394,7 +388,6 @@ static CDChatManager *instance;
         if (!conversation.muted) {
             
             [[CDSoundManager manager] playLoudReceiveSoundIfNeed];
-            
             [[CDSoundManager manager] vibrateIfNeed];
         }
     }
@@ -409,7 +402,9 @@ static CDChatManager *instance;
     model.messageDate = [NSDate dateWithTimeIntervalSince1970:message.sendTimestamp / 1000];
     model.remoteURLString = message.file.url;
     model.localURLString = message.file.localPath;
-    model.image = [message.file getData];
+    if ([message.file isDataAvailable]) {//如果可以获取到数据
+        model.image = [message.file getData];
+    }
     [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
 }
 
@@ -693,9 +688,7 @@ static CDChatManager *instance;
     [self selectOrRefreshConversationsWithBlock:^(NSArray *conversations, NSError *error) {
         
         NSMutableSet *userIds = [NSMutableSet set];
-        
         NSUInteger totalUnreadCount = 0;
-        
         NSMutableArray *conversation_array = [NSMutableArray arrayWithArray:conversations];
         
         for (int i = 0; i < conversation_array.count; i++) {//过滤非法的conversation
@@ -810,7 +803,6 @@ static CDChatManager *instance;
         if (succeeded) {
             
             [[CDConversationStore store] deleteConversation:conversation];
-            
             callBack(succeeded,error);
     
         } else {
@@ -819,25 +811,5 @@ static CDChatManager *instance;
         }
     }];
 }
-
-/**
- * 根据对话来查找某种特定类型的消息
- */
-- (NSMutableArray *)typeMessageArrayWith:(AVIMMessageMediaType )mediaType conversation:(AVIMConversation *)conversation {
-    
-    NSArray *typeArray = [conversation queryMessagesFromCacheWithLimit:1000];//这里暂时做成这样只查询1000条,以后要自己从重新写数据库存储
-    
-    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-    
-    for (AVIMTypedMessage *message in typeArray) {
-        
-        if (message.mediaType == mediaType) {
-            
-            [dataArray addObject:message];
-        }
-    }
-    return dataArray;
-}
-
 
 @end

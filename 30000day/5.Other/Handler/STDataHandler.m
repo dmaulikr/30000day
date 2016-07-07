@@ -4353,9 +4353,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSString *url = @"http://121.196.223.175:8081/stapi/upload/uploadImages";
-    
-    [manager POST:url parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPLOAD_IMAGES] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         
@@ -4906,18 +4904,13 @@
                             failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:password forKey:@"password"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,@"/stapi/user/checkPassword"] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@/stapi/user/checkPassword",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         
@@ -5061,7 +5054,7 @@
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,@"/stapi/user/setFriendSwitch"] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_FRIEND_SWITCH] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         
