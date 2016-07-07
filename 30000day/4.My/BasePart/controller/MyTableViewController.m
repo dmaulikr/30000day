@@ -23,6 +23,7 @@
 #import "AgreementWebViewController.h"
 #import "AboutTableViewController.h"
 #import "QuickResponseCodeViewController.h"
+#import "QRReaderViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -172,7 +173,7 @@
         
     } else if (section == 1) {
         
-        return 1;
+        return 2;
         
     } else if (section == 2) {
         
@@ -258,9 +259,14 @@
             
             [cell.titleLabel setText:@"我的二维码"];
             
-            cell.seperatorLineView.hidden = YES;
+        } else {
+        
+            [cell.leftImage setImage:[UIImage imageNamed:@"scanning"]];
             
+            [cell.titleLabel setText:@"扫一扫"];
+        
         }
+        
          return cell;
         
     } else if (indexPath.section == 2) {
@@ -340,6 +346,14 @@
         if (indexPath.row == 0) {
             
             QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
+            
+            controller.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        } else {
+        
+            QRReaderViewController *controller = [[QRReaderViewController alloc] init];
             
             controller.hidesBottomBarWhenPushed = YES;
             

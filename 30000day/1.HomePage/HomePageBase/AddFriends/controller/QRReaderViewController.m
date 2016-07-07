@@ -532,7 +532,7 @@
 #pragma mark - QRReaderViewControllerDelegate
 
 - (void)didFinishedReadingQR:(NSString *)string {
-
+ 
     [self addFriend:string];
     
 }

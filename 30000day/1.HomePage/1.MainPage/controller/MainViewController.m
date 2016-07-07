@@ -25,8 +25,6 @@
 #import "PromoteAgeViewController.h"
 #import "FactorVerificationView.h"
 #import "IntroduceView.h"
-#import "SportTrajectoryViewController.h"
-#import "MapViewController.h"
 
 
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
@@ -516,13 +514,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-      
-//        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
-//        
-//        [self.navigationController presentViewController:controller animated:YES completion:nil];
-        
-    } else if (indexPath.row == 1) {
+    if (indexPath.row == 1) {
         
         QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
         
