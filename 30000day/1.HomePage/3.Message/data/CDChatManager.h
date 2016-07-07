@@ -167,9 +167,4 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  */
 - (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack;
 
-/**
- * 根据对话来查找某种特定类型的消息
- */
-- (NSMutableArray *)typeMessageArrayWith:(AVIMMessageMediaType )mediaType conversation:(AVIMConversation *)conversation;
-
 @end

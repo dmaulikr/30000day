@@ -12,10 +12,6 @@
 typedef void(^OperationResult)(NSError *error);
 @interface CDMediaMessageManager : NSObject
 
-@property (readonly, strong, nonatomic) NSOperationQueue *queue;
-@property (readonly ,strong, nonatomic) NSManagedObjectContext *bgObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *mainObjectContext;
-
 + (CDMediaMessageManager *)shareManager;
 - (NSError *)save:(OperationResult)handler;
 - (NSManagedObjectContext *)createPrivateObjectContext;

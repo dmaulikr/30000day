@@ -777,9 +777,7 @@ static CDChatManager *instance;
     } else {
         
         NSString *text = ((AVIMTextMessage *)message).text;
-        
         NSString *pattern = [NSString stringWithFormat:@"@%@",STUserAccountHandler.userProfile.nickName];
-        
         if([text rangeOfString:pattern].length > 0) {
             
             return YES;
@@ -798,17 +796,10 @@ static CDChatManager *instance;
  */
 - (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack {
     
-    [conversation quitWithCallback:^(BOOL succeeded, NSError *error) {
-       
-        if (succeeded) {
-            
-            [[CDConversationStore store] deleteConversation:conversation];
-            callBack(succeeded,error);
-    
-        } else {
-            
-            callBack(succeeded,error);
-        }
+    [[CDConversationStore store] deleteConversation:conversation];
+    //删除本地缓存的图片消息
+    [[CDMediaMessageManager shareManager] deleteMediaModelArrayWithUserId:self.clientId withConversationId:conversation.conversationId callback:^(BOOL successed, NSError *error) {
+        callBack(successed,error);
     }];
 }
 

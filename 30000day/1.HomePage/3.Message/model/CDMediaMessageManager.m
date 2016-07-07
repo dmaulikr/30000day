@@ -14,6 +14,10 @@ static CDMediaMessageManager *instance;
 
 @interface CDMediaMessageManager ()
 
+@property (readonly, strong, nonatomic) NSOperationQueue *queue;
+@property (readonly ,strong, nonatomic) NSManagedObjectContext *bgObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *mainObjectContext;
+
 @property (nonatomic, copy)NSString *modelName;
 @property (nonatomic, copy)NSString *dbFileName;
 
@@ -271,9 +275,8 @@ static CDMediaMessageManager *instance;
 - (void)deleteMediaModelArrayWithUserId:(NSString *)userId withConversationId:(NSString *)conversationId callback:(void (^)(BOOL successed,NSError *error))callback {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@",userId,conversationId];
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageDate" ascending:YES];
-    
-    for (CDMediaMessageObject *object in [CDMediaMessageObject filterWithContext:self.mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0]) {
+    NSArray *dataArray = [CDMediaMessageObject filterWithContext:self.mainObjectContext predicate:predicate orderby:nil offset:0 limit:0];
+    for (CDMediaMessageObject *object in dataArray) {
         
         [CDMediaMessageObject deleteObjectWithMainContext:self.mainObjectContext object:object];
     }
