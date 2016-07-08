@@ -319,15 +319,10 @@
 - (void)moveUpAndDownLine {
     
     CGRect readerFrame = self.view.frame;
-    
     CGSize viewFinderSize = CGSizeMake(self.view.frame.size.width - 80, self.view.frame.size.width - 80);
-    
     CGRect scanLineframe = self.scanLineImageView.frame;
-    
     scanLineframe.origin.y = (readerFrame.size.height - viewFinderSize.height)/2;
-    
     self.scanLineImageView.frame = scanLineframe;
-    
     self.scanLineImageView.hidden = NO;
     
     __weak __typeof(self) weakSelf = self;
@@ -336,9 +331,7 @@
                      animations:^{
                          
                          CGRect scanLineframe = weakSelf.scanLineImageView.frame;
-                         
                          scanLineframe.origin.y = (readerFrame.size.height + viewFinderSize.height)/2 - weakSelf.scanLineImageView.frame.size.height;
-                         
                          weakSelf.scanLineImageView.frame = scanLineframe;
                      }
                      completion:^(BOOL finished) {
@@ -355,7 +348,6 @@
     // 会频繁的扫描，调用代理方法
     // 1如果扫描完成，停止会话
     [self.session stopRunning];
-    
     //2删除预览图层
     [self.previewLayer removeFromSuperlayer];
     
@@ -363,9 +355,7 @@
     if (metadataObjects.count > 0) {
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-        
         [self didFinishedReadingQR:obj.stringValue];
-        
     }
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -406,18 +396,14 @@
             
             //取第一个元素就是二维码所存放的文本信息
             CIQRCodeFeature *feature = features[0];
-            
             NSString *scannedResult = feature.messageString;
-            
             //通过对话框的形式呈现
             [self addFriend:scannedResult];
             
         } else {
             
             [self showToast:@"这不是一个二维码"];
-            
         }
-        
     }];
     
 }
@@ -425,7 +411,6 @@
 - (void)addFriend:(NSString *)number{
 
     NSNumber *userId = [NSNumber numberWithInteger:number.integerValue];
-    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
     [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
@@ -446,9 +431,7 @@
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
                                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        
                                                                         [self showToast:@"好友添加成功"];
-                                                                        
                                                                         [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
                                                                     });
                                                                     
@@ -457,7 +440,6 @@
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
                                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        
                                                                         [self showToast:@"消息发送失败"];
                                                                         
                                                                     });
@@ -474,7 +456,6 @@
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
                                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        
                                                                         [self showToast:@"请求发送成功"];
                                                                         
                                                                     });
@@ -484,13 +465,11 @@
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         
                                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        
                                                                         [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
                                                                         
                                                                     });
                                                                 }
                                                             }];
-                                                            
                                                         }
                                                         
                                                     } else {
@@ -498,7 +477,6 @@
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             
                                                             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                            
                                                             [self showToast:[UserInformationModel errorStringWithModel:model userProfile:STUserAccountHandler.userProfile]];
                                                         });
                                                     }
@@ -508,7 +486,6 @@
                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                         
                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                        
                                                         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
                                                         
                                                     });
@@ -520,7 +497,6 @@
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     
                                                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                    
                                                     [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
                                                     
                                                 });

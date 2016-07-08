@@ -263,7 +263,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             
             NSMutableArray *mediaModelArray = [CDMediaMessageManager mediaModelArrayUserId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] withConversationId:self.conversation.conversationId];
             NSMutableArray *photoModelArray = [[NSMutableArray alloc] init];
-        
+            NSMutableArray *tmpArray = [[NSMutableArray alloc] init];
             for (CDMediaMessageModel *model in mediaModelArray) {
                 
                 if (model.image.length > 0) {
@@ -275,8 +275,14 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
                     
                     IDMPhoto *photo = [IDMPhoto photoWithURL:[NSURL URLWithString:model.remoteURLString]];
                     [photoModelArray addObject:photo];
+                    
+                } else {
+                    
+                    [tmpArray addObject:model];//把不合法的标记下
                 }
             }
+            //不合法的去除
+            [mediaModelArray removeObjectsInArray:tmpArray];
             
             int index = 0;
             for (int i = 0; i < mediaModelArray.count; i++) {//目前只是以远程的URL来区分
@@ -986,11 +992,8 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     } else if (msg.mediaType == kAVIMMessageMediaTypeVideo) {
         
         AVIMVideoMessage *videoMsg = (AVIMVideoMessage *)msg;
-        
         AVFile *file = videoMsg.file;
-        
         CGFloat width = THUMBNAIL_PHOTO_WIDTH;
-        
         CGFloat height = THUMBNAIL_PHOTO_WIDTH;
         
         NSArray *stringArray = [msg.text componentsSeparatedByString:@" "];
@@ -998,7 +1001,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
         if (stringArray.count >= 3) {//这里有和安卓约定好格式
             
             width = [stringArray[1] floatValue];
-            
             height = [stringArray[2] floatValue];
         }
         
@@ -1027,7 +1029,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     if (msg.ioType == AVIMMessageIOTypeIn) {//接受
         
         xhMessage.bubbleMessageType = XHBubbleMessageTypeReceiving;
-        
         xhMessage.avatorUrl = [self.conversation headUrl:msg.clientId];
         
     } else {
