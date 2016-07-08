@@ -145,11 +145,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mT-i2-gqT">
-                    <rect key="frame" x="15" y="423" width="60" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="60" id="08z-No-7fi"/>
-                        <constraint firstAttribute="height" constant="30" id="3OM-5b-ohg"/>
-                    </constraints>
+                    <rect key="frame" x="130" y="257" width="60" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="访客进入"/>
                 </button>
@@ -173,11 +169,11 @@
                 <constraint firstItem="1oQ-su-lSj" firstAttribute="top" secondItem="Zzq-0v-86g" secondAttribute="bottom" constant="15" id="LUI-5o-5gu"/>
                 <constraint firstItem="tsH-3t-Y2U" firstAttribute="top" secondItem="Irt-oC-3vP" secondAttribute="bottom" constant="20" id="NPH-qD-Go0"/>
                 <constraint firstItem="Zhq-ax-anC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Nap-YR-9jO"/>
+                <constraint firstItem="5mT-i2-gqT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Pob-iB-Hz3"/>
                 <constraint firstAttribute="trailing" secondItem="Zzq-0v-86g" secondAttribute="trailing" constant="15" id="Xo0-PD-2hR"/>
-                <constraint firstItem="5mT-i2-gqT" firstAttribute="top" secondItem="gNg-S0-Z7e" secondAttribute="bottom" constant="15" id="YPI-Rj-XH4"/>
-                <constraint firstItem="5mT-i2-gqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="ZR6-4U-dMJ"/>
                 <constraint firstItem="t4G-W7-CNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="hBQ-bB-1zx"/>
                 <constraint firstAttribute="trailing" secondItem="1oQ-su-lSj" secondAttribute="trailing" constant="15" id="j5x-NZ-wfV"/>
+                <constraint firstItem="5mT-i2-gqT" firstAttribute="top" secondItem="Zzq-0v-86g" secondAttribute="bottom" constant="15" id="rg4-B3-0ag"/>
                 <constraint firstItem="tsH-3t-Y2U" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sNK-Qh-mJp"/>
                 <constraint firstItem="5KO-JL-6G6" firstAttribute="leading" secondItem="gNg-S0-Z7e" secondAttribute="trailing" constant="15" id="xiJ-hC-X8I"/>
                 <constraint firstItem="gNg-S0-Z7e" firstAttribute="top" secondItem="tsH-3t-Y2U" secondAttribute="bottom" constant="15" id="zQf-K2-Ocb"/>

@@ -180,9 +180,7 @@
         if (success.boolValue) {
             
             NSNumber *number = @1;
-            
             if ([type isEqualToString:KEY_GUEST]) {//@2
-                
                 number = @2;
             }
             
@@ -193,8 +191,16 @@
                                                 type:type
                                              success:^(BOOL success) {
                                                  
-                                                 [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
-                                                 [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:type];
+                                                 if ([number isEqual:@2]) {//特殊处理
+                                                     
+                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];//保存进沙盒
+                                                     [Common removeAppDataForKey:KEY_LOGIN_TYPE];//移除
+                                                     
+                                                 } else {
+                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
+                                                     [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:type];
+                                                 }
+                                                 
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                  [self.tabBarController setSelectedIndex:0];
                                                  [self.navigationController dismissViewControllerAnimated:NO completion:nil];
@@ -210,7 +216,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
             
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
                 ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
                 controller.type = type;
                 controller.name = userName;
@@ -227,18 +232,6 @@
             [self showToast:@"请求超时，请重新登录"];
         });
     }];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    return  [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
-}
-
-/**
- 这里处理新浪微博SSO授权进入新浪微博客户端后进入后台，再返回原来应用
- */
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [UMSocialSnsService  applicationDidBecomeActive];
 }
 
 //开始登录
@@ -280,7 +273,6 @@
 
 #pragma mark - 账号密码历史记录tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return _userlognamepwd.count;
 }
 

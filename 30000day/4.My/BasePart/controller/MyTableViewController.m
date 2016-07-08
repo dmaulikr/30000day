@@ -24,6 +24,7 @@
 #import "AboutTableViewController.h"
 #import "QuickResponseCodeViewController.h"
 #import "QRReaderViewController.h"
+#import "ThirdPartyLandingViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -105,9 +106,7 @@
 - (void)jumpToSignInViewController {
     
     SignInViewController *logview = [[SignInViewController alloc] init];
-    
     STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-    
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -150,6 +149,26 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//前往绑定控制器
+- (void)pushBindController {
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"该功能需要绑定手机，是否去绑定？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
+        controller.type = KEY_GUEST;
+        controller.name = STUserAccountHandler.userProfile.nickName;
+        controller.uid = [Common keyChainValue];
+        controller.url = STUserAccountHandler.userProfile.headImg;
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [controller addAction:action];
+    [controller addAction:cancelAction];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma ---
@@ -340,20 +359,23 @@
         
         if (indexPath.row == 0) {
             
-            QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
-            
-            controller.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:controller animated:YES];
+            if ([Common isVisit]) {
+                [self pushBindController];
+            } else {
+                QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }
             
         } else {
-        
-            QRReaderViewController *controller = [[QRReaderViewController alloc] init];
             
-            controller.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:controller animated:YES];
-            
+            if ([Common isVisit]) {
+                [self pushBindController];
+            } else {
+                QRReaderViewController *controller = [[QRReaderViewController alloc] init];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }
         }
         
     } else if (indexPath.section == 2) {

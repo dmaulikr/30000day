@@ -560,4 +560,16 @@
     return string;
 }
 
++ (BOOL)isVisit {//是否是游客
+    
+    NSString *type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
+    NSInteger loginType = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
+    
+    if ([type isEqualToString:KEY_GUEST] && loginType == 2) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
