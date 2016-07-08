@@ -95,8 +95,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             
             } else {
                 
-                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%ld",(NSInteger)!switchView.isOn];
-            
+                STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%d",(int)!switchView.isOn];
             }
             
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -105,15 +104,10 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     } failure:^(NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
             switchView.on = !switchView.isOn;
-            
         });
-        
     }];
-    
 }
 
 - (void)factorVerification :(UISwitch *)switchView {
@@ -122,11 +116,10 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     if (isOn) {
         
-        //打开  需要验证是否已经绑定
-    
-        BOOL isFromThirdParty = [Common readAppBoolDataForkey:ISFROMTHIRDPARTY];
-        
-        if (isFromThirdParty) {
+        //打开 需要验证是否已经绑定
+        NSInteger isFromThirdParty = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
+
+        if (isFromThirdParty == 1) {
             
             //第三方登陆
             [STDataHandler sendcheckBindWithAccountNo:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userName] type:[Common readAppDataForKey:@"type"] success:^(NSString *success) {
@@ -139,17 +132,13 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                     if (userConfigure == nil) {
                         
                         userConfigure = [NSMutableDictionary dictionary];
-                        
                     }
                     
                     [userConfigure setObject:@(YES) forKey:FACTORVERIFICATION];
-                    
                     [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                    
                         [switchView setOn:YES];
-                    
                     });
                     
                 //没有绑定
@@ -158,43 +147,28 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                     dispatch_async(dispatch_get_main_queue(), ^{
                     
                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"需要绑定手机后再操作，前往绑定?" preferredStyle:UIAlertControllerStyleAlert];
-                        
                         [self presentViewController:alertController animated:YES completion:nil];
-                        
                         
                         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                             
                             ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
-                            
                             controller.isConceal = YES;
-                            
                             [self.navigationController pushViewController:controller animated:YES];
-                            
-                            
                         }];
                         
                         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleDefault handler:nil];
-                        
                         [alertController addAction:cancelAction];
-                        
                         [alertController addAction:okAction];
-                        
                         [switchView setOn:!isOn];
-                        
                         return;
-                    
                     });
-                    
                 }
                 
             } failure:^(NSError *error) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                
                     [self showToast:@"网络异常"];
-                
                 });
-
             }];
             
         } else {
@@ -203,22 +177,16 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
             
             if (userConfigure == nil) {
-                
+            
                 userConfigure = [NSMutableDictionary dictionary];
-                
             }
             
             [userConfigure setObject:@(YES) forKey:FACTORVERIFICATION];
-            
             [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
-            
             [switchView setOn:YES];
             
             return;
-            
         }
-
-    
     } else {
         //关闭  需要验证密码
         

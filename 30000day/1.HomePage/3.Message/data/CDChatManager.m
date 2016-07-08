@@ -694,7 +694,6 @@ static CDChatManager *instance;
         for (int i = 0; i < conversation_array.count; i++) {//过滤非法的conversation
             
             AVIMConversation *conversation = conversation_array[i];
-            
             if ([conversation.otherId isEqualToString:INVALID_CONVERSATION]) {
                 
                 [conversation_array removeObject:conversation];
@@ -718,7 +717,6 @@ static CDChatManager *instance;
                         
                         
                     } else if ([message.text isEqualToString:DRECT_TYPE]) {//直接刷新
-                        
                         
                     } else {//正常的消息
                         
@@ -757,11 +755,8 @@ static CDChatManager *instance;
         }
         
         NSArray *sortedRooms = [conversation_array sortedArrayUsingComparator:^NSComparisonResult(AVIMConversation *conv1, AVIMConversation *conv2) {
-            
             return (NSComparisonResult)(conv2.lastMessage.sendTimestamp - conv1.lastMessage.sendTimestamp);
-            
         }];
-        
         block(sortedRooms, totalUnreadCount, error);
     }];
 }
@@ -771,45 +766,30 @@ static CDChatManager *instance;
 - (BOOL)isMentionedByMessage:(AVIMTypedMessage *)message {
     
     if (![message isKindOfClass:[AVIMTextMessage class]]) {
-        
         return NO;
-        
     } else {
         
         NSString *text = ((AVIMTextMessage *)message).text;
-        
         NSString *pattern = [NSString stringWithFormat:@"@%@",STUserAccountHandler.userProfile.nickName];
         
         if([text rangeOfString:pattern].length > 0) {
-            
             return YES;
-            
         } else {
-            
             return NO;
         }
     }
 }
-
-#pragma mark - database
 
 /**
  * 退出对话并删除聊天记录
  */
 - (void)deleteAndDeleteConversation:(AVIMConversation *)conversation callBack:(void (^)(BOOL successed,NSError *error))callBack {
     
-    [conversation quitWithCallback:^(BOOL succeeded, NSError *error) {
-       
-        if (succeeded) {
-            
-            [[CDConversationStore store] deleteConversation:conversation];
-            callBack(succeeded,error);
-    
-        } else {
-            
-            callBack(succeeded,error);
-        }
+    [[CDConversationStore store] deleteConversation:conversation];
+    //删除本地缓存的图片消息
+    [[CDMediaMessageManager shareManager] deleteMediaModelArrayWithUserId:self.clientId withConversationId:conversation.conversationId callback:^(BOOL successed, NSError *error) {
     }];
+    callBack(YES,nil);
 }
 
 @end

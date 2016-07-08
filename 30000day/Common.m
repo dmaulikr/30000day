@@ -7,81 +7,66 @@
 //
 
 #import "Common.h"
+#import "SFHFKeychainUtils.h"
 
 @implementation Common
 
 + (void) saveAppDataForKey : (NSString *) key  withObject : (id) value {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     [defaults setObject:value forKey:key];
-    
     [defaults synchronize];
 }
 
 + (id)readAppDataForKey : (NSString *) key {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     return [defaults objectForKey:key];
 }
 
 + (void)saveAppIntegerDataForKey : (NSString *) key  withObject : (NSInteger) value {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     [defaults setInteger:value forKey:key];
-    
     [defaults synchronize];
-    
 }
 
 + (NSInteger)readAppIntegerDataForKey : (NSString *) key {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     return [defaults integerForKey:key];
-    
 }
 
 + (BOOL)readAppBoolDataForkey:(NSString *)key {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     return [defaults boolForKey:key];
 }
 
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     [defaults setBool:value forKey:key];
-    
     [defaults synchronize];
 }
 
 + (void)removeAppDataForKey:(NSString *)key {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     [defaults removeObjectForKey:key];
-    
     [defaults synchronize];
 }
-
 
 + (BOOL)isUserLogin {
     
     return ([Common readAppDataForKey:KEY_SIGNIN_USER_UID] != nil);
 }
 
-
 + (BOOL) isObjectNull : (id) obj {
     
     if ((obj == nil) || (obj == [NSNull null]) || ([[NSString stringWithFormat:@""] isEqualToString:obj]))
         
         return YES;
-    
     else
         return NO;
 }
@@ -89,16 +74,13 @@
 + (NSString *)getDateStringWithDate:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    
     return [formatter stringFromDate:date];
 }
 
 + (NSDate *)getDateWithFormatterString:(NSString *)formatterString dateString:(NSString *)dateString {
     
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:formatterString];
-    
     return [formatter dateFromString:dateString];
 }
 
@@ -106,11 +88,8 @@
 + (NSString *)getDateStringWithTimeInterval:(long)timeNumber {
     
     NSDate *date  =  [NSDate dateWithTimeIntervalSince1970:timeNumber/1000];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    
     return [formatter stringFromDate:date];
 }
 
@@ -129,45 +108,32 @@
 + (NSDateFormatter *)dateFormatterWithFormatterString:(NSString *)formatterString {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
     [formatter setDateFormat:formatterString];
-    
     return formatter;
 }
 
 + (UIImage *)imageWithColor:(UIColor *)color {
     
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    
     UIGraphicsBeginImageContext(rect.size);
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     CGContextSetFillColorWithColor(context, [color CGColor]);
-    
     CGContextFillRect(context, rect);
-    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
-    
     return image;
 }
 
 + (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi {
     
     NSString *url = [NSString stringWithFormat:@"%@%@?",ST_API_SERVER,subApi];
-    
     NSArray *array = [dictinary allKeys];
-    
     NSString *keyValueString = @"";
     
     for (NSString *key in array) {
         
         NSString *newString = [NSString stringWithFormat:@"%@=%@&",key,[dictinary objectForKey:key]];
-        
         keyValueString =  [keyValueString stringByAppendingString:newString];
-        
     }
     
     if ([Common isObjectNull:keyValueString]) {
@@ -176,11 +142,8 @@
     }
     
     keyValueString = [keyValueString substringToIndex:keyValueString.length - 1];
-    
     url = [NSString stringWithFormat:@"%@%@",url,keyValueString];
-    
     NSLog(@"验证接口 = %@",url);
-    
     return url;
 }
 
@@ -578,6 +541,23 @@
         
         return error.userInfo[NSLocalizedDescriptionKey];
     }
+}
+
+//获取设备唯一标识符
++ (NSString *)keyChainValue {
+    
+    NSString *SERVICE_NAME = @"com.shutian.30000day";//最好用程序的bundle id
+    NSString *string =  [SFHFKeychainUtils getPasswordForUsername:@"UUID" andServiceName:SERVICE_NAME error:nil];  // 从keychain获取数据
+    
+    if ([string length] <= 0) {
+        string  = [[[UIDevice currentDevice] identifierForVendor] UUIDString];  // 保存UUID作为手机唯一标识符
+        [SFHFKeychainUtils storeUsername:@"UUID"
+                             andPassword:string
+                          forServiceName:SERVICE_NAME
+                          updateExisting:1
+                                   error:nil];  //往keychain添加数据
+    }
+    return string;
 }
 
 @end

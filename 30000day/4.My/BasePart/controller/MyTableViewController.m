@@ -70,15 +70,11 @@
 
 - (void)loadUserInformation {
     
-    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
-    BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
-    NSString *type = [userDefaultes stringForKey:@"type"];
-    
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:YES
-                            isFromThirdParty:isThirdParty
-                                        type:type
+                            isFromThirdParty:[NSNumber numberWithInteger:[Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY]]
+                                        type:[Common readAppDataForKey:@"type"]
                                      success:^(BOOL success) {
                                          
                                          //获取用户的email
@@ -93,7 +89,6 @@
                                          if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
                                              
                                              [self showToast:@"账户无效"];
-                                             
                                              [self jumpToSignInViewController];
                                              
                                          } else  {

@@ -264,74 +264,48 @@ static NSString *cellIdentifier = @"ContactCell";
     if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
         STConversationCell *cell = [STConversationCell dequeueOrCreateCellByTableView:tableView];
-        
         AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+        //长按手势，长按后删除该cell
+        [cell setLongPressBlock:^{
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [[CDChatManager sharedManager] deleteAndDeleteConversation:conversation callBack:^(BOOL successed, NSError *error) {
+                    
+                    if (successed) {
+                        [self showToast:@"删除消息成功"];
+                    } else {
+                        [self showToast:[Common errorStringWithError:error optionalString:@"删除消息失败"]];
+                    }
+                    [self headerRefreshing];
+                }];
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [controller addAction:cancelAction];
+            [controller addAction:action];
+            [self presentViewController:controller animated:YES completion:nil];
+        }];
         
         if (conversation.type == CDConversationTypeSingle) {
             
             cell.nameLabel.text = [conversation conversationDisplayName];
-            
-            //长按手势，长按后删除该cell
-            [cell setLongPressBlock:^{
-                
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    [[CDConversationStore store] deleteConversation:conversation];
-                    
-                    [self headerRefreshing];
-                    
-                }];
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                
-                [controller addAction:cancelAction];
-                
-                [controller addAction:action];
-                
-                [self presentViewController:controller animated:YES completion:nil];
-            }];
-            
             [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-               
+                
                 [cell.indicatorView startAnimating];
                 
             } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 [cell.indicatorView stopAnimating];
+                
             }];
 
         } else {
-            
-            //长按手势，长按后删除该cell
-            [cell setLongPressBlock:^{
-                
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    [[CDConversationStore store] deleteConversation:conversation];
-                    
-                    [self headerRefreshing];
-                    
-                }];
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                
-                [controller addAction:cancelAction];
-                
-                [controller addAction:action];
-                
-                [self presentViewController:controller animated:YES completion:nil];
-            }];
-            
+        
             if ([Common isObjectNull:[conversation groupChatImageURL]]) {//不存在
-                
                 cell.avatarImageView.image = conversation.icon;
-                
             } else {
-                
                 [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                     
                     [cell.indicatorView startAnimating];
@@ -341,21 +315,18 @@ static NSString *cellIdentifier = @"ContactCell";
                     [cell.indicatorView stopAnimating];
                 }];
             }
-            
             cell.nameLabel.text = [conversation conversationDisplayName];
         }
         
         if (conversation.lastMessage) {
             
             cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
-            
             cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
         }
         
         if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] > 0) {
             
             if (conversation.muted) {
-                
                 
             } else {
                 
@@ -369,41 +340,39 @@ static NSString *cellIdentifier = @"ContactCell";
                 }
             }
         }
-        
         return cell;
         
     } else {
         
         LZConversationCell *cell = [LZConversationCell dequeueOrCreateCellByTableView:tableView];
-        
         AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
+        //长按手势，长按后删除该cell
+        [cell setLongPressBlock:^{
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除本地缓存的消息" preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [[CDChatManager sharedManager] deleteAndDeleteConversation:conversation callBack:^(BOOL successed, NSError *error) {
+                    
+                    if (successed) {
+                        [self showToast:@"删除消息成功"];
+                    } else {
+                        [self showToast:[Common errorStringWithError:error optionalString:@"删除消息失败"]];
+                    }
+                    [self headerRefreshing];
+                }];
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [controller addAction:cancelAction];
+            [controller addAction:action];
+            [self presentViewController:controller animated:YES completion:nil];
+        }];
         
         if (conversation.type == CDConversationTypeSingle) {
             
             cell.nameLabel.text = [conversation conversationDisplayName];
-            
-            //长按手势，长按后删除该cell
-            [cell setLongPressBlock:^{
-                
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    [[CDConversationStore store] deleteConversation:conversation];
-                    
-                    [self headerRefreshing];
-                    
-                }];
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                
-                [controller addAction:cancelAction];
-                
-                [controller addAction:action];
-                
-                [self presentViewController:controller animated:YES completion:nil];
-            }];
-
             [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation headUrl:conversation.otherId]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                 
                 [cell.indicatorView startAnimating];
@@ -414,35 +383,10 @@ static NSString *cellIdentifier = @"ContactCell";
             }];
             
         } else {
-            
-            //长按手势，长按后删除该cell
-            [cell setLongPressBlock:^{
-                
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"删除消息" message:@"点击确定会删除该条消息" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    [[CDConversationStore store] deleteConversation:conversation];
-                    
-                    [self headerRefreshing];
-                    
-                }];
-                
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                
-                [controller addAction:cancelAction];
-                
-                [controller addAction:action];
-                
-                [self presentViewController:controller animated:YES completion:nil];
-            }];
-            
             if ([Common isObjectNull:[conversation groupChatImageURL]]) {//不存在
-                
                 cell.avatarImageView.image = conversation.icon;
-                
             } else {
-            
+                
                 [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                     
                     [cell.indicatorView startAnimating];
@@ -451,38 +395,27 @@ static NSString *cellIdentifier = @"ContactCell";
                     
                     [cell.indicatorView stopAnimating];
                 }];
-                
             }
-            
             cell.nameLabel.text = [conversation conversationDisplayName];
         }
         
         if (conversation.lastMessage) {
-            
             cell.messageTextLabel.attributedText = [[CDMessageHelper helper] attributedStringWithMessage:conversation.lastMessage conversation:conversation];
-            
             cell.timestampLabel.text = [[NSDate dateWithTimeIntervalSince1970:conversation.lastMessage.sendTimestamp / 1000] timeAgoSinceNow];
         }
         
         if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] > 0) {
             
             if (conversation.muted) {
-                
                 cell.litteBadgeView.hidden = NO;
-                
             } else {
-                
                 if ([[NSString stringWithFormat:@"%@",conversation.unreadCount] intValue] >= 100) {
-                    
                     cell.badgeView.badgeText = @"99+";
-                    
                 } else {
-                    
                     cell.badgeView.badgeText = [NSString stringWithFormat:@"%@", conversation.unreadCount];
                 }
             }
         }
-        
         return cell;
     }
 }

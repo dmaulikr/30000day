@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInViewController">
             <connections>
+                <outlet property="guestButton" destination="5mT-i2-gqT" id="PXW-T3-r09"/>
                 <outlet property="lockPassWord" destination="GsU-tq-HBZ" id="qbp-Zd-SEz"/>
                 <outlet property="loginBtn" destination="Zzq-0v-86g" id="xQn-hw-Act"/>
                 <outlet property="qq" destination="5KO-JL-6G6" id="aYY-AW-MMD"/>
@@ -143,6 +144,15 @@
                         <constraint firstAttribute="height" constant="1" id="Z4M-x4-1Yz"/>
                     </constraints>
                 </view>
+                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mT-i2-gqT">
+                    <rect key="frame" x="15" y="423" width="60" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="08z-No-7fi"/>
+                        <constraint firstAttribute="height" constant="30" id="3OM-5b-ohg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="访客进入"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -164,6 +174,8 @@
                 <constraint firstItem="tsH-3t-Y2U" firstAttribute="top" secondItem="Irt-oC-3vP" secondAttribute="bottom" constant="20" id="NPH-qD-Go0"/>
                 <constraint firstItem="Zhq-ax-anC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Nap-YR-9jO"/>
                 <constraint firstAttribute="trailing" secondItem="Zzq-0v-86g" secondAttribute="trailing" constant="15" id="Xo0-PD-2hR"/>
+                <constraint firstItem="5mT-i2-gqT" firstAttribute="top" secondItem="gNg-S0-Z7e" secondAttribute="bottom" constant="15" id="YPI-Rj-XH4"/>
+                <constraint firstItem="5mT-i2-gqT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="ZR6-4U-dMJ"/>
                 <constraint firstItem="t4G-W7-CNo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="hBQ-bB-1zx"/>
                 <constraint firstAttribute="trailing" secondItem="1oQ-su-lSj" secondAttribute="trailing" constant="15" id="j5x-NZ-wfV"/>
                 <constraint firstItem="tsH-3t-Y2U" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sNK-Qh-mJp"/>

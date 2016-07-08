@@ -57,31 +57,26 @@
 
 #import "NSArray+Chinese.h"
 #import "NSString+Chinese.h"
+
 #import "CDChatManager.h"
 
 @interface STDataHandler () <CLLocationManagerDelegate>
 
 @property (nonatomic,strong)CLLocationManager *locationManager;
-
 @property (nonatomic,copy) void (^(getLocationBlock))(NSString *,NSString *,CLLocationCoordinate2D);//获取地理位置和城市名称的回调代码块
-
 @property (nonatomic,copy) void (^(getLocationErrorBlock))(NSError *);//获取地理位置和城市名称出错回调代码块
 
 @end
-
 
 @implementation STDataHandler
 
 + (STDataHandler *)sharedHandler {
     
     static id handler = nil;
-    
     static dispatch_once_t onceToken;
-    
+
     dispatch_once(&onceToken, ^{
-        
         handler = [[self alloc] init];
-        
     });
     
     return handler;
@@ -91,14 +86,12 @@
 - (NSString *)startRequest:(STRequest *)request {
     
     NSString *requestHash = [[STNetworkAgent sharedAgent] addRequest:request];
-    
     return requestHash;
 }
 
 + (NSString *)startRequest:(STRequest *)request {
     
     NSString *requestHash = [[STNetworkAgent sharedAgent] addRequest:request];
-    
     return requestHash;
 }
 
@@ -111,9 +104,7 @@
                          failure:(void (^)(NSString *error))failure {
     
         NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-        
         [parameters addParameter:phoneNumber forKey:@"mobile"];
-    
         [parameters addParameter:type forKey:@"type"];
     
         STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -132,23 +123,19 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                   
                                                                     success(recvDic[@"value"]);
                                                                 });
                                                                 
                                                             } else {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     failure(recvDic[@"msg"]);
                                                                 });
-                                                                
                                                             }
                                                         
                                                         } else {
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
                                                                 failure(localError.userInfo[NSLocalizedDescriptionKey]);
                                                             });
                                                             
@@ -157,16 +144,11 @@
                                                     } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
                                                             failure(error.error.userInfo[NSLocalizedDescriptionKey]);
-                                                            
                                                         });
-                                                        
                                                     }];
     request.needHeaderAuthorization = NO;
-    
     request.requestSerializerType = STRequestSerializerTypeJSON;
-    
     [self startRequest:request];
 }
 
@@ -177,9 +159,7 @@
                              failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:phoneNumber forKey:@"mobile"];
-    
     [parameters addParameter:smsCode forKey:@"code"];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -188,9 +168,7 @@
                                                     success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
-                                                        
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
                                                         if (localError == nil) {
                                                             
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
@@ -198,22 +176,17 @@
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     success(recvDic[@"value"]);
                                                                 });
                                                                 
                                                             } else {
                                                             
                                                                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:recvDic[@"msg"]                                                                     forKey:NSLocalizedDescriptionKey];
-
                                                                localError = [NSError errorWithDomain:@"com.sms.validate" code:[recvDic[@"code"] integerValue] userInfo:userInfo];
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     failure(localError);
-                                                                    
                                                                 });
-                                                                
                                                             }
                                                             
                                                         } else {
@@ -222,24 +195,17 @@
                                                                 
                                                                 failure(localError);
                                                             });
-                                                            
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
                                                             failure(error.error);
-                                                            
                                                         });
-                                                        
                                                     }];
     request.needHeaderAuthorization = NO;
-    
     request.requestSerializerType = STRequestSerializerTypeJSON;
-    
     [self startRequest:request];
-    
 }
 
 //************修改密码*****************//
@@ -250,21 +216,14 @@
                                  failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:mobile forKey:@"mobile"];
-    
     [parameters addParameter:mobileToken forKey:@"mobileToken"];
-    
     [parameters addParameter:password forKey:@"password"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUpdateUserPassword",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_PASSWORD_BYMOBILE] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         
@@ -280,7 +239,6 @@
             } else {
                 
                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
                 failure(failureError);
             }
             
@@ -301,15 +259,11 @@
                         failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:userName forKey:@"userName"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendGetUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USERID_BY_NAME] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -326,9 +280,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -339,14 +291,13 @@
         
         failure(error);
     }];
-    
 }
 
 //***** 普通登录 *****/
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
-                    isFromThirdParty:(BOOL)isFromThirdParty
+                    isFromThirdParty:(NSNumber *)isFromThirdParty
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
@@ -405,16 +356,10 @@
 
 
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:loginName forKey:@"userName"];
-    
-    [parameters addParameter:@(isFromThirdParty) forKey:@"isFromThirdParty"];
-    
+    [parameters addParameter:isFromThirdParty forKey:@"isFromThirdParty"];
     [parameters addParameter:password forKey:@"password"];
-    
     [parameters addParameter:type forKey:@"type"];
-    
-    
     [Common urlStringWithDictionary:parameters withString:LOGIN_WITH_PASSWORD];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -423,21 +368,18 @@
                                                     success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
-                                                        
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
                                                         
                                                         if (localError == nil) {
                                                             
                                                             NSDictionary *recvDictionary = (NSDictionary *)parsedObject;
-                                                            
                                                             if ([recvDictionary[@"code"] isEqual:@0]) {
                                                                 
                                                                 NSDictionary *jsonDictionary = recvDictionary[@"value"];
                                                                 
                                                                 //设置个人信息
                                                                 [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password isFromThirdParty:isFromThirdParty postNotification:isPostNotification];
-                                                                
-                                                                
+
                                                                 //登录凌云服务器
                                                                 [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
                                                                     
@@ -446,90 +388,65 @@
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                                             
                                                                             [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-                                                                            
                                                                             NSLog(@"---连接凌云聊天服务器成功");
                                                                         });
                                                                         
                                                                     } else {
                                                                         
                                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                                            
                                                                             failure(error);
-                                                                            
                                                                         });
                                                                     }
                                                                 }];
                                                                 
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     success(YES);
-                                                                   
                                                                 });
-                                                                
-                                                                
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"账户无效"}];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(error);
-                                                                    
+                                                                    failure([Common errorWithString:@"账户无效"]);
                                                                 });
                                                             }
     
                                                         } else {
                                                             
-                                                            NSError *error = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"账户无效"}];
-                                                            
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
-                                                                failure(error);
-                                                                
+                                                                failure([Common errorWithString:@"账户无效"]);
                                                             });
- 
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
                                                             failure(error.error);
-                                                            
                                                         });
                                                         
                                                     }];
     request.needHeaderAuthorization = NO;
-    
     request.requestSerializerType = STRequestSerializerTypeJSON;
-    
     return [self startRequest:request];
 }
 
 
 //私有api设置个人信息
-- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(BOOL)isFromThirdParty postNotification:(BOOL)isPostNotification {
+- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(NSNumber *)isFromThirdParty postNotification:(BOOL)isPostNotification {
     
     UserProfile *userProfile = [[UserProfile alloc] init];
-    
     [userProfile setValuesForKeysWithDictionary:jsonDictionary];
 
     //保存用户的UID
     [Common saveAppDataForKey:KEY_SIGNIN_USER_UID withObject:userProfile.userId];
-    
     [Common saveAppDataForKey:KEY_SIGNIN_USER_NAME withObject:userName];
     
     if (password != nil) {
-    
         [Common saveAppDataForKey:KEY_SIGNIN_USER_PASSWORD withObject:password];
-        
     }
     
     NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
-    if (!isFromThirdParty) {
+    if ([isFromThirdParty isEqual:@0]) {//表示是普通登录
         
         //从磁盘中读取上次存储的数组
         NSMutableArray *userAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
@@ -537,17 +454,13 @@
         if (userAccountArray.count == 0 ) {
             
             [userAccountDictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
-            
             if (password != nil) [userAccountDictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
-            
             [userAccountArray addObject:userAccountDictionary];
-            
             [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
             
         } else {
             
             BOOL isExist = NO;//默认是不存在的
-            
             for (NSInteger i = 0; i < userAccountArray.count; i++) {
                 
                 NSDictionary *oldDictionary = userAccountArray[i];
@@ -555,46 +468,32 @@
                 if ([[oldDictionary objectForKey:KEY_SIGNIN_USER_NAME] isEqualToString:userName]) {
                     
                     isExist = YES;
-                    
                     //进行覆盖操作
                     [userAccountArray removeObjectAtIndex:i];
-                    
                     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                    
                     [dictionary setObject:userName forKey:KEY_SIGNIN_USER_NAME];
-                    
                     if (password != nil) [dictionary setObject:password forKey:KEY_SIGNIN_USER_PASSWORD];
-                    
                     [userAccountArray insertObject:dictionary atIndex:i];
-                    
                     [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
                 }
             }
             if (isExist == NO) {//如果不存在，就要保存
                 
                 NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-                
                 [dictionary setValue:userName forKey:KEY_SIGNIN_USER_NAME];
-                
                 if (password != nil) [dictionary setValue:password forKey:KEY_SIGNIN_USER_PASSWORD];
-                
                 [userAccountArray insertObject:dictionary atIndex:0];
-                
                 [Common saveAppDataForKey:USER_ACCOUNT_ARRAY withObject:userAccountArray];
-                
             }
         }
-        
     }
 
   //设置用户信息
    STUserAccountHandler.userProfile = userProfile;
     
     if (isPostNotification) {
-        
         //并发送通知
         [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-        
     }
 }
 
@@ -607,21 +506,14 @@
                           failure:(void (^)(NSError *))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:phoneNumber forKey:@"mobile"];
-    
     [parameters addParameter:mobileToken forKey:@"mobileToken"];
-    
     [parameters addParameter:password forKey:@"password"];
-    
     [parameters addParameter:nickName forKey:@"nickName"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("setUserInformationWithDictionary",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,REGISTER] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -631,13 +523,12 @@
         if (localError == nil) {
             
             NSDictionary *recvDic = (NSDictionary *)parsedObject;
-            
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary *jsonDictionary = recvDic[@"value"];
                 
                     //设置个人信息
-                    [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
+                    [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:@0 postNotification:YES];
                     
                     //登录凌云服务器
                     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
@@ -647,30 +538,24 @@
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 
                                 [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-                                
                                 NSLog(@"---连接凌云聊天服务器成功");
                             });
                             
                         } else {
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                
                                 failure(error);
-                                
                             });
                         }
                     }];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     success(YES);
                 });
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -720,7 +605,6 @@
                     if ([Common isObjectNull:model.originalNickName] || ([userIdString isEqualToString:@"0"])) {//过虐非法的UserId
                         
                     } else {
-                        
                         [dataArray addObject:model];
                     }
                 }
@@ -729,8 +613,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -741,7 +624,6 @@
         
         failure(error);
     }];
-    
 }
 
 //************************ 删除好友 **********/
@@ -751,17 +633,12 @@
                            failure:(void (^)(NSError *))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:userId forKey:@"curUserId"];
-    
     [parameters addParameter:friendId forKey:@"fUserId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendDeleteFriendWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,DELETE_FRIEND] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -778,9 +655,7 @@
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -805,19 +680,12 @@
                                     failure:(void (^)(NSError *))failure {
 
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:userId forKey:@"userId"];
-    
     [parameters addParameter:nickName forKey:@"nickName"];//昵称
-
     [parameters addParameter:birthday forKey:@"birthday"];//生日
-    
     [parameters addParameter:headImageUrlString forKey:@"headImg"];//头像
-    
     [parameters addParameter:gender forKey:@"gender"];//性别
-    
     [parameters addParameter:memo forKey:@"memo"];//个人简介
-    
     [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
     
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -828,7 +696,6 @@
                                                         NSError *localError = nil;
                                                         
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
                                                         if (localError == nil) {
                                                             
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
@@ -864,21 +731,14 @@
                                                                 if (![Common isObjectNull:gender] || ![Common isObjectNull:birthday]) {
 
                                                                     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                                                                    
                                                                     manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-                                                                    
                                                                     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-                                                                    
                                                                     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
                                                                     
                                                                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                                                                    
                                                                     [params addParameter:userId forKey:@"userId"];
-                                                                    
                                                                     [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
-                                                                    
                                                                     [params addParameter:birthday forKey:@"birthday"];
-
                                                                     [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForUpdateUserInfo"];
                                                                     
                                                                     [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForUpdateUserInfo",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -892,11 +752,9 @@
                                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                                                                                 
                                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                    
                                                                                     //发出通知
                                                                                     [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                                 });
-                                                                                
                                                                             } else {
                                                                                 
                                                                             }
@@ -911,46 +769,34 @@
                                                                 }
 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     success(YES);
-                                                                    
                                                                     //发出通知
                                                                     [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
                                                                 });
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
-                                                                    failure(failureError);
-                                                                    
+                                                                    failure([Common errorWithString:recvDic[@"msg"]]);
                                                                 });
                                                             }
                                                             
                                                         } else {
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                
                                                                 failure(localError);
-                                                                
                                                             });
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
                                                         
                                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
                                                             failure(error.error);
-                                                            
                                                         });
                                                         
                                                     }];
     request.needHeaderAuthorization = NO;
-    
     request.requestSerializerType = STRequestSerializerTypeJSON;
-    
     [self startRequest:request];
 }
 
@@ -960,7 +806,6 @@
     dispatch_async(dispatch_queue_create("AddressBookModel", DISPATCH_QUEUE_SERIAL), ^{
         
         ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-        
         NSMutableArray *addressBookArray = [NSMutableArray array];
         
         if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
@@ -968,31 +813,23 @@
             ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error){
                 
                 CFErrorRef *error1 = NULL;
-                
                 ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error1);
-                
                 [STDataHandler copyAddressBook:addressBook addressBookArray:addressBookArray completionHandler:handler];
             });
             
         } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
             
             CFErrorRef *error = NULL;
-            
             ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
-            
             [STDataHandler copyAddressBook:addressBook addressBookArray:addressBookArray completionHandler:handler];
             
         } else {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-               
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
             });
-            
             //没有获取通讯录权限
         }
-        
     });
 }
 
@@ -1000,15 +837,12 @@
 + (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray completionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
 
     CFIndex numberOfPeople = ABAddressBookGetPersonCount(addressBook);
-    
     CFArrayRef people = ABAddressBookCopyArrayOfAllPeople(addressBook);
     
     for ( int i = 0; i < numberOfPeople; i++) {
         
         ABRecordRef person = CFArrayGetValueAtIndex(people, i);
-        
         NSString *firstName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonFirstNameProperty));
-        
         NSString *lastName = (__bridge NSString *)(ABRecordCopyValue(person, kABPersonLastNameProperty));
         
         //读取电话多值
@@ -1018,13 +852,12 @@
             
             //获取电话Label
             NSString * personPhoneLabel = (__bridge NSString*)ABAddressBookCopyLocalizedLabel(ABMultiValueCopyLabelAtIndex(phone, k));
-            
+
             if ([personPhoneLabel isEqualToString:@"住宅"] || [personPhoneLabel isEqualToString:@"手机"] || [personPhoneLabel isEqualToString:@"工作"] || [personPhoneLabel isEqualToString:@"iPhone"] || [personPhoneLabel isEqualToString:@""] || [personPhoneLabel isEqualToString:@"主要"]) {
                 //获取該Label下的电话值
                 NSString * personPhone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phone, k);
-                
                 NSString *name;
-                
+        
                 AddressBookModel *bookModel = [[AddressBookModel alloc] init];
                 
                 if (firstName!= nil && lastName != nil) {
@@ -1043,33 +876,23 @@
                 }
                 
                 bookModel.name = name;
-                
                 bookModel.mobilePhone = personPhone;
-                
                 [addressBookArray addObject:bookModel];
-                
                 break;
             }
         }
     }
     
     NSMutableArray *arrayAll =  [ChineseString LetterSortArray:addressBookArray];
-    
     NSMutableArray *sortArray = [ChineseString SortArray:addressBookArray];
-    
     NSMutableArray *indexArray = [ChineseString IndexArray:addressBookArray];
-    
-   
     NSMutableArray *newArray = [NSMutableArray array];
     
     for (int a = 0; a < arrayAll.count; a++) {
         
         NSMutableArray *nextArray = arrayAll[a];
-        
         NSMutableArray *fistNameArray = [NSMutableArray array];
-        
         NSMutableArray *newNameArray = [NSMutableArray array];
-        
         NSMutableArray *result = [NSMutableArray arrayWithArray:[nextArray sortedWithChineseKey:@"string"]];
         
         [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1079,7 +902,6 @@
         for (int i = 0; i < result.count; i++) {
             
             ChineseString *model = result[i];
-            
             NSString *nameString = [model.string substringToIndex:1];
             
             if (![fistNameArray containsObject:nameString]) {
@@ -1094,23 +916,17 @@
             for (int j = 0; j < result.count; j++) {
                 
                 ChineseString *model = result[j];
-                
                 NSString *nameString = [model.string substringToIndex:1];
                 
                 if ([nameString isEqualToString:fistNameArray[i]]) {
                     
                     [newNameArray addObject:result[j]];
                 }
-                
             }
-            
         }
         
         [newArray addObject:newNameArray];
-        
     }
-
-
     handler(newArray,sortArray,indexArray);
 }
 
@@ -1120,11 +936,8 @@
     NSMutableString *str = [NSMutableString stringWithString:aString];
 
     CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
-
     CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
-
     NSString *pinYin = [str capitalizedString];
-
     return pinYin;
 }
 
@@ -1133,26 +946,21 @@
                                    currentUserId:(NSString *)curUserId
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(NSError *))failure {
-    //内部测试接口
+
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:nickName forKey:@"keyWord"];
-    
     [parameters addParameter:curUserId forKey:@"curUserId"];
     
     //异步执行
     dispatch_async(dispatch_queue_create("searchUser", DISPATCH_QUEUE_SERIAL), ^{
         
         NSError *error;
-        
         NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[Common urlStringWithDictionary:parameters withString:SEARCH_USER]] encoding:NSUTF8StringEncoding error:&error];
         
         if (error == nil  && ![Common isObjectNull:jsonStr]) {
             
             SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-            
             NSError *firstError;
-            
             NSDictionary * dictionary = [jsonParser objectWithString:jsonStr error:&firstError];
             
             if (firstError == nil && ![Common isObjectNull:dictionary]) {
@@ -1161,15 +969,12 @@
                     
                     //字典数组创建一个模型数组
                     NSArray *array = dictionary[@"value"];
-                    
                     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                     
                     for (int i = 0; i < array.count; i++) {
                         
                         NSDictionary *dictionary = array[i];
-                        
                         UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
-                        
                         [dataArray addObject:model];
                     }
 
@@ -1177,9 +982,7 @@
                     
                 } else {
                     
-                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:dictionary[@"msg"]}];
-                    
-                    failure(failureError);
+                    failure([Common errorWithString:dictionary[@"msg"]]);
                 }
               
             } else {
@@ -1203,21 +1006,14 @@
     
     //内部测试接口
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:currentUserId forKey:@"mobileOwnerId"];
-    
     [parameters addParameter:userId forKey:@"friendOwnerId"];
-    
     [parameters addParameter:messageType forKey:@"messageType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendPushMessageWithCurrentUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [Common urlStringWithDictionary:parameters withString:ADD_USER];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,ADD_USER] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1233,14 +1029,11 @@
                 if ([recvDic[@"value"] isEqual:@1]) {
                     
                     success(YES);
-                    
                 }
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -1251,8 +1044,6 @@
         
         failure(error);
     }];
-    
-    
 }
 
 
@@ -1261,15 +1052,11 @@
                         failure:(void (^)(NSError *))failure {
     
     self.getLocationBlock = sucess;
-    
     self.getLocationErrorBlock = failure;
-    
     self.locationManager = [[CLLocationManager alloc] init] ;
-    
     self.locationManager.delegate = self;
     
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
     _locationManager.distanceFilter = 100;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -1288,11 +1075,8 @@
     
     switch (status) {
             
-        case kCLAuthorizationStatusNotDetermined:
-        {
-            
-             self.getLocationErrorBlock([[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}]);
-
+        case kCLAuthorizationStatusNotDetermined: {
+             self.getLocationErrorBlock([Common errorWithString:nil]);
         }
             break;
             
@@ -1308,23 +1092,20 @@
     
     //如果调用已经一次，不再执行
     CLLocation *currentLocation = [locations lastObject];
-    
     // 获取当前所在的城市名
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
     //根据经纬度反向地理编译出地址信息
     [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *array, NSError *error){
         
         if (array.count > 0){
             
             CLPlacemark *placemark = [array objectAtIndex:0];
- 
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-               
+                
                 if (![Common isObjectNull:placemark.locality] && ![Common isObjectNull:placemark.administrativeArea]) {
                     
                     self.getLocationBlock(placemark.locality,placemark.administrativeArea,currentLocation.coordinate);//回调
-                    
                     //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
                     [manager stopUpdatingLocation];
                 }
@@ -1332,24 +1113,17 @@
             
         } else if (error == nil && [array count] == 0) {
             
-           NSError *newError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知因素"}];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-            
-                self.getLocationErrorBlock(newError);
-                
+                self.getLocationErrorBlock([Common errorWithString:nil]);
             });
+            
         } else if (error != nil) {
         
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 self.getLocationErrorBlock(error);
-                
             });
         }
-
     }];
-    
 }
 
 //*****************获取天气情况(代码块返回的是天气模型)***********/
@@ -1361,9 +1135,7 @@
         
         NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
         [parameter setObject:cityName forKey:@"city"];
-        
         NSString *method = @"post";
-        
         APISCallBack *callBack = [APISCallBack alloc];
         
         callBack.onSuccess = ^(long status, NSString* responseString) {
@@ -1396,46 +1168,31 @@
                 
                 
                 WeatherInformationModel *informationModel = [[WeatherInformationModel alloc] init];
-
                 informationModel.cityName = cityName;
-
                 informationModel.temperatureString = [NSString stringWithFormat:@"%@℃",tmp];
-
                 informationModel.pm25Quality = qlty;
-
                 informationModel.weatherShowImageString = [NSString stringWithFormat:@"%@.png",code];
-                
                 informationModel.sport = sport;
                         
                 dispatch_async(dispatch_get_main_queue(), ^{
-                            
                             sucess(informationModel);
-                            
                         });
-                
                     }
                 };
 
         callBack.onError = ^(long status, NSString *responseString) {
             
-            
-             NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:responseString}];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                failure(failureError);
-                
+                failure([Common errorWithString:responseString]);
             });
-            
         };
-    
+        
         callBack.onComplete = ^() {
         
         };
         
         //请求API
         [ApiStoreSDK executeWithURL:HfPath method:method apikey:HfKey parameter:parameter callBack:callBack];
-        
     }
 }
 
@@ -1447,19 +1204,13 @@
                                   failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    
     [parameters addParameter:currentUserId forKey:@"userId"];
-    
     [parameters addParameter:endDay forKey:@"endDay"];
-    
     [parameters addParameter:dayNumber forKey:@"day"];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUserLifeList",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_LIFE_LIST] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1473,14 +1224,11 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *array = [UserLifeModel mj_objectArrayWithKeyValuesArray:recvDic[@"value"]];
-                
                 success(array);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -1551,9 +1299,7 @@
                   failure:(void (^)(NSError *error))failure {
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_FACTORS] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1567,25 +1313,19 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                     
                 NSArray *oldArray = recvDic[@"value"];
-                
                 NSMutableArray *newArray = [NSMutableArray array];
                 
                 for (int i = 0; i < oldArray.count ; i++) {
                     
                     NSDictionary *dictionary = oldArray[i];
-                    
                     GetFactorModel *model = [GetFactorModel yy_modelWithDictionary:dictionary];
-                    
                     [newArray addObject:model];
                 }
                 
                 success(newArray);
                 
             } else {
-                
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -1606,15 +1346,11 @@
                              failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
     [parameters addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUserLifeList",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_FACTORS] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1628,9 +1364,7 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    
                 NSError *firstError;
-    
                 NSDictionary *dictionary_second = [jsonParser objectWithString:recvDic[@"value"] error:&firstError];
                 
                 if ([Common isObjectNull:firstError] && ![Common isObjectNull:dictionary_second]) {
@@ -1640,7 +1374,6 @@
                     if (![Common isObjectNull:dictionary_second[@"passiveSmokeCount"]] && ![Common isObjectNull:dictionary_second[@"passiveSmokeYears"]]) {//被动吸烟数和年数要同时存在
                         
                         GetFactorModel *numberModel = factorsModelArray[factorsModelArray.count - 2];//被动吸烟根数
-                        
                         GetFactorModel *yearModel = factorsModelArray[factorsModelArray.count - 1];//被动吸烟年数
                         
                         if ([dictionary_second[@"passiveSmokeCount"] isEqualToString:@"150"]) {
@@ -1658,28 +1391,20 @@
                     if (![Common isObjectNull:dictionary_second[@"height"]] && ![Common isObjectNull:dictionary_second[@"weight"]]) {//身高和体重要同时存在
                         
                         GetFactorModel *heightModel = factorsModelArray[factorsModelArray.count - 4];//身高
-                        
                         GetFactorModel *weightModel = factorsModelArray[factorsModelArray.count - 3];//体重
-                        
                         heightModel.userSubFactorModel.factor = dictionary_second[@"height"];
-                        
                         weightModel.userSubFactorModel.factor = dictionary_second[@"weight"];
                     }
                     
                     for (int i = 0; i < oldArray.count ; i++) {
                         
                         NSDictionary *_dictionary = oldArray[i];
-                        
                         NSNumber *factorId = _dictionary[@"id"];
-                        
                         NSNumber *keyNumber = _dictionary[@"pid"];
                         
                         GetFactorModel *model = [STDataHandler _factorModelWithFactorId:keyNumber FromfactorsModelArray:factorsModelArray];
-                        
                         model.userSubFactorModel.factorId = factorId;
-                        
                         model.userSubFactorModel.factor = [GetFactorModel titleStringWithDataNumber:factorId subFactorArray:model.subFactorArray];
-                        
                         model.userSubFactorModel.pid = model.factorId;
                     }
                     
@@ -1687,18 +1412,12 @@
                     
                 } else {
                     
-                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"出现了未知原因"}];
-                    
-                    failure(failureError);
+                    failure([Common errorWithString:nil]);
                 }
-                
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -1707,7 +1426,6 @@
         
         failure(error);
     }];
-    
 }
 
 + (GetFactorModel *)_factorModelWithFactorId:(NSNumber *)factorId FromfactorsModelArray:(NSMutableArray *)factorsModelArray {
@@ -1734,11 +1452,8 @@
                               failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     NSMutableArray *dataArray = [NSMutableArray array];
-    
     NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
-    
     [dataDictionary addParameter:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.gender] forKey:@"gender"];
     
     for (int i = 0; i < factorsModelArray.count - 3; i++) {
@@ -1748,38 +1463,28 @@
         if (factorModel.userSubFactorModel.factorId) {
             
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-            
             dictionary[@"id"] = factorModel.userSubFactorModel.factorId;
-            
             dictionary[@"pid"] = factorModel.factorId;
-            
             [dataArray addObject:dictionary];
         }
     }
 #pragma mark --- 设置体重和身高
     GetFactorModel *heightModel = factorsModelArray[factorsModelArray.count - 4];//身高
-    
     GetFactorModel *weightModel = factorsModelArray[factorsModelArray.count - 3];//体重
-    
     GetFactorModel *numberModel = factorsModelArray[factorsModelArray.count - 2];//被动吸烟根数
-    
     GetFactorModel *yearModel = factorsModelArray[factorsModelArray.count - 1];//被动吸烟年数
     
     if (![Common isObjectNull:heightModel.userSubFactorModel.factor] && ![Common isObjectNull:weightModel.userSubFactorModel.factor]) {
         
         [dataDictionary addParameter:heightModel.userSubFactorModel.factor forKey:@"height"];
-        
         [dataDictionary addParameter:weightModel.userSubFactorModel.factor forKey:@"weight"];
     }
     
     if (![Common isObjectNull:numberModel.userSubFactorModel.factor] && ![Common isObjectNull:yearModel.userSubFactorModel.factor]) {
         
         if ([numberModel.userSubFactorModel.factor isEqualToString:@"100以上"]) {//特殊处理
-            
             [dataDictionary addParameter:@"150" forKey:@"passiveSmokeCount"];
-            
         } else {
-            
             [dataDictionary addParameter:numberModel.userSubFactorModel.factor forKey:@"passiveSmokeCount"];
         }
         
@@ -1787,13 +1492,9 @@
     }
     
     [dataDictionary addParameter:dataArray forKey:@"idPid"];
-    
     NSString *dataString = [dataDictionary mj_JSONString];
-    
     [params addParameter:dataString forKey:@"data"];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [Common urlStringWithDictionary:params withString:SAVE_USER_FACTORS];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -1814,21 +1515,16 @@
                                                                 //当用户成功保存健康因子的时候会发出通知
                                                                 [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification
                                                                                                                     object:nil];
-                                                                
                                                                 success(recvDic[@"value"][@"chgDays"]);
                                                                 
                                                             } else {
                                                                 
-                                                                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                                                                
-                                                                failure(failureError);
-                                                                
+                                                                failure([Common errorWithString:recvDic[@"msg"]]);
                                                             }
                                                             
                                                         } else {
                                                             
                                                            failure(localError);
-                                                            
                                                         }
                                                         
                                                     } failure:^(STNetError *error) {
@@ -1837,9 +1533,7 @@
                                                         
                                                     }];
     request.needHeaderAuthorization = NO;
-    
     request.requestSerializerType = STRequestSerializerTypeJSON;
-    
     [self startRequest:request];
 }
 
@@ -1850,37 +1544,24 @@
                           failure:(void (^)(NSError *))failure {
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    
     [request setHTTPShouldHandleCookies:NO];
-    
     [request setTimeoutInterval:30];
-    
     [request setHTTPMethod:@"POST"];
-    
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/stapi/upload/uploadFile",ST_API_SERVER]]];
     
     NSString *BoundaryConstant = [NSString stringWithFormat:@"V2ymHFg03ehbqgZCaKO6jy"];
-    
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
-    
+
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
     [request setValue:@"IOS" forHTTPHeaderField:@"User-Agent"];
     
     NSMutableData *body = [NSMutableData data];
-    
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"userId"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"%@\r\n",userId] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"type"] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [body appendData:[[NSString stringWithFormat:@"%@\r\n",@1] dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
@@ -1888,18 +1569,13 @@
     if (imageData) {
         
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-        
         [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"image.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        
         [body appendData:[[NSString stringWithFormat:@"Content-Type: image/jpeg\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        
         [body appendData:imageData];
-        
         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [request setHTTPBody:body];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
@@ -1907,24 +1583,18 @@
         if (connectionError) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-               
                 failure(connectionError);
-                
             });
             
         } else {
             
-            
             NSError *localError = nil;
-            
             NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
             
             if (localError != nil) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     failure(localError);
-                    
                 });
                 
             } else {
@@ -1932,15 +1602,11 @@
                 if (![Common isObjectNull:parsedObject[@"value"]]) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        
                         success(parsedObject[@"value"]);
-                        
                     });
                 }
             }
-            
         }
-        
     }];
 }
 
@@ -3021,28 +2687,20 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
-                    
                     [dataArray addObject:commentModel];
-                    
                 }
-
-                    success(dataArray);
-
+                success(dataArray);
+                
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3059,15 +2717,11 @@
                                      failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:companyId forKey:@"companyId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendfindCompanyInfoByIdWithCompanyId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_FINDCOMOANYINFO] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3081,20 +2735,14 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary * dataDictionary = recvDic[@"value"];
-                
                 CompanyModel *companyModel = [[CompanyModel alloc] init];
-                
                 [companyModel setValuesForKeysWithDictionary:dataDictionary];
-                
                 success(companyModel);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3103,7 +2751,6 @@
         
         failure(error);
     }];
-    
 }
 
 //*********************************商店下的商品*************************/
@@ -3113,17 +2760,12 @@
                                    failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:companyId forKey:@"companyId"];
-    
     [params addParameter:productTypeId forKey:@"productTypeId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendFindProductsByIdsWithCompanyId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_FINDPRODUCTSBYIDS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3137,26 +2779,19 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     ShopModel *commentModel = [ShopModel yy_modelWithDictionary:dictionary];
-                    
                     [dataArray addObject:commentModel];
-                    
                 }
-            
                 success(dataArray);
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3167,7 +2802,6 @@
         
         failure(error);
     }];
-
 }
 
 //*********************************获取可预约的场地*************************/
@@ -3178,19 +2812,13 @@
                                       failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params setObject:userId forKey:@"userId"];
-    
     [params setObject:@8 forKey:@"productId"];
-    
     [params addParameter:date forKey:@"date"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendFindOrderCanAppointmentWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_ORDER_SEARCH_COUNT] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3204,26 +2832,20 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     AppointmentModel *commentModel = [AppointmentModel yy_modelWithDictionary:dictionary];
-                    
                     [dataArray addObject:commentModel];
-                    
                 }
 
                 success(dataArray);
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3248,38 +2870,23 @@
                           Success:(void (^)(NSString *orderNumber))success
                           failure:(void (^)(NSError *error))failure {
     
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:productId forKey:@"productId"];
-    
     [params addParameter:date forKey:@"date"];
-    
     [params addParameter:contactName forKey:@"reserverName"];
-    
     [params addParameter:contactPhoneNumber forKey:@"reserverContactNo"];
-    
     [params addParameter:remark forKey:@"memo"];
     
     if (timeModelArray.count) {
-        
         NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
-        
         [params addParameter:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
-        
     }
-    
     [params addParameter:price forKey:@"payableAmount"];
     
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendCommitOrderWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_ORDER_COURTS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3293,12 +2900,8 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 success(recvDic[@"value"]);
-                
             } else {
-                
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3309,9 +2912,7 @@
         
         failure(error);
     }];
-
 }
-
 
 //用uniqueKeyString得到{\"uniqueKey\":\"A01Y010012016040109001000\"}
 - (NSString *)dictionaryStringWithTimeModel:(AppointmentTimeModel *)timeModel {
@@ -3328,7 +2929,6 @@
     for (int i = 0 ; i < timeModelArray.count; i++) {
         
         AppointmentTimeModel *timeModel = timeModelArray[i];
-        
         if (timeModelArray.count == 1) {//表示数组只有一个
             
             arrayString = [NSString stringWithFormat:@"[%@]",[self dictionaryStringWithTimeModel:timeModel]];
@@ -3351,7 +2951,6 @@
             }
         }
     }
-    
     return arrayString;
 }
 
@@ -3369,23 +2968,16 @@
     
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:productId forKey:@"productId"];
     
     if (timeModelArray.count) {
-        
         NSString *arrayString = [self arrayStringWithTimeModeArray:timeModelArray];
-        
         [params setObject:[self dictionaryString:arrayString] forKey:@"courtJsonStr"];
-        
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendCalculateWithProductId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CALCULATE_PRICE] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3399,14 +2991,10 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 PriceModel *model = [PriceModel yy_modelWithDictionary:recvDic[@"value"]];
-                
                 success(model);
                 
             } else {
-                
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3419,7 +3007,6 @@
     }];
 }
 
-
 //**************根据类型获取订单 0->表示全部类型 1->表示已付款 2->表示未付款 返回数组里装的是MyOrderModel************/
 + (void)sendFindOrderUserId:(NSNumber *)userId
                        type:(NSNumber *)type
@@ -3427,17 +3014,12 @@
                     failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:type forKey:@"orderStatus"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendFindOrderUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_ORDER_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3451,27 +3033,20 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     MyOrderModel *orderModel = [MyOrderModel yy_modelWithDictionary:dictionary];
-                    
                     [dataArray addObject:orderModel];
-                    
                 }
                     success(dataArray);
-
+                
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3492,15 +3067,11 @@
     if(![Common isObjectNull:orderNumber]) {
         
         [params setObject:orderNumber forKey:@"orderNo"];
-        
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendFindOrderDetailOrderNumber",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_ORDER_DETAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3514,16 +3085,11 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary *dictionary = recvDic[@"value"];
-                
                 MyOrderDetailModel *orderModel = [MyOrderDetailModel yy_modelWithDictionary:dictionary];
-
                 success(orderModel);
 
             } else {
-                
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3531,7 +3097,6 @@
             failure(localError);
         }
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
         failure(error);
     }];
 }
@@ -3544,19 +3109,13 @@
                                   failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:writerId forKey:@"writerId"];
-    
     [params addParameter:infoTypeCode forKey:@"infoTypeCode"];
-    
     [params setObject:@(sortType) forKey:@"sortType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendsearchInfomationsWithWriterId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SEARCH_MATIONS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3570,31 +3129,20 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     InformationModel *informationModel = [[InformationModel alloc] init];
-                    
                     [informationModel setValuesForKeysWithDictionary:dictionary];
-                    
                     [dataArray addObject:informationModel];
-                    
                 }
-
-                    success(dataArray);
-                    
-
+                success(dataArray);
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3603,13 +3151,12 @@
         
         failure(error);
     }];
-
 }
+
 //**************取消订单************/
 + (void)sendCancelOrderWithOrderNumber:(NSString *)orderNumber
                                success:(void (^)(BOOL success))success
                                failure:(void (^)(NSError *error))failure {
-    
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -3619,11 +3166,8 @@
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendCancelOrderWithOrderNumber",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_ORDER_CANCEL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3642,11 +3186,8 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3655,7 +3196,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************资讯点赞*********************/
@@ -3667,21 +3207,14 @@
                                   failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params setObject:userId forKey:@"userId"];
-    
     [params addParameter:busiId forKey:@"busiId"];
-    
     [params setObject:@(isClickLike) forKey:@"isClickLike"];
-    
     [params setObject:@(busiType) forKey:@"busiType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendPointOrCancelPraiseWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_POINT] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3693,16 +3226,13 @@
             NSDictionary *recvDic = (NSDictionary *)parsedObject;
             
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                
+        
                 success(YES);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3711,7 +3241,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************作者主页*********************/
@@ -3721,17 +3250,12 @@
                                        failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:writerId forKey:@"writerId"];
-    
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("senSearchWriterInfomationsWithWriterId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SEARCH_WRITER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3745,20 +3269,14 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary * dataDictionary = recvDic[@"value"];
-                
                 InformationWriterModel *informationWriterModel = [[InformationWriterModel alloc] init];
-                
                 [informationWriterModel setValuesForKeysWithDictionary:dataDictionary];
-                
                 success(informationWriterModel);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3767,7 +3285,6 @@
         
         failure(error);
     }];
-    
 }
 
 //*****************************************订阅*********************/
@@ -3777,17 +3294,12 @@
                           failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:writerId forKey:@"writerId"];
-    
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendSubscribeWithWriterId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_SUBSCRIBE] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3804,9 +3316,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3817,7 +3327,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************取消订阅*********************/
@@ -3827,17 +3336,12 @@
                             failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:writerId forKey:@"writerId"];
-    
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendCancelSubscribeWriterId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_CANCEL_SUBSCRIBE] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3854,9 +3358,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -3867,7 +3369,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************我的订阅*********************/
@@ -3876,15 +3377,11 @@
                           failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendMySubscribeWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_MY_SUBSCRIBE] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3898,32 +3395,22 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     InformationWriterModel *informationModel = [[InformationWriterModel alloc] init];
-                    
                     [informationModel setValuesForKeysWithDictionary:dictionary];
-                    
                     informationModel.isMineSubscribe = 1;
-                    
                     [dataArray addObject:informationModel];
-                    
                 }
-                
-                    success(dataArray);
+                success(dataArray);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3940,15 +3427,11 @@
                              failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUserInformtionWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_INFORMATION] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3962,18 +3445,13 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary *dictionary = recvDic[@"value"];
-                
                 UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:dictionary];
-                
                 success(model);
                     
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -3992,17 +3470,12 @@
 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:writerName forKey:@"writerName"];
-    
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendSearchWriterListWithWriterName",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SEARCH_WRITER_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4016,30 +3489,22 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     InformationWriterModel *informationModel = [[InformationWriterModel alloc] init];
-                    
                     [informationModel setValuesForKeysWithDictionary:dictionary];
-                    
                     [dataArray addObject:informationModel];
-                    
                 }
                 
                 success(dataArray);
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4048,7 +3513,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************获取评论*********************/
@@ -4061,23 +3525,15 @@
                              failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params setObject:@(busiId) forKey:@"busiId"];
-    
     [params setObject:@(busiType) forKey:@"busiType"];
-    
     [params setObject:@(pid) forKey:@"pid"];
-    
     [params setObject:@(userId) forKey:@"userId"];
-    
     [params setObject:@(commentType) forKey:@"commentType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendSearchCommentsWithBusiId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_LIFE_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4091,30 +3547,22 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                
                 NSArray *array = recvDic[@"value"];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     InformationCommentModel *commentModel = [[InformationCommentModel alloc] init];
-                    
                     [commentModel setValuesForKeysWithDictionary:dictionary];
-                    
                     [dataArray addObject:commentModel];
-                    
                 }
 
                 success(dataArray);
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4123,7 +3571,6 @@
         
         failure(error);
     }];
-    
 }
 
 //*****************************************资讯详情*********************/
@@ -4133,17 +3580,12 @@
                               failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:infoId forKey:@"infoId"];
-    
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("getInfomationDetailWithInfoId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_INFOMATION_DETAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4157,20 +3599,14 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSDictionary *dictionary = recvDic[@"value"];
-                
                 InformationDetails *model = [[InformationDetails alloc] init];
-                
                 [model setValuesForKeysWithDictionary:dictionary];
-
                 success(model);
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4192,30 +3628,19 @@
                     commentPhotos:(NSString *)commentPhotos
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *error))failure {
-
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params setObject:@(busiId) forKey:@"busiId"];
-    
     [params setObject:@(busiType) forKey:@"busiType"];
-    
     [params setObject:@(userId) forKey:@"userId"];
-    
     [params addParameter:remark forKey:@"remark"];
-    
     [params setObject:@(pid) forKey:@"pid"];
-    
     [params setObject:@(isHideName) forKey:@"isHideName"];
-    
     [params addParameter:commentPhotos forKey:@"commentPhotos"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendSaveCommentWithBusiId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_COMMENT_SUM] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4232,9 +3657,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -4254,17 +3677,12 @@
                          failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:suscribeType forKey:@"suscribeType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendWriterListWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_WRITER_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4278,15 +3696,12 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSArray *array = recvDic[@"value"];
-                
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     InformationWriterModel *model = [InformationWriterModel yy_modelWithDictionary:dictionary];
-                    
                     [dataArray addObject:model];
                 }
                 
@@ -4294,9 +3709,7 @@
 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -4332,19 +3745,15 @@
         NSString *encodedImageStr = [data base64Encoding];
         [base64ImageDic setObject:encodedImageStr forKey:@"base64Str"];
         [base64ImageArray addObject:base64ImageDic];
-        
     }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    
     [dic setObject:base64ImageArray forKey:@"json"];
     
     NSError *parseError = nil;
-    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     
     NSString *file = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
     NSLog(@"图片上传error：%@",parseError.userInfo);
     
     [params setObject:file forKey:@"file"];
@@ -4364,30 +3773,21 @@
             NSString *imageUrl = recvDic[@"value"];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-
                 success(imageUrl);
             });
 
         } else {
 
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-
             dispatch_async(dispatch_get_main_queue(), ^{
-
-                failure(failureError);
-
+                failure([Common errorWithString:parsedObject[@"msg"]]);
             });
-            
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-
             failure(error);
-
         });
-        
     }];
 }
 
@@ -4396,39 +3796,31 @@
                             success:(void (^)(NSString *dataString))success
                             failure:(void (^)(NSError *error))failure {
     
-     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendGetDefeatData", DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_DEFEAT_DATA] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
-        
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                
+
             success(recvDic[@"value"]);
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-            
-             failure(failureError);
+             failure([Common errorWithString:parsedObject[@"msg"]]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         failure(error);
-        
     }];
 }
 
@@ -4439,19 +3831,13 @@
                            failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:accountNo forKey:@"accountNo"];
-    
     [params addParameter:type forKey:@"type"];
-    
     [Common urlStringWithDictionary:params withString:GET_CHECKBIND];
-    
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendcheckBindWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_CHECKBIND] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4468,11 +3854,8 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4495,25 +3878,16 @@
 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:mobile forKey:@"mobile"];
-    
     [params addParameter:nickName forKey:@"nickName"];
-    
     [params addParameter:accountNo forKey:@"accountNo"];
-    
     [params addParameter:password forKey:@"password"];
-    
     [params addParameter:headImg forKey:@"headImg"];
-    
     [params addParameter:type forKey:@"type"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendBindRegisterWithMobile",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_BIND_REGISTER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4530,11 +3904,8 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4543,7 +3914,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************更新好友好友信息*********************/
@@ -4555,21 +3925,14 @@
                                         failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"curUserId"];
-    
     [params addParameter:friendUserId forKey:@"fUserId"];
-    
     [params addParameter:friendNickName forKey:@"nickName"];
-    
     [params addParameter:friendHeadImageUrlString forKey:@"headImg"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUpdateFriendInformationWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_FRIEND] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4586,11 +3949,8 @@
                             
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4600,21 +3960,18 @@
         failure(error);
     }];
 }
+
 //*****************************************检查是否已注册*********************/
 + (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
                                            success:(void (^)(NSString *success))success
                                            failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:accountNo forKey:@"accountNo"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendCheckRegisterForThirdParyWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_REGISTER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4631,11 +3988,8 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4644,7 +3998,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************注册第三方登录账号*********************/
@@ -4655,19 +4008,13 @@
                                       failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:accountNo forKey:@"accountNo"];
-    
     [params addParameter:nickName forKey:@"nickName"];
-    
     [params addParameter:headImg forKey:@"headImg"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendRegisterForThirdParyWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,REGIST_THIRDPARY] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4684,11 +4031,8 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4705,15 +4049,11 @@
                                      failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:mobile forKey:@"mobile"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendcheckRegisterForMobileWithmobile",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_MOBILE] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4730,9 +4070,7 @@
                 
             } else {
                 
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
             
         } else {
@@ -4743,7 +4081,6 @@
         
         failure(error);
     }];
-
 }
 
 //*****************************************检测通讯录*********************/
@@ -4753,17 +4090,12 @@
                                       failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:mobileOwnerId forKey:@"mobileOwnerId"];
-    
     [params addParameter:addressBookJson forKey:@"addressBookJson"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [Common urlStringWithDictionary:params withString:CHECK_ADDRESS_BOOK];
     
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -4775,24 +4107,18 @@
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
 
             NSArray *array = recvDic[@"value"];
-            
             success(array);
     
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-            
-           failure(failureError);
-            
+           failure([Common errorWithString:parsedObject[@"msg"]]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
        failure(error);
-        
     }];
 }
-
 
 //*****************************************获取用户天龄下降因素*********************/
 + (void)sendLifeDescendFactorsWithUserId:(NSNumber *)userId
@@ -4800,19 +4126,13 @@
                                  failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [Common urlStringWithDictionary:params withString:GET_DESCEND_FACTORS];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendLifeDescendFactorsWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [Common urlStringWithDictionary:params withString:GET_DESCEND_FACTORS];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_DESCEND_FACTORS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -4826,29 +4146,19 @@
             if ([recvDic[@"code"] isEqualToNumber:@0]) {
                 
                 NSArray *array = recvDic[@"value"];
-                
                 NSMutableArray *dataArray = [[NSMutableArray alloc] init];
                 
                 for (int i = 0; i < array.count; i++) {
                     
                     NSDictionary *dictionary = array[i];
-                    
                     LifeDescendFactorsModel *model = [[LifeDescendFactorsModel alloc] init];
-                    
                     [model setValuesForKeysWithDictionary:dictionary];
-                    
                     [dataArray addObject:model];
                 }
-
-                    success(dataArray);
-                
+                success(dataArray);
             } else {
-                
-                NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:recvDic[@"msg"]}];
-                
-                failure(failureError);
+                failure([Common errorWithString:recvDic[@"msg"]]);
             }
-            
         } else {
             
             failure(localError);
@@ -4857,7 +4167,6 @@
         
         failure(error);
     }];
-    
 }
 
 //*****************************************获取免责条款及协议*********************/
@@ -4865,15 +4174,12 @@
                  failure:(void (^)(NSError *error))failure {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_AGREEMENT] parameters:nil  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
-        
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
@@ -4882,19 +4188,13 @@
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-            
-            failure(failureError);
-            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         failure(error);
-        
     }];
-
-
 }
 
 //*****************************************获取免责条款及协议*********************/
@@ -4913,7 +4213,6 @@
     [manager GET:[NSString stringWithFormat:@"%@/stapi/user/checkPassword",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
-        
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
@@ -4922,19 +4221,14 @@
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-            
-            failure(failureError);
-            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         failure(error);
-        
     }];
 }
-
 
 //**********************查找当前有哪些人申请加我为好友【数组里存储的是NewFriendModel】********************//
 + (void)sendFindAllApplyAddFriendWithUserId:(NSNumber *)userId
@@ -4942,9 +4236,7 @@
                                     failure:(void (^)(NSError *error))failure {
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?userId=%@",ST_API_SERVER,FIND_APPLY_ALL_ADD_FRIEND,userId]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-    
     request.HTTPMethod = @"GET";
-    
     [NSURLConnection sendAsynchronousRequest:request queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         
         if (connectionError) {//链接出现问题
@@ -4954,9 +4246,7 @@
         } else {//链接没有问题
             
             NSError *localError = nil;
-            
             id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
-            
             if (localError == nil) {
                 
                 NSDictionary *recvDic = (NSDictionary *)parsedObject;
@@ -4964,23 +4254,18 @@
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
                     
                     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                    
                     NSArray *array = recvDic[@"value"];
                     
                     for (int i = 0; i < array.count; i++) {
                         
                         NewFriendModel *model = [NewFriendModel yy_modelWithDictionary:array[i]];
-                        
                         [dataArray addObject:model];
                     }
-                    
                     success(dataArray);
                     
                 } else {
                     
-                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                    
-                    failure(failureError);
+                    failure([Common errorWithString:parsedObject[@"msg"]]);
                 }
                 
             } else {
@@ -5010,24 +4295,19 @@
         } else {//链接没有问题
             
             NSError *localError = nil;
-            
             id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
             
             if (localError == nil) {
                 
                 NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
                     
                     success(YES);
                     
                 } else {
                     
-                    NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                    
-                    failure(failureError);
+                    failure([Common errorWithString:parsedObject[@"msg"]]);
                 }
-                
             } else {
                 
                 failure(localError);
@@ -5043,21 +4323,16 @@
                               failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:@(status) forKey:@"status"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_FRIEND_SWITCH] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
-        
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
@@ -5066,19 +4341,13 @@
             
         } else {
             
-            NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-            
-            failure(failureError);
-            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         failure(error);
-        
     }];
-
-
 }
 
 @end

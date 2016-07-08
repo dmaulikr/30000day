@@ -96,5 +96,5 @@
 
 //表示如果该error的NSLocalizedDescriptionKey存在那么返回NSLocalizedDescriptionKey，如果不不存在返回optionalString
 + (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString;
-
++ (NSString *)keyChainValue;//获取设备唯一标识符
 @end

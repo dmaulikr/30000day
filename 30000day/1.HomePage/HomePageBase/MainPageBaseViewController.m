@@ -57,17 +57,12 @@
         
     } else {//过去有登录
         
-        NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
-        BOOL isThirdParty = [userDefaultes integerForKey:@"isFromThirdParty"];
-        NSString *type = [userDefaultes stringForKey:@"type"];
-        
         [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                        loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                               isPostNotification:YES
-                                isFromThirdParty:isThirdParty
-                                            type:type
+                                isFromThirdParty:[NSNumber numberWithInteger:[Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY]]
+                                            type:[Common readAppDataForKey:KEY_LOGIN_TYPE]
                                          success:^(BOOL success) {
-                                             
                                              
                                          }
                                          failure:^(NSError *error) {
@@ -77,14 +72,12 @@
                                              if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
                                                  
                                                  [self showToast:@"账户无效"];
-                                                 
                                                  [self jumpToSignInViewController];
                                                  
                                              } else {
                                                  
                                                  [self showToast:@"网络繁忙，请下拉刷新"];
                                              }
-                                             
                                          }];
     }
 }
@@ -93,9 +86,7 @@
 - (void)jumpToSignInViewController {
     
     SignInViewController *logview = [[SignInViewController alloc] init];
-    
     STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-    
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -234,19 +225,12 @@
 - (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
     [button setTitle:title forState:UIControlStateNormal];
-    
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
-    
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     button.tag = tag;
-    
     return button;
-    
 }
 
 #pragma mark 按钮监听方法

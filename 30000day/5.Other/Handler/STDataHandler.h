@@ -17,77 +17,52 @@
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
-
 //当前用户个人信息改变发出通知
 static NSString *const STUserAccountHandlerUseProfileDidChangeNotification = @"STUserAccountHandlerUseProfileDidChangeNotification";
-
 //成功获取好友的时候发送的通知
 static NSString *const STUseDidSuccessGetFriendsSendNotification = @"STUseDidSuccessGetFriendsSendNotification";
-
 //成功移除好友的时候发送的通知
 static NSString *const STUseDidSuccessDeleteFriendSendNotification = @"STUseDidSuccessDeleteFriendSendNotification";
-
 //成功取消订单会发出通知
 static NSString *const STDidSuccessCancelOrderSendNotification = @"STDidSuccessCancelOrderSendNotification";
-
 //成功支付会发出通知
 static NSString *const STDidSuccessPaySendNotification = @"STDidSuccessPaySendNotification";
-
 //成功订阅发出的通知
 static NSString *const STDidSuccessSubscribeSendNotification = @"STDidSuccessSubscribeSendNotification";
-
 //取消订阅发送的通知
 static NSString *const STDidSuccessCancelSubscribeSendNotification = @"STDidSuccessCancelSubscribeSendNotification";
-
 //当开始pop控制器的时候发出的通知
 static NSString *const STWillPopViewControllerSendNotification = @"STWillPopViewControllerSendNotification";
-
 //当成功的链接凌云聊天服务器发出的通知
 static NSString *const STDidSuccessConnectLeanCloudViewSendNotification = @"STDidSuccessConnectLeanCloudViewSendNotification";
-
 //当成功的更新好友的信息（好友的昵称、备注头像）所发出的通知
 static NSString *const STDidSuccessUpdateFriendInformationSendNotification = @"STDidSuccessUpdateFriendInformationSendNotification";
-
 //当成功的更新自己的信息发出通知
 static NSString *const STUserDidSuccessUpdateInformationSendNotification = @"STUserDidSuccessUpdateInformationSendNotification";
-
 //当成功的切换显示好友模式
 static NSString *const STUserDidSuccessChangeBigOrSmallPictureSendNotification = @"STUserDidSuccessChangeBigOrSmallPictureSendNotification";
-
 //有人申请加为好友
  static NSString *const STDidApplyAddFriendSendNotification = @"STDidApplyAddFriendSendNotification";
-
 //别人同意加为好友
  static NSString *const STDidApplyAddFriendSuccessSendNotification = @"STDidApplyAddFriendSuccessSendNotification";
-
 //通讯录成功的存入沙盒
 static NSString *const STDidSaveInFileSendNotification = @"STDidSaveInFileSendNotification";
-
 //日历那成功删除提醒发出的通知
 static NSString *const STDidSuccessDeleteRemindSendNotification = @"STDidSuccessDeleteRemindSendNotification";
-
 //日历提醒成功或者增加发出的通知
 static NSString *const STDidSuccessChangeOrAddRemindSendNotification = @"STDidSuccessChangeOrAddRemindSendNotification";
-
 //退出群聊
 static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSuccessQuitGroupChatSendNotification";
-
 //邀请人，踢人、修改群资料发出的通知
 static NSString *const STDidSuccessGroupChatSettingSendNotification = @"STDidSuccessGroupChatSettingSendNotification";
-
 //从后台进入前台发送通知刷新主页
 static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSuccessEnterForegroundSendNotification";
 
 @class STNetError;
-
 @class WeatherInformationModel;
-
 @class SearchConditionModel;
-
 @class MyOrderDetailModel;
-
 @class UserInformationModel;
-
 @class PriceModel;
 
 @interface STDataHandler : NSObject
@@ -124,10 +99,11 @@ static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSucc
 //***** 普通登录 *****/
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
 //提醒:并且会循环设置个人健康因素，直到成功
+//isFromThirdParty @0:普通登录 @1:第三方登录 @2:游客登录
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
-                    isFromThirdParty:(BOOL)isFromThirdParty
+                    isFromThirdParty:(NSNumber *)isFromThirdParty
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;
