@@ -11,13 +11,10 @@
 @interface ThirdPartyLandingViewController : ShowBackItemViewController
 
 @property (nonatomic,copy) NSString *type;
-
 @property (nonatomic,copy) NSString *url;
-
 @property (nonatomic,copy) NSString *name;
-
 @property (nonatomic,copy) NSString *uid;
 
-@property (nonatomic,assign) BOOL isConceal;
+@property (nonatomic,assign) BOOL isConceal;//是否隐藏 下面显示头像和昵称的控件
 
 @end

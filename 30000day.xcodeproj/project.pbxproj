@@ -135,6 +135,7 @@
 		B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F66DA61CBB4AF40064DB11 /* InformationDetailDownView.m */; };
 		B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */; };
 		B6F8ACE71C980ADA009AFEF5 /* libAPIStoreSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */; };
+		B8004B821D2FBD5400D2857A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B8004B811D2FBD5400D2857A /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B80137841CD8499B00ED0566 /* PersonSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137821CD8499B00ED0566 /* PersonSettingViewController.m */; };
 		B80137851CD8499B00ED0566 /* PersonSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */; };
 		B801378D1CD89AE300ED0566 /* DuplicationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B801378B1CD89AE300ED0566 /* DuplicationTableViewCell.m */; };
@@ -893,6 +894,8 @@
 		B6F66DA81CBB4B0C0064DB11 /* InformationDetailDownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationDetailDownView.xib; sourceTree = "<group>"; };
 		B6F8ACE51C980ADA009AFEF5 /* APIStoreSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIStoreSDK.h; sourceTree = "<group>"; };
 		B6F8ACE61C980ADA009AFEF5 /* libAPIStoreSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPIStoreSDK.a; sourceTree = "<group>"; };
+		B8004B801D2FBD5400D2857A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		B8004B811D2FBD5400D2857A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		B80137811CD8499B00ED0566 /* PersonSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonSettingViewController.h; sourceTree = "<group>"; };
 		B80137821CD8499B00ED0566 /* PersonSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonSettingViewController.m; sourceTree = "<group>"; };
 		B80137831CD8499B00ED0566 /* PersonSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonSettingViewController.xib; sourceTree = "<group>"; };
@@ -2206,6 +2209,15 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		B8004B7F1D2FBD5400D2857A /* security */ = {
+			isa = PBXGroup;
+			children = (
+				B8004B801D2FBD5400D2857A /* SFHFKeychainUtils.h */,
+				B8004B811D2FBD5400D2857A /* SFHFKeychainUtils.m */,
+			);
+			path = security;
+			sourceTree = "<group>";
+		};
 		B80137861CD89ACB00ED0566 /* Duplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -2957,6 +2969,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B8004B7F1D2FBD5400D2857A /* security */,
 				B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */,
 				B8F6E95D1D02CD0400AD6745 /* TZImagePickerController */,
 				B8381DD51CE05FAB00E3AC08 /* JPush */,
@@ -4647,6 +4660,9 @@
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -5205,6 +5221,7 @@
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
 				B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */,
 				B86EFC821D115770007A2108 /* STCroupSettingViewController.m in Sources */,
+				B8004B821D2FBD5400D2857A /* SFHFKeychainUtils.m in Sources */,
 				B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */,
 				B8FD3E161C8A7903007BCA6B /* XHSoundManager.m in Sources */,
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,

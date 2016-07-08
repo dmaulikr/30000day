@@ -175,7 +175,7 @@
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:NO
-                            isFromThirdParty:[Common readAppIntegerDataForKey:@"isFromThirdParty"]
+                            isFromThirdParty:[NSNumber numberWithInteger:[Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY]]
                                         type:[Common readAppDataForKey:@"type"]
                                      success:^(BOOL success) {
                                          

@@ -99,10 +99,11 @@ static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSucc
 //***** 普通登录 *****/
 //提醒:登录成功会获取用户的个人信息，首界面应刷新，所以登录成功会发出一个通知
 //提醒:并且会循环设置个人健康因素，直到成功
+//isFromThirdParty @0:普通登录 @1:第三方登录 @2:游客登录
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
-                    isFromThirdParty:(BOOL)isFromThirdParty
+                    isFromThirdParty:(NSNumber *)isFromThirdParty
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;

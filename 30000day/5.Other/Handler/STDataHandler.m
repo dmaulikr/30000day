@@ -297,7 +297,7 @@
 - (NSString *)postSignInWithPassword:(NSString *)password
                            loginName:(NSString *)loginName
                   isPostNotification:(BOOL)isPostNotification
-                    isFromThirdParty:(BOOL)isFromThirdParty
+                    isFromThirdParty:(NSNumber *)isFromThirdParty
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure {
@@ -357,7 +357,7 @@
 
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:loginName forKey:@"userName"];
-    [parameters addParameter:@(isFromThirdParty) forKey:@"isFromThirdParty"];
+    [parameters addParameter:isFromThirdParty forKey:@"isFromThirdParty"];
     [parameters addParameter:password forKey:@"password"];
     [parameters addParameter:type forKey:@"type"];
     [Common urlStringWithDictionary:parameters withString:LOGIN_WITH_PASSWORD];
@@ -431,7 +431,7 @@
 
 
 //私有api设置个人信息
-- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(BOOL)isFromThirdParty postNotification:(BOOL)isPostNotification {
+- (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(NSNumber *)isFromThirdParty postNotification:(BOOL)isPostNotification {
     
     UserProfile *userProfile = [[UserProfile alloc] init];
     [userProfile setValuesForKeysWithDictionary:jsonDictionary];
@@ -446,7 +446,7 @@
     
     NSMutableDictionary *userAccountDictionary = [NSMutableDictionary dictionary];
     
-    if (!isFromThirdParty) {
+    if ([isFromThirdParty isEqual:@0]) {//表示是普通登录
         
         //从磁盘中读取上次存储的数组
         NSMutableArray *userAccountArray = [NSMutableArray arrayWithArray:[Common readAppDataForKey:USER_ACCOUNT_ARRAY]];
@@ -528,7 +528,7 @@
                 NSDictionary *jsonDictionary = recvDic[@"value"];
                 
                     //设置个人信息
-                    [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:NO postNotification:YES];
+                    [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:@0 postNotification:YES];
                     
                     //登录凌云服务器
                     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {

@@ -17,7 +17,6 @@
     int count;
 }
 
-
 @property (nonatomic) NSTimer *timer;
 
 @property (nonatomic,assign)CGRect selectedTextFieldRect;
@@ -50,7 +49,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *promptLable;
 
-
 @end
 
 @implementation ThirdPartyLandingViewController
@@ -63,29 +61,25 @@
     if (self.isConceal) {
         
         self.temporarilyButton.hidden = YES;
-        
         self.loginSupView.hidden = YES;
-        
+    }
+    
+    if ([self.type isEqualToString:KEY_GUEST]) {//访客模式的时候只隐藏一个控件
+        self.loginSupView.hidden = YES;
     }
     
     [self.phoneNumber setDelegate:self];
-    
     [self.sms setDelegate:self];
-    
     [self.passWord setDelegate:self];
     
     self.textSubView.layer.borderWidth = 1.0;
-    
     self.textSubView.layer.borderColor = [UIColor colorWithRed:214.0/255 green:214.0/255.0 blue:214.0/255 alpha:1.0].CGColor;
     
     self.nextBtn.layer.cornerRadius = 6;
-    
     self.nextBtn.layer.masksToBounds = YES;
     
     self.loginTypeLable.text = self.type;
-    
     [self.loginImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
-
     self.loginName.text = self.name;
 }
 
@@ -95,59 +89,51 @@
     if ([Common isObjectNull:self.phoneNumber.text]) {
         
         [self showToast:@"手机号码不能为空"];
-        
         return;
     }
     
     if ([Common isObjectNull:self.sms.text]) {
         
         [self showToast:@"验证码不能为空"];
-        
         return;
     }
     
     if ([Common isObjectNull:self.passWord.text]) {
         
         [self showToast:@"密码不能为空"];
-        
         return;
     }
     
     if (!self.isConceal) {
         
-        if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+        if ([self.type isEqualToString:KEY_GUEST]) {//游客
             
-            [self showToast:@"第三方信息获取失败，请重新授权"];
             
-            return;
+        } else if ([self.type isEqualToString:@"QQ"] || [self.type isEqualToString:@"Sina"] || [self.type isEqualToString:@"WeChat"]) {//第三方登录
             
+            if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                [self showToast:@"第三方信息获取失败，请重新授权"];
+                return;
+            }
         }
-    
     }
     
-
     NSString *uid = self.uid;
-    
     NSString *name = self.name;
-    
     NSString *url = self.url;
-    
     NSString *type = self.type;
     
     if (self.isConceal) {
         
         uid = [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId];
-        
         name = STUserAccountHandler.userProfile.nickName;
-        
         url = STUserAccountHandler.userProfile.headImg;
-        
         type = nil;
-        
     }
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
         [STDataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:name accountNo:uid password:self.passWord.text headImg:url type:type success:^(NSString *success) {
@@ -157,78 +143,57 @@
                 [self.dataHandler postSignInWithPassword:self.passWord.text
                                                loginName:self.phoneNumber.text
                                       isPostNotification:YES
-                                        isFromThirdParty:NO
+                                        isFromThirdParty:@0
                                                     type:nil
                                                  success:^(BOOL success) {
                                                      
-                                                     [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:NO];
-                                                     
-                                                     [Common removeAppDataForKey:@"type"];
+                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];
+                                                     [Common removeAppDataForKey:KEY_LOGIN_TYPE];
 
                                                      [self textFiledResignFirst];
-                                                     
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      
                                                      if (!self.isConceal) {
                                                          
                                                          [self.tabBarController setSelectedIndex:0];
-                                                         
                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                          
                                                      } else {
                                                          
                                                          [self.navigationController popViewControllerAnimated:YES];
-                                                         
                                                      }
 
                                                  } failure:^(NSError *error) {
                                                      
                                                      [self textFiledResignFirst];
-                                                     
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                     
                                                      [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-                                                     
                                                  }];
                 
             } else {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                
                     [self textFiledResignFirst];
-                    
                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                    
                     [self showToast:@"绑定/注册失败"];
-                
                 });
-                
             }
             
         } failure:^(NSError *error) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
                 [self showToast:@"服务器繁忙"];
-                
             });
-            
         }];
         
     } failure:^(NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-        
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
             [self showToast:@"验证失败"];
-        
         });
-        
     }];
-
 }
 
 #pragma mark - 暂不绑定
@@ -245,77 +210,71 @@
                 
             } else {
                 
-                if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                if ([self.type isEqualToString:KEY_GUEST]) {//游客
                     
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
-                    [self showToast:@"第三方信息获取失败，请重新授权"];
+                } else if ([self.type isEqualToString:@"QQ"] || [self.type isEqualToString:@"Sina"] || [self.type isEqualToString:@"WeChat"]) {//第三方登录
                     
-                    return;
-                    
+                    if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        [self showToast:@"第三方信息获取失败，请重新授权"];
+                        return;
+                    }
                 }
-                
+
                 [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
                     
                     if (success.boolValue) {
-                        
                         [self regist:self.uid];
-                        
                     }
                     
                 } failure:^(NSError *error) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                       
                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                        
                     });
-                    
                 }];
-                
             }
-            
         });
         
     } failure:^(NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         });
-        
     }];
-    
 }
 
 - (void)regist:(NSString *)loginName {
-
+    
+    NSNumber *number = @1;//默认是第三方登录
+    
+    if ([self.type isEqualToString:KEY_GUEST]) {
+        
+        number = @2;//访客登录
+    }
+    
     [self.dataHandler postSignInWithPassword:nil
                                    loginName:loginName
                           isPostNotification:YES
-                            isFromThirdParty:YES
+                            isFromThirdParty:number
                                         type:self.type
                                      success:^(BOOL success) {
                                          
-                                         [Common saveAppBoolDataForKey:@"isFromThirdParty" withObject:YES];
-                                         
+                                         [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];
                                          [Common saveAppDataForKey:@"type" withObject:self.type];
                                          
                                          [self textFiledResignFirst];
                                          
                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                         
                                          [self.tabBarController setSelectedIndex:0];
-                                         
                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                          
                                      } failure:^(NSError *error) {
                                          
                                          [self textFiledResignFirst];
-                                         
                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                         
                                          [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
                                          
                                      }];
@@ -342,9 +301,7 @@
         [self.phoneNumber resignFirstResponder];
         [self.passWord resignFirstResponder];
         [self.sms resignFirstResponder];
-        
         [self nextBtn:nil];
-    
     }
     
     return YES;
@@ -356,7 +313,6 @@
     if (self.phoneNumber.text == nil || [self.phoneNumber.text isEqualToString:@""]) {
         
         [self showToast:@"请输入手机号"];
-        
         return;
     }
 
@@ -366,18 +322,15 @@
                                        success:^(NSString *responseObject) {
                                            
                                            count = IdentityCount;
-                                           
                                            _smsBtn.enabled = NO;
-                                           
                                            [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
-                                           
                                            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
                                            
                                            //检查手机号是否已经注册
                                            [STDataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
                                                
                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                            
+                                                   
                                                    if (success.boolValue) {
                                                        
                                                        [self.promptLable setText:@"该手机号已被注册，继续操作将绑定至当前账号"];
@@ -387,25 +340,16 @@
                                                        
                                                        [self.promptLable setText:@"为了您的账号安全，建议您绑定手机号"];
                                                        [self.promptLable setTextColor:[UIColor blackColor]];
-                                                       
                                                    }
-                                                   
                                                });
-                                            
-                                               
                                            } failure:^(NSError *error) {
 
                                            }];
-                                           
-                                           
                                        } failure:^(NSString *error) {
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                               
                                                [self showToast:error];
-                                               
                                            });
-
                                        }];
 }
 
@@ -428,11 +372,6 @@
     }
 }
 
-- (void)back {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -441,17 +380,13 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 
     [self textFiledResignFirst];
-
 }
 
 - (void)textFiledResignFirst {
 
     [self.phoneNumber resignFirstResponder];
-    
     [self.sms resignFirstResponder];
-    
     [self.passWord resignFirstResponder];
-
 }
 
 /*
