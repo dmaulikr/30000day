@@ -10,12 +10,16 @@
 
 @interface SportInformationModel : NSObject
 
-@property (nonatomic,assign) NSInteger stepNumber; //步数
+@property (nonatomic,strong) NSNumber *lastMaxID; //唯一标示
 
-@property (nonatomic,assign) CGFloat distance; //运动距离
+@property (nonatomic,strong) NSNumber *userId; //用户ID
 
-@property (nonatomic,assign) CGFloat calorie;  //消耗的卡路里
+@property (nonatomic,strong) NSNumber *stepNumber; //步数
 
-@property (nonatomic,assign) NSInteger time; //运动时间
+@property (nonatomic,strong) NSNumber *distance; //运动距离
+
+@property (nonatomic,strong) NSNumber *calorie;  //消耗的卡路里
+
+@property (nonatomic,strong) NSNumber *time; //运动时间
 
 @end

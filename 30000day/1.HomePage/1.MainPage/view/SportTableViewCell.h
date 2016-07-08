@@ -7,11 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SportInformationModel.h"
 
 @interface SportTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
 
 @property (nonatomic,copy) void (^buttonBlock)(UIButton *);
+
+
+
+@property (weak, nonatomic) IBOutlet UILabel *distanceLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *stepNumberLable;
+
+@property (weak, nonatomic) IBOutlet UILabel *calorieLable;
+
+@property (nonatomic,strong) SportInformationModel *sportInformationModel;
 
 @end

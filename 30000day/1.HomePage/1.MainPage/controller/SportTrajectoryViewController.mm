@@ -14,6 +14,7 @@
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>//引入计算工具所有的头文件
 #import "MotionData.h"
 #import "SportInformationModel.h"
+#import "SportInformationTableManager.h"
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate>
 
@@ -36,8 +37,6 @@
 @property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
 
 @property (nonatomic,strong) MotionData *motionData;
-
-@property (nonatomic,strong) SportInformationModel *sportModel;
 
 
 @property (nonatomic,strong) UIView *belowView;
@@ -72,21 +71,31 @@
 //获取上次运动步数
 - (void)getLastTimeStepCount {
     
-    self.sportModel = [[SportInformationModel alloc] init];
-    
     MotionData *mdata = [[MotionData alloc]init];
     
     self.motionData = mdata;
     
-    [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+    [mdata getHealtHequipmentWhetherSupport:^(BOOL scs) {
         
-        self.lastTimeStepNumber = birthString.integerValue;
+        if (scs) {
+            
+            [mdata getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                
+                self.lastTimeStepNumber = birthString.integerValue;
+                
+            } failure:^(NSError *error) {
+                
+                
+            }];
+            
+        }
         
     } failure:^(NSError *error) {
         
-        NSLog(@"获取上次步数失败");
         
     }];
+    
+
     
 }
 
@@ -382,28 +391,75 @@
     
     if (!sender.tag) {  //结束
         
-        [self over];
-        
-        [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
+        [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
             
-            NSInteger stepNumber = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
-            
-            self.sportModel.stepNumber = stepNumber;
-            
-            CGFloat distance = self.sumDistance / 1000.0;
-            
-            CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
-            
-            self.sportModel.calorie = calorie;
-            
-            self.sportModel.time = self.timerInt;
+            if (scs) {
+                
+                [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                    
+                    SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
+                    
+                    SportInformationModel *sportModel = [[SportInformationModel alloc] init];
+                    
+                    
+                    NSString* file = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+                    
+                    NSMutableDictionary* datalist = [[NSMutableDictionary alloc] initWithContentsOfFile:file];
+                    
+                    NSInteger lastMaxID = [datalist[@"lastMaxID"] integerValue];
+                    
+                    lastMaxID++;
+                    
+                    NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
+                    
+                    [datalist setValue:lastMaxIDNumber forKey:@"lastMaxID"];
+                    
+                    [datalist writeToFile:file atomically:YES];
+                    
+                    
+                    sportModel.lastMaxID = lastMaxIDNumber;
+                    
+                    sportModel.userId = STUserAccountHandler.userProfile.userId;
+                    
+                    
+                    NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
+                    
+                    NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
+                    
+                    sportModel.stepNumber = stepNumber;
+                    
+                    
+                    CGFloat distance = self.sumDistance / 1000.0;
+                    
+                    CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
+                    
+                    NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
+                    
+                    sportModel.calorie = calorieNumber;
+                    
+                    
+                    NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
+                    
+                    sportModel.time = timeNumber;
+                    
+                    
+                    [SFTable insertSportInformation:sportModel];
+                    
+                    
+                    [self over];
+                    
+                    
+                } failure:^(NSError *error) {
+                    
+                    
+                }];
+                
+            }
             
         } failure:^(NSError *error) {
-            
-            NSLog(@"获取步数失败");
+        
             
         }];
-        
         
     } else {  //关闭页面
         

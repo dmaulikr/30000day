@@ -680,6 +680,10 @@
 		F57A23F91D24C73400FBEF7C /* ShareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57A23F71D24C73400FBEF7C /* ShareTableViewCell.xib */; };
 		F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */; };
 		F58362BF1D2A49DE0040E673 /* SportTrajectoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */; };
+		F5A371981D2F882F007FFB90 /* SportInformation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5A371961D2F882F007FFB90 /* SportInformation.xcdatamodeld */; };
+		F5A3719D1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3719A1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m */; };
+		F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3719C1D2F8C3B007FFB90 /* SportInformationTable.m */; };
+		F5A371A11D2F8CA8007FFB90 /* SportInformationTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
 		F5C6112E1D1BB78E00EBB8AE /* NewFriendsHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5C6112D1D1BB78E00EBB8AE /* NewFriendsHeadView.xib */; };
@@ -1868,6 +1872,13 @@
 		F58362BB1D2A49DE0040E673 /* SportTrajectoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTrajectoryViewController.h; sourceTree = "<group>"; };
 		F58362BC1D2A49DE0040E673 /* SportTrajectoryViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SportTrajectoryViewController.mm; sourceTree = "<group>"; };
 		F58362BD1D2A49DE0040E673 /* SportTrajectoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportTrajectoryViewController.xib; sourceTree = "<group>"; };
+		F5A371971D2F882F007FFB90 /* SportInformation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SportInformation.xcdatamodel; sourceTree = "<group>"; };
+		F5A371991D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SportInformationTable+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F5A3719A1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SportInformationTable+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F5A3719B1D2F8C3B007FFB90 /* SportInformationTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportInformationTable.h; sourceTree = "<group>"; };
+		F5A3719C1D2F8C3B007FFB90 /* SportInformationTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportInformationTable.m; sourceTree = "<group>"; };
+		F5A3719F1D2F8CA8007FFB90 /* SportInformationTableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportInformationTableManager.h; sourceTree = "<group>"; };
+		F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportInformationTableManager.m; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
 		F5C611261D1BAEED00EBB8AE /* NewFriendsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFriendsHeadView.h; sourceTree = "<group>"; };
@@ -3406,6 +3417,13 @@
 				B808FB561C7718D20000449C /* UserLifeModel.h */,
 				F5CF8A921D2E431D00564756 /* SportInformationModel.h */,
 				F5CF8A931D2E431D00564756 /* SportInformationModel.m */,
+				F5A371961D2F882F007FFB90 /* SportInformation.xcdatamodeld */,
+				F5A371991D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.h */,
+				F5A3719A1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m */,
+				F5A3719B1D2F8C3B007FFB90 /* SportInformationTable.h */,
+				F5A3719C1D2F8C3B007FFB90 /* SportInformationTable.m */,
+				F5A3719F1D2F8CA8007FFB90 /* SportInformationTableManager.h */,
+				F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5171,6 +5189,7 @@
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
 				F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
+				F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				F54BBC141D20CEBF00556B6D /* QuickResponseCodeViewController.m in Sources */,
 				B8FD3E0C1C8A7903007BCA6B /* SETextLayout.m in Sources */,
@@ -5227,6 +5246,7 @@
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
 				B8FD3ADC1C852C79007BCA6B /* ChangePasswordProtectViewController.m in Sources */,
+				F5A371A11D2F8CA8007FFB90 /* SportInformationTableManager.m in Sources */,
 				B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */,
 				B8365A5B1C71DFA000063269 /* AddressBookModel.m in Sources */,
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
@@ -5277,6 +5297,7 @@
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
+				F5A3719D1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m in Sources */,
 				B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
 				F5D146141D260E620067B7D1 /* PersonScrollViewController.m in Sources */,
@@ -5308,6 +5329,7 @@
 				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
 				B8F2DA151C5F3448002C7712 /* STBaseViewController.m in Sources */,
+				F5A371981D2F882F007FFB90 /* SportInformation.xcdatamodeld in Sources */,
 				B86EFC201D0D586F007A2108 /* MCPhotographyHelper.m in Sources */,
 				B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */,
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
@@ -5669,6 +5691,16 @@
 			);
 			currentVersion = B8FCA7B71D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodel */;
 			path = CDMediaMessageStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		F5A371961D2F882F007FFB90 /* SportInformation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F5A371971D2F882F007FFB90 /* SportInformation.xcdatamodel */,
+			);
+			currentVersion = F5A371971D2F882F007FFB90 /* SportInformation.xcdatamodel */;
+			path = SportInformation.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -9,8 +9,14 @@
 #import "SportTableViewController.h"
 #import "SportTableViewCell.h"
 #import "SportTrajectoryViewController.h"
+#import "SportInformationTableManager.h"
+#import "SportInformationModel.h"
 
 @interface SportTableViewController () <UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) NSArray *modelArray;
+
+@property (nonatomic,strong) SportInformationTableManager *SFTable;
 
 @end
 
@@ -34,13 +40,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.modelArray = [NSArray array];
+    
+    self.SFTable = [[SportInformationTableManager alloc] init];
+    
+    self.modelArray = [self.SFTable selectSportInformation:STUserAccountHandler.userProfile.userId];
 
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 1;
+    return 2;
 
 }
 
@@ -52,7 +64,7 @@
         
     } else {
     
-        return 1;
+        return self.modelArray.count;
     }
 
 }
@@ -79,29 +91,53 @@
         
     }
     
-    return 44;
+    return 54;
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportTableViewCell"];
+    if (indexPath.section == 0) {
+        
+        SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportTableViewCell"];
+        
+        if (!cell) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][0];
+            
+        }
+        
+        [cell setButtonBlock:^(UIButton *btn) {
+            
+            SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+            
+            [self.navigationController presentViewController:controller animated:YES completion:nil];
+            
+        }];
+        
+        return cell;
+        
+    } else {
+        
+        SportInformationModel *model = self.modelArray[indexPath.row];
     
-    if (!cell) {
+        SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportInformationCell"];
         
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil] lastObject];
+        if (!cell) {
+            
+            cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][1];
+            
+        }
         
+        cell.sportInformationModel = model;
+        
+        return cell;
+    
     }
     
-    [cell setButtonBlock:^(UIButton *btn) {
-       
-        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
-        
-        [self.navigationController presentViewController:controller animated:YES completion:nil];
-        
-    }];
+
     
-    return cell;
+    return nil;
 
 }
 

@@ -135,5 +135,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>lastMaxID</key>
+	<integer>1</integer>
 </dict>
 </plist>
