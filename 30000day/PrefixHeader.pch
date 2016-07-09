@@ -73,7 +73,7 @@
 
 #define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
 
-#define ISFROMTHIRDPARTY              @"isFromThirdParty"    //是否是第三方登陆
+//#define ISFROMTHIRDPARTY              @"isFromThirdParty"    //是否是第三方登陆
 
 #define BADGE_NUMBER                  @"badge_number"        //自己人的角标
 
@@ -104,9 +104,8 @@
 #define  KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登录
 #define  KEY_LOGIN_TYPE                @"type"                //登录类型     QQ、Sina、WeChat、guest
 #define  KEY_SIGNIN_USER_UID           @"uid"                 //用户登录的UID
-#define  KEY_GUEST                     @"guest"              //游客模式
+#define  KEY_GUEST                     @"guest"               //游客模式
 #define  USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
-
 
 #define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
 

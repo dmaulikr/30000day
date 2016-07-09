@@ -157,6 +157,7 @@
                                                          
                                                          [self.tabBarController setSelectedIndex:0];
                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                         [self.navigationController popViewControllerAnimated:NO];
                                                          
                                                      } else {
                                                          
@@ -270,6 +271,7 @@
                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                          [self.tabBarController setSelectedIndex:0];
                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                         [self.navigationController popViewControllerAnimated:NO];
                                          
                                      } failure:^(NSError *error) {
                                          

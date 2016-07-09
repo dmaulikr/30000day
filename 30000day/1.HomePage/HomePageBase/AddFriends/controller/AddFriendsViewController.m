@@ -19,6 +19,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "ShareTableViewCell.h"
+#import "ThirdPartyLandingViewController.h"
 
 @interface AddFriendsViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -126,26 +127,57 @@
     }
 }
 
+//前往绑定控制器
+- (void)pushBindController {
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"该功能需要绑定手机，是否去绑定？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
+        controller.type = KEY_GUEST;
+        controller.name = STUserAccountHandler.userProfile.nickName;
+        controller.uid = [Common keyChainValue];
+        controller.url = STUserAccountHandler.userProfile.headImg;
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [controller addAction:action];
+    [controller addAction:cancelAction];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         
-        SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-    
+        if ([Common isVisit]) {
+            [self pushBindController];
+        } else {
+            SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+
     } else if(indexPath.section == 1) {
         
-        MailListViewController *controller = [[MailListViewController alloc] init];
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
+        if ([Common isVisit]) {
+            [self pushBindController];
+        } else {
+            MailListViewController *controller = [[MailListViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
         
     } else if (indexPath.section == 2) {
-    
-        QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
-        QRController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:QRController animated:YES];
-    
+        
+        if ([Common isVisit]) {
+            [self pushBindController];
+        } else {
+            QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
+            QRController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:QRController animated:YES];
+        }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
