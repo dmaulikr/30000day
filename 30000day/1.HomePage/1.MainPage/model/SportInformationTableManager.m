@@ -101,6 +101,8 @@
         
         SportInformationModel *model = [[SportInformationModel alloc] init];
         
+        model.lastMaxID = [obj valueForKey:@"lastMaxID"];
+        
         model.userId = [obj valueForKey:@"userId"];
         
         model.stepNumber = [obj valueForKey:@"stepNumber"];

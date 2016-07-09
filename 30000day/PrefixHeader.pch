@@ -85,6 +85,8 @@
 
 #define DAYS_AGE                      @"Days_age"             //用户当前天龄
 
+#define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
+
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height

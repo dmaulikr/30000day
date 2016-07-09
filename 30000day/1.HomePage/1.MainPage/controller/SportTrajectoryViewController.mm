@@ -272,13 +272,14 @@
     
     self.mapView.centerCoordinate = userLocation.location.coordinate;
     
-    // 2. 将符合的位置点存储到数组中
-    [self.locationArrayM addObject:userLocation.location];
-    
-    self.preLocation = userLocation.location;
-    
     // 计算本次定位数据与上次定位数据之间的距离
-    //CGFloat distance = [userLocation.location distanceFromLocation:self.preLocation];
+    CGFloat distanceFloat = [userLocation.location distanceFromLocation:self.preLocation];
+    
+    // (5米门限值，存储数组划线) 如果距离少于 5 米，则忽略本次数据直接返回该方法
+    if (distanceFloat < 5) {
+        NSLog(@"与前一更新点距离小于5m，直接返回该方法");
+        return;
+    }
     
     // 累加步行距离
     CGFloat distance = self.sumDistance / 1000.0;
@@ -292,6 +293,11 @@
     self.distanceLable.text = [NSString stringWithFormat:@"%@",num];
     
     self.sumDistance += 5;
+    
+    // 2. 将符合的位置点存储到数组中
+    [self.locationArrayM addObject:userLocation.location];
+    
+    self.preLocation = userLocation.location;
     
     [self drawWalkPolyline];
 
@@ -314,6 +320,10 @@
     // 动态分配存储空间
     // BMKMapPoint是个结构体：地理坐标点，用直角地理坐标表示 X：横坐标 Y：纵坐标
     BMKMapPoint *tempPoints = new BMKMapPoint[count];
+    
+    [self.locationArrayM enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+    }];
     
     // 遍历数组
     [self.locationArrayM enumerateObjectsUsingBlock:^(CLLocation *location, NSUInteger idx, BOOL *stop) {
@@ -357,110 +367,116 @@
 //点击结束
 - (void)startClick:(UIButton *)sender {
     
-    //    if (!sender.tag) {  //开始
-    //
-    //        [self.service startUserLocationService];
-    //
-    //        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
-    //
-    //        sender.tag = 1;
-    //
-    //        self.startLable.text = @"结束";
-    //
-    //    } else {  //结束
-    //
-    //        [self.service stopUserLocationService];
-    //
-    //        [self.timer invalidate];
-    //
-    //        [self.locationArrayM removeAllObjects];
-    //
-    //        self.preLocation = nil;
-    //
-    //        self.polyLine = nil;
-    //
-    //        self.sumDistance = 0;
-    //
-    //        self.timerInt = 0;
-    //
-    //        sender.tag = 0;
-    //
-    //        self.startLable.text = @"开始";
-    //
-    //    }
-    
     if (!sender.tag) {  //结束
         
-        [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
-            
-            if (scs) {
-                
-                [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
-                    
-                    SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
-                    
-                    SportInformationModel *sportModel = [[SportInformationModel alloc] init];
-                    
-                    
-                    NSString* file = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
-                    
-                    NSMutableDictionary* datalist = [[NSMutableDictionary alloc] initWithContentsOfFile:file];
-                    
-                    NSInteger lastMaxID = [datalist[@"lastMaxID"] integerValue];
-                    
-                    lastMaxID++;
-                    
-                    NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
-                    
-                    [datalist setValue:lastMaxIDNumber forKey:@"lastMaxID"];
-                    
-                    [datalist writeToFile:file atomically:YES];
-                    
-                    
-                    sportModel.lastMaxID = lastMaxIDNumber;
-                    
-                    sportModel.userId = STUserAccountHandler.userProfile.userId;
-                    
-                    
-                    NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
-                    
-                    NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
-                    
-                    sportModel.stepNumber = stepNumber;
-                    
-                    
-                    CGFloat distance = self.sumDistance / 1000.0;
-                    
-                    CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
-                    
-                    NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
-                    
-                    sportModel.calorie = calorieNumber;
-                    
-                    
-                    NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
-                    
-                    sportModel.time = timeNumber;
-                    
-                    
-                    [SFTable insertSportInformation:sportModel];
-                    
-                    
-                    [self over];
-                    
-                    
-                } failure:^(NSError *error) {
-                    
-                    
-                }];
-                
-            }
-            
-        } failure:^(NSError *error) {
+//        CGFloat distance = self.sumDistance / 1000.0;
+//        
+//        if (distance < 0.1) {
+//            
+//            [self over];
+//            
+//            return;
+//        }
         
+        
+        NSString *alertTitleString = @"是否保存?";
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitleString message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
+                
+                if (scs) {
+                    
+                    [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                        
+                        SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
+                        
+                        SportInformationModel *sportModel = [[SportInformationModel alloc] init];
+                        
+                        
+                        NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
+                        
+                        if (!lastMaxID) {
+                            
+                            lastMaxID = 1;
+                            
+                        } else {
+                            
+                            lastMaxID ++;
+                            
+                        }
+                        
+                        [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
+                        
+                        
+                        NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
+                        
+                        sportModel.lastMaxID = lastMaxIDNumber;
+                        
+                        sportModel.userId = STUserAccountHandler.userProfile.userId;
+                        
+                        
+                        NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
+                        
+                        NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
+                        
+                        sportModel.stepNumber = stepNumber;
+                        
+                        
+                        CGFloat distance = self.sumDistance / 1000.0;
+                        
+                        CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
+                        
+                        NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
+                        
+                        sportModel.calorie = calorieNumber;
+                        
+                        
+                        NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
+                        
+                        sportModel.time = timeNumber;
+                        
+                        
+//                        [self.locationArrayM enumerateObjectsUsingBlock:^(CLLocation *location, NSUInteger idx, BOOL *stop) {
+//                            BMKMapPoint locationPoint = BMKMapPointForCoordinate(location.coordinate);
+//                            tempPoints[idx] = locationPoint;
+//                        }];
+                        
+                        
+                        [SFTable insertSportInformation:sportModel];
+                        
+                        
+                        [self over];
+                        
+                        
+                    } failure:^(NSError *error) {
+                        
+                        
+                    }];
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                
+            }];
             
         }];
         
+        UIAlertAction *CancelAlertAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self over];
+            
+        }];
+        
+        [alert addAction:alertAction];
+        
+        [alert addAction:CancelAlertAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    
     } else {  //关闭页面
         
         [self colseView];
@@ -496,6 +512,9 @@
 
 
 - (void)colseView {
+    
+    //发送通知刷新历史记录
+    [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

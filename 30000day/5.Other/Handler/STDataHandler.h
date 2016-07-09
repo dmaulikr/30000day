@@ -57,6 +57,8 @@ static NSString *const STDidSuccessQuitGroupChatSendNotification = @"STDidSucces
 static NSString *const STDidSuccessGroupChatSettingSendNotification = @"STDidSuccessGroupChatSettingSendNotification";
 //从后台进入前台发送通知刷新主页
 static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSuccessEnterForegroundSendNotification";
+//运动结束后发送通知刷新历史记录
+static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuccessSportInformationSendNotification";
 
 @class STNetError;
 @class WeatherInformationModel;

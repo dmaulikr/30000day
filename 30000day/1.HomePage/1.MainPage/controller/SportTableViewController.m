@@ -27,6 +27,8 @@
     
     self.title = @"开始跑步";
     
+    [self refurbish];
+    
     self.tableViewStyle = STRefreshTableViewGroup;
     
     self.tableView.dataSource = self;
@@ -36,17 +38,21 @@
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     [self showHeadRefresh:NO showFooterRefresh:NO];
+    
+    //刷新运动历史记录
+    [STNotificationCenter addObserver:self selector:@selector(refurbish) name:STDidSuccessSportInformationSendNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+- (void)refurbish {
+
     self.modelArray = [NSArray array];
     
     self.SFTable = [[SportInformationTableManager alloc] init];
     
     self.modelArray = [self.SFTable selectSportInformation:STUserAccountHandler.userProfile.userId];
-
+    
+    [self.tableView reloadData];
+    
 }
 
 
@@ -95,6 +101,38 @@
 
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 1) {
+        
+        return YES;
+        
+    }
+    
+    return NO;
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        SportInformationModel *model = self.modelArray[indexPath.row];
+        
+        [self.SFTable deleteSportInformation:model.lastMaxID];
+        
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.modelArray];
+        
+        [array removeObjectAtIndex:indexPath.row];
+        
+        self.modelArray = array;
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (indexPath.section == 0) {
@@ -135,9 +173,13 @@
     
     }
     
-
-    
     return nil;
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 
