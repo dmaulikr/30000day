@@ -125,24 +125,21 @@
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                             
                                                 [self showToast:@"注册成功"];
+                                                [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];
+                                                [Common removeAppDataForKey:KEY_LOGIN_TYPE];
                                                 
                                                 [self.tabBarController setSelectedIndex:0];
-                                                
                                                 [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                
                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                            
+                                                
                                             });
                                            
                                         }
                                         failure:^(NSError *error) {
                                             
                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                            
                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                
                                                 [self showToast:@"注册失败"];
-                                            
                                             });
                                             
                                         }];

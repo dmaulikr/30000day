@@ -567,7 +567,6 @@
         
         failure(error);
     }];
-    
 }
 
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
