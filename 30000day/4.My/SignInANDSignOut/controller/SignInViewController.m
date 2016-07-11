@@ -138,7 +138,7 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToSina];
-                [self sendCheckBindWithAccountNo:snsAccount.usid type:@"Sina" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
+                [self sendCheckBindWithAccountNo:snsAccount.usid type:KEY_SINA name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
             }
         });
         
@@ -150,7 +150,7 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
-                [self sendCheckBindWithAccountNo:snsAccount.usid type:@"QQ" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
+                [self sendCheckBindWithAccountNo:snsAccount.usid type:KEY_QQ name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
             }});
         
         
@@ -162,12 +162,11 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
-                [self sendCheckBindWithAccountNo:snsAccount.usid type:@"WeChat" name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
+                [self sendCheckBindWithAccountNo:snsAccount.usid type:KEY_WECHAT name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
             }
         });
         
     } else if (button.tag == 5) {//访客模式
-        
         [self sendCheckBindWithAccountNo:[Common keyChainValue] type:KEY_GUEST name:@"访客" url:nil uid:[Common keyChainValue]];
     }
 }
@@ -183,7 +182,7 @@
             if ([type isEqualToString:KEY_GUEST]) {//@2
                 number = @2;
             }
-            
+    
             [self.dataHandler postSignInWithPassword:nil
                                            loginName:uid
                                   isPostNotification:YES

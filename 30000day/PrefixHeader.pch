@@ -38,244 +38,151 @@
 #   define DLog(...)
 #endif
 
+//http://121.196.223.175:8082 测试阿里服务器地址
+//http://121.196.223.175:8081 正式阿里服务器地址
+#define  ST_API_SERVER                @"http://121.196.223.175:8082"
+
+//聚合宏
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
-
 #define jhOpenID @"JHcac3a9be7b4f37a04bebb4b9bf5414eb"
-
 #define jhPath @"http://op.juhe.cn/onebox/weather/query"
-
 #define jhAppID @"73"
-
 #define jhMethod @"GET"
 
-
 #define HfKey @"d59235dcc0cdba44315057783faa0c18"
-
 #define HfPath @"http://apis.baidu.com/heweather/weather/free"
-
 #define HfMethod @"GET"
-
 
 //好友进度条圈圈的厚度
 #define FriendProgressHeight 3
-
 #define maxSelectDateTime 2050
-
 #define minSelectDateTime 1900
 
 #define SHOWLABLETYPE                 @"ShowLabelType"       //表示用户当前显示的是那种天龄
-
 #define IS_BIG_PICTUREMODEL           @"isBigPictureModel"   //是否是大图模式,0列表,1大图
-
 #define USER_CHOOSE_AGENUMBER         [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId]  //当前用户所选择的ID
-
 #define FRIENDVALIDATION              @"FriendValidation"    //添加好友验证开关Key
-
 #define FACTORVERIFICATION            @"FactorVerification"  //完善健康因素密码验证
 
-//#define ISFROMTHIRDPARTY              @"isFromThirdParty"    //是否是第三方登陆
-
 #define BADGE_NUMBER                  @"badge_number"        //自己人的角标
-
 #define HIGH_ALERT                    @"HIGH_ALERT"           //高寿年龄提醒
-
 #define COUNTDOWN                     @"count_Down"           //倒计时
-
 #define DEFEATDATA                    @"Defeat_Data"          //击败多少用户
-
 #define DAYS_AGE                      @"Days_age"             //用户当前天龄
-
 #define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
 
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
-
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height
-
 #define RGBACOLOR(R,G,B,A)            [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
-
 #define VIEWBORDERLINECOLOR           [UIColor colorWithRed:208.0/255 green:208.0/255 blue:208.0/255 alpha:1.0]
-
 #define LOWBLUECOLOR                  RGBACOLOR(104,149,232,1)
 
 #define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
 
 #define  KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
 #define  KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
-#define  KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登录  0表示普通模式  1表示第三方登录 2表示访客
-#define  KEY_LOGIN_TYPE                @"type"                //登录类型     QQ、Sina、WeChat、guest
-#define  KEY_SIGNIN_USER_UID           @"uid"                 //用户登录的UID
-#define  KEY_GUEST                     @"guest"               //游客模式
 #define  USER_ACCOUNT_ARRAY            @"USER_ACCOUNT_ARRAY"  //存储用户曾经登录的账户(这是个数组)
+#define  KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登录  0表示普通模式  1表示第三方登录 2表示访客
+#define  KEY_SIGNIN_USER_UID           @"uid"                 //用户登录的UID
+#define  KEY_LOGIN_TYPE                @"type"                //登录类型     QQ、Sina、WeChat、guest
+#define  KEY_QQ                        @"QQ"                  //QQ
+#define  KEY_SINA                      @"SinaWeibo"           //新浪
+#define  KEY_WECHAT                    @"Wechat"              //微信
+#define  KEY_GUEST                     @"guest"               //游客模式
+
 
 #define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
-
 #define FIRSTSTART                    @"FirstStart"          //第一次登录
-
 #define FIRSTSTARTINTRODUCE           @"FirstStartIntroduce" //第一次登录
-
 #define FIRSTSTARTHKHEALTHSTORE       @"FirstStartHKHealthStore" //第一次运动信息授权
 
+
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
-
 #define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
-
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-#define STAppDelegate                 (AppDelegate *)[UIApplication sharedApplication].delegate
-
-#define  ST_API_SERVER                @"http://121.196.223.175:8082"
-//http://121.196.223.175:8082 测试阿里服务器地址
-//http://121.196.223.175:8081 正式阿里服务器地址
 
 #define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
-
 #define  GET_MY_FRIENDS               @"/stapi/friend/getMyFriends"                  //获取用户好友
-
 #define  SEARCH_USER                  @"/stapi/search/searchUser"                    //搜索用户
-
 #define  ADD_USER                     @"/stapi/user/jpush"                           //极光推送添加好友
-
 #define  REGISTER                     @"/stapi/user/register"                        //注册
-
 #define  GET_SMS_CODE                 @"/stapi/mobile/sendMobileCode"                //获取短信验证码
-
 #define  VALIDATE_SMS_CODE            @"/stapi/mobile/validateMobileCode"            //验证短信验证码
-
 #define  GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
-
 #define  GET_FACTORS                  @"/stapi/factor/getFactor"                    //获取健康因子
-
 #define  GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
-
 #define  GET_USER_FACTORS             @"/stapi/factor/getUserFactor"                 //获取某人的健康因子
-
 #define  SAVE_USER_FACTORS            @"/stapi/factor/setUserFactor"                 //保存某一个人的健康因子
-
 #define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
-
 #define  UPDATE_USER_PASSWORD_BYMOBILE         @"/stapi/password/uptUserPwdByMobile"                    //修改密码
-
 #define  GET_USERID_BY_NAME           @"/stapi/userInfo/getUserIdByName"              //通过用户名获取userId
-
 #define  GET_SECURITY_QUESTION        @"/stapi/security/getUserSecurity"              //获取个人密保问题
-
 #define  GET_SECURITY_QUESTION_SUM    @"/stapi/security/getSecurityData"              //获取所有密保问题
-
 #define  GET_SECURITY_QUESTION_VERIFICATION    @"/stapi/security/valUserSecurity"              //验证个人密保问题
-
 #define  GET_SECURITY_QUESTION_UPTUSERPWDBYSECU   @"/stapi/password/uptUserPwdBySecu"              //验证个人密保问题
-
 #define  CHANGE_PASSWORD                @"/stapi/password/uptUserPwdById"                      //修改密码
-
 #define  UPDATE_USER_SECURITY           @"/stapi/security/setUserSecurity"                      //修改密码
-
 #define  UPDATE_USER_SENDEMAIL           @"/stapi/bind/sendEmail"                               //绑定邮箱
-
 #define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
 
 
 #define  GET_COMPANY_LIST           @"/stapi/market/findProductList"      //获取所有的公司列表
-
 #define  GET_COMPANYDETAILS         @"/stapi/market/findProductInfo"      //获取商店详情
-
 #define  GET_LINE_LIST               @"/stapi/market/findLineList"         //获取城市地铁线路
-
 #define GET_PLACE_TREE_LIST          @"/stapi/market/findRegionTreeList"   //获取所有的树状的地址
-
 #define  GET_FINDCOMMENTLIST         @"/stapi/user/findCommentList"       //获取商品评论
-
 #define  GET_SHOP_LIST               @"/stapi/market/findProductList"     //获取所有的商品列表
-
 #define GET_SEARCH_LIST              @"/stapi/search/searchProduct"       //搜索商品列表
-
 #define  SAVE_COMMENT                @"/stapi/user/saveComment"           //评论
-
 #define  SAVE_POINTPRAISEORCANCEL    @"/stapi/user/pointPraiseOrCancel"   //点赞
-
 #define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/stapi/user/findDefaultCommentList"   //商品详情评论
-
 #define  GET_SEARCHTABLEVERSIION      @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
-
 #define  GET_SHOPOWNERRECOMMEND       @"/stapi/market/shopOwnerRecommend"    //店长推荐
-
 #define  GET_PLATFORMRECOMMEND        @"/stapi/market/platformRecommend"    //平台推荐
-
 #define  GET_FINDCOMOANYINFO          @"/stapi/market/findCompanyInfoById"    //商店
-
 #define  GET_FINDPRODUCTSBYIDS        @"/stapi/market/findProductsByIds"      //商店下的商品
-
 #define  GET_ORDER_SEARCH_COUNT       @"/stapi/order/searchCourts"            //获取产品
-
 #define  COMMIT_ORDER_COURTS          @"/stapi/order/commitReservedCourts"    //提交订单
-
 #define  CALCULATE_PRICE              @"/stapi/order/calculateFee"            //计算价格
-
 #define  GET_ORDER_LIST               @"/stapi/order/searchUserOrders"       //获取订单
 
 #define  GET_ORDER_DETAIL             @"/stapi/order/getOrderDetail"         //获取订单详情
-
 #define  GET_SEARCH_MATIONS           @"/stapi/info/searchInfomations"         //获取资讯
-
 #define  GET_ORDER_CANCEL             @"/stapi/order/cancelOrders"             //取消订单
-
 #define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"       //资讯详情
-
 #define  SAVE_POINT                   @"/stapi/user/pointOrCancelPraise"       //资讯点赞
-
 #define  GET_SEARCH_WRITER            @"/stapi/info/searchWriterInfomations"   //作者主页
-
 #define  COMMIT_SUBSCRIBE             @"/stapi/info/subscribe"                  //订阅作者
-
 #define  COMMIT_CANCEL_SUBSCRIBE      @"/stapi/info/cancelSubscribe"            //取消订阅
-
 #define  GET_MY_SUBSCRIBE             @"/stapi/info/mySubscribe"                //我的订阅
-
 #define  GET_USER_INFORMATION         @"/stapi/user/getUserById"               //获取个人信息
-
 #define  GET_SEARCH_WRITER_LIST       @"/stapi/info/searchWriterList"           //搜索作者
 
 #define  UPDATE_STAT_USERLLFE         @"/stapi/life/updateUserFitness"          //更新用户天龄信息(步数,楼梯数)
-
 #define  GET_COMMENTS                 @"/stapi/user/searchComments"             //获取评论
-
 #define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"        //获取资讯资讯详情
-
 #define  SAVE_COMMENT_SUM             @"/stapi/user/saveComment"                //获取资讯资讯详情
-
 #define  GET_WRITER_LIST              @"/stapi/info/searchWriterListByType"     //根据类型获取作家列表
-
 #define  UPLOAD_IMAGES                @"/stapi/upload/uploadImages"             //上传图片
-
 #define  GET_DEFEAT_DATA              @"/stapi/life/getDefeatData"              //获取击败人数接口
-
 #define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
-
 #define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegistForThirdParty"     //绑定注册
-
 #define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
-
 #define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
-
 #define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdParty"    //检查是否已注册
-
 #define  REGIST_THIRDPARY             @"/stapi/user/registForThirdParty"         //注册第三方登录账号
-
 #define  CHECK_MOBILE                 @"/stapi/user/checkRegistForMobile"     //检查手机号是否已经注册
-
 #define  FIND_APPLY_ALL_ADD_FRIEND        @"/stapi/user/findApplyAddFriend"         //查找所有申请加我为好友记录
-
 #define  DELETE_APPLY_ADD_FRIEND          @"/stapi/user/rmvApplyAddFriend"          //删除一条申请加我为好友记录
-
 #define  CHECK_ADDRESS_BOOK          @"/stapi/user/checkAddressBook"            //检测通讯录
-
 #define  GET_DESCEND_FACTORS         @"/stapi/life/getLifeDescendFactors"       //获取用户天龄下降因素
-
 #define  GET_AGREEMENT               @"/stapi/info/getAgreement"                //免责条款及协议
 #define  SET_USER_FACTOR                 @"/stapi/factor/setUserFactorForUpdateUserInfo"//更新个人信息后需要调用的接口
 #define  CHECK_PASSWORD                  @"/stapi/user/checkPassword"              //检测密码是否正确
 #define  SET_FRIEND_SWITCH               @"/stapi/user/setFriendSwitch"            //添加加好友开关
 
-//凌云用到的宏
+//凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
 #define USER_ID                    @"userId"
 #define IMG_URL                    @"imgUrl"
@@ -291,10 +198,8 @@
 #define DRECT_TYPE                 @"Once, I'd found my best love, but I didn't treasure her!@#$%^235" //直接添加好友
 #define USER_BADGE_NUMBER          [NSString stringWithFormat:@"APPLY_%@",STUserAccountHandler.userProfile.userId]  //加好友+接受+直接添加
 
-
 #define INVALID_CONVERSATION       @"invalidConversation" //无效的对话
 #define THUMBNAIL_PHOTO_WIDTH      150.0f
-
 
 //本地推送所用到的宏
 #define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒

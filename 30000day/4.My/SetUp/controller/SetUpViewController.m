@@ -114,12 +114,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     
     BOOL isOn = switchView.isOn;
     
-    if (isOn) {
+    if (isOn) {//打开
         
         //打开 需要验证是否已经绑定
         NSInteger isFromThirdParty = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
 
-        if (isFromThirdParty == 1) {
+        if (isFromThirdParty == 1 || isFromThirdParty == 2) {
             
             //第三方登陆
             [STDataHandler sendcheckBindWithAccountNo:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userName] type:[Common readAppDataForKey:@"type"] success:^(NSString *success) {
@@ -163,7 +163,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                         return;
                     });
                 }
-                
             } failure:^(NSError *error) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -171,13 +170,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                 });
             }];
             
-        } else {
+        } else {//关闭
             
             //普通登陆
             NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
             
             if (userConfigure == nil) {
-            
                 userConfigure = [NSMutableDictionary dictionary];
             }
             
@@ -187,25 +185,21 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             
             return;
         }
+        
     } else {
+        
         //关闭  需要验证密码
-        
         FactorVerificationView *view = [[[NSBundle mainBundle] loadNibNamed:@"FactorVerificationView" owner:self options:nil] lastObject];
-        
         [view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
         [view.insertButton setTitle:@"确定" forState:UIControlStateNormal];
-        
         __weak FactorVerificationView *weakSelf = view;
-        
+    
         [view setButtonBlock:^(UIButton *button) {
             
             if ([Common isObjectNull:weakSelf.passWordTextFiled.text]) {
                 
                 [self showToast:@"密码不能为空"];
-                
                 return;
-                
             }
             
             [STDataHandler sendCheckPasswordWithUserId:STUserAccountHandler.userProfile.userId password:weakSelf.passWordTextFiled.text success:^(BOOL success) {
@@ -213,42 +207,31 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                 if (success) {
                     
                     [weakSelf removeFromSuperview];
-                    
                     NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
                     
                     if (userConfigure == nil) {
                         
                         userConfigure = [NSMutableDictionary dictionary];
-                        
                     }
                     
                     [userConfigure setObject:@(NO) forKey:FACTORVERIFICATION];
-                    
                     [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
-                    
                     [switchView setOn:NO];
                     
                 } else {
-                    
                     [self showToast:@"密码错误"];
-                    
                 }
                 
             } failure:^(NSError *error) {
                 
                 [self showToast:@"服务器繁忙"];
-                
             }];
-            
         }];
         
-        
         [[[UIApplication sharedApplication].delegate window] addSubview:view];
-
-}
+  }
 
     [switchView setOn:!isOn];
-
 }
 
 

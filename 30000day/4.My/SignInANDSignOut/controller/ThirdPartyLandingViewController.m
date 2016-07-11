@@ -109,7 +109,7 @@
         if ([self.type isEqualToString:KEY_GUEST]) {//游客
             
             
-        } else if ([self.type isEqualToString:@"QQ"] || [self.type isEqualToString:@"Sina"] || [self.type isEqualToString:@"WeChat"]) {//第三方登录
+        } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
             
             if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
                 
@@ -206,18 +206,16 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (success.boolValue) {
-                
                 [self regist:self.uid];
-                
             } else {
                 
                 NSString *type = nil;
                 
                 if ([self.type isEqualToString:KEY_GUEST]) {//游客
                     
-                    type = @"guest";
+                    type = KEY_GUEST;
                     
-                } else if ([self.type isEqualToString:@"QQ"] || [self.type isEqualToString:@"Sina"] || [self.type isEqualToString:@"WeChat"]) {//第三方登录
+                } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
                     
                     if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
                         
@@ -253,9 +251,7 @@
 - (void)regist:(NSString *)loginName {
     
     NSNumber *number = @1;//默认是第三方登录
-    
     if ([self.type isEqualToString:KEY_GUEST]) {
-        
         number = @2;//访客登录
     }
     
@@ -267,7 +263,7 @@
                                      success:^(BOOL success) {
                                          
                                          [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];
-                                         [Common saveAppDataForKey:@"type" withObject:self.type];
+                                         [Common saveAppDataForKey:KEY_GUEST withObject:self.type];
                                          
                                          [self textFiledResignFirst];
                                          
