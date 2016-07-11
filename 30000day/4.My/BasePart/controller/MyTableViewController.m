@@ -75,7 +75,7 @@
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:YES
                             isFromThirdParty:[NSNumber numberWithInteger:[Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY]]
-                                        type:[Common readAppDataForKey:@"type"]
+                                        type:[Common readAppDataForKey:KEY_LOGIN_TYPE]
                                      success:^(BOOL success) {
                                          
                                          //获取用户的email

@@ -130,7 +130,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                     NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
                     
                     if (userConfigure == nil) {
-                        
                         userConfigure = [NSMutableDictionary dictionary];
                     }
                     

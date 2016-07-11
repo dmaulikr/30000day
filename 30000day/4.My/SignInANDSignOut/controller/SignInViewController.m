@@ -161,7 +161,7 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToWechatSession];
                 [self sendCheckBindWithAccountNo:snsAccount.usid type:KEY_WECHAT name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
             }
         });
@@ -172,7 +172,7 @@
 }
 
 - (void)sendCheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL uid:(NSString *)uid {
-    
+    NSLog(@"%@-%@-%@-%@-%@",accountNo,type,userName,iconURL,uid);
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [STDataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
