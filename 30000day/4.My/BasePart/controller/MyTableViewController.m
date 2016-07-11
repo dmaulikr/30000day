@@ -444,26 +444,22 @@
         
         //***********退出登录  *****/
         [Common removeAppDataForKey:KEY_SIGNIN_USER_UID];
-        
         [Common removeAppDataForKey:KEY_SIGNIN_USER_NAME];
-        
         [Common removeAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
-    
+        [Common removeAppDataForKey:KEY_LOGIN_TYPE];
+        [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
+        
         [[CDChatManager sharedManager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
             
         }];
         
         //清空推送别名
         [JPUSHService setTags:nil alias:nil fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-            
             NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags, iAlias);
-            
         }];
         
         SignInViewController *logview = [[SignInViewController alloc] init];
-        
         STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-        
         [self presentViewController:navigationController animated:YES completion:nil];
         
     }]];
