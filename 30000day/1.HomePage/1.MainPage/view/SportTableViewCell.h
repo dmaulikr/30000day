@@ -15,6 +15,8 @@
 
 @property (nonatomic,copy) void (^buttonBlock)(UIButton *);
 
+@property (nonatomic,copy) void (^longPressBlock)();
+
 
 
 @property (weak, nonatomic) IBOutlet UILabel *distanceLable;
