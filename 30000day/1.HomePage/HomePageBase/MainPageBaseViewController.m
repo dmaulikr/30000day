@@ -19,7 +19,8 @@
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
-#define BUTTON_distance 20
+#define BUTTON_distance  (SCREEN_WIDTH - BUTTON_WIDTH * 3 - MARGIN * 2) / 2
+#define MARGIN 20
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -158,7 +159,8 @@
     
     
     SportTableViewController *sportTableViewController = [[SportTableViewController alloc] init];
-    [sportTableViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [sportTableViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [sportTableViewController.tableView setFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 75)];
     [self addChildViewController:sportTableViewController];
     [_scrollView addSubview:sportTableViewController.view];
     
@@ -200,11 +202,11 @@
 //    [self.buttonParentView addSubview:_personButton];
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1 + BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1 + BUTTON_distance + MARGIN, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
     _sportButton = [self buttonWithTitle:@"去跑步" numberAndTag:2];
-    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + BUTTON_distance + MARGIN * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_sportButton];
     
     
@@ -272,7 +274,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH + BUTTON_distance, 42, 65, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH + BUTTON_distance + curPageNo * MARGIN, 42, 65, 2)];
     }];
     
     [self buttonTitleChange:curPageNo];

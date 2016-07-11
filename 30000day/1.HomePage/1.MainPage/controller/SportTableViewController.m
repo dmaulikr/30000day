@@ -28,8 +28,6 @@
     
     self.title = @"开始跑步";
     
-    [self refurbish];
-    
     self.tableViewStyle = STRefreshTableViewGroup;
     
     self.tableView.dataSource = self;
@@ -40,8 +38,13 @@
     
     [self showHeadRefresh:NO showFooterRefresh:NO];
     
+    [self refurbish];
+    
     //刷新运动历史记录
     [STNotificationCenter addObserver:self selector:@selector(refurbish) name:STDidSuccessSportInformationSendNotification object:nil];
+    
+    //登录成功刷新
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 - (void)refurbish {
@@ -54,6 +57,12 @@
     
     [self.tableView reloadData];
     
+}
+
+- (void)reloadData {
+
+    [self refurbish];
+
 }
 
 
@@ -130,6 +139,9 @@
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
+        //发送通知刷新历史记录
+        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
+        
     }
     
 }
@@ -186,7 +198,7 @@
         
         SportInformationModel *model = self.modelArray[indexPath.row];
         
-        if (model.x == nil || model.y == nil) {
+        if ([Common isObjectNull:model.x] || [Common isObjectNull:model.y]) {
             
             [self showToast:@"无轨迹线路可查看"];
             

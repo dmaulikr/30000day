@@ -96,9 +96,6 @@
         
         
     }];
-    
-
-    
 }
 
 //加载地图
@@ -275,13 +272,13 @@
     self.mapView.centerCoordinate = userLocation.location.coordinate;
     
     // 计算本次定位数据与上次定位数据之间的距离
-    CGFloat distanceFloat = [userLocation.location distanceFromLocation:self.preLocation];
+    //CGFloat distanceFloat = [userLocation.location distanceFromLocation:self.preLocation];
     
     // (5米门限值，存储数组划线) 如果距离少于 5 米，则忽略本次数据直接返回该方法
-    if (distanceFloat < 5) {
-        NSLog(@"与前一更新点距离小于5m，直接返回该方法");
-        return;
-    }
+//    if (distanceFloat < 5) {
+//        NSLog(@"与前一更新点距离小于5m，直接返回该方法");
+//        return;
+//    }
     
     // 累加步行距离
     CGFloat distance = self.sumDistance / 1000.0;
@@ -296,7 +293,7 @@
     
     self.sumDistance += 5;
     
-    // 2. 将符合的位置点存储到数组中
+    //将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
     
     self.preLocation = userLocation.location;
@@ -366,16 +363,6 @@
 - (void)startClick:(UIButton *)sender {
     
     if (!sender.tag) {  //结束
-//        
-//        CGFloat distance = self.sumDistance / 1000.0;
-//        
-//        if (distance < 0.1) {
-//            
-//            [self over];
-//            
-//            return;
-//        }
-        
         
         NSString *alertTitleString = @"是否保存?";
         
@@ -383,106 +370,131 @@
         
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-            [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
+            if ([Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
                 
-                if (scs) {
+                [self showToast:@"保存失败，请重新登陆"];
+                
+                [self over];
+                
+            } else {
+                
+                [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+                [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
                     
-                    [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
+                    if (scs) {
                         
-                        SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
-                        
-                        SportInformationModel *sportModel = [[SportInformationModel alloc] init];
-                        
-                        
-                        NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
-                        
-                        if (!lastMaxID) {
+                        [self.motionData getHealthUserDateOfBirthCount:^(NSString *birthString) {
                             
-                            lastMaxID = 1;
+                            SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
                             
-                        } else {
+                            SportInformationModel *sportModel = [[SportInformationModel alloc] init];
                             
-                            lastMaxID ++;
                             
-                        }
-                        
-                        [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
-                        
-                        
-                        NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
-                        
-                        sportModel.lastMaxID = lastMaxIDNumber;
-                        
-                        sportModel.userId = STUserAccountHandler.userProfile.userId;
-                        
-                        
-                        NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
-                        
-                        NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
-                        
-                        sportModel.stepNumber = stepNumber;
-                        
-                        
-                        CGFloat distance = self.sumDistance / 1000.0;
-                        
-                        CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
-                        
-                        NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
-                        
-                        sportModel.calorie = calorieNumber;
-                        
-                        
-                        NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
-                        
-                        sportModel.time = timeNumber;
-                        
-                        NSString *x = nil;
-                        
-                        NSString *y = nil;
-                        
-                        for (int i = 0; i < self.locationArrayM.count; i++) {
+                            NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
                             
-                            CLLocation *location = self.locationArrayM[i];
+                            if (!lastMaxID) {
+                                
+                                lastMaxID = 1;
+                                
+                            } else {
+                                
+                                lastMaxID ++;
+                                
+                            }
                             
-                            x = [x stringByAppendingFormat:@"%f,",location.coordinate.latitude];
+                            [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
                             
-                            y = [y stringByAppendingFormat:@"%f,",location.coordinate.longitude];
                             
-                        }
-                        
-                        if (![Common isObjectNull:x] && ![Common isObjectNull:y]) {
+                            NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
                             
-                            x = [x substringToIndex:x.length - 1];
+                            sportModel.lastMaxID = lastMaxIDNumber;
                             
-                            y = [y substringToIndex:y.length - 1];
+                            sportModel.userId = STUserAccountHandler.userProfile.userId;
                             
-                        }
+                            
+                            NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
+                            
+                            NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
+                            
+                            sportModel.stepNumber = stepNumber;
+                            
+                            
+                            CGFloat distance = self.sumDistance / 1000.0;
+                            
+                            CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
+                            
+                            NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
+                            
+                            sportModel.calorie = calorieNumber;
+                            
+                            
+                            NSString *num = [NSString stringWithFormat:@"%lf",distance];
+                            
+                            NSRange range = [num rangeOfString:@"."];
+                            
+                            num = [num substringToIndex:range.location + 3];
+                            
+                            NSNumber *distanceNumber = [NSNumber numberWithFloat:num.floatValue];
+                            
+                            sportModel.distance = distanceNumber;
+                            
+                            
+                            NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
+                            
+                            sportModel.time = timeNumber;
+                            
+                            NSString *x = @"";
+                            
+                            NSString *y = @"";
+                            
+                            for (int i = 0; i < self.locationArrayM.count; i++) {
+                                
+                                CLLocation *location = self.locationArrayM[i];
+                                
+                                NSString *locationStringX = [NSString stringWithFormat:@"%f,",location.coordinate.latitude];
+                                
+                                NSString *locationStringY = [NSString stringWithFormat:@"%f,",location.coordinate.longitude];
+                                
+                                x = [x stringByAppendingString:locationStringX];
+                                
+                                y = [y stringByAppendingString:locationStringY];
+                                
+                            }
+                            
+                            if (![Common isObjectNull:x] && ![Common isObjectNull:y]) {
+                                
+                                x = [x substringToIndex:x.length - 1];
+                                
+                                y = [y substringToIndex:y.length - 1];
+                                
+                            }
+                            
+                            sportModel.x = x;
+                            
+                            sportModel.y = y;
+                            
+                            
+                            [SFTable insertSportInformation:sportModel];
+                            
+                            
+                            [self over];
+                            
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                            
+                            
+                        } failure:^(NSError *error) {
+                            
+                            
+                        }];
                         
-                        sportModel.x = x;
-                        
-                        sportModel.y = y;
-                        
-                        
-                        [SFTable insertSportInformation:sportModel];
-                        
-                        
-                        [self over];
-                        
-                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                        
-                        
-                    } failure:^(NSError *error) {
-                        
-                        
-                    }];
+                    }
                     
-                }
-                
-            } failure:^(NSError *error) {
-                
-                
-            }];
+                } failure:^(NSError *error) {
+                    
+                    
+                }];
+            
+            }
             
         }];
         
