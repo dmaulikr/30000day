@@ -172,7 +172,7 @@
 }
 
 - (void)sendCheckBindWithAccountNo:(NSString *)accountNo type:(NSString *)type name:(NSString *)userName url:(NSString *)iconURL uid:(NSString *)uid {
-    NSLog(@"%@-%@-%@-%@-%@",accountNo,type,userName,iconURL,uid);
+    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [STDataHandler sendcheckBindWithAccountNo:accountNo type:type success:^(NSString *success) {
         
@@ -190,15 +190,8 @@
                                                 type:type
                                              success:^(BOOL success) {
                                                  
-                                                 if ([number isEqual:@2]) {//特殊处理
-                                                     
-                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];//保存进沙盒
-                                                     [Common removeAppDataForKey:KEY_LOGIN_TYPE];//移除
-                                                     
-                                                 } else {
-                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
-                                                     [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:type];
-                                                 }
+                                                 [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
+                                                 [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:type];
                                                  
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                  [self.tabBarController setSelectedIndex:0];

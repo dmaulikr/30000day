@@ -90,11 +90,8 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         dispatch_async(dispatch_get_main_queue(), ^{
  
             if (!success) {
-                
                 switchView.on = !switchView.isOn;
-            
             } else {
-                
                 STUserAccountHandler.userProfile.friendSwitch = [NSString stringWithFormat:@"%d",(int)!switchView.isOn];
             }
             
@@ -122,7 +119,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         if (isFromThirdParty == 1 || isFromThirdParty == 2) {
             
             //第三方登陆
-            [STDataHandler sendcheckBindWithAccountNo:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userName] type:[Common readAppDataForKey:@"type"] success:^(NSString *success) {
+            [STDataHandler sendcheckBindWithAccountNo:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME] type:[Common readAppDataForKey:KEY_LOGIN_TYPE] success:^(NSString *success) {
                 
                 //已经绑定
                 if (success.boolValue) {
@@ -144,13 +141,16 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                 } else {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                    
+                        
                         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"需要绑定手机后再操作，前往绑定?" preferredStyle:UIAlertControllerStyleAlert];
                         [self presentViewController:alertController animated:YES completion:nil];
                         
                         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
                             ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
+                            controller.type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
+                            controller.uid = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];//取出第三方或者游客的唯一标识符
+                            controller.url = STUserAccountHandler.userProfile.headImg;
+                            controller.name = STUserAccountHandler.userProfile.nickName;
                             controller.isConceal = YES;
                             [self.navigationController pushViewController:controller animated:YES];
                         }];

@@ -45,14 +45,13 @@
     [super viewDidLoad];
     
     self.title = @"手机绑定";
-    
     if (self.isConceal) {
         
         self.temporarilyButton.hidden = YES;
         self.loginSupView.hidden = YES;
     }
     
-    if ([self.type isEqualToString:KEY_GUEST]) {//访客模式的时候只隐藏一个控件
+    if ([self.type isEqualToString:KEY_GUEST]) {
         self.loginSupView.hidden = YES;
     }
     
@@ -75,67 +74,59 @@
 - (IBAction)nextBtn:(UIButton *)sender {
     
     if ([Common isObjectNull:self.phoneNumber.text]) {
-        
         [self showToast:@"手机号码不能为空"];
         return;
     }
     
     if ([Common isObjectNull:self.sms.text]) {
-        
         [self showToast:@"验证码不能为空"];
         return;
     }
     
     if ([Common isObjectNull:self.passWord.text]) {
-        
         [self showToast:@"密码不能为空"];
         return;
     }
     
-    if (!self.isConceal) {
+    if ([self.type isEqualToString:KEY_GUEST]) {//游客
         
-        if ([self.type isEqualToString:KEY_GUEST]) {//游客
-            
-        } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
-            
-            if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                [self showToast:@"第三方信息获取失败，请重新授权"];
-                return;
-            }
+        if ([Common isObjectNull:self.uid]) {
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:@"访客信息获取失败,请重新登录"];
+            return;
         }
-    }
-    
-    NSString *uid = self.uid;
-    NSString *name = self.name;
-    NSString *url = self.url;
-    NSString *type = self.type;
-    
-    if (self.isConceal) {
         
-        uid = [NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId];
-        name = STUserAccountHandler.userProfile.nickName;
-        url = STUserAccountHandler.userProfile.headImg;
-        type = nil;
+    } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
+        if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:@"第三方信息获取失败，请重新授权"];
+            return;
+        }
     }
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
         
-        [STDataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:name accountNo:uid password:self.passWord.text headImg:url type:type success:^(NSString *success) {
+        [STDataHandler sendBindRegisterWithMobile:self.phoneNumber.text nickName:self.name accountNo:self.uid password:self.passWord.text headImg:self.url type:self.type success:^(NSString *success) {
             
             if (success.boolValue) {
                 
-                [self.dataHandler postSignInWithPassword:self.passWord.text
-                                               loginName:self.phoneNumber.text
+                NSNumber *number = @0;
+                if ([self.type isEqualToString:KEY_GUEST]) {
+                    number = @2;
+                } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {
+                    number = @1;
+                }
+                
+                [self.dataHandler postSignInWithPassword:nil
+                                               loginName:self.uid
                                       isPostNotification:YES
-                                        isFromThirdParty:@0
-                                                    type:nil
+                                        isFromThirdParty:number
+                                                    type:self.type
                                                  success:^(BOOL success) {
                                                      
-                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];
-                                                     [Common removeAppDataForKey:KEY_LOGIN_TYPE];
+                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
+                                                     [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
 
                                                      [self textFiledResignFirst];
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -247,7 +238,7 @@
                                      success:^(BOOL success) {
                                          
                                          [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];
-                                         [Common saveAppDataForKey:KEY_GUEST withObject:self.type];
+                                         [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
                                          
                                          [self textFiledResignFirst];
                                          
@@ -263,7 +254,6 @@
                                          [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
                                          
                                      }];
-    
 }
 
 
