@@ -15,9 +15,11 @@
 #import "MainViewController.h"
 #import "SignInViewController.h"
 #import "JSBadgeView.h"
+#import "SportTableViewController.h"
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
+#define BUTTON_distance 20
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -34,6 +36,8 @@
 @property (nonatomic,strong) UIView *buttonParentView;//顶部按钮的父视图
 
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
+
+@property (nonatomic,strong) UIButton *sportButton;//去跑步
 
 @property (nonatomic ,strong) UIScrollView *scrollView;
 
@@ -152,7 +156,14 @@
     [calendarViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [_scrollView addSubview:calendarViewController.view];
     
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 2, 0)];
+    
+    SportTableViewController *sportTableViewController = [[SportTableViewController alloc] init];
+    [sportTableViewController.view setFrame:CGRectMake(SCREEN_WIDTH * 2, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self addChildViewController:sportTableViewController];
+    [_scrollView addSubview:sportTableViewController.view];
+    
+    
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 3, 0)];
 }
 
 - (JSBadgeView *)badgeView {
@@ -169,12 +180,13 @@
 
 - (void)createButton {
     
-    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_WIDTH * 3 , 44)];
+    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , 44)];
+    
     self.navigationItem.titleView = self.buttonParentView;
     
     _mainPageButton = [self buttonWithTitle:@"主页" numberAndTag:0];
     [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-    [_mainPageButton setFrame:CGRectMake(0, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_mainPageButton setFrame:CGRectMake(BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_mainPageButton];
     
     
@@ -188,11 +200,15 @@
 //    [self.buttonParentView addSubview:_personButton];
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1 + BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
+    _sportButton = [self buttonWithTitle:@"去跑步" numberAndTag:2];
+    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [self.buttonParentView addSubview:_sportButton];
     
-    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(0, 42, 65, 2)];
+    
+    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(BUTTON_distance, 42, 65, 2)];
     [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
@@ -236,7 +252,7 @@
 #pragma mark 按钮监听方法
 - (void)tapButton:(UIButton *)button {
     
-    [_scrollView setContentOffset:CGPointMake(button.tag*SCREEN_WIDTH,0) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(button.tag * SCREEN_WIDTH,0) animated:YES];
     
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -256,7 +272,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        [_bottomScrollView setFrame:CGRectMake(curPageNo * (BUTTON_WIDTH * 2), 42, 65, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH + BUTTON_distance, 42, 65, 2)];
     }];
     
     [self buttonTitleChange:curPageNo];
@@ -267,22 +283,31 @@
     switch (page) {
             
         case 0:
+            
             [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_sportButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
         case 1:
-//            [_newsButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-//            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             [_moreAgeButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
             [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_sportButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            
+            break;
+            
+        case 2:
+            [_sportButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+            [_moreAgeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_mainPageButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_personButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //[_newsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            
             
             break;
 //        case 2:

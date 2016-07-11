@@ -63,6 +63,10 @@
     
     SFTable.time = model.time;
     
+    SFTable.x = model.x;
+    
+    SFTable.y = model.y;
+    
     NSError *err = nil;
     
     [_managedObjectContext save:&err];
@@ -112,6 +116,10 @@
         model.calorie = [obj valueForKey:@"calorie"];
         
         model.time = [obj valueForKey:@"time"];
+        
+        model.x = [obj valueForKey:@"x"];
+        
+        model.y = [obj valueForKey:@"y"];
         
         [array addObject:model];
         

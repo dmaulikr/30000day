@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *distance;
 @property (nullable, nonatomic, retain) NSNumber *calorie;
 @property (nullable, nonatomic, retain) NSNumber *time;
+@property (nullable, nonatomic, retain) NSString *x;
+@property (nullable, nonatomic, retain) NSString *y;
 
 @end
 

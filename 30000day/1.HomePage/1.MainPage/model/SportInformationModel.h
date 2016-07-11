@@ -22,4 +22,8 @@
 
 @property (nonatomic,strong) NSNumber *time; //运动时间
 
+@property (nonatomic,strong) NSString *x;
+
+@property (nonatomic,strong) NSString *y;
+
 @end

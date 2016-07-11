@@ -15,6 +15,8 @@
 #import "MotionData.h"
 #import "SportInformationModel.h"
 #import "SportInformationTableManager.h"
+#import <BaiduMapApI_Map/BMKGroundOverlay.h>
+#import "MTProgressHUD.h"
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate>
 
@@ -321,10 +323,6 @@
     // BMKMapPoint是个结构体：地理坐标点，用直角地理坐标表示 X：横坐标 Y：纵坐标
     BMKMapPoint *tempPoints = new BMKMapPoint[count];
     
-    [self.locationArrayM enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-    }];
-    
     // 遍历数组
     [self.locationArrayM enumerateObjectsUsingBlock:^(CLLocation *location, NSUInteger idx, BOOL *stop) {
         BMKMapPoint locationPoint = BMKMapPointForCoordinate(location.coordinate);
@@ -368,7 +366,7 @@
 - (void)startClick:(UIButton *)sender {
     
     if (!sender.tag) {  //结束
-        
+//        
 //        CGFloat distance = self.sumDistance / 1000.0;
 //        
 //        if (distance < 0.1) {
@@ -385,6 +383,7 @@
         
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             [self.motionData getHealtHequipmentWhetherSupport:^(BOOL scs) {
                 
                 if (scs) {
@@ -438,17 +437,39 @@
                         
                         sportModel.time = timeNumber;
                         
+                        NSString *x = nil;
                         
-//                        [self.locationArrayM enumerateObjectsUsingBlock:^(CLLocation *location, NSUInteger idx, BOOL *stop) {
-//                            BMKMapPoint locationPoint = BMKMapPointForCoordinate(location.coordinate);
-//                            tempPoints[idx] = locationPoint;
-//                        }];
+                        NSString *y = nil;
+                        
+                        for (int i = 0; i < self.locationArrayM.count; i++) {
+                            
+                            CLLocation *location = self.locationArrayM[i];
+                            
+                            x = [x stringByAppendingFormat:@"%f,",location.coordinate.latitude];
+                            
+                            y = [y stringByAppendingFormat:@"%f,",location.coordinate.longitude];
+                            
+                        }
+                        
+                        if (![Common isObjectNull:x] && ![Common isObjectNull:y]) {
+                            
+                            x = [x substringToIndex:x.length - 1];
+                            
+                            y = [y substringToIndex:y.length - 1];
+                            
+                        }
+                        
+                        sportModel.x = x;
+                        
+                        sportModel.y = y;
                         
                         
                         [SFTable insertSportInformation:sportModel];
                         
                         
                         [self over];
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                         
                         
                     } failure:^(NSError *error) {
