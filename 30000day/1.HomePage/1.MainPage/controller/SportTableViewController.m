@@ -55,6 +55,8 @@
     
     self.modelArray = [self.SFTable selectSportInformation:STUserAccountHandler.userProfile.userId];
     
+    self.modelArray = [[self.modelArray reverseObjectEnumerator] allObjects];
+    
     [self.tableView reloadData];
     
 }
@@ -205,12 +207,6 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][1];
             
         }
-        
-        [cell setLongPressBlock:^{
-           
-            [self.tableView setEditing:!self.tableView.editing animated:YES];
-            
-        }];
         
         cell.sportInformationModel = model;
         

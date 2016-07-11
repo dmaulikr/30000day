@@ -18,9 +18,13 @@
 
 @property (nonatomic,strong) BMKMapView *mapView;
 
-@property (nonatomic,strong) UIButton *closeButton;
-
 @property (nonatomic,strong) CLLocationManager *manager;
+
+@property (nonatomic,strong) UIView *belowView;
+
+@property (nonatomic,strong) UIButton *circleButton;
+
+@property (nonatomic,strong) UILabel *startLable;
 
 @end
 
@@ -33,7 +37,7 @@
 
     self.mapView.delegate = self;
 
-    self.mapView.zoomLevel = 14;
+    self.mapView.zoomLevel = 18;
     
     [self.view addSubview:self.mapView];
     
@@ -72,23 +76,51 @@
     
     annotation.coordinate = coor;
     
-    annotation.title = @"起点";
-    
     [_mapView addAnnotation:annotation];
-
     
-
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [closeButton setFrame:CGRectMake(10, 30, 20, 20)];
+    BMKPointAnnotation* annotationEnd = [[BMKPointAnnotation alloc]init];
     
-    [closeButton setImage:[UIImage imageNamed:@"close_btn"] forState:UIControlStateNormal];
+    CLLocationCoordinate2D coorEnd;
     
-    [closeButton addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
+    coorEnd.latitude = coors[XArray.count].latitude;
     
-    [self.mapView addSubview:closeButton];
+    coorEnd.longitude = coors[XArray.count].longitude;
     
-    self.closeButton = closeButton;
+    annotationEnd.coordinate = coorEnd;
+    
+    [_mapView addAnnotation:annotationEnd];
+    
+    
+    
+    UIButton *circleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [circleButton setFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, SCREEN_HEIGHT - 90, 80, 80)];
+    
+    [circleButton setBackgroundColor:[UIColor redColor]];
+    
+    circleButton.layer.masksToBounds = YES;
+    
+    circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
+    
+    [circleButton addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.mapView addSubview:circleButton];
+    
+    self.circleButton = circleButton;
+    
+    
+    UILabel *startLable = [[UILabel alloc] initWithFrame:CGRectMake(circleButton.bounds.size.width / 2 - 20, circleButton.bounds.size.height / 2 - 10, 40, 20)];
+    
+    [startLable setTextAlignment:NSTextAlignmentCenter];
+    
+    [startLable setTextColor:[UIColor whiteColor]];
+    
+    [startLable setText:@"关闭"];
+    
+    [circleButton addSubview:startLable];
+    
+    self.startLable = startLable;
     
 }
 
@@ -98,9 +130,17 @@
         
         BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
         
+        newAnnotationView.enabled3D = YES;
+        
         newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
         
         newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+        
+        newAnnotationView.annotation = annotation;
+        
+        newAnnotationView.image = [UIImage imageNamed:@"run_blue"];   //把大头针换成别的图片
+        
+        newAnnotationView.size = CGSizeMake(23, 23);
         
         return newAnnotationView;
     }

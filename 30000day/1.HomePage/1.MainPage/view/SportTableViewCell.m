@@ -25,14 +25,6 @@
     
     [self.editorButton addTarget:self action:@selector(beginSport:) forControlEvents:UIControlEventTouchUpInside];
     
-    UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
-                                                    
-                                                    initWithTarget:self action:@selector(handleLongPress:)];
-    
-    longPressReger.minimumPressDuration = 1.0;
-    
-    [self addGestureRecognizer:longPressReger];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -47,18 +39,6 @@
         self.buttonBlock(sender);
     }
     
-}
-
--(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
-
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        
-        if (self.longPressBlock) {
-            self.longPressBlock();
-        }
-        
-    }
-
 }
 
 - (void)setSportInformationModel:(SportInformationModel *)sportInformationModel {

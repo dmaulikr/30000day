@@ -31,6 +31,5 @@
 
 @property (nonatomic,strong) SportInformationModel *sportInformationModel;
 
-@property (nonatomic,copy) void (^longPressBlock)();
 
 @end
