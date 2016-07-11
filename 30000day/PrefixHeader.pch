@@ -271,7 +271,7 @@
 #define  GET_DESCEND_FACTORS         @"/stapi/life/getLifeDescendFactors"       //获取用户天龄下降因素
 
 #define  GET_AGREEMENT               @"/stapi/info/getAgreement"                //免责条款及协议
-
+#define  SET_USER_FACTOR                 @"/stapi/factor/setUserFactorForUpdateUserInfo"//更新个人信息后需要调用的接口
 #define  CHECK_PASSWORD                  @"/stapi/user/checkPassword"              //检测密码是否正确
 #define  SET_FRIEND_SWITCH               @"/stapi/user/setFriendSwitch"            //添加加好友开关
 

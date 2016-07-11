@@ -493,7 +493,9 @@
     
     if (isPostNotification) {
         //并发送通知
-        [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        });
     }
 }
 
@@ -739,9 +741,9 @@
                                                                     [params addParameter:userId forKey:@"userId"];
                                                                     [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
                                                                     [params addParameter:birthday forKey:@"birthday"];
-                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForUpdateUserInfo"];
+                                                                    [Common urlStringWithDictionary:params withString:SET_USER_FACTOR];
                                                                     
-                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForUpdateUserInfo",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_USER_FACTOR] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
                                                                         NSError *localError = nil;
                                                                         
                                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
