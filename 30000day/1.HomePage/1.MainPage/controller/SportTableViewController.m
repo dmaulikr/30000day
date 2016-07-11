@@ -180,6 +180,12 @@
             
         }
         
+        [cell setLongPressBlock:^{
+           
+            [self.tableView setEditing:!self.tableView.editing animated:YES];
+            
+        }];
+        
         cell.sportInformationModel = model;
         
         return cell;

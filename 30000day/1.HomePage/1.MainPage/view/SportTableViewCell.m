@@ -23,7 +23,7 @@
                                                     
                                                     initWithTarget:self action:@selector(handleLongPress:)];
     
-    longPressReger.minimumPressDuration = 2.0;
+    longPressReger.minimumPressDuration = 1.0;
     
     [self addGestureRecognizer:longPressReger];
     
@@ -45,9 +45,7 @@
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
 
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-    
-        NSLog(@"长按");
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
         if (self.longPressBlock) {
             self.longPressBlock();
@@ -61,7 +59,7 @@
 
     _sportInformationModel = sportInformationModel;
     
-    self.distanceLable.text = sportInformationModel.distance.stringValue == nil ? @"0.00" : sportInformationModel.distance.stringValue;
+    self.distanceLable.text = sportInformationModel.distance.stringValue == nil || [sportInformationModel.distance.stringValue isEqualToString:@"0"] ? @"0.00" : sportInformationModel.distance.stringValue;
     
     self.timeLable.text = sportInformationModel.time.stringValue == nil ? @"00:00:00" : [self TimeformatFromSeconds:sportInformationModel.time.integerValue];
     
