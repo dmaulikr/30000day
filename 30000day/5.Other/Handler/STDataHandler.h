@@ -505,6 +505,7 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
 + (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
                                      nickName:(NSString *)nickName
                                       headImg:(NSString *)headImg
+                                         type:(NSString *)type
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure;
 

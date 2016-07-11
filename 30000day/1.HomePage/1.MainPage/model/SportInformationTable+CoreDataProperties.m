@@ -19,5 +19,7 @@
 @dynamic distance;
 @dynamic calorie;
 @dynamic time;
+@dynamic x;
+@dynamic y;
 
 @end

@@ -597,6 +597,11 @@
             [_informationButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             break;
+        case 2:
+            [_subscriptionButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
+            [_informationButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            
+            break;
         default:
             
             break;

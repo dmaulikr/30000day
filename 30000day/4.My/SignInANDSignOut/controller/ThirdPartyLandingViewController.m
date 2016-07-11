@@ -211,8 +211,11 @@
                 
             } else {
                 
+                NSString *type = nil;
+                
                 if ([self.type isEqualToString:KEY_GUEST]) {//游客
                     
+                    type = @"guest";
                     
                 } else if ([self.type isEqualToString:@"QQ"] || [self.type isEqualToString:@"Sina"] || [self.type isEqualToString:@"WeChat"]) {//第三方登录
                     
@@ -224,7 +227,7 @@
                     }
                 }
 
-                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url success:^(NSString *success) {
+                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:type success:^(NSString *success) {
                     
                     if (success.boolValue) {
                         [self regist:self.uid];

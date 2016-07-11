@@ -3890,6 +3890,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [Common urlStringWithDictionary:params withString:SAVE_BIND_REGISTER];
+    
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_BIND_REGISTER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         
@@ -4004,6 +4006,7 @@
 + (void)sendRegisterForThirdParyWithAccountNo:(NSString *)accountNo
                                      nickName:(NSString *)nickName
                                       headImg:(NSString *)headImg
+                                         type:(NSString *)type
                                       success:(void (^)(NSString *success))success
                                       failure:(void (^)(NSError *error))failure {
 
@@ -4011,6 +4014,7 @@
     [params addParameter:accountNo forKey:@"accountNo"];
     [params addParameter:nickName forKey:@"nickName"];
     [params addParameter:headImg forKey:@"headImg"];
+    [params addParameter:type forKey:@"type"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendRegisterForThirdParyWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);

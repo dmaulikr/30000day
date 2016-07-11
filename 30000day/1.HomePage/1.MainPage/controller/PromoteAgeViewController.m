@@ -33,7 +33,7 @@
     
     self.tableView.delegate = self;
     
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44);
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     self.isShowBackItem = YES;
     

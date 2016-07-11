@@ -11,6 +11,7 @@
 #import "SportTrajectoryViewController.h"
 #import "SportInformationTableManager.h"
 #import "SportInformationModel.h"
+#import "SportTrajectoryLookViewController.h"
 
 @interface SportTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -35,7 +36,7 @@
     
     self.tableView.delegate = self;
     
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT + 38);
     
     [self showHeadRefresh:NO showFooterRefresh:NO];
     
@@ -178,22 +179,32 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 1) {
+        
+        SportInformationModel *model = self.modelArray[indexPath.row];
+        
+        if (model.x == nil || model.y == nil) {
+            
+            [self showToast:@"无轨迹线路可查看"];
+            
+            return;
+            
+        }
+        
+        SportTrajectoryLookViewController *controller = [[SportTrajectoryLookViewController alloc] init];
+        
+        controller.x = model.x;
+        
+        controller.y = model.y;
+        
+        [self.navigationController presentViewController:controller animated:YES completion:nil];
+        
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
