@@ -68,6 +68,8 @@
     
     BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
     
+    annotation.title = @"开始";
+    
     CLLocationCoordinate2D coor;
     
     coor.latitude = coors[0].latitude;
@@ -80,6 +82,8 @@
     
     
     BMKPointAnnotation* annotationEnd = [[BMKPointAnnotation alloc]init];
+    
+    annotationEnd.title = @"结束";
     
     CLLocationCoordinate2D coorEnd;
     
@@ -138,7 +142,15 @@
         
         newAnnotationView.annotation = annotation;
         
-        newAnnotationView.image = [UIImage imageNamed:@"run_blue"];   //把大头针换成别的图片
+        if ([annotation.title isEqualToString:@"开始"]) {
+         
+            newAnnotationView.image = [UIImage imageNamed:@"run_blue"];
+            
+        } else {
+        
+            newAnnotationView.image = [UIImage imageNamed:@"destination"];
+        
+        }
         
         newAnnotationView.size = CGSizeMake(23, 23);
         

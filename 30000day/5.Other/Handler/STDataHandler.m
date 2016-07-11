@@ -1062,7 +1062,7 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         
-        [_locationManager requestWhenInUseAuthorization];
+        [_locationManager requestAlwaysAuthorization];
         
     }
     //开始定位
