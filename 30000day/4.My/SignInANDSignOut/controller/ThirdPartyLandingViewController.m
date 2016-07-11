@@ -24,29 +24,17 @@
 @property (nonatomic,copy) NSString *mobileToken;//校验后获取的验证码
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
-
 @property (weak, nonatomic) IBOutlet UITextField *sms;
-
 @property (weak, nonatomic) IBOutlet UITextField *passWord;
-
 @property (weak, nonatomic) IBOutlet UIButton *smsBtn;
-
 - (IBAction)nextBtn:(UIButton *)sender;
-
 @property (weak, nonatomic) IBOutlet UIView *textSubView;
-
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
-
 @property (weak, nonatomic) IBOutlet UIButton *temporarilyButton;
-
 @property (weak, nonatomic) IBOutlet UILabel *loginTypeLable;
-
 @property (weak, nonatomic) IBOutlet UIImageView *loginImageView;
-
 @property (weak, nonatomic) IBOutlet UILabel *loginName;
-
 @property (weak, nonatomic) IBOutlet UIView *loginSupView;
-
 @property (weak, nonatomic) IBOutlet UILabel *promptLable;
 
 @end
@@ -107,7 +95,6 @@
     if (!self.isConceal) {
         
         if ([self.type isEqualToString:KEY_GUEST]) {//游客
-            
             
         } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
             
@@ -208,12 +195,9 @@
             if (success.boolValue) {
                 [self regist:self.uid];
             } else {
-                
-                NSString *type = nil;
-                
+            
                 if ([self.type isEqualToString:KEY_GUEST]) {//游客
                     
-                    type = KEY_GUEST;
                     
                 } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
                     
@@ -225,7 +209,7 @@
                     }
                 }
 
-                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:type success:^(NSString *success) {
+                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:self.type success:^(NSString *success) {
                     
                     if (success.boolValue) {
                         [self regist:self.uid];
