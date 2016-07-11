@@ -15,8 +15,6 @@
 
 @property (nonatomic,copy) void (^buttonBlock)(UIButton *);
 
-@property (nonatomic,copy) void (^longPressBlock)();
-
 
 
 @property (weak, nonatomic) IBOutlet UILabel *distanceLable;
@@ -28,5 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *calorieLable;
 
 @property (nonatomic,strong) SportInformationModel *sportInformationModel;
+
+@property (nonatomic,copy) void (^longPressBlock)();
 
 @end

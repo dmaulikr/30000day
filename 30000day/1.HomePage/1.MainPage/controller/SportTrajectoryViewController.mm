@@ -24,13 +24,13 @@
 
 @property (nonatomic,strong) BMKLocationService *service; //定位
 
-@property (nonatomic,strong) CLLocation *preLocation;  //记录上一次的位置
+//@property (nonatomic,strong) CLLocation *preLocation;  //记录上一次的位置
 
 @property (nonatomic,strong) NSMutableArray *locationArrayM; //位置数组
 
 @property (nonatomic,strong) BMKPolyline *polyLine; //轨迹线
 
-@property (nonatomic,assign) CGFloat sumDistance;  // 累计步行距离
+@property (nonatomic,assign) CGFloat sumDistance;  //累计步行距离
 
 @property (nonatomic,strong) NSTimer *timer; //计时器
 
@@ -38,7 +38,16 @@
 
 @property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
 
-@property (nonatomic,strong) MotionData *motionData;
+@property (nonatomic,strong) MotionData *motionData; //运动记录model
+
+
+@property (nonatomic,strong) UIView *countDownView; //倒计时视图
+
+@property (nonatomic,strong) UILabel *countDownLable;
+
+@property (nonatomic,assign) NSInteger countDownNumber;
+
+@property (nonatomic,strong) NSTimer *countDownTimer;
 
 
 @property (nonatomic,strong) UIView *belowView;
@@ -66,7 +75,69 @@
     
     [self loadOtherView];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timing) userInfo:nil repeats:YES];
+    [self loadCountDownView];
+
+}
+
+//加载倒计时View
+- (void)loadCountDownView {
+    
+    self.countDownNumber = 3;
+    
+
+    UIView *countDownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    [countDownView setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.mapView addSubview:countDownView];
+    
+    self.countDownView = countDownView;
+    
+    
+    UILabel *countDownLable = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 200) / 2, (SCREEN_HEIGHT - 300) / 2, 200, 300)];
+    
+    //[countDownLable setBackgroundColor:[UIColor redColor]];
+    
+    [countDownLable setText:[NSString stringWithFormat:@"%ld",self.countDownNumber]];
+    
+    [countDownLable setFont:[UIFont systemFontOfSize:300]];
+    
+    [countDownLable setTextAlignment:NSTextAlignmentCenter];
+    
+    [countDownLable setTextColor:LOWBLUECOLOR];
+    
+    [countDownView addSubview:countDownLable];
+    
+    self.countDownLable = countDownLable;
+    
+    
+    self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDownTiming) userInfo:nil repeats:YES];
+
+}
+
+- (void)countDownTiming {
+
+    self.countDownNumber--;
+    
+    [self.countDownLable setText:[NSString stringWithFormat:@"%ld",self.countDownNumber]];
+    
+    if (self.countDownNumber == 0) {
+
+        [self.mapView removeOverlay:self.polyLine];
+        
+        self.polyLine = nil;
+        
+        self.sumDistance = 0;
+        
+        [self.locationArrayM removeAllObjects];
+        
+        [self.countDownTimer invalidate];
+        
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timing) userInfo:nil repeats:YES];
+        
+        [self.countDownView removeFromSuperview];
+        
+    }
 
 }
 
@@ -296,7 +367,7 @@
     //将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
     
-    self.preLocation = userLocation.location;
+    //self.preLocation = userLocation.location;
     
     [self drawWalkPolyline];
 
@@ -526,8 +597,6 @@
     [self.timer invalidate];
     
     [self.locationArrayM removeAllObjects];
-    
-    self.preLocation = nil;
     
     self.polyLine = nil;
     
