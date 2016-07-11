@@ -157,12 +157,38 @@
             cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][0];
             
         }
+
+        __weak typeof(cell) weakSelf = cell;
         
         [cell setButtonBlock:^(UIButton *btn) {
             
-            SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+            if (btn.tag) {
+                
+                [self.tableView setEditing:!self.tableView.editing animated:YES];
+                
+                if (self.tableView.editing) {
+                    
+                    weakSelf.editorLable.text = @"完成";
+                    
+                } else {
+                
+                    weakSelf.editorLable.text = @"编辑";
+                
+                }
+                
+                [self.tableView reloadData];
+                
+                NSIndexSet *set = [NSIndexSet indexSetWithIndex:0];
+                
+                [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+                
+            } else {
             
-            [self.navigationController presentViewController:controller animated:YES completion:nil];
+                SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+                
+                [self.navigationController presentViewController:controller animated:YES completion:nil];
+            
+            }
             
         }];
         

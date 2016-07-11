@@ -17,7 +17,13 @@
     
     self.beginButton.layer.cornerRadius = 40;
     
+    self.editorButton.layer.masksToBounds = YES;
+    
+    self.editorButton.layer.cornerRadius = 40;
+    
     [self.beginButton addTarget:self action:@selector(beginSport:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.editorButton addTarget:self action:@selector(beginSport:) forControlEvents:UIControlEventTouchUpInside];
     
     UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc]
                                                     

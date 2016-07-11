@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGo-3U-sSf">
-                        <rect key="frame" x="147" y="10" width="80" height="80"/>
+                        <rect key="frame" x="87" y="10" width="80" height="80"/>
                         <color key="backgroundColor" red="0.32941176470588235" green="0.49019607843137253" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="5vX-BP-XwD"/>
@@ -24,23 +24,43 @@
                         </constraints>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ7-Qs-g9a">
-                        <rect key="frame" x="170" y="39" width="34" height="21"/>
+                        <rect key="frame" x="111" y="39" width="34" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cu9-Ia-JVF">
+                        <rect key="frame" x="207.5" y="10" width="80" height="80"/>
+                        <color key="backgroundColor" red="0.3294117647" green="0.49019607840000001" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="EDK-pg-HHM"/>
+                            <constraint firstAttribute="height" constant="80" id="W3R-VO-nU2"/>
+                        </constraints>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="编辑" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v28-JC-KHR">
+                        <rect key="frame" x="230" y="39" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="cu9-Ia-JVF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="24I-GH-d2i"/>
                     <constraint firstItem="oGo-3U-sSf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5U7-0F-gD6"/>
+                    <constraint firstItem="v28-JC-KHR" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="60" id="7CK-sm-I3g"/>
+                    <constraint firstItem="cu9-Ia-JVF" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="60" id="Kua-rv-jnP"/>
                     <constraint firstItem="SZ7-Qs-g9a" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WYA-bn-szU"/>
-                    <constraint firstItem="SZ7-Qs-g9a" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="rZW-Pi-ada"/>
-                    <constraint firstItem="oGo-3U-sSf" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xol-qI-jlj"/>
+                    <constraint firstItem="v28-JC-KHR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cNb-vE-mNV"/>
+                    <constraint firstItem="SZ7-Qs-g9a" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-60" id="rZW-Pi-ada"/>
+                    <constraint firstItem="oGo-3U-sSf" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-60" id="xol-qI-jlj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="beginButton" destination="oGo-3U-sSf" id="XyO-8q-dCh"/>
+                <outlet property="editorButton" destination="cu9-Ia-JVF" id="EXk-fd-beY"/>
+                <outlet property="editorLable" destination="v28-JC-KHR" id="7b5-uV-XMc"/>
             </connections>
-            <point key="canvasLocation" x="8.5" y="247"/>
+            <point key="canvasLocation" x="-371.5" y="246"/>
         </tableViewCell>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SportInformationCell" id="mg4-yX-H6v" customClass="SportTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>

@@ -13,6 +13,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *beginButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *editorButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *editorLable;
+
 @property (nonatomic,copy) void (^buttonBlock)(UIButton *);
 
 

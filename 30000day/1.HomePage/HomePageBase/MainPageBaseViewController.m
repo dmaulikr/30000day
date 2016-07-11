@@ -205,7 +205,7 @@
     [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1 + BUTTON_distance + MARGIN, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
-    _sportButton = [self buttonWithTitle:@"去跑步" numberAndTag:2];
+    _sportButton = [self buttonWithTitle:@"步行跑步" numberAndTag:2];
     [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + BUTTON_distance + MARGIN * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_sportButton];
     
