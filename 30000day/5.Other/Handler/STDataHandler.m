@@ -356,7 +356,7 @@
 
 
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters addParameter:loginName forKey:@"userName"];
+    [parameters addParameter:loginName forKey:@"loginName"];
     [parameters addParameter:isFromThirdParty forKey:@"isFromThirdParty"];
     [parameters addParameter:password forKey:@"password"];
     [parameters addParameter:type forKey:@"type"];
@@ -3967,11 +3967,13 @@
 
 //*****************************************检查是否已注册*********************/
 + (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                              type:(NSString *)type
                                            success:(void (^)(NSString *success))success
                                            failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:accountNo forKey:@"accountNo"];
+    [params addParameter:type forKey:KEY_LOGIN_TYPE];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendCheckRegisterForThirdParyWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);

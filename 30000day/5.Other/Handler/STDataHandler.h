@@ -497,7 +497,9 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
                                       failure:(void (^)(NSError *error))failure;
 
 //*****************************************检查是否已注册*********************/
+//accountNo:第三方或者访客传进来的唯一标识  type:用来表示到底是QQ、Sina、Wechat、guest
 + (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                              type:(NSString *)type
                                            success:(void (^)(NSString *success))success
                                            failure:(void (^)(NSError *error))failure;
 

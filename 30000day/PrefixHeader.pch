@@ -101,7 +101,7 @@
 
 #define  KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
 #define  KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
-#define  KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登录
+#define  KEY_IS_THIRDPARTY             @"isFromThirdParty"    //是否第三方登录  0表示普通模式  1表示第三方登录 2表示访客
 #define  KEY_LOGIN_TYPE                @"type"                //登录类型     QQ、Sina、WeChat、guest
 #define  KEY_SIGNIN_USER_UID           @"uid"                 //用户登录的UID
 #define  KEY_GUEST                     @"guest"               //游客模式
@@ -250,17 +250,17 @@
 
 #define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
 
-#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegistForThirdPary"     //绑定注册
+#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegistForThirdParty"     //绑定注册
 
 #define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
 
 #define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
 
-#define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdPary"    //检查是否已注册
+#define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdParty"    //检查是否已注册
 
-#define  REGIST_THIRDPARY             @"/stapi/user/registForThirdPary"         //注册第三方登录账号
+#define  REGIST_THIRDPARY             @"/stapi/user/registForThirdParty"         //注册第三方登录账号
 
-#define  CHECK_MOBILE                 @"/stapi/user/checkRegisterForMobile"     //检查手机号是否已经注册
+#define  CHECK_MOBILE                 @"/stapi/user/checkRegistForMobile"     //检查手机号是否已经注册
 
 #define  FIND_APPLY_ALL_ADD_FRIEND        @"/stapi/user/findApplyAddFriend"         //查找所有申请加我为好友记录
 

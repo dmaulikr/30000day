@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^OperationResult)(NSError* error);
+typedef void(^OperationResult)(NSError *error);
 
 @interface STCoreDataHandler : NSObject
 
