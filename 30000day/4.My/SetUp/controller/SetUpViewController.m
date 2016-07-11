@@ -110,7 +110,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     }];
 }
 
-- (void)factorVerification :(UISwitch *)switchView {
+- (void)factorVerification:(UISwitch *)switchView {
     
     BOOL isOn = switchView.isOn;
     
@@ -295,17 +295,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     if (self.dataSource.count == indexPath.section) {
         
         cell.textLabel.text = @"健康因素密码验证";
-        
         NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-        
         BOOL isOn = [userConfigure[FACTORVERIFICATION] boolValue];
         
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-        
         [switchView setOn:isOn];
-        
         [switchView addTarget:self action:@selector(factorVerification:) forControlEvents:UIControlEventValueChanged];
-        
         cell.accessoryView = switchView;
         
     } else if (self.dataSource.count + 1 == indexPath.section) {
@@ -313,11 +308,8 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         cell.textLabel.text = @"好友验证";
 
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-            
         [switchView setOn:!STUserAccountHandler.userProfile.friendSwitch.boolValue];
-
         [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
-        
         cell.accessoryView = switchView;
         
     } else {
@@ -325,7 +317,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         NSDictionary *sectionData = self.dataSource[indexPath.section];
         
         NSString *text = sectionData[kMainText];
-        
         NSString *detailText = sectionData[kDetailText];
         
         id switchValue = sectionData[kDetailSwitchOn];
@@ -333,24 +324,17 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         if (switchValue) {
             
             UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-            
             BOOL switchOn = [switchValue boolValue];
-            
             [switchView setOn:switchOn];
             
             NSString *selectorName = sectionData[kDetailSwitchChangeSelector];
-            
             [switchView addTarget:self action:NSSelectorFromString(selectorName) forControlEvents:UIControlEventValueChanged];
-            
             cell.accessoryView = switchView;
         }
         
         cell.textLabel.text = text;
-        
         cell.detailTextLabel.text = detailText;
-    
     }
-    
     return cell;
 }
 

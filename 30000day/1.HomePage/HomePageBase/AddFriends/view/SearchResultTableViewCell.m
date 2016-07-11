@@ -40,10 +40,8 @@
     _userInformationModel = userInformationModel;
     
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:userInformationModel.headImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
     self.nickName.text = userInformationModel.nickName;
-  
-    self.detailTitleLabel.text = userInformationModel.memo;
+    self.detailTitleLabel.text = [NSString stringWithFormat:@"账号: %@",userInformationModel.userName];
     
     if ([userInformationModel.flag isEqual:@0]) {
         

@@ -273,7 +273,6 @@
 		B83B7A5E1CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A561CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib */; };
 		B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */; };
 		B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A5A1CAD01F000D2CC6A /* STInputView.m */; };
-		B83B7A631CAD060700D2CC6A /* STDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A621CAD060700D2CC6A /* STDropdownMenu.m */; };
 		B83B7A711CAD072500D2CC6A /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A6A1CAD072500D2CC6A /* DYRateView.m */; };
 		B83B7A721CAD072500D2CC6A /* MTImagePlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A6D1CAD072500D2CC6A /* MTImagePlayView.m */; };
 		B83B7A731CAD072500D2CC6A /* MTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A701CAD072500D2CC6A /* MTProgressHUD.m */; };
@@ -1069,8 +1068,6 @@
 		B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureView.m; sourceTree = "<group>"; };
 		B83B7A591CAD01F000D2CC6A /* STInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputView.h; sourceTree = "<group>"; };
 		B83B7A5A1CAD01F000D2CC6A /* STInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STInputView.m; sourceTree = "<group>"; };
-		B83B7A611CAD060700D2CC6A /* STDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDropdownMenu.h; sourceTree = "<group>"; };
-		B83B7A621CAD060700D2CC6A /* STDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDropdownMenu.m; sourceTree = "<group>"; };
 		B83B7A691CAD072500D2CC6A /* DYRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRateView.h; sourceTree = "<group>"; };
 		B83B7A6A1CAD072500D2CC6A /* DYRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRateView.m; sourceTree = "<group>"; };
 		B83B7A6C1CAD072500D2CC6A /* MTImagePlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTImagePlayView.h; sourceTree = "<group>"; };
@@ -2442,8 +2439,6 @@
 		B83B7A4F1CAD01F000D2CC6A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B83B7A611CAD060700D2CC6A /* STDropdownMenu.h */,
-				B83B7A621CAD060700D2CC6A /* STDropdownMenu.m */,
 				B83B7A501CAD01F000D2CC6A /* GJTextView.h */,
 				B83B7A511CAD01F000D2CC6A /* GJTextView.m */,
 				B83B7A521CAD01F000D2CC6A /* STAvatarBrowser.h */,
@@ -5403,7 +5398,6 @@
 				B8FD3DD21C8A7903007BCA6B /* NSString+XHDiskSizeTransfrom.m in Sources */,
 				B8F2D8AE1C5B36C4002C7712 /* myViewCell.m in Sources */,
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
-				B83B7A631CAD060700D2CC6A /* STDropdownMenu.m in Sources */,
 				B6E548BA1CF065D800002650 /* FactorVerificationView.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,

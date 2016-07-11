@@ -356,7 +356,7 @@
 
 
      NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters addParameter:loginName forKey:@"userName"];
+    [parameters addParameter:loginName forKey:@"loginName"];
     [parameters addParameter:isFromThirdParty forKey:@"isFromThirdParty"];
     [parameters addParameter:password forKey:@"password"];
     [parameters addParameter:type forKey:@"type"];
@@ -493,7 +493,9 @@
     
     if (isPostNotification) {
         //并发送通知
-        [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+        });
     }
 }
 
@@ -739,9 +741,9 @@
                                                                     [params addParameter:userId forKey:@"userId"];
                                                                     [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
                                                                     [params addParameter:birthday forKey:@"birthday"];
-                                                                    [Common urlStringWithDictionary:params withString:@"/stapi/factor/setUserFactorForUpdateUserInfo"];
+                                                                    [Common urlStringWithDictionary:params withString:SET_USER_FACTOR];
                                                                     
-                                                                    [manager GET:[NSString stringWithFormat:@"%@/stapi/factor/setUserFactorForUpdateUserInfo",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                                                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_USER_FACTOR] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
                                                                         NSError *localError = nil;
                                                                         
                                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
@@ -3965,11 +3967,13 @@
 
 //*****************************************检查是否已注册*********************/
 + (void)sendCheckRegisterForThirdParyWithAccountNo:(NSString *)accountNo
+                                              type:(NSString *)type
                                            success:(void (^)(NSString *success))success
                                            failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:accountNo forKey:@"accountNo"];
+    [params addParameter:type forKey:KEY_LOGIN_TYPE];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendCheckRegisterForThirdParyWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);

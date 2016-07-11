@@ -201,7 +201,7 @@
 - (IBAction)notBind:(UIButton *)sender {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid success:^(NSString *success) {
+    [STDataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid type:self.type success:^(NSString *success) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

@@ -13,7 +13,6 @@
 + (id)createObjectWithMainContext:(NSManagedObjectContext *)mainContext {
     
     NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
-    
     return [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:mainContext];
 }
 
@@ -39,22 +38,18 @@
     [fetchRequest setEntity:[NSEntityDescription entityForName:className inManagedObjectContext:ctx]];
     
     if (predicate) {
-        
         [fetchRequest setPredicate:predicate];
     }
     
     if (sortArray) {
-        
         [fetchRequest setSortDescriptors:sortArray];
     }
     
     if ( offset > 0 ) {
-        
         [fetchRequest setFetchOffset:offset];
     }
     
     if (limit > 0) {
-        
         [fetchRequest setFetchLimit:limit];
     }
     
@@ -73,7 +68,6 @@
             
             NSLog(@"error: %@", error);
             [mainContext performBlock:^{
-                
                 handler(@[], nil);
             }];
         }
@@ -81,15 +75,12 @@
         if ([results count] < 1) {
             
             [mainContext performBlock:^{
-                
                 handler(@[], nil);
             }];
         }
         
         NSMutableArray *result_ids = [[NSMutableArray alloc] init];
-        
         for (NSManagedObject *item  in results) {
-            
             [result_ids addObject:item.objectID];
         }
         
@@ -97,7 +88,6 @@
             
             NSMutableArray *final_results = [[NSMutableArray alloc] init];
             for (NSManagedObjectID *oid in result_ids) {
-                
                 [final_results addObject:[mainContext objectWithID:oid]];
             }
         }];
@@ -168,59 +158,59 @@
     [mainContext deleteObject:object];
 }
 
-+ (void)async:(AsyncProcess)processBlock result:(ListResult)resultBlock {
-    
-    NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
-    
-    NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
-    
-    [ctx performBlock:^{
-        
-        id resultList = processBlock(ctx, className);
-        
-        if (resultList) {
-            
-            if ([resultList isKindOfClass:[NSError class]]) {
-                
-                [[STCoreDataHandler shareCoreDataHandler].mainObjectContext performBlock:^{
-                    
-                    resultBlock(nil, resultList);
-                    
-                }];
-            }
-            
-            if ([resultList isKindOfClass:[NSArray class]]) {
-                
-                NSMutableArray *idArray = [[NSMutableArray alloc] init];
-                
-                for (NSManagedObject *obj in resultList) {
-                    
-                    [idArray addObject:obj.objectID];
-                }
-                
-                NSArray *objectIdArray = [idArray copy];
-                
-                [[STCoreDataHandler shareCoreDataHandler].mainObjectContext performBlock:^{
-                    
-                    NSMutableArray *objArray = [[NSMutableArray alloc] init];
-                    
-                    for (NSManagedObjectID *robjId in objectIdArray) {
-                        
-                        [objArray addObject:[[STCoreDataHandler shareCoreDataHandler].mainObjectContext objectWithID:robjId]];
-                    }
-                    
-                    if (resultBlock) {
-                        
-                        resultBlock([objArray copy], nil);
-                    }
-                }];
-            }
-            
-        } else {
-            
-            resultBlock(nil, nil);
-        }
-    }];
-}
+//+ (void)async:(AsyncProcess)processBlock result:(ListResult)resultBlock {
+//    
+//    NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
+//    
+//    NSManagedObjectContext *ctx = [[STCoreDataHandler shareCoreDataHandler] createPrivateObjectContext];
+//    
+//    [ctx performBlock:^{
+//        
+//        id resultList = processBlock(ctx, className);
+//        
+//        if (resultList) {
+//            
+//            if ([resultList isKindOfClass:[NSError class]]) {
+//                
+//                [[STCoreDataHandler shareCoreDataHandler].mainObjectContext performBlock:^{
+//                    
+//                    resultBlock(nil, resultList);
+//                    
+//                }];
+//            }
+//            
+//            if ([resultList isKindOfClass:[NSArray class]]) {
+//                
+//                NSMutableArray *idArray = [[NSMutableArray alloc] init];
+//                
+//                for (NSManagedObject *obj in resultList) {
+//                    
+//                    [idArray addObject:obj.objectID];
+//                }
+//                
+//                NSArray *objectIdArray = [idArray copy];
+//                
+//                [[STCoreDataHandler shareCoreDataHandler].mainObjectContext performBlock:^{
+//                    
+//                    NSMutableArray *objArray = [[NSMutableArray alloc] init];
+//                    
+//                    for (NSManagedObjectID *robjId in objectIdArray) {
+//                        
+//                        [objArray addObject:[[STCoreDataHandler shareCoreDataHandler].mainObjectContext objectWithID:robjId]];
+//                    }
+//                    
+//                    if (resultBlock) {
+//                        
+//                        resultBlock([objArray copy], nil);
+//                    }
+//                }];
+//            }
+//            
+//        } else {
+//            
+//            resultBlock(nil, nil);
+//        }
+//    }];
+//}
 
 @end
