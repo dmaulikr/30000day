@@ -85,9 +85,9 @@
     
     request.entity = [NSEntityDescription entityForName:@"SportInformationTable" inManagedObjectContext:_managedObjectContext];
     
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@", userId];
-//    
-//    request.predicate = predicate;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@", userId];
+    
+    request.predicate = predicate;
     
     NSError *error = nil;
     

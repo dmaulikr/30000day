@@ -12,6 +12,7 @@
 #import "SportInformationTableManager.h"
 #import "SportInformationModel.h"
 #import "SportTrajectoryLookViewController.h"
+#import "SportHeadTableViewCell.h"
 
 @interface SportTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -152,11 +153,11 @@
 
     if (indexPath.section == 0) {
         
-        SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportTableViewCell"];
+        SportHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportHeadTableViewCell"];
         
         if (!cell) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][0];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SportHeadTableViewCell" owner:nil options:nil] lastObject];
             
         }
 
@@ -200,11 +201,11 @@
         
         SportInformationModel *model = self.modelArray[indexPath.row];
     
-        SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportInformationCell"];
+        SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportTableViewCell"];
         
         if (!cell) {
             
-            cell = [[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil][1];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"SportTableViewCell" owner:nil options:nil] lastObject];
             
         }
         
@@ -236,9 +237,7 @@
         
         SportTrajectoryLookViewController *controller = [[SportTrajectoryLookViewController alloc] init];
         
-        controller.x = model.x;
-        
-        controller.y = model.y;
+        controller.sportInformationModel = model;
         
         [self.navigationController presentViewController:controller animated:YES completion:nil];
         
