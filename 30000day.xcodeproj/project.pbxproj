@@ -685,6 +685,8 @@
 		F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A3719C1D2F8C3B007FFB90 /* SportInformationTable.m */; };
 		F5A371A11D2F8CA8007FFB90 /* SportInformationTableManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */; };
 		F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A4F8801D0D3BE300B18988 /* IntroduceView.m */; };
+		F5AAD0F91D34C59300DB4D97 /* SportHeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AAD0F81D34C59300DB4D97 /* SportHeadTableViewCell.m */; };
+		F5AAD0FD1D34C76500DB4D97 /* SportHeadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5AAD0FC1D34C76500DB4D97 /* SportHeadTableViewCell.xib */; };
 		F5AC5B961D30F1230043E313 /* SportTrajectoryLookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AC5B941D30F1230043E313 /* SportTrajectoryLookViewController.m */; };
 		F5AC5B971D30F1230043E313 /* SportTrajectoryLookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5AC5B951D30F1230043E313 /* SportTrajectoryLookViewController.xib */; };
 		F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C611271D1BAEED00EBB8AE /* NewFriendsHeadView.m */; };
@@ -1883,6 +1885,9 @@
 		F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportInformationTableManager.m; sourceTree = "<group>"; };
 		F5A4F87F1D0D3BE300B18988 /* IntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceView.h; sourceTree = "<group>"; };
 		F5A4F8801D0D3BE300B18988 /* IntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceView.m; sourceTree = "<group>"; };
+		F5AAD0F71D34C59300DB4D97 /* SportHeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportHeadTableViewCell.h; sourceTree = "<group>"; };
+		F5AAD0F81D34C59300DB4D97 /* SportHeadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportHeadTableViewCell.m; sourceTree = "<group>"; };
+		F5AAD0FC1D34C76500DB4D97 /* SportHeadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportHeadTableViewCell.xib; sourceTree = "<group>"; };
 		F5AC5B931D30F1230043E313 /* SportTrajectoryLookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTrajectoryLookViewController.h; sourceTree = "<group>"; };
 		F5AC5B941D30F1230043E313 /* SportTrajectoryLookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTrajectoryLookViewController.m; sourceTree = "<group>"; };
 		F5AC5B951D30F1230043E313 /* SportTrajectoryLookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportTrajectoryLookViewController.xib; sourceTree = "<group>"; };
@@ -2846,6 +2851,9 @@
 				F52C6C2A1D2E5943008933D2 /* SportTableViewCell.h */,
 				F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */,
 				F52C6C2C1D2E5943008933D2 /* SportTableViewCell.xib */,
+				F5AAD0F71D34C59300DB4D97 /* SportHeadTableViewCell.h */,
+				F5AAD0F81D34C59300DB4D97 /* SportHeadTableViewCell.m */,
+				F5AAD0FC1D34C76500DB4D97 /* SportHeadTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4723,6 +4731,7 @@
 				F54BBC151D20CEBF00556B6D /* QuickResponseCodeViewController.xib in Resources */,
 				B8F2DA411C5F3D04002C7712 /* ChooseVerifyWayViewController.xib in Resources */,
 				F54BBC761D21045400556B6D /* qr_vc_right@3x.png in Resources */,
+				F5AAD0FD1D34C76500DB4D97 /* SportHeadTableViewCell.xib in Resources */,
 				B6D59D551C8EAAAC0082BCAC /* JinSuoDetailsViewController.xib in Resources */,
 				B8B3F4E11C9A4C1A00834533 /* CityViewController.xib in Resources */,
 				B804FD811C8AC9A900DFD1CF /* keyborad_HL@2x.png in Resources */,
@@ -5113,6 +5122,7 @@
 				B8F6E9721D02CD0400AD6745 /* TZAssetModel.m in Sources */,
 				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
 				B83B7A5D1CAD01F000D2CC6A /* STChoosePictureCollectionCell.m in Sources */,
+				F5AAD0F91D34C59300DB4D97 /* SportHeadTableViewCell.m in Sources */,
 				B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailTableViewCell.m in Sources */,
 				B8B3F53B1C9BEB3E00834533 /* SubwayModel.m in Sources */,

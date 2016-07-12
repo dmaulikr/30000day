@@ -11,16 +11,6 @@
 
 @interface SportTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIButton *beginButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *editorButton;
-
-@property (weak, nonatomic) IBOutlet UILabel *editorLable;
-
-@property (nonatomic,copy) void (^buttonBlock)(UIButton *);
-
-
-
 @property (weak, nonatomic) IBOutlet UILabel *distanceLable;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLable;

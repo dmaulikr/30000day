@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SportInformationModel.h"
 
 @interface SportTrajectoryLookViewController : STBaseViewController
 
-@property (nonatomic,copy) NSString *x;
-
-@property (nonatomic,copy) NSString *y;
+@property (nonatomic,strong) SportInformationModel *sportInformationModel;
 
 @end
