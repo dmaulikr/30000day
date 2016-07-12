@@ -1064,6 +1064,7 @@
         [_locationManager requestAlwaysAuthorization];
         
     }
+    
     //开始定位
     [_locationManager startUpdatingLocation];
 }

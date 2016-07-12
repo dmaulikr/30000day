@@ -180,6 +180,10 @@
     
     self.service.delegate = self;
     
+    self.service.allowsBackgroundLocationUpdates = YES;
+    
+    self.service.pausesLocationUpdatesAutomatically = NO;
+    
     [self.service startUserLocationService];
     
     
@@ -370,6 +374,8 @@
     //self.preLocation = userLocation.location;
     
     [self drawWalkPolyline];
+    
+    NSLog(@"SB");
 
 }
 
@@ -484,6 +490,12 @@
                             
                             
                             NSInteger step = birthString.integerValue - self.lastTimeStepNumber; //上次步数-当前步数=本次运动步数
+                            
+                            if (step < 0) {
+                                
+                                step = 0;
+                                
+                            }
                             
                             NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
                             

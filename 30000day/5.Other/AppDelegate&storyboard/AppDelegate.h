@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationService.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,BMKGeneralDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic,strong) BMKLocationService *service; //定位
 
 @end
 

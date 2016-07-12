@@ -87,9 +87,9 @@
     
     CLLocationCoordinate2D coorEnd;
     
-    coorEnd.latitude = coors[XArray.count].latitude;
+    coorEnd.latitude = coors[XArray.count - 1].latitude;
     
-    coorEnd.longitude = coors[XArray.count].longitude;
+    coorEnd.longitude = coors[XArray.count - 1].longitude;
     
     annotationEnd.coordinate = coorEnd;
     
