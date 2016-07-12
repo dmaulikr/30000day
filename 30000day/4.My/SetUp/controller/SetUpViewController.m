@@ -9,7 +9,6 @@
 #import "SetUpViewController.h"
 #import "CDSoundManager.h"
 #import "FactorVerificationView.h"
-#import "ThirdPartyLandingViewController.h"
 #import "MTProgressHUD.h"
 
 static CGFloat kHorizontalSpacing = 40;
@@ -139,36 +138,17 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
                     
                 //没有绑定
                 } else {
-                    
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"需要绑定手机后再操作，前往绑定?" preferredStyle:UIAlertControllerStyleAlert];
-                        [self presentViewController:alertController animated:YES completion:nil];
-                        
-                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定"style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
-                            controller.type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
-                            controller.uid = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];//取出第三方或者游客的唯一标识符
-                            controller.url = STUserAccountHandler.userProfile.headImg;
-                            controller.name = STUserAccountHandler.userProfile.nickName;
-                            controller.isConceal = YES;
-                            [self.navigationController pushViewController:controller animated:YES];
-                        }];
-                        
-                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleDefault handler:nil];
-                        [alertController addAction:cancelAction];
-                        [alertController addAction:okAction];
+                        [Common presentBindControllerWithSuperController:self];
                         [switchView setOn:!isOn];
                         return;
                     });
                 }
             } failure:^(NSError *error) {
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self showToast:@"网络异常"];
                 });
             }];
-            
         } else {//关闭
             
             //普通登陆
@@ -181,7 +161,6 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             [userConfigure setObject:@(YES) forKey:FACTORVERIFICATION];
             [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
             [switchView setOn:YES];
-            
             return;
         }
         

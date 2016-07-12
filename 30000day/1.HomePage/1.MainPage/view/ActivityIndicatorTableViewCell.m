@@ -7,21 +7,15 @@
 //
 
 #import "ActivityIndicatorTableViewCell.h"
-
 #import "sys/utsname.h"
 
 @interface ActivityIndicatorTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *label_1;
-
 @property (weak, nonatomic) IBOutlet UILabel *label_2;
-
 @property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *circleWidth;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableCenterY;
-
 
 @end
 
@@ -34,19 +28,14 @@
         [[self getDeviceType] isEqualToString:@"iPhone4S"]) {
         
         self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
-        
         self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
-        
         self.circleWidth.constant = - ([UIScreen mainScreen].bounds.size.width * 0.43 - [UIScreen mainScreen].bounds.size.width * 0.36);
-        
         self.lableCenterY.constant = - 8;
         
     } else {
         
         self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
-        
         self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
-        
     }
 }
 
@@ -59,65 +48,45 @@
 - (void)reloadData:(float)totalLifeDayNumber birthDayString:(NSString *)birthdayString showLabelTye:(ShowLabelType)type {
     
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
-    
     NSDate *birthdayDate = [formatter dateFromString:birthdayString];
-    
     NSString *todayString = [formatter stringFromDate:[NSDate date]];
-    
     NSDate *newToday = [formatter dateFromString:todayString];
-    
     NSTimeInterval interval = [newToday timeIntervalSinceDate:birthdayDate];
-    
     int dayNumber = 0;
     
     if ([Common isObjectNull:birthdayString]) {//表示没设置生日
-        
         dayNumber = 0;
-        
     } else {//有设置了生日
-        
         dayNumber = interval/86400.0f;
-        
     }
     
     self.indicatiorView.progressCounter = dayNumber;
-    
     self.indicatiorView.progressTotal = totalLifeDayNumber;
-    
     self.indicatiorView.theme.sliceDividerHidden = YES;//部分分开是否隐藏
-    
     self.indicatiorView.theme.incompletedColor = RGBACOLOR(230, 230, 230, 1);
-    
     self.indicatiorView.theme.thickness = 30.0;//粗细
 
     if (type == ShowLabelPastAgeAndAllAgeType) {//过去天龄+总天龄
         
         self.label_1.text = [NSString stringWithFormat:@"%d",dayNumber];
-        
         self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber];
         
     } else if (type == ShowLabelPastAgeAndSurplusAgeType) {//过去天龄+剩余天龄
         
         self.label_1.text = [NSString stringWithFormat:@"%d",dayNumber];
-        
         self.label_2.text = [NSString stringWithFormat:@"%.2f",totalLifeDayNumber - dayNumber];
         
     } else {//默认是的:剩余天龄+总天龄
         
         self.label_1.text = [NSString stringWithFormat:@"%d",(int)totalLifeDayNumber - dayNumber];
-        
         self.label_2.text = [NSString stringWithFormat:@"%.1f",totalLifeDayNumber];
     }
     
     if (dayNumber == 0) {
-        
         self.indicatiorView.theme.completedColor = RGBACOLOR(230, 230, 230, 1);
-        
     } else {
-        
         self.indicatiorView.theme.completedColor = RGBACOLOR(104, 149, 232, 1);
     }
-    
 }
 
 - (int)getDays:(NSString *)theDate {

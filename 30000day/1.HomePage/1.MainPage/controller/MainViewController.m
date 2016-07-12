@@ -257,21 +257,15 @@
                     if (model) {
                         
                         [allDayArray addObject:model.curLife];
-                        
                         [allDayArray addObject:model.curLife];
                         
                         NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                        
                         NSString *string = array[2];
-                        
                         NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                        
                         NSString *month = array[1];
-                        
                         NSString *dateString = [NSString stringWithFormat:@"%@-%@",month,newString];
                         
                         [dayNumberArray addObject:dateString];
-                        
                         [dayNumberArray addObject:dateString];
                         
                         self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
@@ -431,16 +425,13 @@
     if (indexPath.row == 0) {
         
         static NSString *weatherCellIndentifier = @"WeatherTableViewCell";
-        
         WeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:weatherCellIndentifier];
         
         if (cell == nil) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:weatherCellIndentifier owner:nil options:nil] lastObject];
         }
         
         [cell.ageLable setText:[NSString stringWithFormat:@"%ld岁",(long)[self daysToYear]]];
-        
         [cell.jinSuoImageView setImage:[self lifeToYear]];
         
         [cell setChangeStateBlock:^() {
@@ -517,24 +508,17 @@
     if (indexPath.row == 1) {
         
         QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-        
         picker.delegate = self;
-        
         picker.titleText = @"设置天龄显示方式";
         
         NSArray *dataArray = @[@"剩余天龄+总天龄",@"过去天龄+总天龄",@"过去天龄+剩余天龄"];
-        
         NSString *selectorString = @"";
-        if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndSurplusAgeType) {
-            
-            selectorString = [dataArray objectAtIndex:2];
-            
-        } else if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndAllAgeType){
-
+        
+        if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndAllAgeType) {
             selectorString = [dataArray objectAtIndex:1];
-
+        } else if ([Common readAppIntegerDataForKey:SHOWLABLETYPE] == ShowLabelPastAgeAndSurplusAgeType){
+            selectorString = [dataArray objectAtIndex:2];
         } else {
-            
             selectorString = [dataArray objectAtIndex:0];
         }
         
@@ -544,7 +528,6 @@
     } else if (indexPath.row == 2) {
         
         [self loadDaysOfAgeOptionView];
-        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -593,11 +576,8 @@
 - (NSInteger)daysToYear {
     
     NSInteger day = [[self.allDayArray lastObject] integerValue];
-    
     NSNumber *year = [NSNumber numberWithFloat:day/365];
-    
     NSInteger yearInt = [year integerValue];
-    
     return yearInt;
 }
 
@@ -658,11 +638,8 @@
 - (void)lifeImagePush {
     
     JinSuoDetailsViewController *controller = [[JinSuoDetailsViewController alloc] init];
-    
     controller.averageAge = [self daysToYear];
-    
     controller.hidesBottomBarWhenPushed = YES;
-    
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -673,79 +650,52 @@
     if (self.indicationView) {
         
         [self.indicationView removeFromSuperview];
-        
         self.indicationView = nil;
     }
     
     UIView *view = [[UIView alloc] init];
-    
     self.indicationView = view;
-    
     view.backgroundColor = RGBACOLOR(83, 128, 196, 1);
     
     [self.navigationController.view insertSubview:view belowSubview:self.navigationController.navigationBar];
     //显示标题的label
     UILabel *label = [[UILabel alloc] init];
-    
     label.textColor = [UIColor whiteColor];
-
     [view addSubview:label];
-    
     label.backgroundColor = RGBACOLOR(83, 128, 196, 1);
     
     view.width = SCREEN_WIDTH;
-    
     view.x = 0;
-
     view.height = 70;
-    
     view.y = 64 - view.height;
     
     label.width = SCREEN_WIDTH - 5;
-    
     label.height = 70;
-    
     label.y = 0;
-    
     label.x = 5;
-    
     label.textAlignment = NSTextAlignmentLeft;
-    
     label.font = [UIFont systemFontOfSize:15.0f];
-    
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    
     label.numberOfLines = 2;
     //添加知道了按钮
     UILabel *cancelLabel = [[UILabel alloc] init];
-    
     cancelLabel.text = @"知道了";
-    
     cancelLabel.textColor = [UIColor whiteColor];
-    
     cancelLabel.font = [UIFont systemFontOfSize:14.0f];
-    
     cancelLabel.frame = CGRectMake(SCREEN_WIDTH - 65.0f, 40, 60, 28.0f);
-    
     cancelLabel.layer.cornerRadius = 5;
-    
     cancelLabel.layer.masksToBounds = YES;
-    
     cancelLabel.layer.borderColor = [UIColor whiteColor].CGColor;
-    
     cancelLabel.layer.borderWidth = 1.0f;
-    
     cancelLabel.backgroundColor = RGBACOLOR(83, 128, 196, 1);
-    
     cancelLabel.textAlignment = NSTextAlignmentCenter;
-    
     [view addSubview:cancelLabel];
     //添加手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction:)];
     [view addGestureRecognizer:tap];
     if (type == ShowLabelSurplusAgeAndAllAgeType) {
         
-        label.text = @"  已切换成【过去天龄+剩余天龄】并同步作用于好友详细资料";
+        label.text = @"  已切换成【剩余天龄+总天龄】并同步作用于好友详细资料";
         
     } else if (type == ShowLabelPastAgeAndAllAgeType) {
         
@@ -786,9 +736,7 @@
         if (!self.birthdayView) {
             
             SettingBirthdayView *view = [[SettingBirthdayView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-            
             view.backgroundColor = RGBACOLOR(230, 230, 230,1);
-            
             __weak typeof(view) weakView = view;
     
             //按钮点击回调
@@ -803,13 +751,11 @@
                                                               success:^(BOOL success) {
                                                                   
                                                                   [weakView removeBirthdayView];
-                                                                  
                                                                   self.birthdayView = nil;
                                                               }
                                                               failure:^(NSError *error) {
                                                                   
                                                                   [weakView removeBirthdayView];
-                                                                  
                                                                   self.birthdayView = nil;
                                                                   
                                                               }];
@@ -817,7 +763,6 @@
             }];
             
             [[UIApplication sharedApplication].keyWindow addSubview:view];
-            
             self.birthdayView = view;
         }
     }
@@ -892,15 +837,10 @@
             } else {
             
                 HealthySetUpViewController *controller = [[HealthySetUpViewController alloc] init];
-                
                 controller.hidesBottomBarWhenPushed = YES;
-                
                 [self.navigationController pushViewController:controller animated:YES];
             
             }
-            
-
-        
         } else {
             
             PromoteAgeViewController *controller = [[PromoteAgeViewController alloc] init];

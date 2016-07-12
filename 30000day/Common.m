@@ -8,6 +8,7 @@
 
 #import "Common.h"
 #import "SFHFKeychainUtils.h"
+#import "ThirdPartyLandingViewController.h"
 
 @implementation Common
 
@@ -570,6 +571,29 @@
     } else {
         return NO;
     }
+}
+
++ (ThirdPartyLandingViewController *)getBindController {
+    ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
+    controller.type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
+    controller.name = STUserAccountHandler.userProfile.nickName;
+    controller.uid = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
+    controller.url = STUserAccountHandler.userProfile.headImg;
+    controller.isConceal = YES;
+    controller.hidesBottomBarWhenPushed = YES;
+    return controller;
+}
+//前往绑定控制器
++ (void)presentBindControllerWithSuperController:(UIViewController *)superController {
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"该功能需要绑定手机，是否前往绑定？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [superController.navigationController pushViewController:[Common getBindController] animated:YES];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [controller addAction:action];
+    [controller addAction:cancelAction];
+    [superController presentViewController:controller animated:YES completion:nil];
 }
 
 @end

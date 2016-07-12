@@ -39,11 +39,8 @@
     [super viewDidLoad];
     
     self.title = @"所有联系人";
-    
     self.isSearch = NO;
-    
     self.tableView.delegate = self;
-    
     self.tableView.dataSource = self;
     
     [self synchronizedMailList];
@@ -57,42 +54,37 @@
     if ([Common isObjectNull:isFirstStartString]) {
         
         [Common saveAppDataForKey:FIRSTSTART withObject:@"1"];
-        
         //提示用户
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推荐朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-        
-        [alertView show];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"匹配手机通讯录" message:@"30000天将上传手机通讯录至30000天服务器匹配及推荐朋友。\n（上传通讯录仅用于匹配，不会保存资料，亦不会用作它用）" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self loadData];
+        }];
+        [controller addAction:action];
+        [self presentViewController:controller animated:YES completion:nil];
         
     } else {
         
         [self loadData];
-        
     }
-    
 }
 
 - (void)loadData {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
         
         self.chineseStringArray = [NSMutableArray array];
-        
         self.indexArray = [NSMutableArray arrayWithArray:indexArray];
-        
         NSMutableArray *phoneNumberArray = [NSMutableArray array];
         
         for (int i = 0 ; i < chineseStringArray.count ; i++) {
             
             NSMutableArray *subDataArray = chineseStringArray[i];
-            
             NSMutableArray *phoneArray = [NSMutableArray array];
             
             for (int j = 0; j < subDataArray.count; j++) {
                 
                 ChineseString *chineseString = subDataArray[j];
-                
                 NSString *phoneNumber = chineseString.phoneNumber;
                 
                 if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
@@ -101,11 +93,8 @@
                 }
                 
                 phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                
                 NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
-                
                 [phoneNumberDictionary addParameter:phoneNumber forKey:@"mobile"];
-                
                 [phoneArray addObject:phoneNumberDictionary];
             }
             
@@ -113,35 +102,28 @@
         }
         
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
-        
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         
         [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
             
             NSMutableArray *registerArray = [NSMutableArray array];
-            
             NSMutableArray *friendArray = [NSMutableArray array];
             
             for (int i = 0 ; i < addressArray.count; i++) {
                 
                 NSMutableArray *subDataArray = chineseStringArray[i];
-                
                 NSDictionary *dictionary = addressArray[i];
-                
                 NSArray *array = dictionary[@"addressBookList"];
                 
                 for (int j = 0; j < subDataArray.count; j++) {
                     
                     NSDictionary *dictionary = array[j];
-                    
                     ChineseString *chineseString = subDataArray[j];
-                    
                     chineseString.status = [dictionary[@"status"] integerValue];
                     
                     if ([dictionary[@"status"] integerValue] == 1) {
                         
                         chineseString.userId = dictionary[@"userId"];
-                        
                         [registerArray addObject:chineseString];
                         
                     } else if([dictionary[@"status"] integerValue] == 2){
@@ -152,70 +134,44 @@
             }
             
             self.chineseStringArray = chineseStringArray;
-            
             [self.chineseStringArray insertObject:registerArray atIndex:0];
-            
             [self.chineseStringArray insertObject:friendArray atIndex:1];
             
             if (friendArray.count != 0) {
-                
                 [self.indexArray insertObject:@"友" atIndex:0];
-                
             } else {
-                
                 [self.indexArray insertObject:@"" atIndex:0];
             }
             
             if (registerArray.count != 0) {
-                
                 [self.indexArray insertObject:@"+" atIndex:0];
-                
             } else {
-                
                 [self.indexArray insertObject:@"" atIndex:0];
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
                 [self.tableView reloadData];
-                
             });
             
         } failure:^(NSError *error) {
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         }];
     }];
-    
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    [self loadData];
-    
-}
-
 
 #pragma ---
 #pragma mark ---- 父视图的生命周期方法
 - (void)searchBarDidBeginRestore:(BOOL)isAnimation  {
-    
     [super searchBarDidBeginRestore:isAnimation];
-    
     self.isSearch = NO;
-    
     [self.tableView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     
     [super searchBar:searchBar textDidChange:searchText];
-    
     self.isSearch = [searchText isEqualToString:@""] ? NO : YES;
-    
     //开始搜索
     self.searchResultArray = [NSMutableArray array];
     
@@ -312,17 +268,12 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
-    
     view.backgroundColor = RGBACOLOR(230, 230, 230, 1);
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH, 20)];
-    
     label.text = [self.indexArray objectAtIndex:section];
-    
     label.textColor = [UIColor darkGrayColor];
-    
     [view addSubview:label];
-    
     return view;
 }
 

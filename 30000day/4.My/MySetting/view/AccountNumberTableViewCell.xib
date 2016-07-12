@@ -14,12 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-4g-9Fz">
-                        <rect key="frame" x="254" y="32" width="51" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="122222222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fg-os-tTP">
                         <rect key="frame" x="218" y="10" width="87" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,19 +26,30 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igh-G3-bNO">
+                        <rect key="frame" x="259" y="31" width="46" height="32"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="x1l-Iz-3ga"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="5fg-os-tTP" secondAttribute="trailing" constant="15" id="1wO-aG-UtY"/>
                     <constraint firstItem="5fg-os-tTP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="50f-lz-Ejn"/>
-                    <constraint firstAttribute="trailing" secondItem="hsP-4g-9Fz" secondAttribute="trailing" constant="15" id="8Xg-KY-MNl"/>
-                    <constraint firstAttribute="bottom" secondItem="hsP-4g-9Fz" secondAttribute="bottom" constant="10" id="ISj-Y3-ARz"/>
+                    <constraint firstAttribute="trailing" secondItem="Igh-G3-bNO" secondAttribute="trailing" constant="15" id="DSP-L1-EXK"/>
                     <constraint firstItem="Hqx-KL-tBK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Tiz-qp-xTm"/>
+                    <constraint firstItem="Igh-G3-bNO" firstAttribute="top" secondItem="5fg-os-tTP" secondAttribute="bottom" id="rqp-Lj-RLD"/>
                     <constraint firstItem="Hqx-KL-tBK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="sdu-3L-kxW"/>
+                    <constraint firstAttribute="bottom" secondItem="Igh-G3-bNO" secondAttribute="bottom" id="za6-zl-Huy"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accountNumberLable" destination="Hqx-KL-tBK" id="GrA-Qo-EOj"/>
-                <outlet property="mailLable" destination="hsP-4g-9Fz" id="tkS-wK-8AY"/>
+                <outlet property="phoneNumberButton" destination="Igh-G3-bNO" id="9Qg-T7-1PF"/>
                 <outlet property="phoneNumberLable" destination="5fg-os-tTP" id="T7d-7f-BPb"/>
             </connections>
             <point key="canvasLocation" x="-119" y="314"/>

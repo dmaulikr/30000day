@@ -94,7 +94,6 @@
     if (![_userPwdTxt.text isEqualToString:_ConfirmPasswordTxt.text]){
         
         [self showToast:@"密码不一致，请重新确认"];
-        
         return;
     }
     
@@ -131,9 +130,7 @@
                                                 [self.tabBarController setSelectedIndex:0];
                                                 [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                
                                             });
-                                           
                                         }
                                         failure:^(NSError *error) {
                                             
@@ -157,9 +154,7 @@
 - (void)agreementButtonClick {
     
     AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
-    
     [self.navigationController pushViewController:controller animated:YES];
-    
 }
 
 #pragma mark - 键盘return

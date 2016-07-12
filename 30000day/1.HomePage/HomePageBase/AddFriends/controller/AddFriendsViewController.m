@@ -19,7 +19,6 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "ShareTableViewCell.h"
-#import "ThirdPartyLandingViewController.h"
 
 @interface AddFriendsViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
@@ -127,32 +126,12 @@
     }
 }
 
-//前往绑定控制器
-- (void)pushBindController {
-    
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"该功能需要绑定手机，是否去绑定？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
-        controller.type = KEY_GUEST;
-        controller.name = STUserAccountHandler.userProfile.nickName;
-        controller.uid = [Common keyChainValue];
-        controller.url = STUserAccountHandler.userProfile.headImg;
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [controller addAction:action];
-    [controller addAction:cancelAction];
-    [self presentViewController:controller animated:YES completion:nil];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
         
         if ([Common isVisit]) {
-            [self pushBindController];
+            [Common presentBindControllerWithSuperController:self];
         } else {
             SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
@@ -162,7 +141,7 @@
     } else if(indexPath.section == 1) {
         
         if ([Common isVisit]) {
-            [self pushBindController];
+            [Common presentBindControllerWithSuperController:self];
         } else {
             MailListViewController *controller = [[MailListViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
@@ -172,7 +151,7 @@
     } else if (indexPath.section == 2) {
         
         if ([Common isVisit]) {
-            [self pushBindController];
+            [Common presentBindControllerWithSuperController:self];
         } else {
             QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
             QRController.hidesBottomBarWhenPushed = YES;

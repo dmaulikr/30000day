@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class ThirdPartyLandingViewController;
 
 @interface Common : NSObject
 
@@ -96,6 +97,15 @@
 
 //表示如果该error的NSLocalizedDescriptionKey存在那么返回NSLocalizedDescriptionKey，如果不不存在返回optionalString
 + (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString;
+
+
 + (NSString *)keyChainValue;//获取设备唯一标识符
 + (BOOL)isVisit;//是否是游客
+
+
+//获取绑定控制器
++ (ThirdPartyLandingViewController *)getBindController;
+//推出UIAlertController类型控制器
++ (void)presentBindControllerWithSuperController:(UIViewController *)superController;
+
 @end
