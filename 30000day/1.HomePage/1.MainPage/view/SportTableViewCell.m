@@ -26,6 +26,8 @@
 
     _sportInformationModel = sportInformationModel;
     
+    self.dateTimeLable.text = sportInformationModel.dateTime;
+    
     self.distanceLable.text = sportInformationModel.distance.stringValue == nil || [sportInformationModel.distance.stringValue isEqualToString:@"0"] ? @"0.00" : sportInformationModel.distance.stringValue;
     
     self.timeLable.text = sportInformationModel.time.stringValue == nil ? @"00:00:00" : [self TimeformatFromSeconds:sportInformationModel.time.integerValue];

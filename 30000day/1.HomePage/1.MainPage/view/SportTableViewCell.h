@@ -19,6 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *calorieLable;
 
+@property (weak, nonatomic) IBOutlet UILabel *dateTimeLable;
+
+
 @property (nonatomic,strong) SportInformationModel *sportInformationModel;
 
 

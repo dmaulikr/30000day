@@ -21,5 +21,6 @@
 @dynamic time;
 @dynamic x;
 @dynamic y;
+@dynamic dateTime;
 
 @end

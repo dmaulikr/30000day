@@ -67,6 +67,8 @@
     
     SFTable.y = model.y;
     
+    SFTable.dateTime = model.dateTime;
+    
     NSError *err = nil;
     
     [_managedObjectContext save:&err];
@@ -120,6 +122,8 @@
         model.x = [obj valueForKey:@"x"];
         
         model.y = [obj valueForKey:@"y"];
+        
+        model.dateTime = [obj valueForKey:@"dateTime"];
         
         [array addObject:model];
         

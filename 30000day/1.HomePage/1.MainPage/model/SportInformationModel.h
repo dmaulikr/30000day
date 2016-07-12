@@ -26,4 +26,6 @@
 
 @property (nonatomic,strong) NSString *y;
 
+@property (nonatomic,strong) NSString *dateTime;
+
 @end

@@ -557,6 +557,17 @@
                             sportModel.y = y;
                             
                             
+                            NSDate *date = [NSDate date];
+                            
+                            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                            
+                            [dateFormatter setDateFormat:@"yyyy年MM月dd日 hh:mm"];
+                            
+                            NSString *stringDate = [dateFormatter stringFromDate:date];
+                            
+                            sportModel.dateTime = stringDate;
+                            
+                            
                             [SFTable insertSportInformation:sportModel];
                             
                             
