@@ -19,8 +19,8 @@
 
 #define BUTTON_WIDTH 65
 #define BUTTON_HEIGHT 39
-#define BUTTON_distance  (SCREEN_WIDTH - BUTTON_WIDTH * 3 - MARGIN * 2) / 2
-#define MARGIN 20
+//#define BUTTON_distance  (SCREEN_WIDTH - BUTTON_WIDTH * 3) / 4
+#define MARGIN (SCREEN_WIDTH - BUTTON_WIDTH * 3) / 4
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
@@ -188,7 +188,7 @@
     
     _mainPageButton = [self buttonWithTitle:@"主页" numberAndTag:0];
     [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-    [_mainPageButton setFrame:CGRectMake(BUTTON_distance, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_mainPageButton setFrame:CGRectMake(MARGIN, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_mainPageButton];
     
     
@@ -202,15 +202,14 @@
 //    [self.buttonParentView addSubview:_personButton];
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH * 1 + BUTTON_distance + MARGIN, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH + MARGIN * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
     _sportButton = [self buttonWithTitle:@"步行跑步" numberAndTag:2];
-    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + BUTTON_distance + MARGIN * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + MARGIN * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_sportButton];
     
-    
-    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(BUTTON_distance, 42, 65, 2)];
+    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(MARGIN, 42, 65, 2)];
     [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
@@ -220,7 +219,7 @@
     [self.addFriendsButton addTarget:self action:@selector(addFriendsClick) forControlEvents:UIControlEventTouchDown];
     [self.buttonParentView addSubview:self.addFriendsButton];
     self.addFriendsButton.hidden = YES;
-    self.addFriendsButton.translatesAutoresizingMaskIntoConstraints=NO;
+    self.addFriendsButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.buttonParentView addConstraint:[NSLayoutConstraint constraintWithItem:self.addFriendsButton
                                                                       attribute:NSLayoutAttributeCenterY
@@ -255,13 +254,9 @@
 - (void)tapButton:(UIButton *)button {
     
     [_scrollView setContentOffset:CGPointMake(button.tag * SCREEN_WIDTH,0) animated:YES];
-    
     [UIView animateWithDuration:0.3 animations:^{
-        
         [_bottomScrollView setFrame:CGRectMake(button.frame.origin.x, 42, 65 , 2)];
-        
     }];
-    
     [self buttonTitleChange:button.tag];
 }
 
@@ -269,14 +264,10 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     CGPoint offset = scrollView.contentOffset;
-    
     NSInteger curPageNo = offset.x / _scrollView.bounds.size.width;
-    
     [UIView animateWithDuration:0.3 animations:^{
-        
-        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH + BUTTON_distance + curPageNo * MARGIN, 42, 65, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH  + (curPageNo + 1) * MARGIN, 42, 65, 2)];
     }];
-    
     [self buttonTitleChange:curPageNo];
 }
 

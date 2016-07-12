@@ -405,14 +405,14 @@
                                                             } else {
                                                                 
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    failure([Common errorWithString:@"账户无效"]);
+                                                                    failure([Common errorWithString:recvDictionary[@"msg"]]);
                                                                 });
                                                             }
     
                                                         } else {
                                                             
                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                failure([Common errorWithString:@"账户无效"]);
+                                                                failure(localError);
                                                             });
                                                         }
                                                         
@@ -427,7 +427,6 @@
     request.requestSerializerType = STRequestSerializerTypeJSON;
     return [self startRequest:request];
 }
-
 
 //私有api设置个人信息
 - (void)setUserInformationWithDictionary:(NSMutableDictionary *)jsonDictionary userName:(NSString *)userName password:(NSString *)password isFromThirdParty:(NSNumber *)isFromThirdParty postNotification:(BOOL)isPostNotification {

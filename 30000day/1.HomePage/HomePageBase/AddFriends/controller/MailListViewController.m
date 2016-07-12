@@ -556,15 +556,12 @@
         case MessageComposeResultFailed:// send failed
             
             [self showToast:@"短信发送失败"];
-            
             [controller dismissViewControllerAnimated:YES completion:nil];
-            
             break;
             
         case MessageComposeResultSent: {
             
             [self showToast:@"短信发送成功"];
-            
             [controller dismissViewControllerAnimated:YES completion:nil];
         }
             break;
