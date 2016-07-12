@@ -137,7 +137,6 @@
 - (void)updateImage:(UIImage *)image {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     [STDataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
         self.headImageURLString = imageUrl;
@@ -154,19 +153,15 @@
 #pragma mark --- UITableViewDelegate/UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 0) {
-        
         return 5;
-        
     } else {
-        
-        return 1;
+        return 2;
     }
 }
 
@@ -185,17 +180,12 @@
     if (indexPath.section == 0) {
         
         if (indexPath.row == 0) {
-            
             return 105;
-            
         } else {
-            
             return 43;
         }
-        
-    } else {
-        return 64;
     }
+    return 44;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -262,17 +252,21 @@
         }
         
     } else if (indexPath.section == 1) {
-        
+    
         AccountNumberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountNumberTableViewCell"];
         if ( cell == nil ) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"AccountNumberTableViewCell" owner:nil options:nil] lastObject];
         }
-        cell.profile = STUserAccountHandler.userProfile;
-        
-        [cell setButtonBlock:^{
-            [self.navigationController pushViewController:(UIViewController *)[Common getBindController] animated:YES];
-        }];
-        
+        if (indexPath.row == 0) {
+            cell.accountNumberLable.text = @"账号";
+            [cell.phoneNumberButton setTitle:STUserAccountHandler.userProfile.userName forState:UIControlStateNormal];
+        } else if (indexPath.row == 1) {
+            cell.accountNumberLable.text = @"手机号";
+            cell.profile = STUserAccountHandler.userProfile;
+            [cell setButtonBlock:^{
+                [self.navigationController pushViewController:(UIViewController *)[Common getBindController] animated:YES];
+            }];
+        }
         return cell;
     }
     
@@ -474,6 +468,5 @@
     
     [STNotificationCenter removeObserver:self];
 }
-
 
 @end
