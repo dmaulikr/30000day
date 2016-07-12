@@ -52,34 +52,23 @@
     [super viewDidLoad];
     
     self.title = @"个人信息";
-    
     self.saveButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonClick)];
-    
     self.navigationItem.rightBarButtonItem = self.saveButton;
-    
     self.saveButton.enabled = NO;
     
     self.nickName = STUserAccountHandler.userProfile.nickName;
     self.currentChooseNickName = STUserAccountHandler.userProfile.nickName;
     
-    
     self.gender = STUserAccountHandler.userProfile.gender;
     self.currentChooseGender = STUserAccountHandler.userProfile.gender;
-    
-    
     
     self.lastBirthdayString = STUserAccountHandler.userProfile.birthday;
     self.currentChooseBirthdayString = STUserAccountHandler.userProfile.birthday;
     
-    
-    
     self.headImageURLString = STUserAccountHandler.userProfile.headImg;
-    
-    
     
     self.memo = STUserAccountHandler.userProfile.memo;
     self.currentChooseMemo = STUserAccountHandler.userProfile.memo;
-    
     
     _titleArray = [NSArray arrayWithObjects:@"头像",@"昵称",@"性别",@"生日",nil];
     
@@ -89,7 +78,6 @@
 - (void)reloadData {
     
     [self.tableView reloadData];
-    
 }
 
 - (void)saveButtonClick {
@@ -97,21 +85,17 @@
     if ([Common isObjectNull:self.currentChooseNickName]) {
         
         [self showToast:@"昵称不能为空"];
-        
         return;
     }
     
     if ([Common isObjectNull:self.currentChooseBirthdayString]) {
         
         [self showToast:@"生日不能为空"];
-        
         return;
     }
     
     //上传服务器
-    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                  nickName:self.currentChooseNickName
                                                    gender:self.currentChooseGender
@@ -121,21 +105,14 @@
                                                   success:^(BOOL success) {
         
           [self showToast:@"个人信息保存成功"];
-        
           [self.navigationController popViewControllerAnimated:YES];
-            
           [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
+                                                      
           NSDateFormatter *date = [[NSDateFormatter alloc] init];
-          
           [date setDateFormat:@"yyyy-MM-dd"];
-          
           NSDate *birthDate = [date dateFromString:self.currentChooseBirthdayString];
-          
           NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
-          
           NSInteger age = trunc(dateDiff/(60 * 60 * 24)) / 365;
-          
           age = 0 - age;
           
           if (age < 80) {
@@ -143,20 +120,16 @@
                   NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
                   
                   if (userConfigure == nil) {
-                      
                       userConfigure = [NSMutableDictionary dictionary];
-                      
                   }
                   
                   [userConfigure setObject:@(NO) forKey:HIGH_ALERT];
-                  
                   [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
           }
                                                       
     } failure:^(NSError *error) {
         
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
         [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
     }];
 }
@@ -168,13 +141,11 @@
     [STDataHandler sendUpdateUserHeadPortrait:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] headImage:image success:^(NSString *imageUrl) {
         
         self.headImageURLString = imageUrl;
-        
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         
     } failure:^(NSError *error) {
         
         [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-        
         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
     }];
 }
@@ -245,9 +216,7 @@
             
             //给这连个判断条件赋值
             self.portraitImageView = cell.headImageView;
-
             self.editorImage = self.portraitImageView.image;
-            
             self.copareImage = self.portraitImageView.image;
             
             return cell;
@@ -259,17 +228,11 @@
             if ( cell == nil ) {
                 
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
-                
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
                 cell.textLabel.textColor = [UIColor blackColor];
-                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
-                
                 cell.textLabel.font = [UIFont systemFontOfSize:15];
-                
                 cell.detailTextLabel.textColor = RGBACOLOR(130, 130, 130, 1);
         
             }
@@ -277,44 +240,38 @@
             if (indexPath.row == 1) {
               
                 cell.detailTextLabel.text = self.currentChooseMemo;
-                
                 cell.textLabel.text = @"个性签名";
                 
             } else if ( indexPath.row == 2) {
                 
                 cell.detailTextLabel.text = self.currentChooseNickName;
-                
                 cell.textLabel.text = @"昵称";
             
             } else if ( indexPath.row == 3) {
                 
                 cell.detailTextLabel.text = [self.currentChooseGender isEqual:@1] ? @"男" : @"女";
-                
                 cell.textLabel.text = @"性别";
                 
             } else if ( indexPath.row == 4) {
                 
                 cell.detailTextLabel.text = self.currentChooseBirthdayString;
-                
                 cell.textLabel.text = @"生日";
             }
             
             return cell;
-            
         }
         
     } else if (indexPath.section == 1) {
         
         AccountNumberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AccountNumberTableViewCell"];
-        
         if ( cell == nil ) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:@"AccountNumberTableViewCell" owner:nil options:nil] lastObject];
-
         }
-    
-        cell.phoneNumberLable.text = STUserAccountHandler.userProfile.userName;
-        cell.mailLable.text = [STUserAccountHandler userProfile].email;
+        cell.profile = STUserAccountHandler.userProfile;
+        
+        [cell setButtonBlock:^{
+            [self.navigationController pushViewController:(UIViewController *)[Common getBindController] animated:YES];
+        }];
         
         return cell;
     }
@@ -325,11 +282,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 43)];
-    
     [view setBackgroundColor:[UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0]];
-    
     return view;
-    
 }
 
 //nickName birthday
@@ -344,49 +298,35 @@
         } else if (indexPath.row == 1) {
           
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"修改简介" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            
             UITextField *textfile = [alert textFieldAtIndex:0];
-            
             [textfile setText:self.currentChooseMemo];
-            
             [alert show];
             
         } else if(indexPath.row == 2) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.currentChooseNickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            
             UITextField *textfile = [alert textFieldAtIndex:0];
-            
             [textfile setText:self.currentChooseNickName];
-            
             [alert show];
             
         } else if(indexPath.row == 3) {
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"选择性别"message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"男",@"女", nil];
-            
             [alertView show];
             
         } else if(indexPath.row == 4) {
             
             UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提醒" message:@"修改生日会被当做新用户，将导致历史数据丢失，是否继续" preferredStyle:UIAlertControllerStyleAlert];
-            
             UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                
                 [self chooseBirthday];
-                
             }];
             
             UIAlertAction *cancelAlert = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-            
             [alertView addAction:continueAction];
-            
             [alertView addAction:cancelAlert];
-            
             [self.navigationController presentViewController:alertView animated:YES completion:nil];
         }
     }
@@ -402,13 +342,10 @@
     [self.view endEditing:YES];
 
     QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
-
     picker.delegate = self;
-
     picker.titleText = @"生日选择";
-
-    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
     
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
     NSDate *bithdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
     
     [picker showDataPickView:[UIApplication sharedApplication].keyWindow WithDate:bithdayDate datePickerMode:UIDatePickerModeDate minimumDate:[NSDate dateWithTimeIntervalSinceNow:-(200.00000*365.00000*24.000000*60.00000*60.00000)] maximumDate:[NSDate date]];

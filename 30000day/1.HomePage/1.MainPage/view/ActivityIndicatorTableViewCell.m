@@ -7,21 +7,15 @@
 //
 
 #import "ActivityIndicatorTableViewCell.h"
-
 #import "sys/utsname.h"
 
 @interface ActivityIndicatorTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *label_1;
-
 @property (weak, nonatomic) IBOutlet UILabel *label_2;
-
 @property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *circleWidth;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableCenterY;
-
 
 @end
 
@@ -34,19 +28,14 @@
         [[self getDeviceType] isEqualToString:@"iPhone4S"]) {
         
         self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
-        
         self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
-        
         self.circleWidth.constant = - ([UIScreen mainScreen].bounds.size.width * 0.43 - [UIScreen mainScreen].bounds.size.width * 0.36);
-        
         self.lableCenterY.constant = - 8;
         
     } else {
         
         self.label_1.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
-        
         self.label_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
-        
     }
 }
 

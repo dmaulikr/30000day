@@ -32,4 +32,6 @@
 
 @property (nonatomic,copy) NSString *friendSwitch;//添加好友的验证开关
 
+@property (nonatomic,copy) NSString *mobile;//手机号码
+
 @end

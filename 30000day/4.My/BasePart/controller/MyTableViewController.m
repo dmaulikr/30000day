@@ -24,7 +24,6 @@
 #import "AboutTableViewController.h"
 #import "QuickResponseCodeViewController.h"
 #import "QRReaderViewController.h"
-#import "ThirdPartyLandingViewController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -33,21 +32,14 @@
 @implementation MyTableViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     self.title = @"我的";
-
     self.tableViewStyle = STRefreshTableViewGroup;
-    
     [self.tableView setDataSource:self];
-    
     [self.tableView setDelegate:self];
-    
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
     [self showHeadRefresh:YES showFooterRefresh:NO];
-    
     self.isShowBackItem = NO;
     
     //监听个人信息管理模型发出的通知
@@ -149,26 +141,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-//前往绑定控制器
-- (void)pushBindController {
-    
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"该功能需要绑定手机，是否去绑定？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
-        controller.type = KEY_GUEST;
-        controller.name = STUserAccountHandler.userProfile.nickName;
-        controller.uid = [Common keyChainValue];
-        controller.url = STUserAccountHandler.userProfile.headImg;
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [controller addAction:action];
-    [controller addAction:cancelAction];
-    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma ---
@@ -360,7 +332,7 @@
         if (indexPath.row == 0) {
             
             if ([Common isVisit]) {
-                [self pushBindController];
+                [Common presentBindControllerWithSuperController:self];
             } else {
                 QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
                 controller.hidesBottomBarWhenPushed = YES;
@@ -370,7 +342,7 @@
         } else {
             
             if ([Common isVisit]) {
-                [self pushBindController];
+                [Common presentBindControllerWithSuperController:self];
             } else {
                 QRReaderViewController *controller = [[QRReaderViewController alloc] init];
                 controller.hidesBottomBarWhenPushed = YES;
@@ -383,19 +355,14 @@
         if (indexPath.row == 0) {
             
             SecurityViewController *stc = [[SecurityViewController alloc] init];
-            
             stc.hidesBottomBarWhenPushed = YES;
-            
             [self.navigationController pushViewController:stc animated:YES];
             
         } else if (indexPath.row == 1) {
           
             SetUpViewController *suc = [[SetUpViewController alloc] init];
-            
             suc.hidesBottomBarWhenPushed = YES;
-            
             [self.navigationController pushViewController:suc animated:YES];
-        
         }
         
     } else if (indexPath.section == 3) {
@@ -413,22 +380,17 @@
         }
         
         controller.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.section == 4) {
         
         AboutTableViewController *controller = [[AboutTableViewController alloc] init];
-        
         controller.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:controller animated:YES];
-        
         
     } else if (indexPath.section == 5) {
         
         [self cancelAction];
-    
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
