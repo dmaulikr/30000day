@@ -252,21 +252,14 @@
     _friendModel = friendModel;
 
     [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:friendModel.friendHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
     self.labelFirst_fourth.text = friendModel.friendNickName;
-    
-    self.labelSecond_fourth.text = friendModel.friendMemo;
+    self.labelSecond_fourth.text = [NSString stringWithFormat:@"账号: %@",friendModel.friendUserName];
     
     if ([friendModel.status isEqualToString:@"1"]) {//请求
-        
         [self setType:ButtonTypeRequest];
-        
     } else if ([friendModel.status isEqualToString:@"2"]) {//已经接受
-        
         [self setType:ButtonTypeAccept];
-        
     } else if ([friendModel.status isEqualToString:@"3"]) {//拒绝
-        
         [self setType:ButtonTypeReject];
     }
 }

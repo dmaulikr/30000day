@@ -12,8 +12,8 @@
 
 typedef NS_ENUM(NSInteger,ShowLabelType) {
     
+    ShowLabelPastAgeAndAllAgeType = 0,//过去天龄+总天龄
     ShowLabelSurplusAgeAndAllAgeType,//剩余天龄+总天龄
-    ShowLabelPastAgeAndAllAgeType,//过去天龄+总天龄
     ShowLabelPastAgeAndSurplusAgeType,//过去天龄+剩余天龄
 };
 

@@ -11,15 +11,11 @@
 @interface NewFriendModel : NSObject
 
 @property (nonatomic,copy) NSString *status; //1--request   2--accept  3---reject
-
 @property (nonatomic,copy) NSString *friendId;
-
 @property (nonatomic,copy) NSString *userId;
-
 @property (nonatomic,copy) NSString *friendNickName;
-
 @property (nonatomic,copy) NSString *friendHeadImg;
-
 @property (nonatomic,copy) NSString *friendMemo;
+@property (nonatomic,copy) NSString *friendUserName;
 
 @end
