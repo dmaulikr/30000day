@@ -11,7 +11,6 @@
 @interface AccountNumberTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *accountNumberLable;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumberLable;
 @property (weak, nonatomic) IBOutlet UIButton *phoneNumberButton;
 //按钮点击回调
 @property (nonatomic,copy) void (^buttonBlock)();

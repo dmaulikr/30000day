@@ -17,31 +17,23 @@
 #import "JSBadgeView.h"
 #import "SportTableViewController.h"
 
-#define BUTTON_WIDTH 65
-#define BUTTON_HEIGHT 39
-//#define BUTTON_distance  (SCREEN_WIDTH - BUTTON_WIDTH * 3) / 4
-#define MARGIN (SCREEN_WIDTH - BUTTON_WIDTH * 3) / 4
+#define BUTTON_WIDTH 65.000000
+#define BUTTON_HEIGHT 39.000000
+
+#define button_margin_max   (SCREEN_WIDTH - BUTTON_WIDTH * 3.000000) / 4.000000
+#define button_margin_min   button_margin_max - 15.00000
 
 @interface MainPageBaseViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) UIButton *mainPageButton;//主页
-
 @property (nonatomic,strong) UIButton *personButton;//自己人
-
 @property (nonatomic,strong) UIButton *newsButton;//消息
-
 @property (nonatomic,strong) UIButton *moreAgeButton;//天龄日历
-
 @property (nonatomic,strong) UIButton *addFriendsButton;//添加好友
-
 @property (nonatomic,strong) UIView *buttonParentView;//顶部按钮的父视图
-
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
-
 @property (nonatomic,strong) UIButton *sportButton;//去跑步
-
 @property (nonatomic ,strong) UIScrollView *scrollView;
-
 @property (nonatomic,strong) JSBadgeView *badgeView;
 
 @end
@@ -173,7 +165,6 @@
     if (_badgeView == nil) {
         
         _badgeView = [[JSBadgeView alloc] initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
-        
         _badgeView.badgePositionAdjustment = CGPointMake(-10.0f, 10.0f);
     }
     
@@ -182,13 +173,12 @@
 
 - (void)createButton {
     
-    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , 44)];
-    
+    self.buttonParentView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH - 30, 44)];
     self.navigationItem.titleView = self.buttonParentView;
     
     _mainPageButton = [self buttonWithTitle:@"主页" numberAndTag:0];
     [_mainPageButton setTitleColor:LOWBLUECOLOR forState:UIControlStateNormal];
-    [_mainPageButton setFrame:CGRectMake(MARGIN, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_mainPageButton setFrame:CGRectMake(button_margin_min, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_mainPageButton];
     
     
@@ -202,14 +192,14 @@
 //    [self.buttonParentView addSubview:_personButton];
     
     _moreAgeButton = [self buttonWithTitle:@"天龄日历" numberAndTag:1];
-    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH + MARGIN * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_moreAgeButton setFrame:CGRectMake(BUTTON_WIDTH + button_margin_min + button_margin_max, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_moreAgeButton];
     
     _sportButton = [self buttonWithTitle:@"步行跑步" numberAndTag:2];
-    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + MARGIN * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
+    [_sportButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + button_margin_min + button_margin_max * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:_sportButton];
     
-    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(MARGIN, 42, 65, 2)];
+    _bottomScrollView = [[UIView alloc] initWithFrame:CGRectMake(button_margin_min, 42, 65, 2)];
     [_bottomScrollView setBackgroundColor:LOWBLUECOLOR];
     [self.buttonParentView addSubview:_bottomScrollView];
     
@@ -266,7 +256,7 @@
     CGPoint offset = scrollView.contentOffset;
     NSInteger curPageNo = offset.x / _scrollView.bounds.size.width;
     [UIView animateWithDuration:0.3 animations:^{
-        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH  + (curPageNo + 1) * MARGIN, 42, 65, 2)];
+        [_bottomScrollView setFrame:CGRectMake(curPageNo * BUTTON_WIDTH  + button_margin_min + button_margin_max * curPageNo, 42, 65, 2)];
     }];
     [self buttonTitleChange:curPageNo];
 }
