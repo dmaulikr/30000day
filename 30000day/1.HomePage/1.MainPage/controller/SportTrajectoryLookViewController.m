@@ -233,7 +233,7 @@
     
     [lable setTextAlignment:NSTextAlignmentCenter];
     
-    [lable setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:16.0]];
+    [lable setFont:[UIFont fontWithName:@"Arial-BoldMT" size:16.0]];
     
     [lable setText:textString];
     
