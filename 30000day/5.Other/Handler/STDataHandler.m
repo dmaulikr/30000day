@@ -1548,7 +1548,7 @@
     [request setHTTPShouldHandleCookies:NO];
     [request setTimeoutInterval:30];
     [request setHTTPMethod:@"POST"];
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/stapi/upload/uploadFile",ST_API_SERVER]]];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPHEADIMAGE]]];
     
     NSString *BoundaryConstant = [NSString stringWithFormat:@"V2ymHFg03ehbqgZCaKO6jy"];
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
@@ -4216,7 +4216,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:[NSString stringWithFormat:@"%@/stapi/user/checkPassword",ST_API_SERVER] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_PROTOCOL] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
