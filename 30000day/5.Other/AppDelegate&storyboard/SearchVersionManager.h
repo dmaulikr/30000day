@@ -11,8 +11,8 @@
 @interface SearchVersionManager : STManager
 
 + (SearchVersionManager *)shareManager;
-
 - (void)synchronizedDataFromServer;
+- (void)checkVersion;
 
 @end
 

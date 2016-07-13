@@ -10,12 +10,13 @@
 #import "STLocationMananger.h"
 #import "STCoreDataHandler.h"
 
+#define kHarpyCurrentVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]
+#define kHarpyAppID                 @"1086080481"
+
 @interface SearchTableVersion : NSObject
 
 @property (nonatomic,strong) NSNumber *searchTableVersionId;
-
 @property (nonatomic,copy) NSString *tableName;
-
 @property (nonatomic,copy) NSString *version;
 
 @end
@@ -36,11 +37,8 @@
     if ([self init]) {
         
         self.searchTableVersionId = [aDecoder decodeObjectForKey:@"searchTableVersionId"];
-        
         self.tableName = [aDecoder decodeObjectForKey:@"tableName"];
-        
         self.version = [aDecoder decodeObjectForKey:@"version"];
-        
     }
     return self;
 }
@@ -56,7 +54,9 @@
 
 @end
 
-@implementation SearchVersionManager
+@implementation SearchVersionManager {
+    BOOL _isForce;//是否
+}
 
 static SearchVersionManager *manager;
 
@@ -220,6 +220,87 @@ static SearchVersionManager *manager;
             }
         }
     }];
+}
+
+- (void)checkVersion {
+    // Asynchronously query iTunes AppStore for publically available version
+    NSString *storeString = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kHarpyAppID];
+    NSURL *storeURL = [NSURL URLWithString:storeString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:storeURL];
+    [request setHTTPMethod:@"GET"];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        if ( [data length] > 0 && !error ) { // Success
+            
+            NSDictionary *appData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // All versions that have been uploaded to the AppStore
+                NSArray *versionsInAppStore = [[appData valueForKey:@"results"] valueForKey:@"version"];
+                
+                if ( ![versionsInAppStore count] ) { // No versions of app in AppStore
+                    return;
+                } else {
+                    
+                    NSString *currentAppStoreVersion = [versionsInAppStore objectAtIndex:0];
+                    NSString *firstString = [[kHarpyCurrentVersion componentsSeparatedByString:@"."] firstObject];//本地的
+                    NSString *secondeString = [[currentAppStoreVersion componentsSeparatedByString:@"."] firstObject];//appStore的
+                    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey];
+                    if ([kHarpyCurrentVersion compare:currentAppStoreVersion options:NSNumericSearch] == NSOrderedDescending) {
+                        
+                        if ([firstString isEqualToString:secondeString]) {//强制
+                            
+                            _isForce = YES;
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+                                                                                message:[NSString stringWithFormat:@"A new version of %@ is available. Please update to version %@ now.", appName, currentAppStoreVersion]
+                                                                               delegate:self
+                                                                      cancelButtonTitle:nil
+                                                                      otherButtonTitles:@"下载更新", nil];
+                            [alertView show];
+                        
+                        } else {
+                            
+                            _isForce = NO;//非强制的
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+                                                                                message:[NSString stringWithFormat:@"A new version of %@ is available. Please update to version %@ now.", appName, currentAppStoreVersion]
+                                                                               delegate:self
+                                                                      cancelButtonTitle:@"回头再说"
+                                                                      otherButtonTitles:@"下载更新", nil];
+                            [alertView show];
+                        }
+                    }
+                }
+            });
+        }
+    }];
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (_isForce ) {
+        
+        NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kHarpyAppID];
+        NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
+        [[UIApplication sharedApplication] openURL:iTunesURL];
+        
+        //正在更新
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithWindow:[[UIApplication sharedApplication].delegate window]];
+        [[[UIApplication sharedApplication].delegate window] addSubview:HUD];
+        HUD.labelText = @"请前往appStore更新";
+        HUD.removeFromSuperViewOnHide = YES;
+        [HUD show:YES];
+    } else {
+        
+        if (buttonIndex == 1) {
+            NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kHarpyAppID];
+            NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
+            [[UIApplication sharedApplication] openURL:iTunesURL];
+        }
+    }
 }
 
 @end

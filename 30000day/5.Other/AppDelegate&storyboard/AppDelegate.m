@@ -27,15 +27,15 @@
 #import "AVIMNoticationMessage.h"
 #import "CDConversationStore.h"
 #import "CDFailedMessageStore.h"
+#import "Harpy.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
 
 @import HealthKit;
 
-@interface AppDelegate () {
-    
-    BMKMapManager* _mapManager;
+@interface AppDelegate () <iVersionDelegate> {
+    BMKMapManager *_mapManager;
 }
 @property (nonatomic) HKHealthStore *healthStore1;
 
@@ -84,14 +84,20 @@
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
+    [AVIMNoticationMessage registerSubclass];
     
     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
         
     }];
-
-    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-    [iVersion sharedInstance].previewMode = NO;
-    [AVIMNoticationMessage registerSubclass];
+    //*************************初始化iVersion***************************//
+//    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
+//    [iVersion sharedInstance].previewMode = NO;
+//    [iVersion sharedInstance].delegate = self;
+//    [iVersion sharedInstance].showOnFirstLaunch = YES;
+//    [[iVersion sharedInstance] checkForNewVersion];
+    
+    [Harpy checkVersion];
+    
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -105,17 +111,19 @@
     
     //初始化版本控制器
     [[SearchVersionManager shareManager] synchronizedDataFromServer];
+    [[SearchVersionManager shareManager] checkVersion];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (NSString *)databasePathWithUserId:(NSString *)userId {
+#pragma mark --- iVersionDelegate
+- (void)iVersionDidDetectNewVersion:(NSString *)version details:(NSString *)versionDetails {
     
-    NSString *libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    return [libPath stringByAppendingPathComponent:[NSString stringWithFormat:@"com.shutian.30000day.%@.db3", userId]];
+}
+- (BOOL)iVersionShouldDisplayCurrentVersionDetails:(NSString *)versionDetails {
+    return YES;
 }
 
 //如果此时你的客户端 软件仍在打开，则会调用
