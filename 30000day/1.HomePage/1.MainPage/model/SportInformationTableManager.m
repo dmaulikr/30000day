@@ -38,9 +38,13 @@
     
     NSError *error = nil;
     
-    [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:dbURL options:nil error:&error];
+    NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+                                       NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
+                                       NSInferMappingModelAutomaticallyOption, nil];
     
-    //  实例化上下文
+    [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:dbURL options:optionsDictionary error:&error];
+
+    //实例化上下文
     _managedObjectContext = [[NSManagedObjectContext alloc]initWithConcurrencyType:NSMainQueueConcurrencyType];
     
     [_managedObjectContext setPersistentStoreCoordinator:psc];
