@@ -114,6 +114,8 @@
                 NSNumber *number = @0;
                 if ([self.type isEqualToString:KEY_GUEST]) {
                     number = @2;
+                    //保存该游客账号被绑定
+                    [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"IS_BIND_%@",self.uid] withObject:YES];
                 } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {
                     number = @1;
                 }
