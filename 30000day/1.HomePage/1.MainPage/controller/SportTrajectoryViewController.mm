@@ -17,6 +17,7 @@
 #import "SportInformationTableManager.h"
 #import <BaiduMapApI_Map/BMKGroundOverlay.h>
 #import "MTProgressHUD.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate>
 
@@ -39,6 +40,8 @@
 @property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
 
 @property (nonatomic,strong) MotionData *motionData; //运动记录model
+
+@property (nonatomic, strong) AVSpeechSynthesizer *aVSpeechSynthesizer;
 
 
 @property (nonatomic,strong) UIView *countDownView; //倒计时视图
@@ -76,6 +79,15 @@
     [self loadOtherView];
     
     [self loadCountDownView];
+    
+    
+    AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:@"开始跑步"];
+    
+    aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
+    
+    aVSpeechUtterance.voice =[AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    
+    [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
 
 }
 

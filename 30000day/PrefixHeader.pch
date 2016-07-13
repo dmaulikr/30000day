@@ -40,7 +40,8 @@
 
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
-#define  ST_API_SERVER                @"http://121.196.223.175:8082"
+#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi"
+
 
 //聚合宏
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
@@ -102,85 +103,87 @@
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
 
-#define  LOGIN_WITH_PASSWORD          @"/stapi/user/login"                           //用户登录
-#define  GET_MY_FRIENDS               @"/stapi/friend/getMyFriends"                  //获取用户好友
-#define  SEARCH_USER                  @"/stapi/search/searchUser"                    //搜索用户
-#define  ADD_USER                     @"/stapi/user/jpush"                           //极光推送添加好友
-#define  REGISTER                     @"/stapi/user/register"                        //注册
-#define  GET_SMS_CODE                 @"/stapi/mobile/sendMobileCode"                //获取短信验证码
-#define  VALIDATE_SMS_CODE            @"/stapi/mobile/validateMobileCode"            //验证短信验证码
-#define  GET_USER_LIFE_LIST           @"/stapi/life/getUserLifeList"                 //获取用户天龄
-#define  GET_FACTORS                  @"/stapi/factor/getFactor"                    //获取健康因子
-#define  GET_SUBFACTORS               @"/stapi/factor/getFactorsData"                //获取子健康模型
-#define  GET_USER_FACTORS             @"/stapi/factor/getUserFactor"                 //获取某人的健康因子
-#define  SAVE_USER_FACTORS            @"/stapi/factor/setUserFactor"                 //保存某一个人的健康因子
-#define  SAVE_USER_INFORMATION        @"/stapi/userInfo/uptUserInfo"                  //保存个人信息
-#define  UPDATE_USER_PASSWORD_BYMOBILE         @"/stapi/password/uptUserPwdByMobile"                    //修改密码
-#define  GET_USERID_BY_NAME           @"/stapi/userInfo/getUserIdByName"              //通过用户名获取userId
-#define  GET_SECURITY_QUESTION        @"/stapi/security/getUserSecurity"              //获取个人密保问题
-#define  GET_SECURITY_QUESTION_SUM    @"/stapi/security/getSecurityData"              //获取所有密保问题
-#define  GET_SECURITY_QUESTION_VERIFICATION    @"/stapi/security/valUserSecurity"              //验证个人密保问题
-#define  GET_SECURITY_QUESTION_UPTUSERPWDBYSECU   @"/stapi/password/uptUserPwdBySecu"              //验证个人密保问题
-#define  CHANGE_PASSWORD                @"/stapi/password/uptUserPwdById"                      //修改密码
-#define  UPDATE_USER_SECURITY           @"/stapi/security/setUserSecurity"                      //修改密码
-#define  UPDATE_USER_SENDEMAIL           @"/stapi/bind/sendEmail"                               //绑定邮箱
-#define  UPDATE_USER_VERIFICATION_EMAIL          @"/stapi/bind/getUserBind"                     //验证用户是否绑定过邮箱
+#define  LOGIN_WITH_PASSWORD          @"/user/login"                           //用户登录
+#define  GET_MY_FRIENDS               @"/friend/getMyFriends"                  //获取用户好友
+#define  SEARCH_USER                  @"/search/searchUser"                    //搜索用户
+#define  ADD_USER                     @"/user/jpush"                           //极光推送添加好友
+#define  REGISTER                     @"/user/register"                        //注册
+#define  GET_SMS_CODE                 @"/mobile/sendMobileCode"                //获取短信验证码
+#define  VALIDATE_SMS_CODE            @"/mobile/validateMobileCode"            //验证短信验证码
+#define  GET_USER_LIFE_LIST           @"/life/getUserLifeList"                 //获取用户天龄
+#define  GET_FACTORS                  @"/factor/getFactor"                    //获取健康因子
+#define  GET_SUBFACTORS               @"/factor/getFactorsData"                //获取子健康模型
+#define  GET_USER_FACTORS             @"/factor/getUserFactor"                 //获取某人的健康因子
+#define  SAVE_USER_FACTORS            @"/factor/setUserFactor"                 //保存某一个人的健康因子
+#define  SAVE_USER_INFORMATION        @"/userInfo/uptUserInfo"                  //保存个人信息
+#define  UPDATE_USER_PASSWORD_BYMOBILE         @"/password/uptUserPwdByMobile"                    //修改密码
+#define  GET_USERID_BY_NAME           @"/userInfo/getUserIdByName"              //通过用户名获取userId
+#define  GET_SECURITY_QUESTION        @"/security/getUserSecurity"              //获取个人密保问题
+#define  GET_SECURITY_QUESTION_SUM    @"/security/getSecurityData"              //获取所有密保问题
+#define  GET_SECURITY_QUESTION_VERIFICATION    @"/security/valUserSecurity"              //验证个人密保问题
+#define  GET_SECURITY_QUESTION_UPTUSERPWDBYSECU   @"/password/uptUserPwdBySecu"              //验证个人密保问题
+#define  CHANGE_PASSWORD                @"/password/uptUserPwdById"                      //修改密码
+#define  UPDATE_USER_SECURITY           @"/security/setUserSecurity"                      //修改密码
+#define  UPDATE_USER_SENDEMAIL           @"/bind/sendEmail"                               //绑定邮箱
+#define  UPDATE_USER_VERIFICATION_EMAIL          @"/bind/getUserBind"                     //验证用户是否绑定过邮箱
+#define  UPHEADIMAGE                 @"/upload/uploadFile"                     //更新用户头像
+#define  GET_PROTOCOL                @"/user/checkPassword"                    //获取免责条款及协议
 
 
-#define  GET_COMPANY_LIST           @"/stapi/market/findProductList"      //获取所有的公司列表
-#define  GET_COMPANYDETAILS         @"/stapi/market/findProductInfo"      //获取商店详情
-#define  GET_LINE_LIST               @"/stapi/market/findLineList"         //获取城市地铁线路
-#define GET_PLACE_TREE_LIST          @"/stapi/market/findRegionTreeList"   //获取所有的树状的地址
-#define  GET_FINDCOMMENTLIST         @"/stapi/user/findCommentList"       //获取商品评论
-#define  GET_SHOP_LIST               @"/stapi/market/findProductList"     //获取所有的商品列表
-#define GET_SEARCH_LIST              @"/stapi/search/searchProduct"       //搜索商品列表
-#define  SAVE_COMMENT                @"/stapi/user/saveComment"           //评论
-#define  SAVE_POINTPRAISEORCANCEL    @"/stapi/user/pointPraiseOrCancel"   //点赞
-#define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/stapi/user/findDefaultCommentList"   //商品详情评论
-#define  GET_SEARCHTABLEVERSIION      @"/stapi/upgrade/searchTableVersion"    //获取后台数据表版本信息
-#define  GET_SHOPOWNERRECOMMEND       @"/stapi/market/shopOwnerRecommend"    //店长推荐
-#define  GET_PLATFORMRECOMMEND        @"/stapi/market/platformRecommend"    //平台推荐
-#define  GET_FINDCOMOANYINFO          @"/stapi/market/findCompanyInfoById"    //商店
-#define  GET_FINDPRODUCTSBYIDS        @"/stapi/market/findProductsByIds"      //商店下的商品
-#define  GET_ORDER_SEARCH_COUNT       @"/stapi/order/searchCourts"            //获取产品
-#define  COMMIT_ORDER_COURTS          @"/stapi/order/commitReservedCourts"    //提交订单
-#define  CALCULATE_PRICE              @"/stapi/order/calculateFee"            //计算价格
-#define  GET_ORDER_LIST               @"/stapi/order/searchUserOrders"       //获取订单
+#define  GET_COMPANY_LIST           @"/market/findProductList"      //获取所有的公司列表
+#define  GET_COMPANYDETAILS         @"/market/findProductInfo"      //获取商店详情
+#define  GET_LINE_LIST               @"/market/findLineList"         //获取城市地铁线路
+#define GET_PLACE_TREE_LIST          @"/market/findRegionTreeList"   //获取所有的树状的地址
+#define  GET_FINDCOMMENTLIST         @"/user/findCommentList"       //获取商品评论
+#define  GET_SHOP_LIST               @"/market/findProductList"     //获取所有的商品列表
+#define GET_SEARCH_LIST              @"/search/searchProduct"       //搜索商品列表
+#define  SAVE_COMMENT                @"/user/saveComment"           //评论
+#define  SAVE_POINTPRAISEORCANCEL    @"/user/pointPraiseOrCancel"   //点赞
+#define  SAVE_FINDDEFAUITCOMMWNT_COUNT    @"/user/findDefaultCommentList"   //商品详情评论
+#define  GET_SEARCHTABLEVERSIION      @"/upgrade/searchTableVersion"    //获取后台数据表版本信息
+#define  GET_SHOPOWNERRECOMMEND       @"/market/shopOwnerRecommend"    //店长推荐
+#define  GET_PLATFORMRECOMMEND        @"/market/platformRecommend"    //平台推荐
+#define  GET_FINDCOMOANYINFO          @"/market/findCompanyInfoById"    //商店
+#define  GET_FINDPRODUCTSBYIDS        @"/market/findProductsByIds"      //商店下的商品
+#define  GET_ORDER_SEARCH_COUNT       @"/order/searchCourts"            //获取产品
+#define  COMMIT_ORDER_COURTS          @"/order/commitReservedCourts"    //提交订单
+#define  CALCULATE_PRICE              @"/order/calculateFee"            //计算价格
+#define  GET_ORDER_LIST               @"/order/searchUserOrders"       //获取订单
 
-#define  GET_ORDER_DETAIL             @"/stapi/order/getOrderDetail"         //获取订单详情
-#define  GET_SEARCH_MATIONS           @"/stapi/info/searchInfomations"         //获取资讯
-#define  GET_ORDER_CANCEL             @"/stapi/order/cancelOrders"             //取消订单
-#define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"       //资讯详情
-#define  SAVE_POINT                   @"/stapi/user/pointOrCancelPraise"       //资讯点赞
-#define  GET_SEARCH_WRITER            @"/stapi/info/searchWriterInfomations"   //作者主页
-#define  COMMIT_SUBSCRIBE             @"/stapi/info/subscribe"                  //订阅作者
-#define  COMMIT_CANCEL_SUBSCRIBE      @"/stapi/info/cancelSubscribe"            //取消订阅
-#define  GET_MY_SUBSCRIBE             @"/stapi/info/mySubscribe"                //我的订阅
-#define  GET_USER_INFORMATION         @"/stapi/user/getUserById"               //获取个人信息
-#define  GET_SEARCH_WRITER_LIST       @"/stapi/info/searchWriterList"           //搜索作者
+#define  GET_ORDER_DETAIL             @"/order/getOrderDetail"         //获取订单详情
+#define  GET_SEARCH_MATIONS           @"/info/searchInfomations"         //获取资讯
+#define  GET_ORDER_CANCEL             @"/order/cancelOrders"             //取消订单
+#define  GET_INFOMATION_DETAIL        @"/info/getInfomationDetail"       //资讯详情
+#define  SAVE_POINT                   @"/user/pointOrCancelPraise"       //资讯点赞
+#define  GET_SEARCH_WRITER            @"/info/searchWriterInfomations"   //作者主页
+#define  COMMIT_SUBSCRIBE             @"/info/subscribe"                  //订阅作者
+#define  COMMIT_CANCEL_SUBSCRIBE      @"/info/cancelSubscribe"            //取消订阅
+#define  GET_MY_SUBSCRIBE             @"/info/mySubscribe"                //我的订阅
+#define  GET_USER_INFORMATION         @"/user/getUserById"               //获取个人信息
+#define  GET_SEARCH_WRITER_LIST       @"/info/searchWriterList"           //搜索作者
 
-#define  UPDATE_STAT_USERLLFE         @"/stapi/life/updateUserFitness"          //更新用户天龄信息(步数,楼梯数)
-#define  GET_COMMENTS                 @"/stapi/user/searchComments"             //获取评论
-#define  GET_INFOMATION_DETAIL        @"/stapi/info/getInfomationDetail"        //获取资讯资讯详情
-#define  SAVE_COMMENT_SUM             @"/stapi/user/saveComment"                //获取资讯资讯详情
-#define  GET_WRITER_LIST              @"/stapi/info/searchWriterListByType"     //根据类型获取作家列表
-#define  UPLOAD_IMAGES                @"/stapi/upload/uploadImages"             //上传图片
-#define  GET_DEFEAT_DATA              @"/stapi/life/getDefeatData"              //获取击败人数接口
-#define  GET_CHECKBIND                @"/stapi/user/checkBind"                  //检查是否已绑定
-#define  SAVE_BIND_REGISTER           @"/stapi/user/bindRegistForThirdParty"     //绑定注册
-#define  DELETE_FRIEND                @"/stapi/friend/rmvFriend"                //移除好友
-#define  UPDATE_FRIEND                @"/stapi/friend/uptFriend"                //更新好友的信息
-#define  CHECK_REGISTER               @"/stapi/user/checkRegistForThirdParty"    //检查是否已注册
-#define  REGIST_THIRDPARY             @"/stapi/user/registForThirdParty"         //注册第三方登录账号
-#define  CHECK_MOBILE                 @"/stapi/user/checkRegistForMobile"     //检查手机号是否已经注册
-#define  FIND_APPLY_ALL_ADD_FRIEND        @"/stapi/user/findApplyAddFriend"         //查找所有申请加我为好友记录
-#define  DELETE_APPLY_ADD_FRIEND          @"/stapi/user/rmvApplyAddFriend"          //删除一条申请加我为好友记录
-#define  CHECK_ADDRESS_BOOK          @"/stapi/user/checkAddressBook"            //检测通讯录
-#define  GET_DESCEND_FACTORS         @"/stapi/life/getLifeDescendFactors"       //获取用户天龄下降因素
-#define  GET_AGREEMENT               @"/stapi/info/getAgreement"                //免责条款及协议
-#define  SET_USER_FACTOR                 @"/stapi/factor/setUserFactorForUpdateUserInfo"//更新个人信息后需要调用的接口
-#define  CHECK_PASSWORD                  @"/stapi/user/checkPassword"              //检测密码是否正确
-#define  SET_FRIEND_SWITCH               @"/stapi/user/setFriendSwitch"            //添加加好友开关
+#define  UPDATE_STAT_USERLLFE         @"/life/updateUserFitness"          //更新用户天龄信息(步数,楼梯数)
+#define  GET_COMMENTS                 @"/user/searchComments"             //获取评论
+#define  GET_INFOMATION_DETAIL        @"/info/getInfomationDetail"        //获取资讯资讯详情
+#define  SAVE_COMMENT_SUM             @"/user/saveComment"                //获取资讯资讯详情
+#define  GET_WRITER_LIST              @"/info/searchWriterListByType"     //根据类型获取作家列表
+#define  UPLOAD_IMAGES                @"/upload/uploadImages"             //上传图片
+#define  GET_DEFEAT_DATA              @"/life/getDefeatData"              //获取击败人数接口
+#define  GET_CHECKBIND                @"/user/checkBind"                  //检查是否已绑定
+#define  SAVE_BIND_REGISTER           @"/user/bindRegistForThirdParty"     //绑定注册
+#define  DELETE_FRIEND                @"/friend/rmvFriend"                //移除好友
+#define  UPDATE_FRIEND                @"/friend/uptFriend"                //更新好友的信息
+#define  CHECK_REGISTER               @"/user/checkRegistForThirdParty"    //检查是否已注册
+#define  REGIST_THIRDPARY             @"/user/registForThirdParty"         //注册第三方登录账号
+#define  CHECK_MOBILE                 @"/user/checkRegistForMobile"     //检查手机号是否已经注册
+#define  FIND_APPLY_ALL_ADD_FRIEND        @"/user/findApplyAddFriend"         //查找所有申请加我为好友记录
+#define  DELETE_APPLY_ADD_FRIEND          @"/user/rmvApplyAddFriend"          //删除一条申请加我为好友记录
+#define  CHECK_ADDRESS_BOOK          @"/user/checkAddressBook"            //检测通讯录
+#define  GET_DESCEND_FACTORS         @"/life/getLifeDescendFactors"       //获取用户天龄下降因素
+#define  GET_AGREEMENT               @"/info/getAgreement"                //免责条款及协议
+#define  SET_USER_FACTOR                 @"/factor/setUserFactorForUpdateUserInfo"//更新个人信息后需要调用的接口
+#define  CHECK_PASSWORD                  @"/user/checkPassword"              //检测密码是否正确
+#define  SET_FRIEND_SWITCH               @"/user/setFriendSwitch"            //添加加好友开关
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"

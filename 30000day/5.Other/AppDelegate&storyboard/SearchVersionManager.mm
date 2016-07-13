@@ -168,7 +168,8 @@ static SearchVersionManager *manager;
 + (void)sendSearchTableVersion:(void (^)(NSMutableArray *dataArray))success
                        failure:(void (^)(NSError *error))failure {
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SEARCHTABLEVERSIION]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    NSString *STAPI = ST_API_SERVER;
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",STAPI,GET_SEARCHTABLEVERSIION]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
     
     request.HTTPMethod = @"GET";
     
