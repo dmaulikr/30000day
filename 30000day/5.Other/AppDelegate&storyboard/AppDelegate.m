@@ -27,7 +27,6 @@
 #import "AVIMNoticationMessage.h"
 #import "CDConversationStore.h"
 #import "CDFailedMessageStore.h"
-#import "Harpy.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -95,9 +94,6 @@
 //    [iVersion sharedInstance].delegate = self;
 //    [iVersion sharedInstance].showOnFirstLaunch = YES;
 //    [[iVersion sharedInstance] checkForNewVersion];
-    
-    [Harpy checkVersion];
-    
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];

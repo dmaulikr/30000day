@@ -46,9 +46,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     
     [aCoder encodeObject:self.searchTableVersionId forKey:@"searchTableVersionId"];
-    
     [aCoder encodeObject:self.tableName forKey:@"tableName"];
-    
     [aCoder encodeObject:self.version forKey:@"version"];
 }
 
@@ -63,12 +61,9 @@ static SearchVersionManager *manager;
 + (SearchVersionManager *)shareManager {
     
     static dispatch_once_t onceToken;
-    
     dispatch_once(&onceToken, ^{
-        
         manager = [[SearchVersionManager alloc] init];
     });
-    
     return manager;
 }
 
@@ -88,14 +83,12 @@ static SearchVersionManager *manager;
                 if (isSuccess) {//同步数据成功
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                       
                         [self encodeDataObject:dataArray];
                     });
                     
                 } else {//同步数据错误
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        
                         [self deleteDataObjectWithKey:[NSString stringWithUTF8String:object_getClassName(self)]];
                     });
                 }
@@ -108,7 +101,6 @@ static SearchVersionManager *manager;
                 for (int i = 0; i < oldArray.count; i++) {
                     
                     SearchTableVersion *oldVersion = oldArray[i];
-                    
                     SearchTableVersion *newVersion = dataArray[i];
                     
                     if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@1]) {//城市的表
@@ -224,7 +216,7 @@ static SearchVersionManager *manager;
 }
 
 - (void)checkVersion {
-    // Asynchronously query iTunes AppStore for publically available version
+    //Asynchronously query iTunes AppStore for publically available version
     NSString *storeString = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kHarpyAppID];
     NSURL *storeURL = [NSURL URLWithString:storeString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:storeURL];
@@ -239,7 +231,6 @@ static SearchVersionManager *manager;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                // All versions that have been uploaded to the AppStore
                 NSArray *versionsInAppStore = [[appData valueForKey:@"results"] valueForKey:@"version"];
                 
                 if ( ![versionsInAppStore count] ) { // No versions of app in AppStore
@@ -249,26 +240,32 @@ static SearchVersionManager *manager;
                     NSString *currentAppStoreVersion = [versionsInAppStore objectAtIndex:0];
                     NSString *firstString = [[kHarpyCurrentVersion componentsSeparatedByString:@"."] firstObject];//本地的
                     NSString *secondeString = [[currentAppStoreVersion componentsSeparatedByString:@"."] firstObject];//appStore的
-                    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleNameKey];
-                    if ([kHarpyCurrentVersion compare:currentAppStoreVersion options:NSNumericSearch] == NSOrderedDescending) {
+                    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+                    NSArray *stringArray = [[appData valueForKey:@"results"] valueForKey:@"releaseNotes"];//新版本的描述
+                
+                    if ([kHarpyCurrentVersion compare:currentAppStoreVersion options:NSNumericSearch] == NSOrderedAscending) {
                         
-                        if ([firstString isEqualToString:secondeString]) {//强制
+                        if ([firstString isEqualToString:secondeString]) {//非强制
+                            
+                            _isForce = NO;//非强制的
+                            BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString]];
+                            if (!flag) {//YES 表示
+                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+                                                                                    message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
+                                                                                   delegate:self
+                                                                          cancelButtonTitle:@"回头再说"
+                                                                          otherButtonTitles:@"下载更新", nil];
+                                [alertView show];
+                                [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString] withObject:YES];
+                            }
+                            
+                        } else {
                             
                             _isForce = YES;
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
-                                                                                message:[NSString stringWithFormat:@"A new version of %@ is available. Please update to version %@ now.", appName, currentAppStoreVersion]
+                                                                                message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
                                                                                delegate:self
                                                                       cancelButtonTitle:nil
-                                                                      otherButtonTitles:@"下载更新", nil];
-                            [alertView show];
-                        
-                        } else {
-                            
-                            _isForce = NO;//非强制的
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
-                                                                                message:[NSString stringWithFormat:@"A new version of %@ is available. Please update to version %@ now.", appName, currentAppStoreVersion]
-                                                                               delegate:self
-                                                                      cancelButtonTitle:@"回头再说"
                                                                       otherButtonTitles:@"下载更新", nil];
                             [alertView show];
                         }

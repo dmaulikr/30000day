@@ -145,7 +145,6 @@
 		B801379B1CD8AC1100ED0566 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80137991CD8AC1100ED0566 /* SettingViewController.xib */; };
 		B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */; };
 		B80137A21CD9D68100ED0566 /* SettingBirthdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80137A11CD9D68100ED0566 /* SettingBirthdayView.m */; };
-		B8014B871D36145300AF247B /* Harpy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8014B851D36145300AF247B /* Harpy.m */; };
 		B8030A7C1CF57B4B00BF9772 /* weChatBubble_Receiving_LeanChat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8030A7B1CF57B4B00BF9772 /* weChatBubble_Receiving_LeanChat@2x.png */; };
 		B804FD261C8AC9A900DFD1CF /* defaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */; };
 		B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */ = {isa = PBXBuildFile; fileRef = B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */; };
@@ -919,9 +918,6 @@
 		B801379E1CD8B1F700ED0566 /* PersonInformationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInformationsManager.m; sourceTree = "<group>"; };
 		B80137A01CD9D68100ED0566 /* SettingBirthdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBirthdayView.h; sourceTree = "<group>"; };
 		B80137A11CD9D68100ED0566 /* SettingBirthdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBirthdayView.m; sourceTree = "<group>"; };
-		B8014B841D36145300AF247B /* Harpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Harpy.h; sourceTree = "<group>"; };
-		B8014B851D36145300AF247B /* Harpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Harpy.m; sourceTree = "<group>"; };
-		B8014B861D36145300AF247B /* HarpyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarpyConstants.h; sourceTree = "<group>"; };
 		B8030A7B1CF57B4B00BF9772 /* weChatBubble_Receiving_LeanChat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weChatBubble_Receiving_LeanChat@2x.png"; sourceTree = "<group>"; };
 		B804FC831C8AC9A900DFD1CF /* defaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultSettings.plist; sourceTree = "<group>"; };
 		B804FCB31C8AC9A900DFD1CF /* tusiji_0.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tusiji_0.gif; sourceTree = "<group>"; };
@@ -2297,16 +2293,6 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		B8014B831D36145300AF247B /* Harpy */ = {
-			isa = PBXGroup;
-			children = (
-				B8014B841D36145300AF247B /* Harpy.h */,
-				B8014B851D36145300AF247B /* Harpy.m */,
-				B8014B861D36145300AF247B /* HarpyConstants.h */,
-			);
-			path = Harpy;
-			sourceTree = "<group>";
-		};
 		B804FC751C8AC9A900DFD1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -3005,7 +2991,6 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
-				B8014B831D36145300AF247B /* Harpy */,
 				B8004B7F1D2FBD5400D2857A /* security */,
 				B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */,
 				B8F6E95D1D02CD0400AD6745 /* TZImagePickerController */,
@@ -5314,7 +5299,6 @@
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
 				B6BC9C7A1CF58D7C00030D64 /* NSString+Chinese.m in Sources */,
-				B8014B871D36145300AF247B /* Harpy.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B8F648AA1C9498F0001A3119 /* ShopViewController.m in Sources */,
 				B80B55991CD0B2EC003E2C36 /* DiscountCouponViewController.m in Sources */,

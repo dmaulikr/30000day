@@ -42,8 +42,7 @@
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi/1.0"
-
+#define  ST_API_SERVER                @"http://121.196.223.175:8083/stapi/1.0"
 
 //聚合宏
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
@@ -81,6 +80,8 @@
 #define LOWBLUECOLOR                  RGBACOLOR(104,149,232,1)
 
 #define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
+
+#define KEY_UPDATE_NOTIFICATION_IS_REMIND           @"key_update_notification_is_remind"//保存在本地的用来标识更新是否提醒过
 
 #define  KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
 #define  KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
