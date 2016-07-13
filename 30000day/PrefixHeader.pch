@@ -187,6 +187,8 @@
 #define  SET_USER_FACTOR                 @"/factor/setUserFactorForUpdateUserInfo"//更新个人信息后需要调用的接口
 #define  CHECK_PASSWORD                  @"/user/checkPassword"              //检测密码是否正确
 #define  SET_FRIEND_SWITCH               @"/user/setFriendSwitch"            //添加加好友开关
+#define  PRIVACYLINK                     @"/STManager/infomation/privacyLink" //隐私政策
+#define  ASYNCNOTIFY                     @"/alipay/asyncNotify"               //支付
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
