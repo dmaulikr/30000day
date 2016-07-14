@@ -38,6 +38,9 @@
     self.isSearch = NO;//刚进来的时候不是搜索状态
     self.noResultView.hidden = YES;
     [self setUpUI];
+    
+    //[self.textField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+    [self.textField becomeFirstResponder];
 }
 
 - (void)setUpUI {
@@ -50,11 +53,12 @@
     
     //搜索视图
     UITextField *textField = [[UITextField alloc] init];
+    
     textField.returnKeyType = UIReturnKeySearch;
     textField.font = [UIFont systemFontOfSize:15.0f];
     textField.placeholder = @"搜索好友/账号";
     textField.translatesAutoresizingMaskIntoConstraints = NO;
-    [textField becomeFirstResponder];
+    //[textField becomeFirstResponder];
     textField.delegate = self;
     self.textField = textField;
     [self.searchBackgroundView addSubview:textField];
@@ -87,9 +91,16 @@
     //添加点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     [self.noResultView addGestureRecognizer:tap];
-    [self.textField becomeFirstResponder];
     [self.view addGestureRecognizer:tap];
 }
+
+- (BOOL)becomeFirstResponder {
+    
+    [super becomeFirstResponder];
+    
+    return [self.textField becomeFirstResponder];
+}
+
 
 - (void)tapAction {
     
