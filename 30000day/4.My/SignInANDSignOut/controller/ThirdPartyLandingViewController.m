@@ -118,7 +118,7 @@
                     number = @1;
                     loginName = self.uid;
                 } else {
-                    password = [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
+                    password = self.passWord.text;
                     loginName = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
                 }
                 

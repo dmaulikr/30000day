@@ -532,20 +532,7 @@
 
 //需要绑定
 + (BOOL)needBind {
-//    NSString *type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
-//    NSInteger loginType = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
-//    
-//    if ([type isEqualToString:KEY_GUEST] && loginType == 2) {
-//        
-//        if ([Common isObjectNull:STUserAccountHandler.userProfile.mobile]) {
-//            return YES;
-//        } else {
-//            return NO;
-//        }
-//        
-//    } else {
-//        return NO;
-//    }
+
     if ([Common isObjectNull:STUserAccountHandler.userProfile.mobile]) {
         return YES;
     } else {
