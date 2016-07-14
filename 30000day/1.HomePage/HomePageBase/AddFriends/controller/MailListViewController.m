@@ -156,6 +156,7 @@
             
         } failure:^(NSError *error) {
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self showToast:[Common errorStringWithError:error optionalString:@"获取通讯录信息失败"]];
         }];
     }];
 }

@@ -108,6 +108,7 @@
         [self.view endEditing:YES];
         
         //开始搜索
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
         [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
                                            currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                  success:^(NSMutableArray *dataArray) {
@@ -117,7 +118,7 @@
                                                          
                                                         [self.tableView reloadData];
                                                          self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
-                                                         
+                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      });
 
                                                  } failure:^(NSError *error) {
@@ -130,7 +131,7 @@
                                                          [self.tableView reloadData];
                                                          //显示错误信息
                                                          [self showToast:[Common errorStringWithError:error]];
-                                                         
+                                                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      });
                                                  }];
         

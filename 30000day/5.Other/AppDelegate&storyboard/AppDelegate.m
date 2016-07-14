@@ -45,23 +45,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-        //***********************************配置获取健康信息*******************************//
-        if ([HKHealthStore isHealthDataAvailable]) {
-            
-            _healthStore1 = [[HKHealthStore alloc] init];
-            
-            NSSet *readDataTypes = [self dataTypesToRead];
-            
-            [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
-                
-                if (!success) {
-                    
-                    NSLog(@"error = %@", error);
-                    
-                    return;
-                }
-            }];
-        }
+    //***********************************配置获取健康信息*******************************//
+   if ([HKHealthStore isHealthDataAvailable]) {
+        _healthStore1 = [[HKHealthStore alloc] init];
+        NSSet *readDataTypes = [self dataTypesToRead];
+
+        [_healthStore1 requestAuthorizationToShareTypes:nil readTypes:readDataTypes completion:^(BOOL success, NSError *error) {
+            if (!success) {
+                NSLog(@"error = %@", error);
+                return;
+            }
+        }];
+    }
     
     //***********************************配置JPush*******************************//
     [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
@@ -69,7 +64,6 @@
                                                       UIUserNotificationTypeAlert)
                                           categories:nil];
     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
     [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:YES advertisingIdentifier:advertisingId];
     
     //***********************************设置聚合SDK的APPID*******************************//
@@ -84,10 +78,9 @@
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
     [AVIMNoticationMessage registerSubclass];
-    
     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
-        
     }];
+    
     //*************************初始化iVersion***************************//
 //    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
 //    [iVersion sharedInstance].previewMode = NO;
@@ -97,11 +90,8 @@
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
-    
     BOOL ret = [_mapManager start:@"fSt6Niw70uNQDMa6Oh9aoyCSuulWoU7o" generalDelegate:self];
-    
     if (!ret) {
-        
         NSLog(@"manager start failed!");
     }
     
@@ -111,14 +101,6 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    return YES;
-}
-
-#pragma mark --- iVersionDelegate
-- (void)iVersionDidDetectNewVersion:(NSString *)version details:(NSString *)versionDetails {
-    
-}
-- (BOOL)iVersionShouldDisplayCurrentVersionDetails:(NSString *)versionDetails {
     return YES;
 }
 
