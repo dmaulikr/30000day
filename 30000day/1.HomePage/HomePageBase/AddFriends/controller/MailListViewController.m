@@ -71,92 +71,127 @@
 - (void)loadData {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
+    [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray,BOOL isAllow) {
         
-        self.chineseStringArray = [NSMutableArray array];
-        self.indexArray = [NSMutableArray arrayWithArray:indexArray];
-        NSMutableArray *phoneNumberArray = [NSMutableArray array];
-        
-        for (int i = 0 ; i < chineseStringArray.count ; i++) {
+        if (!isAllow) {
             
-            NSMutableArray *subDataArray = chineseStringArray[i];
-            NSMutableArray *phoneArray = [NSMutableArray array];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"未开启权限" message:@"如需查看通讯录联系人,请打开通讯录权限" preferredStyle:UIAlertControllerStyleAlert];
             
-            for (int j = 0; j < subDataArray.count; j++) {
+            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
-                ChineseString *chineseString = subDataArray[j];
-                NSString *phoneNumber = chineseString.phoneNumber;
+                [self.navigationController popViewControllerAnimated:YES];
                 
-                if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
+            }];
+            
+            UIAlertAction *actionConfirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
                     
-                    phoneNumber = [phoneNumber substringFromIndex:4];
+                    NSURL *url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                    
+                    [[UIApplication sharedApplication] openURL:url];
+                    
                 }
                 
-                phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
-                [phoneNumberDictionary addParameter:phoneNumber forKey:@"mobile"];
-                [phoneArray addObject:phoneNumberDictionary];
-            }
+            }];
             
-            [phoneNumberArray addObject:phoneArray];
-        }
+            [alert addAction:actionCancel];
+            
+            [alert addAction:actionConfirm];
+            
+            [self.navigationController presentViewController:alert animated:YES completion:nil];
+            
+        } else {
         
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
+            self.chineseStringArray = [NSMutableArray array];
+            self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+            NSMutableArray *phoneNumberArray = [NSMutableArray array];
             
-            NSMutableArray *registerArray = [NSMutableArray array];
-            NSMutableArray *friendArray = [NSMutableArray array];
-            
-            for (int i = 0 ; i < addressArray.count; i++) {
+            for (int i = 0 ; i < chineseStringArray.count ; i++) {
                 
                 NSMutableArray *subDataArray = chineseStringArray[i];
-                NSDictionary *dictionary = addressArray[i];
-                NSArray *array = dictionary[@"addressBookList"];
+                NSMutableArray *phoneArray = [NSMutableArray array];
                 
                 for (int j = 0; j < subDataArray.count; j++) {
                     
-                    NSDictionary *dictionary = array[j];
                     ChineseString *chineseString = subDataArray[j];
-                    chineseString.status = [dictionary[@"status"] integerValue];
+                    NSString *phoneNumber = chineseString.phoneNumber;
                     
-                    if ([dictionary[@"status"] integerValue] == 1) {
+                    if ([[phoneNumber substringToIndex:1] isEqualToString:@"+"]) {
                         
-                        chineseString.userId = dictionary[@"userId"];
-                        [registerArray addObject:chineseString];
+                        phoneNumber = [phoneNumber substringFromIndex:4];
+                    }
+                    
+                    phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                    NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
+                    [phoneNumberDictionary addParameter:phoneNumber forKey:@"mobile"];
+                    [phoneArray addObject:phoneNumberDictionary];
+                }
+                
+                [phoneNumberArray addObject:phoneArray];
+            }
+            
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
+                
+                NSMutableArray *registerArray = [NSMutableArray array];
+                NSMutableArray *friendArray = [NSMutableArray array];
+                
+                for (int i = 0 ; i < addressArray.count; i++) {
+                    
+                    NSMutableArray *subDataArray = chineseStringArray[i];
+                    NSDictionary *dictionary = addressArray[i];
+                    NSArray *array = dictionary[@"addressBookList"];
+                    
+                    for (int j = 0; j < subDataArray.count; j++) {
                         
-                    } else if([dictionary[@"status"] integerValue] == 2){
+                        NSDictionary *dictionary = array[j];
+                        ChineseString *chineseString = subDataArray[j];
+                        chineseString.status = [dictionary[@"status"] integerValue];
                         
-                        [friendArray addObject:chineseString];
+                        if ([dictionary[@"status"] integerValue] == 1) {
+                            
+                            chineseString.userId = dictionary[@"userId"];
+                            [registerArray addObject:chineseString];
+                            
+                        } else if([dictionary[@"status"] integerValue] == 2){
+                            
+                            [friendArray addObject:chineseString];
+                        }
                     }
                 }
-            }
-            
-            self.chineseStringArray = chineseStringArray;
-            [self.chineseStringArray insertObject:registerArray atIndex:0];
-            [self.chineseStringArray insertObject:friendArray atIndex:1];
-            
-            if (friendArray.count != 0) {
-                [self.indexArray insertObject:@"友" atIndex:0];
-            } else {
-                [self.indexArray insertObject:@"" atIndex:0];
-            }
-            
-            if (registerArray.count != 0) {
-                [self.indexArray insertObject:@"+" atIndex:0];
-            } else {
-                [self.indexArray insertObject:@"" atIndex:0];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.chineseStringArray = chineseStringArray;
+                [self.chineseStringArray insertObject:registerArray atIndex:0];
+                [self.chineseStringArray insertObject:friendArray atIndex:1];
+                
+                if (friendArray.count != 0) {
+                    [self.indexArray insertObject:@"友" atIndex:0];
+                } else {
+                    [self.indexArray insertObject:@"" atIndex:0];
+                }
+                
+                if (registerArray.count != 0) {
+                    [self.indexArray insertObject:@"+" atIndex:0];
+                } else {
+                    [self.indexArray insertObject:@"" atIndex:0];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    [self.tableView reloadData];
+                });
+                
+            } failure:^(NSError *error) {
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                [self.tableView reloadData];
-            });
+            }];
             
-        } failure:^(NSError *error) {
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        }];
+        }
+        
     }];
 }
 

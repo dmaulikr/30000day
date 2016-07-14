@@ -800,7 +800,7 @@
 }
 
 //************获取通讯录好友************/
-+ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
++ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *,BOOL))handler {
     
     dispatch_async(dispatch_queue_create("AddressBookModel", DISPATCH_QUEUE_SERIAL), ^{
         
@@ -827,13 +827,15 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             });
+            
+            handler(nil,nil,nil,NO);
             //没有获取通讯录权限
         }
     });
 }
 
 //私有Api
-+ (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray completionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler {
++ (void)copyAddressBook:(ABAddressBookRef)addressBook addressBookArray:(NSMutableArray *)addressBookArray completionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *,BOOL))handler {
 
     CFIndex numberOfPeople = ABAddressBookGetPersonCount(addressBook);
     CFArrayRef people = ABAddressBookCopyArrayOfAllPeople(addressBook);
@@ -926,7 +928,7 @@
         
         [newArray addObject:newNameArray];
     }
-    handler(newArray,sortArray,indexArray);
+    handler(newArray,sortArray,indexArray,YES);
 }
 
 //私有api
