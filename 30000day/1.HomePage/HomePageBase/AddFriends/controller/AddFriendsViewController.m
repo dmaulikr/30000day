@@ -130,18 +130,21 @@
     
     if (indexPath.section == 0) {
         
-        if ([Common isVisit]) {
-            [Common presentBindControllerWithSuperController:self];
-        } else {
-            SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        }
+        SearchFriendsViewController *controller = [[SearchFriendsViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
 
     } else if(indexPath.section == 1) {
         
-        if ([Common isVisit]) {
-            [Common presentBindControllerWithSuperController:self];
+        if ([Common needBind]) {
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"绑定手机" message:@"请绑定手机号并设置昵称，方便通讯录联系人互相发现" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController pushViewController:(UIViewController *)[Common getBindController] animated:YES];
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [controller addAction:action];
+            [controller addAction:cancelAction];
+            [self presentViewController:controller animated:YES completion:nil];
         } else {
             MailListViewController *controller = [[MailListViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
@@ -150,13 +153,9 @@
         
     } else if (indexPath.section == 2) {
         
-        if ([Common isVisit]) {
-            [Common presentBindControllerWithSuperController:self];
-        } else {
-            QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
-            QRController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:QRController animated:YES];
-        }
+        QRReaderViewController *QRController = [[QRReaderViewController alloc] init];
+        QRController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:QRController animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

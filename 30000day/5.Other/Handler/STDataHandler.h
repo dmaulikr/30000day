@@ -161,7 +161,7 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
                                   failure:(void (^)(NSError *))failure;
 
 //************获取通讯录好友************//
-+ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *))handler;
++ (void)sendAddressBooklistRequestCompletionHandler:(void(^)(NSMutableArray *,NSMutableArray *,NSMutableArray *,BOOL))handler;
 
 
 //***********开始定位操作(sucess是城市的名字)****************/

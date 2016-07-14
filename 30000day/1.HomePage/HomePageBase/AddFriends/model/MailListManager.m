@@ -80,7 +80,7 @@
     
     [self deleteDataObjectWithKey:@"indexArray"];
     
-    [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray) {
+    [STDataHandler sendAddressBooklistRequestCompletionHandler:^(NSMutableArray *chineseStringArray,NSMutableArray *sortArray,NSMutableArray *indexArray,BOOL isAllow) {
         
         self.modelArray = [NSMutableArray array];
         

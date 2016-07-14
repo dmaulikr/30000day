@@ -190,7 +190,6 @@
                                                 type:type
                                              success:^(BOOL success) {
                                                  
-                                                 [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
                                                  [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:type];
                                                  
                                                  [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
@@ -252,9 +251,19 @@
                                      success:^(BOOL success) {
                                          
                                          [Common removeAppDataForKey:KEY_LOGIN_TYPE];
-                                         [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:0];
-                                         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
                                          [self hideHUD:YES];
+                                         
+                                         if ([Common needBind]) {
+                                             ThirdPartyLandingViewController *controller = [[ThirdPartyLandingViewController alloc] init];
+                                             controller.type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
+                                             controller.name = STUserAccountHandler.userProfile.nickName;
+                                             controller.uid = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
+                                             controller.url = STUserAccountHandler.userProfile.headImg;
+                                             controller.hidesBottomBarWhenPushed = YES;
+                                             [self.navigationController pushViewController:controller animated:YES];
+                                         } else {
+                                             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                         }
                                          
                                      } failure:^(NSError *error) {
                                          

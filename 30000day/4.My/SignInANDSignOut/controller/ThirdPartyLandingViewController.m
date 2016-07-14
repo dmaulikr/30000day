@@ -112,25 +112,29 @@
             if (success.boolValue) {
                 
                 NSNumber *number = @0;
+                NSString *password = nil;
+                NSString *loginName = nil;
                 if ([self.type isEqualToString:KEY_GUEST]) {
                     number = @2;
-                    //保存该游客账号被绑定
-                    [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"IS_BIND_%@",self.uid] withObject:YES];
+                    loginName = self.uid;
                 } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {
                     number = @1;
+                    loginName = self.uid;
+                } else {
+                    password = [Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD];
+                    loginName = [Common readAppDataForKey:KEY_SIGNIN_USER_NAME];
                 }
                 
-                [self.dataHandler postSignInWithPassword:nil
-                                               loginName:self.uid
+                [self.dataHandler postSignInWithPassword:password
+                                               loginName:loginName
                                       isPostNotification:YES
                                         isFromThirdParty:number
                                                     type:self.type
                                                  success:^(BOOL success) {
-                                                     
-                                                     [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];//保存进沙盒
+                                                    
                                                      [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
-
                                                      [self textFiledResignFirst];
+                                                     
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      
                                                      if (!self.isConceal) {
@@ -191,7 +195,6 @@
             
                 if ([self.type isEqualToString:KEY_GUEST]) {//游客
                     
-                    
                 } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
                     
                     if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
@@ -218,7 +221,6 @@
         });
         
     } failure:^(NSError *error) {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         });

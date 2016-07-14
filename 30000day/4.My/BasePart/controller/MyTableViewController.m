@@ -331,23 +331,15 @@
         
         if (indexPath.row == 0) {
             
-            if ([Common isVisit]) {
-                [Common presentBindControllerWithSuperController:self];
-            } else {
-                QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
-                controller.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:controller animated:YES];
-            }
+            QuickResponseCodeViewController *controller = [[QuickResponseCodeViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
             
         } else {
             
-            if ([Common isVisit]) {
-                [Common presentBindControllerWithSuperController:self];
-            } else {
-                QRReaderViewController *controller = [[QRReaderViewController alloc] init];
-                controller.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:controller animated:YES];
-            }
+            QRReaderViewController *controller = [[QRReaderViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
         }
         
     } else if (indexPath.section == 2) {

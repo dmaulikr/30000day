@@ -100,7 +100,7 @@
 
 
 + (NSString *)keyChainValue;//获取设备唯一标识符
-+ (BOOL)isVisit;//是否是游客
++ (BOOL)needBind;//是否需要绑定
 
 
 //获取绑定控制器

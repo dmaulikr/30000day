@@ -536,11 +536,8 @@
 + (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString {
     
     if ([Common isObjectNull:error.userInfo[NSLocalizedDescriptionKey]]) {
-        
         return optionalString;
-        
     } else {
-        
         return error.userInfo[NSLocalizedDescriptionKey];
     }
 }
@@ -562,18 +559,24 @@
     return string;
 }
 
-+ (BOOL)isVisit {//是否是游客
-    NSString *type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
-    NSInteger loginType = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
-    
-    if ([type isEqualToString:KEY_GUEST] && loginType == 2) {
-        
-        if ([Common readAppBoolDataForkey:[NSString stringWithFormat:@"IS_BIND_%@",[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]]]) {
-            return NO;
-        } else {
-            return YES;
-        }
-        
+//需要绑定
++ (BOOL)needBind {
+//    NSString *type = [Common readAppDataForKey:KEY_LOGIN_TYPE];
+//    NSInteger loginType = [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
+//    
+//    if ([type isEqualToString:KEY_GUEST] && loginType == 2) {
+//        
+//        if ([Common isObjectNull:STUserAccountHandler.userProfile.mobile]) {
+//            return YES;
+//        } else {
+//            return NO;
+//        }
+//        
+//    } else {
+//        return NO;
+//    }
+    if ([Common isObjectNull:STUserAccountHandler.userProfile.mobile]) {
+        return YES;
     } else {
         return NO;
     }
