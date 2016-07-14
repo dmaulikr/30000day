@@ -464,23 +464,16 @@
     
     //在转回去是因为要比较day的区别
     NSDate *date2 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:dateStr];
-    
     NSDate *date3 = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:nowStr];
     
     NSCalendar *calendar  = [NSCalendar currentCalendar];
-    
     NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    
     NSDateComponents *cmps = [calendar components:unit fromDate:date3 toDate:date2 options:0];
     
     NSInteger newDay  = - cmps.day + 1;
-    
     if (newDay <= number && cmps.year == 0 && cmps.month == 0 ) {
-        
         completion(newDay);
-        
     } else {
-        
         completion(number);
     }
 }
@@ -489,52 +482,30 @@
 + (UIImage *)getThumbnailImage:(NSString *)videoURL {
     
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:videoURL] options:nil];
-    
     AVAssetImageGenerator *gen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    
     gen.appliesPreferredTrackTransform = YES;//按正确方向对视频进行截图,关键点是将AVAssetImageGrnerator对象的appliesPreferredTrackTransform属性设置为YES。
     
     CMTime time = CMTimeMakeWithSeconds(0.0, 600);
-    
     NSError *error = nil;
-    
     CMTime actualTime;
     
     CGImageRef image = [gen copyCGImageAtTime:time actualTime:&actualTime error:&error];
-    
     UIImage *thumb = [[UIImage alloc] initWithCGImage:image];
-    
     CGImageRelease(image);
     
     return thumb;
 }
 
-+ (NSString *)errorStringWithError:(NSError *)error {
-    
-    if ([Common isObjectNull:error.userInfo[NSLocalizedDescriptionKey]]) {
-        
-        return @"似乎网络有问题";
-        
-    } else {
-        
-        return error.userInfo[NSLocalizedDescriptionKey];
-    }
-}
-
 + (NSError *)errorWithString:(NSString *)errorString {
     
     if ([Common isObjectNull:errorString]) {
-        
         return [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:@"发生了未知因素"}];
-        
     } else {
-        
         return [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:errorString}];
     }
 }
 
 + (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString {
-    
     if ([Common isObjectNull:error.userInfo[NSLocalizedDescriptionKey]]) {
         return optionalString;
     } else {

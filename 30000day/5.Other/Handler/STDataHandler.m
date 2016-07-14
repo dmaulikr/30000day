@@ -3836,7 +3836,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:accountNo forKey:@"accountNo"];
     [params addParameter:type forKey:@"type"];
-    [Common urlStringWithDictionary:params withString:GET_CHECKBIND];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendcheckBindWithAccountNo",DISPATCH_QUEUE_PRIORITY_DEFAULT);
@@ -3881,7 +3880,7 @@
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:mobile forKey:@"mobile"];
-    [params addParameter:nickName forKey:@"nickName"];
+    [params addParameter:[nickName urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"nickName"];
     [params addParameter:accountNo forKey:@"accountNo"];
     [params addParameter:password forKey:@"password"];
     [params addParameter:headImg forKey:@"headImg"];

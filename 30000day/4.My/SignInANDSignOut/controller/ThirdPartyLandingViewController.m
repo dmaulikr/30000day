@@ -44,7 +44,6 @@
     
     self.title = @"手机绑定";
     if (self.isConceal) {
-        
         self.temporarilyButton.hidden = YES;
         self.loginSupView.hidden = YES;
     }
@@ -132,22 +131,17 @@
                                                     
                                                      [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
                                                      [self textFiledResignFirst];
-                                                     
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      
                                                      if (!self.isConceal) {
-                                                         
                                                          [self.tabBarController setSelectedIndex:0];
                                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                          [self.navigationController popViewControllerAnimated:NO];
-                                                         
                                                      } else {
-                                                         
                                                          [self.navigationController popViewControllerAnimated:YES];
                                                      }
 
                                                  } failure:^(NSError *error) {
-                                                     
                                                      [self textFiledResignFirst];
                                                      [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
@@ -199,9 +193,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (success.boolValue) {
-                    
-                    [self regist:self.uid];
-                    
+                    [self signInWithUid:self.uid];
                 } else {
                     
                     if ([self.type isEqualToString:KEY_GUEST]) {//游客
@@ -218,7 +210,7 @@
                     [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:self.type success:^(NSString *success) {
                         
                         if (success.boolValue) {
-                            [self regist:self.uid];
+                            [self signInWithUid:self.uid];
                         }
                         
                     } failure:^(NSError *error) {
@@ -237,7 +229,7 @@
     }
 }
 
-- (void)regist:(NSString *)loginName {
+- (void)signInWithUid:(NSString *)loginName {
     
     NSNumber *number = @1;//默认是第三方登录
     if ([self.type isEqualToString:KEY_GUEST]) {
@@ -251,7 +243,6 @@
                                         type:self.type
                                      success:^(BOOL success) {
                                          
-                                         [Common saveAppIntegerDataForKey:KEY_IS_THIRDPARTY withObject:[number integerValue]];
                                          [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
                                          
                                          [self textFiledResignFirst];

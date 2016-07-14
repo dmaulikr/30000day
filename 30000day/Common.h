@@ -12,22 +12,18 @@
 @interface Common : NSObject
 
 + (BOOL)isUserLogin;//判断客户端过去是否登录过
++ (BOOL) isObjectNull : (id) obj;
 
 + (void)saveAppDataForKey : (NSString *) key  withObject : (id) value;
-
 + (id)readAppDataForKey : (NSString *) key;
++ (void)removeAppDataForKey:(NSString *)key ;
 
 + (void)saveAppIntegerDataForKey : (NSString *) key  withObject : (NSInteger) value;
-
 + (NSInteger)readAppIntegerDataForKey : (NSString *) key;
 
 + (BOOL)readAppBoolDataForkey:(NSString *)key;
-
 + (void) saveAppBoolDataForKey : (NSString *) key  withObject : (BOOL) value;
 
-+ (void)removeAppDataForKey:(NSString *)key ;
-
-+ (BOOL) isObjectNull : (id) obj;
 
 /**
  * 获取NSDated的时间字符串
@@ -91,17 +87,13 @@
 /** 判断是否在某一天天之内 */
 + (void)dayNumberWithinNumber:(NSInteger)number inputDate:(NSDate *)inputDate completion:(void(^)(NSInteger day))completion;
 
-+ (NSString *)errorStringWithError:(NSError *)error;
 
 + (NSError *)errorWithString:(NSString *)errorString;
-
 //表示如果该error的NSLocalizedDescriptionKey存在那么返回NSLocalizedDescriptionKey，如果不不存在返回optionalString
 + (NSString *)errorStringWithError:(NSError *)error optionalString:(NSString *)optionalString;
 
-
 + (NSString *)keyChainValue;//获取设备唯一标识符
 + (BOOL)needBind;//是否需要绑定
-
 
 //获取绑定控制器
 + (ThirdPartyLandingViewController *)getBindController;

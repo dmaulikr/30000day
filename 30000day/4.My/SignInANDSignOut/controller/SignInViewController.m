@@ -152,8 +152,7 @@
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
                 [self sendCheckBindWithAccountNo:snsAccount.usid type:KEY_QQ name:snsAccount.userName url:snsAccount.iconURL uid:snsAccount.usid];
             }});
-        
-        
+
     } else if (button.tag == 2) {
         
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
@@ -205,7 +204,6 @@
         } else {
         
             dispatch_async(dispatch_get_main_queue(), ^{
-            
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                 ThirdPartyLandingViewController *controller =  [[ThirdPartyLandingViewController alloc] init];
                 controller.type = type;
@@ -217,7 +215,6 @@
         }
         
     } failure:^(NSError *error) {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             [self showToast:@"请求超时，请重新登录"];

@@ -66,7 +66,7 @@
             
         } else {
             
-            [self showToast:[Common errorStringWithError:error]];
+            [self showToast:[Common errorStringWithError:error optionalString:@"新建失败"]];
         }
     }];
 }

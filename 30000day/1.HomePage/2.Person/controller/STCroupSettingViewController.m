@@ -155,7 +155,7 @@
                             
                         } else {
                             
-                            [self showToast:[Common errorStringWithError:error]];
+                            [self showToast:[Common errorStringWithError:error optionalString:@"移除失败"]];
                         }
                         
                     }];
@@ -172,7 +172,7 @@
                             
                         } else {
                             
-                            [self showToast:[Common errorStringWithError:error]];
+                            [self showToast:[Common errorStringWithError:error optionalString:@"添加失败"]];
                         }
                     }];
                     
@@ -194,7 +194,7 @@
                              
                          } else {
                              
-                             [self showToast:[Common errorStringWithError:error]];
+                             [self showToast:[Common errorStringWithError:error optionalString:@"添加失败"]];
                          }
                      }];
                     
@@ -363,7 +363,7 @@
                         
                     } else {
                         
-                        [self showToast:[Common errorStringWithError:error]];
+                        [self showToast:[Common errorStringWithError:error optionalString:@"更新群聊失败"]];
                     }
                 }];
                 
@@ -404,7 +404,7 @@
 
                     } else {
                         
-                        [self showToast:[Common errorStringWithError:error]];
+                        [self showToast:[Common errorStringWithError:error optionalString:@"更新群聊失败"]];
                     }
                 }];
             }];
@@ -536,7 +536,7 @@
                 
             } else {
                 
-                [self showToast:[Common errorStringWithError:error]];
+                [self showToast:[Common errorStringWithError:error optionalString:@"更新群聊头像失败"]];
                 
                 [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
             }

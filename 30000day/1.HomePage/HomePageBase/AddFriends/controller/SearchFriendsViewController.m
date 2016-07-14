@@ -95,20 +95,15 @@
 }
 
 - (BOOL)becomeFirstResponder {
-    
     [super becomeFirstResponder];
-    
     return [self.textField becomeFirstResponder];
 }
 
-
 - (void)tapAction {
-    
     [self.textField resignFirstResponder];
 }
 
 - (void)searchAction {
-    
     //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
     self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
     
@@ -141,7 +136,7 @@
                                                          self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
                                                          [self.tableView reloadData];
                                                          //显示错误信息
-                                                         [self showToast:[Common errorStringWithError:error]];
+                                                         [self showToast:[Common errorStringWithError:error optionalString:@"搜索出现问题"]];
                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                                      });
                                                  }];
