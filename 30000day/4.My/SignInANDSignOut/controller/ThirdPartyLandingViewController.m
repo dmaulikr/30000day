@@ -18,9 +18,7 @@
 }
 
 @property (nonatomic) NSTimer *timer;
-
 @property (nonatomic,assign)CGRect selectedTextFieldRect;
-
 @property (nonatomic,copy) NSString *mobileToken;//校验后获取的验证码
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
@@ -185,46 +183,58 @@
 - (IBAction)notBind:(UIButton *)sender {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [STDataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid type:self.type success:^(NSString *success) {
+    
+    if ([Common isObjectNull:self.type]) {//为空表示是非第三方、访客
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [self textFiledResignFirst];
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [self.tabBarController setSelectedIndex:0];
+        [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    } else {//不为空表示第三方、访客
+        
+        [STDataHandler sendCheckRegisterForThirdParyWithAccountNo:self.uid type:self.type success:^(NSString *success) {
             
-            if (success.boolValue) {
-                [self regist:self.uid];
-            } else {
-            
-                if ([self.type isEqualToString:KEY_GUEST]) {//游客
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (success.boolValue) {
                     
-                } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
+                    [self regist:self.uid];
                     
-                    if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                } else {
+                    
+                    if ([self.type isEqualToString:KEY_GUEST]) {//游客
                         
-                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                        [self showToast:@"第三方信息获取失败，请重新授权"];
-                        return;
+                    } else if ([self.type isEqualToString:KEY_QQ] || [self.type isEqualToString:KEY_SINA] || [self.type isEqualToString:KEY_WECHAT]) {//第三方登录
+                        
+                        if ([Common isObjectNull:self.uid] || [Common isObjectNull:self.name] || [Common isObjectNull:self.url]) {
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                            [self showToast:@"第三方信息获取失败，请重新授权"];
+                            return;
+                        }
                     }
+                    
+                    [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:self.type success:^(NSString *success) {
+                        
+                        if (success.boolValue) {
+                            [self regist:self.uid];
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        });
+                    }];
                 }
-
-                [STDataHandler sendRegisterForThirdParyWithAccountNo:self.uid nickName:self.name headImg:self.url type:self.type success:^(NSString *success) {
-                    
-                    if (success.boolValue) {
-                        [self regist:self.uid];
-                    }
-                    
-                } failure:^(NSError *error) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                    });
-                }];
-            }
-        });
-        
-    } failure:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        });
-    }];
+            });
+            
+        } failure:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            });
+        }];
+    }
 }
 
 - (void)regist:(NSString *)loginName {
@@ -245,7 +255,6 @@
                                          [Common saveAppDataForKey:KEY_LOGIN_TYPE withObject:self.type];
                                          
                                          [self textFiledResignFirst];
-                                         
                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                                          [self.tabBarController setSelectedIndex:0];
                                          [self.navigationController dismissViewControllerAnimated:NO completion:nil];

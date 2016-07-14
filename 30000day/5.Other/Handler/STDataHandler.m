@@ -3879,7 +3879,6 @@
                            success:(void (^)(NSString *success))success
                            failure:(void (^)(NSError *error))failure {
 
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:mobile forKey:@"mobile"];
     [params addParameter:nickName forKey:@"nickName"];
