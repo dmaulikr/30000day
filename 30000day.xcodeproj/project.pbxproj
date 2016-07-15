@@ -497,7 +497,6 @@
 		B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */; };
 		B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */; };
 		B8F719A31CEDD7FB000D859D /* HealthModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */; };
-		B8F719A81CEDDE12000D859D /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */; };
 		B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */; };
 		B8F719AE1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719AB1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m */; };
 		B8F719AF1CEDFAC5000D859D /* GetFactorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F719AD1CEDFAC5000D859D /* GetFactorObject.m */; };
@@ -654,6 +653,7 @@
 		B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF051CE30F72009AA425 /* NewFriendModel.m */; };
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
+		B8FFC4401D38B8CD008806A9 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFC43F1D38B8CD008806A9 /* NSManagedObject+handler.m */; };
 		F52C6C261D2E5398008933D2 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C251D2E5398008933D2 /* MotionData.m */; };
 		F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C281D2E57C4008933D2 /* SportTableViewController.m */; };
 		F52C6C2D1D2E5943008933D2 /* SportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */; };
@@ -1529,8 +1529,6 @@
 		B8F7199D1CED9DFB000D859D /* AllRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllRemindViewController.m; sourceTree = "<group>"; };
 		B8F7199E1CED9DFB000D859D /* AllRemindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllRemindViewController.xib; sourceTree = "<group>"; };
 		B8F719A21CEDD7FB000D859D /* HealthModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HealthModel.xcdatamodel; sourceTree = "<group>"; };
-		B8F719A41CEDDE12000D859D /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
-		B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		B8F719A61CEDDE12000D859D /* STCoreDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataHandler.h; sourceTree = "<group>"; };
 		B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataHandler.m; sourceTree = "<group>"; };
 		B8F719AA1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetFactorObject+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -1841,6 +1839,8 @@
 		B8FFBF081CE4588E009AA425 /* NewFriendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFriendManager.m; sourceTree = "<group>"; };
 		B8FFBF0A1CE5E54F009AA425 /* SearchVersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVersionManager.h; sourceTree = "<group>"; };
 		B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVersionManager.mm; sourceTree = "<group>"; };
+		B8FFC43E1D38B8CD008806A9 /* NSManagedObject+handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+handler.h"; sourceTree = "<group>"; };
+		B8FFC43F1D38B8CD008806A9 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F52C6C241D2E5398008933D2 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionData.h; sourceTree = "<group>"; };
@@ -2405,6 +2405,8 @@
 		B8365A491C7081FD00063269 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B8FFC43E1D38B8CD008806A9 /* NSManagedObject+handler.h */,
+				B8FFC43F1D38B8CD008806A9 /* NSManagedObject+handler.m */,
 				B8FD3B0F1C87DDD1007BCA6B /* UIImage+WF.h */,
 				B8FD3B101C87DDD1007BCA6B /* UIImage+WF.m */,
 				B886E8651C7D5A0700E64BEC /* NSString+URLEncoding.h */,
@@ -3356,8 +3358,6 @@
 				B808FB5A1C780D250000449C /* GetFactorModel.h */,
 				B808FB5B1C780D250000449C /* GetFactorModel.m */,
 				B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */,
-				B8F719A41CEDDE12000D859D /* NSManagedObject+handler.h */,
-				B8F719A51CEDDE12000D859D /* NSManagedObject+handler.m */,
 				B8F719A61CEDDE12000D859D /* STCoreDataHandler.h */,
 				B8F719A71CEDDE12000D859D /* STCoreDataHandler.m */,
 				B8F719AA1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.h */,
@@ -5276,7 +5276,6 @@
 				B8FD3E0F1C8A7903007BCA6B /* SETextSelection.m in Sources */,
 				B8FD3E101C8A7903007BCA6B /* SETextSelectionView.m in Sources */,
 				B6DB85CD1CC762A00088F867 /* InformationCommentTableViewCell.m in Sources */,
-				B8F719A81CEDDE12000D859D /* NSManagedObject+handler.m in Sources */,
 				B62C38221C9AA819002208CD /* ShopDetailModel.m in Sources */,
 				B8FD3DF61C8A7903007BCA6B /* XHMessageVoiceFactory.m in Sources */,
 				B6E44C461CBC9FD50039217D /* InformationWriterModel.m in Sources */,
@@ -5371,6 +5370,7 @@
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
 				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
+				B8FFC4401D38B8CD008806A9 /* NSManagedObject+handler.m in Sources */,
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B86EFCA41D154DC4007A2108 /* IDMCaptionView.m in Sources */,

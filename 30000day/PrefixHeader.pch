@@ -81,7 +81,7 @@
 
 #define HEALTHSETINDICATE             @"HEALTHSETINDICATE"   //健康界面的indicate
 
-#define KEY_UPDATE_NOTIFICATION_IS_REMIND           @"key_update_notification_is_remind"//保存在本地的用来标识更新是否提醒过
+#define  KEY_UPDATE_NOTIFICATION_IS_REMIND           @"key_update_notification_is_remind"//保存在本地的用来标识更新是否提醒过
 
 #define  KEY_SIGNIN_USER_NAME          @"SignInUserName"      //登录用户名
 #define  KEY_SIGNIN_USER_PASSWORD      @"SignINPassword"      //用户密码
@@ -105,7 +105,7 @@
 #define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-
+#define  ST_VERSION_MANAGER           @"/upgrade/getApiVersion"              //版本管理
 #define  LOGIN_WITH_PASSWORD          @"/user/login"                           //用户登录
 #define  GET_MY_FRIENDS               @"/friend/getMyFriends"                  //获取用户好友
 #define  SEARCH_USER                  @"/search/searchUser"                    //搜索用户
