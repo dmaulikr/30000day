@@ -186,6 +186,35 @@
                 [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
                 
             } else {
+
+                AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];
+
+                [manger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+
+                    if (status == AFNetworkReachabilityStatusUnknown) {
+                        
+                        NSLog(@"未知");
+                        
+                    } else if (status == AFNetworkReachabilityStatusNotReachable) {
+                    
+                         NSLog(@"没有网络");
+                    
+                    } else if (status == AFNetworkReachabilityStatusReachableViaWWAN) {
+                    
+                        NSLog(@"3G|4G");
+                    
+                    } else if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                    
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"到户外去运动吧！" message:@"室内运动会导致运动记录不准确无法获取运动轨迹" preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }];
+
             
                 SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
                 
