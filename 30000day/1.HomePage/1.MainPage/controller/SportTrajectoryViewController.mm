@@ -138,13 +138,7 @@
         
         [self.countDownTimer invalidate];
         
-        AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:@"开始跑步"];
-        
-        aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
-        
-        aVSpeechUtterance.voice =[AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
-        
-        [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
+        [self read:@"开始跑步"];
         
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timing) userInfo:nil repeats:YES];
         
@@ -452,6 +446,8 @@
     
     if (!sender.tag) {  //结束
         
+        [self read:@"运动已结束"];
+        
         NSString *alertTitleString = @"是否保存?";
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitleString message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -621,6 +617,19 @@
         
     }
     
+}
+
+//语音播报
+- (void)read:(NSString *)string {
+
+    AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:string];
+    
+    aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
+    
+    aVSpeechUtterance.voice =[AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    
+    [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
+
 }
 
 //结束  清空数据关闭定位
