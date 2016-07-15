@@ -18,6 +18,7 @@
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
     
+    self = [super init];
     if ([self init]) {
         
         self.string = [aDecoder decodeObjectForKey:@"string"];

@@ -13,17 +13,12 @@ typedef void(^OperationResult)(NSError *error);
 @interface STCoreDataHandler : NSObject
 
 @property (readonly, strong, nonatomic) NSOperationQueue *queue;
-
 @property (readonly ,strong, nonatomic) NSManagedObjectContext *bgObjectContext;
-
 @property (readonly, strong, nonatomic) NSManagedObjectContext *mainObjectContext;
 
 + (STCoreDataHandler *)shareCoreDataHandler;
-
 - (void)configModel:(NSString *)model DbFile:(NSString *)filename;
-
 - (NSManagedObjectContext *)createPrivateObjectContext;
-
 - (NSError *)save:(OperationResult)handler;
 
 //获取所有的健康因子,并同步到服务器

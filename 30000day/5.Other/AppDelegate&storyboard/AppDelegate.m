@@ -42,7 +42,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     //***********************************配置获取健康信息*******************************//
@@ -108,7 +107,6 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
     NSDictionary *userInfo = notification.userInfo;
-    
     UIApplicationState state = application.applicationState;
     
     if (state == UIApplicationStateActive) {
@@ -126,7 +124,7 @@
         
     } else if([userInfo[WORK_REST_NOTIFICATION] isEqualToString:WORK_REST_NOTIFICATION]){//健康作息
         
-        
+
     } else if([userInfo[CHECK_NOTIFICATION] isEqualToString:CHECK_NOTIFICATION]){//体检提醒
 
      if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
@@ -212,7 +210,6 @@
             
         } else if ([type isEqualToString:@"2"]) {//接受
             
-            
         } else if ([type isEqualToString:@"3"]) {//拒绝
             
         }
@@ -236,12 +233,10 @@
     if ([self.service respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
         self.service.allowsBackgroundLocationUpdates = YES;
     }
-    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    
     [STNotificationCenter postNotificationName:STDidSuccessEnterForegroundSendNotification object:nil];    
 }
 

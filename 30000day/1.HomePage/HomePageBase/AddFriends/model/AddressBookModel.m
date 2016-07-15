@@ -12,12 +12,11 @@
 
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    
+    self = [super init];
     if ([self init]) {
         
-        self.name = [aDecoder decodeObjectForKey:@"name"];
-        
-        self.mobilePhone = [aDecoder decodeObjectForKey:@"mobilePhone"];
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _mobilePhone = [aDecoder decodeObjectForKey:@"mobilePhone"];
         
     }
     return self;

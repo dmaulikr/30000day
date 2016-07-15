@@ -10,8 +10,8 @@
 #import "STLocationMananger.h"
 #import "STCoreDataHandler.h"
 
-#define kHarpyCurrentVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]
-#define kHarpyAppID                 @"1086080481"
+#define AppCurrentVersion        [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define AppID                       @"1086080481"
 
 @interface SearchTableVersion : NSObject
 
@@ -26,19 +26,19 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
     if ([key isEqualToString:@"id"]) {
-        
         self.searchTableVersionId = value;
     }
 }
 
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
     
     if ([self init]) {
         
-        self.searchTableVersionId = [aDecoder decodeObjectForKey:@"searchTableVersionId"];
-        self.tableName = [aDecoder decodeObjectForKey:@"tableName"];
-        self.version = [aDecoder decodeObjectForKey:@"version"];
+        _searchTableVersionId = [aDecoder decodeObjectForKey:@"searchTableVersionId"];
+        _tableName = [aDecoder decodeObjectForKey:@"tableName"];
+        _version = [aDecoder decodeObjectForKey:@"version"];
     }
     return self;
 }
@@ -174,7 +174,6 @@ static SearchVersionManager *manager;
         } else {//链接没有问题
             
             NSError *localError = nil;
-            
             id parsedObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&localError];
             
             if (localError == nil) {
@@ -184,40 +183,34 @@ static SearchVersionManager *manager;
                 if ([recvDic[@"code"] isEqualToNumber:@0]) {
                     
                     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                    
                     NSArray *array = recvDic[@"value"];
                     
                     for (int i = 0; i < array.count; i++) {
                         
                         NSDictionary *dictionary = array[i];
-                        
                         SearchTableVersion *commentModel = [[SearchTableVersion alloc] init];
-                        
                         [commentModel setValuesForKeysWithDictionary:dictionary];
-                        
                         [dataArray addObject:commentModel];
                     }
                     
-                     success(dataArray);
+                    success(dataArray);
                     
                 } else {
                     
                     NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                    
                     failure(failureError);
                 }
                 
             } else {
-                
                 failure(localError);
             }
         }
     }];
 }
-
+//检查版本更新
 - (void)checkVersion {
-    //Asynchronously query iTunes AppStore for publically available version
-    NSString *storeString = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", kHarpyAppID];
+    
+    NSString *storeString = [NSString stringWithFormat:@"%@%@?version=%@&osType=ios",ST_API_SERVER,ST_VERSION_MANAGER,AppCurrentVersion];
     NSURL *storeURL = [NSURL URLWithString:storeString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:storeURL];
     [request setHTTPMethod:@"GET"];
@@ -227,50 +220,83 @@ static SearchVersionManager *manager;
         
         if ( [data length] > 0 && !error ) { // Success
             
-            NSDictionary *appData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                NSArray *versionsInAppStore = [[appData valueForKey:@"results"] valueForKey:@"version"];
-                
-                if ( ![versionsInAppStore count] ) { // No versions of app in AppStore
-                    return;
-                } else {
+                if ([dictionary[@"code"] isEqualToNumber:@0]) {
                     
-                    NSString *currentAppStoreVersion = [versionsInAppStore objectAtIndex:0];
-                    NSString *firstString = [[kHarpyCurrentVersion componentsSeparatedByString:@"."] firstObject];//本地的
-                    NSString *secondeString = [[currentAppStoreVersion componentsSeparatedByString:@"."] firstObject];//appStore的
+                    NSDictionary *dataDictionary = dictionary[@"value"];
+                    NSString *currentAppStoreVersion = dataDictionary[@"version"];
                     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                    NSArray *stringArray = [[appData valueForKey:@"results"] valueForKey:@"releaseNotes"];//新版本的描述
-                
-                    if ([kHarpyCurrentVersion compare:currentAppStoreVersion options:NSNumericSearch] == NSOrderedAscending) {
+                    NSString *description = dataDictionary[@"description"];//新版本的描述
+                    //status: f:强制 s:建议 n：不升级
+                    if ([dataDictionary[@"status"] isEqualToString:@"s"]) {//建议升级
                         
-                        if ([firstString isEqualToString:secondeString]) {//非强制
-                            
-                            _isForce = NO;//非强制的
-                            BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString]];
-                            if (!flag) {//YES 表示
-                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
-                                                                                    message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
-                                                                                   delegate:self
-                                                                          cancelButtonTitle:@"回头再说"
-                                                                          otherButtonTitles:@"下载更新", nil];
-                                [alertView show];
-                                [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString] withObject:YES];
-                            }
-                            
-                        } else {
-                            
-                            _isForce = YES;
+                        _isForce = NO;//非强制的
+                        BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion]];
+                        
+                        if (!flag) {//YES 表示
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
-                                                                                message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
+                                                                                message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,description]
                                                                                delegate:self
-                                                                      cancelButtonTitle:nil
+                                                                      cancelButtonTitle:@"回头再说"
                                                                       otherButtonTitles:@"下载更新", nil];
                             [alertView show];
+                            [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion] withObject:YES];
                         }
+                    
+                    } else if ([dataDictionary[@"status"] isEqualToString:@"f"]) {//强制升级
+                        
+                       _isForce = YES;
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+                                                                            message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,description]
+                                                                           delegate:self
+                                                                  cancelButtonTitle:nil
+                                                                  otherButtonTitles:@"下载更新", nil];
+                        [alertView show];
                     }
                 }
+                
+//                NSArray *versionsInAppStore = [[dictionary valueForKey:@"results"] valueForKey:@"version"];
+//                
+//                if (![versionsInAppStore count] ) { // No versions of app in AppStore
+//                    return;
+//                } else {
+//                    
+//                    NSString *currentAppStoreVersion = [versionsInAppStore objectAtIndex:0];
+//                    NSString *firstString = [[kHarpyCurrentVersion componentsSeparatedByString:@"."] firstObject];//本地的
+//                    NSString *secondeString = [[currentAppStoreVersion componentsSeparatedByString:@"."] firstObject];//appStore的
+//                    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+//                    NSArray *stringArray = [[dictionary valueForKey:@"results"] valueForKey:@"releaseNotes"];//新版本的描述
+//                
+//                    if ([kHarpyCurrentVersion compare:currentAppStoreVersion options:NSNumericSearch] == NSOrderedAscending) {
+//                        
+//                        if ([firstString isEqualToString:secondeString]) {//非强制
+//                            
+//                            _isForce = NO;//非强制的
+//                            BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString]];
+//                            if (!flag) {//YES 表示
+//                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+//                                                                                    message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
+//                                                                                   delegate:self
+//                                                                          cancelButtonTitle:@"回头再说"
+//                                                                          otherButtonTitles:@"下载更新", nil];
+//                                [alertView show];
+//                                [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,secondeString] withObject:YES];
+//                            }
+//                            
+//                        } else {
+//                            
+//                            _isForce = YES;
+//                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+//                                                                                message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,stringArray[0]]
+//                                                                               delegate:self
+//                                                                      cancelButtonTitle:nil
+//                                                                      otherButtonTitles:@"下载更新", nil];
+//                            [alertView show];
+//                        }
+//                    }
+//                }
             });
         }
     }];
@@ -281,7 +307,7 @@ static SearchVersionManager *manager;
     
     if (_isForce ) {
         
-        NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kHarpyAppID];
+        NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", AppID];
         NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
         [[UIApplication sharedApplication] openURL:iTunesURL];
         
@@ -291,10 +317,11 @@ static SearchVersionManager *manager;
         HUD.labelText = @"请前往appStore更新";
         HUD.removeFromSuperViewOnHide = YES;
         [HUD show:YES];
+        
     } else {
         
         if (buttonIndex == 1) {
-            NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kHarpyAppID];
+            NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", AppID];
             NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
             [[UIApplication sharedApplication] openURL:iTunesURL];
         }

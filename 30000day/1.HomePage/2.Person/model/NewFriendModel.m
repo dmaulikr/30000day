@@ -12,20 +12,15 @@
 
 #pragma mark --- NSCoding的协议
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    
-    if ([self init]) {
+    self = [super init];
+    if (self) {
         
-        self.status = [aDecoder decodeObjectForKey:@"status"];
-        
-        self.friendId = [aDecoder decodeObjectForKey:@"friendId"];
-        
-        self.userId = [aDecoder decodeObjectForKey:@"userId"];
-        
-        self.friendNickName = [aDecoder decodeObjectForKey:@"friendNickName"];
-        
-        self.friendHeadImg = [aDecoder decodeObjectForKey:@"friendHeadImg"];
-        
-        self.friendMemo = [aDecoder decodeObjectForKey:@"friendMemo"];
+        _status = [aDecoder decodeObjectForKey:@"status"];
+        _friendId = [aDecoder decodeObjectForKey:@"friendId"];
+        _userId = [aDecoder decodeObjectForKey:@"userId"];
+        _friendNickName = [aDecoder decodeObjectForKey:@"friendNickName"];
+        _friendHeadImg = [aDecoder decodeObjectForKey:@"friendHeadImg"];
+        _friendMemo = [aDecoder decodeObjectForKey:@"friendMemo"];
         
     }
     return self;

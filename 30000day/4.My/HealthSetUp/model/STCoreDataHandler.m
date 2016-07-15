@@ -15,7 +15,6 @@ static STCoreDataHandler *onlyInstance;
 @interface STCoreDataHandler ()
 
 @property (nonatomic, copy)NSString *modelName;
-
 @property (nonatomic, copy)NSString *dbFileName;
 
 @end
@@ -25,11 +24,9 @@ static STCoreDataHandler *onlyInstance;
 + (STCoreDataHandler *)shareCoreDataHandler {
     
     static dispatch_once_t onceToken;
-    
     dispatch_once(&onceToken, ^{
         
         onlyInstance = [[STCoreDataHandler alloc] init];
-        
         [onlyInstance configModel:@"HealthModel" DbFile:@"asyncCoreDataWrapper.sqlite"];
     });
     
@@ -39,9 +36,7 @@ static STCoreDataHandler *onlyInstance;
 - (void)configModel:(NSString *)model DbFile:(NSString *)filename {
     
     _modelName = model;
-    
     _dbFileName = filename;
-    
     [self initCoreDataStack];
 }
 
@@ -52,45 +47,34 @@ static STCoreDataHandler *onlyInstance;
     if (coordinator != nil) {
         
         _bgObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        
         [_bgObjectContext setPersistentStoreCoordinator:coordinator];
-        
         _mainObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        
         [_mainObjectContext setParentContext:_bgObjectContext];
     }
 }
 
 - (NSManagedObjectContext *)createPrivateObjectContext {
     
-    NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    
-    [ctx setParentContext:_mainObjectContext];
-    
-    return ctx;
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [context setParentContext:_mainObjectContext];
+    return context;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
     
     NSManagedObjectModel *managedObjectModel;
-    
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:_modelName withExtension:@"momd"];
-    
     managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    
     return managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     
     NSPersistentStoreCoordinator *persistentStoreCoordinator = nil;
-    
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:_dbFileName];
-    
     NSError *error = nil;
     
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
     NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
                                        NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
                                        NSInferMappingModelAutomaticallyOption, nil];
@@ -111,11 +95,9 @@ static STCoreDataHandler *onlyInstance;
 - (NSError *)save:(OperationResult)handler {
     
     NSError *error;
-    
     if ([_mainObjectContext hasChanges]) {
         
         [_mainObjectContext save:&error];
-        
         [_bgObjectContext performBlock:^{
             
             __block NSError *inner_error = nil;
@@ -125,9 +107,7 @@ static STCoreDataHandler *onlyInstance;
             if (handler) {
                 
                 [_mainObjectContext performBlock:^{
-                    
                     handler(error);
-                    
                 }];
             }
         }];

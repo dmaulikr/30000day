@@ -303,7 +303,7 @@
                                            count = IdentityCount;
                                            _smsBtn.enabled = NO;
                                            [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
-                                           _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
+                                           _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(repeatAction) userInfo:nil repeats:YES];
                                            
                                            //检查手机号是否已经注册
                                            [STDataHandler sendcheckRegisterForMobileWithmobile:self.phoneNumber.text success:^(NSString *success) {
@@ -332,16 +332,7 @@
                                        }];
 }
 
-- (void)CountDown {
-    
-    count = IdentityCount;
-    [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",IdentityCount] forState:UIControlStateNormal];
-    _smsBtn.enabled = NO;
-    _timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(Down) userInfo:nil repeats:YES];
-    [_timer fire];
-}
-
-- (void)Down {
+- (void)repeatAction {
     [_smsBtn setTitle:[NSString stringWithFormat:@"%i秒后重发",count--] forState:UIControlStateNormal];
     if (count == -1) {
         _smsBtn.enabled = YES;
