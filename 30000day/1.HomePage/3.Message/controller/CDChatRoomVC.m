@@ -415,7 +415,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     }
     
     [_currentSelectedCell.messageBubbleView.animationVoiceImageView stopAnimating];
-    
     self.currentSelectedCell = nil;
 }
 
@@ -840,9 +839,11 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             model.messageDate = [NSDate date];
             model.remoteURLString = msg.file.url;
             model.localURLString = msg.file.localPath;
+            
             if ([msg.file isDataAvailable]) {//如果可以获取到数据
                 model.image = [msg.file getData];
             }
+            
            [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
         }
     }];
@@ -1040,9 +1041,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 
     //给消息接收方/发送方原本的昵称赋值
     xhMessage.senderOriginNickNname = [self.conversation originNickName:msg.clientId];
-    
     NSInteger msgStatuses[4] = { AVIMMessageStatusSending, AVIMMessageStatusSent, AVIMMessageStatusDelivered, AVIMMessageStatusFailed };
-    
     NSInteger xhMessageStatuses[4] = { XHMessageStatusSending, XHMessageStatusSent, XHMessageStatusReceived, XHMessageStatusFailed };
     
     if (xhMessage.bubbleMessageType == XHBubbleMessageTypeSending) {
@@ -1054,7 +1053,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             if (msgStatuses[i] == msg.status) {
                 
                 status = xhMessageStatuses[i];
-                
                 break;
             }
         }
@@ -1070,6 +1068,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 }
 
 - (NSMutableArray *)getXHMessages:(NSArray *)msgs {
+    
     NSMutableArray *messages = [[NSMutableArray alloc] init];
     for (AVIMTypedMessage *msg in msgs) {
         XHMessage *xhMsg = [self getXHMessageByMsg:msg];
@@ -1077,6 +1076,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             [messages addObject:xhMsg];
         }
     }
+    
     return messages;
 }
 
@@ -1093,9 +1093,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
         } else {
             
             [self memoryCacheMsgs:msgs callback:^(BOOL succeeded, NSError *error) {
-                
                 block (msgs, error);
-                
             }];
         }
     }];
@@ -1153,11 +1151,9 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     } else {
         
         self.isLoadingMsg = YES;
-        
         self.loadingMoreMessage = YES;//正在加载更多数据
-        
+
         AVIMTypedMessage *msg = [self.msgs objectAtIndex:0];
-        
         int64_t timestamp = msg.sendTimestamp;
         
         [self queryAndCacheMessagesWithTimestamp:timestamp block:^(NSArray *msgs, NSError *error) {
@@ -1167,17 +1163,13 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
                 if (msgs.count == 0 ) {//没数据的时候不让继续加载
                     
                     self.canLoadMoreMessage = NO;
-                    
                     self.isLoadingMsg = NO;
-                    
                     self.loadingMoreMessage = NO;//结束加载更多数据
                     
                 } else {//有数据继续加载
                     
                     NSMutableArray *xhMsgs = [[self getXHMessages:msgs] mutableCopy];
-                    
                     NSMutableArray *newMsgs = [NSMutableArray arrayWithArray:msgs];
-                    
                     [newMsgs addObjectsFromArray:self.msgs];
                     
                     self.msgs = newMsgs;
@@ -1185,7 +1177,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
                     [self insertOldMessages:xhMsgs completion: ^{
                         
                         self.isLoadingMsg = NO;
-                        
                         self.loadingMoreMessage = NO;//结束加载更多数据
                     }];
                 }

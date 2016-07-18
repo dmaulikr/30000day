@@ -30,17 +30,11 @@
 @interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
-
 @property (nonatomic,assign) float totalLifeDayNumber;
-
 @property (nonatomic,strong) NSMutableArray *allDayArray;
-
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
-
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
-
 @property (nonatomic,strong) UIView *indicationView;//指示view
-
 @property (nonatomic,strong) SettingBirthdayView *birthdayView;
 
 @end
@@ -51,13 +45,9 @@
     [super viewDidLoad];
     
     self.tableViewStyle = STRefreshTableViewPlain;
-    
     self.tableView.dataSource = self;
-    
     self.tableView.delegate = self;
-
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
-    
     [self showHeadRefresh:YES showFooterRefresh:NO];
 
     //定位并获取天气
@@ -65,18 +55,14 @@
 
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-    
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STDidSuccessEnterForegroundSendNotification object:nil];
-    
 }
 
 - (ActivityIndicatorTableViewCell *)indicatorCell {
     
     if (!_indicatorCell) {
-        
         _indicatorCell = [[[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorTableViewCell" owner:self options:nil] lastObject];
     }
-    
     return _indicatorCell;
 }
 
@@ -99,9 +85,7 @@
 - (void)jumpToSignInViewController {
     
     SignInViewController *logview = [[SignInViewController alloc] init];
-    
     STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
-    
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -118,54 +102,40 @@
     
     //每次修改生日都有可能出现
     NSDate *birthDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:STUserAccountHandler.userProfile.birthday];
-    
     NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
     
     NSInteger age = trunc(dateDiff/(60 * 60 * 24)) / 365;
-    
     age = 0 - age;
     
     NSMutableDictionary *userDic = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
-    
     BOOL isHighAlert = [userDic[HIGH_ALERT] boolValue];
     
     if (age > 80 && !isHighAlert) {
         
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"恭喜您获得老寿星称号" message:@"对高寿老人的天龄指数计算需要更多专业数据，本系统暂不支持。暂时的处理方式是在您的当前天龄加上7300天。请注意保持愉快的心情，健康的生活方式，祝福您寿比南山。" preferredStyle:UIAlertControllerStyleAlert];
-        
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
                 
                 if (userConfigure == nil) {
-                    
                     userConfigure = [NSMutableDictionary dictionary];
-                    
                 }
                 
                 [userConfigure setObject:@(YES) forKey:HIGH_ALERT];
-                
                 [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
-            
         }];
         
         [alertView addAction:alertAction];
-        
         [self.navigationController presentViewController:alertView animated:YES completion:nil];
-        
     }
     
     //引导界面
     NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
     
     if ([Common isObjectNull:isFirstStartString]) {
-        
         IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
         [[[UIApplication sharedApplication].delegate window] addSubview:view];
-        
         [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
-        
     }
 }
 
@@ -181,7 +151,6 @@
                                          
                                          //获取用户的天龄
                                          [self uploadMotionData];
-                                         
                                          [self.tableView.mj_header endRefreshing];
                                          
                                      } failure:^(NSError *error) {
@@ -189,9 +158,7 @@
                                          NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
                                          
                                          if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
-                                             
                                              [self showToast:@"账户无效"];
-                                             
                                              [self jumpToSignInViewController];
                                              
                                          }
@@ -216,12 +183,10 @@
             [STDataHandler sendUserLifeListWithCurrentUserId:STUserAccountHandler.userProfile.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:[NSString stringWithFormat:@"%d",(int)day] success:^(NSMutableArray *dataArray) {
                 
                 UserLifeModel *lastModel = [dataArray firstObject];
-                
                 self.totalLifeDayNumber = [lastModel.curLife floatValue];
                 
                 //算出数组
                 NSMutableArray *allDayArray = [NSMutableArray array];
-                
                 NSMutableArray *dayNumberArray = [NSMutableArray array];
                 
                 if (dataArray.count > 1 ) {
@@ -229,25 +194,17 @@
                     for (int  i = 0; i < dataArray.count ; i++ ) {
                         
                         UserLifeModel *model = dataArray[i];
-                        
                         [allDayArray addObject:model.curLife];
                         
                         NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                        
                         NSString *string = array[2];
-                        
                         NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                        
                         NSString *month = array[1];
-                        
                         NSString *dateString = [NSString stringWithFormat:@"%@-%@",month,newString];
-                        
                         [dayNumberArray addObject:dateString];
-                        
                     }
                     
                     self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
-                    
                     self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
                     
                 } else {
@@ -269,28 +226,20 @@
                         [dayNumberArray addObject:dateString];
                         
                         self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
-                        
                         self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
                     }
-                    
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     [Common saveAppDataForKey:DAYS_AGE withObject:[NSString stringWithFormat:@"%.2f",[[self.allDayArray lastObject] floatValue]]]; //保存今天的天龄 用户分享
-                    
                     [self.tableView reloadData];
-                    
                     [self.tableView.mj_header endRefreshing];
-                    
                 });
                 
             } failure:^(NSError *error) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     [self showToast:@"获取天龄失败，可能是网络繁忙"];
-                    
                     [self.tableView.mj_header endRefreshing];
                 });
             }];
