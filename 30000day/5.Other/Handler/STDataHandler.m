@@ -103,53 +103,55 @@
                          success:(void (^)(NSString *responseObject))success
                          failure:(void (^)(NSString *error))failure {
     
-        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-        [parameters addParameter:phoneNumber forKey:@"mobile"];
-        [parameters addParameter:type forKey:@"type"];
     
-        STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:GET_SMS_CODE
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    success(recvDic[@"value"]);
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    failure(recvDic[@"msg"]);
-                                                                });
-                                                            }
-                                                        
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                failure(localError.userInfo[NSLocalizedDescriptionKey]);
-                                                            });
-                                                            
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            failure(error.error.userInfo[NSLocalizedDescriptionKey]);
-                                                        });
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    [self startRequest:request];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters addParameter:phoneNumber forKey:@"mobile"];
+    [parameters addParameter:type forKey:@"type"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.completionQueue = dispatch_queue_create("getVerifyWithPhoneNumber",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SMS_CODE] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    success(recvDic[@"value"]);
+                });
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failure(recvDic[@"msg"]);
+                });
+            }
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(localError.userInfo[NSLocalizedDescriptionKey]);
+                
+            });
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            failure(error.userInfo[NSLocalizedDescriptionKey]);
+            
+        });
+        
+    }];
+
 }
 
 //*********** 核对短信验证码是否正确 ********/
@@ -158,53 +160,54 @@
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure {
     
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:phoneNumber forKey:@"mobile"];
     [parameters addParameter:smsCode forKey:@"code"];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:VALIDATE_SMS_CODE
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    success(recvDic[@"value"]);
-                                                                });
-                                                                
-                                                            } else {
-                                                            
-                                                                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:recvDic[@"msg"]                                                                     forKey:NSLocalizedDescriptionKey];
-                                                               localError = [NSError errorWithDomain:@"com.sms.validate" code:[recvDic[@"code"] integerValue] userInfo:userInfo];
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    failure(localError);
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                failure(localError);
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            failure(error.error);
-                                                        });
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    [self startRequest:request];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.completionQueue = dispatch_queue_create("postVerifySMSCodeWithPhoneNumber",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,VALIDATE_SMS_CODE] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    success(recvDic[@"value"]);
+                });
+                
+            } else {
+                
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:recvDic[@"msg"]                                                                     forKey:NSLocalizedDescriptionKey];
+                localError = [NSError errorWithDomain:@"com.sms.validate" code:[recvDic[@"code"] integerValue] userInfo:userInfo];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failure(localError);
+                });
+            }
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure(localError);
+            });
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(error);
+        });
+        
+    }];
 }
 
 //************修改密码*****************//
