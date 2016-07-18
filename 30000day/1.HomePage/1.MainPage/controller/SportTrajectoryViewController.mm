@@ -17,6 +17,7 @@
 #import "SportInformationTableManager.h"
 #import <BaiduMapApI_Map/BMKGroundOverlay.h>
 #import "MTProgressHUD.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate>
 
@@ -39,6 +40,8 @@
 @property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
 
 @property (nonatomic,strong) MotionData *motionData; //运动记录model
+
+@property (nonatomic, strong) AVSpeechSynthesizer *aVSpeechSynthesizer;
 
 
 @property (nonatomic,strong) UIView *countDownView; //倒计时视图
@@ -76,6 +79,8 @@
     [self loadOtherView];
     
     [self loadCountDownView];
+    
+    _aVSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
 
 }
 
@@ -132,6 +137,8 @@
         [self.locationArrayM removeAllObjects];
         
         [self.countDownTimer invalidate];
+        
+        [self read:@"开始跑步"];
         
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timing) userInfo:nil repeats:YES];
         
@@ -439,6 +446,8 @@
     
     if (!sender.tag) {  //结束
         
+        [self read:@"运动已结束"];
+        
         NSString *alertTitleString = @"是否保存?";
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitleString message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -608,6 +617,19 @@
         
     }
     
+}
+
+//语音播报
+- (void)read:(NSString *)string {
+
+    AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:string];
+    
+    aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
+    
+    aVSpeechUtterance.voice =[AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    
+    [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
+
 }
 
 //结束  清空数据关闭定位

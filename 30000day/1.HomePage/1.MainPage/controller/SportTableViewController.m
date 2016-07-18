@@ -186,10 +186,44 @@
                 [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
                 
             } else {
-            
-                SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+
+                AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];
                 
-                [self.navigationController presentViewController:controller animated:YES completion:nil];
+                [manger startMonitoring];
+
+                [manger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+
+                    if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                    
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"到户外去运动吧！" message:@"室内运动会导致运动记录不准确无法获取运动轨迹" preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"继续运动" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+                            
+                            [self.navigationController presentViewController:controller animated:YES completion:nil];
+                            
+                        }];
+                        
+                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+                        
+                        [alert addAction:continueAction];
+                        
+                        [alert addAction:cancelAction];
+                        
+                        [self presentViewController:alert animated:YES completion:nil];
+                        
+                    } else {
+                    
+                        SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
+                        
+                        [self.navigationController presentViewController:controller animated:YES completion:nil];
+                    
+                    }
+                    
+                }];
+                
+                [manger stopMonitoring];
             
             }
             
