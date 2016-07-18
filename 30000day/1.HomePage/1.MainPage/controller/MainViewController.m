@@ -101,6 +101,29 @@
     [self showSettingBirthdayView];
     
     //每次修改生日都有可能出现
+    [self birthday];
+    
+    //引导界面
+    [self guideView];
+
+}
+
+//引导界面
+-(void)guideView {
+
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
+    
+    if ([Common isObjectNull:isFirstStartString]) {
+        IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [[[UIApplication sharedApplication].delegate window] addSubview:view];
+        [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
+    }
+
+}
+
+//每次修改生日都有可能出现
+- (void)birthday {
+
     NSDate *birthDate = [[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:STUserAccountHandler.userProfile.birthday];
     NSTimeInterval dateDiff = [birthDate timeIntervalSinceNow];
     
@@ -114,29 +137,21 @@
         
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"恭喜您获得老寿星称号" message:@"对高寿老人的天龄指数计算需要更多专业数据，本系统暂不支持。暂时的处理方式是在您的当前天龄加上7300天。请注意保持愉快的心情，健康的生活方式，祝福您寿比南山。" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-                NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
-                
-                if (userConfigure == nil) {
-                    userConfigure = [NSMutableDictionary dictionary];
-                }
-                
-                [userConfigure setObject:@(YES) forKey:HIGH_ALERT];
-                [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
+            
+            NSMutableDictionary *userConfigure = [NSMutableDictionary dictionaryWithDictionary:[Common readAppDataForKey:USER_CHOOSE_AGENUMBER]];
+            
+            if (userConfigure == nil) {
+                userConfigure = [NSMutableDictionary dictionary];
+            }
+            
+            [userConfigure setObject:@(YES) forKey:HIGH_ALERT];
+            [Common saveAppDataForKey:USER_CHOOSE_AGENUMBER withObject:userConfigure];//保存到沙盒里
         }];
         
         [alertView addAction:alertAction];
         [self.navigationController presentViewController:alertView animated:YES completion:nil];
     }
     
-    //引导界面
-    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTARTINTRODUCE];
-    
-    if ([Common isObjectNull:isFirstStartString]) {
-        IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [[[UIApplication sharedApplication].delegate window] addSubview:view];
-        [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
-    }
 }
 
 //登录获取个人信息
