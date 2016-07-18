@@ -3878,12 +3878,12 @@
                            failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:type forKey:@"type"];
     [params addParameter:mobile forKey:@"mobile"];
-    [params addParameter:[nickName urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"nickName"];
+    [params addParameter:nickName forKey:@"nickName"];
     [params addParameter:accountNo forKey:@"accountNo"];
     [params addParameter:password forKey:@"password"];
     [params addParameter:headImg forKey:@"headImg"];
-    [params addParameter:type forKey:@"type"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendBindRegisterWithMobile",DISPATCH_QUEUE_PRIORITY_DEFAULT);
@@ -3906,7 +3906,6 @@
             }
             
         } else {
-            
             failure(localError);
         }
         

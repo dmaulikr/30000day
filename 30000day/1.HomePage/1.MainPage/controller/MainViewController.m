@@ -687,7 +687,6 @@
     } completion:^(BOOL finished) {
         
         [self.indicationView removeFromSuperview];
-        
         self.indicationView = nil;
     }];
 }
