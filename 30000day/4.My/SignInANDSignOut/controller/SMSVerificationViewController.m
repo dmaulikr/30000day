@@ -88,7 +88,7 @@
     //调用验证接口
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
+    [STDataHandler postVerifySMSCodeWithPhoneNumber:self.phoneNumber.text smsCode:self.sms.text success:^(NSString *mobileToken) {
        
         if (self.isSignOut == 1) {
             
@@ -121,7 +121,7 @@
 
 //获取验证码
 - (void)getVeriftCode {
-    [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
+    [STDataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
                                           type:@(self.isSignOut)
                                        success:^(NSString *responseObject) {
                                            
@@ -186,7 +186,7 @@
                 if (success.boolValue) {
                 
                         //调用短信验证接口
-                        [self.dataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
+                        [STDataHandler getVerifyWithPhoneNumber:self.phoneNumber.text
                                                               type:@(self.isSignOut)
                                                            success:^(NSString *responseObject) {
                                                                

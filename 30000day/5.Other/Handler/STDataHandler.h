@@ -72,14 +72,14 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
 + (STDataHandler *)sharedHandler;
 
 //********* 发送验证请求 *************/
-- (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
++ (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
                             type:(NSNumber *)type
                           success:(void (^)(NSString *responseObject))success
                           failure:(void (^)(NSString *error))failure;
 
 
 //*********** 核对短信验证码是否正确 ********/
-- (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
++ (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
                              smsCode:(NSString *)smsCode
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure;
@@ -151,7 +151,7 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
                                     failure:(void (^)(NSError *error))failure;
 //***** 更新个人信息 *****/
 //提醒：保存成功后会发出通知
-- (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
++ (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
                                   nickName:(NSString *)nickName
                                     gender:(NSNumber *)gender
                                   birthday:(NSString *)birthday

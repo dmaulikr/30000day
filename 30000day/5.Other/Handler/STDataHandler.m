@@ -98,7 +98,7 @@
 #pragma mark ---- 以下封装的是app所用到的所有接口
 
 //***** 发送验证请求 *****/
-- (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
++ (void)getVerifyWithPhoneNumber:(NSString *)phoneNumber
                             type:(NSNumber *)type
                          success:(void (^)(NSString *responseObject))success
                          failure:(void (^)(NSString *error))failure {
@@ -155,7 +155,7 @@
 }
 
 //*********** 核对短信验证码是否正确 ********/
-- (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
++ (void)postVerifySMSCodeWithPhoneNumber:(NSString *)phoneNumber
                              smsCode:(NSString *)smsCode
                              success:(void (^)(NSString *mobileToken))success
                              failure:(void (^)(NSError *error))failure {
@@ -672,7 +672,7 @@
 
 
 //***** 更新个人信息 *****/
-- (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
++ (void)sendUpdateUserInformationWithUserId:(NSNumber *)userId
                                    nickName:(NSString *)nickName
                                      gender:(NSNumber *)gender
                                    birthday:(NSString *)birthday
@@ -681,6 +681,8 @@
                                     success:(void (^)(BOOL success))success
                                     failure:(void (^)(NSError *))failure {
 
+    
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:userId forKey:@"userId"];
     [parameters addParameter:nickName forKey:@"nickName"];//昵称
@@ -688,118 +690,118 @@
     [parameters addParameter:headImageUrlString forKey:@"headImg"];//头像
     [parameters addParameter:gender forKey:@"gender"];//性别
     [parameters addParameter:memo forKey:@"memo"];//个人简介
-    [Common urlStringWithDictionary:parameters withString:SAVE_USER_INFORMATION];
     
-    STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
-                                                        url:SAVE_USER_INFORMATION
-                                                 parameters:parameters
-                                                    success:^(id responseObject) {
-                                                        
-                                                        NSError *localError = nil;
-                                                        
-                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                        if (localError == nil) {
-                                                            
-                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
-                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
-                                                                if (![Common isObjectNull:headImageUrlString]) {
-                                                                    
-                                                                    STUserAccountHandler.userProfile.headImg = headImageUrlString;
-                                                                }
-                                                                
-                                                                if (![Common isObjectNull:gender]) {
-                                                                    
-                                                                    STUserAccountHandler.userProfile.gender = gender;
-                                                                }
-                                                                
-                                                                if (![Common isObjectNull:birthday]) {
-                                                                    
-                                                                    STUserAccountHandler.userProfile.birthday = birthday;
-                                                                }
-                                                                
-                                                                if (![Common isObjectNull:nickName]) {
-                                                                    
-                                                                    STUserAccountHandler.userProfile.nickName = nickName;
-                                                                }
-                                                                
-                                                                if (![Common isObjectNull:memo]) {
-                                                                    
-                                                                    STUserAccountHandler.userProfile.memo = memo;
-                                                                }
-                                                                
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.completionQueue = dispatch_queue_create("sendUpdateUserInformationWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SAVE_USER_INFORMATION] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                if (![Common isObjectNull:headImageUrlString]) {
+                    
+                    STUserAccountHandler.userProfile.headImg = headImageUrlString;
+                }
+                
+                if (![Common isObjectNull:gender]) {
+                    
+                    STUserAccountHandler.userProfile.gender = gender;
+                }
+                
+                if (![Common isObjectNull:birthday]) {
+                    
+                    STUserAccountHandler.userProfile.birthday = birthday;
+                }
+                
+                if (![Common isObjectNull:nickName]) {
+                    
+                    STUserAccountHandler.userProfile.nickName = nickName;
+                }
+                
+                if (![Common isObjectNull:memo]) {
+                    
+                    STUserAccountHandler.userProfile.memo = memo;
+                }
+                
 #pragma mark --- 因公司系统设计问题，设置完性别后，需调用健康因子界面接口，去设置天龄
-                                                                if (![Common isObjectNull:gender] || ![Common isObjectNull:birthday]) {
-
-                                                                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                                                                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-                                                                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-                                                                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-                                                                    
-                                                                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                                                                    [params addParameter:userId forKey:@"userId"];
-                                                                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
-                                                                    [params addParameter:birthday forKey:@"birthday"];
-                                                                    [Common urlStringWithDictionary:params withString:SET_USER_FACTOR];
-                                                                    
-                                                                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_USER_FACTOR] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-                                                                        NSError *localError = nil;
-                                                                        
-                                                                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
-                                                                        if (localError == nil) {
-                                                                            
-                                                                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                                            
-                                                                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                                
-                                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                    //发出通知
-                                                                                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-                                                                                });
-                                                                            } else {
-                                                                                
-                                                                            }
-                                                                            
-                                                                        } else {
-                                                                            
-                                                                        }
-                                                                        
-                                                                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-
-                                                                    }];
-                                                                }
-
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    success(YES);
-                                                                    //发出通知
-                                                                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-                                                                });
-                                                                
-                                                            } else {
-                                                                
-                                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    failure([Common errorWithString:recvDic[@"msg"]]);
-                                                                });
-                                                            }
-                                                            
-                                                        } else {
-                                                            
-                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                failure(localError);
-                                                            });
-                                                        }
-                                                        
-                                                    } failure:^(STNetError *error) {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            failure(error.error);
-                                                        });
-                                                        
-                                                    }];
-    request.needHeaderAuthorization = NO;
-    request.requestSerializerType = STRequestSerializerTypeJSON;
-    [self startRequest:request];
+                if (![Common isObjectNull:gender] || ![Common isObjectNull:birthday]) {
+                    
+                    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                    manager.completionQueue = dispatch_queue_create("newAdddQueue",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+                    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                    
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    [params addParameter:userId forKey:@"userId"];
+                    [params addParameter:[NSString stringWithFormat:@"%@",gender] forKey:@"gender"];
+                    [params addParameter:birthday forKey:@"birthday"];
+                    [Common urlStringWithDictionary:params withString:SET_USER_FACTOR];
+                    
+                    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_USER_FACTOR] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                        NSError *localError = nil;
+                        
+                        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+                        if (localError == nil) {
+                            
+                            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+                            
+                            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    //发出通知
+                                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                                });
+                            } else {
+                                
+                            }
+                            
+                        } else {
+                            
+                        }
+                        
+                    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+                        
+                    }];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    success(YES);
+                    //发出通知
+                    [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+                });
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    failure([Common errorWithString:recvDic[@"msg"]]);
+                    
+                });
+            }
+            
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                failure(localError);
+                
+            });
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(error);
+        });
+        
+    }];
 }
 
 //************获取通讯录好友************/

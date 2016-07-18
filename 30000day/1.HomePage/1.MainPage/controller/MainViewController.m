@@ -705,7 +705,7 @@
             //按钮点击回调
             [view setSaveBlock:^(NSDate *selectorDate, NSNumber *gentNumber) {
                 
-                [self.dataHandler sendUpdateUserInformationWithUserId:STUserAccountHandler.userProfile.userId
+                [STDataHandler sendUpdateUserInformationWithUserId:STUserAccountHandler.userProfile.userId
                                                              nickName:STUserAccountHandler.userProfile.nickName
                                                                gender:gentNumber
                                                              birthday:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] stringFromDate:selectorDate]

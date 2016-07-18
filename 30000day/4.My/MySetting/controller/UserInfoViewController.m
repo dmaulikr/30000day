@@ -96,7 +96,7 @@
     
     //上传服务器
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    [self.dataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+    [STDataHandler sendUpdateUserInformationWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
                                                  nickName:self.currentChooseNickName
                                                    gender:self.currentChooseGender
                                                  birthday:self.currentChooseBirthdayString
