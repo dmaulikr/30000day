@@ -220,9 +220,11 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
 
 //***********************************验证个人密保问题*********************/
 + (void)sendSecurityQuestionvalidate:(NSNumber *)userId
-                        answer:(NSArray *)answerArr
-                        success:(void (^)(NSString *successToken))success
-                        failure:(void (^)(NSError *error))failure;
+                            problem1:(NSString *)problem1
+                            problem2:(NSString *)problem2
+                            problem3:(NSString *)problem3
+                             success:(void (^)(NSString *successToken))success
+                             failure:(void (^)(NSError *error))failure;
 
 //***********************************密保修改密码*********************/
 + (void)sendSecurityQuestionUptUserPwdBySecu:(NSNumber *)userId

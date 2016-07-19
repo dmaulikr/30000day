@@ -113,21 +113,23 @@
 
 - (void)verification {
     
-    NSMutableArray *answerMutableArray = [NSMutableArray array];
+    NSString *problem1 = nil;
+    NSString *problem2 = nil;
+    NSString *problem3 = nil;
     
     if (![Common isObjectNull:self.passwordVerifiedCell.answer.text]) {
-        [answerMutableArray addObject:self.passwordVerifiedCell.answer.text];
+        problem1 = self.passwordVerifiedCell.answer.text;
     }
     
     if (![Common isObjectNull:self.passwordVerifiedFirstCell.answer.text]) {
-        [answerMutableArray addObject:self.passwordVerifiedFirstCell.answer.text];
+        problem2 = self.passwordVerifiedFirstCell.answer.text;
     }
     
     if (![Common isObjectNull:self.passwordVerifiedSecondCell.answer.text]) {
-        [answerMutableArray addObject:self.passwordVerifiedSecondCell.answer.text];
+        problem3 = self.passwordVerifiedSecondCell.answer.text;
     }
     
-    [STDataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] answer:answerMutableArray success:^(NSString *successToken) {
+    [STDataHandler sendSecurityQuestionvalidate:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] problem1:problem1 problem2:problem2 problem3:problem3 success:^(NSString *successToken) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
         

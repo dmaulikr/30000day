@@ -1711,19 +1711,22 @@
 
 //***********************************验证个人密保问题*********************/
 + (void)sendSecurityQuestionvalidate:(NSNumber *)userId
-                            answer:(NSArray *)answerArr
-                            success:(void (^)(NSString *successToken))success
-                            failure:(void (^)(NSError *error))failure{
+                            problem1:(NSString *)problem1
+                            problem2:(NSString *)problem2
+                            problem3:(NSString *)problem3
+                             success:(void (^)(NSString *successToken))success
+                             failure:(void (^)(NSError *error))failure{
 
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params addParameter:userId forKey:@"userId"];
     
-    for (int i=0; i<answerArr.count; i++) {
-        
-        [params addParameter:answerArr[i] forKey:[NSString stringWithFormat:@"a%d",i+1]];
-    }
+    [params addParameter:problem1 forKey:@"a1"];
+    
+    [params addParameter:problem2 forKey:@"a2"];
+    
+    [params addParameter:problem3 forKey:@"a3"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -1732,6 +1735,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:GET_SECURITY_QUESTION_VERIFICATION];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SECURITY_QUESTION_VERIFICATION] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
@@ -1893,6 +1898,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:UPDATE_USER_SECURITY];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_SECURITY] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
