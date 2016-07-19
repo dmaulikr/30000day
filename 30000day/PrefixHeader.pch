@@ -105,7 +105,7 @@
 #define  STUserAccountHandler         [UserAccountHandler shareUserAccountHandler]    //用户的个人信息单例
 #define  STNotificationCenter         [NSNotificationCenter defaultCenter]            //取得系统通知中心单例
 
-#define  ST_VERSION_MANAGER           @"/upgrade/getApiVersion"              //版本管理
+#define  ST_VERSION_MANAGER           @"/upgrade/getAppUpgradeInfo"              //版本管理
 #define  LOGIN_WITH_PASSWORD          @"/user/login"                           //用户登录
 #define  GET_MY_FRIENDS               @"/friend/getMyFriends"                  //获取用户好友
 #define  SEARCH_USER                  @"/search/searchUser"                    //搜索用户

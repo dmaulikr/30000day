@@ -208,9 +208,9 @@ static SearchVersionManager *manager;
     }];
 }
 //检查版本更新
-- (void)checkVersion {
+- (void)checkVersion {//storeString	__NSCFString *	"http://121.196.223.175:8082/stapi/1.0/upgrade/getAppUpgradeInfo?curVersion=2.0.0&osType=ios"	0x00007f823210f230
     
-    NSString *storeString = [NSString stringWithFormat:@"%@%@?version=%@&osType=ios",ST_API_SERVER,ST_VERSION_MANAGER,AppCurrentVersion];
+    NSString *storeString = [NSString stringWithFormat:@"%@%@?curVersion=%@&osType=ios",ST_API_SERVER,ST_VERSION_MANAGER,AppCurrentVersion];
     NSURL *storeURL = [NSURL URLWithString:storeString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:storeURL];
     [request setHTTPMethod:@"GET"];
@@ -226,35 +226,39 @@ static SearchVersionManager *manager;
                 if ([dictionary[@"code"] isEqualToNumber:@0]) {
                     
                     NSDictionary *dataDictionary = dictionary[@"value"];
-                    NSString *currentAppStoreVersion = dataDictionary[@"version"];
-                    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-                    NSString *description = dataDictionary[@"description"];//新版本的描述
-                    //status: f:强制 s:建议 n：不升级
-                    if ([dataDictionary[@"status"] isEqualToString:@"s"]) {//建议升级
+                    if (![Common isObjectNull:dataDictionary] && [dataDictionary isKindOfClass:[NSDictionary class]]) {
                         
-                        _isForce = NO;//非强制的
-                        BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion]];
-                        
-                        if (!flag) {//YES 表示
+                        NSString *currentAppStoreVersion = dataDictionary[@"toVersion"];
+                        NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+                        NSString *description = dataDictionary[@"description"];//新版本的描述
+                        //status: f:强制 s:建议 n：不升级
+                        if ([dataDictionary[@"status"] isEqualToString:@"s"]) {//建议升级
+                            
+                            _isForce = NO;//非强制的
+                            BOOL flag = [Common readAppBoolDataForkey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion]];
+                            
+                            if (!flag) {//YES 表示
+                                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
+                                                                                    message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,description]
+                                                                                   delegate:self
+                                                                          cancelButtonTitle:@"回头再说"
+                                                                          otherButtonTitles:@"下载更新", nil];
+                                [alertView show];
+                                [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion] withObject:YES];
+                            }
+                            
+                        } else if ([dataDictionary[@"status"] isEqualToString:@"f"]) {//强制升级
+                            
+                            _isForce = YES;
                             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
                                                                                 message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,description]
                                                                                delegate:self
-                                                                      cancelButtonTitle:@"回头再说"
+                                                                      cancelButtonTitle:nil
                                                                       otherButtonTitles:@"下载更新", nil];
                             [alertView show];
-                            [Common saveAppBoolDataForKey:[NSString stringWithFormat:@"%@_%@",KEY_UPDATE_NOTIFICATION_IS_REMIND,currentAppStoreVersion] withObject:YES];
                         }
-                    
-                    } else if ([dataDictionary[@"status"] isEqualToString:@"f"]) {//强制升级
-                        
-                       _isForce = YES;
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"有新的版本"
-                                                                            message:[NSString stringWithFormat:@"%@有新版本可以更新喽，请更新至%@。\r\n    版本：%@", appName, currentAppStoreVersion,description]
-                                                                           delegate:self
-                                                                  cancelButtonTitle:nil
-                                                                  otherButtonTitles:@"下载更新", nil];
-                        [alertView show];
                     }
+
                 }
                 
 //                NSArray *versionsInAppStore = [[dictionary valueForKey:@"results"] valueForKey:@"version"];
