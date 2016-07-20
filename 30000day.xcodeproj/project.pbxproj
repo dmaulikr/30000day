@@ -1914,6 +1914,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F6E3951CB92093000CC117 /* CoreMotion.framework in Frameworks */,
 				B8F2D94E1C5C467D002C7712 /* AdSupport.framework in Frameworks */,
 				B80B55A71CD10196003E2C36 /* libstdc++.6.0.9.tbd in Frameworks */,
 				B80B55A51CD10176003E2C36 /* libsqlite3.0.tbd in Frameworks */,
@@ -1923,7 +1924,6 @@
 				B606AE6B1CBCFA8700830D28 /* JavaScriptCore.framework in Frameworks */,
 				B6E548B61CF055F700002650 /* HealthKit.framework in Frameworks */,
 				B8F6E3971CB92128000CC117 /* libz.tbd in Frameworks */,
-				B8F6E3951CB92093000CC117 /* CoreMotion.framework in Frameworks */,
 				B8F6E3931CB9208A000CC117 /* CFNetwork.framework in Frameworks */,
 				B8F6E3911CB9207F000CC117 /* CoreGraphics.framework in Frameworks */,
 				B8F6E38F1CB92077000CC117 /* CoreText.framework in Frameworks */,
@@ -5604,7 +5604,7 @@
 					"\"$(SRCROOT)/30000day/5.Other/ThirdPart/Alipay\"",
 				);
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5664,7 +5664,7 @@
 					"\"$(SRCROOT)/30000day/5.Other/ThirdPart/Alipay\"",
 				);
 				INFOPLIST_FILE = 30000day/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

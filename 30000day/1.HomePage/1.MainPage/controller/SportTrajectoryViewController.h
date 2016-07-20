@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^QYPedometerHandler)(NSNumber *stepNumber,
+                                   NSError *error);
+
 @interface SportTrajectoryViewController : STBaseViewController
 
 @end
