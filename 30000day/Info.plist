@@ -120,7 +120,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>开启定位获取更多精彩哦</string>
+	<string>若不允许，将无法正常记录你的运动数据，也无法使用天气情况等功能。</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

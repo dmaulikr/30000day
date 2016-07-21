@@ -11,7 +11,7 @@
 #import <BaiduMapAPI_Location/BMKLocationService.h>
 #import <BaiduMapAPI_Map/BMKPolyline.h>
 #import <BaiduMapAPI_Map/BMKPolylineView.h>
-#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>//引入计算工具所有的头文件
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import "MotionData.h"
 #import "SportInformationModel.h"
 #import "SportInformationTableManager.h"
