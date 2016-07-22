@@ -19,9 +19,7 @@
 - (NSString *)getFilePath:(NSString *)key {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
     return [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.src",key]];
 }
 
@@ -34,13 +32,9 @@
 - (void)encodeDataObject:(id)object withKey:(NSString *)key {
     
     NSMutableData *data = [[NSMutableData alloc] init];
-    
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    
     [archiver encodeObject:object forKey:key];
-    
     [archiver finishEncoding];
-    
     [data writeToFile:[self getFilePath:key] options:NSUTF8StringEncoding error:nil];
 }
 
@@ -51,7 +45,6 @@
     if ([fileManager fileExistsAtPath:[self getFilePath:key]]) {
         
         NSError *error;
-        
         [fileManager removeItemAtPath:[self getFilePath:key] error:&error];
     }
 }
@@ -59,11 +52,9 @@
 - (id)decodeObjectwithKey:(NSString *)key {
     
     NSMutableData *data = [NSMutableData dataWithContentsOfFile:[self getFilePath:key]];
-    
     NSKeyedUnarchiver *unArchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    
+
     id object = [unArchiver decodeObjectForKey:key];
-    
     return object;
 }
 
