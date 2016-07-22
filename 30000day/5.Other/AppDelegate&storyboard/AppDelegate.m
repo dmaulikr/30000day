@@ -58,12 +58,12 @@
     }
     
     //***********************************配置JPush*******************************//
-    [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                      UIUserNotificationTypeSound |
-                                                      UIUserNotificationTypeAlert)
-                                          categories:nil];
-    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:YES advertisingIdentifier:advertisingId];
+//    [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+//                                                      UIUserNotificationTypeSound |
+//                                                      UIUserNotificationTypeAlert)
+//                                          categories:nil];
+//    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//    [JPUSHService setupWithOption:launchOptions appKey:@"1f961fd96fccd78eeb958e08" channel:@"Publish channel" apsForProduction:YES advertisingIdentifier:advertisingId];
     
     //***********************************设置聚合SDK的APPID*******************************//
     [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:jhOpenID];
