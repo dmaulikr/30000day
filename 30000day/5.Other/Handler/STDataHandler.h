@@ -59,6 +59,10 @@ static NSString *const STDidSuccessGroupChatSettingSendNotification = @"STDidSuc
 static NSString *const STDidSuccessEnterForegroundSendNotification = @"STDidSuccessEnterForegroundSendNotification";
 //运动结束后发送通知刷新历史记录
 static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuccessSportInformationSendNotification";
+//选择地图类型
+static NSString *const STSelectSportsFunctionMapSendNotification = @"STSelectSportsFunctionMapSendNotification";
+//选择播报距离
+static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"STSelectSportsFunctionSpeechDistanceSendNotification";
 
 @class STNetError;
 @class WeatherInformationModel;

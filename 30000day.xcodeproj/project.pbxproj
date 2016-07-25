@@ -654,6 +654,14 @@
 		B8FFBF091CE4588E009AA425 /* NewFriendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF081CE4588E009AA425 /* NewFriendManager.m */; };
 		B8FFBF0C1CE5E54F009AA425 /* SearchVersionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBF0B1CE5E54F009AA425 /* SearchVersionManager.mm */; };
 		B8FFC4401D38B8CD008806A9 /* NSManagedObject+handler.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FFC43F1D38B8CD008806A9 /* NSManagedObject+handler.m */; };
+		F50C5D601D461C8F0040E727 /* SportsFunctionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D5E1D461C8E0040E727 /* SportsFunctionViewController.m */; };
+		F50C5D611D461C8F0040E727 /* SportsFunctionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F50C5D5F1D461C8F0040E727 /* SportsFunctionViewController.xib */; };
+		F50C5D6A1D461CE40040E727 /* SportsFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D631D461CE40040E727 /* SportsFunction.m */; };
+		F50C5D6B1D461CE40040E727 /* SportsFunction+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D651D461CE40040E727 /* SportsFunction+CoreDataProperties.m */; };
+		F50C5D6C1D461CE40040E727 /* SportsFunctionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D671D461CE40040E727 /* SportsFunctionManager.m */; };
+		F50C5D6D1D461CE40040E727 /* SportsFunctionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D691D461CE40040E727 /* SportsFunctionModel.m */; };
+		F50C5D711D461DEE0040E727 /* SportsFunctionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F50C5D6F1D461DEE0040E727 /* SportsFunctionTableViewCell.m */; };
+		F50C5D721D461DEE0040E727 /* SportsFunctionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F50C5D701D461DEE0040E727 /* SportsFunctionTableViewCell.xib */; };
 		F52C6C261D2E5398008933D2 /* MotionData.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C251D2E5398008933D2 /* MotionData.m */; };
 		F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C281D2E57C4008933D2 /* SportTableViewController.m */; };
 		F52C6C2D1D2E5943008933D2 /* SportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52C6C2B1D2E5943008933D2 /* SportTableViewCell.m */; };
@@ -1843,6 +1851,20 @@
 		B8FFC43F1D38B8CD008806A9 /* NSManagedObject+handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+handler.m"; sourceTree = "<group>"; };
 		D65565201EC540E39F38219E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598845BC0BC6A835FC50E62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F50C5D5D1D461C8E0040E727 /* SportsFunctionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsFunctionViewController.h; sourceTree = "<group>"; };
+		F50C5D5E1D461C8E0040E727 /* SportsFunctionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsFunctionViewController.m; sourceTree = "<group>"; };
+		F50C5D5F1D461C8F0040E727 /* SportsFunctionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportsFunctionViewController.xib; sourceTree = "<group>"; };
+		F50C5D621D461CE40040E727 /* SportsFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsFunction.h; sourceTree = "<group>"; };
+		F50C5D631D461CE40040E727 /* SportsFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsFunction.m; sourceTree = "<group>"; };
+		F50C5D641D461CE40040E727 /* SportsFunction+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SportsFunction+CoreDataProperties.h"; sourceTree = "<group>"; };
+		F50C5D651D461CE40040E727 /* SportsFunction+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SportsFunction+CoreDataProperties.m"; sourceTree = "<group>"; };
+		F50C5D661D461CE40040E727 /* SportsFunctionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsFunctionManager.h; sourceTree = "<group>"; };
+		F50C5D671D461CE40040E727 /* SportsFunctionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsFunctionManager.m; sourceTree = "<group>"; };
+		F50C5D681D461CE40040E727 /* SportsFunctionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsFunctionModel.h; sourceTree = "<group>"; };
+		F50C5D691D461CE40040E727 /* SportsFunctionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsFunctionModel.m; sourceTree = "<group>"; };
+		F50C5D6E1D461DEE0040E727 /* SportsFunctionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportsFunctionTableViewCell.h; sourceTree = "<group>"; };
+		F50C5D6F1D461DEE0040E727 /* SportsFunctionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportsFunctionTableViewCell.m; sourceTree = "<group>"; };
+		F50C5D701D461DEE0040E727 /* SportsFunctionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SportsFunctionTableViewCell.xib; sourceTree = "<group>"; };
 		F52C6C241D2E5398008933D2 /* MotionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionData.h; sourceTree = "<group>"; };
 		F52C6C251D2E5398008933D2 /* MotionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionData.m; sourceTree = "<group>"; };
 		F52C6C271D2E57C4008933D2 /* SportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTableViewController.h; sourceTree = "<group>"; };
@@ -2815,6 +2837,9 @@
 				F5AC5B931D30F1230043E313 /* SportTrajectoryLookViewController.h */,
 				F5AC5B941D30F1230043E313 /* SportTrajectoryLookViewController.m */,
 				F5AC5B951D30F1230043E313 /* SportTrajectoryLookViewController.xib */,
+				F50C5D5D1D461C8E0040E727 /* SportsFunctionViewController.h */,
+				F50C5D5E1D461C8E0040E727 /* SportsFunctionViewController.m */,
+				F50C5D5F1D461C8F0040E727 /* SportsFunctionViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2856,6 +2881,9 @@
 				F5AAD0F71D34C59300DB4D97 /* SportHeadTableViewCell.h */,
 				F5AAD0F81D34C59300DB4D97 /* SportHeadTableViewCell.m */,
 				F5AAD0FC1D34C76500DB4D97 /* SportHeadTableViewCell.xib */,
+				F50C5D6E1D461DEE0040E727 /* SportsFunctionTableViewCell.h */,
+				F50C5D6F1D461DEE0040E727 /* SportsFunctionTableViewCell.m */,
+				F50C5D701D461DEE0040E727 /* SportsFunctionTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3435,10 +3463,10 @@
 			children = (
 				B8695ABB1C74A6E8001B4B95 /* WeatherInformationModel.h */,
 				B8695ABC1C74A6E8001B4B95 /* WeatherInformationModel.m */,
+				B808FB561C7718D20000449C /* UserLifeModel.h */,
 				B808FB571C7718D20000449C /* UserLifeModel.m */,
 				B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */,
 				B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */,
-				B808FB561C7718D20000449C /* UserLifeModel.h */,
 				F5CF8A921D2E431D00564756 /* SportInformationModel.h */,
 				F5CF8A931D2E431D00564756 /* SportInformationModel.m */,
 				F5A371961D2F882F007FFB90 /* SportInformation.xcdatamodeld */,
@@ -3448,6 +3476,14 @@
 				F5A3719C1D2F8C3B007FFB90 /* SportInformationTable.m */,
 				F5A3719F1D2F8CA8007FFB90 /* SportInformationTableManager.h */,
 				F5A371A01D2F8CA8007FFB90 /* SportInformationTableManager.m */,
+				F50C5D621D461CE40040E727 /* SportsFunction.h */,
+				F50C5D631D461CE40040E727 /* SportsFunction.m */,
+				F50C5D641D461CE40040E727 /* SportsFunction+CoreDataProperties.h */,
+				F50C5D651D461CE40040E727 /* SportsFunction+CoreDataProperties.m */,
+				F50C5D661D461CE40040E727 /* SportsFunctionManager.h */,
+				F50C5D671D461CE40040E727 /* SportsFunctionManager.m */,
+				F50C5D681D461CE40040E727 /* SportsFunctionModel.h */,
+				F50C5D691D461CE40040E727 /* SportsFunctionModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4764,6 +4800,7 @@
 				B665F8C81CC4BF5200070458 /* lock.png in Resources */,
 				B804FD8E1C8AC9A900DFD1CF /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				B6E30CA81CE1CB2500C510A5 /* PromoteAgeViewController.xib in Resources */,
+				F50C5D611D461C8F0040E727 /* SportsFunctionViewController.xib in Resources */,
 				B804FD631C8AC9A900DFD1CF /* tusiji_15_cover@2x.png in Resources */,
 				B612DD841CACFE21004C428C /* ShopTitleTableViewCell.xib in Resources */,
 				B8695AAD1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.xib in Resources */,
@@ -4900,6 +4937,7 @@
 				B801379B1CD8AC1100ED0566 /* SettingViewController.xib in Resources */,
 				B804FD871C8AC9A900DFD1CF /* msg_chat_voice_unread@2x.png in Resources */,
 				B6D59D5A1C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.xib in Resources */,
+				F50C5D721D461DEE0040E727 /* SportsFunctionTableViewCell.xib in Resources */,
 				B804FDB21C8AC9A900DFD1CF /* VoiceBtn_BlackHL@2x.png in Resources */,
 				B886E8711C7EAE1200E64BEC /* RemindContentTableViewCell.xib in Resources */,
 				B665F8D01CC4BF5200070458 /* ZLThumbnailViewController.xib in Resources */,
@@ -5067,6 +5105,7 @@
 				B81306C41CB50F930051C4BA /* OrderDetailViewController.m in Sources */,
 				B8FD3DD01C8A7903007BCA6B /* LZStatusView.m in Sources */,
 				B8FD3DF51C8A7903007BCA6B /* XHMessageVideoConverPhotoFactory.m in Sources */,
+				F50C5D6B1D461CE40040E727 /* SportsFunction+CoreDataProperties.m in Sources */,
 				B8FD3E221C8A7903007BCA6B /* XHVoiceRecordHUD.m in Sources */,
 				B8FD3E051C8A7903007BCA6B /* SELineLayout.m in Sources */,
 				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
@@ -5173,6 +5212,7 @@
 				B83B7A731CAD072500D2CC6A /* MTProgressHUD.m in Sources */,
 				B8BD789A1CC24FC500362C89 /* STNetworkAgent.m in Sources */,
 				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
+				F50C5D6C1D461CE40040E727 /* SportsFunctionManager.m in Sources */,
 				B80B55AD1CD1B3F4003E2C36 /* ActivityModel.m in Sources */,
 				B8BD787C1CBE2DAA00362C89 /* PayTableViewCell.m in Sources */,
 				B665F8D31CC4BF5200070458 /* ZLBigImageCell.m in Sources */,
@@ -5186,6 +5226,7 @@
 				B8F6489D1C949721001A3119 /* TitleCollectionViewCell.m in Sources */,
 				B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */,
 				B8F8947C1D2B83F700289129 /* CDMediaMessageManager.m in Sources */,
+				F50C5D711D461DEE0040E727 /* SportsFunctionTableViewCell.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
 				B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */,
 				B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */,
@@ -5206,6 +5247,7 @@
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
 				B8F2D92B1C5B6DF2002C7712 /* MDRadialProgressLabel.m in Sources */,
 				B8FCA7B51D2BAD2C00CA6D91 /* CDMediaMessageModel.m in Sources */,
+				F50C5D601D461C8F0040E727 /* SportsFunctionViewController.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
@@ -5232,6 +5274,7 @@
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
 				B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */,
+				F50C5D6D1D461CE40040E727 /* SportsFunctionModel.m in Sources */,
 				B8F6E3AA1CBCD0E8000CC117 /* MapShowTitleAnnotationView.m in Sources */,
 				B8FD3E211C8A7903007BCA6B /* XHMessageTextView.m in Sources */,
 				B8F6E2431CB91989000CC117 /* pay.m in Sources */,
@@ -5403,6 +5446,7 @@
 				B8F931501C7AFB3A000FED7C /* AddRemindTextTableViewCell.m in Sources */,
 				B8FD3DDF1C8A7903007BCA6B /* XHCaptureHelper.m in Sources */,
 				B8F931551C7B0AB4000FED7C /* AddTimeTableViewCell.m in Sources */,
+				F50C5D6A1D461CE40040E727 /* SportsFunction.m in Sources */,
 				B86EFCAA1D154DC4007A2108 /* IDMTapDetectingView.m in Sources */,
 				B8F2D8CA1C5B390E002C7712 /* securityTableViewCell.m in Sources */,
 				B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */,

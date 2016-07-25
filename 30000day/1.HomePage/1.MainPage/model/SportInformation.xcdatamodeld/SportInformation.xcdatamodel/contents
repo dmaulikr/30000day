@@ -11,7 +11,13 @@
         <attribute name="x" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="y" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="SportsFunction" representedClassName="SportsFunction" syncable="YES">
+        <attribute name="mapType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="speechDistance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <elements>
         <element name="SportInformationTable" positionX="-45" positionY="0" width="128" height="180"/>
+        <element name="SportsFunction" positionX="-45" positionY="72" width="128" height="90"/>
     </elements>
 </model>

@@ -13,12 +13,16 @@
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h> //引入计算工具所有的头文件
 #import <BaiduMapAPI_Map/BMKPointAnnotation.h>
 #import <BaiduMapAPI_Map/BMKPinAnnotationView.h>
+#import "SportsFunctionViewController.h"
+#import "SportsFunctionModel.h"
+#import "SportsFunctionTableViewCell.h"
+#import "SportsFunctionManager.h"
 
 #define lableHeight 20
 #define labelTop 30
 #define labelWith 100
 
-@interface SportTrajectoryLookViewController () <BMKMapViewDelegate>
+@interface SportTrajectoryLookViewController () <BMKMapViewDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) BMKMapView *mapView;
 
@@ -32,26 +36,229 @@
 
 @property (nonatomic,strong) UIView *topView;
 
+@property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) SportsFunctionModel *sportsFunctionModel;
+
+@property (nonatomic,strong) SportsFunctionManager *sportsFunctionManager;
+
+@property (nonatomic,assign) BOOL isTap;
+
 @end
 
 @implementation SportTrajectoryLookViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self loadData];
+    
+    [self loadMapView];
+    
+    [self loadDownView];
+    
+    [self loadAnnotation];
+    
+    [self loadInformationView];
+    
+}
+
+- (void)mapTap {
+    
+    if (self.isTap) {
+        
+        //收起
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            
+            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT - 144, SCREEN_WIDTH, 144)];
+            
+        }];
+        
+        self.isTap = 0;
+        
+    } else {
+        
+        //展开
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            
+            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 144)];
+            
+        }];
+        
+        self.isTap = 1;
+        
+    }
+    
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
+}
+
+- (void)loadData {
+
+    SportsFunctionManager *sportsFunctionManager = [[SportsFunctionManager alloc] init];
+    
+    SportsFunctionModel *model = [sportsFunctionManager selectSportsFunction:STUserAccountHandler.userProfile.userId];
+    
+    if (!model.userId) {
+        
+        model.userId = STUserAccountHandler.userProfile.userId;
+        
+        model.speechDistance = @"1";
+        
+        model.mapType = @"1";
+        
+        [sportsFunctionManager insertSportsFunction:model];
+        
+    }
+    
+    self.sportsFunctionManager = sportsFunctionManager;
+    
+    self.sportsFunctionModel = model;
+    
+    //dismiss返回刷新
+    [STNotificationCenter addObserver:self selector:@selector(sportsFunctionFreshen:) name:STSelectSportsFunctionMapSendNotification object:nil];
+
+}
+
+- (void)loadMapView {
 
     self.mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-
+    
+    [self.mapView setMapType:self.sportsFunctionModel.mapType.integerValue];
+    
     self.mapView.delegate = self;
-
+    
     self.mapView.zoomLevel = 18;
     
     [self.view addSubview:self.mapView];
     
-    [self loadAnnotation];
+    UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTap)];
     
-    [self loadCloseView];
+    [portraitTap setDelegate:self];
     
-    [self loadInformationView];
+    [self.mapView addGestureRecognizer:portraitTap];
+
+}
+
+- (void)loadDownView {
+    
+    UIView *belowView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 144, SCREEN_WIDTH, 144)];
+    
+    [belowView setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.mapView addSubview:belowView];
+    
+    self.belowView = belowView;
+    
+    
+    UIButton *circleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [circleButton setFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, 10, 80, 80)];
+    
+    [circleButton setBackgroundColor:[UIColor redColor]];
+    
+    circleButton.layer.masksToBounds = YES;
+    
+    circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
+    
+    [circleButton addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [belowView addSubview:circleButton];
+    
+    self.circleButton = circleButton;
+    
+    
+    UILabel *startLable = [[UILabel alloc] initWithFrame:CGRectMake(circleButton.bounds.size.width / 2 - 20, circleButton.bounds.size.height / 2 - 10, 40, 20)];
+    
+    [startLable setTextAlignment:NSTextAlignmentCenter];
+    
+    [startLable setTextColor:[UIColor whiteColor]];
+    
+    [startLable setText:@"关闭"];
+    
+    [circleButton addSubview:startLable];
+    
+    self.startLable = startLable;
+    
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 99, SCREEN_WIDTH, 0.5)];
+    
+    [lineView setBackgroundColor:VIEWBORDERLINECOLOR];
+    
+    [belowView addSubview:lineView];
+    
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, 44)];
+    
+    [tableView setDelegate:self];
+    
+    [tableView setDataSource:self];
+    
+    [tableView setScrollEnabled:NO];
+    
+    [belowView addSubview:tableView];
+    
+    self.tableView = tableView;
+
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 1;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SportsFunctionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportsFunctionTableViewCell"];
+    
+    if (!cell) {
+        
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"SportsFunctionTableViewCell" owner:nil options:nil]lastObject];
+        
+    }
+        
+    [cell.SFImageView setImage:[UIImage imageNamed:@"map_image"]];
+    
+    [cell.SFLable setText:@"地图设置"];
+    
+    return cell;
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SportsFunctionViewController *controller = [[SportsFunctionViewController alloc] init];
+
+    NSArray *array = @[@"空白地图",@"标准地图",@"卫星地图"];
+    
+    controller.type = 1;
+    
+    controller.dataArray = array;
+    
+    controller.selectIndex = self.sportsFunctionModel.mapType.integerValue;
+    
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+
+- (void)sportsFunctionFreshen:(NSNotification *)sender {
+    
+    self.sportsFunctionModel.mapType = [sender.object stringValue];
+    
+    [self.mapView setMapType:[sender.object integerValue]];
     
 }
 
@@ -110,40 +317,6 @@
     annotationEnd.coordinate = coorEnd;
     
     [_mapView addAnnotation:annotationEnd];
-
-}
-
-//关闭视图
-- (void)loadCloseView {
-
-    UIButton *circleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [circleButton setFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, SCREEN_HEIGHT - 90, 80, 80)];
-    
-    [circleButton setBackgroundColor:[UIColor redColor]];
-    
-    circleButton.layer.masksToBounds = YES;
-    
-    circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
-    
-    [circleButton addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.mapView addSubview:circleButton];
-    
-    self.circleButton = circleButton;
-    
-    
-    UILabel *startLable = [[UILabel alloc] initWithFrame:CGRectMake(circleButton.bounds.size.width / 2 - 20, circleButton.bounds.size.height / 2 - 10, 40, 20)];
-    
-    [startLable setTextAlignment:NSTextAlignmentCenter];
-    
-    [startLable setTextColor:[UIColor whiteColor]];
-    
-    [startLable setText:@"关闭"];
-    
-    [circleButton addSubview:startLable];
-    
-    self.startLable = startLable;
 
 }
 
