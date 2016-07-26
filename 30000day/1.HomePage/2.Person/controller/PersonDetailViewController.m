@@ -55,16 +55,12 @@
     
     //右边按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
     [button setImage:[[UIImage imageNamed:@"icon_more"] imageWithTintColor:LOWBLUECOLOR] forState:UIControlStateNormal];
-    
     button.frame = CGRectMake(0, 0, 28.0f, 22.0f);
-    
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
     [button addTarget:self action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.rightBarButtonItem = rightItem;
+    button.hidden = !self.isShowRightBarButton;
     
     [self reloadData];
     
@@ -84,11 +80,8 @@
 - (void)rightButtonAction {
     
     PersonSettingViewController *controller = [[PersonSettingViewController alloc] init];
-    
-    controller.friendUserId = self.friendUserId;
-    
+    controller.friendUserId = self.informationModel.userId;
     controller.hidesBottomBarWhenPushed = YES;
-    
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -104,7 +97,7 @@
     [self getUserLifeList];
     
     //获取用户击败的用户
-    [self getDefeatDataWithUserId:self.friendUserId];
+    [self getDefeatDataWithUserId:self.informationModel.userId];
 }
 
 - (void)getUserLifeList {
@@ -114,15 +107,13 @@
     [Common dayNumberWithinNumber:7 inputDate:[[Common dateFormatterWithFormatterString:@"yyyy-MM-dd"] dateFromString:self.informationModel.birthday] completion:^(NSInteger day) {//获取用户的生日和当前天数比较，如果在7点以内比对结果拉取数据，若果超过按照7天拉取
         
         //1.获取用户的天龄
-        [STDataHandler sendUserLifeListWithCurrentUserId:self.friendUserId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:[NSString stringWithFormat:@"%d",(int)day] success:^(NSMutableArray *dataArray) {
+        [STDataHandler sendUserLifeListWithCurrentUserId:self.informationModel.userId endDay:[Common getDateStringWithDate:[NSDate date]] dayNumber:[NSString stringWithFormat:@"%d",(int)day] success:^(NSMutableArray *dataArray) {
             
             UserLifeModel *lastModel = [dataArray lastObject];
-            
             self.totalLifeDayNumber = [lastModel.curLife floatValue];
             
             //算出数组
             NSMutableArray *allDayArray = [NSMutableArray array];
-            
             NSMutableArray *dayNumberArray = [NSMutableArray array];
             
             if (dataArray.count > 1 ) {
@@ -130,25 +121,17 @@
                 for (int  i = 0; i < dataArray.count ; i++ ) {
                     
                     UserLifeModel *model = dataArray[i];
-                    
                     [allDayArray addObject:model.curLife];
-                    
                     NSArray *array = [model.createTime componentsSeparatedByString:@"-"];
-                    
                     NSString *string = array[2];
-                    
                     NSString *newString = [[string componentsSeparatedByString:@" "] firstObject];
-                    
                     NSString *month = array[1];
-                    
                     NSString *dateString = [NSString stringWithFormat:@"%@-%@",month,newString];
-                    
                     [dayNumberArray addObject:dateString];
                     
                 }
                 
                 self.allDayArray = [NSMutableArray arrayWithArray:[[allDayArray reverseObjectEnumerator] allObjects]];
-                
                 self.dayNumberArray = [NSMutableArray arrayWithArray:[[dayNumberArray reverseObjectEnumerator] allObjects]];
                 
             } else {
@@ -201,7 +184,7 @@
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        NSString *string = [[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] showNickName];
+        NSString *string = [[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] showNickName];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -215,10 +198,10 @@
 
 - (IBAction)buttonClickAction:(id)sender {
     
-    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile]]) {
+    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]]) {
         
         //查询conversation
-        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.friendUserId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
             if ([self filterError:error]) {
                 
@@ -229,7 +212,7 @@
         
     } else {
         
-        [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId] userProfile:STUserAccountHandler.userProfile]];
+        [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]];
     }
 }
 
@@ -264,7 +247,7 @@
         
         cell.jinSuoImageView.hidden = YES;
         
-        cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId];
+        cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId];
         
         return cell;
         
@@ -284,7 +267,7 @@
     } else if (indexPath.section == 2) {
         
         //刷新数据
-        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:[[PersonInformationsManager shareManager] infoWithFriendId:self.friendUserId].birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
+        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId].birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
         return self.indicatorCell;
         

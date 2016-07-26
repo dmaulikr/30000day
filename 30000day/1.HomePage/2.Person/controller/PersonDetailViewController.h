@@ -12,8 +12,8 @@
 
 @interface PersonDetailViewController : CDBaseVC
 
-@property (nonatomic,strong) NSNumber *friendUserId;//好友的ID
-
 @property (nonatomic,strong) UserInformationModel *informationModel;
+@property (nonatomic,assign) BOOL isShowRightBarButton;//是否显示右边按钮
+
 
 @end

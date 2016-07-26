@@ -310,8 +310,8 @@
         PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         UserInformationModel *model = _dataArray[indexPath.row];
-        controller.friendUserId = model.userId;
         controller.informationModel = model;
+        controller.isShowRightBarButton = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

@@ -29,6 +29,7 @@
 #import "STCroupSettingViewController.h"
 #import "AVIMNoticationMessage.h"
 #import "CDMediaMessageManager.h"
+#import "PersonDetailViewController.h"
 
 static NSInteger const kOnePageSize = 10;
 
@@ -380,6 +381,27 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 
 - (void)didSelectedAvatorOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
     DLog(@"indexPath : %@", indexPath);
+    
+    if (message.bubbleMessageType == XHBubbleMessageTypeReceiving) {
+        
+        [self showHUDWithContent:@"" animated:YES];
+        [STDataHandler sendUserInformtionWithUserId:[NSNumber numberWithLongLong:[self.conversation.otherId longLongValue]] success:^(UserInformationModel *model) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
+                controller.informationModel = model;
+                controller.hidesBottomBarWhenPushed = YES;
+                controller.isShowRightBarButton = NO;
+                [self.navigationController pushViewController:controller animated:YES];
+                [self hideHUD:YES];
+            });
+        } failure:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showToast:[Common errorStringWithError:error optionalString:@"获取用户信息失败"]];
+                [self hideHUD:YES];
+            });
+        }];
+    }
 }
 
 - (void)menuDidSelectedAtBubbleMessageMenuSelecteType:(XHBubbleMessageMenuSelecteType)bubbleMessageMenuSelecteType {

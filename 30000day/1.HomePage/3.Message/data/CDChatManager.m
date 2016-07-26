@@ -648,37 +648,59 @@ static CDChatManager *instance;
 
 - (void)selectOrRefreshConversationsWithBlock:(AVIMArrayResultBlock)block {
     
+//    NSArray *conversations = [[CDConversationStore store] selectAllConversations];
+//    
+//    __block NSInteger refreshedFromServer = 0;
+//    
+//    if (refreshedFromServer == 0 && self.connect) {
+//        
+//        NSMutableSet *conversationIds = [NSMutableSet set];
+//        
+//        for (AVIMConversation *conversation in conversations) {
+//            
+//            [conversationIds addObject:conversation.conversationId];
+//        }
+//        
+//        [self fetchConversationsWithConversationIds:conversationIds callback:^(NSArray *objects, NSError *error) {
+//            
+//            if (error) {
+//                
+//                block(conversations, nil);
+//                
+//            } else {
+//
+//                [[CDConversationStore store] updateConversations:objects];
+//                
+//                NSArray *dataArray = [[CDConversationStore store] selectAllConversations];
+//            
+//                block(dataArray, nil);
+//            }
+//            
+//            refreshedFromServer = 1;
+//        }];
+//        
+//    } else {
+//        
+//        block(conversations, nil);
+//    }
+    
+    static BOOL refreshedFromServer = NO;
     NSArray *conversations = [[CDConversationStore store] selectAllConversations];
-    
-    __block NSInteger refreshedFromServer = 0;
-    
-    if (refreshedFromServer == 0 && self.connect) {
-        
+    if (refreshedFromServer == NO && self.connect) {
         NSMutableSet *conversationIds = [NSMutableSet set];
-        
         for (AVIMConversation *conversation in conversations) {
-            
             [conversationIds addObject:conversation.conversationId];
         }
-        
         [self fetchConversationsWithConversationIds:conversationIds callback:^(NSArray *objects, NSError *error) {
-            
             if (error) {
-                
                 block(conversations, nil);
-                
             } else {
-
+                refreshedFromServer = YES;
                 [[CDConversationStore store] updateConversations:objects];
-                
                 block([[CDConversationStore store] selectAllConversations], nil);
             }
-            
-            refreshedFromServer = 1;
         }];
-        
     } else {
-        
         block(conversations, nil);
     }
 }
