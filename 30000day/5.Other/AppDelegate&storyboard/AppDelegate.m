@@ -38,6 +38,8 @@
 }
 @property (nonatomic) HKHealthStore *healthStore1;
 
+@property (nonatomic,strong) AVAudioSession *session;
+
 @end
 
 @implementation AppDelegate
@@ -100,6 +102,16 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    [session setActive:YES error:nil];
+    
+    self.session = session;
+    
     return YES;
 }
 
