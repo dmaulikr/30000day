@@ -123,6 +123,7 @@
 	<string>若不允许，将无法正常记录你的运动数据，也无法使用天气情况等功能。</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>

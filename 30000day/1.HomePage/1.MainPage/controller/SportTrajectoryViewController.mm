@@ -39,7 +39,7 @@
 
 @property (nonatomic,assign) CGFloat sumDistance;  //累计步行距离
 
-@property (nonatomic,assign) NSInteger KMDistance; //用于距离提醒
+@property (nonatomic,assign) CGFloat KMDistance; //用于距离提醒
 
 @property (nonatomic,strong) NSTimer *timer; //计时器
 
@@ -638,11 +638,6 @@
     //将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
     
-    //self.preLocation = userLocation.location;
-    
-    [self drawWalkPolyline];
-    
-
     CGFloat KM = self.KMDistance / 1000.0;
     
     if (KM >= self.speechDistance && self.speechDistance != 0) {
@@ -654,6 +649,10 @@
         self.KMDistance = 0;
         
     }
+    
+    //self.preLocation = userLocation.location;
+    
+    [self drawWalkPolyline];
 }
 
 
