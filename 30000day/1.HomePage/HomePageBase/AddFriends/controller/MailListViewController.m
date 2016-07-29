@@ -486,7 +486,7 @@
         
         [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
-        NSString *shareString = @"人生只有30000天，想要保值增值，下载30000天APP吧";
+        NSString *shareString = @"人生只有30000天，想要你的时间保值增值，下载30000天APP吧";
         
         if (tag == 8) {
          
