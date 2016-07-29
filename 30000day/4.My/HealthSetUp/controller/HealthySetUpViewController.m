@@ -42,6 +42,20 @@
     
     [self.tableView setTableFooterView:[[UIView alloc] init]];
     
+    
+    NSString *isFirstStartString = [Common readAppDataForKey:FIRSTHEALTH];
+    
+    if ([Common isObjectNull:isFirstStartString]) {
+        
+        [Common saveAppDataForKey:FIRSTHEALTH withObject:@"1"];
+        
+        //提示用户
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"为您的隐私着想，您可以在 我的->设置->打开健康因素密码验证，密码为您的登陆密码。" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        
+    }
+    
     //下载健康因素
     [self loadFactor];
 }

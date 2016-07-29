@@ -230,7 +230,7 @@
 
 - (void)share:(NSInteger)tag {
 
-    NSString *shareString = [NSString stringWithFormat:@"我的预期寿命有%@天，击败了%@%%的人，你呢？守护我爱的人，30000天",[Common readAppDataForKey:DAYS_AGE],[Common readAppDataForKey:DEFEATDATA]];
+    NSString *shareString = @"人生只有30000天，想要保值增值，下载30000天APP吧";
     
     if (tag == 8) {
         

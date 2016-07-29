@@ -98,6 +98,7 @@
 #define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
 #define FIRSTSTART                    @"FirstStart"          //第一次登录
 #define FIRSTSTARTINTRODUCE           @"FirstStartIntroduce" //第一次登录
+#define FIRSTHEALTH                   @"FirstHealth "          //第一次进入健康因素
 #define FIRSTSTARTHKHEALTHSTORE       @"FirstStartHKHealthStore" //第一次运动信息授权
 
 
