@@ -142,6 +142,7 @@ static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"
 //**********搜索某一个用户（里面装的UserInformationModel）**********************/
 + (void)sendSearchUserRequestWithNickName:(NSString *)nickName
                             currentUserId:(NSString *)curUserId
+                              currentPage:(NSNumber *)currentPage
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(NSError *))failure;
 

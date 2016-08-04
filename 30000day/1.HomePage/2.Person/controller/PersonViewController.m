@@ -20,6 +20,7 @@
 #import "ChineseString.h"
 #import "MTProgressHUD.h"
 #import "STGroupViewController.h"
+#import "MenuView.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -28,7 +29,9 @@
 
 @property (nonatomic,strong) PersonTableViewCell *firstCell;
 
-@property (nonatomic,assign) NSInteger sortTab;
+@property (nonatomic,assign) NSInteger sortTab; //0 升序   1 降序
+
+@property (nonatomic,strong) MenuView * menuView;
 
 @end
 
@@ -110,6 +113,44 @@
     return _firstCell;
 }
 
+
+- (MenuView *)menuView{
+    if (!_menuView) {
+
+        NSDictionary *dict1 = @{@"itemName" : @"升序"};
+        NSDictionary *dict2 = @{@"itemName" : @"降序"};
+        NSArray *dataArray = @[dict1,dict2];
+        
+        __weak __typeof(&*self)weakSelf = self;
+        /**
+         *  创建menu
+         */
+        _menuView = [MenuView createMenuWithFrame:CGRectMake(SCREEN_WIDTH - 153, 45 + 64, 70, 80) target:self.navigationController dataArray:dataArray itemsClickBlock:^(NSString *str, NSInteger tag) {
+            
+            // do something
+            [weakSelf doSomething:(NSString *)str tag:(NSInteger)tag];
+            
+        } backViewTap:^{
+            _menuView = nil;
+            
+        }];
+    }
+    return _menuView;
+}
+
+- (void)doSomething:(NSString *)str tag:(NSInteger)tag{
+    
+    self.sortTab = tag;
+
+    [self.menuView showMenuWithAnimation:NO];
+    
+    _menuView = nil;
+    
+    [self getMyFriends];
+    
+}
+
+
 #pragma ---
 #pragma mark ----- UITableViewDelegate/UITableViewDatasource
 
@@ -124,40 +165,28 @@
         }
         view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人",(unsigned long)_dataArray.count];
         view.titleLabel.hidden = NO;
+        
+        if (self.sortTab) {
+            
+            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
+            
+        } else {
+        
+            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
+        
+        }
+        
         [view setChangeStateBlock:^(UIButton *changeStatusButton) {
             
             [self.tableView reloadData];
             [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
             
         }];
-        
-        if (self.sortTab) {
-        
-            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
-            view.sortButton.selected = YES;
-        
-        } else {
-            
-            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
-            view.sortButton.selected = NO;
-        }
+
 
         [view setSortButtonBlock:^(UIButton *button) {
             
-            if (button.isSelected) {
-                
-                button.selected = NO;
-                self.sortTab = 0;
-                [button setTitle:@"升序" forState:UIControlStateNormal];
-                
-            } else {
-                
-                button.selected = YES;
-                self.sortTab = 1;
-                [button setTitle:@"降序" forState:UIControlStateNormal];
-            }
-            
-            [self getMyFriends];
+            [self.menuView showMenuWithAnimation:YES];
             
         }];
 
@@ -188,7 +217,7 @@
     
     if (section == 0) {
         
-        return 44;
+        return 54;
     }
     
     return 25.0f;

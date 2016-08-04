@@ -113,6 +113,9 @@
 		B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */; };
 		B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */; };
 		B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */; };
+		B6E2C0531D5319D50097975B /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C04E1D5319D50097975B /* MenuModel.m */; };
+		B6E2C0541D5319D50097975B /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0501D5319D50097975B /* MenuTableViewCell.m */; };
+		B6E2C0551D5319D50097975B /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0521D5319D50097975B /* MenuView.m */; };
 		B6E30CA71CE1CB2500C510A5 /* PromoteAgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E30CA51CE1CB2500C510A5 /* PromoteAgeViewController.m */; };
 		B6E30CA81CE1CB2500C510A5 /* PromoteAgeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E30CA61CE1CB2500C510A5 /* PromoteAgeViewController.xib */; };
 		B6E30CAC1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E30CAA1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m */; };
@@ -873,6 +876,12 @@
 		B6DFF1E61CE07158004B81A7 /* DaysOfAgeOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaysOfAgeOption.h; sourceTree = "<group>"; };
 		B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaysOfAgeOption.m; sourceTree = "<group>"; };
 		B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaysOfAgeOption.xib; sourceTree = "<group>"; };
+		B6E2C04D1D5319D50097975B /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
+		B6E2C04E1D5319D50097975B /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
+		B6E2C04F1D5319D50097975B /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		B6E2C0501D5319D50097975B /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
+		B6E2C0511D5319D50097975B /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
+		B6E2C0521D5319D50097975B /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
 		B6E30CA41CE1CB2400C510A5 /* PromoteAgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoteAgeViewController.h; sourceTree = "<group>"; };
 		B6E30CA51CE1CB2500C510A5 /* PromoteAgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoteAgeViewController.m; sourceTree = "<group>"; };
 		B6E30CA61CE1CB2500C510A5 /* PromoteAgeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromoteAgeViewController.xib; sourceTree = "<group>"; };
@@ -2249,6 +2258,19 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		B6E2C04C1D5319D50097975B /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B6E2C04D1D5319D50097975B /* MenuModel.h */,
+				B6E2C04E1D5319D50097975B /* MenuModel.m */,
+				B6E2C04F1D5319D50097975B /* MenuTableViewCell.h */,
+				B6E2C0501D5319D50097975B /* MenuTableViewCell.m */,
+				B6E2C0511D5319D50097975B /* MenuView.h */,
+				B6E2C0521D5319D50097975B /* MenuView.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		B8004B7F1D2FBD5400D2857A /* security */ = {
 			isa = PBXGroup;
 			children = (
@@ -3040,6 +3062,7 @@
 				B8F2D92C1C5B6E36002C7712 /* BEMSimpleLineGraphView */,
 				B8F2D9221C5B6DDD002C7712 /* MDRadialProgressView */,
 				B88C91D11C5B05FC0089BEAE /* SBJson */,
+				B6E2C04C1D5319D50097975B /* Menu */,
 			);
 			path = ThirdPart;
 			sourceTree = "<group>";
@@ -5249,6 +5272,7 @@
 				B8FCA7B51D2BAD2C00CA6D91 /* CDMediaMessageModel.m in Sources */,
 				F50C5D601D461C8F0040E727 /* SportsFunctionViewController.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
+				B6E2C0551D5319D50097975B /* MenuView.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
@@ -5412,6 +5436,7 @@
 				B8FD3DF31C8A7903007BCA6B /* XHMessageAvatorFactory.m in Sources */,
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
+				B6E2C0541D5319D50097975B /* MenuTableViewCell.m in Sources */,
 				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
 				B8FFC4401D38B8CD008806A9 /* NSManagedObject+handler.m in Sources */,
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
@@ -5464,6 +5489,7 @@
 				B8FD3CBC1C8A77EB007BCA6B /* AVIMConversation+Custom.m in Sources */,
 				B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
+				B6E2C0531D5319D50097975B /* MenuModel.m in Sources */,
 				B8FD3DFF1C8A7903007BCA6B /* XHStoreManager.m in Sources */,
 				B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */,
 				B80B55AA1CD1B20F003E2C36 /* PriceModel.m in Sources */,

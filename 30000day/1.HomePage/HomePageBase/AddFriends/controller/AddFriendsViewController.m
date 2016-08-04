@@ -230,7 +230,7 @@
 
 - (void)share:(NSInteger)tag {
 
-    NSString *shareString = @"人生只有30000天，想要保值增值，下载30000天APP吧";
+    NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";  
     
     if (tag == 8) {
         
@@ -243,25 +243,29 @@
         
     } else if (tag == 6) {//发送邮件
         
-        if ([MFMailComposeViewController canSendMail]) {
-            
-            MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-            
-            controller.mailComposeDelegate = self;
-            
-            [controller setSubject:@"My Subject"];
-            
-            [controller setMessageBody:shareString isHTML:NO];
-            
-            if (controller) {
-                
-                [self presentViewController:controller animated:YES completion:nil];
-            }
-            
-        } else {
-            
-            [self showToast:@"该设备没有设置邮箱账号"];
-        }
+//        if ([MFMailComposeViewController canSendMail]) {
+//            
+//            MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+//            
+//            controller.mailComposeDelegate = self;
+//            
+//            [controller setSubject:@"My Subject"];
+//            
+//            [controller setMessageBody:shareString isHTML:NO];
+//            
+//            if (controller) {
+//                
+//                [self presentViewController:controller animated:YES completion:nil];
+//            }
+//            
+//        } else {
+//            
+//            [self showToast:@"该设备没有设置邮箱账号"];
+//        }
+        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = @"http://www.30000day.com";
+        [self showToast:@"已经复制到剪贴板"];
         
     } else if (tag == 5) {
         [UMSocialData defaultData].extConfig.qqData.title = @"30000天";

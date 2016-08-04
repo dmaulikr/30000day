@@ -249,7 +249,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     if (section == 0) {
         
-        return 44;
+        return 54;
     }
     return 0;
 }

@@ -12,10 +12,6 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    self.changeStatusButton.layer.cornerRadius = 3;
-    
-    self.changeStatusButton.layer.masksToBounds = YES;
-    
 }
 
 - (IBAction)buttonClick:(id)sender {

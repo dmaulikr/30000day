@@ -12,12 +12,11 @@
 #import "NSString+URLEncoding.h"
 #import "MTProgressHUD.h"
 #import "NewFriendManager.h"
+#import "PersonDetailViewController.h"
 
 @interface SearchFriendsViewController () <UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) UIView *searchBackgroundView;//搜索框的背景视图
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;//主表格视图
 
 @property (nonatomic,strong) NSMutableArray *searchResultArray;//搜索结果数组
 
@@ -25,7 +24,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *noResultView;//无搜索结果的时候显示的视图
 
-@property (nonatomic,strong) UITextField *textField;//搜索的textField
+@property (nonatomic,strong) UITextField *textField; //搜索的textField
+
+@property (nonatomic,assign) NSInteger requestCount; //上拉刷新次数
 
 @end
 
@@ -34,8 +35,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView setTableFooterView:[[UIView alloc] init]];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        [self footerRereshing];
+        
+    }];
+    [self.view addSubview:self.tableView];
+    
+    self.requestCount = 1; //默认显示第一页
     self.isSearch = NO;//刚进来的时候不是搜索状态
+    self.searchResultArray = [NSMutableArray array];
     self.noResultView.hidden = YES;
     [self setUpUI];
     
@@ -89,21 +102,27 @@
     self.navigationItem.titleView = self.searchBackgroundView;
     
     //添加点击事件
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    [self.noResultView addGestureRecognizer:tap];
-    [self.view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+//    [self.noResultView addGestureRecognizer:tap];
+//    [self.view addGestureRecognizer:tap];
 }
 
-- (BOOL)becomeFirstResponder {
-    [super becomeFirstResponder];
-    return [self.textField becomeFirstResponder];
-}
+//- (BOOL)becomeFirstResponder {
+//    [super becomeFirstResponder];
+//    return [self.textField becomeFirstResponder];
+//}
 
 - (void)tapAction {
     [self.textField resignFirstResponder];
 }
 
-- (void)searchAction {
+- (void)footerRereshing {
+
+    [self searchActionRequest];
+}
+
+- (void)searchActionRequest {
+
     //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
     self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
     
@@ -112,19 +131,78 @@
         //只要开始搜索先隐藏noResultView
         self.noResultView.hidden = YES;
         [self.view endEditing:YES];
-        
+        //currentPage:[NSNumber numberWithInteger:self.requestCount]
         //开始搜索
-        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding]
-                                           currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID]
+        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding] currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] currentPage:[NSNumber numberWithInteger:self.requestCount]
                                                  success:^(NSMutableArray *dataArray) {
                                                      
-                                                     self.searchResultArray = dataArray;
                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                          
+                                                         for (int i = 0; i < dataArray.count; i++) {
+                                                             
+                                                             [self.searchResultArray addObject:dataArray[i]];
+                                                             
+                                                         }
+                                                         
+                                                         
+                                                         [self.tableView reloadData];
+                                                         self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+                                                         [self.tableView.mj_footer endRefreshing];
+                                                         self.requestCount ++;
+                                                     });
+                                                     
+                                                 } failure:^(NSError *error) {
+                                                     
+                                                     self.searchResultArray = [NSMutableArray array];
+                                                     
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         
+                                                         self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
+                                                         [self.tableView reloadData];
+                                                         //显示错误信息
+                                                         [self showToast:[Common errorStringWithError:error optionalString:@"搜索出现问题"]];
+                                                         [self.tableView.mj_footer endRefreshing];
+                                                     });
+                                                 }];
+        
+    } else {
+        
+        //不是搜索状态隐藏noResultView
+        self.noResultView.hidden = YES;
+    }
+    
+    [self.tableView reloadData];
+    [self.textField resignFirstResponder];
+    
+}
+
+- (void)searchAction {
+    
+    [self.textField resignFirstResponder];
+    
+    self.requestCount = 1;
+    
+    //意思是如果搜素的string为空那么就是不处于搜索状态，反之亦然
+    self.isSearch = [Common isObjectNull:self.textField.text] ? NO : YES;
+    
+    if (self.isSearch) {
+        
+        //只要开始搜索先隐藏noResultView
+        self.noResultView.hidden = YES;
+        [self.view endEditing:YES];
+        //currentPage:[NSNumber numberWithInteger:self.requestCount]
+        //开始搜索
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        [STDataHandler sendSearchUserRequestWithNickName:[self.textField.text urlEncodeUsingEncoding:NSUTF8StringEncoding] currentUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] currentPage:[NSNumber numberWithInteger:self.requestCount]
+                                                 success:^(NSMutableArray *dataArray) {
+                                                     
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         self.searchResultArray = dataArray;
                                                         [self.tableView reloadData];
                                                          self.noResultView.hidden = self.searchResultArray.count ? YES : NO;
                                                          [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                         self.requestCount = 2;
+       
                                                      });
 
                                                  } failure:^(NSError *error) {
@@ -148,7 +226,6 @@
     }
     
     [self.tableView reloadData];
-    [self.textField resignFirstResponder];
 }
 
 - (UIView *)searchBackgroundView {
@@ -316,6 +393,21 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.textField resignFirstResponder];
+    
+    UserInformationModel *model = self.searchResultArray[indexPath.row];
+    
+    PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
+    
+    controller.informationModel = model;
+    
+    controller.isShowRightBarButton = NO;
+    
+    controller.isStranger = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

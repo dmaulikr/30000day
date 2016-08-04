@@ -8,6 +8,6 @@
 
 #import "SearchBaseViewController.h"
 
-@interface MailListViewController : SearchBaseViewController
+@interface MailListViewController : STBaseViewController
 
 @end

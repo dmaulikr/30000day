@@ -19,6 +19,7 @@
 #import "MTProgressHUD.h"
 #import "PersonSettingViewController.h"
 #import "PersonInformationsManager.h"
+#import "NewFriendManager.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -65,6 +66,13 @@
     [self reloadData];
     
     [STNotificationCenter addObserver:self selector:@selector(reloadTableViewData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
+    
+    if (self.isStranger) {
+        
+        [self.rightButton setTitle:@"添加好友" forState:UIControlStateNormal];
+        
+    }
+    
 }
 
 - (ActivityIndicatorTableViewCell *)indicatorCell {
@@ -184,8 +192,18 @@
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        NSString *string = [[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] showNickName];
+        NSString *string;
         
+        if (self.isStranger) {
+            
+            string = self.informationModel.nickName;
+            
+        } else {
+            
+            string = [[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] showNickName];
+        
+        }
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",string,[dataString floatValue] * 100];
@@ -198,21 +216,118 @@
 
 - (IBAction)buttonClickAction:(id)sender {
     
-    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]]) {
+    if (self.isStranger) {
         
-        //查询conversation
-        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:self.informationModel.userId]) {
             
-            if ([self filterError:error]) {
-                
-                [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                
-            }
-        }];
+            [self showToast:@"对方或自己的id为空~"];
+            return;
+        }
+        
+        if ([STUserAccountHandler.userProfile.userId isEqualToNumber:self.informationModel.userId]) {
+            
+            [self showToast:@"不能添加自己~"];
+            
+            return;
+        }
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        //添加好友,接口, @1请求   @2接受   @3拒绝
+        [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
+                                                 userId:self.informationModel.userId
+                                            messageType:@1
+                                                success:^(BOOL success) {
+                                                    
+                                                    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]]) {
+                                                        
+                                                        if ([self.informationModel.friendSwitch isEqualToString:@"1"]) {//打开的
+                                                            
+                                                            [NewFriendManager drictRefresh:self.informationModel andCallback:^(BOOL succeeded, NSError *error) {
+                                                                
+                                                                if (succeeded) {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        [self showToast:@"好友添加成功"];
+                                                                        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
+                                                                    });
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        [self showToast:@"消息发送失败"];
+                                                                        
+                                                                    });
+                                                                }
+                                                                
+                                                            }];
+                                                            
+                                                        } else {//等于0，获取没设置
+                                                            
+                                                            [NewFriendManager subscribePresenceToUserWithUserProfile:self.informationModel andCallback:^(BOOL succeeded, NSError *error) {
+                                                                
+                                                                if (succeeded) {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        [self showToast:@"请求发送成功"];
+                                                                        
+                                                                    });
+                                                                    
+                                                                } else {
+                                                                    
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        
+                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                                        [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
+                                                                        
+                                                                    });
+                                                                }
+                                                            }];
+                                                        }
+                                                        
+                                                    } else {
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            
+                                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                            [self showToast:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]];
+                                                        });
+                                                    }
+                                                    
+                                                } failure:^(NSError *error) {
+                                                    
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        
+                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                                                        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
+                                                        
+                                                    });
+                                                    
+                                                }];
         
     } else {
-        
-        [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]];
+    
+        if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]]) {
+            
+            //查询conversation
+            [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+                
+                if ([self filterError:error]) {
+                    
+                    [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
+                    
+                }
+            }];
+            
+        } else {
+            
+            [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]];
+        }
     }
 }
 
@@ -247,7 +362,15 @@
         
         cell.jinSuoImageView.hidden = YES;
         
-        cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId];
+        if (self.isStranger) {
+        
+            cell.informationModel = self.informationModel;
+            
+        } else {
+        
+            cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId];
+        
+        }
         
         return cell;
         

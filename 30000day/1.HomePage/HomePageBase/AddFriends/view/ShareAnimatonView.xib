@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -46,12 +46,12 @@
                                 <action selector="buttonClickAction:" destination="0fl-NE-dr8" eventType="touchUpInside" id="RuD-Qg-KUD"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJB-Cf-GSN">
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJB-Cf-GSN">
                             <rect key="frame" x="96" y="105" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="VJB-Cf-GSN" secondAttribute="height" multiplier="1:1" id="2TG-aV-VOp"/>
                             </constraints>
-                            <state key="normal" image="email"/>
+                            <state key="normal" image="copyLink"/>
                             <connections>
                                 <action selector="buttonClickAction:" destination="0fl-NE-dr8" eventType="touchUpInside" id="ROu-lg-Wke"/>
                             </connections>
@@ -135,7 +135,7 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o69-G8-gIl">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复制链接" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o69-G8-gIl">
                             <rect key="frame" x="96" y="158" width="50" height="12"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -257,7 +257,6 @@
         <image name="WeChat" width="65" height="65"/>
         <image name="WeChatFriends" width="65" height="65"/>
         <image name="copyLink" width="65" height="65"/>
-        <image name="email" width="65" height="65"/>
         <image name="qq" width="65" height="65"/>
         <image name="shortMessage" width="37" height="31"/>
     </resources>

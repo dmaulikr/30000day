@@ -8,6 +8,6 @@
 
 #import "ShowBackItemViewController.h"
 
-@interface SearchFriendsViewController : STBaseViewController
+@interface SearchFriendsViewController : STRefreshViewController
 
 @end

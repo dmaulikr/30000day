@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,11 +18,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjZ-PT-3iQ">
-                    <rect key="frame" x="242" y="33" width="70" height="30"/>
+                    <rect key="frame" x="242" y="28" width="70" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="73R-2F-yvV"/>
-                        <constraint firstAttribute="height" constant="30" id="9GT-ML-i4l"/>
+                        <constraint firstAttribute="height" constant="40" id="9GT-ML-i4l"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Tvg-NF-n9a"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="r3L-aC-2xK"/>
                     </constraints>
@@ -35,11 +35,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdS-d5-33i">
-                    <rect key="frame" x="167" y="33" width="70" height="30"/>
+                    <rect key="frame" x="167" y="28" width="70" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="9EE-od-eih"/>
-                        <constraint firstAttribute="height" constant="30" id="YFS-be-pxJ"/>
+                        <constraint firstAttribute="height" constant="40" id="YFS-be-pxJ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="降序" image="sort">

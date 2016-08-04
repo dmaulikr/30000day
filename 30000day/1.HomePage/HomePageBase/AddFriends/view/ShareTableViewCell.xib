@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -12,11 +12,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRM-Ss-KmQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
                         <subviews>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2E-BB-s94">
                                 <rect key="frame" x="96" y="8" width="50" height="50"/>
@@ -29,7 +29,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZx-5t-pik">
-                                <rect key="frame" x="17" y="83.5" width="51" height="51"/>
+                                <rect key="frame" x="17" y="84" width="51" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hZx-5t-pik" secondAttribute="height" multiplier="1:1" id="2g0-cu-fz0"/>
                                 </constraints>
@@ -38,18 +38,18 @@
                                     <action selector="clickButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="clW-cv-1lo"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9m-g0-j4U">
-                                <rect key="frame" x="95.5" y="83.5" width="51" height="51"/>
+                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9m-g0-j4U">
+                                <rect key="frame" x="96" y="84" width="51" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="V9m-g0-j4U" secondAttribute="height" multiplier="1:1" id="Lw0-98-zD7"/>
                                 </constraints>
-                                <state key="normal" image="email"/>
+                                <state key="normal" image="copyLink"/>
                                 <connections>
                                     <action selector="clickButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="WuN-4L-OfF"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVY-Qt-b8t">
-                                <rect key="frame" x="252.5" y="83.5" width="51" height="51"/>
+                                <rect key="frame" x="253" y="84" width="51" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zVY-Qt-b8t" secondAttribute="height" multiplier="1:1" id="0RI-9q-EyW"/>
                                 </constraints>
@@ -69,7 +69,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0C-Tc-09D">
-                                <rect key="frame" x="17" y="8" width="50.5" height="50.5"/>
+                                <rect key="frame" x="17" y="8" width="51" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q0C-Tc-09D" secondAttribute="height" multiplier="1:1" id="tqC-ZP-DAu"/>
                                 </constraints>
@@ -79,55 +79,55 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ空间" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sqw-bD-73o">
-                                <rect key="frame" x="181" y="61" width="36" height="12"/>
+                                <rect key="frame" x="181" y="62" width="36" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信好友" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3o2-ah-fNC">
-                                <rect key="frame" x="101" y="61" width="40" height="12"/>
+                                <rect key="frame" x="101" y="62" width="40" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信朋友圈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsd-96-spK">
-                                <rect key="frame" x="17" y="61" width="50" height="12"/>
+                                <rect key="frame" x="17" y="62" width="50" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9L-FS-mdL">
-                                <rect key="frame" x="270" y="61" width="16" height="12"/>
+                                <rect key="frame" x="270" y="62" width="16" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新浪微博" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fnz-eV-3Kv">
-                                <rect key="frame" x="22.5" y="137.5" width="40" height="12"/>
+                                <rect key="frame" x="23" y="137" width="40" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnu-hB-z3K">
-                                <rect key="frame" x="111" y="137.5" width="20" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复制链接" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnu-hB-z3K">
+                                <rect key="frame" x="101" y="137" width="40" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUm-am-pY8">
-                                <rect key="frame" x="189.5" y="137.5" width="20" height="12"/>
+                                <rect key="frame" x="190" y="137" width="20" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复制链接" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45H-zb-nvN">
-                                <rect key="frame" x="258" y="137.5" width="40" height="12"/>
+                                <rect key="frame" x="258" y="137" width="40" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wk-mH-pgn">
-                                <rect key="frame" x="174" y="83.5" width="51" height="51"/>
+                                <rect key="frame" x="174" y="84" width="51" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7Wk-mH-pgn" secondAttribute="height" multiplier="1:1" id="u5m-nV-hCB"/>
                                 </constraints>
@@ -137,7 +137,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyl-Z1-N2t">
-                                <rect key="frame" x="174" y="7" width="51" height="51"/>
+                                <rect key="frame" x="174" y="8" width="51" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Eyl-Z1-N2t" secondAttribute="height" multiplier="1:1" id="GcG-6c-Bfm"/>
                                 </constraints>
@@ -222,7 +222,6 @@
         <image name="WeChat" width="65" height="65"/>
         <image name="WeChatFriends" width="65" height="65"/>
         <image name="copyLink" width="65" height="65"/>
-        <image name="email" width="65" height="65"/>
         <image name="icon_qq" width="65" height="65"/>
         <image name="shortMessage" width="37" height="31"/>
     </resources>

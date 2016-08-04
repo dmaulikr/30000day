@@ -949,13 +949,15 @@
 
 //*************搜索某一个用户（里面装的SearchUserInformationModel）**********************/
 + (void)sendSearchUserRequestWithNickName:(NSString *)nickName
-                                   currentUserId:(NSString *)curUserId
+                            currentUserId:(NSString *)curUserId
+                              currentPage:(NSNumber *)currentPage
                                   success:(void(^)(NSMutableArray *))success
                                   failure:(void (^)(NSError *))failure {
 
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:nickName forKey:@"keyWord"];
     [parameters addParameter:curUserId forKey:@"curUserId"];
+    [parameters addParameter:currentPage forKey:@"currentPage"];
     
     //异步执行
     dispatch_async(dispatch_queue_create("searchUser", DISPATCH_QUEUE_SERIAL), ^{
@@ -4114,7 +4116,7 @@
     
     [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,CHECK_ADDRESS_BOOK] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *parsedObject =[NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
@@ -4122,7 +4124,7 @@
 
             NSArray *array = recvDic[@"value"];
             success(array);
-    
+
         } else {
             
            failure([Common errorWithString:parsedObject[@"msg"]]);
@@ -4147,6 +4149,7 @@
     manager.completionQueue = dispatch_queue_create("sendLifeDescendFactorsWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     [Common urlStringWithDictionary:params withString:GET_DESCEND_FACTORS];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_DESCEND_FACTORS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

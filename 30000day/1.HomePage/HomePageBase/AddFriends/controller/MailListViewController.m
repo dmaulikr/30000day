@@ -22,33 +22,64 @@
 #import "NewFriendManager.h"
 #import "UserInformationModel.h"
 
+
+#define requestDataCount 100
+
 @interface MailListViewController () <UITableViewDataSource,UITableViewDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UMSocialUIDelegate>
 
-@property (nonatomic,assign) BOOL isSearch;
-@property (nonatomic ,strong) NSMutableArray *indexArray;//里面装的NSSting(A,B,C,D.......)
-@property (nonatomic ,strong) NSMutableArray *chineseStringArray;//该数组里面装的是chineseString这个模型
-@property (nonatomic ,strong) NSMutableArray *searchResultArray;//存储的是搜索后的MailListTableViewCell
+@property (nonatomic ,strong) UITableView *tableView;
+@property (nonatomic ,strong) NSMutableArray *indexArray; //里面装的NSSting(A,B,C,D.......)
+@property (nonatomic ,strong) NSMutableArray *chineseStringArray; //该数组里面装的是chineseString这个模型
+@property (nonatomic ,strong) NSMutableArray *chineseStringSumArray; //所有联系人
+@property (nonatomic ,strong) NSMutableArray *chineseStringNewArray; //用来装每次请求数据的模型
+@property (nonatomic ,assign) int requestIndex; //记录循环次数(满requestDataCount 等于1)
+@property (nonatomic ,assign) int chineseStringArrayRequestIndex; //记录循环次数
+@property (nonatomic ,assign) int subDataArrayRequestIndex; //记录循环次数
+@property (nonatomic ,assign) int subDataArrayRequestDataIndex; //记录循环次数（用于请求数据）
+@property (nonatomic ,strong) NSMutableArray *phoneNumberArray;
+@property (nonatomic ,assign) BOOL isfirstReques;
+@property (nonatomic ,assign) NSInteger sumLXR;          //所有联系人数量
+@property (nonatomic ,assign) NSInteger addRequestCount; //累加请求数量
 
 @end
 
 @implementation MailListViewController
 
-@synthesize searchResultArray;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"所有联系人";
-    self.isSearch = NO;
-    self.tableView.delegate = self;
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+
     self.tableView.dataSource = self;
     
+    self.tableView.delegate = self;
+    
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        [self footerRereshing];
+        
+    }];
+
+    [self.view addSubview:self.tableView];
+    
+    self.isfirstReques = YES;
+
     [self synchronizedMailList];
+}
+
+- (void)footerRereshing {
+    
+    [self requestData:[self zhuzhuangData:self.phoneNumberArray]];
+
 }
 
 //同步数据
 - (void)synchronizedMailList {
-        
+    
     NSString *isFirstStartString = [Common readAppDataForKey:FIRSTSTART];
 
     if ([Common isObjectNull:isFirstStartString]) {
@@ -104,11 +135,18 @@
             [self.navigationController presentViewController:alert animated:YES completion:nil];
             
         } else {
-        
-            self.chineseStringArray = [NSMutableArray array];
-            self.indexArray = [NSMutableArray arrayWithArray:indexArray];
-            NSMutableArray *phoneNumberArray = [NSMutableArray array];
             
+            if([Common isObjectNull:chineseStringArray] || chineseStringArray.count == 0) return;
+            
+            self.chineseStringSumArray = [NSMutableArray array];
+            self.chineseStringSumArray = chineseStringArray;
+            
+            self.chineseStringArray = [NSMutableArray array];
+            
+            self.indexArray = [NSMutableArray arrayWithArray:indexArray];
+            
+            NSMutableArray *phoneNumberArray = [NSMutableArray array];
+
             for (int i = 0 ; i < chineseStringArray.count ; i++) {
                 
                 NSMutableArray *subDataArray = chineseStringArray[i];
@@ -128,103 +166,216 @@
                     NSMutableDictionary *phoneNumberDictionary = [NSMutableDictionary dictionary];
                     [phoneNumberDictionary addParameter:phoneNumber forKey:@"mobile"];
                     [phoneArray addObject:phoneNumberDictionary];
+                    
+                    self.sumLXR ++;
                 }
                 
                 [phoneNumberArray addObject:phoneArray];
             }
             
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:phoneNumberArray options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            self.phoneNumberArray = phoneNumberArray;
+
+            [self requestData:[self zhuzhuangData:phoneNumberArray]];
             
-            [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
-                
-                NSMutableArray *registerArray = [NSMutableArray array];
-                NSMutableArray *friendArray = [NSMutableArray array];
-                
-                for (int i = 0 ; i < addressArray.count; i++) {
-                    
-                    NSMutableArray *subDataArray = chineseStringArray[i];
-                    NSDictionary *dictionary = addressArray[i];
-                    NSArray *array = dictionary[@"addressBookList"];
-                    
-                    for (int j = 0; j < subDataArray.count; j++) {
-                        
-                        NSDictionary *dictionary = array[j];
-                        ChineseString *chineseString = subDataArray[j];
-                        chineseString.status = [dictionary[@"status"] integerValue];
-                        
-                        if ([dictionary[@"status"] integerValue] == 1) {
-                            
-                            chineseString.userId = dictionary[@"userId"];
-                            [registerArray addObject:chineseString];
-                            
-                        } else if([dictionary[@"status"] integerValue] == 2){
-                            
-                            [friendArray addObject:chineseString];
-                        }
-                    }
-                }
-                
-                self.chineseStringArray = chineseStringArray;
-                [self.chineseStringArray insertObject:registerArray atIndex:0];
-                [self.chineseStringArray insertObject:friendArray atIndex:1];
-                
-                if (friendArray.count != 0) {
-                    [self.indexArray insertObject:@"友" atIndex:0];
-                } else {
-                    [self.indexArray insertObject:@"" atIndex:0];
-                }
-                
-                if (registerArray.count != 0) {
-                    [self.indexArray insertObject:@"+" atIndex:0];
-                } else {
-                    [self.indexArray insertObject:@"" atIndex:0];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                    [self.tableView reloadData];
-                });
-                
-            } failure:^(NSError *error) {
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                [self showToast:[Common errorStringWithError:error optionalString:@"获取通讯录信息失败"]];
-            }];
         }
+        
     }];
+    
 }
 
-#pragma ---
-#pragma mark ---- 父视图的生命周期方法
-- (void)searchBarDidBeginRestore:(BOOL)isAnimation  {
-    [super searchBarDidBeginRestore:isAnimation];
-    self.isSearch = NO;
-    [self.tableView reloadData];
-}
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (NSMutableArray *)zhuzhuangData:(NSArray *)array {
+
+    NSMutableArray *newPhoneArray = [NSMutableArray array];
     
-    [super searchBar:searchBar textDidChange:searchText];
-    self.isSearch = [searchText isEqualToString:@""] ? NO : YES;
-    //开始搜索
-    self.searchResultArray = [NSMutableArray array];
+    NSMutableArray *chineseStringArray = [NSMutableArray array];
     
-    for (int i = 0; i < self.chineseStringArray.count; i++ ) {
+    int jj = 0;
+    
+    for (int i = self.chineseStringArrayRequestIndex; i < array.count; i++) {
+         
+        NSMutableArray *subDataArray = array[i];
+         
+        NSMutableArray *phoneArray = [NSMutableArray array];
         
-        NSMutableArray *dataArray = self.chineseStringArray[i];
+        NSMutableArray *chineseArray = self.chineseStringSumArray[i];
         
-        for (int j = 0; j < dataArray.count; j++ ) {
+        NSMutableArray *chineseSumArray = [NSMutableArray array];
+         
+        for (int j = self.subDataArrayRequestIndex; j < subDataArray.count; j++) {
             
-            ChineseString *chineseString = dataArray[j];
-            
-            if ([chineseString.string containsString:searchText]) {
+            if (self.addRequestCount == self.sumLXR) {
                 
-                [self.searchResultArray addObject:chineseString];
+                return newPhoneArray;
+                
             }
+     
+            [chineseSumArray addObject:chineseArray[j]];
+         
+            [phoneArray addObject:subDataArray[j]];
+         
+            self.requestIndex ++;
+            
+            self.addRequestCount ++;
+            
+            jj = j;
+             
+            if (self.requestIndex == requestDataCount) {
+                 
+                if (j + 1 ==  subDataArray.count) {
+                     
+                    self.chineseStringArrayRequestIndex = i + 1;
+                    
+                     
+                } else {
+                     
+                    self.chineseStringArrayRequestIndex = i;
+                    self.subDataArrayRequestIndex = j + 1;
+                     
+                }
+
+                break;
+            }
+             
         }
+     
+        [newPhoneArray addObject:phoneArray];
+        
+        [chineseStringArray addObject:chineseSumArray];
+
+        
+        if (jj + 1 ==  subDataArray.count) {
+            
+            self.subDataArrayRequestIndex = 0;
+            
+            self.isfirstReques = NO;
+            
+        }
+
+        if (self.requestIndex == requestDataCount) {
+         
+            self.requestIndex = 0;
+             
+            break;
+        }
+     
     }
     
-    [self.tableView reloadData];
+    self.chineseStringNewArray = chineseStringArray;
+    
+    return newPhoneArray;
+    
+}
+
+- (void)requestData:(NSArray *)array {
+
+    if (array.count == 0) {
+        
+        [self.tableView.mj_footer endRefreshing];
+        
+        return;
+        
+    }
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [STDataHandler sendcheckAddressBookWithMobileOwnerId:STUserAccountHandler.userProfile.userId.stringValue addressBookJson:jsonString success:^(NSArray *addressArray) {
+        
+        for (int i = 0 ; i < addressArray.count; i++) {
+            
+            NSMutableArray *subDataArray = self.chineseStringNewArray[i];
+            NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:addressArray[i]];
+            NSArray *array = [NSArray arrayWithArray:dictionary[@"addressBookList"]];
+            
+            for (int j = 0; j < subDataArray.count; j++) {
+                
+                NSDictionary *dictionary = (NSDictionary *)array[j];
+                ChineseString *chineseString = subDataArray[j];
+                chineseString.status = [dictionary[@"status"] integerValue];
+                
+                if ([dictionary[@"status"] integerValue] == 1) {
+                    
+                    chineseString.userId = dictionary[@"userId"];
+                    //[registerArray addObject:chineseString];
+                    
+                } else if([dictionary[@"status"] integerValue] == 2){
+                    
+                    //[friendArray addObject:chineseString];
+                }
+
+            }
+            
+        }
+        
+        
+        //将每次上啦加载过多的数据加载到chineseStringArray
+        NSArray *firstChineseStringArray = [self.chineseStringNewArray firstObject];
+        
+        NSMutableArray *chineseArray = [self.chineseStringArray lastObject];
+        
+        NSInteger index = 0;
+        
+        if (self.chineseStringArray.count != 0) {
+            
+            index = self.chineseStringArray.count - 1;
+            
+        }
+        
+        NSArray *chineseSumArray = self.chineseStringSumArray[index];
+        
+        if (chineseSumArray.count != chineseArray.count) {
+            
+            for (int i = 0; i < firstChineseStringArray.count; i++) {
+                
+                [chineseArray addObject:firstChineseStringArray[i]];
+                
+            }
+            
+            int cIndex = 0;
+            
+            if (chineseArray.count != 0) {
+                
+                cIndex = 1;
+                
+            }
+            
+            for (int i = cIndex; i < self.chineseStringNewArray.count; i++) {
+                
+                [self.chineseStringArray addObject:self.chineseStringNewArray[i]];
+                
+            }
+            
+        } else {
+            
+            for (int i = 0; i < self.chineseStringNewArray.count; i++) {
+                
+                [self.chineseStringArray addObject:self.chineseStringNewArray[i]];
+                
+            }
+        }
+
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
+            
+            [self footerRereshing];
+            
+        });
+        
+    } failure:^(NSError *error) {
+        
+        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+        [self.tableView.mj_footer endRefreshing];
+        [self showToast:[Common errorStringWithError:error optionalString:@"获取通讯录信息失败"]];
+        
+    }];
+
+
 }
 
 #pragma ---
@@ -232,71 +383,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    if (self.isSearch) {
-        
-        return 1;
-        
-    } else {
-        
-        return self.chineseStringArray.count;
-    }
+    return self.chineseStringArray.count;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (self.isSearch) {
-        
-        return self.searchResultArray.count;
-        
-    }  else {
-
-        NSMutableArray *array = self.chineseStringArray[section];
-            
-        return array.count;
-    }
+    NSMutableArray *array = self.chineseStringArray[section];
+     
+    return array.count;
+    
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     
-    if (!self.isSearch) {
-        
-        return self.indexArray;
-    }
-    
-    return [NSMutableArray array];
+    NSRange range = NSMakeRange(0, self.chineseStringArray.count);
+
+    return [self.indexArray subarrayWithRange:range];
+
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if (!self.isSearch) {
+    NSString *key = [self.indexArray objectAtIndex:section];
         
-        NSString *key = [self.indexArray objectAtIndex:section];
-        
-        return key;
-    }
-    
-    return @"";
-}
+    return key;
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    if (self.isSearch) {
-        
-        return 0.0f;
-        
-    } else {
-        
-        NSMutableArray *array = self.chineseStringArray[section];
-        
-        if (array.count) {
-            
-            return 30.0f;
-            
-        } else {
-            
-            return 0.01f;
-        }
-    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -326,18 +438,10 @@
     }
     
     ChineseString *chineseString;
-    
-    if (self.isSearch) {
-        
-        chineseString = self.searchResultArray[indexPath.row];
-        
-    } else {
-        
-        NSMutableArray *array = self.chineseStringArray[indexPath.section];
-        
-        chineseString = array[indexPath.row];
 
-    }
+    NSMutableArray *array = self.chineseStringArray[indexPath.section];
+        
+    chineseString = array[indexPath.row];
     
     cell.dataModel = chineseString;
   
@@ -348,11 +452,13 @@
         
         if (button.tag) {
             
+            NSLog(@"%ld",chineseString.userId.integerValue);
+            
             //添加好友
             //添加好友,接口, @1请求   @2接受   @3拒绝
             if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:chineseString.userId]) {
                 
-                [self showToast:@"对方或自己的id为空"];
+                [self showToast:@"对方或自己的ID为空"];
                 
                 return;
             }
@@ -486,7 +592,9 @@
         
         [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
-        NSString *shareString = @"人生只有30000天，想要保值增值，下载30000天APP吧";
+        //NSString *shareString = [NSString stringWithFormat:@"我的预期寿命有%@天，击败了%@%%的人，你呢？守护我爱的人，30000天。",[Common readAppDataForKey:DAYS_AGE],[Common readAppDataForKey:DEFEATDATA]];
+        
+        NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";
         
         if (tag == 8) {
          
@@ -521,25 +629,29 @@
             
         } else if (tag == 6) {//发送邮件
             
-            if ([MFMailComposeViewController canSendMail]) {
-                
-                MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
-                
-                controller.mailComposeDelegate = self;
-                
-                [controller setSubject:@"My Subject"];
-                
-                [controller setMessageBody:shareString isHTML:NO];
-                
-                if (controller) {
-                    
-                    [self presentViewController:controller animated:YES completion:nil];
-                }
-                
-            } else {
-                
-                [self showToast:@"该设备没有设置邮箱账号"];
-            }
+//            if ([MFMailComposeViewController canSendMail]) {
+//                
+//                MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+//                
+//                controller.mailComposeDelegate = self;
+//                
+//                [controller setSubject:@"My Subject"];
+//                
+//                [controller setMessageBody:shareString isHTML:NO];
+//                
+//                if (controller) {
+//                    
+//                    [self presentViewController:controller animated:YES completion:nil];
+//                }
+//                
+//            } else {
+//                
+//                [self showToast:@"该设备没有设置邮箱账号"];
+//            }
+            
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = @"http://www.30000day.com";
+            [self showToast:@"已经复制到剪贴板"];
             
         } else if (tag == 5) {
             [UMSocialData defaultData].extConfig.qqData.title = @"30000天";
@@ -563,6 +675,8 @@
             [UMSocialData defaultData].extConfig.wechatSessionData.title = @"30000天";
             [[UMSocialControllerService defaultControllerService] setShareText:shareString shareImage:[UIImage imageNamed:@"sharePicture"] socialUIDelegate:self];        //设置分享内容和回调对象
             [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+            
+            //[UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://xxxx";
             
         } else if (tag == 1 ) {
             

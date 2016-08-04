@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,7 +9,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchFriendsViewController">
             <connections>
                 <outlet property="noResultView" destination="x6y-5H-Cqk" id="cj3-jB-ehc"/>
-                <outlet property="tableView" destination="IqK-QZ-rLD" id="cjO-9R-Ttj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="dzR-WO-Ea3"/>
             </connections>
         </placeholder>
@@ -18,14 +17,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IqK-QZ-rLD">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="taO-OC-gkE"/>
-                        <outlet property="delegate" destination="-1" id="Y09-cc-fXY"/>
-                    </connections>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6y-5H-Cqk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
@@ -45,11 +36,7 @@
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="IqK-QZ-rLD" secondAttribute="bottom" id="4SQ-ua-UGZ"/>
-                <constraint firstItem="IqK-QZ-rLD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8mG-8s-5qO"/>
-                <constraint firstItem="IqK-QZ-rLD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ehR-vs-nBZ"/>
                 <constraint firstItem="x6y-5H-Cqk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="h5K-hk-4vM"/>
-                <constraint firstAttribute="trailing" secondItem="IqK-QZ-rLD" secondAttribute="trailing" id="jfb-5C-Got"/>
                 <constraint firstAttribute="bottom" secondItem="x6y-5H-Cqk" secondAttribute="bottom" id="sWQ-6F-XQl"/>
                 <constraint firstItem="x6y-5H-Cqk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uZM-BP-q1L"/>
                 <constraint firstAttribute="trailing" secondItem="x6y-5H-Cqk" secondAttribute="trailing" id="z9i-qx-1Ei"/>
