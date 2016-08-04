@@ -264,7 +264,7 @@
 //        }
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = @"http://www.30000day.com";
+        pasteboard.string = @"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd";
         [self showToast:@"已经复制到剪贴板"];
         
     } else if (tag == 5) {
