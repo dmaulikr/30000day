@@ -593,7 +593,6 @@
         [ShareAnimatonView annimateRemoveFromSuperView:animationView];
         
         //NSString *shareString = [NSString stringWithFormat:@"我的预期寿命有%@天，击败了%@%%的人，你呢？守护我爱的人，30000天。",[Common readAppDataForKey:DAYS_AGE],[Common readAppDataForKey:DEFEATDATA]];
-        
         NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";
         
         if (tag == 8) {

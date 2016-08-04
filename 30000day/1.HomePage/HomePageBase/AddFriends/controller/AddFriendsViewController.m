@@ -230,7 +230,7 @@
 
 - (void)share:(NSInteger)tag {
 
-    NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";  
+    NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";
     
     if (tag == 8) {
         
