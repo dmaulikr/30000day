@@ -64,6 +64,9 @@
 //专门用来检查URL是否正确的
 + (NSString *)urlStringWithDictionary:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
 
+//用于搜索好友
++ (NSString *)urlStringWithDictionarySearch:(NSMutableDictionary *)dictinary withString:(NSString *)subApi;
+
 //剪切字符串，吧市、自治区、省
 + (NSString *)deletedStringWithParentString:(NSString *)sting;
 

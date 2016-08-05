@@ -43,6 +43,8 @@
 //http://121.196.223.175:8081 正式阿里服务器地址
 
 #define  ST_API_SERVER                @"http://121.196.223.175:8083/stapi/1.0"
+#define  ST_API_SEARCH_SERVER         @"http://121.196.223.175:8083/stapi2/2.0" //用户搜索好友接口
+
 
 //聚合宏
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
