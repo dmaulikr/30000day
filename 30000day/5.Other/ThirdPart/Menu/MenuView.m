@@ -45,8 +45,8 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[MenuTableViewCell class] forCellReuseIdentifier:@"cell"];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.target.view.bounds.size.width, self.target.view.bounds.size.height)];
-    backView.backgroundColor = [UIColor blackColor];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    backView.backgroundColor = [UIColor clearColor];
     backView.alpha = 0.0;
     backView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
