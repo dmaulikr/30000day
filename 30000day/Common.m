@@ -149,6 +149,31 @@
     return url;
 }
 
++ (NSString *)urlStringWithDictionarySearch:(NSMutableDictionary *)dictinary withString:(NSString *)subApi {
+    
+    NSString *STAPI = ST_API_SEARCH_SERVER;
+    NSString *url = [NSString stringWithFormat:@"%@%@?",STAPI,subApi];
+    NSArray *array = [dictinary allKeys];
+    NSString *keyValueString = @"";
+    
+    for (NSString *key in array) {
+        
+        NSString *newString = [NSString stringWithFormat:@"%@=%@&",key,[dictinary objectForKey:key]];
+        keyValueString =  [keyValueString stringByAppendingString:newString];
+    }
+    
+    if ([Common isObjectNull:keyValueString]) {
+        
+        return nil;
+    }
+    
+    keyValueString = [keyValueString substringToIndex:keyValueString.length - 1];
+    url = [NSString stringWithFormat:@"%@%@",url,keyValueString];
+    NSLog(@"验证接口 = %@",url);
+    return url;
+}
+
+
 //剪切字符串，吧市、自治区、省
 + (NSString *)deletedStringWithParentString:(NSString *)sting {
     

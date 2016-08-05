@@ -963,7 +963,7 @@
     dispatch_async(dispatch_queue_create("searchUser", DISPATCH_QUEUE_SERIAL), ^{
         
         NSError *error;
-        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[Common urlStringWithDictionary:parameters withString:SEARCH_USER]] encoding:NSUTF8StringEncoding error:&error];
+        NSString *jsonStr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[Common urlStringWithDictionarySearch:parameters withString:SEARCH_USER]] encoding:NSUTF8StringEncoding error:&error];
         
         if (error == nil  && ![Common isObjectNull:jsonStr]) {
             
