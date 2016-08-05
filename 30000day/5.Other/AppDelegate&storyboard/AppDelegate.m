@@ -103,15 +103,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    [session setActive:YES error:nil];
-    
-    self.session = session;
-    
     return YES;
 }
 
@@ -195,6 +186,10 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
     
 }
 

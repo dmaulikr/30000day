@@ -192,6 +192,7 @@
 #define  SET_FRIEND_SWITCH               @"/user/setFriendSwitch"            //添加加好友开关
 #define  PRIVACYLINK                     @"/STManager/infomation/privacyLink" //隐私政策
 #define  ASYNCNOTIFY                     @"/alipay/asyncNotify"               //支付
+#define  FINDADVICETYPES                 @"/advice/findAdviceTypes"           //获取意见类型
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"

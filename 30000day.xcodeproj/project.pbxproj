@@ -113,6 +113,10 @@
 		B6DDB5011CB796800026322A /* InformationCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DDB4FF1CB796800026322A /* InformationCommentViewController.xib */; };
 		B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */; };
 		B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */; };
+		B6E189B81D549240002A3CBF /* ProblemTypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */; };
+		B6E189BB1D549465002A3CBF /* ProblemTypesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189BA1D549465002A3CBF /* ProblemTypesModel.m */; };
+		B6E189BF1D549C9A002A3CBF /* SubmitSuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */; };
+		B6E189C01D549C9A002A3CBF /* SubmitSuggestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */; };
 		B6E2C0531D5319D50097975B /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C04E1D5319D50097975B /* MenuModel.m */; };
 		B6E2C0541D5319D50097975B /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0501D5319D50097975B /* MenuTableViewCell.m */; };
 		B6E2C0551D5319D50097975B /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0521D5319D50097975B /* MenuView.m */; };
@@ -876,6 +880,13 @@
 		B6DFF1E61CE07158004B81A7 /* DaysOfAgeOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaysOfAgeOption.h; sourceTree = "<group>"; };
 		B6DFF1E71CE07158004B81A7 /* DaysOfAgeOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaysOfAgeOption.m; sourceTree = "<group>"; };
 		B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DaysOfAgeOption.xib; sourceTree = "<group>"; };
+		B6E189B61D549240002A3CBF /* ProblemTypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemTypesViewController.h; sourceTree = "<group>"; };
+		B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemTypesViewController.m; sourceTree = "<group>"; };
+		B6E189B91D549465002A3CBF /* ProblemTypesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemTypesModel.h; path = 30000day/4.My/about/controller/ProblemTypesModel.h; sourceTree = SOURCE_ROOT; };
+		B6E189BA1D549465002A3CBF /* ProblemTypesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemTypesModel.m; path = 30000day/4.My/about/controller/ProblemTypesModel.m; sourceTree = SOURCE_ROOT; };
+		B6E189BC1D549C9A002A3CBF /* SubmitSuggestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitSuggestViewController.h; sourceTree = "<group>"; };
+		B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitSuggestViewController.m; sourceTree = "<group>"; };
+		B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitSuggestViewController.xib; sourceTree = "<group>"; };
 		B6E2C04D1D5319D50097975B /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
 		B6E2C04E1D5319D50097975B /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
 		B6E2C04F1D5319D50097975B /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
@@ -4688,6 +4699,11 @@
 			children = (
 				F5D6E58D1D1A2A8900F5E147 /* AboutTableViewController.h */,
 				F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */,
+				B6E189B61D549240002A3CBF /* ProblemTypesViewController.h */,
+				B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */,
+				B6E189BC1D549C9A002A3CBF /* SubmitSuggestViewController.h */,
+				B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */,
+				B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4695,6 +4711,8 @@
 		F5D6E58F1D1A2A8900F5E147 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B6E189B91D549465002A3CBF /* ProblemTypesModel.h */,
+				B6E189BA1D549465002A3CBF /* ProblemTypesModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4950,6 +4968,7 @@
 				F54BBC711D21045400556B6D /* qr_top_right@2x.png in Resources */,
 				B6E44C3E1CBC901A0039217D /* InformationWriterHomepageViewController.xib in Resources */,
 				B610FAD61CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.xib in Resources */,
+				B6E189C01D549C9A002A3CBF /* SubmitSuggestViewController.xib in Resources */,
 				B8B3F4EC1C9A58C400834533 /* CityTableViewCell.xib in Resources */,
 				B804FD6E1C8AC9A900DFD1CF /* tusiji_6_cover@2x.png in Resources */,
 				B804FD991C8AC9A900DFD1CF /* RecordingSignal005@2x.png in Resources */,
@@ -5153,6 +5172,8 @@
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
 				B8FD3DD31C8A7903007BCA6B /* NSString+XHMD5.m in Sources */,
 				B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */,
+				B6E189BB1D549465002A3CBF /* ProblemTypesModel.m in Sources */,
+				B6E189BF1D549C9A002A3CBF /* SubmitSuggestViewController.m in Sources */,
 				B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B8F6E9771D02CD0400AD6745 /* TZPhotoPreviewCell.m in Sources */,
@@ -5460,6 +5481,7 @@
 				F5D6E5951D1A2AD800F5E147 /* AboutTableViewCell.m in Sources */,
 				B6E30CA71CE1CB2500C510A5 /* PromoteAgeViewController.m in Sources */,
 				B8FD3DDB1C8A7903007BCA6B /* UIScrollView+XHkeyboardControl.m in Sources */,
+				B6E189B81D549240002A3CBF /* ProblemTypesViewController.m in Sources */,
 				B6C73B191C9000D20041ED65 /* AccountNumberTableViewCell.m in Sources */,
 				B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,

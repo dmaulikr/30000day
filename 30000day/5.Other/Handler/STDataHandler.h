@@ -563,4 +563,9 @@ static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"
                               success:(void (^)(BOOL success))success
                               failure:(void (^)(NSError *error))failure;
 
+
+//*********************获取意见类型*******************//
++ (void)sendFindAdviceTypes:(void (^)(NSArray *array))success
+                    failure:(void (^)(NSError *error))failure;
+
 @end

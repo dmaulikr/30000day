@@ -9,6 +9,7 @@
 #import "AboutTableViewController.h"
 #import "AboutTableViewCell.h"
 #import <StoreKit/SKStoreProductViewController.h>
+#import "ProblemTypesViewController.h"
 
 @interface AboutTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -116,6 +117,11 @@
         cell.textLabel.text = @"去官网";
         return cell;
     
+    } else {
+    
+        cell.textLabel.text = @"建议反馈";
+        return cell;
+    
     }
     
     return nil;
@@ -126,9 +132,15 @@
     if (indexPath.row == 0) {
         
          [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086080481&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
-    } else {
+    } else if(indexPath.row == 1) {
     
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.30000day.com"]];
+    
+    } else {
+    
+        ProblemTypesViewController *controll = [[ProblemTypesViewController alloc] init];
+        
+        [self.navigationController pushViewController:controll animated:YES];
     
     }
 

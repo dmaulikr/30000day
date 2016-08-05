@@ -35,6 +35,7 @@
 #import "NewFriendModel.h"
 #import "MailListManager.h"
 #import "GetFactorObject.h"
+#import "ProblemTypesModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -4365,6 +4366,46 @@
         
         failure(error);
     }];
+}
+
++ (void)sendFindAdviceTypes:(void (^)(NSArray *array))success
+                    failure:(void (^)(NSError *error))failure {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SEARCH_SERVER,FINDADVICETYPES] parameters:nil  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *array = recvDic[@"value"];
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < array.count; i++) {
+                
+                NSDictionary *dictionary = array[i];
+                ProblemTypesModel *model = [[ProblemTypesModel alloc] init];
+                [model setValuesForKeysWithDictionary:dictionary];
+                [dataArray addObject:model];
+            }
+            
+            success(dataArray);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+
+
 }
 
 @end

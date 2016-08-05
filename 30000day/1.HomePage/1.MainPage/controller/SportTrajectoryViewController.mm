@@ -25,7 +25,7 @@
 #import "SportsFunctionManager.h"
 
 
-@interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+@interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVSpeechSynthesizerDelegate>
 
 @property (nonatomic,strong) BMKMapView *mapView; //地图
 
@@ -108,6 +108,8 @@
     self.locationArrayM = [NSMutableArray array];
     
     _aVSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    
+    [_aVSpeechSynthesizer setDelegate:self];
     
     self.firstEnter = 1;
     
@@ -867,15 +869,25 @@
 
 //语音播报
 - (void)read:(NSString *)string {
-
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+    
     AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:string];
     
     aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
     
-    aVSpeechUtterance.voice =[AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    aVSpeechUtterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
     
     [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
+    
+}
 
+- (void)speechSynthesizer:(AVSpeechSynthesizer*)synthesizer didFinishSpeechUtterance:(nonnull AVSpeechUtterance *)utterance {
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
 }
 
 //结束  清空数据关闭定位
