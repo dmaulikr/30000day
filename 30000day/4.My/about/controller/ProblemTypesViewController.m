@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"选择建议类型";
+    self.title = @"意见反馈";
     
     self.tableViewStyle = STRefreshTableViewPlain;
     self.tableView.dataSource = self;
@@ -85,6 +85,8 @@
     SubmitSuggestViewController *controller = [[SubmitSuggestViewController alloc] init];
     
     controller.problemTypesModel = model;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 

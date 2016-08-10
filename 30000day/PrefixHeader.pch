@@ -42,8 +42,8 @@
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8083/stapi/1.0"
-#define  ST_API_SEARCH_SERVER         @"http://121.196.223.175:8083/stapi2/2.0" //用户搜索好友接口
+#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi/1.0"
+#define  ST_API_SEARCH_SERVER         @"http://121.196.223.175:8082/stapi2/2.0" //用户搜索好友接口
 
 
 //聚合宏
@@ -193,6 +193,7 @@
 #define  PRIVACYLINK                     @"/STManager/infomation/privacyLink" //隐私政策
 #define  ASYNCNOTIFY                     @"/alipay/asyncNotify"               //支付
 #define  FINDADVICETYPES                 @"/advice/findAdviceTypes"           //获取意见类型
+#define  COMMIT_ADVICE                   @"/advice/commitAdvice"              //提交反馈意见
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"

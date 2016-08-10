@@ -151,7 +151,7 @@
     
     if (isShowFooterRefresh && self.tableView) {
         
-        self.tableView.mj_footer = [MJRefreshFooter footerWithRefreshingBlock:^{
+        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             
             [self footerRereshing];
         }];

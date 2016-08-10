@@ -20,12 +20,12 @@
 
 @property (nonatomic,strong) NSNumber *calorie;  //消耗的卡路里
 
-@property (nonatomic,strong) NSNumber *time; //运动时间
+@property (nonatomic,strong) NSNumber *time; //运动时长
 
-@property (nonatomic,strong) NSString *x;
+@property (nonatomic,strong) NSString *x; //坐标x
 
-@property (nonatomic,strong) NSString *y;
+@property (nonatomic,strong) NSString *y; //坐标y
 
-@property (nonatomic,strong) NSString *dateTime;
+@property (nonatomic,strong) NSString *dateTime; //开始时间
 
 @end

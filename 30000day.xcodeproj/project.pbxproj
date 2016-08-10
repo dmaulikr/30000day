@@ -115,8 +115,6 @@
 		B6DFF1EA1CE07178004B81A7 /* DaysOfAgeOption.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DFF1E91CE07178004B81A7 /* DaysOfAgeOption.xib */; };
 		B6E189B81D549240002A3CBF /* ProblemTypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */; };
 		B6E189BB1D549465002A3CBF /* ProblemTypesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189BA1D549465002A3CBF /* ProblemTypesModel.m */; };
-		B6E189BF1D549C9A002A3CBF /* SubmitSuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */; };
-		B6E189C01D549C9A002A3CBF /* SubmitSuggestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */; };
 		B6E2C0531D5319D50097975B /* MenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C04E1D5319D50097975B /* MenuModel.m */; };
 		B6E2C0541D5319D50097975B /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0501D5319D50097975B /* MenuTableViewCell.m */; };
 		B6E2C0551D5319D50097975B /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2C0521D5319D50097975B /* MenuView.m */; };
@@ -132,6 +130,11 @@
 		B6E548B61CF055F700002650 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E548B51CF055F700002650 /* HealthKit.framework */; };
 		B6E548BA1CF065D800002650 /* FactorVerificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E548B91CF065D800002650 /* FactorVerificationView.m */; };
 		B6E548BC1CF0661200002650 /* FactorVerificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E548BB1CF0661200002650 /* FactorVerificationView.xib */; };
+		B6E9319F1D58273600F0CBB4 /* SubmitSuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E9319E1D58273600F0CBB4 /* SubmitSuggestViewController.m */; };
+		B6E931A31D582C8500F0CBB4 /* SubmitSuggestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E931A11D582C8500F0CBB4 /* SubmitSuggestTableViewCell.m */; };
+		B6E931A41D582C8500F0CBB4 /* SubmitSuggestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E931A21D582C8500F0CBB4 /* SubmitSuggestTableViewCell.xib */; };
+		B6E931A81D5877AF00F0CBB4 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E931A61D5877AF00F0CBB4 /* SuccessViewController.m */; };
+		B6E931A91D5877AF00F0CBB4 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6E931A71D5877AF00F0CBB4 /* SuccessViewController.xib */; };
 		B6E995021CE9D9B00044378F /* LifeDescendFactorsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */; };
 		B6EFD3FF1CA638E0003C5ACA /* CommodityCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD3FD1CA638E0003C5ACA /* CommodityCommentViewController.m */; };
 		B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6EFD3FE1CA638E0003C5ACA /* CommodityCommentViewController.xib */; };
@@ -884,9 +887,6 @@
 		B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemTypesViewController.m; sourceTree = "<group>"; };
 		B6E189B91D549465002A3CBF /* ProblemTypesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProblemTypesModel.h; path = 30000day/4.My/about/controller/ProblemTypesModel.h; sourceTree = SOURCE_ROOT; };
 		B6E189BA1D549465002A3CBF /* ProblemTypesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProblemTypesModel.m; path = 30000day/4.My/about/controller/ProblemTypesModel.m; sourceTree = SOURCE_ROOT; };
-		B6E189BC1D549C9A002A3CBF /* SubmitSuggestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitSuggestViewController.h; sourceTree = "<group>"; };
-		B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitSuggestViewController.m; sourceTree = "<group>"; };
-		B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitSuggestViewController.xib; sourceTree = "<group>"; };
 		B6E2C04D1D5319D50097975B /* MenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuModel.h; sourceTree = "<group>"; };
 		B6E2C04E1D5319D50097975B /* MenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuModel.m; sourceTree = "<group>"; };
 		B6E2C04F1D5319D50097975B /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
@@ -912,6 +912,14 @@
 		B6E548B81CF065D800002650 /* FactorVerificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactorVerificationView.h; sourceTree = "<group>"; };
 		B6E548B91CF065D800002650 /* FactorVerificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactorVerificationView.m; sourceTree = "<group>"; };
 		B6E548BB1CF0661200002650 /* FactorVerificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FactorVerificationView.xib; sourceTree = "<group>"; };
+		B6E9319D1D58273600F0CBB4 /* SubmitSuggestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitSuggestViewController.h; sourceTree = "<group>"; };
+		B6E9319E1D58273600F0CBB4 /* SubmitSuggestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitSuggestViewController.m; sourceTree = "<group>"; };
+		B6E931A01D582C8500F0CBB4 /* SubmitSuggestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitSuggestTableViewCell.h; sourceTree = "<group>"; };
+		B6E931A11D582C8500F0CBB4 /* SubmitSuggestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitSuggestTableViewCell.m; sourceTree = "<group>"; };
+		B6E931A21D582C8500F0CBB4 /* SubmitSuggestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitSuggestTableViewCell.xib; sourceTree = "<group>"; };
+		B6E931A51D5877AF00F0CBB4 /* SuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
+		B6E931A61D5877AF00F0CBB4 /* SuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
+		B6E931A71D5877AF00F0CBB4 /* SuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		B6E995001CE9D9B00044378F /* LifeDescendFactorsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeDescendFactorsModel.h; sourceTree = "<group>"; };
 		B6E995011CE9D9B00044378F /* LifeDescendFactorsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeDescendFactorsModel.m; sourceTree = "<group>"; };
 		B6EFD3FC1CA638E0003C5ACA /* CommodityCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityCommentViewController.h; sourceTree = "<group>"; };
@@ -4701,9 +4709,11 @@
 				F5D6E58E1D1A2A8900F5E147 /* AboutTableViewController.m */,
 				B6E189B61D549240002A3CBF /* ProblemTypesViewController.h */,
 				B6E189B71D549240002A3CBF /* ProblemTypesViewController.m */,
-				B6E189BC1D549C9A002A3CBF /* SubmitSuggestViewController.h */,
-				B6E189BD1D549C9A002A3CBF /* SubmitSuggestViewController.m */,
-				B6E189BE1D549C9A002A3CBF /* SubmitSuggestViewController.xib */,
+				B6E9319D1D58273600F0CBB4 /* SubmitSuggestViewController.h */,
+				B6E9319E1D58273600F0CBB4 /* SubmitSuggestViewController.m */,
+				B6E931A51D5877AF00F0CBB4 /* SuccessViewController.h */,
+				B6E931A61D5877AF00F0CBB4 /* SuccessViewController.m */,
+				B6E931A71D5877AF00F0CBB4 /* SuccessViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4723,6 +4733,9 @@
 				F5D6E5921D1A2AD800F5E147 /* AboutTableViewCell.h */,
 				F5D6E5931D1A2AD800F5E147 /* AboutTableViewCell.m */,
 				F5D6E5941D1A2AD800F5E147 /* AboutTableViewCell.xib */,
+				B6E931A01D582C8500F0CBB4 /* SubmitSuggestTableViewCell.h */,
+				B6E931A11D582C8500F0CBB4 /* SubmitSuggestTableViewCell.m */,
+				B6E931A21D582C8500F0CBB4 /* SubmitSuggestTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4815,6 +4828,7 @@
 				B8695AC21C755981001B4B95 /* PersonHeadView.xib in Resources */,
 				B804FD571C8AC9A900DFD1CF /* tusiji_1.gif in Resources */,
 				B804FD561C8AC9A900DFD1CF /* tusiji_0_cover@2x.png in Resources */,
+				B6E931A91D5877AF00F0CBB4 /* SuccessViewController.xib in Resources */,
 				B8D67A1E1C7420B000805EE2 /* SearchFriendsTableViewCell.xib in Resources */,
 				B81306C01CB4AC980051C4BA /* MyOrderTableViewCell.xib in Resources */,
 				B804FDAC1C8AC9A900DFD1CF /* sharemore_voiceinput@2x.png in Resources */,
@@ -4968,7 +4982,6 @@
 				F54BBC711D21045400556B6D /* qr_top_right@2x.png in Resources */,
 				B6E44C3E1CBC901A0039217D /* InformationWriterHomepageViewController.xib in Resources */,
 				B610FAD61CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.xib in Resources */,
-				B6E189C01D549C9A002A3CBF /* SubmitSuggestViewController.xib in Resources */,
 				B8B3F4EC1C9A58C400834533 /* CityTableViewCell.xib in Resources */,
 				B804FD6E1C8AC9A900DFD1CF /* tusiji_6_cover@2x.png in Resources */,
 				B804FD991C8AC9A900DFD1CF /* RecordingSignal005@2x.png in Resources */,
@@ -5036,6 +5049,7 @@
 				B86EFCA71D154DC4007A2108 /* IDMPhotoBrowser.bundle in Resources */,
 				B804FD701C8AC9A900DFD1CF /* tusiji_7_cover@2x.png in Resources */,
 				B8F2D8D61C5B3996002C7712 /* SetUpViewController.xib in Resources */,
+				B6E931A41D582C8500F0CBB4 /* SubmitSuggestTableViewCell.xib in Resources */,
 				B665F8C91CC4BF5200070458 /* navBackBtn@2x.png in Resources */,
 				B804FD9F1C8AC9A900DFD1CF /* send.caf in Resources */,
 				B6DBF0E41CF000FE00197B01 /* AgreementWebViewController.xib in Resources */,
@@ -5154,6 +5168,7 @@
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				F52C6C261D2E5398008933D2 /* MotionData.m in Sources */,
+				B6E931A81D5877AF00F0CBB4 /* SuccessViewController.m in Sources */,
 				B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
@@ -5173,7 +5188,7 @@
 				B8FD3DD31C8A7903007BCA6B /* NSString+XHMD5.m in Sources */,
 				B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */,
 				B6E189BB1D549465002A3CBF /* ProblemTypesModel.m in Sources */,
-				B6E189BF1D549C9A002A3CBF /* SubmitSuggestViewController.m in Sources */,
+				B6E9319F1D58273600F0CBB4 /* SubmitSuggestViewController.m in Sources */,
 				B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
 				B8F6E9771D02CD0400AD6745 /* TZPhotoPreviewCell.m in Sources */,
@@ -5381,6 +5396,7 @@
 				B8F6E3821CB91BEE000CC117 /* base64.m in Sources */,
 				B8FD3E491C8A7BBA007BCA6B /* README.md in Sources */,
 				B8F2D92A1C5B6DF2002C7712 /* MDRadialProgressTheme.m in Sources */,
+				B6E931A31D582C8500F0CBB4 /* SubmitSuggestTableViewCell.m in Sources */,
 				B8BD78851CC1E6F700362C89 /* STManager.m in Sources */,
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,

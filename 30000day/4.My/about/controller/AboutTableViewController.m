@@ -50,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -119,7 +119,7 @@
     
     } else {
     
-        cell.textLabel.text = @"建议反馈";
+        cell.textLabel.text = @"意见反馈";
         return cell;
     
     }

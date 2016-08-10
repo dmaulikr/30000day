@@ -4408,4 +4408,41 @@
 
 }
 
++ (void)sendCommitAdviceWithUserId:(NSNumber *)userId
+                           content:(NSString *)content
+                        adviceType:(NSInteger)adviceType
+                           success:(void (^)(BOOL success))success
+                           failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:content forKey:@"content"];
+    [params addParameter:@(adviceType) forKey:@"adviceType"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SEARCH_SERVER,COMMIT_ADVICE] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+
+
+}
+
 @end
