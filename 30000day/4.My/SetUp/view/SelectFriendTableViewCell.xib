@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q88-rq-kVx">
-                        <rect key="frame" x="69" y="27" width="133" height="18"/>
+                        <rect key="frame" x="78" y="27" width="133" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="133" id="26H-Ob-Gob"/>
                             <constraint firstAttribute="height" constant="18" id="gs7-HC-lKg"/>
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q6u-Yp-gQh">
-                        <rect key="frame" x="6" y="10" width="53" height="53"/>
+                        <rect key="frame" x="15" y="10" width="53" height="53"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="53" id="8gL-Lr-UGh"/>
@@ -41,7 +41,7 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="q6u-Yp-gQh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="71K-K1-C5n"/>
+                    <constraint firstItem="q6u-Yp-gQh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="71K-K1-C5n"/>
                     <constraint firstItem="pRb-lD-ck7" firstAttribute="centerY" secondItem="q6u-Yp-gQh" secondAttribute="centerY" id="8Db-xk-6tT"/>
                     <constraint firstAttribute="trailing" secondItem="pRb-lD-ck7" secondAttribute="trailing" constant="8" id="Glt-5V-fHZ"/>
                     <constraint firstItem="q6u-Yp-gQh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Hgg-ha-9xQ"/>

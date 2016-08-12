@@ -37,9 +37,9 @@
     
     self.tableView.delegate = self;
     
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT + 38);
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 26);
     
-    [self showHeadRefresh:NO showFooterRefresh:YES];
+    [self showHeadRefresh:NO showFooterRefresh:NO];
     
     
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
