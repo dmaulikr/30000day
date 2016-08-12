@@ -243,6 +243,8 @@
         
         self.sumDistance = 0;
         
+        self.distanceLable.text = @"- -";
+        
         [self.locationArrayM removeAllObjects];
         
         [self.countDownTimer invalidate];
@@ -737,29 +739,29 @@
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
 
-                SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
+                //SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
                 
                 SportInformationModel *sportModel = [[SportInformationModel alloc] init];
                 
                 
-                NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
-                
-                if (!lastMaxID) {
-                    
-                    lastMaxID = 1;
-                    
-                } else {
-                    
-                    lastMaxID ++;
-                    
-                }
-                
-                [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
-                
-                
-                NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
-                
-                sportModel.lastMaxID = lastMaxIDNumber;
+//                NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
+//                
+//                if (!lastMaxID) {
+//                    
+//                    lastMaxID = 1;
+//                    
+//                } else {
+//                    
+//                    lastMaxID ++;
+//                    
+//                }
+//                
+//                [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
+//                
+//                
+//                NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
+//                
+//                sportModel.sportId = lastMaxIDNumber;
                 
                 sportModel.userId = STUserAccountHandler.userProfile.userId;
                 
@@ -768,7 +770,8 @@
 
                 NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
 
-                sportModel.stepNumber = stepNumber;
+                sportModel.steps = stepNumber;
+                
                 
                 
                 CGFloat distance = self.sumDistance / 1000.0;
@@ -777,7 +780,7 @@
                 
                 NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
                 
-                sportModel.calorie = calorieNumber;
+                sportModel.calorie = [calorieNumber stringValue];
                 
                 
                 NSString *num = [NSString stringWithFormat:@"%lf",distance];
@@ -788,12 +791,10 @@
                 
                 NSNumber *distanceNumber = [NSNumber numberWithFloat:num.floatValue];
                 
-                sportModel.distance = distanceNumber;
+                sportModel.distance = [distanceNumber stringValue];
                 
                 
-                NSNumber *timeNumber = [[NSNumber alloc] initWithInteger:self.timerInt];
-                
-                sportModel.time = timeNumber;
+                sportModel.period = [NSString stringWithFormat:@"%ld",self.timerInt];
                 
                 NSString *x = @"";
                 
@@ -821,9 +822,9 @@
                     
                 }
                 
-                sportModel.x = x;
+                sportModel.xcoordinate = x;
                 
-                sportModel.y = y;
+                sportModel.ycoordinate = y;
                 
                 
                 NSDate *date = [NSDate date];
@@ -834,15 +835,44 @@
                 
                 NSString *stringDate = [dateFormatter stringFromDate:date];
                 
-                sportModel.dateTime = stringDate;
+                sportModel.startTime = stringDate;
                 
                 
-                [SFTable insertSportInformation:sportModel];
+                [STDataHandler sendCommitSportHistoryWithSportInformationModel:sportModel success:^(BOOL success) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       
+                        if (success) {
+                            
+                            NSLog(@"保存成功");
+                            
+                        }
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                        //发送通知刷新历史记录
+                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
+                        
+                    });
+                    
+                    
+                } failure:^(NSError *error) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                    });
+                    
+                }];
+                
+                
+                //[SFTable insertSportInformation:sportModel];
                 
                 
                 [self over];
                 
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
 }
             
         }];
@@ -861,7 +891,7 @@
     
     } else {  //关闭页面
         
-        [self colseView];
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     }
     
@@ -910,16 +940,6 @@
     self.startLable.text = @"关闭";
     
     [self.circleButton setBackgroundColor:[UIColor redColor]];
-    
-}
-
-
-- (void)colseView {
-    
-    //发送通知刷新历史记录
-    [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 

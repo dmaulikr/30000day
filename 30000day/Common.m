@@ -151,7 +151,7 @@
 
 + (NSString *)urlStringWithDictionarySearch:(NSMutableDictionary *)dictinary withString:(NSString *)subApi {
     
-    NSString *STAPI = ST_API_SEARCH_SERVER;
+    NSString *STAPI = ST_API_SERVER;
     NSString *url = [NSString stringWithFormat:@"%@%@?",STAPI,subApi];
     NSArray *array = [dictinary allKeys];
     NSString *keyValueString = @"";

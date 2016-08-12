@@ -10,6 +10,7 @@
 #import "CDSoundManager.h"
 #import "FactorVerificationView.h"
 #import "MTProgressHUD.h"
+#import "LookSportAuthorityViewController.h"
 
 static CGFloat kHorizontalSpacing = 40;
 static CGFloat kFooterHeight = 30;
@@ -222,7 +223,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count + 2;
+    return self.dataSource.count + 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -251,7 +252,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIndentifier];
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     
     if (self.dataSource.count == indexPath.section) {
         
@@ -272,6 +273,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         [switchView setOn:!STUserAccountHandler.userProfile.friendSwitch.boolValue];
         [switchView addTarget:self action:@selector(friendValidation:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = switchView;
+        
+    } else if (self.dataSource.count + 2 == indexPath.section){
+        
+        cell.textLabel.text = @"运动记录可见权限";
+        
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         
     } else {
         
@@ -295,7 +302,9 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         
         cell.textLabel.text = text;
         cell.detailTextLabel.text = detailText;
+    
     }
+    
     return cell;
 }
 
@@ -305,6 +314,14 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.dataSource.count + 2 == indexPath.section) {
+        
+        LookSportAuthorityViewController *controller = [[LookSportAuthorityViewController alloc] init];
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -327,8 +344,16 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
         return tipLabel;
         
-    } else {
+    } else if (self.dataSource.count + 2 == section) {
     
+        UILabel *tipLabel = [self tipLabel];
+        
+        tipLabel.text = @"设置运动记录可见人群";
+        
+        return tipLabel;
+        
+    } else {
+        
         NSDictionary *sectionData = self.dataSource[section];
         
         NSString *tipText = sectionData[kTipText];
@@ -345,6 +370,8 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
             
             return nil;
         }
+
+        
     }
 }
 

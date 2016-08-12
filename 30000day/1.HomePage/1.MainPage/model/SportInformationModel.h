@@ -10,22 +10,22 @@
 
 @interface SportInformationModel : NSObject
 
-@property (nonatomic,strong) NSNumber *lastMaxID; //唯一标示
+@property (nonatomic,strong) NSNumber *sportId; //唯一标示
 
 @property (nonatomic,strong) NSNumber *userId; //用户ID
 
-@property (nonatomic,strong) NSNumber *stepNumber; //步数
+@property (nonatomic,strong) NSNumber *steps; //步数
 
-@property (nonatomic,strong) NSNumber *distance; //运动距离
+@property (nonatomic,copy) NSString *distance; //运动距离
 
-@property (nonatomic,strong) NSNumber *calorie;  //消耗的卡路里
+@property (nonatomic,copy) NSString *calorie;  //消耗的卡路里
 
-@property (nonatomic,strong) NSNumber *time; //运动时长
+@property (nonatomic,copy) NSString *period; //运动时长
 
-@property (nonatomic,strong) NSString *x; //坐标x
+@property (nonatomic,copy) NSString *xcoordinate; //坐标x
 
-@property (nonatomic,strong) NSString *y; //坐标y
+@property (nonatomic,copy) NSString *ycoordinate; //坐标y
 
-@property (nonatomic,strong) NSString *dateTime; //开始时间
+@property (nonatomic,copy) NSString *startTime; //开始时间
 
 @end

@@ -26,15 +26,15 @@
 
     _sportInformationModel = sportInformationModel;
     
-    self.dateTimeLable.text = sportInformationModel.dateTime;
+    self.dateTimeLable.text = sportInformationModel.startTime;
     
-    self.distanceLable.text = sportInformationModel.distance.stringValue == nil || [sportInformationModel.distance.stringValue isEqualToString:@"0"] ? @"0.00" : sportInformationModel.distance.stringValue;
+    self.distanceLable.text = sportInformationModel.distance == nil || [sportInformationModel.distance isEqualToString:@"0"] ? @"0.00" : sportInformationModel.distance;
     
-    self.timeLable.text = sportInformationModel.time.stringValue == nil ? @"00:00:00" : [self TimeformatFromSeconds:sportInformationModel.time.integerValue];
+    self.timeLable.text = sportInformationModel.period == nil ? @"00:00:00" : [self TimeformatFromSeconds:sportInformationModel.period.integerValue];
     
-    self.stepNumberLable.text = sportInformationModel.stepNumber.stringValue;
+    self.stepNumberLable.text = sportInformationModel.steps.stringValue;
     
-    self.calorieLable.text = sportInformationModel.calorie.stringValue == nil ? @"0.0" : [NSString stringWithFormat:@"%.1f",sportInformationModel.calorie.floatValue];
+    self.calorieLable.text = sportInformationModel.calorie == nil ? @"0.0" : [NSString stringWithFormat:@"%.1f",sportInformationModel.calorie.floatValue];
     
 }
 

@@ -55,23 +55,23 @@
 
     SportInformationTable *SFTable = [NSEntityDescription insertNewObjectForEntityForName:@"SportInformationTable" inManagedObjectContext:_managedObjectContext];
     
-    SFTable.lastMaxID = model.lastMaxID;
+    SFTable.lastMaxID = model.sportId;
     
     SFTable.userId = model.userId;
     
-    SFTable.stepNumber = model.stepNumber;
+    SFTable.stepNumber = model.steps;
     
     SFTable.distance = model.distance;
     
     SFTable.calorie = model.calorie;
     
-    SFTable.time = model.time;
+    SFTable.time = model.period;
     
-    SFTable.x = model.x;
+    SFTable.x = model.xcoordinate;
     
-    SFTable.y = model.y;
+    SFTable.y = model.ycoordinate;
     
-    SFTable.dateTime = model.dateTime;
+    SFTable.dateTime = model.startTime;
     
     NSError *err = nil;
     
@@ -111,23 +111,23 @@
         
         SportInformationModel *model = [[SportInformationModel alloc] init];
         
-        model.lastMaxID = [obj valueForKey:@"lastMaxID"];
+        model.sportId = [obj valueForKey:@"lastMaxID"];
         
         model.userId = [obj valueForKey:@"userId"];
         
-        model.stepNumber = [obj valueForKey:@"stepNumber"];
+        model.steps = [obj valueForKey:@"stepNumber"];
         
         model.distance = [obj valueForKey:@"distance"];
         
         model.calorie = [obj valueForKey:@"calorie"];
         
-        model.time = [obj valueForKey:@"time"];
+        model.period = [obj valueForKey:@"time"];
         
-        model.x = [obj valueForKey:@"x"];
+        model.xcoordinate = [obj valueForKey:@"x"];
         
-        model.y = [obj valueForKey:@"y"];
+        model.ycoordinate = [obj valueForKey:@"y"];
         
-        model.dateTime = [obj valueForKey:@"dateTime"];
+        model.startTime = [obj valueForKey:@"dateTime"];
         
         [array addObject:model];
         

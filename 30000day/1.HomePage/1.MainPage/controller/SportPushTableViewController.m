@@ -1,12 +1,12 @@
 //
-//  SportTableViewController.m
+//  SportPushTableViewController.m
 //  30000day
 //
-//  Created by WeiGe on 16/7/7.
+//  Created by WeiGe on 16/8/12.
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "SportTableViewController.h"
+#import "SportPushTableViewController.h"
 #import "SportTableViewCell.h"
 #import "SportTrajectoryViewController.h"
 #import "SportInformationTableManager.h"
@@ -15,7 +15,7 @@
 #import "SportHeadTableViewCell.h"
 #import "MTProgressHUD.h"
 
-@interface SportTableViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface SportPushTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *modelArray;
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation SportTableViewController
+@implementation SportPushTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,37 +42,14 @@
     
     [self showHeadRefresh:NO showFooterRefresh:YES];
     
+    [self reloadData];
+    
     //刷新运动历史记录
-    [STNotificationCenter addObserver:self selector:@selector(refurbish) name:STDidSuccessSportInformationSendNotification object:nil];
-    
-    //登录成功刷新
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessSportInformationSendNotification object:nil];
 }
-
-- (void)reloadData {
-    
-    [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:1 success:^(NSMutableArray *dataArray) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.modelArray = dataArray;
-            
-            self.page = 2;
-            
-            [self.tableView reloadData];
-            
-        });
-        
-    } failure:^(NSError *error) {
-        
-        
-    }];
-    
-}
-
 
 - (void)footerRereshing {
-
+    
     [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:self.page success:^(NSMutableArray *dataArray) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -88,7 +65,7 @@
                 self.page ++;
                 
             }
-
+            
             [self.tableView.mj_footer endRefreshing];
             
             [self.tableView reloadData];
@@ -96,96 +73,83 @@
         });
         
     } failure:^(NSError *error) {
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-        
+            
             [self.tableView.mj_footer endRefreshing];
-        
+            
         });
         
     }];
-
+    
 }
 
-- (void)refurbish {
+- (void)reloadData {
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     
-    //for (NSInteger i = 1; i <= self.page; i++) {
+    [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:1 success:^(NSMutableArray *dataArray) {
         
-        [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:1 success:^(NSMutableArray *dataArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                //for (int i = 0; i < dataArray.count; i++) {
-                    
-                //    [self.modelArray addObject:dataArray[i]];
-                    
-                //}
-                
-                if (dataArray.count > 0) {
-                    
-                    self.page = 2;
-                    
-                }
-                
-                self.modelArray = dataArray;
-                
-                [self.tableView reloadData];
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-            });
+            self.modelArray = dataArray;
             
-        } failure:^(NSError *error) {
+            self.page = 2;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                
-            });
+            [self.tableView reloadData];
             
-        }];
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
         
-    //}
+    } failure:^(NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            
+        });
+        
+    }];
+    
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 2;
-
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     if (section == 0) {
         
         return 1;
         
     } else {
-    
+        
         return self.modelArray.count;
     }
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
+    
     if (section == 0) {
         
         return 0.1f;
         
     } else {
-    
+        
         return 20;
-    
+        
     }
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     if (indexPath.section == 0) {
         
         return 100;
@@ -193,7 +157,7 @@
     }
     
     return 74;
-
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -219,7 +183,7 @@
         [STDataHandler senddeleteSportHistoryWithSportId:model.sportId success:^(BOOL success) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-               
+                
                 if (success) {
                     
                     NSMutableArray *array = [NSMutableArray arrayWithArray:self.modelArray];
@@ -250,7 +214,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     if (indexPath.section == 0) {
         
         SportHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportHeadTableViewCell"];
@@ -260,7 +224,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"SportHeadTableViewCell" owner:nil options:nil] lastObject];
             
         }
-
+        
         __weak typeof(cell) weakSelf = cell;
         
         [cell setButtonBlock:^(UIButton *btn) {
@@ -274,9 +238,9 @@
                     weakSelf.editorLable.text = @"完成";
                     
                 } else {
-                
+                    
                     weakSelf.editorLable.text = @"编辑";
-                
+                    
                 }
                 
                 [self.tableView reloadData];
@@ -286,15 +250,15 @@
                 [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
                 
             } else {
-
+                
                 AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];
                 
                 [manger startMonitoring];
-
+                
                 [manger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-
-                    if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
                     
+                    if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                        
                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"到户外去运动吧！" message:@"室内运动会导致运动记录不准确无法获取运动轨迹" preferredStyle:UIAlertControllerStyleAlert];
                         
                         UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"继续运动" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -314,17 +278,17 @@
                         [self presentViewController:alert animated:YES completion:nil];
                         
                     } else {
-                    
+                        
                         SportTrajectoryViewController *controller = [[SportTrajectoryViewController alloc] init];
                         
                         [self.navigationController presentViewController:controller animated:YES completion:nil];
-                    
+                        
                     }
                     
                 }];
                 
                 [manger stopMonitoring];
-            
+                
             }
             
         }];
@@ -334,7 +298,7 @@
     } else {
         
         SportInformationModel *model = self.modelArray[indexPath.row];
-    
+        
         SportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SportTableViewCell"];
         
         if (!cell) {
@@ -346,11 +310,11 @@
         cell.sportInformationModel = model;
         
         return cell;
-    
+        
     }
     
     return nil;
-
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -376,14 +340,23 @@
         [self.navigationController presentViewController:controller animated:YES completion:nil];
         
     }
-
+    
 }
-
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

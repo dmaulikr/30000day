@@ -14,6 +14,7 @@
 #import "InformationDetails.h"
 #import "InformationCommentModel.h"
 #import "LifeDescendFactorsModel.h"
+#import "SportInformationModel.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -63,6 +64,8 @@ static NSString *const STDidSuccessSportInformationSendNotification = @"STDidSuc
 static NSString *const STSelectSportsFunctionMapSendNotification = @"STSelectSportsFunctionMapSendNotification";
 //选择播报距离
 static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"STSelectSportsFunctionSpeechDistanceSendNotification";
+//指定好友返回刷新
+static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification = @"STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification";
 
 @class STNetError;
 @class WeatherInformationModel;
@@ -575,5 +578,36 @@ static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"
                         adviceType:(NSInteger)adviceType
                            success:(void (^)(BOOL success))success
                            failure:(void (^)(NSError *error))failure;
+
+//*********************提交运动记录*******************//
++ (void)sendCommitSportHistoryWithSportInformationModel:(SportInformationModel *)sportInformationModel
+                                                success:(void (^)(BOOL success))success
+                                                failure:(void (^)(NSError *error))failure;
+
+//**********************获取运动历史记录********************//
++ (void)sendGetSportHistoryListWithCurUserId:(NSNumber *)curUserId
+                                      userId:(NSNumber *)userId
+                                 currentPage:(NSInteger)currentPage
+                                    success:(void (^)(NSMutableArray *dataArray))success
+                                    failure:(void (^)(NSError *error))failure;
+
+//*********************删除运动历史记录*******************//
++ (void)senddeleteSportHistoryWithSportId:(NSNumber *)sportId
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure;
+
+
+//*********************获取运动权限状态*******************//
++ (void)sendGetSportSwitchWithUserId:(NSNumber *)userId
+                             success:(void (^)(NSMutableDictionary *dictionaryData))dictionaryData
+                             failure:(void (^)(NSError *error))failure;
+
+//*********************设置运动开关*******************//
++ (void)sendSetSportSwitchWithUserId:(NSNumber *)userId
+                              status:(NSInteger)status
+                            crowdIds:(NSString *)crowdIds
+                             success:(void (^)(BOOL success))success
+                             failure:(void (^)(NSError *error))failure;
+
 
 @end

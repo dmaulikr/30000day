@@ -265,9 +265,9 @@
 //加载轨迹以及大头针
 - (void)loadAnnotation {
 
-    NSArray *XArray = [self.sportInformationModel.x componentsSeparatedByString:@","];
+    NSArray *XArray = [self.sportInformationModel.xcoordinate componentsSeparatedByString:@","];
     
-    NSArray *YArray = [self.sportInformationModel.y componentsSeparatedByString:@","];
+    NSArray *YArray = [self.sportInformationModel.ycoordinate componentsSeparatedByString:@","];
     
     
     CLLocationCoordinate2D coors[XArray.count];
@@ -333,7 +333,7 @@
     
     CGFloat lableX = (SCREEN_WIDTH / 3 - labelWith) / 2;
     
-    UILabel *timeLable = [self lableWithFrame:CGRectMake(lableX, labelTop, labelWith, lableHeight) text:self.sportInformationModel.time.stringValue == nil ? @"00:00:00" : [self TimeformatFromSeconds:self.sportInformationModel.time.integerValue]];
+    UILabel *timeLable = [self lableWithFrame:CGRectMake(lableX, labelTop, labelWith, lableHeight) text:self.sportInformationModel.period == nil ? @"00:00:00" : [self TimeformatFromSeconds:self.sportInformationModel.period.integerValue]];
     
     [topView addSubview:timeLable];
     
@@ -355,7 +355,7 @@
     
     CGFloat stepNumberLableX = lableX + (SCREEN_WIDTH / 3) * 2;
     
-    UILabel *stepNumberLable = [self lableWithFrame:CGRectMake(stepNumberLableX, labelTop, labelWith, lableHeight) text:self.sportInformationModel.stepNumber.stringValue];
+    UILabel *stepNumberLable = [self lableWithFrame:CGRectMake(stepNumberLableX, labelTop, labelWith, lableHeight) text:self.sportInformationModel.steps.stringValue];
     
     [topView addSubview:stepNumberLable];
     
@@ -370,7 +370,7 @@
     
     [distanceLable setTextColor:[UIColor whiteColor]];
     
-    [distanceLable setText:self.sportInformationModel.distance.stringValue == nil || [self.sportInformationModel.distance.stringValue isEqualToString:@"0"] ? @"0.00" : self.sportInformationModel.distance.stringValue];
+    [distanceLable setText:self.sportInformationModel.distance == nil || [self.sportInformationModel.distance isEqualToString:@"0"] ? @"0.00" : self.sportInformationModel.distance];
     
     //[distanceLable setBackgroundColor:[UIColor whiteColor]];
     

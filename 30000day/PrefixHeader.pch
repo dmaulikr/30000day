@@ -42,8 +42,8 @@
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi/1.0"
-#define  ST_API_SEARCH_SERVER         @"http://121.196.223.175:8082/stapi2/2.0" //用户搜索好友接口
+#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi2/2.0"
+//#define  ST_API_SEARCH_SERVER         @"http://121.196.223.175:8082/stapi2/2.0" //用户搜索好友接口
 
 
 //聚合宏
@@ -73,7 +73,7 @@
 #define COUNTDOWN                     @"count_Down"           //倒计时
 #define DEFEATDATA                    @"Defeat_Data"          //击败多少用户
 #define DAYS_AGE                      @"Days_age"             //用户当前天龄
-#define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
+//#define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
 
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height
@@ -194,6 +194,11 @@
 #define  ASYNCNOTIFY                     @"/alipay/asyncNotify"               //支付
 #define  FINDADVICETYPES                 @"/advice/findAdviceTypes"           //获取意见类型
 #define  COMMIT_ADVICE                   @"/advice/commitAdvice"              //提交反馈意见
+#define  COMMIT_SPORTHISTORY             @"/sport/commitSportHistory"         //提交运动记录
+#define  GET_SPORT_HISTORYLIST           @"/sport/getSportHistoryList"        //获取运动历史记录
+#define  DELETE_SPORTHISTORY             @"/sport/deleteSportHistory"         //删除运动历史记录
+#define  GET_SPORTSWITCH                 @"/sport/getSportSwitch"             //获取运动开关
+#define  SET_SPORTSWITCH                 @"/sport/setSportSwitch"             //设置运动开关
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"

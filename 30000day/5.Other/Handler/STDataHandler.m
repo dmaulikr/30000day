@@ -4375,7 +4375,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SEARCH_SERVER,FINDADVICETYPES] parameters:nil  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,FINDADVICETYPES] parameters:nil  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
@@ -4423,7 +4423,212 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SEARCH_SERVER,COMMIT_ADVICE] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_ADVICE] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+
+
+}
+
+//*********************提交运动记录*******************//
++ (void)sendCommitSportHistoryWithSportInformationModel:(SportInformationModel *)sportInformationModel
+                                                success:(void (^)(BOOL success))success
+                                                failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:sportInformationModel.userId forKey:@"userId"];
+    [params addParameter:sportInformationModel.steps forKey:@"steps"];
+    [params addParameter:sportInformationModel.distance forKey:@"distance"];
+    [params addParameter:sportInformationModel.calorie forKey:@"calorie"];
+    [params addParameter:sportInformationModel.period forKey:@"period"];
+    [params addParameter:sportInformationModel.xcoordinate forKey:@"xcoordinate"];
+    [params addParameter:sportInformationModel.ycoordinate forKey:@"ycoordinate"];
+    [params addParameter:sportInformationModel.startTime forKey:@"startTime"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_SPORTHISTORY] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+    
+    
+}
+
+
+
+//**********************获取运动历史记录********************//
++ (void)sendGetSportHistoryListWithCurUserId:(NSNumber *)curUserId
+                                      userId:(NSNumber *)userId
+                                 currentPage:(NSInteger)currentPage
+                                     success:(void (^)(NSMutableArray *dataArray))success
+                                     failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:curUserId forKey:@"curUserId"];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:@(currentPage) forKey:@"currentPage"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.completionQueue = dispatch_queue_create("sendLifeDescendFactorsWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:GET_SPORT_HISTORYLIST];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SPORT_HISTORYLIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSError *localError = nil;
+        
+        id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
+        if (localError == nil) {
+            
+            NSDictionary *recvDic = (NSDictionary *)parsedObject;
+            
+            if ([recvDic[@"code"] isEqualToNumber:@0]) {
+                
+                NSArray *array = recvDic[@"value"];
+                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                
+                for (int i = 0; i < array.count; i++) {
+                    
+                    NSDictionary *dictionary = array[i];
+                    SportInformationModel *model = [[SportInformationModel alloc] init];
+                    [model setValuesForKeysWithDictionary:dictionary];
+                    [dataArray addObject:model];
+                }
+                
+                success(dataArray);
+                
+            } else {
+                
+                failure([Common errorWithString:recvDic[@"msg"]]);
+            }
+        } else {
+            
+            failure(localError);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+
+}
+
+//*********************删除运动历史记录*******************//
++ (void)senddeleteSportHistoryWithSportId:(NSNumber *)sportId
+                                  success:(void (^)(BOOL success))success
+                                  failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:sportId forKey:@"id"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,DELETE_SPORTHISTORY] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+    
+    
+}
+
+//*********************获取运动权限状态*******************//
++ (void)sendGetSportSwitchWithUserId:(NSNumber *)userId
+                             success:(void (^)(NSMutableDictionary *dictionaryData))dictionaryData
+                             failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_SPORTSWITCH] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            dictionaryData(recvDic[@"value"]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+
+}
+
+//*********************设置运动开关*******************//
++ (void)sendSetSportSwitchWithUserId:(NSNumber *)userId
+                              status:(NSInteger)status
+                            crowdIds:(NSString *)crowdIds
+                             success:(void (^)(BOOL success))success
+                             failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:@(status) forKey:@"status"];
+    [params addParameter:crowdIds forKey:@"crowdIds"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_SPORTSWITCH] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
