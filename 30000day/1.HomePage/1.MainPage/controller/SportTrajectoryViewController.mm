@@ -27,62 +27,35 @@
 
 @interface SportTrajectoryViewController () <BMKMapViewDelegate,BMKLocationServiceDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,AVSpeechSynthesizerDelegate>
 
-@property (nonatomic,strong) BMKMapView *mapView; //地图
-
-@property (nonatomic,strong) BMKLocationService *service; //定位
-
-//@property (nonatomic,strong) CLLocation *preLocation;  //记录上一次的位置
-
-@property (nonatomic,strong) NSMutableArray *locationArrayM; //位置数组
-
-@property (nonatomic,strong) BMKPolyline *polyLine; //轨迹线
-
-@property (nonatomic,assign) CGFloat sumDistance;  //累计步行距离
-
-@property (nonatomic,assign) CGFloat KMDistance; //用于距离提醒
-
-@property (nonatomic,strong) NSTimer *timer; //计时器
-
-@property (nonatomic,assign) NSInteger timerInt; //跑步时间
-
-@property (nonatomic,assign) NSInteger lastTimeStepNumber; //上次运动步数
-
-@property (nonatomic,assign) NSInteger stepNumber; //累计步数
-
-@property (nonatomic,strong) AVSpeechSynthesizer *aVSpeechSynthesizer; //语音播报
-
-@property (nonatomic,strong) CMPedometer *pedometer; //计步器
-
-@property (nonatomic,assign) NSInteger firstEnter; //1 表示第一次进入
-
+@property (nonatomic,strong) BMKMapView *mapView;                               //地图
+@property (nonatomic,strong) BMKLocationService *service;                       //定位
+@property (nonatomic,strong) CLLocation *preLocation;                           //记录上一次的位置
+@property (nonatomic,strong) NSMutableArray *locationArrayM;                    //位置数组
+@property (nonatomic,strong) BMKPolyline *polyLine;                             //轨迹线
+@property (nonatomic,assign) CGFloat sumDistance;                               //累计步行距离
+@property (nonatomic,assign) CGFloat KMDistance;                                //用于距离提醒
+@property (nonatomic,strong) NSTimer *timer;                                    //计时器
+@property (nonatomic,assign) NSInteger timerInt;                                //跑步时间
+@property (nonatomic,assign) NSInteger lastTimeStepNumber;                      //上次运动步数
+@property (nonatomic,assign) NSInteger stepNumber;                              //累计步数
+@property (nonatomic,strong) AVSpeechSynthesizer *aVSpeechSynthesizer;          //语音播报
+@property (nonatomic,strong) CMPedometer *pedometer;                            //计步器
+@property (nonatomic,assign) NSInteger firstEnter;                              //1 表示第一次进入
 @property (nonatomic,strong) SportsFunctionManager *sportsFunctionManager;
-
 @property (nonatomic,strong) SportsFunctionModel *sportsFunctionModel;
+@property (nonatomic,assign) NSInteger speechDistance;                          //播报距离
+@property (nonatomic,assign) BOOL isTap;                                        //是否点击
 
-@property (nonatomic,assign) NSInteger speechDistance;//播报距离
-
-@property (nonatomic,assign) BOOL isTap; //是否点击
-
-
-@property (nonatomic,strong) UIView *countDownView; //倒计时视图
-
+@property (nonatomic,strong) UIView *countDownView;                             //倒计时视图
 @property (nonatomic,strong) UILabel *countDownLable;
-
 @property (nonatomic,assign) NSInteger countDownNumber;
-
 @property (nonatomic,strong) NSTimer *countDownTimer;
 
-
-@property (nonatomic,strong) UIView *belowView;
-
+@property (nonatomic,strong) UIView *belowView;                                 //其他视图
 @property (nonatomic,strong) UILabel *distanceLable;
-
 @property (nonatomic,strong) UILabel *timeLable;
-
 @property (nonatomic,strong) UILabel *startLable;
-
 @property (nonatomic,strong) UIButton *circleButton;
-
 @property (nonatomic,strong) UITableView *tableView;
 
 @end
@@ -92,38 +65,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadOtherObj];
+    [self loadOtherObj];          //计步器 音频 通知
     
-    [self loadMapView];
+    [self loadMapView];           //初始化地图 定位
     
-    [self loadOtherView];
+    [self loadOtherView];         //初始化其他视图
     
-    [self loadCountDownView];
+    [self loadCountDownView];     //初始化倒计时
 
 }
 
 //计步器 音频 通知
 - (void)loadOtherObj{
-
+    
     self.locationArrayM = [NSMutableArray array];
-    
     _aVSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
-    
     [_aVSpeechSynthesizer setDelegate:self];
-    
     self.firstEnter = 1;
     
-    //检测是否支持计步器
-    if ([CMPedometer isStepCountingAvailable]) self.pedometer = [[CMPedometer alloc] init];
+
+    if ([CMPedometer isStepCountingAvailable]) self.pedometer = [[CMPedometer alloc] init]; //检测是否支持计步器
     
-    //dismiss返回刷新
-    [STNotificationCenter addObserver:self selector:@selector(sportsFunctionFreshen:) name:STSelectSportsFunctionMapSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(sportsFunctionFreshen:) name:STSelectSportsFunctionMapSendNotification object:nil]; //dismiss返回刷新
 
     [STNotificationCenter addObserver:self selector:@selector(sportsFunctionBroadcastFreshen:) name:STSelectSportsFunctionSpeechDistanceSendNotification object:nil];
     
     //获取语音播报间隔时间与地图设置 若新用户则插入默认数据
     SportsFunctionManager *sportsFunctionManager = [[SportsFunctionManager alloc] init];
-    
+
     SportsFunctionModel *model = [sportsFunctionManager selectSportsFunction:STUserAccountHandler.userProfile.userId];
     
     if (!model.userId) {
@@ -196,36 +165,31 @@
 - (void)loadCountDownView {
     
     self.countDownNumber = 3;
-    
 
     UIView *countDownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     [countDownView setBackgroundColor:[UIColor whiteColor]];
-    
     [self.view addSubview:countDownView];
-    
     self.countDownView = countDownView;
     
-    
     UILabel *countDownLable = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 200) / 2, (SCREEN_HEIGHT - 300) / 2, 200, 300)];
-    
-    //[countDownLable setBackgroundColor:[UIColor redColor]];
-    
     [countDownLable setText:[NSString stringWithFormat:@"%ld",self.countDownNumber]];
-    
     [countDownLable setFont:[UIFont systemFontOfSize:300]];
-    
     [countDownLable setTextAlignment:NSTextAlignmentCenter];
-    
     [countDownLable setTextColor:LOWBLUECOLOR];
-    
     [countDownView addSubview:countDownLable];
-    
     self.countDownLable = countDownLable;
-    
     
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDownTiming) userInfo:nil repeats:YES];
 
+}
+
+//计时器
+- (void)timing {
+    
+    self.timerInt += 1;
+    
+    self.timeLable.text = [NSString stringWithFormat:@"%@",[self TimeformatFromSeconds:self.timerInt]];
+    
 }
 
 //倒计时
@@ -307,52 +271,31 @@
 - (void)loadMapView {
 
     self.service = [[BMKLocationService alloc] init];
-    
     self.service.distanceFilter = 5;
-    
     self.service.desiredAccuracy = kCLLocationAccuracyBest;
-    
     self.service.delegate = self;
-    
     self.service.allowsBackgroundLocationUpdates = YES;
-    
     self.service.pausesLocationUpdatesAutomatically = NO;
-    
     [self.service startUserLocationService];
     
-    
     self.mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
     [self.mapView setMapType:self.sportsFunctionModel.mapType.integerValue];
-    
     self.mapView.showsUserLocation = YES;
-    
     self.mapView.delegate = self;
-    
     self.mapView.zoomLevel = 17;
     
     UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTap)];
-    
     [portraitTap setDelegate:self];
-    
     [self.mapView addGestureRecognizer:portraitTap];
-    
     
     // 定位图层自定义样式参数
     BMKLocationViewDisplayParam *displayParam = [[BMKLocationViewDisplayParam alloc]init];
-    
     displayParam.isRotateAngleValid = NO;//跟随态旋转角度是否生效
-    
     displayParam.isAccuracyCircleShow = NO;//精度圈是否显示
-    
     displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
-    
     displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
-    
     [self.mapView updateLocationViewWithParam:displayParam];
-    
     [self.view addSubview:self.mapView];
-
 
 }
 
@@ -360,156 +303,66 @@
 - (void)loadOtherView {
     
     UIView *belowView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 188, SCREEN_WIDTH, 188)];
-    
     [belowView setBackgroundColor:[UIColor whiteColor]];
-    
     [self.mapView addSubview:belowView];
-    
     self.belowView = belowView;
     
-    
     UILabel *distanceLable = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 100, 30)];
-    
     [distanceLable setTextAlignment:NSTextAlignmentCenter];
-    
     [distanceLable setText:@"- -"];
-    
     [distanceLable setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20.0]];
-    
     [belowView addSubview:distanceLable];
-    
     self.distanceLable = distanceLable;
     
-    
     UILabel *distanceLablelable1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, 100, 20)];
-    
     [distanceLablelable1 setTextAlignment:NSTextAlignmentCenter];
-    
     [distanceLablelable1 setFont:[UIFont systemFontOfSize:15.0]];
-    
     [distanceLablelable1 setTextColor:VIEWBORDERLINECOLOR];
-    
     [distanceLablelable1 setText:@"距离(公里)"];
-    
     [belowView addSubview:distanceLablelable1];
     
-    
-    
     UILabel *timeLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 120, 20, 100, 30)];
-    
     [timeLable setTextAlignment:NSTextAlignmentCenter];
-    
     [timeLable setFont:[UIFont fontWithName:@"Arial-BoldMT" size:20.0]];
-    
     [timeLable setText:@"00:00:00"];
-    
     [belowView addSubview:timeLable];
-    
     self.timeLable =  timeLable;
     
-    
     UILabel *timeLable1 = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 120, 60, 100, 20)];
-    
     [timeLable1 setTextAlignment:NSTextAlignmentCenter];
-    
     [timeLable1 setFont:[UIFont systemFontOfSize:15.0]];
-    
     [timeLable1 setTextColor:VIEWBORDERLINECOLOR];
-    
     [timeLable1 setText:@"时长"];
-    
     [belowView addSubview:timeLable1];
     
-    
     UIButton *circleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
     [circleButton setTag:0];
-    
     [circleButton setFrame:CGRectMake(SCREEN_WIDTH / 2 - 40, 10, 80, 80)];
-    
     [circleButton setBackgroundColor:LOWBLUECOLOR];
-    
     circleButton.layer.masksToBounds = YES;
-    
     circleButton.layer.cornerRadius = circleButton.frame.size.width / 2;
-    
     [circleButton addTarget:self action:@selector(startClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     [belowView addSubview:circleButton];
-    
     self.circleButton = circleButton;
     
-    
     UILabel *startLable = [[UILabel alloc] initWithFrame:CGRectMake(circleButton.bounds.size.width / 2 - 20, circleButton.bounds.size.height / 2 - 10, 40, 20)];
-    
     [startLable setTextAlignment:NSTextAlignmentCenter];
-    
     [startLable setTextColor:[UIColor whiteColor]];
-    
     [startLable setText:@"结束"];
-    
     [circleButton addSubview:startLable];
-    
     self.startLable = startLable;
     
-    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 99, SCREEN_WIDTH, 0.5)];
-    
     [lineView setBackgroundColor:VIEWBORDERLINECOLOR];
-    
     [belowView addSubview:lineView];
     
-    
-    
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, 90)];
-    
     [tableView setDelegate:self];
-    
     [tableView setDataSource:self];
-    
     [tableView setScrollEnabled:NO];
-    
     [belowView addSubview:tableView];
     
     self.tableView = tableView;
-
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        return NO;
-    }
-    return  YES;
-}
-
-- (void)mapTap {
-
-    if (self.isTap) {
-        
-        //收起
-        
-        [UIView animateWithDuration:0.5 animations:^{
-           
-            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT - 188, SCREEN_WIDTH, 188)];
-            
-        }];
-        
-        self.isTap = 0;
-    
-    } else {
-    
-        //展开
-        
-        [UIView animateWithDuration:0.5 animations:^{
-           
-            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 188)];
-            
-        }];
-        
-        self.isTap = 1;
-        
-    }
 
 }
 
@@ -581,81 +434,40 @@
 
 }
 
-//计时器
-- (void)timing {
-
-    self.timerInt += 1;
-    
-    self.timeLable.text = [NSString stringWithFormat:@"%@",[self TimeformatFromSeconds:self.timerInt]];
-    
-}
-
-//秒转时分秒
-- (NSString*)TimeformatFromSeconds:(NSInteger)seconds {
-    
-    //format of hour
-    NSString *str_hour = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    
-    //format of minute
-    NSString *str_minute = [NSString stringWithFormat:@"%02ld",(seconds%3600)/60];
-    
-    //format of second
-    NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds%60];
-    
-    //format of time
-    NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
-    
-    return format_time;
-}
-
 //定位代理
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation {
     
+    //跟新坐标
     [self.mapView updateLocationData:userLocation];
-    
     self.mapView.centerCoordinate = userLocation.location.coordinate;
     
-    /* //计算本次定位数据与上次定位数据之间的距离
+    //计算本次定位数据与上次定位数据之间的距离   并保存距离
     CGFloat distanceFloat = [userLocation.location distanceFromLocation:self.preLocation];
+    self.sumDistance += distanceFloat;
+    self.KMDistance += distanceFloat;
     
-    // (5米门限值，存储数组划线) 如果距离少于 5 米，则忽略本次数据直接返回该方法
-    if (distanceFloat < 5) {
-        NSLog(@"与前一更新点距离小于5m，直接返回该方法");
-        return;
-    } */
-    
-    // 累加步行距离
+    //距离跟新到lable
     CGFloat distance = self.sumDistance / 1000.0;
-    
     NSString *num = [NSString stringWithFormat:@"%lf",distance];
-    
     NSRange range = [num rangeOfString:@"."];
-    
     num = [num substringToIndex:range.location + 3];
-    
     self.distanceLable.text = [NSString stringWithFormat:@"%@",num];
-    
-    self.sumDistance += 5;
-    
-    self.KMDistance += 5;
     
     //将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
     
+    //语音播报
     CGFloat KM = self.KMDistance / 1000.0;
-    
     if (KM >= self.speechDistance && self.speechDistance != 0) {
-        
-        NSString *readString = [NSString stringWithFormat:@"您已经运动了%lf公里 用时%@ 加油",distance,[self TimeformatFromSeconds:self.timerInt]];
-        
+        NSString *readString = [NSString stringWithFormat:@"您已经运动了%@公里 用时%@ 加油",num,[self TimeformatFromSeconds:self.timerInt]];
         [self read:readString];
-        
         self.KMDistance = 0;
-        
     }
     
-    //self.preLocation = userLocation.location;
+    //记录本次坐标点 用于下次对比
+    self.preLocation = userLocation.location;
     
+    //画轨迹
     [self drawWalkPolyline];
 }
 
@@ -724,9 +536,7 @@
         [self read:@"运动已结束"];
         
         NSString *alertTitleString = @"是否保存?";
-        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitleString message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             if ([Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
@@ -738,120 +548,59 @@
             } else {
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-
-                //SportInformationTableManager *SFTable = [[SportInformationTableManager alloc] init];
                 
                 SportInformationModel *sportModel = [[SportInformationModel alloc] init];
                 
-                
-//                NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
-//                
-//                if (!lastMaxID) {
-//                    
-//                    lastMaxID = 1;
-//                    
-//                } else {
-//                    
-//                    lastMaxID ++;
-//                    
-//                }
-//                
-//                [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
-//                
-//                
-//                NSNumber *lastMaxIDNumber = [[NSNumber alloc] initWithInteger:lastMaxID];
-//                
-//                sportModel.sportId = lastMaxIDNumber;
-                
                 sportModel.userId = STUserAccountHandler.userProfile.userId;
                 
-                
                 NSInteger step = self.stepNumber - self.lastTimeStepNumber;
-
                 NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
-
                 sportModel.steps = stepNumber;
-                
-                
-                
+            
                 CGFloat distance = self.sumDistance / 1000.0;
-                
-                CGFloat calorie = 66.2 * distance * 1.036;  //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
-                
+                CGFloat calorie = 66.2 * distance * 1.036;      //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
                 NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
-                
                 sportModel.calorie = [calorieNumber stringValue];
                 
-                
                 NSString *num = [NSString stringWithFormat:@"%lf",distance];
-                
                 NSRange range = [num rangeOfString:@"."];
-                
                 num = [num substringToIndex:range.location + 3];
-                
                 NSNumber *distanceNumber = [NSNumber numberWithFloat:num.floatValue];
-                
                 sportModel.distance = [distanceNumber stringValue];
                 
-                
                 sportModel.period = [NSString stringWithFormat:@"%ld",self.timerInt];
-                
                 NSString *x = @"";
-                
                 NSString *y = @"";
-                
                 for (int i = 0; i < self.locationArrayM.count; i++) {
-                    
                     CLLocation *location = self.locationArrayM[i];
-                    
                     NSString *locationStringX = [NSString stringWithFormat:@"%f,",location.coordinate.latitude];
-                    
                     NSString *locationStringY = [NSString stringWithFormat:@"%f,",location.coordinate.longitude];
-                    
                     x = [x stringByAppendingString:locationStringX];
-                    
                     y = [y stringByAppendingString:locationStringY];
-                    
                 }
-                
                 if (![Common isObjectNull:x] && ![Common isObjectNull:y]) {
-                    
                     x = [x substringToIndex:x.length - 1];
-                    
                     y = [y substringToIndex:y.length - 1];
-                    
                 }
-                
                 sportModel.xcoordinate = x;
-                
                 sportModel.ycoordinate = y;
                 
-                
                 NSDate *date = [NSDate date];
-                
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                
                 [dateFormatter setDateFormat:@"yyyy年MM月dd日 hh:mm"];
-                
                 NSString *stringDate = [dateFormatter stringFromDate:date];
-                
                 sportModel.startTime = stringDate;
-                
+        
                 
                 [STDataHandler sendCommitSportHistoryWithSportInformationModel:sportModel success:^(BOOL success) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                        
-                        if (success) {
-                            
-                            NSLog(@"保存成功");
-                            
-                        }
+                        if (success) NSLog(@"保存成功");
                         
                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                         
-                        //发送通知刷新历史记录
-                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
+                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil]; //发送通知刷新历史记录
                         
                     });
                     
@@ -866,14 +615,8 @@
                     
                 }];
                 
-                
-                //[SFTable insertSportInformation:sportModel];
-                
-                
                 [self over];
-                
-                
-}
+            }
             
         }];
         
@@ -884,9 +627,7 @@
         }];
         
         [alert addAction:alertAction];
-        
         [alert addAction:CancelAlertAction];
-        
         [self presentViewController:alert animated:YES completion:nil];
     
     } else {  //关闭页面
@@ -917,6 +658,58 @@
 - (void)speechSynthesizer:(AVSpeechSynthesizer*)synthesizer didFinishSpeechUtterance:(nonnull AVSpeechUtterance *)utterance {
     
     [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+}
+
+//秒转时分秒
+- (NSString*)TimeformatFromSeconds:(NSInteger)seconds {
+    
+    //format of hour
+    NSString *str_hour = [NSString stringWithFormat:@"%02ld",seconds/3600];
+    
+    //format of minute
+    NSString *str_minute = [NSString stringWithFormat:@"%02ld",(seconds%3600)/60];
+    
+    //format of second
+    NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds%60];
+    
+    //format of time
+    NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
+    
+    return format_time;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
+}
+
+- (void)mapTap {
+    
+    if (self.isTap) {
+        
+        [UIView animateWithDuration:0.5 animations:^{ //收起
+            
+            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT - 188, SCREEN_WIDTH, 188)];
+            
+        }];
+        
+        self.isTap = 0;
+        
+    } else {
+        
+        [UIView animateWithDuration:0.5 animations:^{ //展开
+            
+            [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 188)];
+            
+        }];
+        
+        self.isTap = 1;
+        
+    }
     
 }
 
