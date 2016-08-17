@@ -39,7 +39,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    return 200;
+    return SCREEN_HEIGHT;
 
 }
 
@@ -71,9 +71,23 @@
 
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    SubmitSuggestTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [cell.textView resignFirstResponder];
+
+}
 
 - (void)subMitData:(NSString *)text {
 
+    if ([Common isObjectNull:text]) {
+        
+        [self showToast:@"内容为空"];
+        
+        return;
+    }
+    
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
     [STDataHandler sendCommitAdviceWithUserId:STUserAccountHandler.userProfile.userId content:text adviceType:[self.problemTypesModel.problemTypesID integerValue] success:^(BOOL success) {
         
