@@ -20,7 +20,7 @@
     
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 200, 20)];
     
-    [lable setText:@"请简要描述你的问题和意见"];
+    [lable setText:@"  请简要描述你的问题和意见"];
     
     [lable setFont:[UIFont systemFontOfSize:14.0]];
     

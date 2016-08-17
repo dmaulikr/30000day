@@ -4464,7 +4464,9 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_SPORTHISTORY] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [Common urlStringWithDictionary:params withString:COMMIT_SPORTHISTORY];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_SPORTHISTORY] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
