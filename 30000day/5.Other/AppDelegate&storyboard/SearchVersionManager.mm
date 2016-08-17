@@ -208,7 +208,7 @@ static SearchVersionManager *manager;
     }];
 }
 //检查版本更新
-- (void)checkVersion {//storeString	__NSCFString *	"http://121.196.223.175:8082/stapi/1.0/upgrade/getAppUpgradeInfo?curVersion=2.0.0&osType=ios"	0x00007f823210f230
+- (void)checkVersion {
     
     NSString *storeString = [NSString stringWithFormat:@"%@%@?curVersion=%@&osType=ios",ST_API_SERVER,ST_VERSION_MANAGER,AppCurrentVersion];
     NSURL *storeURL = [NSURL URLWithString:storeString];

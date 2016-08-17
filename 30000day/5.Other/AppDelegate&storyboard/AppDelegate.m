@@ -18,7 +18,6 @@
 #import "JPUSHService.h"
 #import <AdSupport/AdSupport.h>
 
-#import <iVersion/iVersion.h>
 #import "CDChatManager.h"
 #import "STLocationMananger.h"
 #import "SearchVersionManager.h"
@@ -33,7 +32,7 @@
 
 @import HealthKit;
 
-@interface AppDelegate () <iVersionDelegate> {
+@interface AppDelegate ()  {
     BMKMapManager *_mapManager;
 }
 @property (nonatomic) HKHealthStore *healthStore1;
@@ -81,13 +80,6 @@
     [AVIMNoticationMessage registerSubclass];
     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
     }];
-    
-    //*************************初始化iVersion***************************//
-//    [iVersion sharedInstance].applicationBundleID = @"com.shutian.30000day";
-//    [iVersion sharedInstance].previewMode = NO;
-//    [iVersion sharedInstance].delegate = self;
-//    [iVersion sharedInstance].showOnFirstLaunch = YES;
-//    [[iVersion sharedInstance] checkForNewVersion];
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
