@@ -466,6 +466,8 @@
         
         controller.personId = self.informationModel.userId;
         
+        controller.birthday = self.informationModel.birthday;
+        
         [self.navigationController pushViewController:controller animated:YES];
         
     }

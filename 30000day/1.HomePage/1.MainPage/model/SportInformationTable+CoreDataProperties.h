@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *x;
 @property (nullable, nonatomic, retain) NSString *y;
 @property (nullable, nonatomic, retain) NSString *dateTime;
+@property (nullable, nonatomic, retain) NSNumber *isSave;
+@property (nullable, nonatomic, retain) NSNumber *sportNo;
 
 
 @end

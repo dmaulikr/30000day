@@ -13,4 +13,6 @@
 
 @property (nonatomic,strong) SportInformationModel *sportInformationModel;
 
+@property (nonatomic,copy) NSString *birthday;
+
 @end

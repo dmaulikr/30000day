@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *SFLable;
 
+@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
+
 @end

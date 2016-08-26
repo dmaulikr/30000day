@@ -16,5 +16,6 @@
 @dynamic speechDistance;
 @dynamic mapType;
 @dynamic userId;
+@dynamic compass;
 
 @end

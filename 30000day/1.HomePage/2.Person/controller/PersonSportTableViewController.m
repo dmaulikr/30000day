@@ -163,6 +163,8 @@
     
     controller.sportInformationModel = model;
     
+    controller.birthday = self.birthday;
+    
     [self.navigationController presentViewController:controller animated:YES completion:nil];
 
 }

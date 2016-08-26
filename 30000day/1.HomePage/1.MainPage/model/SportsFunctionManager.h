@@ -21,4 +21,6 @@
 
 - (void)updateSportsFunction:(NSNumber *)userId mapType:(NSString *)mapType;
 
+- (void)updateSportsFunction:(NSNumber *)userId compass:(NSNumber *)compass;
+
 @end

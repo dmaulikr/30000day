@@ -53,7 +53,7 @@
     
     [self loadData];
     
-    [self loadMapView];
+    [self mapSize];
     
     [self loadDownView];
     
@@ -63,13 +63,193 @@
     
 }
 
+- (void)mapSize{
+    
+    NSArray *xcoordinateArray = [self.sportInformationModel.xcoordinate componentsSeparatedByString:@","];
+    NSArray *ycoordinateArray = [self.sportInformationModel.ycoordinate componentsSeparatedByString:@","];
+    
+//    CGFloat Xmax = [[xcoordinateArray valueForKeyPath:@"@max.floatValue"] floatValue];
+//    CGFloat Xmin = [[xcoordinateArray valueForKeyPath:@"@min.floatValue"] floatValue];
+//    
+//    CGFloat Ymax = [[ycoordinateArray valueForKeyPath:@"@max.floatValue"] floatValue];
+//    CGFloat Ymin = [[ycoordinateArray valueForKeyPath:@"@min.floatValue"] floatValue];
+    
+    CGFloat XMaxFloat = [xcoordinateArray[0] floatValue];
+    int XMaxfloatI = 0;
+    
+    CGFloat XMinFloat = [xcoordinateArray[0] floatValue];
+    int XMinFloatI = 0;
+    
+    
+    CGFloat YMaxFloat = [ycoordinateArray[0] floatValue];
+    int YMaxfloatI = 0;
+    
+    CGFloat YMinFloat = [ycoordinateArray[0] floatValue];
+    int YMinFloatI = 0;
+    
+    
+    for (int i = 1; i < xcoordinateArray.count; i++) {
+        
+        if ([xcoordinateArray[i] floatValue] > XMaxFloat) {
+            
+            XMaxFloat = [xcoordinateArray[i] floatValue];
+            
+            XMaxfloatI = i;
+            
+        }
+        
+        if ([xcoordinateArray[i] floatValue] < XMinFloat) {
+            
+            XMinFloat = [xcoordinateArray[i] floatValue];
+            
+            XMinFloatI = i;
+            
+        }
+        
+        
+        if ([ycoordinateArray[i] floatValue] > YMaxFloat) {
+            
+            YMaxFloat = [ycoordinateArray[i] floatValue];
+            
+            YMaxfloatI = i;
+            
+        }
+        
+        if ([ycoordinateArray[i] floatValue] < YMinFloat) {
+            
+            YMinFloat = [ycoordinateArray[i] floatValue];
+            
+            YMinFloatI = i;
+            
+        }
+        
+    }
+    
+    CLLocation *XMaxlocation = [[CLLocation alloc] initWithLatitude:[xcoordinateArray[XMaxfloatI] doubleValue] longitude:[ycoordinateArray[XMaxfloatI] doubleValue]];
+    
+    CLLocation *XMinlocation = [[CLLocation alloc] initWithLatitude:[xcoordinateArray[XMinFloatI] doubleValue] longitude:[ycoordinateArray[XMinFloatI] doubleValue]];
+
+    CGFloat XDistance = [XMaxlocation distanceFromLocation:XMinlocation];
+    
+    
+    
+    CLLocation *YMaxlocation = [[CLLocation alloc] initWithLatitude:[xcoordinateArray[YMaxfloatI] doubleValue] longitude:[ycoordinateArray[YMaxfloatI] doubleValue]];
+    
+    CLLocation *YMinlocation = [[CLLocation alloc] initWithLatitude:[xcoordinateArray[YMinFloatI] doubleValue] longitude:[ycoordinateArray[YMinFloatI] doubleValue]];
+    
+    CGFloat YDistance = [YMaxlocation distanceFromLocation:YMinlocation];
+    
+    
+    
+    float zoomLevel = 0.0;
+    
+    if (XDistance >= YDistance) {
+    
+        zoomLevel = [self MapZoomLevel:XDistance];
+        
+    } else {
+        
+        zoomLevel = [self MapZoomLevel:YDistance];
+    
+    }
+    
+    [self loadMapView:zoomLevel];
+    
+}
+
+- (float)MapZoomLevel:(CGFloat)distance {
+
+    if (distance <= 20) {
+        
+        return 21;
+        
+    } else if (distance <= 50) {
+    
+        return 20;
+    
+    } else if (distance <= 100) {
+        
+        return 20;
+        
+    } else if (distance <= 200) {
+        
+        return 19;
+        
+    } else if (distance <= 500) {
+        
+        return 18;
+        
+    } else if (distance <= 1000) {
+        
+        return 17;
+        
+    } else if (distance <= 2000) {
+        
+        return 16;
+        
+    } else if (distance <= 5000) {
+        
+        return 15;
+        
+    } else if (distance <= 10000) {
+        
+        return 14.5;
+        
+    } else if (distance <= 15000) {
+        
+        return 14;
+        
+    } else if (distance <= 20000) {
+        
+        return 13;
+        
+    } else if (distance <= 25000) {
+        
+        return 12;
+        
+    } else if (distance <= 50000) {
+        
+        return 11;
+        
+    } else if (distance <= 100000) {
+        
+        return 10;
+        
+    } else if (distance <= 200000) {
+        
+        return 9;
+        
+    } else if (distance <= 500000) {
+        
+        return 8;
+        
+    } else if (distance <= 1000000) {
+        
+        return 7;
+        
+    } else if (distance <= 2000000) {
+        
+        return 6;
+        
+    } else if (distance <= 5000000) {
+        
+        return 5;
+        
+    } else {
+        
+        return 4;
+        
+    }
+
+}
+
 - (void)mapTap {
     
     if (self.isTap) {
         
         //收起
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             
             [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT - 144, SCREEN_WIDTH, 144)];
             
@@ -81,7 +261,7 @@
         
         //展开
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             
             [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 144)];
             
@@ -128,7 +308,7 @@
 
 }
 
-- (void)loadMapView {
+- (void)loadMapView:(float)zoomLevel {
 
     self.mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
@@ -136,7 +316,7 @@
     
     self.mapView.delegate = self;
     
-    self.mapView.zoomLevel = 18;
+    self.mapView.zoomLevel = zoomLevel;
     
     [self.view addSubview:self.mapView];
     
@@ -207,7 +387,6 @@
     [belowView addSubview:tableView];
     
     self.tableView = tableView;
-
     
 }
 
@@ -229,7 +408,11 @@
         
     [cell.SFImageView setImage:[UIImage imageNamed:@"map_image"]];
     
-    [cell.SFLable setText:@"地图设置"];
+    [cell.SFLable setText:@"地图设置："];
+    
+    NSArray *array = @[@"空白地图",@"标准地图",@"卫星地图"];
+    
+    [cell.dataLabel setText:array[self.self.sportsFunctionModel.mapType.integerValue]];
     
     return cell;
 
@@ -260,6 +443,8 @@
     
     [self.mapView setMapType:[sender.object integerValue]];
     
+    [self.tableView reloadData];
+    
 }
 
 //加载轨迹以及大头针
@@ -279,12 +464,17 @@
         
     }
     
+    
     BMKPolyline* polyline = [BMKPolyline polylineWithCoordinates:coors count:XArray.count];
     
     [_mapView addOverlay:polyline];
     
     
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:coors[0].latitude longitude:coors[0].longitude];
+    //排序 获取中心点
+    NSArray *newXArray = [XArray sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *newYArray = [YArray sortedArrayUsingSelector:@selector(compare:)];
+
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[newXArray[newXArray.count / 2] floatValue] longitude:[newYArray[newXArray.count / 2] floatValue]];
     
     self.mapView.centerCoordinate = location.coordinate;
     
@@ -370,9 +560,39 @@
     
     [distanceLable setTextColor:[UIColor whiteColor]];
     
-    [distanceLable setText:self.sportInformationModel.distance == nil || [self.sportInformationModel.distance isEqualToString:@"0"] ? @"0.00" : self.sportInformationModel.distance];
     
-    //[distanceLable setBackgroundColor:[UIColor whiteColor]];
+    NSNumber *distanceNumber = [NSNumber numberWithFloat:[self.sportInformationModel.distance floatValue]];
+    
+    if (distanceNumber == nil || distanceNumber.floatValue == 0.0) {
+        
+        [distanceLable setText:@"0.00"];
+        
+    } else {
+    
+        NSString *distanceString = [distanceNumber stringValue];
+        
+        NSRange range = [distanceString rangeOfString:@"."];
+        
+        if (range.length < 2) {
+            
+            distanceString = [distanceString stringByAppendingString:@"0"];
+            
+            range.length = 2;
+            
+        }
+        
+        NSRange rang = NSMakeRange(range.location, 3);
+        
+        NSString *lastString = [distanceString substringWithRange:rang];
+    
+        NSString *frontString = [distanceString substringToIndex:range.location];
+        
+        NSString *finalString = [frontString stringByAppendingString:lastString];
+        
+        [distanceLable setText:finalString];
+        
+    }
+    
     
     [distanceLable setFont:[UIFont fontWithName:@"Arial-BoldMT" size:32.0]];
     
@@ -395,6 +615,80 @@
     [lineViewOne setBackgroundColor:[UIColor whiteColor]];
     
     [topView addSubview:lineViewOne];
+    
+    
+    UIView *tianAgeView = [[UIView alloc] initWithFrame:CGRectMake(140 + (SCREEN_WIDTH - 140 - 170) / 2, labelTop + lableHeight * 2 + 10, 170, 24)];
+    [tianAgeView setBackgroundColor:[UIColor clearColor]];
+    [tianAgeView.layer setMasksToBounds:YES];
+    [tianAgeView.layer setCornerRadius:12.0];
+    [topView addSubview:tianAgeView];
+    
+    
+    UIView *logView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 24)];
+    [logView setBackgroundColor:LOWBLUECOLOR];
+    [logView.layer setMasksToBounds:YES];
+    [logView.layer setCornerRadius:12.0];
+    [tianAgeView addSubview:logView];
+    
+    
+    UILabel *logLable = [[UILabel alloc] initWithFrame:CGRectMake(6, 0, 64, 24)];
+    [logLable setText:@"30000天"];
+    [logLable setFont:[UIFont systemFontOfSize:13.0]];
+    [logLable setTextColor:[UIColor whiteColor]];
+    [logView addSubview:logLable];
+    
+    
+    NSString *birthday = self.birthday;
+    
+    if (birthday == nil || [birthday isEqualToString:@""]) {
+        
+        birthday = STUserAccountHandler.userProfile.birthday;
+        
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy年MM月dd日 HH:mm"; // 设置时间和日期的格式
+    NSDate *starDate=[dateFormatter dateFromString:self.sportInformationModel.startTime];
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    NSDate *birthdayDate = [formatter dateFromString:birthday];
+    NSString *todayString = [formatter stringFromDate:starDate];
+    NSDate *newToday = [formatter dateFromString:todayString];
+    NSTimeInterval interval = [newToday timeIntervalSinceDate:birthdayDate];
+    int dayNumber = 0;
+    
+    if ([Common isObjectNull:birthday]) {//表示没设置生日
+        dayNumber = 0;
+    } else {//有设置了生日
+        dayNumber = interval/86400.0f;
+    }
+    
+    
+    UILabel *tianAgeLable = [[UILabel alloc] initWithFrame:CGRectMake(72, 0, 100, 24)];
+    [tianAgeLable setTextColor:[UIColor whiteColor]];
+    [tianAgeLable setFont:[UIFont systemFontOfSize:12.0]];
+    [tianAgeLable setText:[NSString stringWithFormat:@"我的第%d天",dayNumber]];
+    [tianAgeView addSubview:tianAgeLable];
+    
+    
+    UIView *timeLogview = [[UIView alloc] initWithFrame:CGRectMake(140 + (SCREEN_WIDTH - 140 - 170) / 2, labelTop + lableHeight * 2 + 35, 170, 24)];
+    [timeLogview setBackgroundColor:[UIColor clearColor]];
+    [timeLogview.layer setMasksToBounds:YES];
+    [timeLogview.layer setCornerRadius:12.0];
+    [topView addSubview:timeLogview];
+    
+    
+    UILabel *logTimeLable = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 170, 24)];
+    [logTimeLable setTextColor:[UIColor whiteColor]];
+    [logTimeLable setFont:[UIFont systemFontOfSize:13.0]];
+    [logTimeLable setText:self.sportInformationModel.startTime];
+    [timeLogview addSubview:logTimeLable];
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(145, 2, 20, 20)];
+    [imageView setImage:[UIImage imageNamed:@"runWhite"]];
+    [timeLogview addSubview:imageView];
+
 
 }
 

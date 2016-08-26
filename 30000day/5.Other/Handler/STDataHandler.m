@@ -4459,6 +4459,7 @@
     [params addParameter:sportInformationModel.xcoordinate forKey:@"xcoordinate"];
     [params addParameter:sportInformationModel.ycoordinate forKey:@"ycoordinate"];
     [params addParameter:sportInformationModel.startTime forKey:@"startTime"];
+    [params addParameter:sportInformationModel.sportNo forKey:@"sportNo"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -4549,15 +4550,19 @@
 
 //*********************删除运动历史记录*******************//
 + (void)senddeleteSportHistoryWithSportId:(NSNumber *)sportId
+                                  sportNo:(NSString *)sportNo
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure {
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:sportId forKey:@"id"];
+    [params addParameter:sportNo forKey:@"sportNo"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:DELETE_SPORTHISTORY];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,DELETE_SPORTHISTORY] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

@@ -61,6 +61,8 @@
     
     sportsFunction.userId = model.userId;
     
+    sportsFunction.compass = model.compass;
+    
     NSError *err = nil;
     
     [_managedObjectContext save:&err];
@@ -102,6 +104,8 @@
         model.mapType = [obj valueForKey:@"mapType"];
         
         model.userId = [obj valueForKey:@"userId"];
+        
+        model.compass = [obj valueForKey:@"compass"];
         
     }
     
@@ -171,6 +175,43 @@
     for (SportsFunction *obj in objs) {
         
         obj.mapType = mapType;
+        
+    }
+    
+    NSError *err = nil;
+    
+    if ([_managedObjectContext save:&err]) {
+        
+        NSLog(@"更新成功");
+        
+    }
+    
+}
+
+- (void)updateSportsFunction:(NSNumber *)userId compass:(NSNumber *)compass {
+    
+    
+    NSFetchRequest *request =[[NSFetchRequest alloc] init];
+    
+    request.entity = [NSEntityDescription entityForName:@"SportsFunction" inManagedObjectContext:_managedObjectContext];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@",userId];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    
+    NSArray *objs = [_managedObjectContext executeFetchRequest:request error:&error];
+    
+    if (error) {
+        
+        [NSException raise:@"查询错误" format:@"%@", [error localizedDescription]];
+        
+    }
+    
+    for (SportsFunction *obj in objs) {
+        
+        obj.compass = compass;
         
     }
     

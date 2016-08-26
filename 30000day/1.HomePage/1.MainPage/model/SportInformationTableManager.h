@@ -19,4 +19,8 @@
 
 - (void)deleteSportInformation:(NSNumber *)lastMaxID;
 
+- (void)deleteAllSportInformation;
+
+- (void)updateSportInformationWithLastMaxID:(NSNumber *)lastMaxID isSave:(NSNumber *)isSave;
+
 @end

@@ -12,4 +12,6 @@
 
 @property (nonatomic,strong) NSNumber *personId;
 
+@property (nonatomic,copy) NSString *birthday;
+
 @end

@@ -21,6 +21,8 @@
 
 @property (nonatomic,assign) NSInteger page;
 
+@property (nonatomic,strong) SportInformationTableManager *sportInformationTableManager;
+
 @end
 
 @implementation SportPushTableViewController
@@ -42,10 +44,14 @@
     
     [self showHeadRefresh:NO showFooterRefresh:YES];
     
-    [self reloadData];
+    _sportInformationTableManager = [[SportInformationTableManager alloc] init];
+    
+    self.page = 2;
+    
+    [self loadData];
     
     //刷新运动历史记录
-    [STNotificationCenter addObserver:self selector:@selector(reloadData) name:STDidSuccessSportInformationSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(loadData) name:STDidSuccessSportInformationSendNotification object:nil];
 }
 
 - (void)footerRereshing {
@@ -54,11 +60,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            for (int i = 0; i < dataArray.count; i++) {
-                
-                [self.modelArray addObject:dataArray[i]];
-                
-            }
+            [self.modelArray addObjectsFromArray:dataArray];
             
             if (dataArray.count > 0) {
                 
@@ -84,33 +86,103 @@
     
 }
 
-- (void)reloadData {
+- (void)loadData {
     
-    [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+    //查询本地数据
+    self.modelArray = [NSMutableArray arrayWithArray:[self.sportInformationTableManager selectSportInformation:STUserAccountHandler.userProfile.userId]];
     
-    [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:1 success:^(NSMutableArray *dataArray) {
+    self.modelArray = (NSMutableArray *)[[self.modelArray reverseObjectEnumerator] allObjects];
+    
+    [self.tableView reloadData];
+    
+    if (self.modelArray.count > 20) { //删除20条之外的数据
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        for (int i = 19; i < self.modelArray.count; i++) {
             
-            self.modelArray = dataArray;
+            SportInformationModel *model = self.modelArray[i];
             
-            self.page = 2;
+            [_sportInformationTableManager deleteSportInformation:model.lastMaxID];
             
-            [self.tableView reloadData];
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-        });
+        }
         
-    } failure:^(NSError *error) {
+    }
+    
+    
+    for (int i = 0; i < self.modelArray.count; i++) { //查找未提交到服务器的数据提交到服务器
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
-        });
+        SportInformationModel *model = self.modelArray[i];
         
-    }];
+        if (!model.isSave.boolValue) {
+            
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [STDataHandler sendCommitSportHistoryWithSportInformationModel:model success:^(BOOL success) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if (success) {
+                        
+                        model.isSave = [NSNumber numberWithBool:YES];
+                        
+                        [_sportInformationTableManager updateSportInformationWithLastMaxID:model.lastMaxID isSave:[NSNumber numberWithBool:YES]];
+                        
+                        NSLog(@"上次未保存的数据保存成功");
+                    }
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                });
+                
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                });
+            }];
+            
+        }
+        
+    }
+    //如果本地数据不足10条 那就向服务器请求数据
+    if (self.modelArray.count <= 10) {
+        
+        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+        
+        [STDataHandler sendGetSportHistoryListWithCurUserId:STUserAccountHandler.userProfile.userId userId:nil currentPage:1 success:^(NSMutableArray *dataArray) {
+            
+            for (NSInteger i = self.modelArray.count; i < dataArray.count; i++) { //去重复添加
+                
+                SportInformationModel *model = dataArray[i];
+                
+                [self.modelArray addObject:model];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+            });
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                
+            });
+            
+        }];
+        
+    } else {
+        
+        [self.tableView reloadData];
+        
+    }
     
 }
 
@@ -175,40 +247,77 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
+
         SportInformationModel *model = self.modelArray[indexPath.row];
         
-        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        
-        [STDataHandler senddeleteSportHistoryWithSportId:model.sportId success:^(BOOL success) {
+        if (model.sportId == nil) {
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+            
+            [STDataHandler senddeleteSportHistoryWithSportId:nil sportNo:[NSString stringWithFormat:@"%@",model.sportNo] success:^(BOOL success) {
                 
-                if (success) {
+                [_modelArray removeObjectAtIndex:indexPath.row];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    NSMutableArray *array = [NSMutableArray arrayWithArray:self.modelArray];
+                    if (success) {
+                        
+                        [_sportInformationTableManager deleteSportInformation:model.lastMaxID];
+                        
+                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil]; //发送通知刷新历史记录
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                        [self loadData];
+                        
+                    }
                     
-                    [array removeObjectAtIndex:indexPath.row];
-                    
-                    self.modelArray = array;
-                    
-                    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    
-                    //发送通知刷新历史记录
-                    [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil];
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                     
-                }
+                });
                 
-            });
+            }];
             
-        } failure:^(NSError *error) {
+        } else {
             
-            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
             
-        }];
-        
+            [STDataHandler senddeleteSportHistoryWithSportId:model.sportId sportNo:nil success:^(BOOL success) {
+                
+                [_modelArray removeObjectAtIndex:indexPath.row];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if (success) {
+                        
+                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil]; //发送通知刷新历史记录
+                        
+                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                        [self loadData];
+                        
+                    }
+                    
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                    
+                });
+                
+            }];
+            
+        }
+
     }
     
 }

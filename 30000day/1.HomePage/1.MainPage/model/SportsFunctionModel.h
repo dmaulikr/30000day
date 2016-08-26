@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *speechDistance;
 @property (nonatomic, strong) NSString *mapType;
 @property (nonatomic, strong) NSNumber *userId;
+@property (nonatomic, strong) NSNumber *compass;
 
 @end

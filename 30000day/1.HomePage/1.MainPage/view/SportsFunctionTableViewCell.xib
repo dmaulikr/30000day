@@ -21,14 +21,22 @@
                             <constraint firstAttribute="height" constant="35" id="eqv-jM-m40"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离播报" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-uE-JRu">
-                        <rect key="frame" x="59" y="11" width="68" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离播报：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-uE-JRu">
+                        <rect key="frame" x="59" y="11" width="85" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6I-xT-edq">
+                        <rect key="frame" x="144" y="11" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="c6I-xT-edq" firstAttribute="leading" secondItem="Bjl-uE-JRu" secondAttribute="trailing" id="2VI-GU-W1c"/>
+                    <constraint firstItem="c6I-xT-edq" firstAttribute="centerY" secondItem="Bjl-uE-JRu" secondAttribute="centerY" id="WtE-ts-faP"/>
                     <constraint firstItem="Bjl-uE-JRu" firstAttribute="leading" secondItem="JyF-QK-qKG" secondAttribute="trailing" constant="10" id="Xwb-Cv-hG3"/>
                     <constraint firstItem="JyF-QK-qKG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="q4S-x0-efm"/>
                     <constraint firstItem="JyF-QK-qKG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uuv-Uq-woP"/>
@@ -38,6 +46,7 @@
             <connections>
                 <outlet property="SFImageView" destination="JyF-QK-qKG" id="ZTP-zo-rfs"/>
                 <outlet property="SFLable" destination="Bjl-uE-JRu" id="i3T-Ca-Ina"/>
+                <outlet property="dataLabel" destination="c6I-xT-edq" id="GEU-Bj-0nJ"/>
             </connections>
             <point key="canvasLocation" x="-402.5" y="308"/>
         </tableViewCell>

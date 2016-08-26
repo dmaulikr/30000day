@@ -22,5 +22,7 @@
 @dynamic x;
 @dynamic y;
 @dynamic dateTime;
+@dynamic isSave;
+@dynamic sportNo;
 
 @end

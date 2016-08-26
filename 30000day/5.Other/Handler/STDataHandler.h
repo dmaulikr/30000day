@@ -593,6 +593,7 @@ static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotif
 
 //*********************删除运动历史记录*******************//
 + (void)senddeleteSportHistoryWithSportId:(NSNumber *)sportId
+                                  sportNo:(NSString *)sportNo
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure;
 

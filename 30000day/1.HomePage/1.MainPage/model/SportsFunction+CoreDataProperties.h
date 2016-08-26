@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *speechDistance;
 @property (nullable, nonatomic, retain) NSString *mapType;
 @property (nullable, nonatomic, retain) NSNumber *userId;
+@property (nullable, nonatomic, retain) NSNumber *compass;
 
 @end
 

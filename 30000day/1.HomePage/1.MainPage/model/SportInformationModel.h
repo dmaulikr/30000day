@@ -10,7 +10,9 @@
 
 @interface SportInformationModel : NSObject
 
-@property (nonatomic,strong) NSNumber *sportId; //唯一标示
+@property (nonatomic,strong) NSNumber *lastMaxID; //本地唯一标示
+
+@property (nonatomic,strong) NSNumber *sportId; //服务器唯一标示
 
 @property (nonatomic,strong) NSNumber *userId; //用户ID
 
@@ -27,5 +29,9 @@
 @property (nonatomic,copy) NSString *ycoordinate; //坐标y
 
 @property (nonatomic,copy) NSString *startTime; //开始时间
+
+@property (nonatomic,strong) NSNumber *isSave; //是否保存至服务器
+
+@property (nonatomic,strong) NSString *sportNo; //本地数据库编号
 
 @end

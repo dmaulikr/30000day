@@ -42,7 +42,7 @@
 //http://121.196.223.175:8082 测试阿里服务器地址
 //http://121.196.223.175:8081 正式阿里服务器地址
 
-#define  ST_API_SERVER                @"http://121.196.223.175:8083/stapi2/2.0"
+#define  ST_API_SERVER                @"http://121.196.223.175:8082/stapi2/2.0"
 
 //聚合宏
 #define weatherKey @"c42cb0cb7e2fdc0a5a29687ced785dbf"
@@ -71,7 +71,7 @@
 #define COUNTDOWN                     @"count_Down"           //倒计时
 #define DEFEATDATA                    @"Defeat_Data"          //击败多少用户
 #define DAYS_AGE                      @"Days_age"             //用户当前天龄
-//#define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
+#define LAST_MAX_ID                   @"lastMaxID"            //记录coreData运动记录表的ID
 
 #define SCREEN_WIDTH                  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT                 [[UIScreen mainScreen] bounds].size.height
@@ -100,6 +100,7 @@
 #define FIRSTSTARTINTRODUCE           @"FirstStartIntroduce" //第一次登录
 #define FIRSTHEALTH                   @"FirstHealth "          //第一次进入健康因素
 #define FIRSTSTARTHKHEALTHSTORE       @"FirstStartHKHealthStore" //第一次运动信息授权
+#define DELETE_SPORT_COREDATA         @"deleteSportCoreData"   //删除以前版本CoreData历史数据
 
 
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]

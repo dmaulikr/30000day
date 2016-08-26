@@ -29,6 +29,7 @@
 
 @property (nonatomic,strong) BMKMapView *mapView;                               //地图
 @property (nonatomic,strong) BMKLocationService *service;                       //定位
+@property (nonatomic,strong) BMKLocationViewDisplayParam *displayParam;
 @property (nonatomic,strong) CLLocation *preLocation;                           //记录上一次的位置
 @property (nonatomic,strong) NSMutableArray *locationArrayM;                    //位置数组
 @property (nonatomic,strong) BMKPolyline *polyLine;                             //轨迹线
@@ -42,9 +43,14 @@
 @property (nonatomic,strong) CMPedometer *pedometer;                            //计步器
 @property (nonatomic,assign) NSInteger firstEnter;                              //1 表示第一次进入
 @property (nonatomic,strong) SportsFunctionManager *sportsFunctionManager;
+@property (nonatomic,strong) SportInformationTableManager *sportInformationTableManager;
 @property (nonatomic,strong) SportsFunctionModel *sportsFunctionModel;
 @property (nonatomic,assign) NSInteger speechDistance;                          //播报距离
 @property (nonatomic,assign) BOOL isTap;                                        //是否点击
+@property (nonatomic,strong) NSDate *startTime;                                 //开始时间
+@property (nonatomic,assign) float mapZoomLevel;                                //地图大小
+@property (nonatomic,strong) UIButton *compassButton;                           //罗盘按钮
+//@property (nonatomic,strong) NSMutableArray *locationSumArray;                  //最新位置的一个点
 
 @property (nonatomic,strong) UIView *countDownView;                             //倒计时视图
 @property (nonatomic,strong) UILabel *countDownLable;
@@ -79,6 +85,7 @@
 - (void)loadOtherObj{
     
     self.locationArrayM = [NSMutableArray array];
+    //self.locationSumArray = [NSMutableArray array];
     _aVSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     [_aVSpeechSynthesizer setDelegate:self];
     self.firstEnter = 1;
@@ -150,6 +157,8 @@
     self.sportsFunctionModel.mapType = [sender.object stringValue];
     
     [self.mapView setMapType:[sender.object integerValue]];
+    
+    [self.tableView reloadData];
 
 }
 
@@ -158,6 +167,8 @@
     self.sportsFunctionModel.speechDistance = [sender.object stringValue];
     
     self.speechDistance = [self speechDistanceMate:[sender.object integerValue]];
+    
+    [self.tableView reloadData];
     
 }
 
@@ -172,7 +183,7 @@
     self.countDownView = countDownView;
     
     UILabel *countDownLable = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 200) / 2, (SCREEN_HEIGHT - 300) / 2, 200, 300)];
-    [countDownLable setText:[NSString stringWithFormat:@"%ld",self.countDownNumber]];
+    [countDownLable setText:[NSString stringWithFormat:@"%ld",(long)self.countDownNumber]];
     [countDownLable setFont:[UIFont systemFontOfSize:300]];
     [countDownLable setTextAlignment:NSTextAlignmentCenter];
     [countDownLable setTextColor:LOWBLUECOLOR];
@@ -197,7 +208,7 @@
 
     self.countDownNumber--;
     
-    [self.countDownLable setText:[NSString stringWithFormat:@"%ld",self.countDownNumber]];
+    [self.countDownLable setText:[NSString stringWithFormat:@"%ld",(long)self.countDownNumber]];
     
     if (self.countDownNumber == 0) {
 
@@ -208,6 +219,9 @@
         self.sumDistance = 0;
         
         self.distanceLable.text = @"- -";
+        
+        //保存最新的点
+        //self.locationSumArray[0] = [self.locationArrayM lastObject];
         
         [self.locationArrayM removeAllObjects];
         
@@ -278,11 +292,24 @@
     self.service.pausesLocationUpdatesAutomatically = NO;
     [self.service startUserLocationService];
     
+    
+    self.mapZoomLevel = 17;
     self.mapView = [[BMKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.mapView setMapType:self.sportsFunctionModel.mapType.integerValue];
+    
+    if ([self.sportsFunctionModel.compass integerValue] == 2) {
+        
+        [self.mapView setUserTrackingMode:BMKUserTrackingModeFollowWithHeading];
+        
+    } else {
+    
+        [self.mapView setUserTrackingMode:BMKUserTrackingModeFollow];
+        
+    }
+    
     self.mapView.showsUserLocation = YES;
     self.mapView.delegate = self;
-    self.mapView.zoomLevel = 17;
+    self.mapView.zoomLevel = self.mapZoomLevel;
     
     UITapGestureRecognizer *portraitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTap)];
     [portraitTap setDelegate:self];
@@ -290,12 +317,14 @@
     
     // 定位图层自定义样式参数
     BMKLocationViewDisplayParam *displayParam = [[BMKLocationViewDisplayParam alloc]init];
-    displayParam.isRotateAngleValid = NO;//跟随态旋转角度是否生效
+    displayParam.isRotateAngleValid = YES;//跟随态旋转角度是否生效
     displayParam.isAccuracyCircleShow = NO;//精度圈是否显示
     displayParam.locationViewOffsetX = 0;//定位偏移量(经度)
     displayParam.locationViewOffsetY = 0;//定位偏移量（纬度）
     [self.mapView updateLocationViewWithParam:displayParam];
     [self.view addSubview:self.mapView];
+    
+    self.displayParam = displayParam;
 
 }
 
@@ -362,9 +391,238 @@
     [tableView setScrollEnabled:NO];
     [belowView addSubview:tableView];
     
+    
+    UIView *tianAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, 200, 24)];
+    [tianAgeView setBackgroundColor:[UIColor blackColor]];
+    [tianAgeView setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
+    [tianAgeView.layer setMasksToBounds:YES];
+    [tianAgeView.layer setCornerRadius:12.0];
+    [self.mapView addSubview:tianAgeView];
+    
+    
+    UIView *logView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 24)];
+    [logView setBackgroundColor:LOWBLUECOLOR];
+    [logView.layer setMasksToBounds:YES];
+    [logView.layer setCornerRadius:12.0];
+    [tianAgeView addSubview:logView];
+
+
+    UILabel *logLable = [[UILabel alloc] initWithFrame:CGRectMake(6, 0, 64, 24)];
+    [logLable setText:@"30000天"];
+    [logLable setFont:[UIFont systemFontOfSize:13.0]];
+    [logLable setTextColor:[UIColor whiteColor]];
+    [logView addSubview:logLable];
+    
+    
+    
+    NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy-MM-dd"];
+    NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
+    NSString *todayString = [formatter stringFromDate:[NSDate date]];
+    NSDate *newToday = [formatter dateFromString:todayString];
+    NSTimeInterval interval = [newToday timeIntervalSinceDate:birthdayDate];
+    int dayNumber = 0;
+    
+    if ([Common isObjectNull:STUserAccountHandler.userProfile.birthday]) {//表示没设置生日
+        dayNumber = 0;
+    } else {//有设置了生日
+        dayNumber = interval/86400.0f;
+    }
+    
+    UILabel *tianAgeLable = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 100, 24)];
+    [tianAgeLable setTextColor:[UIColor whiteColor]];
+    [tianAgeLable setFont:[UIFont systemFontOfSize:14.0]];
+    [tianAgeLable setText:[NSString stringWithFormat:@"我的第%d天",dayNumber]];
+    [tianAgeView addSubview:tianAgeLable];
+    
+    
+    UIView *timeLogview = [[UIView alloc] initWithFrame:CGRectMake(10, 50, 200, 24)];
+    [timeLogview setBackgroundColor:[UIColor blackColor]];
+    [timeLogview setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
+    [timeLogview.layer setMasksToBounds:YES];
+    [timeLogview.layer setCornerRadius:12.0];
+    [self.mapView addSubview:timeLogview];
+    
+    
+    self.startTime = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy年MM月dd日 hh:mm"];
+    NSString *stringDate = [dateFormatter stringFromDate:self.startTime];
+    
+    UILabel *logTimeLable = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 170, 24)];
+    [logTimeLable setTextColor:[UIColor whiteColor]];
+    [logTimeLable setFont:[UIFont systemFontOfSize:14.0]];
+    [logTimeLable setText:stringDate];
+    [timeLogview addSubview:logTimeLable];
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(170, 2, 20, 20)];
+    [imageView setImage:[UIImage imageNamed:@"runWhite"]];
+    [timeLogview addSubview:imageView];
+    
+    
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addButton setImage:[UIImage imageNamed:@"addMap"] forState:UIControlStateNormal];
+    [addButton setFrame:CGRectMake(SCREEN_WIDTH - 40, SCREEN_HEIGHT - 360, 30, 30)];
+    [addButton addTarget:self action:@selector(addMapClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:addButton];
+    
+    UIButton *reductionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [reductionButton setImage:[UIImage imageNamed:@"reductionMap"] forState:UIControlStateNormal];
+    [reductionButton setFrame:CGRectMake(SCREEN_WIDTH - 40, SCREEN_HEIGHT - 320, 30, 30)];
+    [reductionButton addTarget:self action:@selector(reductionMapClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:reductionButton];
+    
+    UIImage *image;
+    if (self.sportsFunctionModel.compass.integerValue == 2) {
+        
+        image = [UIImage imageNamed:@"compassSelect"];
+        
+    } else {
+    
+        image = [UIImage imageNamed:@"compassNoSelect"];
+    
+    }
+    
+    UIButton *compassButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [compassButton setBackgroundColor:[UIColor whiteColor]];
+    [compassButton setImage:image forState:UIControlStateNormal];
+    [compassButton setFrame:CGRectMake(SCREEN_WIDTH - 40, SCREEN_HEIGHT - 270, 30, 30)];
+    [compassButton addTarget:self action:@selector(compassButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:compassButton];
+    self.compassButton = compassButton;
+    
+    
+    UIButton *locationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [locationButton setBackgroundColor:[UIColor whiteColor]];
+    [locationButton setImage:[UIImage imageNamed:@"locationImage"] forState:UIControlStateNormal];
+    [locationButton setFrame:CGRectMake(SCREEN_WIDTH - 40, SCREEN_HEIGHT - 230, 30, 30)];
+    [locationButton addTarget:self action:@selector(locationButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:locationButton];
+    
+    
     self.tableView = tableView;
 
 }
+
+- (void)addMapClick {
+    
+    if (self.mapZoomLevel == 21) {
+        
+        return;
+        
+    }
+    
+    self.mapZoomLevel ++;
+    
+    self.mapView.zoomLevel = self.mapZoomLevel;
+
+}
+
+- (void)reductionMapClick {
+    
+    if (self.mapZoomLevel == 3) {
+        
+        return;
+        
+    }
+
+    self.mapZoomLevel --;
+    
+    self.mapView.zoomLevel = self.mapZoomLevel;
+
+}
+
+- (void)compassButtonClick:(UIButton *)sender {
+    
+//    if (sender.tag) {
+//        
+//        CLLocation *locationArray = [self.locationSumArray lastObject];
+//        
+//        CLLocation *location = [[CLLocation alloc] initWithLatitude:locationArray.coordinate.latitude longitude:locationArray.coordinate.longitude];
+//        
+//        [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+//        
+//        if ([self.sportsFunctionModel.compass integerValue] == 1) {
+//
+//            [sender setImage:[UIImage imageNamed:@"compassNoSelect"] forState:UIControlStateNormal];
+//            
+//        } else {
+//            
+//            [sender setImage:[UIImage imageNamed:@"compassSelect"] forState:UIControlStateNormal];
+//            
+//        }
+//        
+//        sender.tag = 0;
+//
+//        
+//    } else {
+    
+    
+    if (STUserAccountHandler.userProfile.userId == nil) {
+        
+        return;
+        
+    }
+
+    if ([self.sportsFunctionModel.compass integerValue] == 1) {
+        
+        self.sportsFunctionModel.compass = [NSNumber numberWithInteger:2];
+        
+        [sender setImage:[UIImage imageNamed:@"compassSelect"] forState:UIControlStateNormal];
+        
+        [self.mapView setUserTrackingMode:BMKUserTrackingModeFollowWithHeading];
+        
+    } else {
+    
+        self.sportsFunctionModel.compass = [NSNumber numberWithInteger:1];
+        
+        [sender setImage:[UIImage imageNamed:@"compassNoSelect"] forState:UIControlStateNormal];
+        
+        [self.mapView setUserTrackingMode:BMKUserTrackingModeFollow];
+    
+    }
+    
+    [self.sportsFunctionManager updateSportsFunction:STUserAccountHandler.userProfile.userId compass:self.sportsFunctionModel.compass];
+    
+    [self.mapView updateLocationViewWithParam:self.displayParam];
+        
+    
+    
+}
+
+- (void)locationButtonClick {
+
+//        CLLocation *locationArray = [self.locationSumArray lastObject];
+//
+//        CLLocation *location = [[CLLocation alloc] initWithLatitude:locationArray.coordinate.latitude longitude:locationArray.coordinate.longitude];
+//
+//        [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+    
+    if (STUserAccountHandler.userProfile.userId == nil) {
+        
+        return;
+        
+    }
+    
+    [self.mapView setUserTrackingMode:BMKUserTrackingModeFollow];
+    
+    self.sportsFunctionModel.compass = [NSNumber numberWithInteger:1];
+    
+    [self.sportsFunctionManager updateSportsFunction:STUserAccountHandler.userProfile.userId compass:self.sportsFunctionModel.compass];
+    
+    [self.mapView updateLocationViewWithParam:self.displayParam];
+    
+    [self.compassButton setImage:[UIImage imageNamed:@"compassNoSelect"] forState:UIControlStateNormal];
+    
+}
+
+//- (void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+//    
+//    self.compassButton.tag = 1;
+//    
+//    [self.compassButton setImage:[UIImage imageNamed:@"locationImage"] forState:UIControlStateNormal];
+//    
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
@@ -386,7 +644,11 @@
         
         [cell.SFImageView setImage:[UIImage imageNamed:@"broadcast_image"]];
         
-        [cell.SFLable setText:@"播报距离"];
+        [cell.SFLable setText:@"播报距离："];
+        
+        NSArray *array = @[@"关闭",@"每1公里",@"每2公里",@"每5公里",@"每10公里"];
+        
+        [cell.dataLabel setText:array[self.self.sportsFunctionModel.speechDistance.integerValue]];
         
         return cell;
         
@@ -394,7 +656,11 @@
     
         [cell.SFImageView setImage:[UIImage imageNamed:@"map_image"]];
         
-        [cell.SFLable setText:@"地图设置"];
+        [cell.SFLable setText:@"地图设置："];
+        
+        NSArray *array = @[@"空白地图",@"标准地图",@"卫星地图"];
+        
+        [cell.dataLabel setText:array[self.self.sportsFunctionModel.mapType.integerValue]];
         
         return cell;
         
@@ -438,8 +704,10 @@
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation {
     
     //跟新坐标
+    CGFloat size = self.mapView.zoomLevel;
     [self.mapView updateLocationData:userLocation];
     self.mapView.centerCoordinate = userLocation.location.coordinate;
+    self.mapView.zoomLevel = size;
     
     //计算本次定位数据与上次定位数据之间的距离   并保存距离
     CGFloat distanceFloat = [userLocation.location distanceFromLocation:self.preLocation];
@@ -455,6 +723,9 @@
     
     //将符合的位置点存储到数组中
     [self.locationArrayM addObject:userLocation.location];
+    
+    //保存最新的点
+    //self.locationSumArray[0] = userLocation.location;
     
     //语音播报
     CGFloat KM = self.KMDistance / 1000.0;
@@ -549,26 +820,40 @@
                 
                 [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
                 
+                _sportInformationTableManager = [[SportInformationTableManager alloc] init];
+                
                 SportInformationModel *sportModel = [[SportInformationModel alloc] init];
+                
+                NSInteger lastMaxID = [Common readAppIntegerDataForKey:LAST_MAX_ID];
+                if (!lastMaxID) lastMaxID = 1;
+                else lastMaxID ++;
+                [Common saveAppIntegerDataForKey:LAST_MAX_ID withObject:lastMaxID];
+                sportModel.lastMaxID = [NSNumber numberWithInteger:lastMaxID];
+                
+                sportModel.sportNo = [[NSNumber numberWithInteger:lastMaxID] stringValue];
                 
                 sportModel.userId = STUserAccountHandler.userProfile.userId;
                 
                 NSInteger step = self.stepNumber - self.lastTimeStepNumber;
-                NSNumber *stepNumber = [[NSNumber alloc] initWithInteger:step];
-                sportModel.steps = stepNumber;
+                sportModel.steps = [NSNumber numberWithInteger:step];
             
                 CGFloat distance = self.sumDistance / 1000.0;
                 CGFloat calorie = 66.2 * distance * 1.036;      //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
-                NSNumber *calorieNumber = [[NSNumber alloc] initWithFloat:calorie];
-                sportModel.calorie = [calorieNumber stringValue];
+                sportModel.calorie = [[NSNumber numberWithFloat:calorie] stringValue];
                 
-                NSString *num = [NSString stringWithFormat:@"%lf",distance];
+                NSString *num = [[NSNumber numberWithFloat:distance] stringValue];
+                
+                if (distance == 0) {
+                    
+                    num = @"0.00";
+                    
+                }
+                
                 NSRange range = [num rangeOfString:@"."];
                 num = [num substringToIndex:range.location + 3];
-                NSNumber *distanceNumber = [NSNumber numberWithFloat:num.floatValue];
-                sportModel.distance = [distanceNumber stringValue];
+                sportModel.distance = [[NSNumber numberWithFloat:num.floatValue] stringValue];
                 
-                sportModel.period = [NSString stringWithFormat:@"%ld",self.timerInt];
+                sportModel.period = [NSString stringWithFormat:@"%ld",(long)self.timerInt];
                 NSString *x = @"";
                 NSString *y = @"";
                 for (int i = 0; i < self.locationArrayM.count; i++) {
@@ -585,10 +870,10 @@
                 sportModel.xcoordinate = x;
                 sportModel.ycoordinate = y;
                 
-                NSDate *date = [NSDate date];
+                
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"yyyy年MM月dd日 hh:mm"];
-                NSString *stringDate = [dateFormatter stringFromDate:date];
+                NSString *stringDate = [dateFormatter stringFromDate:self.startTime];
                 sportModel.startTime = stringDate;
         
                 
@@ -596,7 +881,19 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                        
-                        if (success) NSLog(@"保存成功");
+                        if (success) {
+                            
+                            sportModel.isSave = [NSNumber numberWithBool:YES];
+                            
+                            [_sportInformationTableManager insertSportInformation:sportModel];
+                            
+                        } else {
+                        
+                            sportModel.isSave = [NSNumber numberWithBool:NO];
+                            
+                            [_sportInformationTableManager insertSportInformation:sportModel];
+                        
+                        }
                         
                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
                         
@@ -609,7 +906,13 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                        
+                        sportModel.isSave = [NSNumber numberWithBool:NO];
+                        
+                        [_sportInformationTableManager insertSportInformation:sportModel];
+                        
                         [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+                        
+                        [STNotificationCenter postNotificationName:STDidSuccessSportInformationSendNotification object:nil]; //发送通知刷新历史记录
                         
                     });
                     
@@ -691,7 +994,7 @@
     
     if (self.isTap) {
         
-        [UIView animateWithDuration:0.5 animations:^{ //收起
+        [UIView animateWithDuration:0.3 animations:^{ //收起
             
             [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT - 188, SCREEN_WIDTH, 188)];
             
@@ -701,7 +1004,7 @@
         
     } else {
         
-        [UIView animateWithDuration:0.5 animations:^{ //展开
+        [UIView animateWithDuration:0.3 animations:^{ //展开
             
             [self.belowView setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 188)];
             
