@@ -9,6 +9,7 @@
 #import "SearchVersionManager.h"
 #import "STLocationMananger.h"
 #import "STCoreDataHandler.h"
+#import "STChooseItemManager.h"
 
 #define AppCurrentVersion        [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define AppID                       @"1086080481"
@@ -52,6 +53,11 @@
 
 @end
 
+@interface SearchVersionManager ()
+@property (nonatomic,assign) BOOL canLoadWeMediaInfoTypes;//是否可以下载自媒体类型,初始化是NO
+@property (nonatomic,strong) NSMutableArray *dataArray;
+@end
+
 @implementation SearchVersionManager {
     BOOL _isForce;//是否
 }
@@ -63,21 +69,36 @@ static SearchVersionManager *manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[SearchVersionManager alloc] init];
+        manager.canLoadWeMediaInfoTypes = NO;
+        //登录成功刷新
+        [STNotificationCenter addObserver:manager selector:@selector(loadLoadWeMediaInfoTypes) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     });
     return manager;
+}
+
+- (void)loadLoadWeMediaInfoTypes {//下载自媒体类型
+    
+    if (self.canLoadWeMediaInfoTypes) {//YES才能去下载
+        
+        [[STChooseItemManager shareManager] addChooseItemDataUserId:STUserAccountHandler.userProfile.userId success:^(BOOL success) {
+            [self encodeDataObject:self.dataArray];
+        } failure:^(NSError *error) {
+            [self deleteDataObjectWithKey:[NSString stringWithUTF8String:object_getClassName(self)]];//移除重新在下载
+        }];
+    }
 }
 
 - (void)synchronizedDataFromServer {
     
     [SearchVersionManager sendSearchTableVersion:^(NSMutableArray *dataArray) {
-        
+        self.dataArray = dataArray;
         NSMutableArray *oldArray = [self decodeObject];
         
         if (oldArray.count == 0 || oldArray == nil) {
             
-//            同步省-城市-区、县的数据【暂时没这个功能，先注释】
+//           1.同步省-城市-区、县的数据【暂时没这个功能，先注释】
 //            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];
-            
+            //2.下载健康因子
             [[STCoreDataHandler shareCoreDataHandler] synchronizedHealthyDataFromServer:^(BOOL isSuccess) {
                 
                 if (isSuccess) {//同步数据成功
@@ -93,7 +114,9 @@ static SearchVersionManager *manager;
                     });
                 }
             }];
-
+            //3.把flag设置成yes
+            self.canLoadWeMediaInfoTypes = YES;
+            
         } else {
  
             if (oldArray.count == dataArray.count) {
@@ -127,8 +150,13 @@ static SearchVersionManager *manager;
                                 });
                             }
                         }];
+                        
+                    } else if (![oldVersion.version isEqualToString:newVersion.version] && [oldVersion.tableName isEqualToString:newVersion.tableName] && [oldVersion.searchTableVersionId isEqualToNumber:@3]) {//自媒体的类型
+                        
+                        self.canLoadWeMediaInfoTypes = YES;//设置YES等着登录成功去下载自媒体类型(因为设置自媒体数据需要userId)
                     }
                 }
+                
             } else {
                 
                 [[STCoreDataHandler shareCoreDataHandler] synchronizedHealthyDataFromServer:^(BOOL isSuccess) {
@@ -148,6 +176,8 @@ static SearchVersionManager *manager;
                         });
                     }
                 }];
+                
+                self.canLoadWeMediaInfoTypes = YES;
             }
         }
         
@@ -208,7 +238,7 @@ static SearchVersionManager *manager;
     }];
 }
 //检查版本更新
-- (void)checkVersion {
+- (void)checkVersion {//storeString	__NSCFString *	"http://121.196.223.175:8082/stapi/1.0/upgrade/getAppUpgradeInfo?curVersion=2.0.0&osType=ios"	0x00007f823210f230
     
     NSString *storeString = [NSString stringWithFormat:@"%@%@?curVersion=%@&osType=ios",ST_API_SERVER,ST_VERSION_MANAGER,AppCurrentVersion];
     NSURL *storeURL = [NSURL URLWithString:storeString];
@@ -330,6 +360,10 @@ static SearchVersionManager *manager;
             [[UIApplication sharedApplication] openURL:iTunesURL];
         }
     }
+}
+
+- (void)dealloc {
+    [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
 @end
