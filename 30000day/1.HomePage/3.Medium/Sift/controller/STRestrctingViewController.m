@@ -82,8 +82,6 @@
     }
     
     cell.isMainGroup = YES;//写在前面
-//    cell.memberMutableArray = self.dataArray;
-    
     [cell configGroupTableViewCellWith:self.dataArray];
     [cell setMemberButtonBlock:^(NSInteger imageViewIndex, BOOL isAdmin) {//回调
         
@@ -134,7 +132,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [STGroupTableViewCell groupTableViewCellHeight:[[NSMutableArray alloc] init]];
+    return [STGroupTableViewCell groupTableViewCellHeight:self.dataArray];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

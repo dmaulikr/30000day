@@ -237,7 +237,7 @@ static BOOL isAdmin;
 + (CGFloat)groupTableViewCellHeight:(NSMutableArray *)memberMutableArray {
     
     NSInteger numberMember = memberMutableArray.count + 1;
-
+    
     if (isAdmin) {//是群主
         
         numberMember += 1;
