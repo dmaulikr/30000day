@@ -20,7 +20,6 @@
 #import "ChineseString.h"
 #import "MTProgressHUD.h"
 #import "STGroupViewController.h"
-#import "MenuView.h"
 
 @interface PersonViewController () <UITableViewDataSource,UITableViewDelegate> {
     
@@ -29,9 +28,7 @@
 
 @property (nonatomic,strong) PersonTableViewCell *firstCell;
 
-@property (nonatomic,assign) NSInteger sortTab; //0 升序   1 降序
-
-@property (nonatomic,strong) MenuView * menuView;
+@property (nonatomic,assign) NSInteger sortTab;
 
 @end
 
@@ -41,7 +38,7 @@
     [super viewDidLoad];
     
     self.tableViewStyle = STRefreshTableViewGroup;
-    self.tableView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - 113);
+    self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self showHeadRefresh:YES showFooterRefresh:NO];
@@ -68,6 +65,9 @@
 - (void)changeState {
     
     self.firstCell.badgeView.hidden = NO;//显示cell的badge
+    if (self.callback) {
+        self.callback(1);
+    }
 }
 
 - (void)headerRefreshing {
@@ -96,9 +96,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-        
         });
-        
     }];
 }
 
@@ -108,48 +106,12 @@
         
         _firstCell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][2];
         _firstCell.badgeView.hidden = [Common readAppIntegerDataForKey:USER_BADGE_NUMBER] ? NO : YES;//显示cell的badge
-        self.parentViewController.tabBarItem.badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;//显示底部badge
+        if (self.callback) {
+            self.callback([Common readAppIntegerDataForKey:USER_BADGE_NUMBER]);
+        }
     }
     return _firstCell;
 }
-
-
-- (MenuView *)menuView{
-    if (!_menuView) {
-
-        NSDictionary *dict1 = @{@"itemName" : @"升序"};
-        NSDictionary *dict2 = @{@"itemName" : @"降序"};
-        NSArray *dataArray = @[dict1,dict2];
-        
-        __weak __typeof(&*self)weakSelf = self;
-        /**
-         *  创建menu
-         */
-        _menuView = [MenuView createMenuWithFrame:CGRectMake(SCREEN_WIDTH - 153, 45 + 64, 70, 80) target:self.navigationController dataArray:dataArray itemsClickBlock:^(NSString *str, NSInteger tag) {
-            
-            // do something
-            [weakSelf doSomething:(NSString *)str tag:(NSInteger)tag];
-            
-        } backViewTap:^{
-            _menuView = nil;
-            
-        }];
-    }
-    return _menuView;
-}
-
-- (void)doSomething:(NSString *)str tag:(NSInteger)tag{
-    
-    self.sortTab = tag;
-
-    [self.menuView showMenuWithAnimation:NO];
-    
-    _menuView = nil;
-    
-    [self getMyFriends];
-    
-}
-
 
 #pragma ---
 #pragma mark ----- UITableViewDelegate/UITableViewDatasource
@@ -165,32 +127,42 @@
         }
         view.titleLabel.text = [NSString stringWithFormat:@"当前共有 %ld 位自己人",(unsigned long)_dataArray.count];
         view.titleLabel.hidden = NO;
-        
-        if (self.sortTab) {
-            
-            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
-            
-        } else {
-        
-            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
-        
-        }
-        
         [view setChangeStateBlock:^(UIButton *changeStatusButton) {
             
             [self.tableView reloadData];
             [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
-            
         }];
-
+        
+        if (self.sortTab) {
+        
+            [view.sortButton setTitle:@"降序" forState:UIControlStateNormal];
+            view.sortButton.selected = YES;
+        
+        } else {
+            
+            [view.sortButton setTitle:@"升序" forState:UIControlStateNormal];
+            view.sortButton.selected = NO;
+        }
 
         [view setSortButtonBlock:^(UIButton *button) {
             
-            [self.menuView showMenuWithAnimation:YES];
+            if (button.isSelected) {
+                
+                button.selected = NO;
+                self.sortTab = 0;
+                [button setTitle:@"升序" forState:UIControlStateNormal];
+                
+            } else {
+                
+                button.selected = YES;
+                self.sortTab = 1;
+                [button setTitle:@"降序" forState:UIControlStateNormal];
+            }
+            
+            [self getMyFriends];
             
         }];
 
-        
         if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
             
             [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
@@ -217,7 +189,7 @@
     
     if (section == 0) {
         
-        return 54;
+        return 44;
     }
     
     return 25.0f;
@@ -306,8 +278,7 @@
             
             cell.jinSuoSupView.hidden = YES;
             cell.informationModel_second = _dataArray[indexPath.row];
-             return cell;
-            
+            return cell;
         }
     }
 }
@@ -325,7 +296,9 @@
             [self.navigationController pushViewController:controller animated:YES];
             self.firstCell.badgeView.hidden = YES;//清除cell的badge
             [Common saveAppIntegerDataForKey:USER_BADGE_NUMBER withObject:0];//把plist里面存储的badge清空
-            self.parentViewController.tabBarItem.badgeValue = nil;//清除底部按钮badge
+            if (self.callback) {
+                self.callback([Common readAppIntegerDataForKey:USER_BADGE_NUMBER]);
+            }
             
         } else if (indexPath.row == 1) {
             
@@ -339,8 +312,9 @@
         PersonDetailViewController *controller = [[PersonDetailViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         UserInformationModel *model = _dataArray[indexPath.row];
-        controller.informationModel = model;
         controller.isShowRightBarButton = YES;
+        controller.showBottomButton = YES;
+        controller.informationModel = model;
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

@@ -18,9 +18,6 @@
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
 #import "PersonSettingViewController.h"
-#import "PersonInformationsManager.h"
-#import "NewFriendManager.h"
-#import "PersonSportTableViewController.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -33,7 +30,6 @@
 @property (nonatomic,strong) NSMutableArray *dayNumberArray;
 
 @property (weak, nonatomic) IBOutlet UIView *backgoudView;
-
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
@@ -46,14 +42,13 @@
     [super viewDidLoad];
     
     self.title = @"详细资料";
-    
     [self.tableView setTableFooterView:[[UIView alloc] init]];
-    
     self.backgoudView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.backgoudView.layer.borderWidth = 0.5f;
-    
     self.rightButton.layer.cornerRadius = 5;
     self.rightButton.layer.masksToBounds = YES;
+    [self.rightButton setBackgroundImage:[Common imageWithColor:RGBACOLOR(200, 200, 200, 1)] forState:UIControlStateDisabled];
+    self.rightButton.enabled = self.showBottomButton;//是否显示底部按钮
     
     //右边按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,14 +62,9 @@
     [self reloadData];
     
     [STNotificationCenter addObserver:self selector:@selector(reloadTableViewData) name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
-    
-    if (self.isStranger) {
-        
-        [self.rightButton setTitle:@"添加好友" forState:UIControlStateNormal];
-        
-    }
-    
 }
+
+
 
 - (ActivityIndicatorTableViewCell *)indicatorCell {
     
@@ -193,20 +183,9 @@
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        NSString *string;
+        NSString *string = [self.informationModel showNickName];
         
-        if (self.isStranger) {
-            
-            string = self.informationModel.nickName;
-            
-        } else {
-            
-            string = [[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] showNickName];
-        
-        }
-
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"%@的总天龄已经击败%.1f%%用户",string,[dataString floatValue] * 100];
         });
     
@@ -217,118 +196,18 @@
 
 - (IBAction)buttonClickAction:(id)sender {
     
-    if (self.isStranger) {
+    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]]) {
         
-        if ([Common isObjectNull:STUserAccountHandler.userProfile.userId] || [Common isObjectNull:self.informationModel.userId]) {
+        //查询conversation
+        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:self.informationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
-            [self showToast:@"对方或自己的id为空~"];
-            return;
-        }
-        
-        if ([STUserAccountHandler.userProfile.userId isEqualToNumber:self.informationModel.userId]) {
-            
-            [self showToast:@"不能添加自己~"];
-            
-            return;
-        }
-        
-        [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-        //添加好友,接口, @1请求   @2接受   @3拒绝
-        [STDataHandler sendPushMessageWithCurrentUserId:STUserAccountHandler.userProfile.userId
-                                                 userId:self.informationModel.userId
-                                            messageType:@1
-                                                success:^(BOOL success) {
-                                                    
-                                                    if ([Common isObjectNull:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]]) {
-                                                        
-                                                        if ([self.informationModel.friendSwitch isEqualToString:@"1"]) {//打开的
-                                                            
-                                                            [NewFriendManager drictRefresh:self.informationModel andCallback:^(BOOL succeeded, NSError *error) {
-                                                                
-                                                                if (succeeded) {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                        
-                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        [self showToast:@"好友添加成功"];
-                                                                        [STNotificationCenter postNotificationName:STDidApplyAddFriendSuccessSendNotification object:nil];
-                                                                    });
-                                                                    
-                                                                } else {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                        
-                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        [self showToast:@"消息发送失败"];
-                                                                        
-                                                                    });
-                                                                }
-                                                                
-                                                            }];
-                                                            
-                                                        } else {//等于0，获取没设置
-                                                            
-                                                            [NewFriendManager subscribePresenceToUserWithUserProfile:self.informationModel andCallback:^(BOOL succeeded, NSError *error) {
-                                                                
-                                                                if (succeeded) {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                        
-                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        [self showToast:@"请求发送成功"];
-                                                                        
-                                                                    });
-                                                                    
-                                                                } else {
-                                                                    
-                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                        
-                                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                                        [self showToast:error.userInfo[NSLocalizedDescriptionKey]];
-                                                                        
-                                                                    });
-                                                                }
-                                                            }];
-                                                        }
-                                                        
-                                                    } else {
-                                                        
-                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                            
-                                                            [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                            [self showToast:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]];
-                                                        });
-                                                    }
-                                                    
-                                                } failure:^(NSError *error) {
-                                                    
-                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                        
-                                                        [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-                                                        [self showToast:[error userInfo][NSLocalizedDescriptionKey]];
-                                                        
-                                                    });
-                                                    
-                                                }];
+            if ([self filterError:error]) {
+                [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
+            }
+        }];
         
     } else {
-    
-        if ([Common isObjectNull:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]]) {
-            
-            //查询conversation
-            [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
-                
-                if ([self filterError:error]) {
-                    
-                    [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                    
-                }
-            }];
-            
-        } else {
-            
-            [self showToast:[UserInformationModel errorStringWithModel:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId] userProfile:STUserAccountHandler.userProfile]];
-        }
+        [self showToast:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]];
     }
 }
 
@@ -341,7 +220,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -351,39 +230,23 @@
         static NSString *identifier = @"PersonTableViewCell";
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
         if (cell == nil) {
-            
             cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][0];
         }
         
         cell.imageRight_first.hidden = YES;
-        
         cell.progressView.hidden = YES;
-        
         cell.jinSuoImageView.hidden = YES;
-        
-        if (self.isStranger) {
-        
-            cell.informationModel = self.informationModel;
-            
-        } else {
-        
-            cell.informationModel = [[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId];
-        
-        }
+        cell.informationModel = self.informationModel;
         
         return cell;
         
     } else if (indexPath.section == 1) {
         
         PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonTableViewCell_UserName"];
-        
         if (cell == nil) {
-            
             cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:nil options:nil][5];
         }
-
         cell.label_sixth.text = [NSString stringWithFormat:@"%@",self.informationModel.userName];
         
         return cell;
@@ -391,7 +254,7 @@
     } else if (indexPath.section == 2) {
         
         //刷新数据
-        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:[[PersonInformationsManager shareManager] infoWithFriendId:self.informationModel.userId].birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
+        [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:self.informationModel.birthday showLabelTye:[Common readAppIntegerDataForKey:SHOWLABLETYPE]];
         
         return self.indicatorCell;
         
@@ -400,37 +263,17 @@
         ChartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChartTableViewCell"];
         
         if (cell == nil) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ChartTableViewCell" owner:nil options:nil] lastObject];
         }
         
         cell.allDayArray = self.allDayArray;
-        
         cell.dayNumberArray = self.dayNumberArray;
         
         if (self.allDayArray && self.dayNumberArray) {
-            
             [cell reloadData];
         }
         
         return cell;
-        
-    } else if(indexPath.section == 4) {
-    
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        
-        if (!cell) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            
-        }
-        
-        cell.textLabel.text = @"运动记录";
-        
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        
-        return cell;
-    
     }
     
     return nil;
@@ -455,22 +298,10 @@
         return (SCREEN_HEIGHT - 188)/2.0f - 40;
     }
     
-    return 54;
+    return 44;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 4) {
-        
-        PersonSportTableViewController *controller = [[PersonSportTableViewController alloc] init];
-        
-        controller.personId = self.informationModel.userId;
-        
-        controller.birthday = self.informationModel.birthday;
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        
-    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -484,11 +315,8 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
-    
     self.allDayArray = nil;
-    
     self.dayNumberArray = nil;
-    
     self.indicatorCell = nil;
 }
 

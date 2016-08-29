@@ -14,4 +14,6 @@ typedef void(^DidFinishTakeMediaCompledBlock)(UIImage *image, NSDictionary *edit
 
 - (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController compled:(DidFinishTakeMediaCompledBlock)compled;
 
+- (void)showPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType mediaType:(NSArray *)mediaType controller:(UIViewController *)controller compled:(DidFinishTakeMediaCompledBlock)compled;
+
 @end

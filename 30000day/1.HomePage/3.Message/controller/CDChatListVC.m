@@ -53,7 +53,6 @@ static NSString *cellIdentifier = @"ContactCell";
 - (NSMutableArray *)conversations {
     
     if (_conversations == nil) {
-        
         _conversations = [[NSMutableArray alloc] init];
     }
     return _conversations;
@@ -63,7 +62,7 @@ static NSString *cellIdentifier = @"ContactCell";
     [super viewDidLoad];
     
     self.tableViewStyle =  STRefreshTableViewPlain;
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self showHeadRefresh:YES showFooterRefresh:NO];
@@ -108,7 +107,6 @@ static NSString *cellIdentifier = @"ContactCell";
         
             //给这个好友管理器赋值
             [PersonInformationsManager shareManager].informationsArray = dataArray;
-            
             [self.tableView reloadData];
         
         });
@@ -123,12 +121,10 @@ static NSString *cellIdentifier = @"ContactCell";
 - (void)headerRefreshing {
     
     if (self.isRefreshing) {
-        
         return;
     }
     
     self.isRefreshing = YES;
-    
     [[CDChatManager sharedManager] findRecentConversationsWithBlock:^(NSArray *conversations, NSInteger totalUnreadCount, NSError *error) {
         
         dispatch_block_t finishBlock = ^{
@@ -138,11 +134,8 @@ static NSString *cellIdentifier = @"ContactCell";
             if (!error) {
                 
                 self.conversations = [NSMutableArray arrayWithArray:conversations];
-                
                 [self.tableView reloadData];
-                
                 [self setBadgeWithTotalUnreadCount:totalUnreadCount];//设置未读消息
-                
                 [self selectConversationIfHasRemoteNotificatoinConvid];
             }
             
@@ -155,25 +148,8 @@ static NSString *cellIdentifier = @"ContactCell";
 
 - (void)setBadgeWithTotalUnreadCount:(NSInteger)totalUnreadCount {
     
-    if (totalUnreadCount > 0) {
-        
-        if (totalUnreadCount >= 100) {
-            
-            [[self navigationController] tabBarItem].badgeValue = @"99+";
-            
-        } else {
-            
-            [[self navigationController] tabBarItem].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
-            
-        }
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
-        
-    } else {
-        
-        [[self navigationController] tabBarItem].badgeValue = nil;
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    if (self.badgeNumberBlock) {
+        self.badgeNumberBlock(totalUnreadCount);
     }
 }
 
@@ -192,7 +168,6 @@ static NSString *cellIdentifier = @"ContactCell";
             if ([conversation.conversationId isEqualToString:[CDChatManager sharedManager].remoteNotificationConvid]) {
                 
                 [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-                
                 found = YES;
             }
         }
@@ -210,7 +185,6 @@ static NSString *cellIdentifier = @"ContactCell";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     static NSString *headViewIndentifier = @"PersonHeadView";
-    
     PersonHeadView *view = (PersonHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewIndentifier];
 
     if (view == nil) {
@@ -219,26 +193,21 @@ static NSString *cellIdentifier = @"ContactCell";
     }
     
     view.sortButton.hidden = YES;
-    
     view.titleLabel.hidden = YES;
-    
     [view setChangeStateBlock:^(UIButton *changeStatusButton) {
         
         [self.tableView reloadData];
-        
         [STNotificationCenter postNotificationName:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
     }];
     
     if ([Common readAppIntegerDataForKey:IS_BIG_PICTUREMODEL]) {
         
         [view.changeStatusButton setImage:[UIImage imageNamed:@"list.png"] forState:UIControlStateNormal];
-        
         [view.changeStatusButton setTitle:@" 列表" forState:UIControlStateNormal];
         
     } else {
         
         [view.changeStatusButton setImage:[UIImage imageNamed:@"bigPicture.png"] forState:UIControlStateNormal];
-        
         [view.changeStatusButton setTitle:@" 大图" forState:UIControlStateNormal];
     }
     
@@ -249,7 +218,7 @@ static NSString *cellIdentifier = @"ContactCell";
     
     if (section == 0) {
         
-        return 54;
+        return 44;
     }
     return 0;
 }
@@ -423,13 +392,10 @@ static NSString *cellIdentifier = @"ContactCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     AVIMConversation *conversation = [self.conversations objectAtIndex:indexPath.row];
-    
     [conversation markAsReadInBackground];
-    
     [self headerRefreshing];
     
     [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -448,19 +414,12 @@ static NSString *cellIdentifier = @"ContactCell";
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:kCDNotificationConnectivityUpdated object:nil];
-    
     [STNotificationCenter removeObserver:self name:kCDNotificationMessageReceived object:nil];
-    
     [STNotificationCenter removeObserver:self name:kCDNotificationUnreadsUpdated object:nil];
-    
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-    
     [STNotificationCenter removeObserver:self name:STDidSuccessUpdateFriendInformationSendNotification object:nil];
-    
     [STNotificationCenter removeObserver:self name:STUserDidSuccessChangeBigOrSmallPictureSendNotification object:nil];
-    
     [STNotificationCenter removeObserver:self name:STDidSuccessQuitGroupChatSendNotification object:nil];
-    
     [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
 }
 

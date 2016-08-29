@@ -649,18 +649,16 @@ static CDChatManager *instance;
 - (void)selectOrRefreshConversationsWithBlock:(AVIMArrayResultBlock)block {
     
 //    NSArray *conversations = [[CDConversationStore store] selectAllConversations];
-//    
 //    __block NSInteger refreshedFromServer = 0;
 //    
 //    if (refreshedFromServer == 0 && self.connect) {
 //        
 //        NSMutableSet *conversationIds = [NSMutableSet set];
-//        
 //        for (AVIMConversation *conversation in conversations) {
 //            
 //            [conversationIds addObject:conversation.conversationId];
 //        }
-//        
+//#warning ----------如果一直有新的消息的话，那么久会产生bug
 //        [self fetchConversationsWithConversationIds:conversationIds callback:^(NSArray *objects, NSError *error) {
 //            
 //            if (error) {
@@ -670,10 +668,7 @@ static CDChatManager *instance;
 //            } else {
 //
 //                [[CDConversationStore store] updateConversations:objects];
-//                
-//                NSArray *dataArray = [[CDConversationStore store] selectAllConversations];
-//            
-//                block(dataArray, nil);
+//                block([[CDConversationStore store] selectAllConversations], nil);
 //            }
 //            
 //            refreshedFromServer = 1;
@@ -683,7 +678,7 @@ static CDChatManager *instance;
 //        
 //        block(conversations, nil);
 //    }
-    
+#warning 上面方法只运行一次，下面的方法每次都会运行，上面的方法是为了群聊做的，真正出问题的是缓存设计的不好，需要优化
     static BOOL refreshedFromServer = NO;
     NSArray *conversations = [[CDConversationStore store] selectAllConversations];
     if (refreshedFromServer == NO && self.connect) {

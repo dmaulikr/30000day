@@ -19,6 +19,11 @@
 
 #define imageViewWidth ([UIScreen mainScreen].bounds.size.width - imageViewMarginX * (imageViewRowCount + 1)) / imageViewRowCount
 
+@interface STGroupTableViewCell ()
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
+
+@end
 
 @implementation STGroupTableViewCell
 
@@ -42,29 +47,29 @@ static BOOL isAdmin;
     isAdmin = isMainGroup;
 }
 
-- (void)setMemberMutableArray:(NSMutableArray *)memberMutableArray {
+- (void)configGroupTableViewCellWith:(NSMutableArray *)memberMutableArray {
     
-     _memberMutableArray = memberMutableArray;
-
+    //添加
+    self.dataArray = [[NSMutableArray alloc] init];
+    [self.dataArray addObjectsFromArray:memberMutableArray];
+    
+    
     STGroupCellModel *model = [[STGroupCellModel alloc] init];
-    
-    [memberMutableArray addObject:model];
+    [self.dataArray addObject:model];
     
     if (self.isMainGroup) {//是群主
         
         STGroupCellModel *model = [[STGroupCellModel alloc] init];
-        
-        [memberMutableArray addObject:model];
+        [self.dataArray addObject:model];
     }
     
     for (UIView *view in self.contentView.subviews) {//移除之前设定的
-        
         [view removeFromSuperview];
     }
-
-    for (int i = 0; i < _memberMutableArray.count; i++) {
+    
+    for (int i = 0; i < self.dataArray.count; i++) {
         
-        STGroupCellModel *model = _memberMutableArray[i];//取到模型
+        STGroupCellModel *model = self.dataArray[i];//取到模型
         
         NSInteger col = i % imageViewRowCount;
         NSInteger row = i / imageViewRowCount;
@@ -74,88 +79,159 @@ static BOOL isAdmin;
         CGFloat lableY = row * imageViewWidth + row * imageViewMarginY + imageViewWidth + imageViewTop + 5;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, imageViewWidth, imageViewWidth)];
-        
         [imageView.layer setCornerRadius:5.0f];
-        
         [imageView.layer setMasksToBounds:YES];
-
+        
         if (isAdmin) {//是群主
             
-            if (i == _memberMutableArray.count - 2) {
+            if (i == self.dataArray.count - 2) {
                 
                 imageView.backgroundColor = [UIColor whiteColor];
-                
                 imageView.image = [UIImage imageNamed:@"plusSign"];
-                
                 imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-                
                 imageView.layer.borderWidth = 1.0f;
                 
-            } else if (i == _memberMutableArray.count - 1) {
+            } else if (i == self.dataArray.count - 1) {
                 
                 imageView.backgroundColor = [UIColor whiteColor];
-                
                 imageView.image = [UIImage imageNamed:@"minusSign"];
-                
                 imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-                
                 imageView.layer.borderWidth = 1.0f;
-
+                
             } else {
                 
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
-                
                 imageView.backgroundColor = [UIColor blackColor];
-                
                 [imageView sd_setImageWithURL:[NSURL URLWithString:model.imageViewURL] placeholderImage:[UIImage imageNamed:@"placeholder"]];
             }
             
         } else {//非群主
             
-          if (i == _memberMutableArray.count - 1) {
+            if (i == self.dataArray.count - 1) {
                 
                 imageView.backgroundColor = [UIColor whiteColor];
-                
                 imageView.image = [UIImage imageNamed:@"plusSign"];
-                
                 imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-                
                 imageView.layer.borderWidth = 1.0f;
                 
             } else {
                 
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
-                
                 imageView.backgroundColor = [UIColor blackColor];
-                
                 [imageView sd_setImageWithURL:[NSURL URLWithString:model.imageViewURL] placeholderImage:[UIImage imageNamed:@"placeholder"]];
             }
         }
-
+        
         [imageView setTag:i];
-        
         imageView.userInteractionEnabled = YES;
-        
         [self.contentView addSubview:imageView];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-        
         [imageView addGestureRecognizer:tap];
         
-        if ( i < _memberMutableArray.count - 1) {
+        if ( i < self.dataArray.count - 1) {
             
             UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(x, lableY, imageViewWidth, 10)];
-            
             [lable setTextAlignment:NSTextAlignmentCenter];
-            
             [lable setFont:[UIFont systemFontOfSize:12.0f]];
-            
             [lable setText:model.title];
-            
             [self.contentView addSubview:lable];
         }
     }
+    
 }
+
+//- (void)setMemberMutableArray:(NSMutableArray *)memberMutableArray {
+//    
+//     _memberMutableArray = memberMutableArray;
+//
+//    STGroupCellModel *model = [[STGroupCellModel alloc] init];
+////    [memberMutableArray addObject:model];
+//    [_memberMutableArray addObject:model];
+//    
+//    if (self.isMainGroup) {//是群主
+//        
+//        STGroupCellModel *model = [[STGroupCellModel alloc] init];
+////        [memberMutableArray addObject:model];
+//        [_memberMutableArray addObject:model];
+//    }
+//    
+//    for (UIView *view in self.contentView.subviews) {//移除之前设定的
+//        [view removeFromSuperview];
+//    }
+//
+//    for (int i = 0; i < _memberMutableArray.count; i++) {
+//        
+//        STGroupCellModel *model = _memberMutableArray[i];//取到模型
+//        
+//        NSInteger col = i % imageViewRowCount;
+//        NSInteger row = i / imageViewRowCount;
+//        
+//        CGFloat x = col * imageViewWidth + col * imageViewMarginX + imageViewMarginX;
+//        CGFloat y = row * imageViewWidth + row * imageViewMarginY + imageViewTop;
+//        CGFloat lableY = row * imageViewWidth + row * imageViewMarginY + imageViewWidth + imageViewTop + 5;
+//        
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, imageViewWidth, imageViewWidth)];
+//        [imageView.layer setCornerRadius:5.0f];
+//        [imageView.layer setMasksToBounds:YES];
+//
+//        if (isAdmin) {//是群主
+//            
+//            if (i == _memberMutableArray.count - 2) {
+//                
+//                imageView.backgroundColor = [UIColor whiteColor];
+//                imageView.image = [UIImage imageNamed:@"plusSign"];
+//                imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+//                imageView.layer.borderWidth = 1.0f;
+//                
+//            } else if (i == _memberMutableArray.count - 1) {
+//                
+//                imageView.backgroundColor = [UIColor whiteColor];
+//                imageView.image = [UIImage imageNamed:@"minusSign"];
+//                imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+//                imageView.layer.borderWidth = 1.0f;
+//
+//            } else {
+//                
+//                imageView.contentMode = UIViewContentModeScaleAspectFit;
+//                imageView.backgroundColor = [UIColor blackColor];
+//                [imageView sd_setImageWithURL:[NSURL URLWithString:model.imageViewURL] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//            }
+//            
+//        } else {//非群主
+//            
+//          if (i == _memberMutableArray.count - 1) {
+//                
+//                imageView.backgroundColor = [UIColor whiteColor];
+//                imageView.image = [UIImage imageNamed:@"plusSign"];
+//                imageView.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+//                imageView.layer.borderWidth = 1.0f;
+//                
+//            } else {
+//                
+//                imageView.contentMode = UIViewContentModeScaleAspectFit;
+//                imageView.backgroundColor = [UIColor blackColor];
+//                [imageView sd_setImageWithURL:[NSURL URLWithString:model.imageViewURL] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//            }
+//        }
+//
+//        [imageView setTag:i];
+//        imageView.userInteractionEnabled = YES;
+//        [self.contentView addSubview:imageView];
+//        
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+//        [imageView addGestureRecognizer:tap];
+//        
+//        if ( i < _memberMutableArray.count - 1) {
+//            
+//            UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(x, lableY, imageViewWidth, 10)];
+//            [lable setTextAlignment:NSTextAlignmentCenter];
+//            [lable setFont:[UIFont systemFontOfSize:12.0f]];
+//            [lable setText:model.title];
+//            [self.contentView addSubview:lable];
+//        }
+//    }
+//}
 
 //计算cell的高度
 + (CGFloat)groupTableViewCellHeight:(NSMutableArray *)memberMutableArray {

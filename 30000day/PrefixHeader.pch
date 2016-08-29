@@ -199,6 +199,16 @@
 #define  GET_SPORTSWITCH                 @"/sport/getSportSwitch"             //获取运动开关
 #define  SET_SPORTSWITCH                 @"/sport/setSportSwitch"             //设置运动开关
 
+#define  SEND_MEDIA                      @"/wemedia/commitMyMedias"              //上传消息到自媒体
+#define  GET_WEMEDIA_LIST                @"/wemedia/getWeMediaInfoList"          //获取自媒体接口
+#define  GET_WEMEDIA_DETAIL              @"/wemedia/getWeMediaInfoDetail"        //获取自媒体详情
+#define  REPLAY_MEDIA_MESSAGE            @"/wemedia/shareMedia"                  //转发自媒体
+#define  FIND_INFO_TYPES                 @"/wemedia/findInfoTypes"               //获取自媒体类型接口
+#define  SET_WEMEDIASWITCH               @"/wemedia/setWemediaSwitch"            //设置自媒体开关
+#define  GET_WEMEDIA_SWITCH              @"/wemedia/getWemediaSwitch"            //获取自媒体开关
+#define  DELETE_WEMEDIA                  @"/wemedia/deleteWemedia"               //删除自媒体
+
+
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
 #define USER_ID                    @"userId"

@@ -15,6 +15,7 @@
 #import "InformationCommentModel.h"
 #import "LifeDescendFactorsModel.h"
 #import "SportInformationModel.h"
+#import "STChooseItemView.h"
 
 //当前用户成功添加好友发出的通知
 static NSString *const STUserAddFriendsSuccessPostNotification = @"STUserAddFriendsSuccessPostNotification";
@@ -66,6 +67,9 @@ static NSString *const STSelectSportsFunctionMapSendNotification = @"STSelectSpo
 static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"STSelectSportsFunctionSpeechDistanceSendNotification";
 //指定好友返回刷新
 static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification = @"STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification";
+//成功发布自媒体
+static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSendNotification";
+
 
 @class STNetError;
 @class WeatherInformationModel;
@@ -73,6 +77,7 @@ static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotif
 @class MyOrderDetailModel;
 @class UserInformationModel;
 @class PriceModel;
+@class STMediumDetailModel;
 
 @interface STDataHandler : NSObject
 
@@ -609,6 +614,61 @@ static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotif
                             crowdIds:(NSString *)crowdIds
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
+//***********上传消息到自媒体*****************//
++ (void)sendMessageToMediumWithUserId:(NSNumber *)userId
+                              content:(NSString *)content   //内容
+                          visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
+                            mediaType:(NSString *)mediaType  //1饮食  2运动 3作息
+                         mediaJsonStr:(NSString *)mediaJsonStr//一段神奇的字符串
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(NSError *error))failure;
+
+//************获取自媒体界面列表接口**************/
++ (void)sendGetWeMediaListWithUserId:(NSNumber *)userId
+                         currentPage:(NSNumber *)currentPage
+                         visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
+                          mediaTypes:(NSString *)mediaTypes  //1饮食  2运动 3作息
+                             success:(void (^)(NSMutableArray *dataArray))success
+                             failure:(void (^)(NSError *error))failure;
+
+//************获取自媒体界面详情接口**************/
++ (void)sendGetWeMediaDetailWithUserId:(NSNumber *)userId//用户ID
+                             weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                               success:(void (^)(STMediumDetailModel *model))success
+                               failure:(void (^)(NSError *error))failure;
+
+//************获取自媒体界面详情接口**************/
++ (void)sendReplayMediaMessageWithUserId:(NSNumber *)userId//用户ID
+                               weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                             visibleType:(NSNumber *)visibleType//类型
+                                 content:(NSString *)content//内容
+                                 success:(void (^)(BOOL success))success
+                                 failure:(void (^)(NSError *error))failure;
+
+//**************获取自媒体类型接口**********************/
++ (void)sendGetWeMediaInfoTypesSuccess:(void (^)(NSMutableArray <STChooseItemModel *>*modelArray))success
+                               failure:(void (^)(NSError *error))failure;
+
+//**************设置设置自媒体开关*********************/
++ (void)sendSetWemediaSwitchWithUserId:(NSNumber *)userId//用户id
+                                status:(NSNumber *)status//设置的flag   0:我不看他们  1:我不让他们看
+                                  type:(NSNumber *)type//看的状态           0：不可见 1：可见
+                               userIds:(NSString *)userIds//@"1,2,3"            id组成的字符串
+                               success:(void (^)(BOOL success))success
+                               failure:(void (^)(NSError *error))failure;
+
+//*************获取自媒体开关***********************/
++ (void)sendGetWemediaSwitchWithUserId:(NSNumber *) userId//用户id
+                                  type:(NSNumber *)type//设置的flag   0:我不看他们  1:我不让他们看
+                               success:(void (^)(NSMutableArray *dataArray))success
+                               failure:(void (^)(NSError *error))failure;
+
+//************删除自媒体接口*******************/
++ (void)sendDeleteWemediaUserId:(NSNumber *)userId
+                        shareId:(NSNumber *)shareId
+                      wemediaId:(NSNumber *)wemediaId
+                        success:(void (^)(BOOL success))success
+                        failure:(void (^)(NSError *error))failure;
 
 
 @end

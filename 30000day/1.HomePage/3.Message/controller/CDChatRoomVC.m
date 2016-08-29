@@ -381,7 +381,6 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 
 - (void)didSelectedAvatorOnMessage:(id<XHMessageModel>)message atIndexPath:(NSIndexPath *)indexPath {
     DLog(@"indexPath : %@", indexPath);
-    
     if (message.bubbleMessageType == XHBubbleMessageTypeReceiving) {
         
         [self showHUDWithContent:@"" animated:YES];
@@ -392,6 +391,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
                 controller.informationModel = model;
                 controller.hidesBottomBarWhenPushed = YES;
                 controller.isShowRightBarButton = NO;
+                controller.showBottomButton  = YES;
                 [self.navigationController pushViewController:controller animated:YES];
                 [self hideHUD:YES];
             });
