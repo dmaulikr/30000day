@@ -90,7 +90,7 @@
         <!--自己人-->
         <scene sceneID="CFB-JI-aAs">
             <objects>
-                <viewController id="lnE-H1-1lk" customClass="PersonScrollViewController" sceneMemberID="viewController">
+                <viewController id="lnE-H1-1lk" customClass="STMediumController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hxW-Q2-gNO"/>
                         <viewControllerLayoutGuide type="bottom" id="PVk-vr-CH6"/>
@@ -99,7 +99,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="自己人" image="icon_txl_gray" id="6xW-dd-PhV"/>
+                    <tabBarItem key="tabBarItem" title="自媒体" image="icon_txl_gray" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" title="自己人" id="fwf-QA-afC"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -130,7 +130,7 @@
         <!--消息-->
         <scene sceneID="oVM-q3-9WT">
             <objects>
-                <viewController id="QJm-Xh-jgR" customClass="CDChatListVC" sceneMemberID="viewController">
+                <viewController id="QJm-Xh-jgR" customClass="STMessageBaseController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yMI-ng-iiS"/>
                         <viewControllerLayoutGuide type="bottom" id="FIg-gT-d1M"/>
@@ -140,7 +140,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="消息" image="icon_messages_gray" id="z1L-MA-CDe"/>
+                    <tabBarItem key="tabBarItem" title="联系" image="icon_messages_gray" id="z1L-MA-CDe"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="消息" id="a9b-r1-c8g"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

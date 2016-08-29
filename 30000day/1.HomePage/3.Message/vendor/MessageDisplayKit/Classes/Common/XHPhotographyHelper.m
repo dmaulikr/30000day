@@ -44,6 +44,21 @@
     [viewController presentViewController:imagePickerController animated:YES completion:NULL];
 }
 
+- (void)showPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType mediaType:(NSArray *)mediaType controller:(UIViewController *)controller compled:(DidFinishTakeMediaCompledBlock)compled {
+    
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        compled(nil, nil);
+        return;
+    }
+    self.didFinishTakeMediaCompled = [compled copy];
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.editing = YES;
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.mediaTypes =  mediaType;
+    [controller presentViewController:imagePickerController animated:YES completion:NULL];
+}
+
 - (void)dismissPickerViewController:(UIImagePickerController *)picker {
     WEAKSELF
     [picker dismissViewControllerAnimated:YES completion:^{

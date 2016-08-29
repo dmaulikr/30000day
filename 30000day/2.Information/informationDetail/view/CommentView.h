@@ -18,6 +18,6 @@
 
 @property (nonatomic,assign,getter=isSelected) BOOL selected;//是否被选中，默认是NO
 
-- (CGFloat)getLabelWidthWithText:(NSString *)text;
+- (CGFloat)getLabelWidthWithText:(NSString *)text textHeight:(CGFloat)textHeight;
 
 @end

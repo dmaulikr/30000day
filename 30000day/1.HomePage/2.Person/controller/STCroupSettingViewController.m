@@ -137,7 +137,7 @@
         
         cell.isMainGroup = [self isAdmin];//写在前面
 
-        cell.memberMutableArray = [self getMemberModelArray];
+//        cell.memberMutableArray = [self getMemberModelArray];
         
         [cell setMemberButtonBlock:^(NSInteger imageViewIndex, BOOL isAdmin) {//回调
             

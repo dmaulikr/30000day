@@ -11,4 +11,7 @@
 
 @interface PersonViewController : STRefreshViewController
 
+//YES：表示需要显示
+@property (nonatomic,copy) void (^callback)(NSInteger);
+
 @end

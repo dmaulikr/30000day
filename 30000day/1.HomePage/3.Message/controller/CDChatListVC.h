@@ -14,5 +14,6 @@
  */
 @interface CDChatListVC : STRefreshViewController
 
+@property (nonatomic,copy) void (^badgeNumberBlock)(NSInteger);
 
 @end

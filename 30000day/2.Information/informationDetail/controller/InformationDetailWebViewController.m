@@ -59,7 +59,7 @@
     self.comment_view.layer.masksToBounds = YES;
     self.comment_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
     self.comment_view.layer.borderWidth = 1.0f;
-    self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:@"0跟帖"];
+    self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:@"0跟帖" textHeight:20.0f];
     [self.comment_view setClickBlock:^{
        
         InformationCommentViewController *informationCommentViewController = [[InformationCommentViewController alloc] init];
@@ -165,7 +165,7 @@
                 self.praiseView.showLabel.textColor = [UIColor darkGrayColor];
             }
             
-            self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount]];
+            self.commentViewWidth.constant = [self.comment_view getLabelWidthWithText:[NSString stringWithFormat:@"%@跟帖",success.commentCount] textHeight:20.0f];
             
             self.commentCount = [success.commentCount integerValue];
             self.comment_view.showLabel.text = [NSString stringWithFormat:@"%@跟帖",[success.commentCount stringValue]];

@@ -36,6 +36,8 @@
 #import "MailListManager.h"
 #import "GetFactorObject.h"
 #import "ProblemTypesModel.h"
+#import "STMediumModel.h"
+#import "STMediumDetailModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -60,6 +62,8 @@
 #import "NSString+Chinese.h"
 
 #import "CDChatManager.h"
+
+
 
 @interface STDataHandler () <CLLocationManagerDelegate>
 
@@ -4656,5 +4660,326 @@
 
 
 }
+
+//***********上传消息到自媒体*****************//
++ (void)sendMessageToMediumWithUserId:(NSNumber *)userId
+                              content:(NSString *)content   //内容
+                          visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
+                            mediaType:(NSString *)mediaType  //1饮食  2运动 3作息
+                         mediaJsonStr:(NSString *)mediaJsonStr//一段神奇的字符串
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:content forKey:@"content"];
+    [params addParameter:visibleType forKey:@"visibleType"];
+    [params addParameter:mediaType forKey:@"mediaType"];
+    [params addParameter:mediaJsonStr forKey:@"mediaJsonStr"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SEND_MEDIA];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SEND_MEDIA] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([recvDic[@"value"] boolValue]);
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+        failure(error);
+    }];
+}
+
+//************获取自媒体界面列表接口**************/
++ (void)sendGetWeMediaListWithUserId:(NSNumber *)userId
+                         currentPage:(NSNumber *)currentPage//分页
+                         visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
+                          mediaTypes:(NSString *)mediaTypes  //1饮食  2运动 3作息
+                             success:(void (^)(NSMutableArray *dataArray))success
+                             failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:visibleType forKey:@"visibleType"];
+    if (![Common isObjectNull:mediaTypes]) {
+        [params addParameter:mediaTypes forKey:@"mediaTypes"];
+    }
+    [params addParameter:currentPage forKey:@"currentPage"];
+    [params addParameter:@1 forKey:@"orderType"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.completionQueue = dispatch_queue_create("sendGetWeMediaListWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
+    
+    [Common urlStringWithDictionary:params withString:GET_WEMEDIA_LIST];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_WEMEDIA_LIST] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            success([STMediumModel getMediumModelArrayWithDictionaryArray:(NSArray *)recvDic[@"value"]]);//源数据
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+}
+
+//************获取自媒体界面详情接口**************/
++ (void)sendGetWeMediaDetailWithUserId:(NSNumber *)userId//用户ID
+                             weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                               success:(void (^)(STMediumDetailModel *model))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:GET_WEMEDIA_DETAIL];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_WEMEDIA_DETAIL] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSDictionary *dictionary = (NSDictionary *)recvDic[@"value"];
+            STMediumDetailModel *model = [STMediumDetailModel yy_modelWithDictionary:dictionary];
+            success(model);//源数据
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+}
+
+//************获取自媒体界面详情接口**************/
++ (void)sendReplayMediaMessageWithUserId:(NSNumber *)userId//用户ID
+                               weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                             visibleType:(NSNumber *)visibleType//类型
+                                 content:(NSString *)content//内容
+                                 success:(void (^)(BOOL success))success
+                                 failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    [params addParameter:visibleType forKey:@"visibleType"];
+    [params addParameter:content forKey:@"content"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:REPLAY_MEDIA_MESSAGE];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,REPLAY_MEDIA_MESSAGE] parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSString *string = recvDic[@"value"];
+            success(string.boolValue);//源数据
+            
+        } else {
+            
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+}
+
+//**************获取自媒体类型接口**********************/
++ (void)sendGetWeMediaInfoTypesSuccess:(void (^)(NSMutableArray <STChooseItemModel *>*modelArray))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,FIND_INFO_TYPES] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *dataArray = recvDic[@"value"];
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < dataArray.count; i++) {
+                
+                NSDictionary *dictionary = dataArray[i];
+                STChooseItemModel *model = [[STChooseItemModel alloc] init];
+                model.title = dictionary[@"value"];
+                model.itemTag = dictionary[@"id"];
+                [array addObject:model];
+            }
+            success(array);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        failure(error);
+    }];
+}
+
+//**************设置设置自媒体开关*********************/
++ (void)sendSetWemediaSwitchWithUserId:(NSNumber *)userId//用户id
+                                status:(NSNumber *)status //看的状态           0：不可见 1：可见
+                                  type:(NSNumber *)type //设置的flag   0:我不看他们  1:我不让他们看
+                               userIds:(NSString *)userIds//@"1,2,3"            id组成的字符串
+                               success:(void (^)(BOOL success))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:status forKey:@"status"];
+    [params addParameter:type forKey:@"type"];
+    [params addParameter:userIds forKey:@"userIds"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SET_WEMEDIASWITCH];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SET_WEMEDIASWITCH] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            success(YES);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//*************获取自媒体开关***********************/
++ (void)sendGetWemediaSwitchWithUserId:(NSNumber *) userId//用户id
+                                  type:(NSNumber *)type//设置的flag   0:我不看他们  1:我不让他们看
+                               success:(void (^)(NSMutableArray *dataArray))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:type forKey:@"type"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.completionQueue = dispatch_queue_create("sendGetWemediaSwitchWithUserId", DISPATCH_QUEUE_SERIAL);
+    
+    [Common urlStringWithDictionary:params withString:GET_WEMEDIA_SWITCH];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_WEMEDIA_SWITCH] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            if ([Common isObjectNull:recvDic[@"value"]]) {
+                success([[NSMutableArray alloc] init]);
+            } else {
+                NSDictionary *dictionary = recvDic[@"value"];
+                NSArray *array = dictionary[@"userList"];
+                NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                for (int i = 0;i < array.count;i++) {
+                    NSDictionary *subDictionary = array[i];
+                    UserInformationModel *model = [UserInformationModel yy_modelWithDictionary:subDictionary];
+                    [dataArray addObject:model];
+                }
+                success(dataArray);
+            }
+            
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//************删除自媒体接口*******************/
++ (void)sendDeleteWemediaUserId:(NSNumber *)userId
+                        shareId:(NSNumber *)shareId
+                      wemediaId:(NSNumber *)wemediaId
+                        success:(void (^)(BOOL success))success
+                        failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:shareId forKey:@"shareId"];
+    [params addParameter:wemediaId forKey:@"wemediaId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:DELETE_WEMEDIA];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,DELETE_WEMEDIA] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            success(YES);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+    
+}
+
 
 @end

@@ -13,7 +13,7 @@
 @interface PersonDetailViewController : CDBaseVC
 
 @property (nonatomic,strong) UserInformationModel *informationModel;
-@property (nonatomic,assign) BOOL isShowRightBarButton;//是否显示右边按钮
-@property (nonatomic,assign) BOOL isStranger; //陌生人
+@property (nonatomic,assign,readwrite) BOOL isShowRightBarButton;//是否显示右边按钮 默认是YES
+@property (nonatomic,assign,readwrite) BOOL showBottomButton;
 
 @end

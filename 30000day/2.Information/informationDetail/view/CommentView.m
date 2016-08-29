@@ -113,14 +113,14 @@
         
         self.clickBlock();
         
-        if (_a) {
-            
-            _a = NO;
-            
-        } else {
-            
-            _a = YES;
-        }
+//        if (_a) {
+//            
+//            _a = NO;
+//            
+//        } else {
+//            
+//            _a = YES;
+//        }
     }
 }
 
@@ -138,9 +138,9 @@
     _showImageView.height = 17;
 }
 
-- (CGFloat)getLabelWidthWithText:(NSString *)text {
+- (CGFloat)getLabelWidthWithText:(NSString *)text textHeight:(CGFloat)textHeight {
     
-    CGFloat width = [Common widthWithText:text height:CGRectGetHeight(self.frame) fontSize:14.0f];
+    CGFloat width = [Common widthWithText:text height:textHeight fontSize:14.0f];
     
     return width + 17 + 20;
 }

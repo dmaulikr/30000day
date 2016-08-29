@@ -10,7 +10,7 @@
 
 @interface STGroupTableViewCell : UITableViewCell
 
-@property (nonatomic,copy) NSMutableArray *memberMutableArray;
+//@property (nonatomic,copy) NSMutableArray *memberMutableArray;
 
 @property (nonatomic,assign) BOOL isMainGroup;
 
@@ -18,6 +18,8 @@
 @property (nonatomic,copy) void (^(memberButtonBlock))(NSInteger tag,BOOL isAdmin);
 
 + (CGFloat)groupTableViewCellHeight:(NSMutableArray *)memberMutableArray;
+
+- (void)configGroupTableViewCellWith:(NSMutableArray *)memberMutableArray;
 
 @end
 

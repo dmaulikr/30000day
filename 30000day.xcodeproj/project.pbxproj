@@ -279,8 +279,6 @@
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A511CAD01F000D2CC6A /* GJTextView.m */; };
 		B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */; };
-		B83B7A5D1CAD01F000D2CC6A /* STChoosePictureCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A551CAD01F000D2CC6A /* STChoosePictureCollectionCell.m */; };
-		B83B7A5E1CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A561CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib */; };
 		B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */; };
 		B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A5A1CAD01F000D2CC6A /* STInputView.m */; };
 		B83B7A711CAD072500D2CC6A /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A6A1CAD072500D2CC6A /* DYRateView.m */; };
@@ -330,6 +328,47 @@
 		B86EFCAB1D154DC4007A2108 /* IDMZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B86EFCA31D154DC4007A2108 /* IDMZoomingScrollView.m */; };
 		B876B9371CA3FD88005B7E83 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9361CA3FD88005B7E83 /* ProvinceModel.m */; };
 		B876B93A1CA4021C005B7E83 /* STLocationMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = B876B9391CA4021C005B7E83 /* STLocationMananger.m */; };
+		B87A5BD91D73D31C0066B21E /* STMessageBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BD81D73D31C0066B21E /* STMessageBaseController.m */; };
+		B87A5C311D73D6370066B21E /* STMediumCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */; };
+		B87A5C321D73D6370066B21E /* STMediumController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BE01D73D6370066B21E /* STMediumController.m */; };
+		B87A5C331D73D6370066B21E /* STMediumDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BE21D73D6370066B21E /* STMediumDetailController.m */; };
+		B87A5C341D73D6370066B21E /* STMediumTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BE41D73D6370066B21E /* STMediumTypeController.m */; };
+		B87A5C351D73D6370066B21E /* STMediumDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BE71D73D6370066B21E /* STMediumDetailModel.m */; };
+		B87A5C361D73D6370066B21E /* STMediumModel+category.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BE91D73D6370066B21E /* STMediumModel+category.m */; };
+		B87A5C371D73D6370066B21E /* STMediumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BEB1D73D6370066B21E /* STMediumModel.m */; };
+		B87A5C381D73D6370066B21E /* STContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BEE1D73D6370066B21E /* STContentView.m */; };
+		B87A5C391D73D6370066B21E /* STMediumSendSuperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BF01D73D6370066B21E /* STMediumSendSuperCell.m */; };
+		B87A5C3A1D73D6370066B21E /* STMediumSendSuperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87A5BF11D73D6370066B21E /* STMediumSendSuperCell.xib */; };
+		B87A5C3B1D73D6370066B21E /* STMediumSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */; };
+		B87A5C3C1D73D6370066B21E /* STPicturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BF51D73D6370066B21E /* STPicturesView.m */; };
+		B87A5C3D1D73D6370066B21E /* STSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BF71D73D6370066B21E /* STSettingView.m */; };
+		B87A5C3E1D73D6370066B21E /* STShowMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BF91D73D6370066B21E /* STShowMediaView.m */; };
+		B87A5C3F1D73D6370066B21E /* STShowMediumSpecialTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BFB1D73D6370066B21E /* STShowMediumSpecialTableView.m */; };
+		B87A5C401D73D6370066B21E /* STShowMediumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BFD1D73D6370066B21E /* STShowMediumTableViewCell.m */; };
+		B87A5C411D73D6370066B21E /* STVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5BFF1D73D6370066B21E /* STVideoView.m */; };
+		B87A5C421D73D6370066B21E /* STRelayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C031D73D6370066B21E /* STRelayViewController.m */; };
+		B87A5C431D73D6370066B21E /* STSendMediumController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C051D73D6370066B21E /* STSendMediumController.m */; };
+		B87A5C441D73D6370066B21E /* STSetRangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C071D73D6370066B21E /* STSetRangeController.m */; };
+		B87A5C451D73D6370066B21E /* STRelayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C0B1D73D6370066B21E /* STRelayTableViewCell.m */; };
+		B87A5C461D73D6370066B21E /* STRelayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87A5C0C1D73D6370066B21E /* STRelayTableViewCell.xib */; };
+		B87A5C471D73D6370066B21E /* STSendMediumHeadFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C0E1D73D6370066B21E /* STSendMediumHeadFootView.m */; };
+		B87A5C481D73D6370066B21E /* STSendMediumHeadFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87A5C0F1D73D6370066B21E /* STSendMediumHeadFootView.xib */; };
+		B87A5C491D73D6370066B21E /* STSendMediumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C111D73D6370066B21E /* STSendMediumTableViewCell.m */; };
+		B87A5C4A1D73D6370066B21E /* STChooseItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C151D73D6370066B21E /* STChooseItemController.m */; };
+		B87A5C4B1D73D6370066B21E /* STChooseSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C171D73D6370066B21E /* STChooseSettingController.m */; };
+		B87A5C4C1D73D6370066B21E /* STRestrctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C191D73D6370066B21E /* STRestrctingViewController.m */; };
+		B87A5C4D1D73D6370066B21E /* chooseItemModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C1B1D73D6370066B21E /* chooseItemModel.xcdatamodeld */; };
+		B87A5C4E1D73D6370066B21E /* STChooseItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C1E1D73D6370066B21E /* STChooseItemManager.m */; };
+		B87A5C4F1D73D6370066B21E /* STChooseItemObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C201D73D6370066B21E /* STChooseItemObject+CoreDataProperties.m */; };
+		B87A5C501D73D6370066B21E /* STChooseItemObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C221D73D6370066B21E /* STChooseItemObject.m */; };
+		B87A5C511D73D6370066B21E /* STRestrictingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C241D73D6370066B21E /* STRestrictingManager.m */; };
+		B87A5C521D73D6370066B21E /* STChooseItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C271D73D6370066B21E /* STChooseItemCell.m */; };
+		B87A5C531D73D6370066B21E /* STChooseItemSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */; };
+		B87A5C541D73D6370066B21E /* STChooseItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C2B1D73D6370066B21E /* STChooseItemView.m */; };
+		B87A5C551D73D6370066B21E /* STChooseSettingHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */; };
+		B87A5C561D73D6370066B21E /* STChooseSettingHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */; };
+		B87A5C571D73D6370066B21E /* STScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C301D73D6370066B21E /* STScrollView.m */; };
+		B87A5C5A1D73D83D0066B21E /* STChooseMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C591D73D83D0066B21E /* STChooseMediaView.m */; };
 		B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */; };
 		B87F9D691C6B423D00468ACA /* TextFieldCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */; };
 		B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B886ADD31CAE10B4005E262A /* AppointmentModel.m */; };
@@ -1105,9 +1144,6 @@
 		B83B7A511CAD01F000D2CC6A /* GJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJTextView.m; sourceTree = "<group>"; };
 		B83B7A521CAD01F000D2CC6A /* STAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAvatarBrowser.h; sourceTree = "<group>"; };
 		B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAvatarBrowser.m; sourceTree = "<group>"; };
-		B83B7A541CAD01F000D2CC6A /* STChoosePictureCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChoosePictureCollectionCell.h; sourceTree = "<group>"; };
-		B83B7A551CAD01F000D2CC6A /* STChoosePictureCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureCollectionCell.m; sourceTree = "<group>"; };
-		B83B7A561CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STChoosePictureCollectionCell.xib; sourceTree = "<group>"; };
 		B83B7A571CAD01F000D2CC6A /* STChoosePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChoosePictureView.h; sourceTree = "<group>"; };
 		B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureView.m; sourceTree = "<group>"; };
 		B83B7A591CAD01F000D2CC6A /* STInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputView.h; sourceTree = "<group>"; };
@@ -1197,6 +1233,83 @@
 		B876B9361CA3FD88005B7E83 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		B876B9381CA4021C005B7E83 /* STLocationMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationMananger.h; sourceTree = "<group>"; };
 		B876B9391CA4021C005B7E83 /* STLocationMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationMananger.m; sourceTree = "<group>"; };
+		B87A5BD71D73D31C0066B21E /* STMessageBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMessageBaseController.h; sourceTree = "<group>"; };
+		B87A5BD81D73D31C0066B21E /* STMessageBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMessageBaseController.m; sourceTree = "<group>"; };
+		B87A5BDD1D73D6370066B21E /* STMediumCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumCommentController.h; sourceTree = "<group>"; };
+		B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumCommentController.m; sourceTree = "<group>"; };
+		B87A5BDF1D73D6370066B21E /* STMediumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumController.h; sourceTree = "<group>"; };
+		B87A5BE01D73D6370066B21E /* STMediumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumController.m; sourceTree = "<group>"; };
+		B87A5BE11D73D6370066B21E /* STMediumDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumDetailController.h; sourceTree = "<group>"; };
+		B87A5BE21D73D6370066B21E /* STMediumDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumDetailController.m; sourceTree = "<group>"; };
+		B87A5BE31D73D6370066B21E /* STMediumTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumTypeController.h; sourceTree = "<group>"; };
+		B87A5BE41D73D6370066B21E /* STMediumTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumTypeController.m; sourceTree = "<group>"; };
+		B87A5BE61D73D6370066B21E /* STMediumDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumDetailModel.h; sourceTree = "<group>"; };
+		B87A5BE71D73D6370066B21E /* STMediumDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumDetailModel.m; sourceTree = "<group>"; };
+		B87A5BE81D73D6370066B21E /* STMediumModel+category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STMediumModel+category.h"; sourceTree = "<group>"; };
+		B87A5BE91D73D6370066B21E /* STMediumModel+category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STMediumModel+category.m"; sourceTree = "<group>"; };
+		B87A5BEA1D73D6370066B21E /* STMediumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumModel.h; sourceTree = "<group>"; };
+		B87A5BEB1D73D6370066B21E /* STMediumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumModel.m; sourceTree = "<group>"; };
+		B87A5BED1D73D6370066B21E /* STContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STContentView.h; sourceTree = "<group>"; };
+		B87A5BEE1D73D6370066B21E /* STContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STContentView.m; sourceTree = "<group>"; };
+		B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSendSuperCell.h; sourceTree = "<group>"; };
+		B87A5BF01D73D6370066B21E /* STMediumSendSuperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSendSuperCell.m; sourceTree = "<group>"; };
+		B87A5BF11D73D6370066B21E /* STMediumSendSuperCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STMediumSendSuperCell.xib; sourceTree = "<group>"; };
+		B87A5BF21D73D6370066B21E /* STMediumSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSettingTableViewCell.h; sourceTree = "<group>"; };
+		B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSettingTableViewCell.m; sourceTree = "<group>"; };
+		B87A5BF41D73D6370066B21E /* STPicturesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPicturesView.h; sourceTree = "<group>"; };
+		B87A5BF51D73D6370066B21E /* STPicturesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPicturesView.m; sourceTree = "<group>"; };
+		B87A5BF61D73D6370066B21E /* STSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettingView.h; sourceTree = "<group>"; };
+		B87A5BF71D73D6370066B21E /* STSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettingView.m; sourceTree = "<group>"; };
+		B87A5BF81D73D6370066B21E /* STShowMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowMediaView.h; sourceTree = "<group>"; };
+		B87A5BF91D73D6370066B21E /* STShowMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowMediaView.m; sourceTree = "<group>"; };
+		B87A5BFA1D73D6370066B21E /* STShowMediumSpecialTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowMediumSpecialTableView.h; sourceTree = "<group>"; };
+		B87A5BFB1D73D6370066B21E /* STShowMediumSpecialTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowMediumSpecialTableView.m; sourceTree = "<group>"; };
+		B87A5BFC1D73D6370066B21E /* STShowMediumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowMediumTableViewCell.h; sourceTree = "<group>"; };
+		B87A5BFD1D73D6370066B21E /* STShowMediumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowMediumTableViewCell.m; sourceTree = "<group>"; };
+		B87A5BFE1D73D6370066B21E /* STVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STVideoView.h; sourceTree = "<group>"; };
+		B87A5BFF1D73D6370066B21E /* STVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STVideoView.m; sourceTree = "<group>"; };
+		B87A5C021D73D6370066B21E /* STRelayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRelayViewController.h; sourceTree = "<group>"; };
+		B87A5C031D73D6370066B21E /* STRelayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRelayViewController.m; sourceTree = "<group>"; };
+		B87A5C041D73D6370066B21E /* STSendMediumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSendMediumController.h; sourceTree = "<group>"; };
+		B87A5C051D73D6370066B21E /* STSendMediumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSendMediumController.m; sourceTree = "<group>"; };
+		B87A5C061D73D6370066B21E /* STSetRangeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSetRangeController.h; sourceTree = "<group>"; };
+		B87A5C071D73D6370066B21E /* STSetRangeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSetRangeController.m; sourceTree = "<group>"; };
+		B87A5C0A1D73D6370066B21E /* STRelayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRelayTableViewCell.h; sourceTree = "<group>"; };
+		B87A5C0B1D73D6370066B21E /* STRelayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRelayTableViewCell.m; sourceTree = "<group>"; };
+		B87A5C0C1D73D6370066B21E /* STRelayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STRelayTableViewCell.xib; sourceTree = "<group>"; };
+		B87A5C0D1D73D6370066B21E /* STSendMediumHeadFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSendMediumHeadFootView.h; sourceTree = "<group>"; };
+		B87A5C0E1D73D6370066B21E /* STSendMediumHeadFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSendMediumHeadFootView.m; sourceTree = "<group>"; };
+		B87A5C0F1D73D6370066B21E /* STSendMediumHeadFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STSendMediumHeadFootView.xib; sourceTree = "<group>"; };
+		B87A5C101D73D6370066B21E /* STSendMediumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSendMediumTableViewCell.h; sourceTree = "<group>"; };
+		B87A5C111D73D6370066B21E /* STSendMediumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSendMediumTableViewCell.m; sourceTree = "<group>"; };
+		B87A5C141D73D6370066B21E /* STChooseItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemController.h; sourceTree = "<group>"; };
+		B87A5C151D73D6370066B21E /* STChooseItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemController.m; sourceTree = "<group>"; };
+		B87A5C161D73D6370066B21E /* STChooseSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseSettingController.h; sourceTree = "<group>"; };
+		B87A5C171D73D6370066B21E /* STChooseSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseSettingController.m; sourceTree = "<group>"; };
+		B87A5C181D73D6370066B21E /* STRestrctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRestrctingViewController.h; sourceTree = "<group>"; };
+		B87A5C191D73D6370066B21E /* STRestrctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRestrctingViewController.m; sourceTree = "<group>"; };
+		B87A5C1C1D73D6370066B21E /* chooseItemModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = chooseItemModel.xcdatamodel; sourceTree = "<group>"; };
+		B87A5C1D1D73D6370066B21E /* STChooseItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemManager.h; sourceTree = "<group>"; };
+		B87A5C1E1D73D6370066B21E /* STChooseItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemManager.m; sourceTree = "<group>"; };
+		B87A5C1F1D73D6370066B21E /* STChooseItemObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STChooseItemObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B87A5C201D73D6370066B21E /* STChooseItemObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STChooseItemObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B87A5C211D73D6370066B21E /* STChooseItemObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemObject.h; sourceTree = "<group>"; };
+		B87A5C221D73D6370066B21E /* STChooseItemObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemObject.m; sourceTree = "<group>"; };
+		B87A5C231D73D6370066B21E /* STRestrictingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRestrictingManager.h; sourceTree = "<group>"; };
+		B87A5C241D73D6370066B21E /* STRestrictingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRestrictingManager.m; sourceTree = "<group>"; };
+		B87A5C261D73D6370066B21E /* STChooseItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemCell.h; sourceTree = "<group>"; };
+		B87A5C271D73D6370066B21E /* STChooseItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemCell.m; sourceTree = "<group>"; };
+		B87A5C281D73D6370066B21E /* STChooseItemSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemSettingCell.h; sourceTree = "<group>"; };
+		B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemSettingCell.m; sourceTree = "<group>"; };
+		B87A5C2A1D73D6370066B21E /* STChooseItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemView.h; sourceTree = "<group>"; };
+		B87A5C2B1D73D6370066B21E /* STChooseItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemView.m; sourceTree = "<group>"; };
+		B87A5C2C1D73D6370066B21E /* STChooseSettingHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseSettingHeadView.h; sourceTree = "<group>"; };
+		B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseSettingHeadView.m; sourceTree = "<group>"; };
+		B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STChooseSettingHeadView.xib; sourceTree = "<group>"; };
+		B87A5C2F1D73D6370066B21E /* STScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STScrollView.h; sourceTree = "<group>"; };
+		B87A5C301D73D6370066B21E /* STScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STScrollView.m; sourceTree = "<group>"; };
+		B87A5C581D73D83D0066B21E /* STChooseMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseMediaView.h; sourceTree = "<group>"; };
+		B87A5C591D73D83D0066B21E /* STChooseMediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseMediaView.m; sourceTree = "<group>"; };
 		B87F9D651C6B423D00468ACA /* TextFieldCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCellTableViewCell.h; sourceTree = "<group>"; };
 		B87F9D661C6B423D00468ACA /* TextFieldCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCellTableViewCell.m; sourceTree = "<group>"; };
 		B87F9D671C6B423D00468ACA /* TextFieldCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -2530,11 +2643,10 @@
 				B83B7A511CAD01F000D2CC6A /* GJTextView.m */,
 				B83B7A521CAD01F000D2CC6A /* STAvatarBrowser.h */,
 				B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */,
-				B83B7A541CAD01F000D2CC6A /* STChoosePictureCollectionCell.h */,
-				B83B7A551CAD01F000D2CC6A /* STChoosePictureCollectionCell.m */,
-				B83B7A561CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib */,
 				B83B7A571CAD01F000D2CC6A /* STChoosePictureView.h */,
 				B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */,
+				B87A5C581D73D83D0066B21E /* STChooseMediaView.h */,
+				B87A5C591D73D83D0066B21E /* STChooseMediaView.m */,
 				B83B7A591CAD01F000D2CC6A /* STInputView.h */,
 				B83B7A5A1CAD01F000D2CC6A /* STInputView.m */,
 			);
@@ -2629,6 +2741,182 @@
 				B86EFCA31D154DC4007A2108 /* IDMZoomingScrollView.m */,
 			);
 			path = IDMPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		B87A5BDA1D73D6370066B21E /* 3.Medium */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5BDB1D73D6370066B21E /* MediumPage */,
+				B87A5C001D73D6370066B21E /* Send */,
+				B87A5C121D73D6370066B21E /* Sift */,
+			);
+			path = 3.Medium;
+			sourceTree = "<group>";
+		};
+		B87A5BDB1D73D6370066B21E /* MediumPage */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5BDC1D73D6370066B21E /* controller */,
+				B87A5BE51D73D6370066B21E /* model */,
+				B87A5BEC1D73D6370066B21E /* view */,
+			);
+			path = MediumPage;
+			sourceTree = "<group>";
+		};
+		B87A5BDC1D73D6370066B21E /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5BDD1D73D6370066B21E /* STMediumCommentController.h */,
+				B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */,
+				B87A5BDF1D73D6370066B21E /* STMediumController.h */,
+				B87A5BE01D73D6370066B21E /* STMediumController.m */,
+				B87A5BE11D73D6370066B21E /* STMediumDetailController.h */,
+				B87A5BE21D73D6370066B21E /* STMediumDetailController.m */,
+				B87A5BE31D73D6370066B21E /* STMediumTypeController.h */,
+				B87A5BE41D73D6370066B21E /* STMediumTypeController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B87A5BE51D73D6370066B21E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5BE61D73D6370066B21E /* STMediumDetailModel.h */,
+				B87A5BE71D73D6370066B21E /* STMediumDetailModel.m */,
+				B87A5BE81D73D6370066B21E /* STMediumModel+category.h */,
+				B87A5BE91D73D6370066B21E /* STMediumModel+category.m */,
+				B87A5BEA1D73D6370066B21E /* STMediumModel.h */,
+				B87A5BEB1D73D6370066B21E /* STMediumModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B87A5BEC1D73D6370066B21E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5BED1D73D6370066B21E /* STContentView.h */,
+				B87A5BEE1D73D6370066B21E /* STContentView.m */,
+				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
+				B87A5BF01D73D6370066B21E /* STMediumSendSuperCell.m */,
+				B87A5BF11D73D6370066B21E /* STMediumSendSuperCell.xib */,
+				B87A5BF21D73D6370066B21E /* STMediumSettingTableViewCell.h */,
+				B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */,
+				B87A5BF41D73D6370066B21E /* STPicturesView.h */,
+				B87A5BF51D73D6370066B21E /* STPicturesView.m */,
+				B87A5BF61D73D6370066B21E /* STSettingView.h */,
+				B87A5BF71D73D6370066B21E /* STSettingView.m */,
+				B87A5BF81D73D6370066B21E /* STShowMediaView.h */,
+				B87A5BF91D73D6370066B21E /* STShowMediaView.m */,
+				B87A5BFA1D73D6370066B21E /* STShowMediumSpecialTableView.h */,
+				B87A5BFB1D73D6370066B21E /* STShowMediumSpecialTableView.m */,
+				B87A5BFC1D73D6370066B21E /* STShowMediumTableViewCell.h */,
+				B87A5BFD1D73D6370066B21E /* STShowMediumTableViewCell.m */,
+				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
+				B87A5BFF1D73D6370066B21E /* STVideoView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B87A5C001D73D6370066B21E /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C011D73D6370066B21E /* controller */,
+				B87A5C081D73D6370066B21E /* model */,
+				B87A5C091D73D6370066B21E /* view */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		B87A5C011D73D6370066B21E /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C021D73D6370066B21E /* STRelayViewController.h */,
+				B87A5C031D73D6370066B21E /* STRelayViewController.m */,
+				B87A5C041D73D6370066B21E /* STSendMediumController.h */,
+				B87A5C051D73D6370066B21E /* STSendMediumController.m */,
+				B87A5C061D73D6370066B21E /* STSetRangeController.h */,
+				B87A5C071D73D6370066B21E /* STSetRangeController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B87A5C081D73D6370066B21E /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B87A5C091D73D6370066B21E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C0A1D73D6370066B21E /* STRelayTableViewCell.h */,
+				B87A5C0B1D73D6370066B21E /* STRelayTableViewCell.m */,
+				B87A5C0C1D73D6370066B21E /* STRelayTableViewCell.xib */,
+				B87A5C0D1D73D6370066B21E /* STSendMediumHeadFootView.h */,
+				B87A5C0E1D73D6370066B21E /* STSendMediumHeadFootView.m */,
+				B87A5C0F1D73D6370066B21E /* STSendMediumHeadFootView.xib */,
+				B87A5C101D73D6370066B21E /* STSendMediumTableViewCell.h */,
+				B87A5C111D73D6370066B21E /* STSendMediumTableViewCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B87A5C121D73D6370066B21E /* Sift */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C131D73D6370066B21E /* controller */,
+				B87A5C1A1D73D6370066B21E /* model */,
+				B87A5C251D73D6370066B21E /* view */,
+			);
+			path = Sift;
+			sourceTree = "<group>";
+		};
+		B87A5C131D73D6370066B21E /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C141D73D6370066B21E /* STChooseItemController.h */,
+				B87A5C151D73D6370066B21E /* STChooseItemController.m */,
+				B87A5C161D73D6370066B21E /* STChooseSettingController.h */,
+				B87A5C171D73D6370066B21E /* STChooseSettingController.m */,
+				B87A5C181D73D6370066B21E /* STRestrctingViewController.h */,
+				B87A5C191D73D6370066B21E /* STRestrctingViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B87A5C1A1D73D6370066B21E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C1B1D73D6370066B21E /* chooseItemModel.xcdatamodeld */,
+				B87A5C1D1D73D6370066B21E /* STChooseItemManager.h */,
+				B87A5C1E1D73D6370066B21E /* STChooseItemManager.m */,
+				B87A5C1F1D73D6370066B21E /* STChooseItemObject+CoreDataProperties.h */,
+				B87A5C201D73D6370066B21E /* STChooseItemObject+CoreDataProperties.m */,
+				B87A5C211D73D6370066B21E /* STChooseItemObject.h */,
+				B87A5C221D73D6370066B21E /* STChooseItemObject.m */,
+				B87A5C231D73D6370066B21E /* STRestrictingManager.h */,
+				B87A5C241D73D6370066B21E /* STRestrictingManager.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B87A5C251D73D6370066B21E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B87A5C261D73D6370066B21E /* STChooseItemCell.h */,
+				B87A5C271D73D6370066B21E /* STChooseItemCell.m */,
+				B87A5C281D73D6370066B21E /* STChooseItemSettingCell.h */,
+				B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */,
+				B87A5C2A1D73D6370066B21E /* STChooseItemView.h */,
+				B87A5C2B1D73D6370066B21E /* STChooseItemView.m */,
+				B87A5C2C1D73D6370066B21E /* STChooseSettingHeadView.h */,
+				B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */,
+				B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */,
+				B87A5C2F1D73D6370066B21E /* STScrollView.h */,
+				B87A5C301D73D6370066B21E /* STScrollView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		B886ADDA1CB3C1B9005E262A /* MyOrder */ = {
@@ -2810,6 +3098,7 @@
 		B88C915D1C59F96D0089BEAE /* 1.HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				B87A5BDA1D73D6370066B21E /* 3.Medium */,
 				B88C91841C5A084F0089BEAE /* HomePageBase */,
 				B88C915E1C59F96D0089BEAE /* 1.MainPage */,
 				B88C915F1C59F96D0089BEAE /* 2.Person */,
@@ -3008,6 +3297,8 @@
 				B8FD3CA31C8A7763007BCA6B /* CDChatListVC.m */,
 				B86EFC151D0D43A2007A2108 /* CDBaseVC.h */,
 				B86EFC161D0D43A2007A2108 /* CDBaseVC.m */,
+				B87A5BD71D73D31C0066B21E /* STMessageBaseController.h */,
+				B87A5BD81D73D31C0066B21E /* STMessageBaseController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4913,7 +5204,6 @@
 				B8695AB21C748150001B4B95 /* ChartTableViewCell.xib in Resources */,
 				B804FD5B1C8AC9A900DFD1CF /* tusiji_11_cover@2x.png in Resources */,
 				B665F8CF1CC4BF5200070458 /* ZLPhotoBrowserCell.xib in Resources */,
-				B83B7A5E1CAD01F000D2CC6A /* STChoosePictureCollectionCell.xib in Resources */,
 				B804FD551C8AC9A900DFD1CF /* tusiji_0.gif in Resources */,
 				B8F2D8CB1C5B390E002C7712 /* securityTableViewCell.xib in Resources */,
 				F54BBC741D21045400556B6D /* qr_vc_left@3x.png in Resources */,
@@ -4943,6 +5233,7 @@
 				F54BBC6D1D21045400556B6D /* qr_scan_line@2x.png in Resources */,
 				B8F648871C942C9F001A3119 /* PersonInformationTableViewCell.xib in Resources */,
 				B8F2DA511C5F3D04002C7712 /* NewPasswordViewController.xib in Resources */,
+				B87A5C561D73D6370066B21E /* STChooseSettingHeadView.xib in Resources */,
 				B6E44C431CBC97AE0039217D /* InformationWriterHeadTableViewCell.xib in Resources */,
 				B804FD781C8AC9A900DFD1CF /* Fav_Cell_Loc@2x.png in Resources */,
 				B804FDB51C8AC9A900DFD1CF /* weChatBubble_Receiving_Solid@2x.png in Resources */,
@@ -4966,6 +5257,7 @@
 				B8BD78731CBE2D8E00362C89 /* PaymentViewController.xib in Resources */,
 				B804FD5F1C8AC9A900DFD1CF /* tusiji_13_cover@2x.png in Resources */,
 				B804FD621C8AC9A900DFD1CF /* tusiji_15.gif in Resources */,
+				B87A5C481D73D6370066B21E /* STSendMediumHeadFootView.xib in Resources */,
 				B804FDB81C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png in Resources */,
 				B804FD961C8AC9A900DFD1CF /* RecordingSignal002@2x.png in Resources */,
 				B804FDAD1C8AC9A900DFD1CF /* sharemore_voipvoice@2x.png in Resources */,
@@ -4977,6 +5269,7 @@
 				B804FD881C8AC9A900DFD1CF /* multiMedia@2x.png in Resources */,
 				B804FD641C8AC9A900DFD1CF /* tusiji_1_cover@2x.png in Resources */,
 				B8F719A01CED9DFB000D859D /* AllRemindViewController.xib in Resources */,
+				B87A5C3A1D73D6370066B21E /* STMediumSendSuperCell.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */,
 				B665F8C71CC4BF5200070458 /* defaultphoto.png in Resources */,
@@ -5075,6 +5368,7 @@
 				B8F6482A1C92DA63001A3119 /* SearchViewController.xib in Resources */,
 				B6F66DA91CBB4B0C0064DB11 /* InformationDetailDownView.xib in Resources */,
 				B665F8BF1CC4BF5200070458 /* btn_original_circle@2x.png in Resources */,
+				B87A5C461D73D6370066B21E /* STRelayTableViewCell.xib in Resources */,
 				B6EFD4001CA638E0003C5ACA /* CommodityCommentViewController.xib in Resources */,
 				B89216D21C61F6960023F8A8 /* LogoutTableViewCell.xib in Resources */,
 				B804FD5A1C8AC9A900DFD1CF /* tusiji_11.gif in Resources */,
@@ -5169,16 +5463,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */,
+				B87A5C5A1D73D83D0066B21E /* STChooseMediaView.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
+				B87A5C331D73D6370066B21E /* STMediumDetailController.m in Sources */,
 				B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */,
 				B665F8D71CC4BF5200070458 /* ZLPhotoBrowser.m in Sources */,
 				B8FD3E131C8A7903007BCA6B /* XHViewState.m in Sources */,
 				B8F2D9C51C5F0439002C7712 /* PersonTableViewCell.m in Sources */,
+				B87A5C4B1D73D6370066B21E /* STChooseSettingController.m in Sources */,
 				B8FD3DE31C8A7903007BCA6B /* XHPhotographyHelper.m in Sources */,
 				B8FD3DEB1C8A7903007BCA6B /* XHDisplayLocationViewController.m in Sources */,
 				B8F6E3851CB91BEE000CC117 /* MD5DataSigner.m in Sources */,
 				B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */,
 				B8365A571C71A53500063269 /* HeadViewTableViewCell.m in Sources */,
+				B87A5C501D73D6370066B21E /* STChooseItemObject.m in Sources */,
 				B6BC9C791CF58D7C00030D64 /* NSArray+Chinese.m in Sources */,
 				B8FD3E001C8A7903007BCA6B /* FLAnimatedImage.m in Sources */,
 				B8FD3DFC1C8A7903007BCA6B /* XHEmotionManager.m in Sources */,
@@ -5194,6 +5492,7 @@
 				F5AC5B961D30F1230043E313 /* SportTrajectoryLookViewController.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
 				B8FD3DEC1C8A7903007BCA6B /* XHDisplayMediaViewController.m in Sources */,
+				B87A5C391D73D6370066B21E /* STMediumSendSuperCell.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
 				B81306C41CB50F930051C4BA /* OrderDetailViewController.m in Sources */,
 				B8FD3DD01C8A7903007BCA6B /* LZStatusView.m in Sources */,
@@ -5210,6 +5509,7 @@
 				B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
+				B87A5C381D73D6370066B21E /* STContentView.m in Sources */,
 				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */,
@@ -5225,10 +5525,12 @@
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
 				B8FD3DD31C8A7903007BCA6B /* NSString+XHMD5.m in Sources */,
 				B86EFC1F1D0D586F007A2108 /* CDUtils.m in Sources */,
+				B87A5C491D73D6370066B21E /* STSendMediumTableViewCell.m in Sources */,
 				B6E189BB1D549465002A3CBF /* ProblemTypesModel.m in Sources */,
 				B6E9319F1D58273600F0CBB4 /* SubmitSuggestViewController.m in Sources */,
 				B86A102B1CC870DA00D3E01B /* SubscribeCentreViewController.m in Sources */,
 				B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */,
+				B87A5C311D73D6370066B21E /* STMediumCommentController.m in Sources */,
 				B8F6E9771D02CD0400AD6745 /* TZPhotoPreviewCell.m in Sources */,
 				B86EFCAB1D154DC4007A2108 /* IDMZoomingScrollView.m in Sources */,
 				B808FB581C7718D20000449C /* UserLifeModel.m in Sources */,
@@ -5240,6 +5542,7 @@
 				B8F2DA4C1C5F3D04002C7712 /* SMSVerificationViewController.m in Sources */,
 				B83B7A711CAD072500D2CC6A /* DYRateView.m in Sources */,
 				B8FCA7BE1D2CAEAF00CA6D91 /* CDMediaMessageObject.m in Sources */,
+				B87A5C3F1D73D6370066B21E /* STShowMediumSpecialTableView.m in Sources */,
 				B8B3F5601CA28F5900834533 /* AppointmentTableViewCell.m in Sources */,
 				B8FD3DF91C8A7903007BCA6B /* XHAnnotation.m in Sources */,
 				F5CA7A431D5DC0D600965490 /* SportPushTableViewController.m in Sources */,
@@ -5258,7 +5561,7 @@
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
 				B8F6E9721D02CD0400AD6745 /* TZAssetModel.m in Sources */,
 				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
-				B83B7A5D1CAD01F000D2CC6A /* STChoosePictureCollectionCell.m in Sources */,
+				B87A5C541D73D6370066B21E /* STChooseItemView.m in Sources */,
 				F5AAD0F91D34C59300DB4D97 /* SportHeadTableViewCell.m in Sources */,
 				B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailTableViewCell.m in Sources */,
@@ -5280,12 +5583,14 @@
 				B8FD3E261C8A7903007BCA6B /* XHEmotionSectionBar.m in Sources */,
 				B8FD3E011C8A7903007BCA6B /* FLAnimatedImageView.m in Sources */,
 				B612DD811CACFE21004C428C /* ShopOneLineDataTableViewCell.m in Sources */,
+				B87A5C411D73D6370066B21E /* STVideoView.m in Sources */,
 				B8FD41E21D193DCD00CB2059 /* AVIMNoticationMessage.m in Sources */,
 				B8FFBF061CE30F72009AA425 /* NewFriendModel.m in Sources */,
 				B8F648291C92DA63001A3119 /* SearchViewController.m in Sources */,
 				B8F2D93A1C5B6E40002C7712 /* BEMAverageLine.m in Sources */,
 				F58362BE1D2A49DE0040E673 /* SportTrajectoryViewController.mm in Sources */,
 				B8FD3E201C8A7903007BCA6B /* XHMessageInputView.m in Sources */,
+				B87A5C471D73D6370066B21E /* STSendMediumHeadFootView.m in Sources */,
 				B8FD3E181C8A7903007BCA6B /* XHBaseCollectionViewCell.m in Sources */,
 				B8FD3DD71C8A7903007BCA6B /* UIImage+RoundedCorner.m in Sources */,
 				B8F9314B1C7AF1B3000FED7C /* AddRemindViewController.m in Sources */,
@@ -5293,8 +5598,10 @@
 				B8FD3DEE1C8A7903007BCA6B /* XHMessageTableViewController.m in Sources */,
 				B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */,
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
+				B87A5C401D73D6370066B21E /* STShowMediumTableViewCell.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
 				B8B3F54D1C9FF21800834533 /* SearchConditionModel.m in Sources */,
+				B87A5C551D73D6370066B21E /* STChooseSettingHeadView.m in Sources */,
 				B86EFC8F1D139280007A2108 /* STGroupTableViewCell.m in Sources */,
 				B8FD3CC31C8A77EB007BCA6B /* CDSoundManager.m in Sources */,
 				B8F9315B1C7BF101000FED7C /* STRemindManager.m in Sources */,
@@ -5327,8 +5634,12 @@
 				B8F880361C9028AB00B5DA18 /* RemindModel.xcdatamodeld in Sources */,
 				B8F8947C1D2B83F700289129 /* CDMediaMessageManager.m in Sources */,
 				F50C5D711D461DEE0040E727 /* SportsFunctionTableViewCell.m in Sources */,
+				B87A5C371D73D6370066B21E /* STMediumModel.m in Sources */,
 				B8F2DA461C5F3D04002C7712 /* SignOutViewController.m in Sources */,
+				B87A5C341D73D6370066B21E /* STMediumTypeController.m in Sources */,
+				B87A5C511D73D6370066B21E /* STRestrictingManager.m in Sources */,
 				B6E44C421CBC97AE0039217D /* InformationWriterHeadTableViewCell.m in Sources */,
+				B87A5C351D73D6370066B21E /* STMediumDetailModel.m in Sources */,
 				B60119791C9404BC0061AD89 /* CommentViewController.m in Sources */,
 				B83B7A721CAD072500D2CC6A /* MTImagePlayView.m in Sources */,
 				B8FD3DFB1C8A7903007BCA6B /* XHEmotion.m in Sources */,
@@ -5336,12 +5647,16 @@
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
 				B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */,
+				B87A5C3E1D73D6370066B21E /* STShowMediaView.m in Sources */,
 				F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */,
+				B87A5C321D73D6370066B21E /* STMediumController.m in Sources */,
 				B8F880521C92A75700B5DA18 /* STRefreshViewController.m in Sources */,
 				B801379A1CD8AC1100ED0566 /* SettingViewController.m in Sources */,
 				B6DB85C91CC722400088F867 /* InformationDetails.m in Sources */,
 				B8B3F4E51C9A546200834533 /* CityHeadView.m in Sources */,
+				B87A5C571D73D6370066B21E /* STScrollView.m in Sources */,
 				B6C73B141C8FC8450041ED65 /* EmailBindViewSuccessAndFailController.m in Sources */,
+				B87A5C3C1D73D6370066B21E /* STPicturesView.m in Sources */,
 				B8F6E97A1D02CD0400AD6745 /* UIView+Layout.m in Sources */,
 				B8F2D9391C5B6E40002C7712 /* BEMLine.m in Sources */,
 				B8695ACA1C75D451001B4B95 /* QGPickerView.m in Sources */,
@@ -5351,6 +5666,7 @@
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B6E2C0551D5319D50097975B /* MenuView.m in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
+				B87A5C531D73D6370066B21E /* STChooseItemSettingCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
 				B88C91F01C5B05FC0089BEAE /* SBJsonStreamParserState.m in Sources */,
 				B8FD3DFD1C8A7903007BCA6B /* XHMessage.m in Sources */,
@@ -5366,6 +5682,7 @@
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
 				F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
+				B87A5C521D73D6370066B21E /* STChooseItemCell.m in Sources */,
 				F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
 				F54BBC141D20CEBF00556B6D /* QuickResponseCodeViewController.m in Sources */,
@@ -5396,7 +5713,9 @@
 				F5F8E7EC1D1792CA00B96756 /* CountDownTableViewCell.m in Sources */,
 				B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */,
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
+				B87A5C431D73D6370066B21E /* STSendMediumController.m in Sources */,
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
+				B87A5C4C1D73D6370066B21E /* STRestrctingViewController.m in Sources */,
 				B8F6E3841CB91BEE000CC117 /* DataVerifier.m in Sources */,
 				B8F6E9711D02CD0400AD6745 /* TZAssetCell.m in Sources */,
 				B8F6E3871CB91BEE000CC117 /* openssl_wrapper.m in Sources */,
@@ -5414,6 +5733,7 @@
 				B81306CC1CB5FA680051C4BA /* OrderDetailTableViewCell.m in Sources */,
 				B8FD3E251C8A7903007BCA6B /* XHEmotionManagerView.m in Sources */,
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
+				B87A5C3B1D73D6370066B21E /* STMediumSettingTableViewCell.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
 				B8FD3DD11C8A7903007BCA6B /* NSString+MessageInputView.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
@@ -5431,6 +5751,7 @@
 				B88C91F31C5B05FC0089BEAE /* SBJsonStreamWriterState.m in Sources */,
 				B886E8701C7EAE1200E64BEC /* RemindContentTableViewCell.m in Sources */,
 				B8FD3DEF1C8A7903007BCA6B /* XHCacheManager.m in Sources */,
+				B87A5C361D73D6370066B21E /* STMediumModel+category.m in Sources */,
 				B665F8D21CC4BF5200070458 /* ZLAnimationTool.m in Sources */,
 				B8F6E3861CB91BEE000CC117 /* NSDataEx.m in Sources */,
 				B8FD3E441C8A7BBA007BCA6B /* DTTimePeriodChain.m in Sources */,
@@ -5472,11 +5793,13 @@
 				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
+				B87A5C4D1D73D6370066B21E /* chooseItemModel.xcdatamodeld in Sources */,
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
+				B87A5C451D73D6370066B21E /* STRelayTableViewCell.m in Sources */,
 				F5A3719D1D2F8C3B007FFB90 /* SportInformationTable+CoreDataProperties.m in Sources */,
 				B86EFC8B1D124FE3007A2108 /* STGroupNoticeSettingViewController.m in Sources */,
 				B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */,
@@ -5494,12 +5817,14 @@
 				B86EFC171D0D43A2007A2108 /* CDBaseVC.m in Sources */,
 				B8BD78721CBE2D8E00362C89 /* PaymentViewController.m in Sources */,
 				B8FD3E1F1C8A7903007BCA6B /* XHMessageTableViewCell.m in Sources */,
+				B87A5BD91D73D31C0066B21E /* STMessageBaseController.m in Sources */,
 				B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */,
 				B8FD3E171C8A7903007BCA6B /* XHWaterDropRefresh.m in Sources */,
 				B8FD3E0D1C8A7903007BCA6B /* SETextMagnifierCaret.m in Sources */,
 				B610FAD51CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.m in Sources */,
 				B612DD8E1CAD36C4004C428C /* CompanyCommodityViewController.m in Sources */,
 				B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */,
+				B87A5C3D1D73D6370066B21E /* STSettingView.m in Sources */,
 				B8FD3CA41C8A7763007BCA6B /* CDChatListVC.m in Sources */,
 				B86A10471CC8755E00D3E01B /* SubscribeTableViewCell.m in Sources */,
 				B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */,
@@ -5544,6 +5869,7 @@
 				B801379F1CD8B1F700ED0566 /* PersonInformationsManager.m in Sources */,
 				B8F2D9161C5B5DA1002C7712 /* PersonViewController.m in Sources */,
 				B8F931761C7BF420000FED7C /* RemindModel.m in Sources */,
+				B87A5C421D73D6370066B21E /* STRelayViewController.m in Sources */,
 				B8F6486E1C9424AA001A3119 /* AppointmentViewController.m in Sources */,
 				B8F73C3C1C9654AE0063CC60 /* InformationListTableViewCell.m in Sources */,
 				B8FD3DD41C8A7903007BCA6B /* UIButton+XHButtonTitlePosition.m in Sources */,
@@ -5567,9 +5893,11 @@
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,
 				B8FD3DCF1C8A7903007BCA6B /* LZConversationCell.m in Sources */,
 				B8FD3CBC1C8A77EB007BCA6B /* AVIMConversation+Custom.m in Sources */,
+				B87A5C4F1D73D6370066B21E /* STChooseItemObject+CoreDataProperties.m in Sources */,
 				B8381DD31CDC9F4F00E3AC08 /* STConversationCell.m in Sources */,
 				B88C91F51C5B05FC0089BEAE /* SBJsonUTF8Stream.m in Sources */,
 				B6E2C0531D5319D50097975B /* MenuModel.m in Sources */,
+				B87A5C441D73D6370066B21E /* STSetRangeController.m in Sources */,
 				B8FD3DFF1C8A7903007BCA6B /* XHStoreManager.m in Sources */,
 				B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */,
 				B80B55AA1CD1B20F003E2C36 /* PriceModel.m in Sources */,
@@ -5584,6 +5912,7 @@
 				B8F6E3881CB91BEE000CC117 /* RSADataSigner.m in Sources */,
 				B8F1FCC51CEAF97C00C8A0FA /* PhysicalExaminationViewController.m in Sources */,
 				B8FD3E1A1C8A7903007BCA6B /* XHBubblePhotoImageView.m in Sources */,
+				B87A5C4E1D73D6370066B21E /* STChooseItemManager.m in Sources */,
 				B8FD3E2C1C8A7903007BCA6B /* NSString+Emojize.m in Sources */,
 				B610FACC1CEAB73E00097C72 /* LifeDescendFactorsViewController.m in Sources */,
 				B8F7198D1CEB206E000D859D /* MailListManager.m in Sources */,
@@ -5601,6 +5930,7 @@
 				B665F8DD1CC4BF5200070458 /* ZLThumbnailViewController.m in Sources */,
 				B8FD3DE51C8A7903007BCA6B /* XHVoiceRecordHelper.m in Sources */,
 				B8F2DA481C5F3D04002C7712 /* PasswordVerifiedViewController.m in Sources */,
+				B87A5C4A1D73D6370066B21E /* STChooseItemController.m in Sources */,
 				B665F8D81CC4BF5200070458 /* ZLPhotoBrowserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5853,6 +6183,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B87A5C1B1D73D6370066B21E /* chooseItemModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B87A5C1C1D73D6370066B21E /* chooseItemModel.xcdatamodel */,
+			);
+			currentVersion = B87A5C1C1D73D6370066B21E /* chooseItemModel.xcdatamodel */;
+			path = chooseItemModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B8F719A11CEDD7FB000D859D /* HealthModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
