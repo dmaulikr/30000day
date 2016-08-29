@@ -26,21 +26,18 @@
 }
 
 - (IBAction)replybuttonClick:(UIButton *)sender {
-    
     if (self.replyBlock) {
         self.replyBlock(sender);
     }
 }
 
 - (IBAction)zanButtonClick:(id)sender {
-    
     if (self.zanButtonBlock) {
         self.zanButtonBlock(sender);
     }
 }
 
 - (IBAction)commentButtonClick:(id)sender {
-    
     if (self.commentBlock) {
         self.commentBlock(sender);
     }
@@ -86,7 +83,8 @@
     
     self.commentTimeLable.text = [detaildate timeAgoSinceNow];
     self.commentContentLable.text = informationCommentModel.remark;
-    self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
+    self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.clickLikeCount];
+    self.replyNumberLabel.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
     
     if (informationCommentModel.isClickLike.integerValue) {
         [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];

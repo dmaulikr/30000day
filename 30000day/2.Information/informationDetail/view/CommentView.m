@@ -10,12 +10,9 @@
 
 @interface CommentView ()
 
-
-
 @end
 
 @implementation CommentView {
-    
     BOOL _a;
 }
 
@@ -58,59 +55,41 @@
 - (void)configUI {
     
     if (!_showImageView) {
-        
         _showImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_edit"]];
-        
         [self addSubview:_showImageView];
     }
     
     if (!_showLabel) {
-        
         _showLabel = [[UILabel alloc] init];
-        
         _showLabel.textAlignment = NSTextAlignmentCenter;
-        
         _showLabel.textColor = [UIColor darkGrayColor];
-        
         _showLabel.font = [UIFont systemFontOfSize:14.0f];
-        
         [self addSubview:_showLabel];
-        
         _showLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSArray *H_constrains = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_showLabel]-7-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_showLabel)];
-        
         NSLayoutConstraint *cententX = [NSLayoutConstraint constraintWithItem:_showLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0];
-        
         [self addConstraint:cententX];
-        
         [self addConstraints:H_constrains];
     }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    
     self.userInteractionEnabled = YES;
-    
     [self addGestureRecognizer:tap];
-    
     _a = NO;
 }
 
 - (BOOL)isSelected {
-    
     return _a;
 }
 
 - (void)setSelected:(BOOL)selected {
-    
     _a = selected;
 }
-
 
 - (void)tapAction {
     
     if (self.clickBlock) {
-        
         self.clickBlock();
         
 //        if (_a) {
@@ -124,24 +103,18 @@
     }
 }
 
-
 - (void)layoutSubviews {
     
     [super layoutSubviews];
     
     _showImageView.x = 7;
-    
     _showImageView.centerY = self.height/2.0f;
-    
     _showImageView.width = 17;
-    
     _showImageView.height = 17;
 }
 
 - (CGFloat)getLabelWidthWithText:(NSString *)text textHeight:(CGFloat)textHeight {
-    
     CGFloat width = [Common widthWithText:text height:textHeight fontSize:14.0f];
-    
     return width + 17 + 20;
 }
 

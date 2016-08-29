@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkReply;
 @property (weak, nonatomic) IBOutlet UILabel *replyLable;
 @property (weak, nonatomic) IBOutlet UILabel *replyNameLable;
+@property (weak, nonatomic) IBOutlet UILabel *replyNumberLabel;
 
 @property (nonatomic,copy) void (^(replyBlock))(UIButton *replyButton);
 @property (nonatomic,copy) void (^(commentBlock))(UIButton *commentButton);
