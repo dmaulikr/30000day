@@ -142,20 +142,12 @@
 - (void)showHeadRefresh:(BOOL)isShowHeadRefresh showFooterRefresh:(BOOL)isShowFooterRefresh {
     
     if (isShowHeadRefresh && self.tableView) {
-        
-        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            
-            [self headerRefreshing];
-        }];
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     }
     
     if (isShowFooterRefresh && self.tableView) {
         
-        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            
-            [self footerRereshing];
-        }];
-        
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
         [self.tableView.mj_footer setAutomaticallyHidden:YES];
     }
 }
@@ -444,7 +436,6 @@
     CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
-        
         return;
     }
     

@@ -65,23 +65,32 @@
                 NSArray *controllerArray = self.viewControllers;
                 UIViewController *controller = controllerArray[1];
                 
-                if (totalUnreadCount > 0) {
+                if (totalUnreadCount > 0 || [Common readAppBoolDataForkey:USER_BADGE_NUMBER]) {
                     
-                    if (totalUnreadCount >= 100) {
-                        
-                        controller.tabBarItem.badgeValue = @"99+";
-                        
-                    } else {
-                        
-                        controller.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
-                    }
+//                    if (totalUnreadCount >= 100) {
+//                        
+//                        controller.tabBarItem.badgeValue = @"99+";
+//                        
+//                    } else {
+//                        
+//                        controller.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
+//                    }
+//                    
+//                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
                     
-                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUnreadCount];
+                    //成功链接聊天，查询是否有人添加好友
+//                    NSArray *controllerArray = self.viewControllers;
+//                    UIViewController *controller = controllerArray[2];
+                    controller.tabBarItem.badgeValue = @"";//显示底部badge
                     
                 } else {
                     
-                    controller.tabBarItem.badgeValue = nil;
-                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+//                    controller.tabBarItem.badgeValue = nil;
+//                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                    
+//                    NSArray *controllerArray = self.viewControllers;
+//                    UIViewController *controller = controllerArray[2];
+                    controller.tabBarItem.badgeValue = nil;//显示底部badge
                 }
             }
         };
@@ -89,16 +98,13 @@
         finishBlock();
     }];
     
-    //成功链接聊天，查询是否有人添加好友
-    NSArray *controllerArray = self.viewControllers;
-    UIViewController *controller = controllerArray[2];
-    controller.tabBarItem.badgeValue = [Common readAppBoolDataForkey:USER_BADGE_NUMBER] ? @"" : nil;//显示底部badge
+
 }
 
 - (void)changeState {
 
     NSArray *controllerArray = self.viewControllers;
-    UIViewController *controller = controllerArray[2];
+    UIViewController *controller = controllerArray[1];
     controller.tabBarItem.badgeValue = @"";
 }
 
