@@ -18,6 +18,7 @@
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
 #import "PersonSettingViewController.h"
+#import "PersonSportTableViewController.h"
 
 @interface PersonDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -220,7 +221,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -274,6 +275,22 @@
         }
         
         return cell;
+    } else if(indexPath.section == 4) {
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+        if (!cell) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            
+        }
+        
+        cell.textLabel.text = @"运动记录";
+        
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        
+        return cell;
+        
     }
     
     return nil;
@@ -286,7 +303,7 @@
         return 72.1f;
         
     } else if (indexPath.section == 1) {
-    
+        
         return 40;
         
     }else if ( indexPath.section == 2) {
@@ -298,10 +315,22 @@
         return (SCREEN_HEIGHT - 188)/2.0f - 40;
     }
     
-    return 44;
+    return 54;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 4) {
+        
+        PersonSportTableViewController *controller = [[PersonSportTableViewController alloc] init];
+        
+        controller.personId = self.informationModel.userId;
+        
+        controller.birthday = self.informationModel.birthday;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

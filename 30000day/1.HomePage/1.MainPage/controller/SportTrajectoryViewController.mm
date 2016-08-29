@@ -841,7 +841,7 @@
                 CGFloat calorie = 66.2 * distance * 1.036;      //跑步卡路里（kcal）＝体重（kg）×距离（公里）×1.036
                 sportModel.calorie = [[NSNumber numberWithFloat:calorie] stringValue];
                 
-                NSString *num = [[NSNumber numberWithFloat:distance] stringValue];
+                NSString *num = [NSString stringWithFormat:@"%.2f",distance];
                 
                 if (distance == 0) {
                     
@@ -849,9 +849,7 @@
                     
                 }
                 
-                NSRange range = [num rangeOfString:@"."];
-                num = [num substringToIndex:range.location + 3];
-                sportModel.distance = [[NSNumber numberWithFloat:num.floatValue] stringValue];
+                sportModel.distance = num;
                 
                 sportModel.period = [NSString stringWithFormat:@"%ld",(long)self.timerInt];
                 NSString *x = @"";

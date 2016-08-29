@@ -28,36 +28,13 @@
     
     self.dateTimeLable.text = sportInformationModel.startTime;
     
-    NSNumber *distanceNumber = [NSNumber numberWithFloat:[self.sportInformationModel.distance floatValue]];
-    
-    if (distanceNumber == nil || distanceNumber.floatValue == 0.0) {
+    if (self.sportInformationModel.distance == nil || [self.sportInformationModel.distance isEqualToString:@"0"] || [self.sportInformationModel.distance isEqualToString:@"0.0"]) {
         
         [self.distanceLable setText:@"0.00"];
         
     } else {
         
-        NSString *distanceString = [distanceNumber stringValue];
-        
-        NSRange range = [distanceString rangeOfString:@"."];
-        
-        if (range.length < 2) {
-            
-            distanceString = [distanceString stringByAppendingString:@"0"];
-            
-            range.length = 2;
-            
-        }
-        
-        NSRange rang = NSMakeRange(range.location, 3);
-        
-        NSString *lastString = [distanceString substringWithRange:rang];
-        
-        NSString *frontString = [distanceString substringToIndex:range.location];
-        
-        NSString *finalString = [frontString stringByAppendingString:lastString];
-        
-        [self.distanceLable setText:finalString];
-        
+        [self.distanceLable setText:[NSString stringWithFormat:@"%.2f",[self.sportInformationModel.distance floatValue]]];
     }
 
     self.timeLable.text = sportInformationModel.period == nil ? @"00:00:00" : [self TimeformatFromSeconds:sportInformationModel.period.integerValue];
