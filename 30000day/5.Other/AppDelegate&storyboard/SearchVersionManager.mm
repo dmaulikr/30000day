@@ -94,7 +94,7 @@ static SearchVersionManager *manager;
         self.dataArray = dataArray;
         NSMutableArray *oldArray = [self decodeObject];
         
-        if (oldArray.count == 0 || oldArray == nil) {
+        if (oldArray.count == 0 || oldArray == nil || (![[STChooseItemManager shareManager] isSaveData])) {
             
 //           1.同步省-城市-区、县的数据【暂时没这个功能，先注释】
 //            [[STLocationMananger shareManager] synchronizedLocationDataFromServer];

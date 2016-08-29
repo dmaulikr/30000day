@@ -27,6 +27,7 @@ typedef void(^OperationResult)(NSError *error);
 - (void)addChooseItemDataUserId:(NSNumber *)userId
                        success:(void (^)(BOOL success))success
                         failure:(void (^)(NSError *error))failure;
+- (BOOL)isSaveData;//判断本地是否保存了请求自媒体类型数据
 + (NSMutableArray <STChooseItemModel *>*)choosedItemArrayWithUserId:(NSNumber *)userId  visibleType:(NSNumber *)visibleType;
 + (NSMutableArray <STChooseItemModel *>*)willChooseItemArrayWithUserId:(NSNumber *)userId  visibleType:(NSNumber *)visibleType;
 + (NSMutableArray <STChooseItemModel *>*)originChooseItemArrayWithUserId:(NSNumber *)userId  visibleType:(NSNumber *)visibleType;
