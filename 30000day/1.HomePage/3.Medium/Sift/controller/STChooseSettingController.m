@@ -105,7 +105,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
         }
-        cell.textLabel.text = @"私密筛选设置";
+        cell.textLabel.text = @"消息分类";
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.textLabel.textColor = [UIColor darkGrayColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -125,7 +125,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             }
-            cell.textLabel.text = @"好友筛选设置";
+            cell.textLabel.text = @"消息分类";
             cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -164,7 +164,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
         }
-        cell.textLabel.text = @"公开筛选设置";
+        cell.textLabel.text = @"消息分类";
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.textLabel.textColor = [UIColor darkGrayColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

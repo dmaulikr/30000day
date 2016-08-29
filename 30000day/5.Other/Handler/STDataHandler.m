@@ -3538,7 +3538,7 @@
 
 //*****************************************获取评论*********************/
 + (void)sendSearchCommentsWithBusiId:(NSInteger)busiId
-                            busiType:(NSInteger)busiType
+                            busiType:(NSInteger)busiType //上传自媒体评论和查看自媒体评论都是1  查看自媒体评论的评论和回复都是2
                                  pid:(NSInteger)pid
                               userId:(NSInteger)userId
                          commentType:(NSInteger)commentType
@@ -3557,7 +3557,9 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_USER_LIFE_LIST] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [Common urlStringWithDictionary:params withString:GET_COMMENTS];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,GET_COMMENTS] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSError *localError = nil;
         
         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
@@ -3658,6 +3660,8 @@
     [params setObject:@(pid) forKey:@"pid"];
     [params setObject:@(isHideName) forKey:@"isHideName"];
     [params addParameter:commentPhotos forKey:@"commentPhotos"];
+    
+    [Common urlStringWithDictionary:params withString:SAVE_COMMENT_SUM];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.completionQueue = dispatch_queue_create("sendSaveCommentWithBusiId",DISPATCH_QUEUE_PRIORITY_DEFAULT);

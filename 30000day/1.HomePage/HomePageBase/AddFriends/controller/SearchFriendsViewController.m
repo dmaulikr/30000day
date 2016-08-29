@@ -404,7 +404,7 @@
     
     controller.isShowRightBarButton = NO;
     
-//    controller.isStranger = YES;
+    controller.isStranger = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
 

@@ -36,39 +36,19 @@
 #pragma mark --- UITableViewDataSource/UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 4;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (indexPath.section == 3) {
-        
-        CGFloat h = ((SCREEN_WIDTH - 104) / 4) * 2 + 50;
-        
-        return h;
-        
-    }
-    
-    return 44;
-    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
     if (section == 3) {
-        
         return @"分享";
-        
     }
-    
     return nil;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -110,16 +90,12 @@
     } else {
         
         ShareTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareTableViewCell"];
-        
         if (cell == nil) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareTableViewCell" owner:nil options:nil] lastObject];
         }
         
         [cell setButtonBlock:^(NSInteger tag) {
-            
             [self share:tag];
-            
         }];
         
         return cell;
@@ -161,6 +137,31 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 3) {
+        CGFloat h = ((SCREEN_WIDTH - 104) / 4) * 2 + 50;
+        return h;
+    }
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 10.0f;
+    } else if (section == 3) {
+        return 15.0f;
+    }
+    return 5.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return 15.0f;
+    }
+    return 5.0f;
+}
+
 #pragma mark ---- MFMessageComposeViewControllerDelegate
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
@@ -170,23 +171,17 @@
     switch ( result ) {
             
         case MessageComposeResultCancelled: {
-            
             [controller dismissViewControllerAnimated:YES completion:nil];
         }
             break;
             
         case MessageComposeResultFailed:// send failed
-            
             [self showToast:@"短信发送失败"];
-            
             [controller dismissViewControllerAnimated:YES completion:nil];
-            
             break;
             
         case MessageComposeResultSent: {
-            
             [self showToast:@"短信发送成功"];
-            
             [controller dismissViewControllerAnimated:YES completion:nil];
         }
             break;
@@ -205,32 +200,22 @@
     [controller dismissViewControllerAnimated:NO completion:nil];
     
     if (result == MFMailComposeResultSent) {
-        
         [self showToast:@"邮件发送成功"];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
-        
     } else if (result == MFMailComposeResultCancelled) {
-        
         [self dismissViewControllerAnimated:YES completion:nil];
-        
     } else if (result == MFMailComposeResultFailed) {
-        
         [self showToast:@"邮件发送失败"];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
-        
     } else if (result == MFMailComposeResultSaved) {
-        
         [self showToast:@"邮件已经保存"];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 - (void)share:(NSInteger)tag {
 
-    NSString *shareString = @"人生30000天，下载‘30000天’APP，重新定义时间，让你的天龄保值增值。";
+    NSString *shareString = @"我戒掉了熬夜，每天睡到自然醒还能看日出，只因用了30000天app";
     
     if (tag == 8) {
         
