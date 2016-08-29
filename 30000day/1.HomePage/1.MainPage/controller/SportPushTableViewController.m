@@ -66,9 +66,13 @@
                 
                 self.page ++;
                 
+                [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                
+            } else {
+                
+                [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+                
             }
-            
-            [self.tableView.mj_footer endRefreshing];
             
             [self.tableView reloadData];
             
@@ -78,7 +82,9 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
             [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
             
         });
         
@@ -217,6 +223,12 @@
         return 20;
         
     }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return 0.01;
     
 }
 

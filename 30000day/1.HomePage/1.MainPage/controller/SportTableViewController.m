@@ -42,7 +42,9 @@
     
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT + 38);
     
-    [self showHeadRefresh:NO showFooterRefresh:YES];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+    
+    [self.tableView.mj_footer setAutomaticallyHidden:YES];
     
     self.page = 2;
     
@@ -225,9 +227,13 @@
                 
                 self.page ++;
                 
+                 [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                
+            } else {
+            
+                [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+            
             }
-
-            [self.tableView.mj_footer endRefreshing];
             
             [self.tableView reloadData];
             
@@ -237,7 +243,9 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
         
+            [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
             [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_footer setState:MJRefreshStateIdle];
         
         });
         
@@ -297,6 +305,12 @@
     }
     
     return 74;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return 0.01;
 
 }
 
