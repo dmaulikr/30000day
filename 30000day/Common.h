@@ -103,4 +103,10 @@
 //推出UIAlertController类型控制器
 + (void)presentBindControllerWithSuperController:(UIViewController *)superController;
 
+//如果超过一万的话的显示:xx.x万 显示一位小数
+//如果16879 1.6万
+//11478 1.1万
+// 10263 1万
++ (NSString *)getNumberString:(NSNumber *)numberString;
+
 @end

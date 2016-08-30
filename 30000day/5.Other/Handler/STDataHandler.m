@@ -3222,7 +3222,7 @@
 //*****************************************资讯点赞*********************/
 + (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
                                    busiId:(NSString *)busiId
-                              isClickLike:(NSInteger)isClickLike
+                              isClickLike:(NSInteger)isClickLike//0:取消点赞，1:表示点赞
                                  busiType:(NSInteger)busiType
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure {

@@ -156,56 +156,56 @@
         
     }];
     
-    [informationCommentTableViewCell setZanButtonBlock:^(UIButton *zanButton) {
-        
-        BOOL isClickLike;
-        if (zanButton.selected) {
-            
-            isClickLike = NO;
-            
-        } else {
-            
-            isClickLike = YES;
-            
-        }
-        
-        InformationCommentModel *model = self.commentModelArray[indexPath.row];
-        
-        [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:1 success:^(BOOL success) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                if (success) {
-                    
-                    if (isClickLike) {
-                        
-                        [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
-                        zanButton.selected = YES;
-                        
-                    } else {
-                        
-                        [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
-                        zanButton.selected = NO;
-                        
-                    }
-                    
-                }
-
-                
-            });
-            
-            
-        } failure:^(NSError *error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                [self showToast:@"服务器游神了"];
-                
-            });
-
-        }];
-        
-    }];
+//    [informationCommentTableViewCell setZanButtonBlock:^(UIButton *zanButton) {
+//        
+//        BOOL isClickLike;
+//        if (zanButton.selected) {
+//            
+//            isClickLike = NO;
+//            
+//        } else {
+//            
+//            isClickLike = YES;
+//            
+//        }
+//        
+//        InformationCommentModel *model = self.commentModelArray[indexPath.row];
+//        
+//        [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:model.commentId isClickLike:isClickLike busiType:1 success:^(BOOL success) {
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//               
+//                if (success) {
+//                    
+//                    if (isClickLike) {
+//                        
+//                        [zanButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+//                        zanButton.selected = YES;
+//                        
+//                    } else {
+//                        
+//                        [zanButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+//                        zanButton.selected = NO;
+//                        
+//                    }
+//                    
+//                }
+//
+//                
+//            });
+//            
+//            
+//        } failure:^(NSError *error) {
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//               
+//                [self showToast:@"服务器游神了"];
+//                
+//            });
+//
+//        }];
+//        
+//    }];
     
     informationCommentTableViewCell.informationCommentModel = commentModel;
     
