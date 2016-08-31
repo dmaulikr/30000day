@@ -99,7 +99,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="自媒体" image="icon_txl_gray" id="6xW-dd-PhV"/>
+                    <tabBarItem key="tabBarItem" title="自媒体" image="medium" id="6xW-dd-PhV"/>
                     <navigationItem key="navigationItem" title="自己人" id="fwf-QA-afC"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -196,7 +196,7 @@
     <resources>
         <image name="homePage" width="25" height="25"/>
         <image name="icon_messages_gray" width="25" height="25"/>
-        <image name="icon_txl_gray" width="25" height="25"/>
+        <image name="medium" width="25" height="25"/>
         <image name="my" width="25" height="25"/>
         <image name="selectHomePage" width="25" height="25"/>
     </resources>

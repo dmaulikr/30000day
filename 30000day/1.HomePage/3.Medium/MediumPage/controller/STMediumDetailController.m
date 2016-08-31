@@ -11,6 +11,7 @@
 #import "STMediumDetailModel.h"
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
+#import "STMediumModel+category.h"
 
 @interface STMediumDetailController ()
 
@@ -29,17 +30,32 @@
 
 - (void)getWeMediaDetail {
     
-    [STDataHandler sendGetWeMediaDetailWithUserId:STUserAccountHandler.userProfile.userId weMediaId:self.mediumMessageId success:^(STMediumDetailModel *model) {
+    if (self.isOriginWedia) {//原创的
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [STDataHandler sendGetWeMediaDetailWithUserId:STUserAccountHandler.userProfile.userId weMediaId:self.mediumMessageId shareId:nil success:^(STMediumDetailModel *model) {
             
-            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:model.linkUrl]];
-            [self.webView loadRequest:request];
-        });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:model.linkUrl]];
+                [self.webView loadRequest:request];
+            });
+            
+        } failure:^(NSError *error) {
+            [self showToast:[Common errorStringWithError:error optionalString:@"请求服务器失败"]];
+        }];
         
-    } failure:^(NSError *error) {
-        [self showToast:[Common errorStringWithError:error optionalString:@"请求服务器失败"]];
-    }];
+    } else {
+     
+        [STDataHandler sendGetWeMediaDetailWithUserId:STUserAccountHandler.userProfile.userId weMediaId:[self.mediaModel getOriginMediumModel].mediumMessageId shareId:self.mediumMessageId success:^(STMediumDetailModel *model) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:model.linkUrl]];
+                [self.webView loadRequest:request];
+            });
+            
+        } failure:^(NSError *error) {
+            [self showToast:[Common errorStringWithError:error optionalString:@"请求服务器失败"]];
+        }];
+    }
 }
 
 - (void)configUI {

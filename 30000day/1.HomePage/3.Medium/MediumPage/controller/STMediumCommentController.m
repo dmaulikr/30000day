@@ -13,6 +13,39 @@
 #import "UIImageView+WebCache.h"
 #import "MTProgressHUD.h"
 
+@interface STPlaceHoldView : UIView
+@property (nonatomic,strong) UILabel *label;
+@end
+
+@implementation STPlaceHoldView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self configUI];
+    }
+    return self;
+}
+
+- (void)configUI {
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [UIColor darkGrayColor];
+    label.text = @"暂无评论";
+    label.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:label];
+    //设置
+    self.label = label;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.label.centerX = self.centerX;
+    self.label.centerY = self.centerY - 50;
+    self.label.width = 100;
+    self.label.height = 20;
+}
+
+@end
+
 @interface STMediumCommentController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *commentModelArray;
@@ -20,6 +53,8 @@
 
 @property (nonatomic,assign) BOOL save;  //是否点击了Pid为0的 查看回复 按钮
 @property (nonatomic,strong) NSMutableArray *photos;
+
+//@property (nonatomic,strong) STPlaceHoldView *holdView;
 
 @end
 
@@ -45,6 +80,11 @@
     self.isShowInputView = YES;
     self.isShowMedio = NO;
     self.placeholder = @"输入回复";
+    
+    //设置背景View
+//    STPlaceHoldView *holdView = [[STPlaceHoldView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    [self.view addSubview:holdView];
+//    self.holdView = holdView;
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStylePlain target:self action:@selector(commentAction)];
     self.navigationItem.rightBarButtonItem = barItem;
@@ -93,6 +133,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
+            [self configView];
         });
         
     } failure:^(NSError *error) {
@@ -101,6 +142,16 @@
             [self.tableView.mj_header endRefreshing];
         });
     }];
+}
+
+- (void)configView {
+//    if (self.commentModelArray.count) {
+//        [self.view bringSubviewToFront:self.tableView];
+//        [self.view sendSubviewToBack:self.holdView];
+//    } else {
+//        [self.view bringSubviewToFront:self.holdView];
+//        [self.view sendSubviewToBack:self.tableView];
+//    }
 }
 
 #pragma mark --- 上啦刷新和下拉刷新

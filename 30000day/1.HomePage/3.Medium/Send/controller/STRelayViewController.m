@@ -133,7 +133,7 @@
             QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
             picker.delegate = self;
             picker.titleText = @"谁可以看";
-            NSArray *dataArray = @[@"私密",@"朋友圈",@"公开"];
+            NSArray *dataArray = @[@"私密",@"好友",@"公开"];
             
             //显示QGPickerView
             [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[self relationStringWithNumber:self.relationNumber] selectedTitle:nil selectedTitle:nil];
@@ -159,7 +159,7 @@
     if ([relationNumber isEqualToNumber:@0]) {
         return @"私密";
     } else if ([relationNumber isEqualToNumber:@1]) {
-        return @"朋友圈";
+        return @"好友";
     } else if ([relationNumber isEqualToNumber:@2]) {
         return @"公开";
     }

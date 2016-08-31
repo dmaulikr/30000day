@@ -634,6 +634,7 @@ static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSend
 //************获取自媒体界面详情接口**************/
 + (void)sendGetWeMediaDetailWithUserId:(NSNumber *)userId//用户ID
                              weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                               shareId:(NSNumber *)shareId//原创的id
                                success:(void (^)(STMediumDetailModel *model))success
                                failure:(void (^)(NSError *error))failure;
 

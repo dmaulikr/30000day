@@ -92,7 +92,7 @@
     if (informationCommentModel.pId.integerValue != -1) {
         self.replyLable.hidden = NO;
         self.replyNameLable.hidden = NO;
-        self.replyNameLable.text = informationCommentModel.parentUserName;
+        self.replyNameLable.text = informationCommentModel.parentNickName;
     } else {
         self.replyLable.hidden = YES;
         self.replyNameLable.hidden = YES;

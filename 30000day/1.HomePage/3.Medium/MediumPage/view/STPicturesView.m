@@ -395,6 +395,15 @@
         } else if (model.mediaType == 1) {
             self.coverImageView_first.hidden = NO;
         }
+        self.coverImageView_second.hidden = YES;
+        self.coverImageView_third.hidden = YES;
+        self.coverImageView_fourth.hidden = YES;
+        self.coverImageView_fifth.hidden = YES;
+        self.coverImageView_sixth.hidden = YES;
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
+        
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
@@ -438,6 +447,15 @@
         } else if (model_second.mediaType == 1) {
             self.coverImageView_second.hidden = NO;
         }
+        
+        self.coverImageView_third.hidden = YES;
+        self.coverImageView_fourth.hidden = YES;
+        self.coverImageView_fifth.hidden = YES;
+        self.coverImageView_sixth.hidden = YES;
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
+        
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
@@ -494,6 +512,14 @@
         } else if (model_third.mediaType == 1) {
             self.coverImageView_third.hidden = NO;
         }
+        
+        self.coverImageView_fourth.hidden = YES;
+        self.coverImageView_fifth.hidden = YES;
+        self.coverImageView_sixth.hidden = YES;
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
+        
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
@@ -563,6 +589,11 @@
         } else if (model_fourth.mediaType == 1) {
             self.coverImageView_fourth.hidden = NO;
         }
+        self.coverImageView_fifth.hidden = YES;
+        self.coverImageView_sixth.hidden = YES;
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
         
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -646,6 +677,11 @@
         } else if (model_fifth.mediaType == 1) {
             self.coverImageView_fifth.hidden = NO;
         }
+        
+        self.coverImageView_sixth.hidden = YES;
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
         
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -742,6 +778,10 @@
         } else if (model_sixth.mediaType == 1) {
             self.coverImageView_sixth.hidden = NO;
         }
+        
+        self.coverImageView_seventh.hidden = YES;
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
         
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -851,6 +891,9 @@
         } else if (model_seventh.mediaType == 1) {
             self.coverImageView_seventh.hidden = NO;
         }
+    
+        self.coverImageView_eighth.hidden = YES;
+        self.coverImageView_ninth.hidden = YES;
         
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
@@ -972,6 +1015,8 @@
         } else if (model_eighth.mediaType == 1) {
             self.coverImageView_eighth.hidden = NO;
         }
+        
+        self.coverImageView_ninth.hidden = YES;
         
         //显示
         [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
