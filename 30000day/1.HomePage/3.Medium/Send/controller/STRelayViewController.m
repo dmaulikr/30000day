@@ -33,7 +33,7 @@
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.relationNumber = @0;
+    self.relationNumber = @1;
     
     //右面的按钮
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
@@ -54,10 +54,12 @@
 - (void)rightButtonAction {
     
     [self showHUDWithContent:@"正在转发" animated:YES];
+    [self.relayCell.textView endEditing:YES];
     [STDataHandler sendReplayMediaMessageWithUserId:STUserAccountHandler.userProfile.userId weMediaId:self.mediumModel.mediumMessageId visibleType:self.relationNumber content:self.relayCell.textView.text success:^(BOOL success) {
         [self showToast:@"转载成功"];
         [self hideHUD:YES];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
     } failure:^(NSError *error) {
         [self showToast:[Common errorStringWithError:error optionalString:@"转载失败"]];
         [self hideHUD:YES];
@@ -133,7 +135,7 @@
             QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
             picker.delegate = self;
             picker.titleText = @"谁可以看";
-            NSArray *dataArray = @[@"私密",@"好友",@"公开"];
+            NSArray *dataArray = @[@"好友",@"公开",@"自己"];
             
             //显示QGPickerView
             [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[self relationStringWithNumber:self.relationNumber] selectedTitle:nil selectedTitle:nil];
@@ -157,7 +159,7 @@
 - (NSString *)relationStringWithNumber:(NSNumber *)relationNumber {
     
     if ([relationNumber isEqualToNumber:@0]) {
-        return @"私密";
+        return @"自己";
     } else if ([relationNumber isEqualToNumber:@1]) {
         return @"好友";
     } else if ([relationNumber isEqualToNumber:@2]) {
@@ -171,7 +173,13 @@
     
     if (pickView == self.relationPicker) {
         
-        self.relationNumber = [NSNumber numberWithInteger:valueIndex];
+        if ([value isEqualToString:@"好友"]) {
+            self.relationNumber = @1;
+        } else if ([value isEqualToString:@"自己"]) {
+            self.relationNumber = @0;
+        } else if ([value isEqualToString:@"公开"]){
+            self.relationNumber = @2;
+        }
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     }
 }

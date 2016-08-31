@@ -15,7 +15,7 @@
 @interface STChooseItemSettingCell () <STChooseItemViewDelegate>
 
 @property (nonatomic,strong) STChooseItemView *itemView;
-@property (nonatomic,strong) NSNumber *visibleType;//0私密，1好友 2公开
+@property (nonatomic,strong) NSNumber *visibleType;//0自己，1好友 2公开
 @property (nonatomic,strong) NSMutableArray *choosedArray;
 
 @end

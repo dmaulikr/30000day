@@ -10,6 +10,6 @@
 
 @interface STMediumTypeController : STRefreshViewController
 
-@property (nonatomic,strong) NSNumber *visibleType;//0私密，1朋友圈 2公开
+@property (nonatomic,strong) NSNumber *visibleType;//0自己，1朋友圈 2公开
 
 @end

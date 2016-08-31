@@ -69,6 +69,8 @@ static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"
 static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification = @"STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification";
 //成功发布自媒体
 static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSendNotification";
+//自媒体界面移动
+static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControllerViewDidMove";
 
 
 @class STNetError;

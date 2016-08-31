@@ -10,6 +10,6 @@
 
 @interface STChooseItemController : STRefreshViewController
 
-@property (nonatomic,strong) NSNumber *visibleType;//0私密，1好友 2公开
+@property (nonatomic,strong) NSNumber *visibleType;//0自己，1好友 2公开
 
 @end

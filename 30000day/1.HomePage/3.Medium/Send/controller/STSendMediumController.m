@@ -68,7 +68,7 @@
     self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.relationNumber = @0;
+    self.relationNumber = @1;
     self.rangeNumber = @1;
 
     //判断发送按钮是否可用
@@ -76,6 +76,8 @@
     
     //登录成功刷新
     [STNotificationCenter addObserver:self selector:@selector(resetProperty) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(endEditing) name:STSendMediumControllerViewDidMove object:nil];
+    
     [self resetProperty];//重新设置
 }
 
@@ -93,6 +95,10 @@
         //开始刷新
         [self.tableView reloadData];
     }
+}
+
+- (void)endEditing {
+    [self.sendMediumTableViewCell.textView endEditing:YES];
 }
 
 - (NSMutableArray <STChooseItemModel *>*)getChooseItem {
@@ -126,7 +132,7 @@
     } else if ([relationNumber isEqualToNumber:@2]) {
         return @"公开";
     } else if ([relationNumber isEqualToNumber:@0]) {
-        return @"私密";
+        return @"自己";
     }
     return @"未知类型";
 }
@@ -345,7 +351,7 @@
             QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
             picker.delegate = self;
             picker.titleText = @"谁可以看";
-            NSArray *dataArray = @[@"私密",@"好友",@"公开"];
+            NSArray *dataArray = @[@"好友",@"公开",@"自己"];
             
             //显示QGPickerView
             [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:dataArray withArray:nil withArray:nil selectedTitle:[self relationStringWithNumber:self.relationNumber] selectedTitle:nil selectedTitle:nil];
@@ -427,7 +433,13 @@
     
     if (pickView == self.relationPicker) {
         
-        self.relationNumber = [NSNumber numberWithInteger:valueIndex];
+        if ([value isEqualToString:@"好友"]) {
+            self.relationNumber = @1;
+        } else if ([value isEqualToString:@"自己"]) {
+            self.relationNumber = @0;
+        } else if ([value isEqualToString:@"公开"]){
+            self.relationNumber = @2;
+        }
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
         
     } else if (pickView == self.rangePicker) {
@@ -440,6 +452,7 @@
 
 - (void)dealloc {
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
+    [STNotificationCenter removeObserver:self name:STSendMediumControllerViewDidMove object:nil];
 }
 
 /*

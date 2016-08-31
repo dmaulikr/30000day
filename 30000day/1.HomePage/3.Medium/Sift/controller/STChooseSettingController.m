@@ -199,7 +199,7 @@
         view = [[NSBundle mainBundle] loadNibNamed:@"STChooseSettingHeadView" owner:self options:nil][0];
     }
     if (section == 0) {
-        view.titleLabel.text = @"私密";
+        view.titleLabel.text = @"自己";
     } else if (section == 1) {
         view.titleLabel.text = @"好友";
     } else if (section == 2) {
