@@ -3222,7 +3222,7 @@
 //*****************************************资讯点赞*********************/
 + (void)sendPointOrCancelPraiseWithUserId:(NSNumber *)userId
                                    busiId:(NSString *)busiId
-                              isClickLike:(NSInteger)isClickLike
+                              isClickLike:(NSInteger)isClickLike//0:取消点赞，1:表示点赞
                                  busiType:(NSInteger)busiType
                                   success:(void (^)(BOOL success))success
                                   failure:(void (^)(NSError *error))failure {
@@ -4754,11 +4754,13 @@
 //************获取自媒体界面详情接口**************/
 + (void)sendGetWeMediaDetailWithUserId:(NSNumber *)userId//用户ID
                              weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                                shareId:(NSNumber *)shareId//原创的id
                                success:(void (^)(STMediumDetailModel *model))success
                                failure:(void (^)(NSError *error))failure {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:userId forKey:@"userId"];
+    [params addParameter:shareId forKey:@"shareId"];
     [params addParameter:weMediaId forKey:@"weMediaId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

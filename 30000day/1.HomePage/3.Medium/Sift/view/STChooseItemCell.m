@@ -22,7 +22,7 @@
 
 @property (nonatomic,strong) UILabel *willChooseTitleLabel;//即将
 @property (nonatomic,strong) UILabel *choosedTitleLabel;//已经选择
-@property (nonatomic,strong) NSNumber *visibleType;//0私密，1好友 2公开
+@property (nonatomic,strong) NSNumber *visibleType;//0自己，1好友 2公开
 
 @end
 

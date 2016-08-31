@@ -16,9 +16,10 @@
 #import "STChooseMediaView.h"
 #import "IDMPhotoBrowser.h"
 
-#define Margin            5
-#define TextViewHeight    80
-#define LabelHeight       20
+#define Margin              5
+#define TextViewHeight      80
+#define LabelHeight         20
+#define MaxChooseMediaNum   9
 
 @interface STSendMediumTableViewCell () <STChooseMediaViewDelegate>
 
@@ -71,7 +72,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.textColor = [UIColor lightGrayColor];
         label.font = [UIFont systemFontOfSize:14.0f];
-        label.text = @"选择图片(可选3张)";
+        label.text = @"选择图片(可选9张)";
         [self.contentView addSubview:label];
         self.showPhotoLabel = label;
     }
@@ -88,6 +89,8 @@
     if (!self.mediaView_image) {
         self.mediaView_image = [[STChooseMediaView alloc] init];
         self.mediaView_image.delegate = self;
+        self.mediaView_image.maxChooseMediaNum = MaxChooseMediaNum;
+        self.mediaView_image.maxRowChooseMediaNum = 3;
         [self.contentView addSubview:self.mediaView_image];
     }
     
@@ -207,7 +210,7 @@
         TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:5 delegate:nil];
         imagePickerVc.allowPickingOriginalPhoto = YES;
         imagePickerVc.allowPickingVideo = NO;
-        imagePickerVc.maxImagesCount = 3 - _imageArray.count;
+        imagePickerVc.maxImagesCount = MaxChooseMediaNum - _imageArray.count;
         
         //选择图片
         [imagePickerVc setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
@@ -276,7 +279,7 @@
 }
 
 + (CGFloat)heightSendMediumCell:(NSMutableArray <STChooseMediaModel *>*)imageArray videoArray:(NSMutableArray <STChooseMediaModel *>*)videoArray {
-    return Margin + TextViewHeight + Margin + LabelHeight + Margin  +  [STChooseMediaView mediaViewHeight:videoArray mediaViewWidth:(SCREEN_WIDTH - 2 * Margin + 20) / 3.0f maxChooseMediaNum:1 maxRowChooseMediaNum:1] + Margin + LabelHeight + Margin + [STChooseMediaView mediaViewHeight:imageArray mediaViewWidth:SCREEN_WIDTH - 2 * Margin maxChooseMediaNum:3 maxRowChooseMediaNum:3] + Margin;
+    return Margin + TextViewHeight + Margin + LabelHeight + Margin  +  [STChooseMediaView mediaViewHeight:videoArray mediaViewWidth:(SCREEN_WIDTH - 2 * Margin + 20) / 3.0f maxChooseMediaNum:1 maxRowChooseMediaNum:1] + Margin + LabelHeight + Margin + [STChooseMediaView mediaViewHeight:imageArray mediaViewWidth:SCREEN_WIDTH - 2 * Margin maxChooseMediaNum:MaxChooseMediaNum maxRowChooseMediaNum:3] + Margin;
 }
 
 - (void)layoutSubviews {
@@ -287,7 +290,7 @@
     self.mediaView_video.frame = CGRectMake(Margin,CGRectGetMaxY(self.showVideoLabel.frame) + Margin,(self.width - 2 * Margin + 20) / 3.0f,[STChooseMediaView mediaViewHeight:self.videoArray mediaViewWidth:(self.width - 2 * Margin + 20) / 3.0f maxChooseMediaNum:1 maxRowChooseMediaNum:1]);
     
     self.showPhotoLabel.frame = CGRectMake(Margin * 3, CGRectGetMaxY(self.mediaView_video.frame) + Margin, 150, LabelHeight);
-    self.mediaView_image.frame = CGRectMake(Margin,CGRectGetMaxY(self.showPhotoLabel.frame) + Margin,self.width - 2 * Margin,[STChooseMediaView mediaViewHeight:self.imageArray mediaViewWidth:SCREEN_WIDTH - 2 * Margin maxChooseMediaNum:3 maxRowChooseMediaNum:3]);
+    self.mediaView_image.frame = CGRectMake(Margin,CGRectGetMaxY(self.showPhotoLabel.frame) + Margin,self.width - 2 * Margin,[STChooseMediaView mediaViewHeight:self.imageArray mediaViewWidth:SCREEN_WIDTH - 2 * Margin maxChooseMediaNum:MaxChooseMediaNum maxRowChooseMediaNum:3]);
 }
 
 #pragma ---

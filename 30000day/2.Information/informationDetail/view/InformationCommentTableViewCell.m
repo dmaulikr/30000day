@@ -13,27 +13,63 @@
 @implementation InformationCommentTableViewCell
 
 - (void)awakeFromNib {
+    
     self.checkReply.layer.masksToBounds = YES;
-    self.checkReply.layer.borderWidth = 1.0;
-    self.checkReply.layer.borderColor = LOWBLUECOLOR.CGColor;
+    self.checkReply.layer.borderWidth = 0.7f;
+    self.checkReply.layer.borderColor = RGBACOLOR(170, 170, 170, 1).CGColor;
     self.checkReply.layer.cornerRadius = 3.0f;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+    self.praiseView .layer.cornerRadius = 3.0f;
+    self.praiseView.layer.masksToBounds = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    STBaseViewController *controller = (STBaseViewController *)self.delegate;
+    [self.praiseView setClickBlock:^{
+        
+        BOOL isClickLike;
+        
+        if (weakSelf.praiseView.selected) {
+            isClickLike = NO;
+        } else {
+            isClickLike = YES;
+        }
+            
+        [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:weakSelf.informationCommentModel.commentId isClickLike:isClickLike busiType:2 success:^(BOOL success) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    
+                    if (isClickLike) {
+                        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
+                        self.praiseView.selected = YES;
+                        self.informationCommentModel.clickLikeCount = @([self.informationCommentModel.clickLikeCount intValue] + 1);
+                        self.informationCommentModel.isClickLike = @"1";
+                        
+                    } else {
+                        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
+                        self.praiseView.selected = NO;
+                        self.informationCommentModel.clickLikeCount = @([self.informationCommentModel.clickLikeCount intValue] - 1);
+                        self.informationCommentModel.isClickLike = @"0";
+                    }
+                    if (self.praiseActionBlock) {
+                        self.praiseActionBlock(self.informationCommentModel);
+                    }
+                }
+            });
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [controller showToast:[Common errorStringWithError:error optionalString:@"请求服务器失败"]];
+            });
+        }];
+    }];
 }
 
 - (IBAction)replybuttonClick:(UIButton *)sender {
     if (self.replyBlock) {
         self.replyBlock(sender);
-    }
-}
-
-- (IBAction)zanButtonClick:(id)sender {
-    if (self.zanButtonBlock) {
-        self.zanButtonBlock(sender);
     }
 }
 
@@ -56,19 +92,21 @@
     if (informationCommentModel.pId.integerValue != -1) {
         self.replyLable.hidden = NO;
         self.replyNameLable.hidden = NO;
-        self.replyNameLable.text = informationCommentModel.parentUserName;
+        self.replyNameLable.text = informationCommentModel.parentNickName;
     } else {
         self.replyLable.hidden = YES;
         self.replyNameLable.hidden = YES;
     }
     
     if (!informationCommentModel.selected) {
-        [self.checkReply setTitle:@"查看回复" forState:UIControlStateNormal];
+        [self.checkReply setTitle:[NSString stringWithFormat:@"查看回复 %@",[Common getNumberString:@([informationCommentModel.countCommentNum intValue])]] forState:UIControlStateNormal];
         informationCommentModel.selected = NO;
     } else {
-        [self.checkReply setTitle:@"收起回复" forState:UIControlStateNormal];
+        [self.checkReply setTitle:[NSString stringWithFormat:@"收起回复 %@",[Common getNumberString:@([informationCommentModel.countCommentNum intValue])]] forState:UIControlStateNormal];
         informationCommentModel.selected = YES;
     }
+    
+    self.buttonWidthConstrains.constant = [self buttonWidthWithString:[NSString stringWithFormat:@"收起回复 %@",[Common getNumberString:@([informationCommentModel.countCommentNum intValue])]]] + 10.0f;
 
     [self.headPortraitImageView sd_setImageWithURL:[NSURL URLWithString:informationCommentModel.headImg]];
     
@@ -83,17 +121,28 @@
     
     self.commentTimeLable.text = [detaildate timeAgoSinceNow];
     self.commentContentLable.text = informationCommentModel.remark;
-    self.commentCountLable.text = [NSString stringWithFormat:@"%@",informationCommentModel.clickLikeCount];
+    
     self.replyNumberLabel.text = [NSString stringWithFormat:@"%@",informationCommentModel.countCommentNum];
     
+    //设置点赞数目
     if (informationCommentModel.isClickLike.integerValue) {
-        [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan_blue"] forState:UIControlStateNormal];
+        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
         self.commentZambiaButton.selected = YES;
     } else {
-        [self.commentZambiaButton setImage:[UIImage imageNamed:@"icon_zan"] forState:UIControlStateNormal];
+        self.praiseView.showImageView.image = [UIImage imageNamed:@"icon_zan"];
         self.commentZambiaButton.selected = NO;
     }
+    self.praiseView.showLabel.text =  [Common getNumberString:informationCommentModel.clickLikeCount];
+    self.praiseViewWidth.constant = [self.praiseView getLabelWidthWithText:[Common getNumberString:informationCommentModel.clickLikeCount] textHeight:20.0f];
 }
 
+- (CGFloat)buttonWidthWithString:(NSString *)string {
+    return [Common widthWithText:string height:20.0f fontSize:15];
+}
+
++ (CGFloat)heightCellWithInfoModel:(InformationCommentModel *)infoModel {
+    
+    return 115.0f + [Common heightWithText:infoModel.remark width:SCREEN_WIDTH  - 69 - 14 fontSize:15.0f];;
+}
 
 @end

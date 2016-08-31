@@ -22,7 +22,7 @@
 
 @interface STMediumController () <UIScrollViewDelegate>
 
-@property (nonatomic,strong) UIButton *privateButton;//私密的
+@property (nonatomic,strong) UIButton *privateButton;//自己的
 @property (nonatomic,strong) UIButton *friendsCircleButton;//朋友圈（仅你的朋友）
 @property (nonatomic,strong) UIButton *publicButton;//公开的
 @property (nonatomic ,strong) UIScrollView *scrollView;
@@ -118,8 +118,8 @@
     self.publicButton = [self buttonWithTitle:@"公开" numberAndTag:1];
     [self.publicButton setFrame:CGRectMake(BUTTON_WIDTH + button_margin_max * 2, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:self.publicButton];
-    //私密
-    self.privateButton = [self buttonWithTitle:@"私密" numberAndTag:2];
+    //自己
+    self.privateButton = [self buttonWithTitle:@"自己" numberAndTag:2];
     [self.privateButton setFrame:CGRectMake(BUTTON_WIDTH * 2 + button_margin_max * 3, 5, BUTTON_WIDTH, BUTTON_HEIGHT)];
     [self.buttonParentView addSubview:self.privateButton];
     //添加按钮
@@ -224,6 +224,7 @@
         default:
             break;
     }
+    [STNotificationCenter postNotificationName:STSendMediumControllerViewDidMove object:nil];
 }
 
 @end

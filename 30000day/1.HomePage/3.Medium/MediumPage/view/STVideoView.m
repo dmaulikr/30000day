@@ -88,13 +88,13 @@
         
         if (picturesModel.photoWidth > 1.5 * picturesModel.photoHeight) {
             
-            CGFloat width = videoWidth - 2 * MarginBig;
+            CGFloat width = videoWidth;
             CGFloat height = picturesModel.photoHeight * width / picturesModel.photoWidth;
             return height;
             
         } else {
             
-            CGFloat width = (videoWidth - 2 * MarginBig) / 3.0f;
+            CGFloat width = videoWidth / 3.0f;
             CGFloat height = picturesModel.photoHeight * width / picturesModel.photoWidth;
             return height;
         }
@@ -111,20 +111,26 @@
     if (self.picturesModel) {
         if (self.picturesModel.photoWidth > 1.5 * self.picturesModel.photoHeight) {
             
-            CGFloat width = self.width - 2 * MarginBig;
+            CGFloat width = self.width;
             CGFloat height = self.picturesModel.photoHeight * width / self.picturesModel.photoWidth;
             self.imageView_first.frame = CGRectMake(0, 0, width, height);
             
         } else {
             
-            CGFloat width = (self.width - 2 * MarginBig) / 3.0f;
+            CGFloat width = self.width / 3.0f;
             CGFloat height = self.picturesModel.photoHeight * width / self.picturesModel.photoWidth;
             self.imageView_first.frame = CGRectMake(0, 0, width, height);
         }
         
-        self.coverImageView_first.width = self.imageView_first.width / 3.0f;
-        self.coverImageView_first.height = self.imageView_first.width / 3.0f;
-        self.coverImageView_first.center = self.imageView_first.center;
+        if (self.imageView_first.width / 3.0f > 40.0f) {
+            self.coverImageView_first.width = 40.0f;
+            self.coverImageView_first.height = 40.0f;
+            self.coverImageView_first.center = self.imageView_first.center;
+        } else {
+            self.coverImageView_first.width = self.imageView_first.width / 3.0f;
+            self.coverImageView_first.height = self.imageView_first.width / 3.0f;
+            self.coverImageView_first.center = self.imageView_first.center;
+        }
     }
 }
 

@@ -545,4 +545,27 @@
     [superController presentViewController:controller animated:YES completion:nil];
 }
 
++ (NSString *)getNumberString:(NSNumber *)numberString {
+    
+    int count = [numberString intValue];
+    if (count) {
+        
+        if (count < 10000) {//小于一万
+            return [NSString stringWithFormat:@"%@",numberString];
+        } else {
+            double wan = count / 10000.0;
+            NSString *title = [NSString stringWithFormat:@"%.1f万",wan];
+            title = [title stringByReplacingOccurrencesOfString:@".0" withString:@""];
+            return title;
+        }
+    } else {
+        return [NSString stringWithFormat:@"%@",numberString];
+    }
+}
+//如果超过一万的话的显示:xx.x万 显示一位小数
+//如果16879 1.6万
+//11478 1.1万
+// 10263 1万
+
+
 @end

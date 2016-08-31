@@ -26,7 +26,7 @@
     
     if ([self.visibleType isEqualToNumber:@0]) {
         
-        self.title = @"私密筛选配置";
+        self.title = @"自己筛选配置";
         
     } else if ([self.visibleType isEqualToNumber:@1]) {
         

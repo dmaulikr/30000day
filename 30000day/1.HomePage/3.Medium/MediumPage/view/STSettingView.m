@@ -12,6 +12,7 @@
 #import "STMediumModel+category.h"
 #import "STMediumCommentController.h"
 #import "STMediumTypeController.h"
+#import "UIImage+WF.h"
 
 #define Margin 10
 #define Comment_view_height 30
@@ -46,6 +47,7 @@
         self.comment_view .layer.cornerRadius = 5;
         self.comment_view.layer.masksToBounds = YES;
         self.comment_view.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
+        self.comment_view.showImageView.image = [[UIImage imageNamed:@"icon_edit"] imageWithTintColor:LOWBLUECOLOR];
         self.comment_view.layer.borderWidth = 1.0f;
         
         __weak typeof(self) weakSelf = self;
@@ -66,7 +68,7 @@
         comment_relay.layer.masksToBounds = YES;
         comment_relay.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
         comment_relay.layer.borderWidth = 1.0f;
-        comment_relay.showImageView.image = [UIImage imageNamed:@"iconfont_share"];
+        comment_relay.showImageView.image = [[UIImage imageNamed:@"iconfont_share"] imageWithTintColor:LOWBLUECOLOR];
         
         __weak typeof(self) weakSelf = self;
         [comment_relay setClickBlock:^{

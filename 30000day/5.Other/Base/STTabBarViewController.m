@@ -34,7 +34,7 @@
             
         } else if (i == 2) {
             
-            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_txl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"seleteMedium"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
             
             

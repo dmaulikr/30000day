@@ -69,6 +69,8 @@ static NSString *const STSelectSportsFunctionSpeechDistanceSendNotification = @"
 static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification = @"STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification";
 //成功发布自媒体
 static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSendNotification";
+//自媒体界面移动
+static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControllerViewDidMove";
 
 
 @class STNetError;
@@ -634,6 +636,7 @@ static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSend
 //************获取自媒体界面详情接口**************/
 + (void)sendGetWeMediaDetailWithUserId:(NSNumber *)userId//用户ID
                              weMediaId:(NSNumber *)weMediaId//自媒体消息ID
+                               shareId:(NSNumber *)shareId//原创的id
                                success:(void (^)(STMediumDetailModel *model))success
                                failure:(void (^)(NSError *error))failure;
 
