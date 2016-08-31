@@ -107,6 +107,12 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
     }];
 }
 
+- (void)voice:(UISwitch *)switchView {
+    
+    [Common saveAppBoolDataForKey:VOICE withObject:switchView.on];
+    
+}
+
 - (void)factorVerification:(UISwitch *)switchView {
     
     BOOL isOn = switchView.isOn;
@@ -223,7 +229,7 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.dataSource.count + 3;
+    return self.dataSource.count + 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -279,6 +285,17 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         cell.textLabel.text = @"运动记录可见权限";
         
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        
+    } else if (self.dataSource.count + 3 == indexPath.section){
+        
+        cell.textLabel.text = @"主页语音";
+        
+        BOOL isOn = [Common readAppBoolDataForkey:VOICE];
+        
+        UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+        [switchView setOn:isOn];
+        [switchView addTarget:self action:@selector(voice:) forControlEvents:UIControlEventValueChanged];
+        cell.accessoryView = switchView;
         
     } else {
         
@@ -349,6 +366,14 @@ static NSString *kDetailSwitchChangeSelector = @"detailSwitchChangeSelector";
         UILabel *tipLabel = [self tipLabel];
         
         tipLabel.text = @"设置运动记录可见人群";
+        
+        return tipLabel;
+        
+    }else if (self.dataSource.count + 3 == section) {
+        
+        UILabel *tipLabel = [self tipLabel];
+        
+        tipLabel.text = @"打开或关闭主页语音播报";
         
         return tipLabel;
         

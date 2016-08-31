@@ -11,8 +11,6 @@
 
 @interface ActivityIndicatorTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *label_1;
-@property (weak, nonatomic) IBOutlet UILabel *label_2;
 @property (weak , nonatomic) IBOutlet MDRadialProgressView *indicatiorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *circleWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lableCenterY;

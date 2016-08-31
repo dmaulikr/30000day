@@ -50,6 +50,21 @@
     [lable setFont:[UIFont systemFontOfSize:16.0]];
     
     [self addSubview:lable];
+    
+    
+    CGFloat center = (two - (one + 50)) / 2;
+    
+    UILabel *voiceLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 150, one + center + 50, 300, 20)];
+    
+    [voiceLable setTextAlignment:NSTextAlignmentCenter];
+    
+    [voiceLable setText:@"您可以在 我的->设置 关闭主页语音播报"];
+    
+    [voiceLable setTextColor:[UIColor whiteColor]];
+    
+    [voiceLable setFont:[UIFont systemFontOfSize:15.0]];
+
+    [self addSubview:voiceLable];
 
     
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 25, two, 50, 50)];

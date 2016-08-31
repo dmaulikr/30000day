@@ -25,9 +25,10 @@
 #import "PromoteAgeViewController.h"
 #import "FactorVerificationView.h"
 #import "IntroduceView.h"
+#import <AVFoundation/AVFoundation.h>
 
 
-@interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
+@interface MainViewController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate,AVSpeechSynthesizerDelegate>
 
 @property (nonatomic,strong) WeatherInformationModel *informationModel;
 @property (nonatomic,assign) float totalLifeDayNumber;
@@ -36,6 +37,7 @@
 @property (nonatomic,strong) ActivityIndicatorTableViewCell *indicatorCell;
 @property (nonatomic,strong) UIView *indicationView;//指示view
 @property (nonatomic,strong) SettingBirthdayView *birthdayView;
+@property (nonatomic,strong) AVSpeechSynthesizer *aVSpeechSynthesizer;          //语音播报
 
 @end
 
@@ -50,6 +52,9 @@
     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
     [self showHeadRefresh:YES showFooterRefresh:NO];
 
+    _aVSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    [_aVSpeechSynthesizer setDelegate:self];
+    
     //定位并获取天气
     [self startFindLocationSucess];
 
@@ -117,6 +122,7 @@
         IntroduceView *view = [[IntroduceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [[[UIApplication sharedApplication].delegate window] addSubview:view];
         [Common saveAppDataForKey:FIRSTSTARTINTRODUCE withObject:@"1"];
+        [Common saveAppBoolDataForKey:VOICE withObject:1];
     }
 
 }
@@ -367,7 +373,7 @@
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
         
-        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的总天龄已经击败%.2f%%用户",[dataString floatValue] * 100];
+        self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的预期总天龄已经击败%.2f%%用户",[dataString floatValue] * 100];
         
         [Common saveAppDataForKey:DEFEATDATA withObject:[NSString stringWithFormat:@"%.2f",[dataString floatValue] * 100]]; //保存当前击败的用户 用于分享
         
@@ -469,7 +475,36 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BOOL isOn = [Common readAppBoolDataForkey:VOICE];
+    
     if (indexPath.row == 1) {
+        
+        if (isOn) {
+            
+            ActivityIndicatorTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            
+            ShowLabelType type = [Common readAppIntegerDataForKey:SHOWLABLETYPE];
+            
+            NSString *readString = @"";
+            
+            if (type == ShowLabelPastAgeAndAllAgeType) {
+                
+                readString = [NSString stringWithFormat:@"您的天龄已过%@天，预期总天龄为%@天，",cell.label_1.text,cell.label_2.text];
+                
+            } else if (type == ShowLabelSurplusAgeAndAllAgeType) {
+                
+                readString = [NSString stringWithFormat:@"您的预期剩余天龄%@天，预期总天龄为%@天，",cell.label_1.text,cell.label_2.text];
+                
+            } else if (type == ShowLabelPastAgeAndSurplusAgeType) {
+                
+                readString = [NSString stringWithFormat:@"您的天龄已过%@天，剩余预期天龄为%@天，",cell.label_1.text,cell.label_2.text];
+                
+            }
+            
+            [self read:[NSString stringWithFormat:@"%@,%@",readString,cell.titleLabel.text]];
+            
+        }
+
         
         QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
         picker.delegate = self;
@@ -491,6 +526,24 @@
         
     } else if (indexPath.row == 2) {
         
+        if (isOn) {
+            
+            if ([self.allDayArray[self.allDayArray.count - 2] floatValue] > [[self.allDayArray lastObject] floatValue]) {
+                
+                [self read:@"您今天的预期天龄指数下降了，请注意提升，您可以通过完善信息更新适合您的健康因素，提高预期天龄指数的准确度，您可以在提升天龄查看下降因素以及提升天龄的选项。"];
+                
+            } else if ([self.allDayArray[self.allDayArray.count - 2] floatValue] < [[self.allDayArray lastObject] floatValue]) {
+                
+                [self read:@"您今天的预期天龄指数上升了，你好棒，继续加油，您可以通过完善信息更新适合您的健康因素，提高预期天龄指数的准确度，您可以在提升天龄查看下降因素以及提升天龄的选项。"];
+                
+            } else {
+            
+                [self read:@"您今天的预期天龄指数持平了，你好棒，继续加油，您可以通过完善信息更新适合您的健康因素，提高预期天龄指数的准确度，您可以在提升天龄查看下降因素以及提升天龄的选项。"];
+            
+            }
+            
+        }
+        
         [self loadDaysOfAgeOptionView];
     }
     
@@ -500,22 +553,32 @@
 #pragma mark --- QGPickerViewDelegate
 - (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
     
+    BOOL isOn = [Common readAppBoolDataForkey:VOICE];
+    
+    NSInteger isOnIndex = [Common readAppIntegerDataForKey:SHOWLABLETYPE];
+    
     if (valueIndex == 0) {
         
         [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelSurplusAgeAndAllAgeType];
         [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelSurplusAgeAndAllAgeType];
 
+        if(isOn == YES && isOnIndex != ShowLabelSurplusAgeAndAllAgeType) [self read:[NSString stringWithFormat:@"您的预期剩余天龄%@天，预期总天龄为%@天",self.indicatorCell.label_1.text,self.indicatorCell.label_2.text]];
+        
         [self animationShowLabelWithTpye:ShowLabelSurplusAgeAndAllAgeType];
         
     } else if (valueIndex == 1) {
         [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndAllAgeType];
         [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndAllAgeType];
         
+        if(isOn == YES && isOnIndex != ShowLabelPastAgeAndAllAgeType) [self read:[NSString stringWithFormat:@"您的天龄已过%@天，预期总天龄为%@天",self.indicatorCell.label_1.text,self.indicatorCell.label_2.text]];
+        
         [self animationShowLabelWithTpye:ShowLabelPastAgeAndAllAgeType];
         
     } else if (valueIndex == 2) {
         [Common saveAppIntegerDataForKey:SHOWLABLETYPE withObject:ShowLabelPastAgeAndSurplusAgeType];
         [self.indicatorCell reloadData:self.totalLifeDayNumber birthDayString:STUserAccountHandler.userProfile.birthday showLabelTye:ShowLabelPastAgeAndSurplusAgeType];
+        
+        if(isOn == YES && isOnIndex != ShowLabelPastAgeAndSurplusAgeType) [self read:[NSString stringWithFormat:@"您的天龄已过%@天，剩余预期天龄为%@天",self.indicatorCell.label_1.text,self.indicatorCell.label_2.text]];
         
         [self animationShowLabelWithTpye:ShowLabelPastAgeAndSurplusAgeType];
     }
@@ -817,6 +880,31 @@
         }
         
     }];
+    
+}
+
+//语音播报
+- (void)read:(NSString *)string {
+    
+    [self.aVSpeechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+    
+    AVSpeechUtterance * aVSpeechUtterance = [[AVSpeechUtterance alloc] initWithString:string];
+    
+    aVSpeechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate;
+    
+    aVSpeechUtterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"zh-CN"];
+    
+    [self.aVSpeechSynthesizer speakUtterance:aVSpeechUtterance];
+    
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer*)synthesizer didFinishSpeechUtterance:(nonnull AVSpeechUtterance *)utterance {
+    
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     
 }
 
