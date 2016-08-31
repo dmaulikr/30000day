@@ -11,7 +11,7 @@
 #import "STSendMediumHeadFootView.h"
 #import "STChooseItemManager.h"
 
-#define Send_Width  200.0f
+#define Send_Width  320.0f
 
 @interface STSendMediumController () <UITableViewDataSource,UITableViewDelegate,STSendMediumDelegale,QGPickerViewDelegate>
 
