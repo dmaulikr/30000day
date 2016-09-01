@@ -49,6 +49,11 @@
     return self;
 }
 
+- (void)setDelegate:(id)delegate {
+    _delegate = delegate;
+    self.showMediaView.delegate = delegate;
+}
+
 //配置
 - (void)setupUI {
     

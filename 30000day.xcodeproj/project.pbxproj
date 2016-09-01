@@ -287,6 +287,8 @@
 		B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A761CAD099F00D2CC6A /* DOPDropDownMenu.m */; };
 		B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */; };
 		B83B7A7C1CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */; };
+		B83CA3781D780B0400F272D0 /* PPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B83CA3771D780B0400F272D0 /* PPLabel.m */; };
+		B83CA37B1D7811CD00F272D0 /* STMediumWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
 		B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */; };
@@ -1159,6 +1161,10 @@
 		B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
 		B83B7A781CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QGRecordDetailSwitchHeadView.h; sourceTree = "<group>"; };
 		B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
+		B83CA3761D780B0400F272D0 /* PPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPLabel.h; sourceTree = "<group>"; };
+		B83CA3771D780B0400F272D0 /* PPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPLabel.m; sourceTree = "<group>"; };
+		B83CA3791D7811CD00F272D0 /* STMediumWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumWebViewController.h; sourceTree = "<group>"; };
+		B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumWebViewController.m; sourceTree = "<group>"; };
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -2774,6 +2780,8 @@
 				B87A5BE21D73D6370066B21E /* STMediumDetailController.m */,
 				B87A5BE31D73D6370066B21E /* STMediumTypeController.h */,
 				B87A5BE41D73D6370066B21E /* STMediumTypeController.m */,
+				B83CA3791D7811CD00F272D0 /* STMediumWebViewController.h */,
+				B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2794,6 +2802,8 @@
 		B87A5BEC1D73D6370066B21E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B83CA3761D780B0400F272D0 /* PPLabel.h */,
+				B83CA3771D780B0400F272D0 /* PPLabel.m */,
 				B87A5BED1D73D6370066B21E /* STContentView.h */,
 				B87A5BEE1D73D6370066B21E /* STContentView.m */,
 				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
@@ -5465,6 +5475,7 @@
 				B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */,
 				B87A5C5A1D73D83D0066B21E /* STChooseMediaView.m in Sources */,
 				B89216B71C603C060023F8A8 /* Common.m in Sources */,
+				B83CA37B1D7811CD00F272D0 /* STMediumWebViewController.m in Sources */,
 				B87A5C331D73D6370066B21E /* STMediumDetailController.m in Sources */,
 				B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */,
 				B665F8D71CC4BF5200070458 /* ZLPhotoBrowser.m in Sources */,
@@ -5646,6 +5657,7 @@
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
+				B83CA3781D780B0400F272D0 /* PPLabel.m in Sources */,
 				B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */,
 				B87A5C3E1D73D6370066B21E /* STShowMediaView.m in Sources */,
 				F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */,

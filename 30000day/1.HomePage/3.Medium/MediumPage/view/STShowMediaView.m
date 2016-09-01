@@ -73,6 +73,11 @@
     }
 }
 
+- (void)setDelegate:(id)delegate {
+    _delegate = delegate;
+    self.contentView.delegate = delegate;
+}
+
 + (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isSpecail:(BOOL)isSpecial {
     
     CGFloat margin = MarginBig;

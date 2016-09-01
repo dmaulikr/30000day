@@ -153,103 +153,128 @@
     
     NSMutableArray *videoArray = [[NSMutableArray alloc] init];
     NSMutableArray *imageArray = [[NSMutableArray alloc] init];
-    //处理视频
-    for (int i = 0; i < self.sendMediumTableViewCell.videoArray.count; i++) {
+    
+    if (self.sendMediumTableViewCell.videoArray.count == 0 && self.sendMediumTableViewCell.imageArray.count == 0) {
         
-        @autoreleasepool {
-            STChooseMediaModel *mediaModel = self.sendMediumTableViewCell.videoArray[i];
-            AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(mediaModel.coverImage, 1.0f)];
-            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                
-                AVFile *file_video = [AVFile fileWithName:@"30000day" contentsAtPath:mediaModel.videoURLString];//hjkhjkhjk
-                [file_video saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    
-                    STPicturesModel *model = [[STPicturesModel alloc] init];
-                    model.thumbnailCoverPhotoURLString = [file getThumbnailURLWithScaleToFit:YES width:Send_Width height:[self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height]];
-                    model.mediaURLString = file_video.url;
-                    model.photoHeight = [self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height];
-                    model.photoWidth = Send_Width;
-                    model.mediaType = 1;
-                    [videoArray addObject:model];
-                    
-                    if ((videoArray.count == self.sendMediumTableViewCell.videoArray.count) && (imageArray.count == self.sendMediumTableViewCell.imageArray.count)) {
-                        
-                        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                        [dataArray addObjectsFromArray:imageArray];
-                        [dataArray addObjectsFromArray:videoArray];
-                        
-                        //开始上传
-                        [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:[STMediumModel meidumStringWithPicutresModelArray:dataArray] success:^(BOOL success) {
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self showToast:@"发布成功"];
-                                [self hideHUD:YES];
-                                [self.sendMediumTableViewCell cleanData];//清除数据
-                                [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
-                            });
-                            
-                        } failure:^(NSError *error) {
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self showToast:[Common errorStringWithError:error optionalString:@"发布失败"]];
-                                [self hideHUD:YES];
-                            });
-                        }];
-                    }
-                }];
-                
-            }];
-        }
-    }
-    //处理图片
-    for (int i = 0; i < self.sendMediumTableViewCell.imageArray.count; i++) {
-
-        @autoreleasepool {
-
-            STChooseMediaModel *mediaModel = self.sendMediumTableViewCell.imageArray[i];
-
-            if (mediaModel.mediaType == STChooseMediaPhotoType) {//照片
-
+        //开始上传
+        [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:@"" success:^(BOOL success) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showToast:@"发布成功"];
+                [self hideHUD:YES];
+                [self.sendMediumTableViewCell cleanData];//清除数据
+                [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
+            });
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showToast:[Common errorStringWithError:error optionalString:@"发布失败"]];
+                [self hideHUD:YES];
+            });
+        }];
+        
+    } else {
+        
+        //处理视频
+        for (int i = 0; i < self.sendMediumTableViewCell.videoArray.count; i++) {
+            
+            @autoreleasepool {
+                STChooseMediaModel *mediaModel = self.sendMediumTableViewCell.videoArray[i];
                 AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(mediaModel.coverImage, 1.0f)];
                 [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-
-                    STPicturesModel *model = [[STPicturesModel alloc] init];
-                    model.thumbnailCoverPhotoURLString = [file getThumbnailURLWithScaleToFit:YES width:Send_Width height:[self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height]];
-                    model.mediaURLString = file.url;
-                    model.photoHeight = [self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height];
-                    model.photoWidth = Send_Width;
-                    model.mediaType = 0;
-                    [imageArray addObject:model];
-
-                    if ((videoArray.count == self.sendMediumTableViewCell.videoArray.count) && (imageArray.count == self.sendMediumTableViewCell.imageArray.count)) {
+                    
+                    AVFile *file_video = [AVFile fileWithName:@"30000day" contentsAtPath:mediaModel.videoURLString];//hjkhjkhjk
+                    [file_video saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         
-                        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-                        [dataArray addObjectsFromArray:imageArray];
-                        [dataArray addObjectsFromArray:videoArray];
+                        STPicturesModel *model = [[STPicturesModel alloc] init];
+                        model.thumbnailCoverPhotoURLString = [file getThumbnailURLWithScaleToFit:YES width:Send_Width height:[self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height]];
+                        model.mediaURLString = file_video.url;
+                        model.photoHeight = [self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height];
+                        model.photoWidth = Send_Width;
+                        model.mediaType = 1;
+                        [videoArray addObject:model];
                         
-                        //开始上传
-                        [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:[STMediumModel meidumStringWithPicutresModelArray:dataArray] success:^(BOOL success) {
+                        if ((videoArray.count == self.sendMediumTableViewCell.videoArray.count) && (imageArray.count == self.sendMediumTableViewCell.imageArray.count)) {
                             
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self showToast:@"发布成功"];
-                                [self hideHUD:YES];
-                                [self.sendMediumTableViewCell cleanData];//清除数据
-                                [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
-                            });
+                            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                            [dataArray addObjectsFromArray:imageArray];
+                            [dataArray addObjectsFromArray:videoArray];
                             
-                        } failure:^(NSError *error) {
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self showToast:[Common errorStringWithError:error optionalString:@"发布失败"]];
-                                [self hideHUD:YES];
-                            });
-                        }];
-                    }
+                            //开始上传
+                            [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:[STMediumModel meidumStringWithPicutresModelArray:dataArray] success:^(BOOL success) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self showToast:@"发布成功"];
+                                    [self hideHUD:YES];
+                                    [self.sendMediumTableViewCell cleanData];//清除数据
+                                    [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
+                                });
+                                
+                            } failure:^(NSError *error) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self showToast:[Common errorStringWithError:error optionalString:@"发布失败"]];
+                                    [self hideHUD:YES];
+                                });
+                            }];
+                        }
+                    }];
+                    
                 }];
+            }
+        }
+        //处理图片
+        for (int i = 0; i < self.sendMediumTableViewCell.imageArray.count; i++) {
+            
+            @autoreleasepool {
+                
+                STChooseMediaModel *mediaModel = self.sendMediumTableViewCell.imageArray[i];
+                
+                if (mediaModel.mediaType == STChooseMediaPhotoType) {//照片
+                    
+                    AVFile *file = [AVFile fileWithData:UIImageJPEGRepresentation(mediaModel.coverImage, 1.0f)];
+                    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        
+                        STPicturesModel *model = [[STPicturesModel alloc] init];
+                        model.thumbnailCoverPhotoURLString = [file getThumbnailURLWithScaleToFit:YES width:Send_Width height:[self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height]];
+                        model.mediaURLString = file.url;
+                        model.photoHeight = [self getHeight:Send_Width/mediaModel.coverImage.size.width * mediaModel.coverImage.size.height];
+                        model.photoWidth = Send_Width;
+                        model.mediaType = 0;
+                        [imageArray addObject:model];
+                        
+                        if ((videoArray.count == self.sendMediumTableViewCell.videoArray.count) && (imageArray.count == self.sendMediumTableViewCell.imageArray.count)) {
+                            
+                            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+                            [dataArray addObjectsFromArray:imageArray];
+                            [dataArray addObjectsFromArray:videoArray];
+                            
+                            //开始上传
+                            [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:[STMediumModel meidumStringWithPicutresModelArray:dataArray] success:^(BOOL success) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self showToast:@"发布成功"];
+                                    [self hideHUD:YES];
+                                    [self.sendMediumTableViewCell cleanData];//清除数据
+                                    [STNotificationCenter postNotificationName:STWeMediaSuccessSendNotification object:self.relationNumber];
+                                });
+                                
+                            } failure:^(NSError *error) {
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self showToast:[Common errorStringWithError:error optionalString:@"发布失败"]];
+                                    [self hideHUD:YES];
+                                });
+                            }];
+                        }
+                    }];
+                }
             }
         }
     }
 }
+
 
 //判断发送按钮是否可用
 - (void)judgeSendButtonCanUse {

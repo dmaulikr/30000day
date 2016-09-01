@@ -11,6 +11,8 @@
 
 @interface STShowMediaView : UIView
 
+@property (nonatomic,assign) id delegate;
+
 @property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
 @property (nonatomic,copy) void (^videoClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
 
