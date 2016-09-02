@@ -80,6 +80,7 @@ static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControl
 @class UserInformationModel;
 @class PriceModel;
 @class STMediumDetailModel;
+@class STDenounceModel;
 
 @interface STDataHandler : NSObject
 
@@ -673,5 +674,15 @@ static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControl
                         success:(void (^)(BOOL success))success
                         failure:(void (^)(NSError *error))failure;
 
+//***********获取举报类型**********************/
++ (void)sendFindDenounceTypesSuccess:(void (^)(NSMutableArray <STDenounceModel *>*dataArray))success
+                             failure:(void (^)(NSError *error))failure;
 
+//***********提交举报**********************/
++ (void)sendCommitDenounceTypesUserId:(NSNumber *)userId
+                          denounceeId:(NSNumber *)denounceeId//被举报的id
+                         denounceType:(NSNumber *)denounceType//举报的类型
+                              content:(NSString *)content//举报内容
+                             success:(void (^)(BOOL success))success
+                             failure:(void (^)(NSError *error))failure;
 @end

@@ -287,8 +287,14 @@
 		B83B7A7A1CAD099F00D2CC6A /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A761CAD099F00D2CC6A /* DOPDropDownMenu.m */; };
 		B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */; };
 		B83B7A7C1CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */; };
-		B83CA3781D780B0400F272D0 /* PPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B83CA3771D780B0400F272D0 /* PPLabel.m */; };
 		B83CA37B1D7811CD00F272D0 /* STMediumWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */; };
+		B85C1E8D1D782F4C00D3700F /* STDetailSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */; };
+		B85C1E8E1D782F4C00D3700F /* STDetailSettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */; };
+		B85C1E941D7912A800D3700F /* STChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E931D7912A800D3700F /* STChooseView.m */; };
+		B85C1E971D7913C400D3700F /* STChooseItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E961D7913C400D3700F /* STChooseItemView.m */; };
+		B85C1E9A1D79221700D3700F /* STDenounceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E991D79221700D3700F /* STDenounceViewController.m */; };
+		B85C1E9D1D79243400D3700F /* STDenounceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E9C1D79243400D3700F /* STDenounceTableViewCell.m */; };
+		B85C1EA01D79285E00D3700F /* STDenounceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E9F1D79285E00D3700F /* STDenounceModel.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
 		B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AAA1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m */; };
@@ -366,7 +372,6 @@
 		B87A5C511D73D6370066B21E /* STRestrictingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C241D73D6370066B21E /* STRestrictingManager.m */; };
 		B87A5C521D73D6370066B21E /* STChooseItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C271D73D6370066B21E /* STChooseItemCell.m */; };
 		B87A5C531D73D6370066B21E /* STChooseItemSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */; };
-		B87A5C541D73D6370066B21E /* STChooseItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C2B1D73D6370066B21E /* STChooseItemView.m */; };
 		B87A5C551D73D6370066B21E /* STChooseSettingHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */; };
 		B87A5C561D73D6370066B21E /* STChooseSettingHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */; };
 		B87A5C571D73D6370066B21E /* STScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87A5C301D73D6370066B21E /* STScrollView.m */; };
@@ -1161,10 +1166,21 @@
 		B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
 		B83B7A781CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QGRecordDetailSwitchHeadView.h; sourceTree = "<group>"; };
 		B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
-		B83CA3761D780B0400F272D0 /* PPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPLabel.h; sourceTree = "<group>"; };
-		B83CA3771D780B0400F272D0 /* PPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPLabel.m; sourceTree = "<group>"; };
 		B83CA3791D7811CD00F272D0 /* STMediumWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumWebViewController.h; sourceTree = "<group>"; };
 		B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumWebViewController.m; sourceTree = "<group>"; };
+		B85C1E8A1D782F4C00D3700F /* STDetailSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDetailSettingView.h; sourceTree = "<group>"; };
+		B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDetailSettingView.m; sourceTree = "<group>"; };
+		B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STDetailSettingView.xib; sourceTree = "<group>"; };
+		B85C1E921D7912A800D3700F /* STChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseView.h; sourceTree = "<group>"; };
+		B85C1E931D7912A800D3700F /* STChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseView.m; sourceTree = "<group>"; };
+		B85C1E951D7913C400D3700F /* STChooseItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemView.h; sourceTree = "<group>"; };
+		B85C1E961D7913C400D3700F /* STChooseItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemView.m; sourceTree = "<group>"; };
+		B85C1E981D79221700D3700F /* STDenounceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDenounceViewController.h; sourceTree = "<group>"; };
+		B85C1E991D79221700D3700F /* STDenounceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDenounceViewController.m; sourceTree = "<group>"; };
+		B85C1E9B1D79243400D3700F /* STDenounceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDenounceTableViewCell.h; sourceTree = "<group>"; };
+		B85C1E9C1D79243400D3700F /* STDenounceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDenounceTableViewCell.m; sourceTree = "<group>"; };
+		B85C1E9E1D79285E00D3700F /* STDenounceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDenounceModel.h; sourceTree = "<group>"; };
+		B85C1E9F1D79285E00D3700F /* STDenounceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDenounceModel.m; sourceTree = "<group>"; };
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
 		B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableViewCell.m; sourceTree = "<group>"; };
 		B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -1307,8 +1323,6 @@
 		B87A5C271D73D6370066B21E /* STChooseItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemCell.m; sourceTree = "<group>"; };
 		B87A5C281D73D6370066B21E /* STChooseItemSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemSettingCell.h; sourceTree = "<group>"; };
 		B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemSettingCell.m; sourceTree = "<group>"; };
-		B87A5C2A1D73D6370066B21E /* STChooseItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseItemView.h; sourceTree = "<group>"; };
-		B87A5C2B1D73D6370066B21E /* STChooseItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseItemView.m; sourceTree = "<group>"; };
 		B87A5C2C1D73D6370066B21E /* STChooseSettingHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChooseSettingHeadView.h; sourceTree = "<group>"; };
 		B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChooseSettingHeadView.m; sourceTree = "<group>"; };
 		B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STChooseSettingHeadView.xib; sourceTree = "<group>"; };
@@ -2653,6 +2667,10 @@
 				B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */,
 				B87A5C581D73D83D0066B21E /* STChooseMediaView.h */,
 				B87A5C591D73D83D0066B21E /* STChooseMediaView.m */,
+				B85C1E951D7913C400D3700F /* STChooseItemView.h */,
+				B85C1E961D7913C400D3700F /* STChooseItemView.m */,
+				B85C1E921D7912A800D3700F /* STChooseView.h */,
+				B85C1E931D7912A800D3700F /* STChooseView.m */,
 				B83B7A591CAD01F000D2CC6A /* STInputView.h */,
 				B83B7A5A1CAD01F000D2CC6A /* STInputView.m */,
 			);
@@ -2782,6 +2800,8 @@
 				B87A5BE41D73D6370066B21E /* STMediumTypeController.m */,
 				B83CA3791D7811CD00F272D0 /* STMediumWebViewController.h */,
 				B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */,
+				B85C1E981D79221700D3700F /* STDenounceViewController.h */,
+				B85C1E991D79221700D3700F /* STDenounceViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2795,6 +2815,8 @@
 				B87A5BE91D73D6370066B21E /* STMediumModel+category.m */,
 				B87A5BEA1D73D6370066B21E /* STMediumModel.h */,
 				B87A5BEB1D73D6370066B21E /* STMediumModel.m */,
+				B85C1E9E1D79285E00D3700F /* STDenounceModel.h */,
+				B85C1E9F1D79285E00D3700F /* STDenounceModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2802,27 +2824,30 @@
 		B87A5BEC1D73D6370066B21E /* view */ = {
 			isa = PBXGroup;
 			children = (
-				B83CA3761D780B0400F272D0 /* PPLabel.h */,
-				B83CA3771D780B0400F272D0 /* PPLabel.m */,
+				B85C1E8A1D782F4C00D3700F /* STDetailSettingView.h */,
+				B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */,
+				B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */,
 				B87A5BED1D73D6370066B21E /* STContentView.h */,
 				B87A5BEE1D73D6370066B21E /* STContentView.m */,
-				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
-				B87A5BF01D73D6370066B21E /* STMediumSendSuperCell.m */,
-				B87A5BF11D73D6370066B21E /* STMediumSendSuperCell.xib */,
-				B87A5BF21D73D6370066B21E /* STMediumSettingTableViewCell.h */,
-				B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */,
 				B87A5BF41D73D6370066B21E /* STPicturesView.h */,
 				B87A5BF51D73D6370066B21E /* STPicturesView.m */,
 				B87A5BF61D73D6370066B21E /* STSettingView.h */,
 				B87A5BF71D73D6370066B21E /* STSettingView.m */,
+				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
+				B87A5BFF1D73D6370066B21E /* STVideoView.m */,
 				B87A5BF81D73D6370066B21E /* STShowMediaView.h */,
 				B87A5BF91D73D6370066B21E /* STShowMediaView.m */,
+				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
+				B87A5BF01D73D6370066B21E /* STMediumSendSuperCell.m */,
+				B87A5BF11D73D6370066B21E /* STMediumSendSuperCell.xib */,
 				B87A5BFA1D73D6370066B21E /* STShowMediumSpecialTableView.h */,
 				B87A5BFB1D73D6370066B21E /* STShowMediumSpecialTableView.m */,
 				B87A5BFC1D73D6370066B21E /* STShowMediumTableViewCell.h */,
 				B87A5BFD1D73D6370066B21E /* STShowMediumTableViewCell.m */,
-				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
-				B87A5BFF1D73D6370066B21E /* STVideoView.m */,
+				B87A5BF21D73D6370066B21E /* STMediumSettingTableViewCell.h */,
+				B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */,
+				B85C1E9B1D79243400D3700F /* STDenounceTableViewCell.h */,
+				B85C1E9C1D79243400D3700F /* STDenounceTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2918,8 +2943,6 @@
 				B87A5C271D73D6370066B21E /* STChooseItemCell.m */,
 				B87A5C281D73D6370066B21E /* STChooseItemSettingCell.h */,
 				B87A5C291D73D6370066B21E /* STChooseItemSettingCell.m */,
-				B87A5C2A1D73D6370066B21E /* STChooseItemView.h */,
-				B87A5C2B1D73D6370066B21E /* STChooseItemView.m */,
 				B87A5C2C1D73D6370066B21E /* STChooseSettingHeadView.h */,
 				B87A5C2D1D73D6370066B21E /* STChooseSettingHeadView.m */,
 				B87A5C2E1D73D6370066B21E /* STChooseSettingHeadView.xib */,
@@ -5282,6 +5305,7 @@
 				B87A5C3A1D73D6370066B21E /* STMediumSendSuperCell.xib in Resources */,
 				B886E86C1C7DDF1400E64BEC /* AgeTableViewCell.xib in Resources */,
 				B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */,
+				B85C1E8E1D782F4C00D3700F /* STDetailSettingView.xib in Resources */,
 				B665F8C71CC4BF5200070458 /* defaultphoto.png in Resources */,
 				B6114CA21CA277FA0088EED2 /* CommentDetailsTableViewCell.xib in Resources */,
 				F54BBC6A1D21045400556B6D /* qr_bottom_left@3x.png in Resources */,
@@ -5525,6 +5549,7 @@
 				B8F648811C942B0A001A3119 /* AppointmentConfirmViewController.m in Sources */,
 				B606AE6E1CBCFDE200830D28 /* InformationWebJSObject.m in Sources */,
 				B8FD3DEA1C8A7903007BCA6B /* XHDisplayEmotionViewController.m in Sources */,
+				B85C1E971D7913C400D3700F /* STChooseItemView.m in Sources */,
 				B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */,
 				B8F6E9781D02CD0400AD6745 /* TZPhotoPreviewController.m in Sources */,
 				B88C91EC1C5B05FC0089BEAE /* SBJsonParser.m in Sources */,
@@ -5572,7 +5597,6 @@
 				B8FD3CBF1C8A77EB007BCA6B /* CDConversationStore.m in Sources */,
 				B8F6E9721D02CD0400AD6745 /* TZAssetModel.m in Sources */,
 				B8B3F5271C9AAAA400834533 /* ShopModel.m in Sources */,
-				B87A5C541D73D6370066B21E /* STChooseItemView.m in Sources */,
 				F5AAD0F91D34C59300DB4D97 /* SportHeadTableViewCell.m in Sources */,
 				B6DFF1E81CE07158004B81A7 /* DaysOfAgeOption.m in Sources */,
 				B62C38191C9AA6B6002208CD /* ShopDetailTableViewCell.m in Sources */,
@@ -5608,6 +5632,7 @@
 				B86EFCA81D154DC4007A2108 /* IDMPhotoBrowser.m in Sources */,
 				B8FD3DEE1C8A7903007BCA6B /* XHMessageTableViewController.m in Sources */,
 				B8FD3E461C8A7BBA007BCA6B /* DTTimePeriodGroup.m in Sources */,
+				B85C1E9A1D79221700D3700F /* STDenounceViewController.m in Sources */,
 				B8FD3DD61C8A7903007BCA6B /* UIImage+Resize.m in Sources */,
 				B87A5C401D73D6370066B21E /* STShowMediumTableViewCell.m in Sources */,
 				B81306C81CB512C70051C4BA /* MyOrderDetailModel.m in Sources */,
@@ -5657,7 +5682,6 @@
 				B8FD3DD51C8A7903007BCA6B /* UIImage+Alpha.m in Sources */,
 				B8F2DA441C5F3D04002C7712 /* InputAccountViewController.m in Sources */,
 				B8F8802F1C901A0700B5DA18 /* RemindObject+CoreDataProperties.m in Sources */,
-				B83CA3781D780B0400F272D0 /* PPLabel.m in Sources */,
 				B86EFC7F1D10F52F007A2108 /* STGroupViewController.m in Sources */,
 				B87A5C3E1D73D6370066B21E /* STShowMediaView.m in Sources */,
 				F52C6C291D2E57C4008933D2 /* SportTableViewController.m in Sources */,
@@ -5733,6 +5757,7 @@
 				B8F6E3871CB91BEE000CC117 /* openssl_wrapper.m in Sources */,
 				B89216CC1C61E6A90023F8A8 /* UserHeadViewTableViewCell.m in Sources */,
 				B6171DD21C8D7ADF00116B13 /* EmailBindViewController.m in Sources */,
+				B85C1EA01D79285E00D3700F /* STDenounceModel.m in Sources */,
 				B86EFC821D115770007A2108 /* STCroupSettingViewController.m in Sources */,
 				B8004B821D2FBD5400D2857A /* SFHFKeychainUtils.m in Sources */,
 				B886ADD41CAE10B4005E262A /* AppointmentModel.m in Sources */,
@@ -5782,6 +5807,8 @@
 				B80B55991CD0B2EC003E2C36 /* DiscountCouponViewController.m in Sources */,
 				B886E8671C7D5A0700E64BEC /* NSString+URLEncoding.m in Sources */,
 				B6171DCD1C8D70DC00116B13 /* SelectionMethodTableViewCell.m in Sources */,
+				B85C1E8D1D782F4C00D3700F /* STDetailSettingView.m in Sources */,
+				B85C1E9D1D79243400D3700F /* STDenounceTableViewCell.m in Sources */,
 				B8FD3DED1C8A7903007BCA6B /* XHDisplayTextViewController.m in Sources */,
 				B8F2D8D51C5B3996002C7712 /* SetUpViewController.m in Sources */,
 				B6D59D4F1C8E6D7E0082BCAC /* SelectionMethodViewController.m in Sources */,
@@ -5842,6 +5869,7 @@
 				B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */,
 				B89216B11C5F3EEA0023F8A8 /* STDataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
+				B85C1E941D7912A800D3700F /* STChooseView.m in Sources */,
 				B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */,
 				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,

@@ -12,6 +12,8 @@
 #import "UIImage+WF.h"
 #import "MTProgressHUD.h"
 #import "STMediumModel+category.h"
+#import "STDetailSettingView.h"
+#import "STDenounceViewController.h"
 
 @interface STMediumDetailController ()
 
@@ -128,6 +130,19 @@
         }
     }];
     
+    UIAlertAction *action_second = [UIAlertAction actionWithTitle:@"举报" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull   action) {
+        
+            STDenounceViewController *controller = [[STDenounceViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            controller.writerId = self.writerId;
+            if (self.isOriginWedia) {//原创的
+                controller.retweeted_status = [self.mediaModel getOriginMediumModel];
+            } else {//转发的
+                controller.retweeted_status = self.mediaModel;
+            }
+            [self.navigationController pushViewController:controller animated:YES];
+    }];
+    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
     if ([self.writerId isEqualToNumber:STUserAccountHandler.userProfile.userId]) {//自己发的自媒体才能去删除
@@ -135,7 +150,77 @@
     }
     
     [alertControlller addAction:cancelAction];
+    [alertControlller addAction:action_second];
     [self presentViewController:alertControlller animated:YES completion:nil];
+    
+    
+//    STDetailSettingView *view = [[NSBundle mainBundle] loadNibNamed:@"STDetailSettingView" owner:self options:nil][0];
+//    [STDetailSettingView animateWindowsAddSubView:view];
+//    
+//    if ([self.writerId isEqualToNumber:STUserAccountHandler.userProfile.userId]) {//自己发的自媒体才能去删除
+//        view.WeChatFriendsBtn.enabled = YES;
+//    } else {
+//        view.WeChatFriendsBtn.enabled = NO;
+//    }
+//    
+//    //点击回调
+//    [view setShareButtonBlock:^(NSInteger index, STDetailSettingView *view) {
+//        
+//        if (index == 0) {//删除
+//            
+//            [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
+//
+//            if (self.isOriginWedia) {//原创的
+//
+//                [STDataHandler sendDeleteWemediaUserId:STUserAccountHandler.userProfile.userId shareId:nil wemediaId:self.mediumMessageId success:^(BOOL success) {
+//                    [self showToast:@"删除成功"];
+//                    [STDetailSettingView annimateRemoveFromSuperView:view completion:^(BOOL finished) {
+//                        [self.navigationController popViewControllerAnimated:YES];
+//                    }];
+//                    if (self.deleteBock) {
+//                        self.deleteBock();
+//                    }
+//                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+//
+//                } failure:^(NSError *error) {
+//                    [self showToast:[Common errorStringWithError:error optionalString:@"删除失败"]];
+//                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+//                }];
+//
+//            } else {
+//
+//                [STDataHandler sendDeleteWemediaUserId:STUserAccountHandler.userProfile.userId shareId:self.mediumMessageId wemediaId:nil success:^(BOOL success) {
+//
+//                    [self showToast:@"删除成功"];
+//                    [self.navigationController popViewControllerAnimated:YES];
+//                    if (self.deleteBock) {
+//                        self.deleteBock();
+//                    }
+//                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+//                    
+//                } failure:^(NSError *error) {
+//                    [self showToast:[Common errorStringWithError:error optionalString:@"删除失败"]];
+//                    [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
+//                }];
+//            }
+//            
+//        } else if (index == 1) {//举报
+//            
+//            STDenounceViewController *controller = [[STDenounceViewController alloc] init];
+//            controller.hidesBottomBarWhenPushed = YES;
+//            controller.writerId = self.writerId;
+//            if (self.isOriginWedia) {//原创的
+//                controller.retweeted_status = [self.mediaModel getOriginMediumModel];
+//            } else {//转发的
+//                controller.retweeted_status = self.mediaModel;
+//            }
+//            [self.navigationController pushViewController:controller animated:YES];
+//            [STDetailSettingView annimateRemoveFromSuperView:view completion:nil];
+//            
+//        } else if (index == 4) {//取消
+//            [STDetailSettingView annimateRemoveFromSuperView:view completion:nil];
+//        }
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

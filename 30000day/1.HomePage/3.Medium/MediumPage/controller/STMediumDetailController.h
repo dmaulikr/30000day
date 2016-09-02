@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/8/3.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  自媒体详情
 
 #import "STRefreshViewController.h"
 #import "STMediumModel.h"
