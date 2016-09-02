@@ -278,7 +278,6 @@
 		B8381DDF1CE0C13100E3AC08 /* NewFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8381DDE1CE0C13100E3AC08 /* NewFriendsViewController.m */; };
 		B83B7A321CAA848E00D2CC6A /* CalendarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */; };
 		B83B7A5B1CAD01F000D2CC6A /* GJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A511CAD01F000D2CC6A /* GJTextView.m */; };
-		B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */; };
 		B83B7A5F1CAD01F000D2CC6A /* STChoosePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */; };
 		B83B7A601CAD01F000D2CC6A /* STInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A5A1CAD01F000D2CC6A /* STInputView.m */; };
 		B83B7A711CAD072500D2CC6A /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A6A1CAD072500D2CC6A /* DYRateView.m */; };
@@ -1149,8 +1148,6 @@
 		B83B7A311CAA848E00D2CC6A /* CalendarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTableViewCell.m; sourceTree = "<group>"; };
 		B83B7A501CAD01F000D2CC6A /* GJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJTextView.h; sourceTree = "<group>"; };
 		B83B7A511CAD01F000D2CC6A /* GJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJTextView.m; sourceTree = "<group>"; };
-		B83B7A521CAD01F000D2CC6A /* STAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STAvatarBrowser.h; sourceTree = "<group>"; };
-		B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STAvatarBrowser.m; sourceTree = "<group>"; };
 		B83B7A571CAD01F000D2CC6A /* STChoosePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STChoosePictureView.h; sourceTree = "<group>"; };
 		B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STChoosePictureView.m; sourceTree = "<group>"; };
 		B83B7A591CAD01F000D2CC6A /* STInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STInputView.h; sourceTree = "<group>"; };
@@ -2661,8 +2658,6 @@
 			children = (
 				B83B7A501CAD01F000D2CC6A /* GJTextView.h */,
 				B83B7A511CAD01F000D2CC6A /* GJTextView.m */,
-				B83B7A521CAD01F000D2CC6A /* STAvatarBrowser.h */,
-				B83B7A531CAD01F000D2CC6A /* STAvatarBrowser.m */,
 				B83B7A571CAD01F000D2CC6A /* STChoosePictureView.h */,
 				B83B7A581CAD01F000D2CC6A /* STChoosePictureView.m */,
 				B87A5C581D73D83D0066B21E /* STChooseMediaView.h */,
@@ -5829,7 +5824,6 @@
 				B8F7199F1CED9DFB000D859D /* AllRemindViewController.m in Sources */,
 				B8FD3DE71C8A7903007BCA6B /* XHBaseTableViewController.m in Sources */,
 				F5CF8A941D2E431D00564756 /* SportInformationModel.m in Sources */,
-				B83B7A5C1CAD01F000D2CC6A /* STAvatarBrowser.m in Sources */,
 				B8F2DA401C5F3D04002C7712 /* ChooseVerifyWayViewController.m in Sources */,
 				B6E44C3D1CBC90190039217D /* InformationWriterHomepageViewController.m in Sources */,
 				B87A5C4D1D73D6370066B21E /* chooseItemModel.xcdatamodeld in Sources */,

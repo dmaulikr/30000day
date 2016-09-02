@@ -8,16 +8,13 @@
 
 #import "STRefreshViewController.h"
 #import "STChoosePictureView.h"
-#import "STAvatarBrowser.h"
 
 /**
  *
  * 键盘上面的模态背景视图
  */
 @interface STView : UIView
-
 @property (nonatomic,copy) void (^touchBlock)();
-
 @end
 
 @implementation STView
@@ -25,14 +22,12 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     if (self.touchBlock) {
-        
         self.touchBlock();
     }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if (self.touchBlock) {
-        
         self.touchBlock();
     }
 }
@@ -47,21 +42,15 @@
  *  记录每次弹出键盘的开始时间，防止用户疯狂点击。
  */
 @property (nonatomic, assign, readwrite) CFTimeInterval lastAudioRecordingTime;
-
 @end
 
 @implementation STRefreshViewController {
     
     NSMutableArray *_imageArray;
-    
     STInputView *_inputView;
-    
     STChoosePictureView *_choosePictureView;
-    
     float _keyBoardHeight;
-    
     NSNumber *_flag;
-    
     STView *_inputBackgroundView;//输入键盘的背景视图
 }
 
@@ -69,11 +58,8 @@
     [super viewDidLoad];
         
     self.isShowBackItem = NO;
-    
     _imageArray = [[NSMutableArray alloc] init];
-    
     self.maxPhoto = NSUIntegerMax;//默认是最大
-    
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
@@ -105,7 +91,6 @@
 //    }
     
     if (_inputView) {
-        
         [[UIApplication sharedApplication].keyWindow sendSubviewToBack:_inputView];
     }
 }
@@ -114,7 +99,6 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     
     [self inputViewHide];
-    
     return YES;
 }
 
@@ -123,17 +107,11 @@
     _tableViewStyle = tableViewStyle;
     
     if (_tableViewStyle == STRefreshTableViewPlain) {
-        
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStylePlain];
-        
         [self.tableView setTableFooterView:[[UIView alloc] init]];
-        
         [self.view addSubview:self.tableView];
-    
     } else {
-        
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44 - 64) style:UITableViewStyleGrouped];
-        
         [self.view addSubview:self.tableView];
     }
 }
@@ -160,28 +138,21 @@
     
     if (_imageArray.count  >= self.maxPhoto) {//超过限制了
         
-        
-
     } else {
         
         [_imageArray addObject:image];
-        
         _choosePictureView.hidden = NO;
-        
         _choosePictureView.imageArray = _imageArray;
-        
         _choosePictureView.width =  61 * _imageArray.count + 10;
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     [self inputViewMakeVisible];//让键盘弹出来
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     [self inputViewMakeVisible];//让键盘弹出来
 }
 
@@ -195,19 +166,12 @@
             
             //键盘inputView
             _inputView = [[STInputView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 47)];
-            
             _inputView.textView.delegate = self;
-            
             _inputView.isShowMedia = YES;//默认是YES
-            
             _inputView.textView.placeholder = _placeholder;//显示placeholder
-            
             __weak typeof(self) weakSelf = self;
-            
             __weak typeof(_inputView) weakInputView = _inputView;
-            
             __weak typeof(_imageArray) weakImageArray = _imageArray;
-            
             __weak typeof(_flag) weakFlag = _flag;
             //键盘点击回调
             [_inputView setButtonClickBlock:^(STInputViewButtonClickType type) {
@@ -215,43 +179,29 @@
                 if (type == STInputViewButtonSendType) {
                     
                     weakSelf.inputViewBlock(weakInputView.textView.text,weakImageArray,weakFlag);
-                    
                     [weakSelf refreshControllerInputViewHide];
                     
                 } else if (type == STInputViewButtonPictureType) {
                     
                     UIImagePickerController *contoller = [[UIImagePickerController alloc] init];
-                    
                     contoller.delegate = weakSelf;
-                    
                     contoller.allowsEditing = YES;
-                    
                     contoller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    
                     [weakSelf presentViewController:contoller animated:YES completion:nil];
                     
                 } else if (type == STInputViewButtonPhotoType) {
                     //照相
                     UIImagePickerController *contoller = [[UIImagePickerController alloc] init];
-                    
                     contoller.delegate = weakSelf;
-                    
                     contoller.allowsEditing = YES;
-                    
                     contoller.sourceType = UIImagePickerControllerSourceTypeCamera;
-                    
                     [weakSelf presentViewController:contoller animated:YES completion:nil];
                 }
             }];
             
             [[UIApplication sharedApplication].keyWindow addSubview:_inputView];
-            
             [STNotificationCenter addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
-            
             [STNotificationCenter addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-            
-            [STNotificationCenter addObserver:self selector:@selector(keyBoardShouldShow) name:STAvatarBrowserDidHideAvatarImage object:nil];
-            
             [STNotificationCenter addObserver:self selector:@selector(inputViewHide) name:STWillPopViewControllerSendNotification object:nil];
             
             //输入键盘的背景视图
@@ -260,31 +210,21 @@
                 _inputBackgroundView = [[STView alloc] initWithFrame:CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - _keyBoardHeight - _inputView.height - 64)];
                 
                 __weak typeof(self) weakSelf = self;
-                
                 [_inputBackgroundView setTouchBlock:^{//设置点击回调
-                    
                     [weakSelf inputViewHide];
-                    
                 }];
                 
                 [self.view addSubview:_inputBackgroundView];
-                
                 [self.view sendSubviewToBack:_inputBackgroundView];
             }
         }
     
         if (!_choosePictureView) {
-            
             _choosePictureView = [[STChoosePictureView alloc] initWithFrame:CGRectMake(20,_inputView.y - 10 - 60 , 61 * _imageArray.count + 10, 60)];
-            
             _choosePictureView.hidden = YES;
-            
             _choosePictureView .backgroundColor = RGBACOLOR(200, 200, 200, 1);
-            
             _choosePictureView.imageArray = _imageArray;
-            
             _choosePictureView.delegate = self;
-            
             [self.view addSubview:_choosePictureView];
         }
     }
@@ -294,34 +234,27 @@
 - (void)setPlaceholder:(NSString *)placeholder {
     
     _placeholder = placeholder;
-    
     if (_inputView) {
-        
         _inputView.textView.placeholder = _placeholder;
     }
 }
 
 - (void)headerRefreshing {
-    
 }
 
 - (void)footerRereshing {
-    
 }
 
 - (void)setIsShowMedio:(BOOL)isShowMedio {
     
     _isShowMedio = isShowMedio;
-    
     _inputView.isShowMedia = _isShowMedio;
 }
 
 - (void)setIsShowBackItem:(BOOL)isShowBackItem {
     
     _isShowBackItem = isShowBackItem;
-    
     if (_isShowBackItem) {
-        
         [self backBarButtonItem];
     }
 }
@@ -351,33 +284,22 @@
 //    }
     
     self.inputViewBlock =  block;
-    
     //储存标记的flag
     _flag = flag;
-    
     [self inputViewMakeVisible];
 }
 
 - (void)refreshControllerInputViewHide {
     
     self.inputViewBlock = nil;
-    
     _flag = nil;
-    
     [_inputView.textView resignFirstResponder];
-    
     _inputView.textView.text = nil;
-    
     _inputView.height = 47;
-    
     _imageArray = [[NSMutableArray alloc] init];
-    
     _choosePictureView.imageArray = _imageArray;
-    
     _choosePictureView.width = 10;
-    
     _choosePictureView.imageArray = _imageArray;
-    
      _choosePictureView.hidden = YES;
 }
 
@@ -396,15 +318,12 @@
 - (void)keyboardShow:(NSNotification *)notification {
         
     CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-
     if (animateDuration <= 0.25) {//这是防止相应莫名的发出的通知
         
         CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        
         _keyBoardHeight = keyboardFrame.size.height;
         
         if ((_inputView.y == SCREEN_HEIGHT - _keyBoardHeight - _inputView.height) && _choosePictureView.y == _inputView.y - 10 - 60) {
-            
             return;
         }
         
@@ -414,17 +333,13 @@
         [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
             _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - _inputView.height;
-            
             _choosePictureView.y = _inputView.y - 10 - 60;
             
         } completion:^(BOOL finished) {
             
             if (_choosePictureView.isHidden) {//如果之前是_choosePicture隐藏状态，那么让_choosePictureView去后面
-
                 [self.view insertSubview:_choosePictureView belowSubview:_inputBackgroundView];
-                
             } else {//如果_choosePicture显示状态，那么让_choosePictureView去前面，响应点击事件，增加体验
-                
                 [self.view insertSubview:_choosePictureView aboveSubview:_inputBackgroundView];
             }
         }];
@@ -434,7 +349,6 @@
 - (void)keyboardHide:(NSNotification *)notification {
 
     CGFloat animateDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
     if (animateDuration > 0.25) {//这是防止相应莫名的发出的通知
         return;
     }
@@ -442,18 +356,15 @@
     [UIView animateWithDuration:animateDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         _inputView.y = SCREEN_HEIGHT;
-        
         _choosePictureView.y = _inputView.y - 10 - 60;
         
     } completion:^(BOOL finished) {
-        
         [self.view sendSubviewToBack:_inputBackgroundView];
     }];
 }
 
 //隐藏avatarImage发出的通知
 - (void)keyBoardShouldShow {
-    
     [self inputViewMakeVisible];
 }
 
@@ -461,15 +372,10 @@
 - (void)backBarButtonItem {
     
     UIImage *image = [UIImage imageNamed:@"back.png"];
-    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
-    
     [item setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
     [item setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    
     self.navigationItem.backBarButtonItem = item;
-    
     self.navigationItem.backBarButtonItem.title = @"";
 }
 
@@ -481,12 +387,10 @@
     if ([text isEqualToString:@"\n"]) {
         
         if (self.inputViewBlock) {
-            
             self.inputViewBlock(textView.text,_imageArray,_flag);
         }
         
         [self refreshControllerInputViewHide];
-        
         return NO;
     }
     return YES;
@@ -503,49 +407,36 @@
     if (size.height == 37.0f) {
         
         _inputView.height = 47;
-        
         _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47;
-        
         _choosePictureView.y = _inputView.y - 10 - 60;
         
     } else if (size.height == 57.0f ) {
         
         _inputView.height =  47 + 20;
-        
         _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20;
-        
         _choosePictureView.y = _inputView.y - 10 - 60;
-        
     } else if ( size.height == 77.0f ) {
         
-        _inputView.height  = 47.0f + 20*2;
-        
-       _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*2;
-        
+        _inputView.height  = 47.0f + 20 * 2;
+       _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20 * 2;
         _choosePictureView.y = _inputView.y - 10 - 60;
         
     } else if (size.height == 98.0f) {
         
-        _inputView.height  = 47 + 20*3;
-        
-        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*3;
-        
+        _inputView.height  = 47 + 20 * 3;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20 * 3;
         _choosePictureView.y = _inputView.y - 10 - 60;
         
     } else if (size.height == 118.0f ) {
         
-        _inputView.height  = 47 + 20*4;
-        
-        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*4;
-        
+        _inputView.height  = 47 + 20 * 4;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20 * 4;
         _choosePictureView.y = _inputView.y - 10 - 60;
         
     } else if (size.height == 138.0f ) {
         
-        _inputView.height = 47 + 20*5;
-        
-        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20*5;
-        
+        _inputView.height = 47 + 20 * 5;
+        _inputView.y = SCREEN_HEIGHT - _keyBoardHeight - 47 - 20 * 5;
         _choosePictureView.y = _inputView.y - 10 - 60;
     }
     //这地方不能加上 layoutIfneed不然会出现了莫名的错误
@@ -555,11 +446,9 @@
 - (void)textViewDidChangeSelection:(UITextView *)textView {
     
     CGRect r = [textView caretRectForPosition:textView.selectedTextRange.end];
-    
     CGFloat caretY = MAX(r.origin.y - textView.frame.size.height+r.size.height,0);
     
     if (textView.contentOffset.y < caretY && r.origin.y != INFINITY) {
-        
         textView.contentOffset = CGPointMake(0, caretY);
     }
 }
@@ -570,22 +459,15 @@
 - (void)choosePictureView:(STChoosePictureView *)choosePictureView cancelButtonDidClickAtIndex:(NSInteger)index {
     
     [_imageArray removeObjectAtIndex:index];
-    
     choosePictureView.width = 61 * _imageArray.count  + 10;
-    
     choosePictureView.imageArray = _imageArray;
-    
     if (_imageArray.count == 0) {
-        
         choosePictureView.hidden = YES;
     }
 }
 
 - (void)choosePictureView:(STChoosePictureView *)choosePictureView didClickCellAtIndex:(NSInteger)index {
-    
     [self inputViewHide];
-    
-    [STAvatarBrowser showImage:_imageArray[index]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -596,21 +478,12 @@
 - (void)dealloc {
     
     [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    
     [STNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    
-    [STNotificationCenter removeObserver:self name:STAvatarBrowserDidHideAvatarImage object:nil];
-    
     [STNotificationCenter removeObserver:self name:STWillPopViewControllerSendNotification object:nil];
-    
     _inputView = nil;
-    
     _imageArray = nil;
-    
     _choosePictureView = nil;
-    
     _tableView = nil;
-    
     _inputBackgroundView = nil;
 }
 

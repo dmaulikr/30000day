@@ -8,7 +8,6 @@
 
 #import "STSendMediumTableViewCell.h"
 #import "TZImagePickerController.h"
-#import "STAvatarBrowser.h"
 #import "TZImageManager.h"
 #import "XHPhotographyHelper.h"
 #import "XHMessageVideoConverPhotoFactory.h"
