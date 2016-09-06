@@ -231,6 +231,13 @@
     NSString *m_str = [chineseMonths objectAtIndex:localeComp.month-1];
     NSString *d_str = [chineseDays objectAtIndex:localeComp.day-1];
     
+    
+    NSString *daoShuLiangWei = [NSString stringWithFormat:@"%ld",comp.year];
+    daoShuLiangWei = [daoShuLiangWei substringFromIndex:2];
+    
+    //公式解读：y=年数后2位，d=0.2422，1=闰年数，21世纪c=4.81，20世纪=5.59
+    NSInteger day = ([daoShuLiangWei integerValue] * 0.2422 + 4.81) - ([daoShuLiangWei integerValue] / 4);
+    
     if ([d_str isEqualToString:@"初一"]) {
         
         if (comp.month == 1 && comp.day == 1) {
@@ -242,14 +249,14 @@
             m_str =  @"情人节";
             
         } else if (comp.month == 3 && comp.day == 12) {
-            
+        
             m_str =  @"植树节";
             
         } else if (comp.month == 3 && comp.day == 8) {
             
             m_str =  @"女人节";
             
-        } else if (comp.month == 4 && comp.day == 4) {
+        } else if (comp.month == 4 && comp.day == day) {
             
             m_str =  @"清明节";
             
@@ -277,13 +284,17 @@
             
             m_str =  @"教师节";
             
+        } else if (comp.month == 10 && comp.day == 1) {
+            
+            m_str =  @"国庆节";
+            
         } else if (comp.month == 10 && comp.day == 31) {
             
             m_str =  @"万圣节";
             
         } else if (comp.month == 11 && comp.day == 11) {
             
-            m_str =  @"光混节";
+            m_str =  @"光棍节";
             
         } else if (comp.month == 11 && comp.day == 23) {
             
@@ -323,7 +334,7 @@
             
             d_str =  @"女人节";
             
-        } else if (comp.month == 4 && comp.day == 4) {
+        } else if (comp.month == 4 && comp.day == day) {
             
             d_str =  @"清明节";
             
@@ -357,7 +368,7 @@
             
         }  else if (comp.month == 11 && comp.day == 11) {
             
-            d_str =  @"光混节";
+            d_str =  @"光棍节";
             
         } else if (comp.month == 11 && comp.day == 23) {
             
@@ -395,6 +406,120 @@
         if ([m_str isEqualToString:@"五月"] && [d_str isEqualToString:@"初五"]) {
             
             d_str = @"端午节";
+        }
+        
+        
+        unsigned unitFlags1 = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+        NSCalendar *commonCalendar1 = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDateComponents *comp1 = [commonCalendar1 components:unitFlags1 fromDate:[NSDate date]];
+        
+        if (comp.year == comp1.year) {
+
+            if (comp.month == 1 && comp.day == 2) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 1 && comp.day == 3) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 2 && comp.day == 6) {
+                
+                d_str =  @"班";
+                
+            } else if (comp.month == 2 && comp.day == 9) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 2 && comp.day == 10) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 2 && comp.day == 11) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 2 && comp.day == 12) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 2 && comp.day == 13) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 4 && comp.day == day - 2) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 4 && comp.day == day - 1) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 4 && comp.day == 30) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 5 && comp.day == 2) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 6 && comp.day == 10) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 6 && comp.day == 11) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 6 && comp.day == 12) {
+                
+                d_str =  @"班";
+                
+            } else if (comp.month == 9 && comp.day == 16) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 9 && comp.day == 17) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 9 && comp.day == 18) {
+                
+                d_str =  @"班";
+                
+            } else if (comp.month == 10 && comp.day == 2) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 3) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 4) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 5) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 6) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 7) {
+                
+                d_str =  @"休";
+                
+            } else if (comp.month == 10 && comp.day == 8) {
+                
+                d_str =  @"班";
+                
+            } else if (comp.month == 10 && comp.day == 9) {
+                
+                d_str =  @"班";
+                
+            }
         }
 
         return d_str;
