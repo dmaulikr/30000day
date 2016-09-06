@@ -95,13 +95,14 @@
 #define  KEY_WECHAT                    @"Wechat"              //微信
 #define  KEY_GUEST                     @"guest"               //游客模式
 
-
 #define KEY_SEARCHTABLEVERSION        @"SearchTableVersionList"
 #define FIRSTSTART                    @"FirstStart"          //第一次登录
 #define FIRSTSTARTINTRODUCE           @"FirstStartIntroduce" //第一次登录
 #define FIRSTHEALTH                   @"FirstHealth "          //第一次进入健康因素
 #define FIRSTSTARTHKHEALTHSTORE       @"FirstStartHKHealthStore" //第一次运动信息授权
 #define DELETE_SPORT_COREDATA         @"deleteSportCoreData"   //删除以前版本CoreData历史数据
+#define SAVE_CHOOSE_TYPE              @"saveChooseType"        //保存保存的类型
+#define SAVE_HOT_TIME                 @"saveHotTime"           //保存热点时间
 
 
 #define  BUNDEL_VERSION               [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]

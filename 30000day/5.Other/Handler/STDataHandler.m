@@ -4713,6 +4713,7 @@
                          currentPage:(NSNumber *)currentPage//分页
                          visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
                           mediaTypes:(NSString *)mediaTypes  //1饮食  2运动 3作息
+                           orderType:(NSNumber *)orderType   //@1：普通 @2:热点
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(NSError *error))failure {
     
@@ -4723,7 +4724,7 @@
         [params addParameter:mediaTypes forKey:@"mediaTypes"];
     }
     [params addParameter:currentPage forKey:@"currentPage"];
-    [params addParameter:@1 forKey:@"orderType"];
+    [params addParameter:orderType forKey:@"orderType"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];

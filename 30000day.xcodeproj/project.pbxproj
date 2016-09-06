@@ -2785,8 +2785,6 @@
 		B87A5BDC1D73D6370066B21E /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				B87A5BDD1D73D6370066B21E /* STMediumCommentController.h */,
-				B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */,
 				B87A5BDF1D73D6370066B21E /* STMediumController.h */,
 				B87A5BE01D73D6370066B21E /* STMediumController.m */,
 				B87A5BE11D73D6370066B21E /* STMediumDetailController.h */,
@@ -2797,6 +2795,8 @@
 				B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */,
 				B85C1E981D79221700D3700F /* STDenounceViewController.h */,
 				B85C1E991D79221700D3700F /* STDenounceViewController.m */,
+				B87A5BDD1D73D6370066B21E /* STMediumCommentController.h */,
+				B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";

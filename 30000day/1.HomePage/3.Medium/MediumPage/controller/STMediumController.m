@@ -86,6 +86,7 @@
     
     [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * 5, 0)];
     [STNotificationCenter addObserver:self selector:@selector(setMediumTypeController:) name:STWeMediaSuccessSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(setMediumTypeController:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
 }
 
 - (void)setMediumTypeController:(NSNotification *)notification {
@@ -225,6 +226,11 @@
             break;
     }
     [STNotificationCenter postNotificationName:STSendMediumControllerViewDidMove object:nil];
+}
+
+- (void)dealloc {
+    [STNotificationCenter removeObserver:self name:STWeMediumOpenControllerFetchTypeChange object:nil];
+    [STNotificationCenter removeObserver:self name:STWeMediaSuccessSendNotification object:nil];
 }
 
 @end

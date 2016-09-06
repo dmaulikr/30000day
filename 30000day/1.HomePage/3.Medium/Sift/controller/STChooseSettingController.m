@@ -13,11 +13,12 @@
 #import "STRestrctingViewController.h"
 #import "PersonInformationsManager.h"
 
-@interface STChooseSettingController () <UITableViewDataSource,UITableViewDelegate>
+@interface STChooseSettingController () <UITableViewDataSource,UITableViewDelegate,QGPickerViewDelegate>
 
 //@property (nonatomic,strong) STChooseItemSettingCell *firstCell;
 //@property (nonatomic,strong) STChooseItemSettingCell *secondCell;
 //@property (nonatomic,strong) STChooseItemSettingCell *thirdCell;
+@property (nonatomic,strong) QGPickerView *picker_1;
 
 @end
 
@@ -87,6 +88,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
         return 3;
+    } else if (section == 2) {
+        return 2;
     }
     return 1;
 }
@@ -137,7 +140,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             }
-            cell.textLabel.text = @"不看他（她）看的自媒体";
+            cell.textLabel.text = @"不看他（她）的自媒体";
             cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -160,15 +163,47 @@
 //            [weakSelf.tableView reloadData];
 //        }];
 //        return self.thirdCell;
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        if (indexPath.row == 0) {
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+            }
+            cell.textLabel.text = @"消息分类";
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor darkGrayColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+            
+        } else if (indexPath.row == 1) {
+         
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell_1"];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell_1"];
+            }
+            cell.textLabel.text = @"筛选类型";
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor darkGrayColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0f];
+            cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+            cell.detailTextLabel.text = [self getStringWithInterge:[Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE]];
+            return cell;
+            
+        } else if (indexPath.row == 2) {
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell_1"];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell_1"];
+            }
+            cell.textLabel.text = @"热点时间段";
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor darkGrayColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0f];
+            cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+            return cell;
         }
-        cell.textLabel.text = @"消息分类";
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
-        cell.textLabel.textColor = [UIColor darkGrayColor];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
     }
     
     return nil;
@@ -231,7 +266,7 @@
             STRestrctingViewController *controller = [[STRestrctingViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             controller.type = @0;
-            controller.title = @"不看他（她）看的自媒体";
+            controller.title = @"不看他（她）的自媒体";
             [self.navigationController pushViewController:controller animated:YES];
             
         } else if (indexPath.row == 2) {
@@ -243,12 +278,52 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
         
+    } else if (indexPath.section == 2) {
+        
+        if (indexPath.row == 0) {
+            
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            STChooseItemController *controller = [[STChooseItemController alloc] init];
+            controller.visibleType = @(indexPath.section);
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        } else if (indexPath.row == 1) {
+         
+            QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
+            picker.delegate = self;
+            picker.titleText = @"筛选类型";
+            NSArray *array = @[@"普通(正常时间排序自媒体)",@"热点(当天最热门自媒体)"];
+            [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:[self getPickerViewShowStringWithInterge:[Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE]] selectedTitle:nil selectedTitle:nil];
+            self.picker_1 = picker;
+        }
+    }
+}
+
+- (NSString *)getStringWithInterge:(NSInteger)index {
+    if (index == 1) {
+        return @"热点";
     } else {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        STChooseItemController *controller = [[STChooseItemController alloc] init];
-        controller.visibleType = @(indexPath.section);
-        controller.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:controller animated:YES];
+        return @"普通";
+    }
+}
+
+- (NSString *)getPickerViewShowStringWithInterge:(NSInteger)index {
+    if (index == 1) {
+        return @"热点(当天最热门自媒体)";
+    } else {
+        return @"普通(正常时间排序自媒体)";
+    }
+}
+
+#pragma mark --- QGPickerViewDelegate
+
+- (void)didSelectPickView:(QGPickerView *)pickView  value:(NSString *)value indexOfPickerView:(NSInteger)index indexOfValue:(NSInteger)valueIndex {
+ 
+    if (self.picker_1 == pickView) {
+        [Common saveAppIntegerDataForKey:SAVE_CHOOSE_TYPE withObject:valueIndex];
+        [self.tableView reloadData];
+        [STNotificationCenter postNotificationName:STWeMediumOpenControllerFetchTypeChange object:@2];
     }
 }
 

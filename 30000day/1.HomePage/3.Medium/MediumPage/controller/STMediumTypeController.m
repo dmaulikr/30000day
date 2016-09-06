@@ -33,6 +33,7 @@
     //登录成功刷新
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediaSuccessSendNotification object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
     [self headerRefreshing];
 }
 
@@ -46,7 +47,9 @@
 - (void)configUI {
     //1.配置
     self.tableViewStyle = STRefreshTableViewGroup;
-    [self showHeadRefresh:YES showFooterRefresh:YES];
+    [self showHeadRefresh:YES showFooterRefresh:NO];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+    [self.tableView.mj_footer setAutomaticallyHidden:NO];
     self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -68,48 +71,103 @@
 - (void)getWeMediaListWithCurrentPage:(NSInteger)currentPage {
     
     if (currentPage == 1) {//下拉刷新
-    
-        [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:@1 visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] success:^(NSMutableArray *dataArray) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.dataArray = dataArray;
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
-                self.currentPage = 1;
-            });
-            
-        } failure:^(NSError *error) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showToast:[Common errorStringWithError:error optionalString:@"下拉刷新失败"]];
-                [self.tableView.mj_header endRefreshing];
-            });
-        }];
         
+        if ([self.visibleType isEqualToNumber:@2]) {//公开
+            
+            [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:@1 visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] orderType:@([Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE] + 1) success:^(NSMutableArray *dataArray) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.dataArray = dataArray;
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                    self.currentPage = 1;
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showToast:[Common errorStringWithError:error optionalString:@"下拉刷新失败"]];
+                    [self.tableView.mj_header endRefreshing];
+                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                });
+            }];
+        } else {//好友、自己
+            
+            [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:@1 visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] orderType:@1 success:^(NSMutableArray *dataArray) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.dataArray = dataArray;
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                    self.currentPage = 1;
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showToast:[Common errorStringWithError:error optionalString:@"下拉刷新失败"]];
+                    [self.tableView.mj_header endRefreshing];
+                });
+            }];
+        }
+
     } else {//上拉加载更多
         
-        [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:[NSNumber numberWithInteger:(int)currentPage] visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] success:^(NSMutableArray *dataArray) {
+        if ([self.visibleType isEqualToNumber:@2]) {//公开
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (dataArray.count) {
-                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
-                } else {
-                    [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
-                }
-                self.currentPage += 1;//数据下载成功加1
+            [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:[NSNumber numberWithInteger:(int)currentPage] visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] orderType:@([Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE] + 1) success:^(NSMutableArray *dataArray) {
                 
-                [self.dataArray addObjectsFromArray:dataArray];
-                [self.tableView reloadData];
-            });
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if ([Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE] == 1) {//热点
+                         [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                    } else {//普通
+                        if (dataArray.count) {
+                            [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                        } else {
+                            [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+                        }
+                    }
+                    self.currentPage += 1;//数据下载成功加1
+                    [self.dataArray addObjectsFromArray:dataArray];
+                    [self.tableView reloadData];
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
+                    [self.tableView.mj_footer endRefreshing];
+                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                });
+            }];
             
-        } failure:^(NSError *error) {
+        } else {//好友、自己
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
-                [self.tableView.mj_footer endRefreshing];
-                [self.tableView.mj_footer setState:MJRefreshStateIdle];
-            });
-        }];
+            [STDataHandler sendGetWeMediaListWithUserId:STUserAccountHandler.userProfile.userId currentPage:[NSNumber numberWithInteger:(int)currentPage] visibleType:[NSString stringWithFormat:@"%@",self.visibleType] mediaTypes:[self getChooseString] orderType:@1 success:^(NSMutableArray *dataArray) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (dataArray.count) {
+                        [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                    } else {
+                        [self.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+                    }
+                    self.currentPage += 1;//数据下载成功加1
+                    
+                    [self.dataArray addObjectsFromArray:dataArray];
+                    [self.tableView reloadData];
+                });
+                
+            } failure:^(NSError *error) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
+                    [self.tableView.mj_footer endRefreshing];
+                    [self.tableView.mj_footer setState:MJRefreshStateIdle];
+                });
+            }];
+        }
     }
 }
 
@@ -305,6 +363,5 @@
 - (void)dealloc {
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
-
 
 @end

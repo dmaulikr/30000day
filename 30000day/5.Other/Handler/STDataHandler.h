@@ -71,6 +71,8 @@ static NSString *const STSportsPermissionsReturnsSpecificFriendsRefreshSendNotif
 static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSendNotification";
 //自媒体界面移动
 static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControllerViewDidMove";
+//自媒体修改公开界面请求类型
+static NSString *const STWeMediumOpenControllerFetchTypeChange = @"STWeMediumOpenControllerFetchTypeChange";
 
 
 @class STNetError;
@@ -631,6 +633,7 @@ static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControl
                          currentPage:(NSNumber *)currentPage
                          visibleType:(NSString *)visibleType//0私有  1朋友圈  2公开
                           mediaTypes:(NSString *)mediaTypes  //1饮食  2运动 3作息
+                           orderType:(NSNumber *)orderType   //@1：普通 @2:热点
                              success:(void (^)(NSMutableArray *dataArray))success
                              failure:(void (^)(NSError *error))failure;
 
