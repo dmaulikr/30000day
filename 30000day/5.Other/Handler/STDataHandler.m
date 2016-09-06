@@ -38,6 +38,7 @@
 #import "ProblemTypesModel.h"
 #import "STMediumModel.h"
 #import "STMediumDetailModel.h"
+#import "STDenounceModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -4976,7 +4977,14 @@
         NSDictionary *recvDic = (NSDictionary *)parsedObject;
         
         if ([recvDic[@"code"] isEqualToNumber:@0]) {
-            success(YES);
+            
+            NSString *string = recvDic[@"value"];
+            if (string.boolValue) {
+                success(YES);
+            } else {
+                failure([Common errorWithString:parsedObject[@"msg"]]);
+            }
+
         } else {
             failure([Common errorWithString:parsedObject[@"msg"]]);
         }
@@ -4984,8 +4992,82 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
     }];
-    
 }
 
+//***********获取举报类型**********************/
++ (void)sendFindDenounceTypesSuccess:(void (^)(NSMutableArray <STDenounceModel *>*dataArray))success
+                             failure:(void (^)(NSError *error))failure {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,Find_DENOUNCETYPES] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *array = recvDic[@"value"];
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < array.count; i++) {
+                STDenounceModel *model = [STDenounceModel yy_modelWithDictionary:array[i]];
+                [dataArray addObject:model];
+            }
+            success(dataArray);
+            
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//***********提交举报**********************/
++ (void)sendCommitDenounceTypesUserId:(NSNumber *)userId
+                          denounceeId:(NSNumber *)denounceeId//被举报的id
+                         denounceType:(NSNumber *)denounceType//举报的类型
+                              content:(NSString *)content//举报内容
+                              success:(void (^)(BOOL success))success
+                              failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:denounceeId forKey:@"denounceeId"];
+    [params addParameter:denounceType forKey:@"denounceType"];
+    [params addParameter:content forKey:@"content"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:COMMIT_DENOUNCE];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,COMMIT_DENOUNCE] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSString *string = recvDic[@"value"];
+            if (string.boolValue) {
+                success(YES);
+            } else {
+                failure([Common errorWithString:parsedObject[@"msg"]]);
+            }
+            
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
 
 @end

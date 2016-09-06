@@ -4,7 +4,7 @@
 //
 //  Created by GuoJia on 16/8/10.
 //  Copyright © 2016年 GuoJia. All rights reserved.
-//
+//  用在自媒体筛选界面,需要配合界面看
 
 #import <UIKit/UIKit.h>
 

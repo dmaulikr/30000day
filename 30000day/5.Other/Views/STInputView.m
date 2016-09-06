@@ -11,15 +11,10 @@
 @interface STInputView ()
 
 @property (nonatomic,strong) NSLayoutConstraint *textViewLeftConstrains;
-
 @property (nonatomic,strong) UIButton *photo_button;
-
 @property (nonatomic,strong) UIButton *picture_button;
-
 @property (nonatomic,strong) UIButton *sendButton;
-
 @property (nonatomic,strong) UIView *line_view_first;
-
 @property (nonatomic,strong) UIView *line_view_second;
 
 @end
@@ -64,17 +59,13 @@
     if (_isShowMedia) {
      
         self.textViewLeftConstrains.constant = 70.0f;
-        
         self.picture_button.hidden = NO;
-        
         self.photo_button.hidden = NO;
         
     } else {
         
         self.textViewLeftConstrains.constant = 10.0f;
-        
         self.picture_button.hidden = YES;
-        
         self.photo_button.hidden = YES;
     }
 }
