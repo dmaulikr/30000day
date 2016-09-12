@@ -47,7 +47,9 @@
         
         self.title = @"隐私保护";
     
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.196.223.175:8081/STManager/infomation/privacyLink"]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.196.223.175:8083/STManager/infomation/privacyLink"]];
+        
+        //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,PRIVACYLINK]]];
         
         [self.agreementWebView loadRequest:request];
         
