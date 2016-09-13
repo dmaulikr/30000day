@@ -60,10 +60,10 @@
     if (!self.avatarView) {
         //头像
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(MarginBig, 20, 40, 40)];
-        self.avatarView.contentMode = UIViewContentModeScaleAspectFit;
-        self.avatarView.backgroundColor = [UIColor blackColor];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.backgroundColor = [UIColor blackColor];
+        [self.contentView addSubview:imageView];
         self.avatarView = imageView;
-        [self.contentView addSubview:self.avatarView];
         //点击手势
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headTapAction)];
         imageView.userInteractionEnabled = YES;

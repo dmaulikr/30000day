@@ -13,6 +13,6 @@
 + (SearchVersionManager *)shareManager;
 - (void)synchronizedDataFromServer;
 - (void)checkVersion;
-
+- (void)changeAccountLoadWeMediaInfoTypes;//bug(因为当前数据库没有进行多表关联出现切换账号自媒体类型消失的bug)
 @end
 

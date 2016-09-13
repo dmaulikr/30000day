@@ -251,7 +251,15 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            STChooseItemController *controller = [[STChooseItemController alloc] init];
+            controller.visibleType = @(indexPath.section);
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    } else if (indexPath.section == 1) {
         
         if (indexPath.row == 0) {
             

@@ -39,6 +39,7 @@
 #import "STMediumModel.h"
 #import "STMediumDetailModel.h"
 #import "STDenounceModel.h"
+#import "SearchVersionManager.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -504,6 +505,9 @@
             [STNotificationCenter postNotificationName:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
         });
     }
+    
+    //新加的，去查询本地数据库是否保存了自媒体数据
+    [[SearchVersionManager shareManager] changeAccountLoadWeMediaInfoTypes];
 }
 
 //********** 用户注册************/

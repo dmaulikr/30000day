@@ -82,6 +82,22 @@ static SearchVersionManager *manager;
         
         [[STChooseItemManager shareManager] addChooseItemDataUserId:STUserAccountHandler.userProfile.userId success:^(BOOL success) {
             [self encodeDataObject:self.dataArray];
+            [STNotificationCenter postNotificationName:STWeMediumDataLoadSuccess object:nil];//告诉外界数据下载好了
+        } failure:^(NSError *error) {
+            [self deleteDataObjectWithKey:[NSString stringWithUTF8String:object_getClassName(self)]];//移除重新在下载
+        }];
+    }
+}
+
+- (void)changeAccountLoadWeMediaInfoTypes {
+    
+    if ([[STChooseItemManager shareManager] isSaveDataWithUserID:STUserAccountHandler.userProfile.userId]) {//保存了数据
+        
+    } else {//没有保存数据
+        
+        [[STChooseItemManager shareManager] addChooseItemDataUserId:STUserAccountHandler.userProfile.userId success:^(BOOL success) {
+            [self encodeDataObject:self.dataArray];
+            [STNotificationCenter postNotificationName:STWeMediumDataLoadSuccess object:nil];//告诉外界数据下载好了
         } failure:^(NSError *error) {
             [self deleteDataObjectWithKey:[NSString stringWithUTF8String:object_getClassName(self)]];//移除重新在下载
         }];

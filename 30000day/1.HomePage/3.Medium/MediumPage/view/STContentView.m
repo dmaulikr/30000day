@@ -7,7 +7,8 @@
 //
 
 #import "STContentView.h"
-#define SingleContentHeight    16.7070313f	    //一行高度
+#define SingleContentHeight    17.9003906f	    //字体大小等于15的一行高度
+#define SingleContentNum        6
 #import "STMediumWebViewController.h"
 #import <CoreText/CoreText.h>
 
@@ -348,7 +349,7 @@
         //内容
         PPLabel *label = [[PPLabel alloc] init];
         label.delegate = self;
-        label.font = [UIFont systemFontOfSize:14];
+        label.font = [UIFont systemFontOfSize:15.0f];
         label.textColor = [UIColor darkGrayColor];
         label.numberOfLines = 0;
         [self addSubview:label];
@@ -369,10 +370,10 @@
 
 + (CGFloat)heightContentViewWith:(NSAttributedString *)mediaContent contenteViewWidth:(CGFloat)width {
     
-    if ([Common heightWithText:mediaContent.string width:width fontSize:14.0f] > 5 * SingleContentHeight) {
-        return 5 * SingleContentHeight;
+    if ([Common heightWithText:mediaContent.string width:width fontSize:15.0f] > SingleContentNum * SingleContentHeight) {
+        return SingleContentNum * SingleContentHeight;
     } else {
-        return [Common heightWithText:mediaContent.string width:width fontSize:14.0f];
+        return [Common heightWithText:mediaContent.string width:width fontSize:15.0f];
     }
 }
 

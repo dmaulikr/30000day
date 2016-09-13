@@ -73,7 +73,8 @@ static NSString *const STWeMediaSuccessSendNotification = @"STWeMediaSuccessSend
 static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControllerViewDidMove";
 //自媒体修改公开界面请求类型
 static NSString *const STWeMediumOpenControllerFetchTypeChange = @"STWeMediumOpenControllerFetchTypeChange";
-
+//自媒体数据更新、下载完全
+static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
 
 @class STNetError;
 @class WeatherInformationModel;

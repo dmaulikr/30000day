@@ -77,6 +77,7 @@
     //登录成功刷新
     [STNotificationCenter addObserver:self selector:@selector(resetProperty) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     [STNotificationCenter addObserver:self selector:@selector(endEditing) name:STSendMediumControllerViewDidMove object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(resetProperty) name:STWeMediumDataLoadSuccess object:nil];
     
     [self resetProperty];//重新设置
 }
@@ -478,6 +479,7 @@
 - (void)dealloc {
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     [STNotificationCenter removeObserver:self name:STSendMediumControllerViewDidMove object:nil];
+    [STNotificationCenter removeObserver:self name:STWeMediumDataLoadSuccess object:nil];
 }
 
 /*

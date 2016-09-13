@@ -277,9 +277,22 @@ static STChooseItemManager *instance;
     }
 }
 
+//判断某一用户本地是否保存了请求自媒体类型数据
+- (BOOL)isSaveDataWithUserID:(NSNumber *)userId {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND visibleType == %@",userId,@0];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemTag" ascending:YES];
+    NSArray *dataArray = [STChooseItemObject filterWithContext:[STChooseItemManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
+    
+    if (dataArray.count) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 //判断本地是否保存了请求自媒体类型数据
 - (BOOL)isSaveData {
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"visibleType == %@",@0];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemTag" ascending:YES];
     NSArray *dataArray = [STChooseItemObject filterWithContext:[STChooseItemManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
