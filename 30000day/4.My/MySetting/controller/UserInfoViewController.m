@@ -291,7 +291,7 @@
             
         } else if (indexPath.row == 1) {
           
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"修改简介" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"个性签名" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
             UITextField *textfile = [alert textFieldAtIndex:0];
             [textfile setText:self.currentChooseMemo];
@@ -299,7 +299,7 @@
             
         } else if(indexPath.row == 2) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.currentChooseNickName message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"昵称" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
             UITextField *textfile = [alert textFieldAtIndex:0];
             [textfile setText:self.currentChooseNickName];

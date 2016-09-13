@@ -242,7 +242,7 @@
         
         if (comp.month == 1 && comp.day == 1) {
             
-            m_str =  @"元旦";
+            m_str =  @"元旦节";
             
         } else if (comp.month == 2 && comp.day == 14) {
             
@@ -320,7 +320,7 @@
         
         if (comp.month == 1 && comp.day == 1) {
             
-            d_str =  @"元旦";
+            d_str =  @"元旦节";
             
         } else if (comp.month == 2 && comp.day == 14) {
             

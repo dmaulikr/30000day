@@ -211,6 +211,7 @@
 #define  DELETE_WEMEDIA                  @"/wemedia/deleteWemedia"               //删除自媒体
 #define  Find_DENOUNCETYPES              @"/wemedia/findDenounceTypes"           //获取举报类型
 #define  COMMIT_DENOUNCE                 @"/wemedia/commitDenounce"              //提交举报
+#define  PRIVACYLINK                     @"/STManager/infomation/privacyLink"    //隐私保护
 
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
