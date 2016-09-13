@@ -350,6 +350,7 @@
         label.delegate = self;
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = [UIColor darkGrayColor];
+        label.numberOfLines = 0;
         [self addSubview:label];
         self.contentLabel = label;
     }
