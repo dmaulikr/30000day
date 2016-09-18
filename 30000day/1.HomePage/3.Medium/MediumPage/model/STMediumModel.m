@@ -9,6 +9,11 @@
 #import "STMediumModel.h"
 #import "SBJson.h"
 #import "MJExtension.h"
+#import "STPicturesModel.h"
+
+@interface STMediumModel ()
+@property (nonatomic,strong) STMediumModel  *retweeted_status;//被转发的原微博信息字段，当该微博为转发微博时返回STMediumModel模型
+@end
 
 @implementation STMediumModel
 
@@ -205,11 +210,8 @@
 + (NSInteger)getNumberOfRow:(STMediumModel *)meiumModel {
     
     if (meiumModel.retweeted_status) {//表示是转发的
-        
         return 3;
-        
     } else {//表示是原创的
-        
         return 2;
     }
 }
@@ -248,25 +250,11 @@
     }
 }
 
-@end
-
-@implementation STPicturesModel
-
-- (CGFloat)photoHeight {
-    
-    if (isnan(_photoHeight)) {
-        return 150.0f;
+- (STMediumModel *)getOriginMediumModel {
+    if (self.retweeted_status) {
+        return self.retweeted_status;
     } else {
-        return _photoHeight;
-    }
-}
-
-- (CGFloat)photoWidth {
-    
-    if (isnan(_photoWidth)) {
-        return 150.0f;
-    } else {
-        return _photoWidth;
+        return self;
     }
 }
 

@@ -420,6 +420,7 @@
 		B89216E91C634E650023F8A8 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216DB1C634E650023F8A8 /* MailListViewController.m */; };
 		B89216EE1C634E650023F8A8 /* MailListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B89216E51C634E650023F8A8 /* MailListTableViewCell.m */; };
 		B89216EF1C634E650023F8A8 /* MailListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */; };
+		B8A2BFC51D8E7C5B00617A8D /* STPicturesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A2BFC41D8E7C5B00617A8D /* STPicturesModel.m */; };
 		B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4DE1C9A4C1A00834533 /* CityViewController.m */; };
 		B8B3F4E11C9A4C1A00834533 /* CityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B3F4DF1C9A4C1A00834533 /* CityViewController.xib */; };
 		B8B3F4E51C9A546200834533 /* CityHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B3F4E41C9A546200834533 /* CityHeadView.m */; };
@@ -1410,6 +1411,8 @@
 		B89216E41C634E650023F8A8 /* MailListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailListTableViewCell.h; sourceTree = "<group>"; };
 		B89216E51C634E650023F8A8 /* MailListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListTableViewCell.m; sourceTree = "<group>"; };
 		B89216E61C634E650023F8A8 /* MailListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailListTableViewCell.xib; sourceTree = "<group>"; };
+		B8A2BFC31D8E7C5B00617A8D /* STPicturesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPicturesModel.h; sourceTree = "<group>"; };
+		B8A2BFC41D8E7C5B00617A8D /* STPicturesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPicturesModel.m; sourceTree = "<group>"; };
 		B8B3F4DD1C9A4C1A00834533 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		B8B3F4DE1C9A4C1A00834533 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
 		B8B3F4DF1C9A4C1A00834533 /* CityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityViewController.xib; sourceTree = "<group>"; };
@@ -2812,6 +2815,8 @@
 				B87A5BEB1D73D6370066B21E /* STMediumModel.m */,
 				B85C1E9E1D79285E00D3700F /* STDenounceModel.h */,
 				B85C1E9F1D79285E00D3700F /* STDenounceModel.m */,
+				B8A2BFC31D8E7C5B00617A8D /* STPicturesModel.h */,
+				B8A2BFC41D8E7C5B00617A8D /* STPicturesModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2824,12 +2829,12 @@
 				B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */,
 				B87A5BED1D73D6370066B21E /* STContentView.h */,
 				B87A5BEE1D73D6370066B21E /* STContentView.m */,
+				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
+				B87A5BFF1D73D6370066B21E /* STVideoView.m */,
 				B87A5BF41D73D6370066B21E /* STPicturesView.h */,
 				B87A5BF51D73D6370066B21E /* STPicturesView.m */,
 				B87A5BF61D73D6370066B21E /* STSettingView.h */,
 				B87A5BF71D73D6370066B21E /* STSettingView.m */,
-				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
-				B87A5BFF1D73D6370066B21E /* STVideoView.m */,
 				B87A5BF81D73D6370066B21E /* STShowMediaView.h */,
 				B87A5BF91D73D6370066B21E /* STShowMediaView.m */,
 				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
@@ -5746,6 +5751,7 @@
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
 				B87A5C431D73D6370066B21E /* STSendMediumController.m in Sources */,
 				B8FD3CC01C8A77EB007BCA6B /* CDEmotionUtils.m in Sources */,
+				B8A2BFC51D8E7C5B00617A8D /* STPicturesModel.m in Sources */,
 				B87A5C4C1D73D6370066B21E /* STRestrctingViewController.m in Sources */,
 				B8F6E3841CB91BEE000CC117 /* DataVerifier.m in Sources */,
 				B8F6E9711D02CD0400AD6745 /* TZAssetCell.m in Sources */,

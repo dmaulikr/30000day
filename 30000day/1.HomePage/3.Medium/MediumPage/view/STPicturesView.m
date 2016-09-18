@@ -11,6 +11,7 @@
 
 #define Margin 5
 #define MarginBig 10
+#define GrayColor   RGBACOLOR(200, 200, 200, 1)
 
 @interface STPicturesView () {
     NSMutableArray *_mediaArray;
@@ -405,7 +406,7 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
@@ -457,13 +458,13 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
@@ -521,19 +522,19 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
@@ -596,25 +597,25 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
@@ -684,31 +685,31 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
         }];
         
-        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fifth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fifth stopAnimating];
@@ -784,37 +785,37 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
         }];
         
-        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fifth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fifth stopAnimating];
         }];
         
-        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_sixth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_sixth stopAnimating];
@@ -896,43 +897,43 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
         }];
         
-        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fifth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fifth stopAnimating];
         }];
         
-        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_sixth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_sixth stopAnimating];
         }];
         
-        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_seventh startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_seventh stopAnimating];
@@ -1019,49 +1020,49 @@
         self.coverImageView_ninth.hidden = YES;
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
         }];
         
-        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fifth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fifth stopAnimating];
         }];
         
-        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_sixth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_sixth stopAnimating];
         }];
         
-        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_seventh startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_seventh stopAnimating];
         }];
         
-        [self.imageView_eighth sd_setImageWithURL:[NSURL URLWithString:model_eighth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_eighth sd_setImageWithURL:[NSURL URLWithString:model_eighth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_eighth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_eighth stopAnimating];
@@ -1154,55 +1155,55 @@
         }
         
         //显示
-        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_first sd_setImageWithURL:[NSURL URLWithString:model_first.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_first startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_first stopAnimating];
         }];
         
-        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_second sd_setImageWithURL:[NSURL URLWithString:model_second.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_second startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_second stopAnimating];
         }];
         
-        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_third sd_setImageWithURL:[NSURL URLWithString:model_third.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_third startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_third stopAnimating];
         }];
         
-        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fourth sd_setImageWithURL:[NSURL URLWithString:model_fourth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fourth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fourth stopAnimating];
         }];
         
-        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:model_fifth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_fifth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_fifth stopAnimating];
         }];
         
-        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_sixth sd_setImageWithURL:[NSURL URLWithString:model_sixth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_sixth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_sixth stopAnimating];
         }];
         
-        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_seventh sd_setImageWithURL:[NSURL URLWithString:model_seventh.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_seventh startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_seventh stopAnimating];
         }];
         
-        [self.imageView_eighth sd_setImageWithURL:[NSURL URLWithString:model_eighth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_eighth sd_setImageWithURL:[NSURL URLWithString:model_eighth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_eighth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_eighth stopAnimating];
         }];
         
-        [self.imageView_ninth sd_setImageWithURL:[NSURL URLWithString:model_ninth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        [self.imageView_ninth sd_setImageWithURL:[NSURL URLWithString:model_ninth.thumbnailCoverPhotoURLString] placeholderImage:[Common imageWithColor:GrayColor] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             [self.indicator_ninth startAnimating];
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self.indicator_ninth stopAnimating];

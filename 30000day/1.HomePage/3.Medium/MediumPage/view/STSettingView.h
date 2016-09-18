@@ -12,7 +12,7 @@
 @interface STSettingView : UIView
 
 @property (nonatomic,weak) id delegate;
-+ (CGFloat)heightView:(STMediumModel *)mediumModel;//高度
-- (void)cofigViewWithModel:(STMediumModel *)mediumModel;//配置
++ (CGFloat)heightView:(STMediumModel *)mixedMediumModel;//mixedMediumModel:有可能是原创自媒体模型，也有可能是转发自媒体模型
+- (void)configureViewWithModel:(STMediumModel *)mixedMediumModel;//mixedMediumModel:有可能是原创自媒体模型，也有可能是转发自媒体模型
 
 @end

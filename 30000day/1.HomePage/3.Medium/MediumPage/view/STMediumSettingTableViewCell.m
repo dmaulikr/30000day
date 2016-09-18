@@ -41,12 +41,12 @@
     self.settingView.delegate = delegate;
 }
 
-+ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel {//高度
-    return [STSettingView heightView:mediumModel];
++ (CGFloat)heightMediumCellWith:(STMediumModel *)mixedMediumModel {//高度
+    return [STSettingView heightView:mixedMediumModel];
 }
 //配置
-- (void)cofigCellWithModel:(STMediumModel *)mediumModel {
-    [self.settingView cofigViewWithModel:mediumModel];
+- (void)cofigCellWithModel:(STMediumModel *)mixedMediumModel {
+    [self.settingView configureViewWithModel:mixedMediumModel];
 }
 
 - (void)layoutSubviews {

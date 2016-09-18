@@ -12,9 +12,7 @@
 @interface STMediumSettingTableViewCell : UITableViewCell
 
 @property (nonatomic,weak) id delegate;
-//高度
-+ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel;
-//配置
-- (void)cofigCellWithModel:(STMediumModel *)mediumModel;
++ (CGFloat)heightMediumCellWith:(STMediumModel *)mixedMediumModel;
+- (void)cofigCellWithModel:(STMediumModel *)mixedMediumModel;
 
 @end

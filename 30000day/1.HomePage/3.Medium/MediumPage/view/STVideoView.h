@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "STMediumModel.h"
+#import "STPicturesModel.h"
 
 @interface STVideoView : UIView
 

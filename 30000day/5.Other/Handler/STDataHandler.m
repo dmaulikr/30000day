@@ -64,8 +64,7 @@
 #import "NSString+Chinese.h"
 
 #import "CDChatManager.h"
-
-
+#import "NSString+URLEncoding.h"
 
 @interface STDataHandler () <CLLocationManagerDelegate>
 
@@ -4681,7 +4680,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:userId forKey:@"userId"];
-    [params addParameter:content forKey:@"content"];
+    [params addParameter:[content urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
     [params addParameter:visibleType forKey:@"visibleType"];
     [params addParameter:mediaType forKey:@"mediaType"];
     [params addParameter:mediaJsonStr forKey:@"mediaJsonStr"];
@@ -4797,7 +4796,7 @@
     }];
 }
 
-//************获取自媒体界面详情接口**************/
+//************分享自媒体接口**************/
 + (void)sendReplayMediaMessageWithUserId:(NSNumber *)userId//用户ID
                                weMediaId:(NSNumber *)weMediaId//自媒体消息ID
                              visibleType:(NSNumber *)visibleType//类型
@@ -4809,7 +4808,7 @@
     [params addParameter:userId forKey:@"userId"];
     [params addParameter:weMediaId forKey:@"weMediaId"];
     [params addParameter:visibleType forKey:@"visibleType"];
-    [params addParameter:content forKey:@"content"];
+    [params addParameter:[content urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];

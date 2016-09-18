@@ -47,7 +47,7 @@
         
     } else {
      
-        [STDataHandler sendGetWeMediaDetailWithUserId:STUserAccountHandler.userProfile.userId weMediaId:[self.mediaModel getOriginMediumModel].mediumMessageId shareId:self.mediumMessageId success:^(STMediumDetailModel *model) {
+        [STDataHandler sendGetWeMediaDetailWithUserId:STUserAccountHandler.userProfile.userId weMediaId:[self.mixedMediumModel getOriginMediumModel].mediumMessageId shareId:self.mediumMessageId success:^(STMediumDetailModel *model) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:model.linkUrl]];
@@ -65,20 +65,20 @@
     self.title = @"自媒体正文";
     
     //2.settingView
-    STSettingView *settingView = [[STSettingView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - [STSettingView heightView:self.mediaModel], self.view.width, [STSettingView heightView:self.mediaModel])];
+    STSettingView *settingView = [[STSettingView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - [STSettingView heightView:self.mixedMediumModel], self.view.width, [STSettingView heightView:self.mixedMediumModel])];
     settingView.delegate = self;
-    [settingView cofigViewWithModel:self.mediaModel];
+    [settingView configureViewWithModel:self.mixedMediumModel];
     [self.view addSubview:settingView];
     self.settingView = settingView;
     
     //3.webView
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - [STSettingView heightView:self.mediaModel] - 64)];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - [STSettingView heightView:self.mixedMediumModel] - 64)];
     webView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:webView];
     self.webView = webView;
     
     //4.lineView
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - [STSettingView heightView:self.mediaModel], SCREEN_WIDTH, 0.7f)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - [STSettingView heightView:self.mixedMediumModel], SCREEN_WIDTH, 0.7f)];
     lineView.backgroundColor = RGBACOLOR(200, 200, 200, 1);
     [self.view addSubview:lineView];
     
@@ -136,9 +136,9 @@
             controller.hidesBottomBarWhenPushed = YES;
             controller.writerId = self.writerId;
             if (self.isOriginWedia) {//原创的
-                controller.retweeted_status = [self.mediaModel getOriginMediumModel];
+                controller.retweeted_status = [self.mixedMediumModel getOriginMediumModel];
             } else {//转发的
-                controller.retweeted_status = self.mediaModel;
+                controller.retweeted_status = self.mixedMediumModel;
             }
             [self.navigationController pushViewController:controller animated:YES];
     }];

@@ -48,8 +48,15 @@
     //1.配置
     self.tableViewStyle = STRefreshTableViewGroup;
     [self showHeadRefresh:YES showFooterRefresh:NO];
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-    [self.tableView.mj_footer setAutomaticallyHidden:NO];
+    
+    if ([self.visibleType isEqualToNumber:@2]) {//公开
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        [self.tableView.mj_footer setAutomaticallyHidden:NO];
+    } else {//好友、自己
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        [self.tableView.mj_footer setAutomaticallyHidden:YES];
+    }
+    
     self.tableView.frame = CGRectMake(0,64, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 50);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -208,7 +215,7 @@
                 cell = [[STShowMediumTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STShowMediumTableViewCell"];
             }
             cell.delegate = self;
-            [cell cofigCellWithModel:self.dataArray[indexPath.section] isSpecail:NO];
+            [cell cofigCellWithModel:self.dataArray[indexPath.section] isRelay:NO];
             return cell;
             
         } else if (indexPath.row == 1) {//用来
@@ -219,7 +226,7 @@
             }
             cell.delegate = self;
             STMediumModel *model  = self.dataArray[indexPath.section];
-            [cell cofigCellWithRetweeted_status:model.retweeted_status];
+            [cell configureCellWithOriginMediumModel:[model getOriginMediumModel]];
             cell.backgroundColor = RGBACOLOR(230, 230, 230, 1);
             return cell;
         
@@ -244,7 +251,7 @@
                 cell = [[STShowMediumTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STShowMediumTableViewCell"];
             }
             cell.delegate = self;
-            [cell cofigCellWithModel:self.dataArray[indexPath.section] isSpecail:NO];
+            [cell cofigCellWithModel:self.dataArray[indexPath.section] isRelay:NO];
             return cell;
             
         } else {
@@ -267,12 +274,12 @@
         
         if (indexPath.row == 0) {
             
-            return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isSpecial:NO];
+            return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isRelay:NO];
             
         } else if (indexPath.row == 1) {
             
             STMediumModel *model = self.dataArray[indexPath.section];
-            return [STShowMediumSpecialTableView heightMediumCellWithRetweeted_status:model.retweeted_status];
+            return [STShowMediumSpecialTableView heightMediumCellWithOriginMediumModel:[model getOriginMediumModel]];
             
         } else {
             
@@ -283,7 +290,7 @@
         
         if (indexPath.row == 0) {
             
-            return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isSpecial:NO];
+            return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isRelay:NO];
             
         } else {
             
@@ -304,7 +311,7 @@
             STMediumDetailController *controller = [[STMediumDetailController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             controller.mediumMessageId = model.mediumMessageId;
-            controller.mediaModel = model;
+            controller.mixedMediumModel = model;
             controller.isOriginWedia = NO;
             controller.writerId = model.writerId;
             [self.navigationController pushViewController:controller animated:YES];
@@ -319,7 +326,7 @@
             STMediumDetailController *controller = [[STMediumDetailController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             controller.mediumMessageId = [model getOriginMediumModel].mediumMessageId;
-            controller.mediaModel = model;
+            controller.mixedMediumModel = model;
             controller.isOriginWedia = YES;
             controller.writerId = [model getOriginMediumModel].writerId;
             [self.navigationController pushViewController:controller animated:YES];
@@ -337,7 +344,7 @@
             STMediumDetailController *controller = [[STMediumDetailController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             controller.mediumMessageId = model.mediumMessageId;
-            controller.mediaModel = model;
+            controller.mixedMediumModel = model;
             controller.isOriginWedia = YES;
             controller.writerId = model.writerId;
             [self.navigationController pushViewController:controller animated:YES];

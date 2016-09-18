@@ -35,7 +35,6 @@
 - (void)configUI {
     
     if (!self.imageView_first) {
-        
         UIImageView *imageView_first = [[UIImageView alloc] init];
         imageView_first.contentMode = UIViewContentModeScaleAspectFill;
         imageView_first.backgroundColor = [UIColor blueColor];
@@ -49,7 +48,6 @@
     }
     
     if (!self.coverImageView_first) {
-        
         self.coverImageView_first = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageVideoPlay"]];
         [self.imageView_first addSubview:self.coverImageView_first];
     }
@@ -109,14 +107,12 @@
     [super layoutSubviews];
     
     if (self.picturesModel) {
+        
         if (self.picturesModel.photoWidth > 1.5 * self.picturesModel.photoHeight) {
-            
             CGFloat width = self.width;
             CGFloat height = self.picturesModel.photoHeight * width / self.picturesModel.photoWidth;
             self.imageView_first.frame = CGRectMake(0, 0, width, height);
-            
         } else {
-            
             CGFloat width = self.width / 3.0f;
             CGFloat height = self.picturesModel.photoHeight * width / self.picturesModel.photoWidth;
             self.imageView_first.frame = CGRectMake(0, 0, width, height);

@@ -15,9 +15,9 @@
 
 /**
  * mediumModel 如果不是转发的操作，该模型属于原创，如果有转发操作，该模型属于转发者。
- * isSpecial   见STShowMediaView.h说明
+ * isRelay   见STShowMediaView.h说明
  */
-+ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel isSpecial:(BOOL)isSpecial;
-- (void)cofigCellWithModel:(STMediumModel *)mediumModel isSpecail:(BOOL)isSpecail;
++ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay;
+- (void)cofigCellWithModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay;
 
 @end

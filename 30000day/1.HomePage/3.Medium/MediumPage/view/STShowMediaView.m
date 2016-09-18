@@ -20,7 +20,7 @@
 @property (nonatomic,strong) STPicturesView *picturesView;
 @property (nonatomic,strong) STVideoView    *videoView;//视频视图
 @property (nonatomic,strong) STMediumModel  *mediumModel;
-@property (nonatomic,assign) BOOL isSpecial;
+@property (nonatomic,assign) BOOL isRelay;
 
 @end
 
@@ -78,20 +78,20 @@
     self.contentView.delegate = delegate;
 }
 
-+ (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isSpecail:(BOOL)isSpecial {
++ (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isRelay:(BOOL)isRelay {
     
     CGFloat margin = MarginBig;
-    if (([STContentView heightContentViewWith:[mediumModel getShowMediumString:isSpecial] contenteViewWidth:showMediaViewwidth] * [STPicturesView heightPicturesViewWith:mediumModel.picturesArray]) == 0) {//表示至少一个为0
+    if (([STContentView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth] * [STPicturesView heightPicturesViewWith:mediumModel.picturesArray]) == 0) {//表示至少一个为0
         margin = 0;
     }
     
-    return [STContentView heightContentViewWith:[mediumModel getShowMediumString:isSpecial] contenteViewWidth:showMediaViewwidth] + [STPicturesView heightPicturesViewWith:mediumModel.picturesArray] + margin + [STVideoView heightVideoViewWith:mediumModel.videoArray videoWidth:showMediaViewwidth] + margin;
+    return [STContentView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth] + [STPicturesView heightPicturesViewWith:mediumModel.picturesArray] + margin + [STVideoView heightVideoViewWith:mediumModel.videoArray videoWidth:showMediaViewwidth] + margin;
 }
 
-- (void)showMediumModel:(STMediumModel *)mediumModel isSpecail:(BOOL)isSpecial {
+- (void)showMediumModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {
     
     self.mediumModel = mediumModel;
-    self.isSpecial = isSpecial;
+    self.isRelay = isRelay;
     
     if (mediumModel.picturesArray.count > 0) {
         self.picturesView.hidden = NO;
@@ -107,14 +107,14 @@
     
     [self.picturesView showPicture:mediumModel.picturesArray];
     [self.videoView showVideoWith:mediumModel.videoArray];
-    [self.contentView showContent:[mediumModel getShowMediumString:isSpecial]];
+    [self.contentView showContent:[mediumModel getShowMediumString:isRelay]];
     [self setNeedsLayout];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.contentView.frame = CGRectMake(0, 0, self.width, [STContentView heightContentViewWith:[self.mediumModel getShowMediumString:self.isSpecial] contenteViewWidth:self.width]);
+    self.contentView.frame = CGRectMake(0, 0, self.width, [STContentView heightContentViewWith:[self.mediumModel getShowMediumString:self.isRelay] contenteViewWidth:self.width]);
     
     self.videoView.frame = CGRectMake(0, CGRectGetMaxY(self.contentView.frame) + MarginBig, self.width, [STVideoView heightVideoViewWith:self.mediumModel.videoArray videoWidth:self.width]);
     
