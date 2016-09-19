@@ -8,7 +8,6 @@
 
 #import "STRelayTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "NSString+URLEncoding.h"
 
 @implementation STRelayTableViewCell
 
@@ -30,7 +29,7 @@
     _mediumModel = mediumModel;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:mediumModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     self.titleLabel.text = mediumModel.originalNickName;
-    self.contentLabel.text = [mediumModel.infoContent urlDecodeUsingDecoding];
+    self.contentLabel.text = [mediumModel.infoContent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

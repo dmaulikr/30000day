@@ -7,7 +7,6 @@
 //
 
 #import "STMediumModel+category.h"
-#import "NSString+URLEncoding.h"
 
 @implementation STMediumModel (category)
 
@@ -84,7 +83,7 @@
 }
 
 - (NSString *)decodingContent {
-    return [self.infoContent urlDecodeUsingDecoding];
+    return [self.infoContent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

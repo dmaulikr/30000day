@@ -43,7 +43,6 @@
 
 #import "SBJson.h"
 #import "AFNetworking.h"
-#import "NSString+URLEncoding.h"
 #import "YYModel.h"
 #import "MTProgressHUD.h"
 //电话簿
@@ -64,7 +63,7 @@
 #import "NSString+Chinese.h"
 
 #import "CDChatManager.h"
-#import "NSString+URLEncoding.h"
+
 
 @interface STDataHandler () <CLLocationManagerDelegate>
 
@@ -4680,7 +4679,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addParameter:userId forKey:@"userId"];
-    [params addParameter:[content urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
+    [params addParameter:[content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
     [params addParameter:visibleType forKey:@"visibleType"];
     [params addParameter:mediaType forKey:@"mediaType"];
     [params addParameter:mediaJsonStr forKey:@"mediaJsonStr"];
@@ -4808,7 +4807,7 @@
     [params addParameter:userId forKey:@"userId"];
     [params addParameter:weMediaId forKey:@"weMediaId"];
     [params addParameter:visibleType forKey:@"visibleType"];
-    [params addParameter:[content urlEncodeUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
+    [params addParameter:[content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"content"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
