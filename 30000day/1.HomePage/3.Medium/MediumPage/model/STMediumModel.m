@@ -52,14 +52,14 @@
             
         } else if ([dictionary[@"isShare"] isEqualToString:@"1"]) {//1转发
             
-            STMediumModel *model = [[STMediumModel alloc] init];
+            STMediumModel *model = [[STMediumModel alloc] init];//自媒体
             model.originalHeadImg = dictionary[@"shareHeadImg"];
             model.originalNickName = dictionary[@"shareNickName"];
             model.writerId = dictionary[@"shareWriterId"];
             model.infoContent = dictionary[@"shareContent"];
             model.picturesArray = [[NSMutableArray alloc] init];
             model.createTime = dictionary[@"shareCreateTime"];
-            model.weMediaType = dictionary[@"weMediaType"];
+            model.weMediaType = @"0";//自己改成0,转发的
             model.mediumMessageId = dictionary[@"shareId"];
             //后加的
             model.clickLikeCount = dictionary[@"clickLikeCount"];
@@ -69,7 +69,7 @@
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
             
-            STMediumModel *subModel = [[STMediumModel alloc] init];
+            STMediumModel *subModel = [[STMediumModel alloc] init];//被转发的自媒体
             subModel.originalHeadImg = dictionary[@"writerHeadImg"];
             subModel.originalNickName = dictionary[@"writerNickName"];
             subModel.writerId = dictionary[@"writerId"];
