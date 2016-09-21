@@ -33,15 +33,18 @@
 }
 
 - (void)configUI {
-    SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
-    displayTextView.backgroundColor = [UIColor clearColor];
-    displayTextView.selectable = NO;
-    displayTextView.lineSpacing = 4;
-    displayTextView.font = [UIFont systemFontOfSize:15.0f];
-    displayTextView.showsEditingMenuAutomatically = NO;
-    displayTextView.highlighted = NO;
-    [self addSubview:displayTextView];
-    _displayTextView = displayTextView;
+    if (!self.displayTextView) {
+        SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
+        displayTextView.backgroundColor = [UIColor clearColor];
+        displayTextView.selectable = NO;
+        displayTextView.lineSpacing = 2;
+        displayTextView.font = [UIFont systemFontOfSize:15.0f];
+        displayTextView.showsEditingMenuAutomatically = YES;
+        displayTextView.highlighted = NO;
+        displayTextView.delegate = self;
+        [self addSubview:displayTextView];
+        _displayTextView = displayTextView;
+    }
 }
 
 - (BOOL)isIndex:(CFIndex)index inRange:(NSRange)range {
@@ -50,49 +53,45 @@
 
 - (BOOL)textView:(SETextView *)textView clickedOnLink:(SELinkText *)link atIndex:(NSUInteger)charIndex
 {
-    NSString *text = link.object;
-    if ([text hasPrefix:@"http"]) {
-        
-    } else if ([text hasPrefix:@"@"]) {
-        
-    } else if ([text hasPrefix:@"#"]) {
-
-    }
+    STBaseViewController *baseController = (STBaseViewController *)self.delegate;
+    STMediumWebViewController *controller = [[STMediumWebViewController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    controller.URL = link.object;
+    [baseController.navigationController pushViewController:controller animated:YES];
     
-    for (NSTextCheckingResult *match in self.matches) {
-        
-        if ([match resultType] == NSTextCheckingTypeLink) {
-            
-            NSRange matchRange = [match range];
-            
-            if ([self isIndex:charIndex inRange:matchRange]) {
-                STBaseViewController *baseController = (STBaseViewController *)self.delegate;
-                STMediumWebViewController *controller = [[STMediumWebViewController alloc] init];
-                controller.hidesBottomBarWhenPushed = YES;
-                controller.URL = match.URL;
-                [baseController.navigationController pushViewController:controller animated:YES];
-                break;
-            }
-            
-        } else if ([match resultType] == NSTextCheckingTypePhoneNumber) {
-            
-            NSRange matchRange = [match range];
-            if ([self isIndex:charIndex inRange:matchRange]) {
-                
-                STBaseViewController *baseController = (STBaseViewController *)self.delegate;
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定拨打 %@ ?",[self.displayTextView.attributedText.string substringWithRange:matchRange]] message:@"请您提高警惕，谨防诈骗" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",[self.displayTextView.attributedText.string substringWithRange:matchRange]]]];
-                }];
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                [controller addAction:action];
-                [controller addAction:cancelAction];
-                [baseController presentViewController:controller animated:YES completion:nil];
-                break;
-            }
-        }
-    }
-    
+//    for (NSTextCheckingResult *match in self.matches) {
+//        
+//        if ([match resultType] == NSTextCheckingTypeLink) {
+//            
+//            NSRange matchRange = [match range];
+//            
+//            if ([self isIndex:charIndex inRange:matchRange]) {
+//                STBaseViewController *baseController = (STBaseViewController *)self.delegate;
+//                STMediumWebViewController *controller = [[STMediumWebViewController alloc] init];
+//                controller.hidesBottomBarWhenPushed = YES;
+//                controller.URL = match.URL;
+//                [baseController.navigationController pushViewController:controller animated:YES];
+//                break;
+//            }
+//            
+//        } else if ([match resultType] == NSTextCheckingTypePhoneNumber) {
+//            
+//            NSRange matchRange = [match range];
+//            if ([self isIndex:charIndex inRange:matchRange]) {
+//                
+//                STBaseViewController *baseController = (STBaseViewController *)self.delegate;
+//                UIAlertController *controller = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定拨打 %@ ?",[self.displayTextView.attributedText.string substringWithRange:matchRange]] message:@"请您提高警惕，谨防诈骗" preferredStyle:UIAlertControllerStyleAlert];
+//                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",[self.displayTextView.attributedText.string substringWithRange:matchRange]]]];
+//                }];
+//                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//                [controller addAction:action];
+//                [controller addAction:cancelAction];
+//                [baseController presentViewController:controller animated:YES completion:nil];
+//                break;
+//            }
+//        }
+//    }
 
     return YES;
 }
@@ -114,11 +113,10 @@
 
 + (CGFloat)heightContentViewWith:(NSAttributedString *)mediaContent contenteViewWidth:(CGFloat)width {
     
-    
     CGRect frameRect = [SETextView frameRectWithAttributtedString:mediaContent
                                                    constraintSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                      lineSpacing:4
-                                                             font:[UIFont systemFontOfSize:5.0f]];
+                                                      lineSpacing:2
+                                                             font:[UIFont systemFontOfSize:15.0f]];
     return frameRect.size.height;
 //    if ([Common heightWithText:mediaContent.string width:width fontSize:15.0f] > SingleContentNum * SingleContentHeight) {
 //        return SingleContentNum * SingleContentHeight;
@@ -130,6 +128,11 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.displayTextView.frame = CGRectMake(0, 0, self.width, self.height);
+    if ([Common isObjectNull:self.mediaContent.string]) {
+        self.displayTextView.hidden = YES;
+    } else {
+        self.displayTextView.hidden = NO;
+    }
 }
 
 @end

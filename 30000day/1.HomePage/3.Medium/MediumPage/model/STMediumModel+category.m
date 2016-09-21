@@ -72,14 +72,22 @@
                                   
                                   if ([result resultType] == NSTextCheckingTypeLink) {
                                       NSURL *url = [result URL];
-                                      [attributedString addAttribute:NSLinkAttributeName value:url range:matchRange];
+                                      [attributedString replaceCharactersInRange:matchRange withAttributedString:[self getAttributedStringWithURL:url]];
+                                      [attributedString addAttribute:NSLinkAttributeName value:url range:[attributedString.string rangeOfString:@"网页链接"]];
                                   } else if ([result resultType] == NSTextCheckingTypePhoneNumber) {
                                       NSString *phoneNumber = [result phoneNumber];
                                       [attributedString addAttribute:NSLinkAttributeName value:phoneNumber range:matchRange];
+                                      [attributedString addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:matchRange];
                                   } else if ([result resultType] == NSTextCheckingTypeDate) {
                                       //NSDate *date = [result date];
                                   }
                               }];
+}
+
+- (NSMutableAttributedString *)getAttributedStringWithURL:(NSURL *)URL {
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"网页链接"];
+    [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[@"网页链接" rangeOfString:@"网页链接"]];
+    return string;
 }
 
 - (NSString *)getContent {

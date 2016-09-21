@@ -8,17 +8,18 @@
 
 #import "STShowMediaView.h"
 #import "STPicturesView.h"
-#import "STContentView.h"
+//#import "STContentView.h"
 #import "STMediumModel+category.h"
 #import "STVideoView.h"
 #import "STShowURLView.h"
 #import "STMediumWebViewController.h"
+#import "STShowTextView.h"
 
 #define MarginBig 10
 
 @interface STShowMediaView ()
 
-@property (nonatomic,strong) STContentView  *contentView;
+@property (nonatomic,strong) STShowTextView  *contentView;
 @property (nonatomic,strong) STPicturesView *picturesView;
 @property (nonatomic,strong) STVideoView    *videoView;//视频视图
 @property (nonatomic,strong) STShowURLView  *showURLView;//显示链接视图
@@ -44,7 +45,7 @@
 - (void)configUI {
     //文字
     if (!self.contentView) {
-        STContentView *contentView = [[STContentView alloc] init];
+        STShowTextView *contentView = [[STShowTextView alloc] init];
         [self addSubview:contentView];
         self.contentView = contentView;
     }
@@ -98,7 +99,7 @@
 
 + (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isRelay:(BOOL)isRelay {
     
-    CGFloat x = [STContentView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth];
+    CGFloat x = [STShowTextView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth];
     CGFloat y = [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:mediumModel]];
     CGFloat z = [STPicturesView heightPicturesViewWith:mediumModel.picturesArray];
     
@@ -174,7 +175,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     //文字
-    self.contentView.frame = CGRectMake(0, 0, self.width, [STContentView heightContentViewWith:[self.mediumModel getShowMediumString:self.isRelay] contenteViewWidth:self.width]);
+    self.contentView.frame = CGRectMake(0, 0, self.width, [STShowTextView heightContentViewWith:[self.mediumModel getShowMediumString:self.isRelay] contenteViewWidth:self.width]);
     //链接
     self.showURLView.frame = CGRectMake(0, 0, self.width, [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:self.mediumModel]]);
     //视频
