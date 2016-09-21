@@ -14,20 +14,32 @@
     
     if (isRelay) {//转发操作
         
-        NSString *dataString = [NSString stringWithFormat:@"%@:%@",self.originalNickName,[self getContent]];
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:dataString];
-        [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[dataString rangeOfString:self.originalNickName]];
-        [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:[dataString rangeOfString:[self getContent]]];
-        [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
-        //添加
-        NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
-        [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
-        return string;
-        
+        if ([self.weMediaType isEqualToString:@"0"]) {
+            NSString *dataString = [NSString stringWithFormat:@"%@:%@",self.originalNickName,[self getContent]];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:dataString];
+            [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[dataString rangeOfString:self.originalNickName]];
+            [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:[dataString rangeOfString:[self getContent]]];
+            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+            //添加
+            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
+            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            return string;
+        } else if ([self.weMediaType isEqualToString:@"1"]) {
+            NSString *dataString = [NSString stringWithFormat:@"%@:%@",self.originalNickName,[self getContent]];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:dataString];
+            [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[dataString rangeOfString:self.originalNickName]];
+            [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:[dataString rangeOfString:[self getContent]]];
+            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+            //添加
+            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
+            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            return string;
+        } else {
+            return [[NSMutableAttributedString alloc] init];
+        }
     } else {
         
         if ([self.weMediaType isEqualToString:@"0"]) {//自媒体显示内容
-            
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[self decodingContent]];
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, string.length)];
              [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
@@ -35,9 +47,7 @@
             NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
             [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
             return string;
-            
         } else if ([self.weMediaType isEqualToString:@"1"]) {//资讯显示标题
-            
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.infoName];
             [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:NSMakeRange(0, string.length)];
              [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
@@ -46,7 +56,6 @@
             [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
             return string;
         }
-        
         return [[NSAttributedString alloc] init];
     }
 }

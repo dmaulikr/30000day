@@ -578,6 +578,7 @@
 		B8FA522C1C802CE100498E34 /* AddContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8FA522A1C802CE100498E34 /* AddContentTableViewCell.xib */; };
 		B8FA522F1C804BAF00498E34 /* STTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */; };
 		B8FC0CFE1D90D83100ABD658 /* STShowURLView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FC0CFD1D90D83100ABD658 /* STShowURLView.m */; };
+		B8FC0D3F1D927CE800ABD658 /* STShowTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FC0D3E1D927CE800ABD658 /* STShowTextView.m */; };
 		B8FCA7B51D2BAD2C00CA6D91 /* CDMediaMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7B41D2BAD2C00CA6D91 /* CDMediaMessageModel.m */; };
 		B8FCA7B81D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7B61D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodeld */; };
 		B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FCA7BA1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m */; };
@@ -1748,6 +1749,8 @@
 		B8FA522E1C804BAF00498E34 /* STTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTabBarViewController.m; sourceTree = "<group>"; };
 		B8FC0CFC1D90D83100ABD658 /* STShowURLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowURLView.h; sourceTree = "<group>"; };
 		B8FC0CFD1D90D83100ABD658 /* STShowURLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowURLView.m; sourceTree = "<group>"; };
+		B8FC0D3D1D927CE800ABD658 /* STShowTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowTextView.h; sourceTree = "<group>"; };
+		B8FC0D3E1D927CE800ABD658 /* STShowTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowTextView.m; sourceTree = "<group>"; };
 		B8FCA7B31D2BAD2C00CA6D91 /* CDMediaMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMediaMessageModel.h; sourceTree = "<group>"; };
 		B8FCA7B41D2BAD2C00CA6D91 /* CDMediaMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMediaMessageModel.m; sourceTree = "<group>"; };
 		B8FCA7B71D2CAE3500CA6D91 /* CDMediaMessageStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDMediaMessageStore.xcdatamodel; sourceTree = "<group>"; };
@@ -2840,6 +2843,8 @@
 				B87A5BF71D73D6370066B21E /* STSettingView.m */,
 				B8FC0CFC1D90D83100ABD658 /* STShowURLView.h */,
 				B8FC0CFD1D90D83100ABD658 /* STShowURLView.m */,
+				B8FC0D3D1D927CE800ABD658 /* STShowTextView.h */,
+				B8FC0D3E1D927CE800ABD658 /* STShowTextView.m */,
 				B87A5BF81D73D6370066B21E /* STShowMediaView.h */,
 				B87A5BF91D73D6370066B21E /* STShowMediaView.m */,
 				B87A5BEF1D73D6370066B21E /* STMediumSendSuperCell.h */,
@@ -5744,6 +5749,7 @@
 				B8FD3E081C8A7903007BCA6B /* SETextAttachment.m in Sources */,
 				B8F2D96E1C5C6924002C7712 /* STNetworkCache.m in Sources */,
 				B8FD3DE21C8A7903007BCA6B /* XHMessageBubbleHelper.m in Sources */,
+				B8FC0D3F1D927CE800ABD658 /* STShowTextView.m in Sources */,
 				B8FD3DDA1C8A7903007BCA6B /* UIImage+XHRounded.m in Sources */,
 				B612DD7D1CACFE21004C428C /* CompanyViewController.m in Sources */,
 				B8F2DA501C5F3D04002C7712 /* NewPasswordViewController.m in Sources */,

@@ -11,7 +11,7 @@
 #define SingleContentNum        6
 #import "STMediumWebViewController.h"
 #import <CoreText/CoreText.h>
-
+#import "SETextView.h"
 #import <UIKit/UIKit.h>
 
 @class PPLabel;

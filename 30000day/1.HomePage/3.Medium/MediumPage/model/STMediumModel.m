@@ -47,6 +47,8 @@
             model.isClickLike = dictionary[@"isClickLike"];
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
+            //设置数据
+            [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:model];
             
             [dataArray addObject:model];
             
@@ -90,12 +92,52 @@
             subModel.infoTypeId = dictionary[@"infoTypeId"];
             subModel.infoTypeName   = dictionary[@"infoTypeName"];
             
+            //设置数据
+            [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:subModel];
+            
             model.retweeted_status = subModel;
             [dataArray addObject:model];
         }
     }
     return dataArray;
 }
+
++ (void)getModelWeMediaType:(NSString *)weMediaType infoContent:(NSString *)infoContent model:(STMediumModel *)mediumModel {
+    if ([weMediaType isEqualToString:@"2"]) {//表示是特殊的链接类型，需要特殊处理
+        
+        NSArray *array = [infoContent componentsSeparatedByString:@";"];
+        if (array.count == 3) {
+            
+            NSString *string = array[1];
+            NSError *error;
+            NSString *regulaStr = @"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?";
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                                   options:NSRegularExpressionCaseInsensitive
+                                                                                     error:&error];
+            NSArray *arrayOfAllMatches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
+            
+            if (arrayOfAllMatches.count) {
+                
+                NSTextCheckingResult *match = arrayOfAllMatches[0];
+                NSString *substringForMatch = [string substringWithRange:match.range];
+                if ([Common isObjectNull:substringForMatch]) {//空了
+                    mediumModel.weMediaType = @"2";
+                    mediumModel.infoContent = [NSString stringWithFormat:@"%@;;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],array[2]];
+                } else {//有图片
+                    mediumModel.infoContent = [NSString stringWithFormat:@"%@;%@;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],substringForMatch,array[2]];
+                    mediumModel.weMediaType = @"2";
+                }
+            } else {
+                mediumModel.weMediaType = @"2";
+                mediumModel.infoContent = [NSString stringWithFormat:@"%@;;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],array[2]];
+            }
+        } else {//服务器解析链接问题，这时候需要特殊处理
+            mediumModel.weMediaType = @"2";
+            mediumModel.infoContent = [NSString stringWithFormat:@"网页链接;;%@",[array lastObject]];
+        }
+    }
+}
+
 
 + (NSString *)meidumStringWithPicutresModelArray:(NSMutableArray *)meidumArray {
     

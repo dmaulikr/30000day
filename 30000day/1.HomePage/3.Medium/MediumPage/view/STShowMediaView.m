@@ -82,10 +82,11 @@
         self.showURLView = showURLView;
         //代码块回调,直接push
         [showURLView setTapBlock:^(STShowURLModel *showURLModel) {
+            STBaseViewController *baseViewController = self.delegate;
             STMediumWebViewController *controller = [[STMediumWebViewController alloc] init];
             controller.URL = [NSURL URLWithString:showURLModel.URLString];
             controller.hidesBottomBarWhenPushed = YES;
-            [self.delegate pushViewController:controller animated:YES];
+            [baseViewController.navigationController pushViewController:controller animated:YES];
         }];
     }
 }

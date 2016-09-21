@@ -36,7 +36,7 @@
     
     if (!self.titleLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.textColor = [UIColor darkGrayColor];
+        label.textColor = LOWBLUECOLOR;
         label.font = [UIFont systemFontOfSize:15.0f];
         [self addSubview:label];
         self.titleLabel = label;
@@ -50,6 +50,7 @@
     if (!self.imageView) {
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
         [self addSubview:imageView];
         self.imageView = imageView;
         
@@ -58,7 +59,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [imageView addGestureRecognizer:tap];
     }
-    self.backgroundColor =  RGBACOLOR(240, 240, 240, 1);
+    self.backgroundColor =  RGBACOLOR(247, 247, 247, 1);
 }
 
 //点击行动
@@ -70,17 +71,21 @@
 
 - (void)showURLViewWithShowURLModel:(STShowURLModel *)showURLModel {
     self.showURLModel = showURLModel;
-    
     self.titleLabel.text = showURLModel.title;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:showURLModel.imageURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 230)]];
     [self setNeedsLayout];
 }
 //只有一个不为空的时候都要返回高度
 + (CGFloat)heighOfShowURLView:(STShowURLModel *)showURLModel {
-    if (![Common isObjectNull:showURLModel.imageURLString] || ![Common isObjectNull:showURLModel.imageURLString]) {
-        return Heigh;
-    } else {
+    
+    if ([Common isObjectNull:showURLModel.title] && [Common isObjectNull:showURLModel.imageURLString]) {
         return 0.0f;
+    } else {
+        if ([showURLModel.title isEqualToString:@"网页链接"]) {
+            return 20.0f;
+        } else {
+            return Heigh;
+        }
     }
 }
 
@@ -88,6 +93,27 @@
     [super layoutSubviews];
     self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
     self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
+    
+    if ([self.showURLModel.title isEqualToString:@"网页链接"]) {
+        
+        if ([Common isObjectNull:self.showURLModel.imageURLString]) {//图片是空的
+            self.imageView.hidden = YES;
+            self.titleLabel.frame = CGRectMake(0,0,self.width,self.height);
+            self.backgroundColor = [UIColor clearColor];
+        } else {
+            self.imageView.hidden = NO;
+            self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
+            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
+            self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+        }
+        
+    } else {
+        
+        self.imageView.hidden = NO;
+        self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
+        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
+        self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+    }
 }
 
 @end
