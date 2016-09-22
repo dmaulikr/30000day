@@ -8,6 +8,17 @@
 
 #import "STMediumModel+category.h"
 
+@interface STAttributedString_model: NSObject
+
+@property (nonatomic,strong) NSURL     *URL;
+@property (nonatomic,copy)   NSString  *string;
+
+@end
+
+@implementation STAttributedString_model
+
+@end
+
 @implementation STMediumModel (category)
 
 - (NSAttributedString *)getShowMediumString:(BOOL)isRelay {
@@ -19,20 +30,20 @@
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:dataString];
             [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[dataString rangeOfString:self.originalNickName]];
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:[dataString rangeOfString:[self getContent]]];
-            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:NSMakeRange(0, string.length)];
             //添加
-            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
-            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            [self regularExpression:string];
+            [self regularExpressionForPhone:string];
             return string;
         } else if ([self.weMediaType isEqualToString:@"1"]) {
             NSString *dataString = [NSString stringWithFormat:@"%@:%@",self.originalNickName,[self getContent]];
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:dataString];
             [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[dataString rangeOfString:self.originalNickName]];
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:[dataString rangeOfString:[self getContent]]];
-            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+            [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:NSMakeRange(0, string.length)];
             //添加
-            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
-            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            [self regularExpression:string];
+            [self regularExpressionForPhone:string];
             return string;
         } else {
             return [[NSMutableAttributedString alloc] init];
@@ -42,18 +53,18 @@
         if ([self.weMediaType isEqualToString:@"0"]) {//自媒体显示内容
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[self decodingContent]];
             [string addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, string.length)];
-             [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+             [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:NSMakeRange(0, string.length)];
             //添加
-            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
-            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            [self regularExpression:string];
+            [self regularExpressionForPhone:string];
             return string;
         } else if ([self.weMediaType isEqualToString:@"1"]) {//资讯显示标题
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.infoName];
             [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:NSMakeRange(0, string.length)];
-             [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(0, string.length)];
+             [string addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:NSMakeRange(0, string.length)];
             //添加
-            NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate error:nil];
-            [self setDataDetectorsAttributedAttributedString:string atText:string.string withRegularExpression:detector];
+            [self regularExpression:string];
+            [self regularExpressionForPhone:string];
             return string;
         }
         return [[NSAttributedString alloc] init];
@@ -68,25 +79,65 @@
                                  options:0
                                    range:NSMakeRange(0, [text length])
                               usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                                  NSRange matchRange = [result range];
                                   
-                                  if ([result resultType] == NSTextCheckingTypeLink) {
-                                      NSURL *url = [result URL];
-                                      [attributedString replaceCharactersInRange:matchRange withAttributedString:[self getAttributedStringWithURL:url]];
-                                      [attributedString addAttribute:NSLinkAttributeName value:url range:[attributedString.string rangeOfString:@"网页链接"]];
-                                  } else if ([result resultType] == NSTextCheckingTypePhoneNumber) {
+                                  NSRange matchRange = [result range];
+                                  if ([result resultType] == NSTextCheckingTypePhoneNumber) {
                                       NSString *phoneNumber = [result phoneNumber];
                                       [attributedString addAttribute:NSLinkAttributeName value:phoneNumber range:matchRange];
                                       [attributedString addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:matchRange];
                                   } else if ([result resultType] == NSTextCheckingTypeDate) {
                                       //NSDate *date = [result date];
+                                  } else if ([result resultType] == NSTextCheckingTypeLink) {
+                                      
                                   }
                               }];
+}
+
+- (void)regularExpression:(NSMutableAttributedString *)attributedString {
+    
+    NSError *error;
+    NSString *regulaStr = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";//正则表达式检查URL
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSArray *arrayOfAllMatches = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (NSTextCheckingResult *match in arrayOfAllMatches) {
+        NSString *substringForMatch = [attributedString.string substringWithRange:match.range];
+        NSURL *URL = [NSURL URLWithString:substringForMatch];
+        
+        STAttributedString_model *modle = [[STAttributedString_model alloc] init];
+        modle.URL = URL;
+        modle.string = substringForMatch;
+        [array addObject:modle];
+    }
+    //替换NSMutableAttributedString
+    for (int i = 0; i < array.count; i++) {
+        STAttributedString_model *modle = array[i];
+        [attributedString replaceCharactersInRange:[attributedString.string rangeOfString:modle.string] withAttributedString:[self getAttributedStringWithURL:modle.URL]];
+    }
+}
+
+- (void)regularExpressionForPhone:(NSMutableAttributedString *)attributedString {
+    NSError *error;
+    NSString *regulaStr = @"(([0-9]{11})|((400|800)([0-9\\-]{7,10})|(([0-9]{4}|[0-9]{3})(-| )?)?([0-9]{7,8})((-| |转)*([0-9]{1,4}))?))";;//正则取出手机号码和电话号码
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSArray *arrayOfAllMatches = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])];
+    for (NSTextCheckingResult *match in arrayOfAllMatches) {
+        NSString *substringForMatch = [attributedString.string substringWithRange:match.range];
+        NSURL *URL = [NSURL URLWithString:substringForMatch];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:match.range];
+        [attributedString addAttribute:NSLinkAttributeName value:URL range:match.range];
+    }
 }
 
 - (NSMutableAttributedString *)getAttributedStringWithURL:(NSURL *)URL {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"网页链接"];
     [string addAttribute:NSForegroundColorAttributeName value:LOWBLUECOLOR range:[@"网页链接" rangeOfString:@"网页链接"]];
+    [string addAttribute:NSLinkAttributeName value:URL range:[@"网页链接" rangeOfString:@"网页链接"]];
     return string;
 }
 

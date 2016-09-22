@@ -109,4 +109,7 @@
 // 10263 1万
 + (NSString *)getNumberString:(NSNumber *)numberString;
 
+//检查是否是手机和电话号码
++ (BOOL)isMobile:(NSString *)mobileNumbel;
+
 @end

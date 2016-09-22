@@ -693,4 +693,24 @@
 // 10263 1万
 
 
+/**
+ *  手机号码验证
+ *  @param mobileNumbel 传入的手机号码
+ *  @return 格式正确返回true  错误 返回fals
+ */
++ (BOOL)isMobile:(NSString *)mobileNumbel {
+    
+    NSError *error;
+    NSString *regulaStr = @"(([0-9]{11})|((400|800)([0-9\\-]{7,10})|(([0-9]{4}|[0-9]{3})(-| )?)?([0-9]{7,8})((-| |转)*([0-9]{1,4}))?))";//正则取出手机号码和电话号码
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    NSArray *arrayOfAllMatches = [regex matchesInString:mobileNumbel options:0 range:NSMakeRange(0, [mobileNumbel length])];
+    if (arrayOfAllMatches.count) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

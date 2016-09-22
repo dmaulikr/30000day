@@ -8,7 +8,6 @@
 
 #import "STShowMediaView.h"
 #import "STPicturesView.h"
-//#import "STContentView.h"
 #import "STMediumModel+category.h"
 #import "STVideoView.h"
 #import "STShowURLView.h"
@@ -99,29 +98,12 @@
 
 + (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isRelay:(BOOL)isRelay {
     
-    CGFloat x = [STShowTextView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth];
-    CGFloat y = [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:mediumModel]];
-    CGFloat z = [STPicturesView heightPicturesViewWith:mediumModel.picturesArray];
+    CGFloat a = [STShowTextView heightContentViewWith:[mediumModel getShowMediumString:isRelay] contenteViewWidth:showMediaViewwidth];
+    CGFloat b = [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:mediumModel]];
+    CGFloat c = [STVideoView heightVideoViewWith:mediumModel.videoArray videoWidth:showMediaViewwidth];
+    CGFloat d = [STPicturesView heightPicturesViewWith:mediumModel.picturesArray];
     
-    if (x * y * z == 0) { //至少一个0
-        if (x == 0 && y == 0 &&  z != 0) {//2个0
-            return z;
-        } else if (x == 0 && y != 0 &&  z == 0) {//2个0
-            return y;
-        } else if (x != 0 && y == 0 &&  z == 0) {//2个0
-            return x;
-        } else if (x != 0 && y != 0 &&  z == 0) {//1个0
-            return x + y + MarginBig;
-        } else if (x != 0 && y == 0 &&  z != 0) {//1个0
-            return x + z + MarginBig;
-        } else if (x == 0 && y != 0 &&  z != 0) {//1个0
-            return y + z + MarginBig;
-        } else {//三个都等于0
-            return 0;
-        }
-    } else {
-        return x + y + z + 2 * MarginBig;
-    }
+    return a + b + c + d +  (a ? 0 : 1) * MarginBig + (b ? 0 : 1) * MarginBig + (c ? 0 : 1) * MarginBig;
 }
 
 - (void)showMediumModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {
@@ -176,8 +158,13 @@
     [super layoutSubviews];
     //文字
     self.contentView.frame = CGRectMake(0, 0, self.width, [STShowTextView heightContentViewWith:[self.mediumModel getShowMediumString:self.isRelay] contenteViewWidth:self.width]);
-    //链接
-    self.showURLView.frame = CGRectMake(0, 0, self.width, [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:self.mediumModel]]);
+    if (self.contentView.height > 0) {
+        //链接
+        self.showURLView.frame = CGRectMake(0, CGRectGetMaxY(self.contentView.frame) + MarginBig, self.width, [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:self.mediumModel]]);
+    } else {
+        //链接
+        self.showURLView.frame = CGRectMake(0, 0, self.width, [STShowURLView heighOfShowURLView:[STShowMediaView getURLModelWith:self.mediumModel]]);
+    }
     //视频
     if (self.showURLView.height > 0) {
         self.videoView.frame = CGRectMake(0, CGRectGetMaxY(self.showURLView.frame) + MarginBig, self.width, [STVideoView heightVideoViewWith:self.mediumModel.videoArray videoWidth:self.width]);
