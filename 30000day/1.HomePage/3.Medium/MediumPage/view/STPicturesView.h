@@ -7,7 +7,7 @@
 //  显示多媒体(可以显示图片/视频)view
 
 #import <UIKit/UIKit.h>
-#import "STMediumModel.h"
+#import "STPicturesModel.h"
 
 @interface STPicturesView : UIView
 

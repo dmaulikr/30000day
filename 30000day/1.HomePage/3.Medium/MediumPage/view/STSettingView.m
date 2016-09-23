@@ -23,7 +23,7 @@
 @property (nonatomic,strong) CommentView *comment_view;
 @property (nonatomic,strong) CommentView *comment_relay;//转载
 @property (nonatomic,strong) CommentView *comment_praise;//点赞
-@property (nonatomic,strong) STMediumModel *mediumModel;//私有的
+@property (nonatomic,strong) STMediumModel *mixedMediumModel;//私有的
 
 @end
 
@@ -54,7 +54,7 @@
         [self.comment_view setClickBlock:^{
             STMediumCommentController *controller = [[STMediumCommentController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
-            controller.weMediaId = [[weakSelf.mediumModel getOriginMediumModel].mediumMessageId integerValue];
+            controller.weMediaId = [[weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId integerValue];
             STMediumTypeController *superController = (STMediumTypeController *)weakSelf.delegate;
             [superController.navigationController pushViewController:controller animated:YES];
         }];
@@ -73,7 +73,7 @@
         __weak typeof(self) weakSelf = self;
         [comment_relay setClickBlock:^{
             STRelayViewController *relayController = [[STRelayViewController alloc] init];
-            relayController.mediumModel = [weakSelf.mediumModel getOriginMediumModel];
+            relayController.mediumModel = [weakSelf.mixedMediumModel getOriginMediumModel];
             STNavigationController *controller = [[STNavigationController alloc] initWithRootViewController:relayController];
             [weakSelf.delegate presentViewController:controller animated:YES completion:nil];
         }];
@@ -95,7 +95,7 @@
         
         [comment_praise setClickBlock:^{
             
-            [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:[NSString stringWithFormat:@"%@",[weakSelf.mediumModel getOriginMediumModel].mediumMessageId] isClickLike:!weakcomment_praise.isSelected busiType:1 success:^(BOOL success) {
+            [STDataHandler sendPointOrCancelPraiseWithUserId:STUserAccountHandler.userProfile.userId busiId:[NSString stringWithFormat:@"%@",[weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId] isClickLike:!weakcomment_praise.isSelected busiType:1 success:^(BOOL success) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
@@ -105,15 +105,15 @@
                             
                             weakcomment_praise.showImageView.image = [UIImage imageNamed:@"icon_zan"];
                             weakcomment_praise.selected = NO;
-                            [weakSelf.mediumModel getOriginMediumModel].clickLikeCount = @([[weakSelf.mediumModel getOriginMediumModel].clickLikeCount integerValue] - 1);
-                            weakcomment_praise.showLabel.text = [NSString stringWithFormat:@"%@",[weakSelf.mediumModel getOriginMediumModel].clickLikeCount];
+                            [weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount = @([[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount integerValue] - 1);
+                            weakcomment_praise.showLabel.text = [NSString stringWithFormat:@"%@",[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount];
                             
                         } else {
                             
                             weakcomment_praise.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
                             weakcomment_praise.selected = YES;
-                            [weakSelf.mediumModel getOriginMediumModel].clickLikeCount = @([[weakSelf.mediumModel getOriginMediumModel].clickLikeCount integerValue] + 1);
-                            weakcomment_praise.showLabel.text = [NSString stringWithFormat:@"%@",[weakSelf.mediumModel getOriginMediumModel].clickLikeCount];
+                            [weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount = @([[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount integerValue] + 1);
+                            weakcomment_praise.showLabel.text = [NSString stringWithFormat:@"%@",[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount];
                         }
                         [self setNeedsLayout];
                     }
@@ -133,25 +133,25 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.comment_view.frame = CGRectMake(self.width - Margin_H - [self.comment_view getLabelWidthWithText:[self getNumberString:[self.mediumModel getOriginMediumModel].commentCount] textHeight:20],self.height - Margin  - Comment_view_height, [self.comment_view getLabelWidthWithText:[self getNumberString:[self.mediumModel getOriginMediumModel].commentCount] textHeight:20], Comment_view_height);
-    self.comment_relay.frame = CGRectMake(Margin_H, self.height - Margin  - Comment_view_height, [self.comment_relay getLabelWidthWithText:[self getNumberString:[self.mediumModel getOriginMediumModel].forwardNum] textHeight:20], Comment_view_height);
-    self.comment_praise.frame = CGRectMake(self.center.x - [self.comment_praise getLabelWidthWithText:[self getNumberString:[self.mediumModel getOriginMediumModel].clickLikeCount] textHeight:20] / 2.0f, self.height - Margin  - Comment_view_height, [self.comment_praise getLabelWidthWithText:[self getNumberString:[self.mediumModel getOriginMediumModel].clickLikeCount] textHeight:20],Comment_view_height);
+    self.comment_view.frame = CGRectMake(self.width - Margin_H - [self.comment_view getLabelWidthWithText:[self getNumberString:[self.mixedMediumModel getOriginMediumModel].commentCount] textHeight:20],self.height - Margin  - Comment_view_height, [self.comment_view getLabelWidthWithText:[self getNumberString:[self.mixedMediumModel getOriginMediumModel].commentCount] textHeight:20], Comment_view_height);
+    self.comment_relay.frame = CGRectMake(Margin_H, self.height - Margin  - Comment_view_height, [self.comment_relay getLabelWidthWithText:[self getNumberString:[self.mixedMediumModel getOriginMediumModel].forwardNum] textHeight:20], Comment_view_height);
+    self.comment_praise.frame = CGRectMake(self.center.x - [self.comment_praise getLabelWidthWithText:[self getNumberString:[self.mixedMediumModel getOriginMediumModel].clickLikeCount] textHeight:20] / 2.0f, self.height - Margin  - Comment_view_height, [self.comment_praise getLabelWidthWithText:[self getNumberString:[self.mixedMediumModel getOriginMediumModel].clickLikeCount] textHeight:20],Comment_view_height);
 }
 
 //高度
-+ (CGFloat)heightView:(STMediumModel *)mediumModel {
++ (CGFloat)heightView:(STMediumModel *)mixedMediumModel {
     return 50.0f;
 }
 
 //配置
-- (void)cofigViewWithModel:(STMediumModel *)mediumModel {
-    self.mediumModel = mediumModel;
+- (void)configureViewWithModel:(STMediumModel *)mixedMediumModel {
+    self.mixedMediumModel = mixedMediumModel;
     
-    self.comment_view.showLabel.text = [self getNumberString:[mediumModel getOriginMediumModel].commentCount];//评论数
-    self.comment_relay.showLabel.text = [self getNumberString:[mediumModel getOriginMediumModel].forwardNum];//转载
-    self.comment_praise.showLabel.text = [self getNumberString:[mediumModel getOriginMediumModel].clickLikeCount];//赞
+    self.comment_view.showLabel.text = [self getNumberString:[mixedMediumModel getOriginMediumModel].commentCount];//评论数
+    self.comment_relay.showLabel.text = [self getNumberString:[mixedMediumModel getOriginMediumModel].forwardNum];//转载
+    self.comment_praise.showLabel.text = [self getNumberString:[mixedMediumModel getOriginMediumModel].clickLikeCount];//赞
     
-    if ([mediumModel getOriginMediumModel].isClickLike.integerValue) {
+    if ([mixedMediumModel getOriginMediumModel].isClickLike.integerValue) {
         self.comment_praise.showImageView.image = [UIImage imageNamed:@"icon_zan_blue"];
         self.comment_praise.selected = YES;
     } else {
@@ -164,8 +164,8 @@
 - (NSString *)getNumberString:(NSNumber *)numberString {
     
     int count = [numberString intValue];
+    
     if (count) {
-        
         if (count < 10000) {//小于一万
             return [NSString stringWithFormat:@"%@",numberString];
         } else {

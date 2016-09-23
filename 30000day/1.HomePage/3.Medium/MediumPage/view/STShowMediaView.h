@@ -16,8 +16,8 @@
 @property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
 @property (nonatomic,copy) void (^videoClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
 
-+ (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isSpecail:(BOOL)isSpecial;
-
-- (void)showMediumModel:(STMediumModel *)mediumModel isSpecail:(BOOL)isSpecial;//显示图片 YES：有转载的操作 NO：表示正常自媒体无转载操作
+//mediumModel 可以是经过处理的，也可以是没经过处理的
++ (CGFloat)heightOfShowMediaView:(STMediumModel *)mediumModel showMediaViewwidth:(CGFloat)showMediaViewwidth isRelay:(BOOL)isRelay;
+- (void)showMediumModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay;//显示图片 YES：显示转载的那部分数据 NO：显示非转载的那部分数据
 
 @end

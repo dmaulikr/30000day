@@ -16,6 +16,7 @@
 #import "STShowMediaView.h"
 #import "DateTools.h"
 #import "PersonDetailViewController.h"
+#import "STPicturesModel.h"
 
 #define Margin 5
 #define MarginBig 15
@@ -31,7 +32,7 @@
 @property (nonatomic,strong) UILabel *typeLabel;//类型label
 @property (nonatomic,strong) STShowMediaView *showMediaView;//显示多媒体视图
 @property (nonatomic,strong) STMediumModel *mediumModel;
-@property (nonatomic,assign) BOOL isSpecial;//是否是特殊的
+@property (nonatomic,assign) BOOL isRelay;//是否转发
 @property (nonatomic,strong) IDMPhotoBrowser *browser;//图片浏览框架
 
 @end
@@ -219,15 +220,15 @@
     [self.browser dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)cofigCellWithModel:(STMediumModel *)mediumModel isSpecail:(BOOL)isSpecail {
+- (void)cofigCellWithModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {
     
     self.mediumModel = mediumModel;
-    self.isSpecial = isSpecail;
+    self.isRelay = isRelay;
     
     [self.avatarView sd_setImageWithURL:[NSURL URLWithString:mediumModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     self.nameLabel.text = mediumModel.originalNickName;
     self.timeLabel.text = [[NSDate dateWithTimeIntervalSince1970:[mediumModel.createTime longLongValue] / 1000] timeAgoSinceNow];
-    [self.showMediaView showMediumModel:mediumModel isSpecail:isSpecail];
+    [self.showMediaView showMediumModel:mediumModel isRelay:isRelay];
     [self.typeLabel setAttributedText:[self getTypeString:mediumModel.infoTypeName]];
     [self setNeedsLayout];
 }
@@ -252,9 +253,8 @@
     }
 }
 
-+ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel isSpecial:(BOOL)isSpecial {
-    
-    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:mediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isSpecail:isSpecial];
++ (CGFloat)heightMediumCellWith:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {
+    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:mediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isRelay:isRelay];
     return 20 + 40 + MarginBig + contentHeigth + MarginBig;
 }
 
@@ -266,7 +266,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:self.mediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isSpecail:self.isSpecial];
+    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:self.mediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isRelay:self.isRelay];
     self.showMediaView.frame = CGRectMake(MarginBig, CGRectGetMaxY(self.avatarView.frame) + MarginBig, SCREEN_WIDTH - 2 * MarginBig, contentHeigth);
     self.typeLabel.frame = CGRectMake(self.width - [Common widthWithText:[self getTypeString:self.mediumModel.infoTypeName].string height:20 fontSize:13.0f] - MarginBig,20 - 2,[Common widthWithText:[self getTypeString:self.mediumModel.infoTypeName].string height:20 fontSize:13.0f], 20);
 }

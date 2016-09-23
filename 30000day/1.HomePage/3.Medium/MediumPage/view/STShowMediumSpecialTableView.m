@@ -12,6 +12,7 @@
 #import "IDMPhotoBrowser.h"
 #import "STRelayViewController.h"
 #import "STShowMediaView.h"
+#import "STPicturesModel.h"
 
 #define MarginBig 15
 
@@ -21,7 +22,7 @@
 }
 
 @property (nonatomic,strong) STShowMediaView *showMediaView;//显示多媒体视图
-@property (nonatomic,strong) STMediumModel *retweeted_status;
+@property (nonatomic,strong) STMediumModel *originMediumModel;
 @property (nonatomic,strong) IDMPhotoBrowser *browser;//图片浏览框架
 
 @end
@@ -55,24 +56,24 @@
         __weak typeof(self) weakSelf = self;
         [showMediaView setPictureClickBlock:^(NSInteger index) {//点击事件的回调
             
-            if (weakSelf.retweeted_status.picturesArray.count >= index + 1) {
-                [weakSelf configCallbackActionWith:weakSelf.retweeted_status.picturesArray[index]];
+            if (weakSelf.originMediumModel.picturesArray.count >= index + 1) {
+                [weakSelf configCallbackActionWith:weakSelf.originMediumModel.picturesArray[index]];
             }
         }];
         
         [showMediaView setVideoClickBlock:^(NSInteger index) {
             
-            if (weakSelf.retweeted_status.videoArray.count >= index + 1) {
-                [weakSelf configCallbackActionWith:weakSelf.retweeted_status.videoArray[index]];
+            if (weakSelf.originMediumModel.videoArray.count >= index + 1) {
+                [weakSelf configCallbackActionWith:weakSelf.originMediumModel.videoArray[index]];
             }
             
         }];
     }
 }
 
-+ (CGFloat)heightMediumCellWithRetweeted_status:(STMediumModel *)Retweeted_status {
++ (CGFloat)heightMediumCellWithOriginMediumModel:(STMediumModel *)originMediumModel {
     
-    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:Retweeted_status showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isSpecail:YES];
+    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:originMediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isRelay:YES];
     
     if (contentHeigth > 0) {
         return MarginBig + contentHeigth + MarginBig;
@@ -81,10 +82,10 @@
     }
 }
 
-- (void)cofigCellWithRetweeted_status:(STMediumModel *)retweeted_status {
-    self.retweeted_status = retweeted_status;
+- (void)configureCellWithOriginMediumModel:(STMediumModel *)originMediumModel {
+    self.originMediumModel = originMediumModel;
     
-    [self.showMediaView showMediumModel:retweeted_status isSpecail:YES];
+    [self.showMediaView showMediumModel:originMediumModel isRelay:YES];
     [self setNeedsLayout];
 }
 
@@ -92,9 +93,9 @@
     
     NSMutableArray *photoModelArray = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < self.retweeted_status.picturesArray.count;i++) {
+    for (int i = 0; i < self.originMediumModel.picturesArray.count;i++) {
         
-        STPicturesModel *model = self.retweeted_status.picturesArray[i];
+        STPicturesModel *model = self.originMediumModel.picturesArray[i];
         if (model.mediaType == 0) {
             [photoModelArray addObject:model];
         }
@@ -174,13 +175,13 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:self.retweeted_status showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isSpecail:YES];
+    CGFloat contentHeigth = [STShowMediaView heightOfShowMediaView:self.originMediumModel showMediaViewwidth:SCREEN_WIDTH - 2 * MarginBig isRelay:YES];
     self.showMediaView.frame = CGRectMake(MarginBig,MarginBig, SCREEN_WIDTH - 2 * MarginBig, contentHeigth);
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.retweeted_status = nil;
+    self.originMediumModel = nil;
 }
 
 @end

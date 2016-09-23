@@ -181,7 +181,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell_1"];
             }
-            cell.textLabel.text = @"筛选类型";
+            cell.textLabel.text = @"排序类型";
             cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -300,7 +300,7 @@
          
             QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
             picker.delegate = self;
-            picker.titleText = @"筛选类型";
+            picker.titleText = @"排序类型";
             NSArray *array = @[@"普通(正常时间排序自媒体)",@"热点(当天最热门自媒体)"];
             [picker showPickView:[UIApplication sharedApplication].keyWindow withPickerViewNum:1 withArray:array withArray:nil withArray:nil selectedTitle:[self getPickerViewShowStringWithInterge:[Common readAppIntegerDataForKey:SAVE_CHOOSE_TYPE]] selectedTitle:nil selectedTitle:nil];
             self.picker_1 = picker;

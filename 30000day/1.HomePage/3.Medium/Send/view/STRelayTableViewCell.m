@@ -29,7 +29,7 @@
     _mediumModel = mediumModel;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:mediumModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     self.titleLabel.text = mediumModel.originalNickName;
-    self.contentLabel.text = mediumModel.infoContent;
+    self.contentLabel.text = [mediumModel.infoContent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

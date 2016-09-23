@@ -12,7 +12,7 @@
 @interface STMediumDetailController : STRefreshViewController
 
 @property (nonatomic,strong) NSNumber *mediumMessageId;//自媒体消息ID
-@property (nonatomic,strong) STMediumModel *mediaModel;//传过来的模型，没经过处理的
+@property (nonatomic,strong) STMediumModel *mixedMediumModel;//传过来的模型，没经过处理的
 @property (nonatomic,assign) BOOL isOriginWedia;//YES:表示原创自媒体，NO表示转发的自媒体
 @property (nonatomic,strong) NSNumber *writerId;//本条自媒体发送者id
 @property (nonatomic,copy)   void (^deleteBock)();

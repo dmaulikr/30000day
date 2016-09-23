@@ -10,6 +10,7 @@
 
 @interface STMediumModel (category)
 
-- (NSAttributedString *)getShowMediumString:(BOOL)isSpecial;//特殊的  YES:表示是转载显示原作者名字   NO:表示自己正常发送的
-- (STMediumModel *)getOriginMediumModel;
+- (NSAttributedString *)getShowMediumString:(BOOL)isRelay;//是否是转发  YES:是转载(显示原作者名字)  NO:非转发(只显示标题或者内容)
+- (NSString *)getContent;
+
 @end

@@ -10,6 +10,7 @@
 #import "STMediumModel.h"
 #import "STSendMediumHeadFootView.h"
 #import "STChooseItemManager.h"
+#import "STPicturesModel.h"
 
 #define Send_Width  320.0f
 
@@ -158,7 +159,7 @@
     if (self.sendMediumTableViewCell.videoArray.count == 0 && self.sendMediumTableViewCell.imageArray.count == 0) {
         
         //开始上传
-        [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:self.sendMediumTableViewCell.textView.text visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:@"" success:^(BOOL success) {
+        [STDataHandler sendMessageToMediumWithUserId:STUserAccountHandler.userProfile.userId content:[NSString stringWithFormat:@"%@",self.sendMediumTableViewCell.textView.text] visibleType:[NSString stringWithFormat:@"%@",self.relationNumber] mediaType:[NSString stringWithFormat:@"%@",self.rangeNumber] mediaJsonStr:@"" success:^(BOOL success) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showToast:@"发布成功"];
@@ -389,7 +390,7 @@
             
             QGPickerView *picker = [[QGPickerView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 250, SCREEN_WIDTH, 250)];
             picker.delegate = self;
-            picker.titleText = @"范围";
+            picker.titleText = @"类型";
             
             //显示QGPickerView
             if (self.titleArray.count) {

@@ -12,7 +12,7 @@
 @interface STShowMediumSpecialTableView : UITableViewCell
 
 @property (nonatomic,weak) id delegate;
-+ (CGFloat)heightMediumCellWithRetweeted_status:(STMediumModel *)Retweeted_status;
-- (void)cofigCellWithRetweeted_status:(STMediumModel *)retweeted_status;
++ (CGFloat)heightMediumCellWithOriginMediumModel:(STMediumModel *)originMediumModel;
+- (void)configureCellWithOriginMediumModel:(STMediumModel *)originMediumModel;
 
 @end
