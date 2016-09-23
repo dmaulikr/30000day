@@ -127,11 +127,22 @@ static CDMediaMessageManager *instance;
 
 //新增一条数据
 - (void)addMediaMessageWithModel:(CDMediaMessageModel *)model {
-    
     [self addObjectWithModel:model];
-    
     [self save:^(NSError *error) {
-        
+    }];
+}
+
+- (void)refreshMediaMessageWithModel:(CDMediaMessageModel *)model {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND conversationId == %@ AND imageMessageId == %@",model.userId,model.conversationId,model.imageMessageId];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageDate" ascending:YES];
+    //获取模型数组和object数组
+    NSArray *dataArray = [CDMediaMessageObject filterWithContext:[CDMediaMessageManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
+    
+    if (dataArray.count) {
+        [self refreshObject:dataArray[0] withModel:model];
+    }
+    [self save:^(NSError *error) {
     }];
 }
 

@@ -864,6 +864,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
             
             if ([msg.file isDataAvailable]) {//如果可以获取到数据
                 model.image = [msg.file getData];
+                [[CDMediaMessageManager shareManager] refreshMediaMessageWithModel:model];
             }
             
            [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];

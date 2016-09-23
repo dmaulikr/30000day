@@ -300,6 +300,11 @@ static CDChatManager *instance;
                         model.localURLString = message.file.localPath;
                         if ([message.file isDataAvailable]) {
                             model.image = [message.file getData];
+                        } else {
+                            [message.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                model.image = data;
+                                [[CDMediaMessageManager shareManager] refreshMediaMessageWithModel:model];
+                            }];
                         }
                         [dataArray addObject:model];
                     }
@@ -404,6 +409,11 @@ static CDChatManager *instance;
     model.localURLString = message.file.localPath;
     if ([message.file isDataAvailable]) {//如果可以获取到数据
         model.image = [message.file getData];
+    } else {
+        [message.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            model.image = data;
+            [[CDMediaMessageManager shareManager] refreshMediaMessageWithModel:model];
+        }];
     }
     [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
 }
