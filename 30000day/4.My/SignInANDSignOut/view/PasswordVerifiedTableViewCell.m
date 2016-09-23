@@ -11,6 +11,7 @@
 @implementation PasswordVerifiedTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
    //self.answer.returnKeyType=UIReturnKeyJoin;
 }
 

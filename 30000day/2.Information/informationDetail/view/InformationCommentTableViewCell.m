@@ -13,7 +13,7 @@
 @implementation InformationCommentTableViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.checkReply.layer.masksToBounds = YES;
     self.checkReply.layer.borderWidth = 0.7f;
     self.checkReply.layer.borderColor = RGBACOLOR(170, 170, 170, 1).CGColor;

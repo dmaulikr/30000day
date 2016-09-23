@@ -15,15 +15,13 @@
 @implementation AddContentTableViewCell 
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.contentTextView.placeholder = @"请输入内容";
-    
     self.contentTextView.placeholderColor = RGBACOLOR(200, 200, 200, 1);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 

@@ -11,6 +11,7 @@
 @implementation TitleCollectionViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

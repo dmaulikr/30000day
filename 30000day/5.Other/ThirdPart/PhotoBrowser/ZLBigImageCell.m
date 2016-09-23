@@ -11,6 +11,7 @@
 @implementation ZLBigImageCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

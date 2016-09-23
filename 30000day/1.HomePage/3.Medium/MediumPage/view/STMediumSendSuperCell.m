@@ -11,6 +11,7 @@
 @implementation STMediumSendSuperCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

@@ -11,6 +11,7 @@
 @implementation DuplicationTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

@@ -18,7 +18,7 @@
 }
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     _count = 60;
 }
 

@@ -11,6 +11,7 @@
 @implementation PayTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

@@ -18,7 +18,7 @@
 @implementation STDetailSettingView
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.WeChatFriendsBtn.layer.borderWidth=1.0;
     self.WeChatFriendsBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
     self.WeChatFriendsBtn.layer.cornerRadius = 6;

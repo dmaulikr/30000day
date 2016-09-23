@@ -25,6 +25,7 @@
 @implementation ShareInformationView
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     self.WeChatFriendsBtn.layer.borderWidth=1.0;
     self.WeChatFriendsBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
@@ -50,7 +51,6 @@
     self.cancelBtn.layer.borderColor=VIEWBORDERLINECOLOR.CGColor;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-    
     [self addGestureRecognizer:tap];
     
     [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];

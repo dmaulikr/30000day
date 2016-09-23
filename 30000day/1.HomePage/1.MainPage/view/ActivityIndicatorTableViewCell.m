@@ -21,7 +21,7 @@
 @implementation ActivityIndicatorTableViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     if ([[self getDeviceType] isEqualToString:@"iPhone4"] ||
         [[self getDeviceType] isEqualToString:@"iPhone4S"]) {
         

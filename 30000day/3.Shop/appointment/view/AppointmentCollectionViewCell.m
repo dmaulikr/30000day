@@ -11,11 +11,10 @@
 @implementation AppointmentCollectionViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     self.layer.borderColor = RGBACOLOR(200, 200, 200, 1).CGColor;
-    
     self.layer.borderWidth = 0.5f;
-    
 }
 
 @end

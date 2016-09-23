@@ -12,9 +12,8 @@
 @implementation HeadViewTableViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.headImageView.layer.cornerRadius = 3;
-    
     self.headImageView.layer.masksToBounds = YES;
 }
 

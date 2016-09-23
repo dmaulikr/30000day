@@ -11,6 +11,7 @@
 @implementation CommentDetailsLastTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

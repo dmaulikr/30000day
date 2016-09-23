@@ -12,9 +12,8 @@
 @implementation CommentDetailsTableViewCell
 
 - (void)awakeFromNib {
-   
+   [super awakeFromNib];
     [self.commentButton addTarget:self action:@selector(commentClick:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

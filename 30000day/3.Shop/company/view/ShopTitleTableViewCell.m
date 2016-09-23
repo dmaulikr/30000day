@@ -11,6 +11,7 @@
 @implementation ShopTitleTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

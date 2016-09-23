@@ -27,29 +27,19 @@
 @implementation CommentOptionsTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     CGFloat with = (self.bounds.size.width - 65 * 4 - 29) / 3;
-    
     self.praiseButtonLeft.constant = with;
-    
     self.praiseButtonRight.constant = with;
-    
     self.commonlyBttonLeft.constant = with;
-    
     self.commonlyBttonRight.constant = with;
-    
     self.badButtonLeft.constant = with;
-    
     self.allButtonRight.constant = with;
-    
     self.allButton.layer.cornerRadius = 8;
-    
     self.praiseButton.layer.cornerRadius = 8;
-    
     self.commonlyBtton.layer.cornerRadius = 8;
-    
     self.badButton.layer.cornerRadius = 8;
-    
     [self.allButton setTag:-1];
     //[self.allButton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
     //[self.allButton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
@@ -69,7 +59,6 @@
     //[self.badButton setImage:[UIImage imageNamed:@"type"] forState:UIControlStateNormal];
     //[self.badButton setImage:[UIImage imageNamed:@"type1"] forState:UIControlStateHighlighted];
     [self.badButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

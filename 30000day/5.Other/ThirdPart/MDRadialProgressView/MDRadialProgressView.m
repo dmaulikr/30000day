@@ -43,8 +43,8 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib{
+    [super awakeFromNib];
     [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
 }
 

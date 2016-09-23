@@ -12,7 +12,8 @@
 @implementation InformationWriterHeadTableViewCell
 
 - (void)awakeFromNib {
-
+    [super awakeFromNib];
+    
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5.0;
     
@@ -22,7 +23,6 @@
     self.subscriptionButton.layer.cornerRadius = 5.0;
     
     [self.subscriptionButton addTarget:self action:@selector(subscriptionButtonClick:) forControlEvents:UIControlEventTouchDown];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

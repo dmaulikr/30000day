@@ -13,6 +13,7 @@
 @implementation OrderDetailTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
     self.firstButton.layer.cornerRadius = 5;
     self.firstButton.layer.masksToBounds = YES;

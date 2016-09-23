@@ -29,6 +29,7 @@
     if (!self.webView) {
         UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         webView.backgroundColor = [UIColor whiteColor];
+        webView.opaque = NO;
         [self.view addSubview:webView];
         self.webView = webView;
     }

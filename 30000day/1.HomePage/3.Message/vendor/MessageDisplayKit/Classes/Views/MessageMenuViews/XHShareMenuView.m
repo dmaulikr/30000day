@@ -59,6 +59,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setup];
 }
 
@@ -200,6 +201,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setup];
 }
 

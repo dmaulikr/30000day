@@ -11,6 +11,7 @@
 @implementation SearchFriendsTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

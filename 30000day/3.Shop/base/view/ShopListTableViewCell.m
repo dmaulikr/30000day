@@ -28,13 +28,10 @@
 @implementation ShopListTableViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.activityImageView_first.layer.cornerRadius = 3;
-    
     self.activityImageView_first.layer.masksToBounds = YES;
-    
     self.activityImageView_second.layer.cornerRadius = 3;
-    
     self.activityImageView_second.layer.masksToBounds = YES;
 }
 

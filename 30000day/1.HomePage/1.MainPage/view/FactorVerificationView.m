@@ -11,29 +11,22 @@
 @implementation FactorVerificationView 
 
 - (void)awakeFromNib {
-
+    [super awakeFromNib];
+    
     [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]];
-
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-    
     [self addGestureRecognizer:tap];
-    
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap {
-    
     [self removeFromSuperview];
-        
 }
 
 - (IBAction)enterClick:(UIButton *)sender {
     
     if (self.buttonBlock) {
-        
         self.buttonBlock(sender);
-        
     }
-    
 }
 
 

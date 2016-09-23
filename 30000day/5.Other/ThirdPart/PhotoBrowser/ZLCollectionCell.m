@@ -11,6 +11,7 @@
 @implementation ZLCollectionCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

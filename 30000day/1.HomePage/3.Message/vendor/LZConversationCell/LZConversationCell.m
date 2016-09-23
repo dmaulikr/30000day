@@ -169,10 +169,8 @@ static CGFloat kLZLittleBadgeSize = 10;
 - (UILabel *)messageTextLabel {
     
     if (_messageTextLabel == nil) {
-        
         _messageTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_nameLabel.frame), CGRectGetMaxY(_nameLabel.frame) - 2, CGRectGetWidth([UIScreen mainScreen].bounds)- 3 * kLZHorizontalSpacing - kLZImageSize, kLZMessageLabelHeight)];
         _messageTextLabel.backgroundColor = [UIColor clearColor];
-        
     }
     
     return _messageTextLabel;
@@ -181,14 +179,13 @@ static CGFloat kLZLittleBadgeSize = 10;
 - (JSBadgeView *)badgeView {
     
     if (_badgeView == nil) {
-        
         _badgeView = [[JSBadgeView alloc] initWithParentView:self.nameLabel alignment:JSBadgeViewAlignmentTopLeft];
-
     }
     return _badgeView;
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

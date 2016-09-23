@@ -11,6 +11,7 @@
 @implementation SelectionMethodTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

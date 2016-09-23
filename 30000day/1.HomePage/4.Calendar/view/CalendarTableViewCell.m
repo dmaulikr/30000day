@@ -16,6 +16,7 @@
 @implementation CalendarTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

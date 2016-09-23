@@ -12,19 +12,13 @@
 @implementation SearchResultTableViewCell
 
 - (void)awakeFromNib {
-   
+    [super awakeFromNib];
+    
     self.headImageView.layer.cornerRadius = 4;
-    
     self.headImageView.layer.masksToBounds = YES;
-    
     self.addButton.layer.cornerRadius = 3;
-    
     self.addButton.layer.masksToBounds = YES;
-    
-    //self.addButton.layer.borderColor = LOWBLUECOLOR.CGColor;
-    
     self.addButton.layer.borderWidth = 0.5f;
-
     self.addButton.hidden = YES;
 }
 

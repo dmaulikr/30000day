@@ -11,6 +11,7 @@
 @implementation LogoutTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

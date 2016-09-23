@@ -12,13 +12,11 @@
 @implementation SubscribeTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     self.secondSucribeButton.layer.borderColor = LOWBLUECOLOR.CGColor;
-    
     self.secondSucribeButton.layer.borderWidth = 1.0f;
-    
     self.showImageView.layer.cornerRadius = 3.0f;
-    
     self.showImageView.layer.masksToBounds = YES;
 }
 

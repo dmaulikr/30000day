@@ -11,6 +11,7 @@
 @implementation PasswordVerifiedTableViewSecondCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

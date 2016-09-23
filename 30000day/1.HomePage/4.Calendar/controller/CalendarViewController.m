@@ -124,63 +124,35 @@
         }
         
         NSDate *selectorNewDate = [formatter dateFromString:selectorDateString];
-        
         NSDate *birthdayDate = [formatter dateFromString:STUserAccountHandler.userProfile.birthday];
-        
         NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-        
         NSString *age = [Common isObjectNull:userConfigure[@"Age"]] ? @"80" : userConfigure[@"Age"];
-        
         NSDate *chooseAgeDate = [NSDate dateWithTimeInterval:[age  doubleValue]*365*24*60*60 sinceDate:birthdayDate];
-        
         NSTimeInterval interval = [chooseAgeDate timeIntervalSinceDate:selectorNewDate];
-        
         int dayNumber = interval/86400.0f;
-        
         self.ageCell.titleLabel.text = [NSString stringWithFormat:@"从今天到所选岁数还有%d天。",dayNumber];
-        
         NSTimeInterval birthdayInterval = [selectorNewDate timeIntervalSinceDate:birthdayDate];
-        
         int birthdayNumber = birthdayInterval/86400.0f;
-        
         self.birthdayCell.titleLabel.text = [NSString stringWithFormat:@"您出生到这天过去了%d天。",birthdayNumber];
-        
-        
     }
     
     NSDictionary *userConfigure = [Common readAppDataForKey:USER_CHOOSE_AGENUMBER];
-    
     NSString *age = [Common isObjectNull:userConfigure[@"Age"]] ? @"80" : userConfigure[@"Age"];
-    
     [self.ageCell.ageButton setTitle:[NSString stringWithFormat:@"%@岁",age] forState:UIControlStateNormal];//显示用户选择的年龄
-    
-    
     NSDateFormatter *formatter = [Common dateFormatterWithFormatterString:@"yyyy年MM月dd日"];
-    
     NSString *countDownTimeString = [formatter stringFromDate:selectorDate];
-    
     self.countDownDate = [formatter dateFromString:countDownTimeString];
-    
-    
     NSString *dateTime = userConfigure[COUNTDOWN] == nil ? [formatter stringFromDate:[NSDate date]]:userConfigure[COUNTDOWN];
-    
     self.countDownbuttonDate = [formatter dateFromString:dateTime];
-    
     [self.countDownCell.timeButton setTitle:[NSString stringWithFormat:@"%@",dateTime] forState:UIControlStateNormal];
-
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
     unsigned int unitFlags = NSCalendarUnitDay;
-    
     NSString *stringTime = [formatter stringFromDate:[NSDate date]];
-    
     NSDate *date = [formatter dateFromString:stringTime];
-    
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:self.countDownDate == nil ? date:self.countDownDate toDate:self.countDownbuttonDate == nil ? date:self.countDownbuttonDate options:0];
     
     [self.countDownCell.countDownLable setText:[NSString stringWithFormat:@"倒计时%ld天。",[comps day]]];
-    
     [self.tableView reloadData];
 }
 

@@ -11,6 +11,7 @@
 @implementation AddTimeTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

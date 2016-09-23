@@ -23,7 +23,6 @@
 	return self;
 }
 
-
 /*
  This method provides a custom setter so that the model is notified when the subtitle value has changed.
  */

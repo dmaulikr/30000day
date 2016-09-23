@@ -12,37 +12,23 @@
 @implementation PersonTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     self.imageView_first.layer.cornerRadius = 3;
-    
     self.imageView_first.layer.masksToBounds = YES;
-    
     self.button_fourth.layer.cornerRadius = 3;
-    
     self.button_fourth.layer.masksToBounds = YES;
-    
     self.button_fourth.backgroundColor = LOWBLUECOLOR;
-    
     self.badgeView.layer.cornerRadius = 9.0f;
-    
     self.badgeView.layer.masksToBounds = YES;
-    
     self.imageView_third.layer.cornerRadius = 3;
-    
     self.imageView_third.layer.masksToBounds = YES;
-    
     self.imageView_fourth.layer.cornerRadius = 3;
-    
     self.imageView_fourth.layer.masksToBounds = YES;
-    
     self.imageView_fifth.layer.cornerRadius = 3;
-    
     self.imageView_fifth.layer.masksToBounds = YES;
-    
     self.jinSuoSupView.layer.cornerRadius = 20;
-    
     self.jinSuoSupView.layer.borderWidth = 1.0;
-    
     self.jinSuoSupView.layer.borderColor = [UIColor colorWithRed:207.0/255.0 green:208.0/255.0 blue:209.0/255.0 alpha:1.0].CGColor;
 }
 

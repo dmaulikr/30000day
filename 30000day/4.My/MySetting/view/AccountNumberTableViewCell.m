@@ -17,6 +17,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.accountNumberLable.font = [UIFont systemFontOfSize:15];
     _isCanPush = NO;
 }

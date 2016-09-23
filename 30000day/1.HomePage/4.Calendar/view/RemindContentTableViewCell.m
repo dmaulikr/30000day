@@ -11,18 +11,15 @@
 @implementation RemindContentTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     UILongPressGestureRecognizer * longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
-    
     longPress.minimumPressDuration = 1.0;
-    
     [self addGestureRecognizer:longPress];
 }
 
 - (void)longPressAction:(UILongPressGestureRecognizer *)longPress {
-    
     if (self.longPressBlock) {
-        
         self.longPressBlock(self.longPressIndexPath);
     }
 }

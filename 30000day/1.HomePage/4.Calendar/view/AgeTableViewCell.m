@@ -11,6 +11,7 @@
 @implementation AgeTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

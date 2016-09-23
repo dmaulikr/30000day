@@ -11,6 +11,7 @@
 @implementation STSendMediumHeadFootView
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.sendButton.layer.cornerRadius = 5;
     self.sendButton.layer.masksToBounds = YES;
 }

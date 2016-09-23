@@ -29,19 +29,13 @@
     self.title = @"群组";
     
     self.tableViewStyle = STRefreshTableViewPlain;
-    
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    
     self.tableView.delegate = self;
-    
     self.tableView.dataSource = self;
-    
     [self loadGroupConversation];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(creatNewGroup)];
-    
     self.navigationItem.rightBarButtonItem = item;
-    
     [STNotificationCenter addObserver:self selector:@selector(reloadGroupChat) name:STDidSuccessGroupChatSettingSendNotification object:nil];
 }
 
@@ -49,23 +43,17 @@
 - (void)creatNewGroup {
     
     if ([Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
-        
         [self showToast:@"用户ID不存在"];
-        
         return;
     }
     
     [GroupSettingManager createNewGroupChatFromController:self fromClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.  userProfile.userId] callBack:^(BOOL success, NSError *error,AVIMConversation *conversation) {
         
         if (success) {
-  
             //创建群成功后再去下载所有群
             [self loadGroupConversation];
-            
             [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
-            
         } else {
-            
             [self showToast:[Common errorStringWithError:error optionalString:@"新建失败"]];
         }
     }];
@@ -76,13 +64,9 @@
     [[CDChatManager sharedManager] findGroupedConversationsWithNetworkFirst:YES block:^(NSArray *objects, NSError *error) {
         
         if ([Common isObjectNull:error]) {
-            
             self.dataArray = [NSMutableArray arrayWithArray:objects];
-            
             [self.tableView reloadData];
-            
         } else {
-            
             [self showToast:[Common errorStringWithError:error optionalString:@"发生了未知因素"]];
         }
     }];
@@ -91,34 +75,24 @@
 - (void)loadGroupConversation {//这地方如果没有网络的会崩溃
     
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(hideMTProgressHUD:) userInfo:nil repeats:nil];
-    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(hideMTProgressHUD:) userInfo:nil repeats:NO];
     timer.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0f];
     
     [[CDChatManager sharedManager] findGroupedConversationsWithNetworkFirst:YES block:^(NSArray *objects, NSError *error) {
        
         if ([Common isObjectNull:error]) {
-            
             self.dataArray = [NSMutableArray arrayWithArray:objects];
-            
             [self.tableView reloadData];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         } else {
-            
             [self showToast:[Common errorStringWithError:error optionalString:@"发生了未知因素"]];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
         }
     }];
 }
 
 - (void)hideMTProgressHUD:(NSTimer *)timer {
-    
     [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-    
     [timer invalidate];
 }
 
@@ -128,7 +102,6 @@
 }
 
 - (void)dealloc {
-    
     [STNotificationCenter removeObserver:self name:STDidSuccessGroupChatSettingSendNotification object:nil];
 }
 
@@ -141,34 +114,24 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"PersonTableViewCell_fifth";
-    
     PersonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
     if (cell == nil) {
-        
         cell = [[NSBundle mainBundle] loadNibNamed:@"PersonTableViewCell" owner:self options:nil][4];
     }
     
     AVIMConversation *conversation = self.dataArray[indexPath.row];
-
     if ([Common isObjectNull:[conversation groupChatImageURL]]) {//URL不存在
-        
         cell.imageView_fifth.image = conversation.icon;
-        
     } else {//URL存在
-        
         [cell.imageView_fifth sd_setImageWithURL:[NSURL URLWithString:[conversation groupChatImageURL]] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
-
     cell.label_fifth.text = conversation.name;
-    
     return cell;
 }
 
@@ -180,7 +143,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [[CDIMService service] pushToChatRoomByConversation:self.dataArray[indexPath.row] fromNavigationController:self.navigationController];
 }
 

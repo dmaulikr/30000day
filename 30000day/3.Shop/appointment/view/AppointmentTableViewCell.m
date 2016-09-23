@@ -26,13 +26,10 @@
 @implementation AppointmentTableViewCell
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     self.appointmentView.delegate = self;
-    
     self.willAppointmentArray = [[NSMutableArray alloc] init];//初始化将要预约数组
-    
     [self.productPriceLabel setAttributedText:[AppointmentTableViewCell attributeString:0.00f]];
-    
     [self.productNumberLabel setAttributedText:[AppointmentTableViewCell numberAttributeString:0]];
 }
 

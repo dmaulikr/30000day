@@ -12,6 +12,7 @@
 @implementation STRelayTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.textView.placeholder = @"说说分享心得";
     self.headImageView.layer.cornerRadius = 3;
     self.headImageView.layer.masksToBounds = YES;

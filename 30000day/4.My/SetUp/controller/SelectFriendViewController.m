@@ -76,57 +76,35 @@
 - (void)submitClick {
 
     [MTProgressHUD showHUD:[UIApplication sharedApplication].keyWindow];
-    
     NSUInteger section = 0;
-    
     NSMutableString *crowdIds = [NSMutableString string];
-    
     for (NSInteger i = 0; i < self.dataArray.count; i++) {
-        
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:section];
-        
         SelectFriendTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        
         UserInformationModel *model = _dataArray[i];
-        
         if (cell.isSelect) {
-            
             [crowdIds appendFormat:@"%ld,",model.userId.integerValue];
-            
         }
-        
     }
     
     if (crowdIds!= nil && ![crowdIds isEqualToString:@""]) {
-        
         [crowdIds deleteCharactersInRange:NSMakeRange(crowdIds.length - 1,1)];
-        
     }
     
     [STDataHandler sendSetSportSwitchWithUserId:STUserAccountHandler.userProfile.userId status:3 crowdIds:crowdIds success:^(BOOL success) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
             if (success) {
-                
                 [STNotificationCenter postNotificationName:STSportsPermissionsReturnsSpecificFriendsRefreshSendNotification object:nil];
-                
                 [self closeClick];
-                
             }
-            
         });
         
     } failure:^(NSError *error) {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-           
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         });
-        
     }];
 
 }

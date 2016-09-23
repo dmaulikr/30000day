@@ -11,9 +11,8 @@
 @implementation HealthyTableViewCell
 
 - (void)awakeFromNib {
-
+    [super awakeFromNib];
     [self.textLabel setFont:[UIFont systemFontOfSize:14.0]];
-    
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 }
 

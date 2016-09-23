@@ -9,7 +9,7 @@
 #import "MTWebViewProgress.h"
 NSString *completeRPCURL = @"webviewprogressproxy:///complete";
 
-static const float initialProgressValue = 0.001f;
+static const float initialProgressValue = 0.01f;
 static const float beforeInteractiveMaxProgressValue = 0.5;
 static const float afterInteractiveMaxProgressValue = 0.9;
 @implementation MTWebViewProgress

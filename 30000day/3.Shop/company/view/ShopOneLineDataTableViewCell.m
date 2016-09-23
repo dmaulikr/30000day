@@ -11,6 +11,7 @@
 @implementation ShopOneLineDataTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

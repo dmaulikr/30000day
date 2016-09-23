@@ -13,23 +13,19 @@
 @implementation DaysOfAgeOption
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     
-    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0 ]];
+    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0]];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-    
     [self addGestureRecognizer:tap];
     
     UITapGestureRecognizer *perfectImageViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(perfectImageViewTapAction:)];
-    
     [self.perfectImageView addGestureRecognizer:perfectImageViewTap];
     
     UITapGestureRecognizer *promoteImageViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(promoteImageViewTapAction:)];
-    
     [self.promoteImageView addGestureRecognizer:promoteImageViewTap];
-    
     self.imageHeight.constant = CELLHEIGHT;
-
 }
 
 - (void)perfectImageViewTapAction:(UITapGestureRecognizer *)tap {

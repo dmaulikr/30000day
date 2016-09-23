@@ -11,6 +11,7 @@
 @implementation securityTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 
