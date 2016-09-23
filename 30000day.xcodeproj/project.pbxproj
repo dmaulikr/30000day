@@ -287,6 +287,7 @@
 		B83B7A7B1CAD099F00D2CC6A /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B83B7A771CAD099F00D2CC6A /* icon_chose_bottom@2x.png */; };
 		B83B7A7C1CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */; };
 		B83CA37B1D7811CD00F272D0 /* STMediumWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */; };
+		B854EB4F1D93E36800DBD20F /* MTWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = B854EB4E1D93E36800DBD20F /* MTWebViewProgress.m */; };
 		B85C1E8D1D782F4C00D3700F /* STDetailSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */; };
 		B85C1E8E1D782F4C00D3700F /* STDetailSettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */; };
 		B85C1E941D7912A800D3700F /* STChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B85C1E931D7912A800D3700F /* STChooseView.m */; };
@@ -1168,6 +1169,8 @@
 		B83B7A791CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QGRecordDetailSwitchHeadView.m; sourceTree = "<group>"; };
 		B83CA3791D7811CD00F272D0 /* STMediumWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumWebViewController.h; sourceTree = "<group>"; };
 		B83CA37A1D7811CD00F272D0 /* STMediumWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumWebViewController.m; sourceTree = "<group>"; };
+		B854EB4D1D93E36800DBD20F /* MTWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTWebViewProgress.h; sourceTree = "<group>"; };
+		B854EB4E1D93E36800DBD20F /* MTWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTWebViewProgress.m; sourceTree = "<group>"; };
 		B85C1E8A1D782F4C00D3700F /* STDetailSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDetailSettingView.h; sourceTree = "<group>"; };
 		B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDetailSettingView.m; sourceTree = "<group>"; };
 		B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STDetailSettingView.xib; sourceTree = "<group>"; };
@@ -2729,6 +2732,15 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		B854EB4C1D93E36800DBD20F /* MTWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				B854EB4D1D93E36800DBD20F /* MTWebViewProgress.h */,
+				B854EB4E1D93E36800DBD20F /* MTWebViewProgress.m */,
+			);
+			path = MTWebViewProgress;
+			sourceTree = "<group>";
+		};
 		B8695AC71C75D451001B4B95 /* QGPickView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3417,6 +3429,7 @@
 		B88C91A91C5AFFA20089BEAE /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				B854EB4C1D93E36800DBD20F /* MTWebViewProgress */,
 				B8004B7F1D2FBD5400D2857A /* security */,
 				B86EFC931D154DC4007A2108 /* IDMPhotoBrowser */,
 				B8F6E95D1D02CD0400AD6745 /* TZImagePickerController */,
@@ -5663,6 +5676,7 @@
 				B8695AAC1C747DAC001B4B95 /* ActivityIndicatorTableViewCell.m in Sources */,
 				F5A988961D5D790F00731288 /* SelectFriendTableViewCell.m in Sources */,
 				B8F648791C9424BF001A3119 /* AppointmentCollectionView.m in Sources */,
+				B854EB4F1D93E36800DBD20F /* MTWebViewProgress.m in Sources */,
 				B83B7A731CAD072500D2CC6A /* MTProgressHUD.m in Sources */,
 				B8BD789A1CC24FC500362C89 /* STNetworkAgent.m in Sources */,
 				B886E86B1C7DDF1400E64BEC /* AgeTableViewCell.m in Sources */,
