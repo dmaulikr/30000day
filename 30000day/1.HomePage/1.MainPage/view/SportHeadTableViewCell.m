@@ -33,9 +33,11 @@
     [self addSubview:self.beginButton];
     
     
-    self.beginLable = [[UILabel alloc] initWithFrame:CGRectMake(23, 30, 34, 20)];
+    self.beginLable = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 40, 20)];
     
     [self.beginLable setText:@"开始"];
+    
+    [self.beginLable setTextAlignment:NSTextAlignmentCenter];
     
     [self.beginLable setTextColor:[UIColor whiteColor]];
     
@@ -59,7 +61,9 @@
     [self addSubview:self.editorButton];
     
     
-    self.editorLable = [[UILabel alloc] initWithFrame:CGRectMake(23, 30, 34, 20)];
+    self.editorLable = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 40, 20)];
+    
+    [self.editorLable setTextAlignment:NSTextAlignmentCenter];
     
     [self.editorLable setText:@"编辑"];
     
