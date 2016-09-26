@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>访问您的麦克风</string>
-	<key>NSMotionUsageDescription</key>
-	<string>用于记录您的步数</string>
-	<key>NSCameraUsageDescription</key>
-	<string>访问您的相机</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>访问您的相册</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>健康数据</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>健康数据</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleDisplayName</key>
@@ -37,7 +25,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.2</string>
+	<string>3.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -89,7 +77,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.0.5</string>
+	<string>3.0.6</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>
@@ -131,8 +119,20 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>访问您的相机</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>健康数据</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>健康数据</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>若不允许，将无法正常记录你的运动数据，也无法使用天气情况等功能。</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>访问您的麦克风</string>
+	<key>NSMotionUsageDescription</key>
+	<string>用于记录您的步数</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>访问您的相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
