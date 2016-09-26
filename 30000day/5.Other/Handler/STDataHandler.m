@@ -700,7 +700,6 @@
     [parameters addParameter:memo forKey:@"memo"];//个人简介
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.completionQueue = dispatch_queue_create("sendUpdateUserInformationWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -1948,11 +1947,8 @@
                            failure:(void (^)(NSError *error))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:data forKey:@"data"];
-    
     [Common urlStringWithDictionary:params withString:UPDATE_STAT_USERLLFE];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -1961,29 +1957,21 @@
                                                     success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
-                                                        
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
                                                         
                                                         if (localError == nil) {
                                                             
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     success(YES);
-                                                                    
                                                                 });
                                                                 
                                                             } else {
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     failure(failureError);
-                                                                    
                                                                 });
                                                                 
                                                             }
@@ -2021,17 +2009,12 @@
                                  failure:(void (^)(NSError *))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:email forKey:@"email"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUploadUserSendEmailWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_SENDEMAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3828,7 +3811,6 @@
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.completionQueue = dispatch_queue_create("sendGetDefeatData", DISPATCH_QUEUE_PRIORITY_DEFAULT);
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     

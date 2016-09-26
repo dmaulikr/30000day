@@ -293,26 +293,17 @@
                                     if (movingDistanceString != nil) {
                                         
                                         NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionary];
-                                        
                                         [dataDictionary setObject:birthString forKey:@"stepNum"];
-                                        
                                         [dataDictionary setObject:climbStairsString forKey:@"stairs"];
-                                        
                                         [dataDictionary setObject:movingDistanceString forKey:@"distance"];
-                                        
                                         NSString *dataString = [self dataToJsonString:dataDictionary];
                                         
                                         [STDataHandler sendStatUserLifeWithUserId:STUserAccountHandler.userProfile.userId dataString:dataString success:^(BOOL success) {
-                                            
                                             if (success) {
-                                                
                                                 NSLog(@"上传运动数据成功");
-                                                
                                                 [self getUserLifeList];
                                             }
-                                            
                                         } failure:^(NSError *error) {
-                                            
                                             
                                         }];
                                     }
@@ -338,7 +329,6 @@
             
         } failure:^(NSError *error) {
             
-            
         }];
     }
 }
@@ -353,17 +343,13 @@
         [STDataHandler getWeatherInformation:[Common deletedStringWithParentString:cityName] sucess:^(WeatherInformationModel *informationModel) {
             
             self.informationModel = informationModel;
-            
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             
         } failure:^(NSError *error) {
-            
             [self showToast:@"获取天气失败"];
-            
         }];
         
     } failure:^(NSError *error) {
-       
         
     }];
 }
@@ -372,13 +358,10 @@
 - (void)getDefeatDataWithUserId:(NSNumber *)userId {
     
     [STDataHandler sendGetDefeatDataWithUserId:userId success:^(NSString *dataString) {
-        
         self.indicatorCell.titleLabel.text = [NSString stringWithFormat:@"您的预期总天龄已经击败%.2f%%用户",[dataString floatValue] * 100];
-        
         [Common saveAppDataForKey:DEFEATDATA withObject:[NSString stringWithFormat:@"%.2f",[dataString floatValue] * 100]]; //保存当前击败的用户 用于分享
-        
     } failure:^(NSError *error) {
-        
+        [self showToast:[Common errorStringWithError:error optionalString:@"获取数据失败"]];
     }];
 }
 
@@ -870,13 +853,9 @@
         } else {
             
             PromoteAgeViewController *controller = [[PromoteAgeViewController alloc] init];
-            
             controller.sportText = self.informationModel.sport;
-            
             controller.hidesBottomBarWhenPushed = YES;
-            
             [self.navigationController pushViewController:controller animated:YES];
-        
         }
         
     }];

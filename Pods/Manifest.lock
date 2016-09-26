@@ -20,9 +20,16 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.2.6)
-  - AVOSCloudIM (3.2.6):
-    - AVOSCloud
+  - AVOSCloud (3.4.3)
+  - AVOSCloudIM (3.4.3):
+    - AVOSCloud (= 3.4.3)
+    - AVOSCloudIM/_ARC (= 3.4.3)
+    - AVOSCloudIM/_NOARC (= 3.4.3)
+  - AVOSCloudIM/_ARC (3.4.3):
+    - AVOSCloud (= 3.4.3)
+    - AVOSCloudIM/_NOARC (= 3.4.3)
+  - AVOSCloudIM/_NOARC (3.4.3):
+    - AVOSCloud (= 3.4.3)
   - BaiduMapKit (3.0.0)
   - DACircularProgress (2.3.1)
   - FMDB (2.6):
@@ -42,7 +49,7 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - UMengSocial (4.4)
+  - UMengSocial (5.0)
   - YYModel (1.0.2)
 
 DEPENDENCIES:
@@ -65,8 +72,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AVOSCloud: 08ba88573fca8559dfc658942b391c4568fabfc0
-  AVOSCloudIM: 9b23286bf2a86b8a7440c70762990dcb15092d52
+  AVOSCloud: 0108153c6b7130c399707442f3059ea6016da6c3
+  AVOSCloudIM: b8e6dba33a4f9af6e3137e09d8e9722570720af7
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
@@ -79,7 +86,7 @@ SPEC CHECKSUMS:
   MWPhotoBrowser: ba0d0c09ffda3a7ea10093518738c502c1c7141c
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  UMengSocial: aba7296602310385114d82c255539a7bef3b7ab0
+  UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
   YYModel: 7a467eff45ae3641c33efb136c262d33b6f48c1a
 
 COCOAPODS: 0.39.0
