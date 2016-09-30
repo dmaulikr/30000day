@@ -13,6 +13,9 @@
 #import "STMediumCommentController.h"
 #import "STMediumTypeController.h"
 #import "UIImage+WF.h"
+#import "STPraiseReplyStorageManager.h"
+#import "AVIMPraiseMessage.h"
+#import "UserInformationModel.h"
 
 #define Margin 10
 #define Comment_view_height 30
@@ -55,6 +58,10 @@
             STMediumCommentController *controller = [[STMediumCommentController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             controller.weMediaId = [[weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId integerValue];
+            controller.userId = [weakSelf.mixedMediumModel getOriginMediumModel].writerId;
+            controller.originNickName = [weakSelf.mixedMediumModel getOriginMediumModel].originalNickName;
+            controller.originHeadImg = [weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg;
+            controller.visibleType = self.visibleType;
             STMediumTypeController *superController = (STMediumTypeController *)weakSelf.delegate;
             [superController.navigationController pushViewController:controller animated:YES];
         }];
@@ -114,6 +121,11 @@
                             weakcomment_praise.selected = YES;
                             [weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount = @([[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount integerValue] + 1);
                             weakcomment_praise.showLabel.text = [NSString stringWithFormat:@"%@",[weakSelf.mixedMediumModel getOriginMediumModel].clickLikeCount];
+                            
+                            if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+                                //发送点赞消息
+                                [STPraiseReplyStorageManager sendPraiseMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[weakSelf.mixedMediumModel getOriginMediumModel].writerId originHeadImg:[weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg originalNickName:[weakSelf.mixedMediumModel getOriginMediumModel].originalNickName visibleType:self.visibleType];
+                            }
                         }
                         [self setNeedsLayout];
                     }
@@ -162,9 +174,7 @@
 }
 
 - (NSString *)getNumberString:(NSNumber *)numberString {
-    
     int count = [numberString intValue];
-    
     if (count) {
         if (count < 10000) {//小于一万
             return [NSString stringWithFormat:@"%@",numberString];

@@ -101,7 +101,7 @@
         self.showMediaView = showMediaView;
     
         __weak typeof(self) weakSelf = self;
-        [showMediaView setPictureClickBlock:^(NSInteger index) {//点击图片view回调
+        [showMediaView setPictureClickBlock:^(NSInteger index,UIImage *image) {//点击图片view回调
             
             if (weakSelf.mediumModel.picturesArray.count >= index + 1) {
                 [weakSelf configCallbackActionWith:weakSelf.mediumModel.picturesArray[index]];
@@ -176,6 +176,9 @@
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [browser.view addGestureRecognizer:tap];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction)];
+        [browser.view addGestureRecognizer:longPress];
         
         [self.delegate presentViewController:browser animated:YES completion:nil];
         self.browser = browser;
@@ -218,6 +221,37 @@
 
 - (void)tapAction {
     [self.browser dismissViewControllerAnimated:YES completion:nil];
+}
+
+//长按保存
+- (void)longPressAction {
+    IDMPhoto *photo = [self.browser photoAtIndex:_chooseImageMessageIndex];
+    UIImage *image = [photo underlyingImage];
+    
+    STBaseViewController *baseController = (STBaseViewController *)self.delegate;
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存到相册" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
+        [baseController showHUDWithContent:@"正在保存" animated:YES];
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }];
+    
+    [controller addAction:cancelAction];
+    if (image) {
+        [controller addAction:saveAction];
+    }
+    
+    [self.browser presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    [self.delegate hideHUD:YES];
+    if (!error) {
+        [self.delegate showToast:@"保存成功"];
+    } else {
+        [self.delegate showToast:@"保存失败"];
+    }
 }
 
 - (void)cofigCellWithModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {

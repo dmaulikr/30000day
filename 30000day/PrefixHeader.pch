@@ -231,6 +231,7 @@
 
 #define INVALID_CONVERSATION       @"invalidConversation" //无效的对话
 #define THUMBNAIL_PHOTO_WIDTH      150.0f
+#define VISIBLETYPE                @"visibleType"
 
 //本地推送所用到的宏
 #define CALENDAR_NOTIFICATION                @"myNotification"         //日历模块添加的本地提醒

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyTableViewController : STRefreshViewController
+@interface MyTableViewController : STBaseViewController
 
 @end

@@ -131,9 +131,7 @@
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
     NSString *partner = @"2088221626849093";
-    
     NSString *seller = @"hr@countdaystech.com";
-    
     NSString *notifyurl = [NSString stringWithFormat:@"%@%@",ST_API_SERVER,ASYNCNOTIFY];
     
     NSString *privateKey = @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMIc797RW76UmjfwVrRZonJb4+FHgqOQoqSeTsIFGujqg/UFGyH4o+EuS7FT1iSwbw8+3cv1eILivacoZW6Lroq2n4WIrF3TCRj8oKX96PeFKXY0dFhLt0wGhSL+RSb4LsGu1or7WSJ7nihbo+h6ksjD5NkXzL6vuT96L/o7tQmjAgMBAAECgYA7sZ5qjUODdjt+3GAtkisMtAl+K/mWx1HdAfoCXIOMASKXZPyVE9uB0jTg0YFXQxLEQ3b90/09cvETyK54smf4IiFS75oUfkGnXhK0UPX9cXAQEgYf42UbORmG8s7OAgSPzmy93akRyuwmFbzfA2efEcGK5ZPky5V5LvB0ciGu4QJBAP63v5qqMBDWUTOkPAPZokqb6v14Mqae9e5VpbsF9f1ku3zjXkdqOJsKXlpiL+IKCx9DaUopl3amNJB4hUEqNnsCQQDDFxaGrQwk8X70Ri7w9hNpyTMV+2/U8b070X4SRTOpfOYSSgDMickhj/20S3EAtZ/ThPM7OMfCiLs9U7olumT5AkBBYXznAEQyLjDNppxZCKXlrLvWr+GgbzEFKirOJKuNjSuq1NnATv2Unka1wHo19QoBzlXaWW6tX+AiLS1XGrS9AkBvuZ0w65F05sip5Delz4c2of8bq69T6E1TIJpupCr9+YVZHABxIseI7QmCY2IH4fvyCsWxOMdN5Tg12ulUCfchAkEAgdMdGrqpicF0YGzL4kYoUXwbUaLfjdhgJxFEFi24CbrIHT6YWQ3lw4lBYlxOZtAqN5v/eLGDFRLZwNZCPSH0oA==";
@@ -143,64 +141,42 @@
     
     //将商品信息赋予AlixPayOrder的成员变量
     Order *order = [[Order alloc] init];
-    
     order.partner = partner;
-    
     order.seller = seller;
-    
     order.tradeNO = orderID;
-    
     order.productName = goodTitle;
-    
     order.productDescription = goodTitle; //商品描述
-    
     order.amount = price;
-    
     order.notifyURL =  notifyurl; //回调URL
-    
     order.service = @"mobile.securitypay.pay";
-    
     order.paymentType = @"1";
-    
     order.inputCharset = @"utf-8";
-    
     order.itBPay = @"30m";
-    
     order.showUrl = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
     NSString *appScheme = @"wb3403884903";
-    
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
-    
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
     id<DataSigner> signer = CreateRSADataSigner(privateKey);
-    
     NSString *signedString = [signer signString:orderSpec];
     
     //将签名成功字符串格式化为订单字符串,请严格按照该格式
     NSString *orderString = nil;
-    
     if (signedString != nil) {
         
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"", orderSpec, signedString, @"RSA"];
-        
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             
             NSString *resultStatus = [resultDic objectForKey:@"resultStatus"];
-            
             if ([self.delegate respondsToSelector:@selector(resultStatus:)]) {
-                
                 [self.delegate resultStatus:resultStatus];
             }
         }];
-        
     } else {
-        
         [self alert:@"提示信息" msg:@"支付失败，签名信息错误"];
     }
-    
 }
 
 - (void)payByWechatWithOrderID:(NSString *)out_trade_no goodTtitle:(NSString *)goodTitle goodPrice:(NSString *)price {

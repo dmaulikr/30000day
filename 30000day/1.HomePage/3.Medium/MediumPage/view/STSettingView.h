@@ -12,6 +12,7 @@
 @interface STSettingView : UIView
 
 @property (nonatomic,weak) id delegate;
+@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
 + (CGFloat)heightView:(STMediumModel *)mixedMediumModel;//mixedMediumModel 没经过处理的模型
 - (void)configureViewWithModel:(STMediumModel *)mixedMediumModel;//mixedMediumModel 没经过处理的模型
 

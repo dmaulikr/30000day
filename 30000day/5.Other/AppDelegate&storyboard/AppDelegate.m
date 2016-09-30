@@ -26,6 +26,8 @@
 #import "AVIMNoticationMessage.h"
 #import "CDConversationStore.h"
 #import "CDFailedMessageStore.h"
+#import "AVIMPraiseMessage.h"
+#import "AVIMReplyMessage.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -77,7 +79,10 @@
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
-    [AVIMNoticationMessage registerSubclass];
+    [AVIMNoticationMessage registerSubclass];//注册通知类型消息
+    [AVIMPraiseMessage registerSubclass];//注册点赞类型消息
+    [AVIMReplyMessage registerSubclass];//注册回复类型消息
+    
     [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
     }];
     

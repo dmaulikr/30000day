@@ -24,8 +24,10 @@
 #import "AboutTableViewController.h"
 #import "QuickResponseCodeViewController.h"
 #import "QRReaderViewController.h"
+#import "STRedPacketListController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -35,18 +37,23 @@
     [super viewDidLoad];
     
     self.title = @"我的";
-    self.tableViewStyle = STRefreshTableViewGroup;
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    [self showHeadRefresh:YES showFooterRefresh:NO];
-    self.isShowBackItem = NO;
+    
+//    self.tableViewStyle = STRefreshTableViewGroup;
+//    [self.tableView setDataSource:self];
+//    [self.tableView setDelegate:self];
+//    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    [self showHeadRefresh:YES showFooterRefresh:NO];
+//    self.isShowBackItem = NO;
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     
 //    [self loadEmail];
 }
+
+
 
 #pragma ---
 #pragma mark --- 上啦刷新和下拉刷新
@@ -154,31 +161,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == 0) {
-        
         return 1;
-        
     } else if (section == 1) {
-        
         return 2;
-        
     } else if (section == 2) {
-        
         return 2;
-        
     } else if (section == 3) {
-        
         return 2;
-        
     } else if (section == 4) {
-    
         return 1;
-    
     } else if (section == 5) {
-    
         return 1;
-    
     }
-    
     return 0;
 }
 
@@ -215,106 +209,72 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString* ID = @"mainCell";
-    
     myViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-    
         cell= [[[NSBundle mainBundle] loadNibNamed:@"myViewCell" owner:self options:nil] lastObject];
-      
     }
     
     if (indexPath.section == 0) {
         
         UserHeadViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserHeadViewTableViewCell"];
-        
         if (cell == nil) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:@"UserHeadViewTableViewCell" owner:self options:nil] lastObject];
         }
-        
         cell.userProfile = STUserAccountHandler.userProfile;
-        
         return cell;
         
     } else if (indexPath.section == 1) {
         
         if (indexPath.row == 0) {
-            
             [cell.leftImage setImage:[UIImage imageNamed:@"two_code.png"]];
-            
             [cell.titleLabel setText:@"我的二维码"];
-            
-        } else {
-        
+        } else if (indexPath.row == 1) {
             [cell.leftImage setImage:[UIImage imageNamed:@"scanning"]];
-            
             [cell.titleLabel setText:@"扫一扫"];
-        
+        } else if (indexPath.row == 2) {
+            [cell.leftImage setImage:[UIImage imageNamed:@"scanning"]];
+            [cell.titleLabel setText:@"红包"];
         }
-        
          return cell;
         
     } else if (indexPath.section == 2) {
         
         if (indexPath.row == 0) {
-            
             [cell.leftImage setImage:[UIImage imageNamed:@"securityCenter.png"]];
-            
             [cell.titleLabel setText:@"安全中心"];
-            
         } else if (indexPath.row == 1) {
-            
             [cell.leftImage setImage:[UIImage imageNamed:@"setUp.png"]];
-            
             [cell.titleLabel setText:@"设置"];
-
         }
-        
         return cell;
         
     } else if (indexPath.section == 3 ) {
         
         if (indexPath.row == 0) {
-        
             [cell.leftImage setImage:[UIImage imageNamed:@"Unknown.png"]];
-        
             [cell.titleLabel setText:@"《用户协议》"];
-        
         } else {
-        
             [cell.leftImage setImage:[UIImage imageNamed:@"xieyi"]];
-            
             [cell.titleLabel setText:@"《隐私保护》"];
-        
         }
-        
         return cell;
     
     } else if (indexPath.section == 4 ) {
             
         [cell.leftImage setImage:[UIImage imageNamed:@"about_us.png"]];
-        
         [cell.titleLabel setText:@"关于30000天"];
-        
         return cell;
     
     } else if (indexPath.section == 5 ) {
         
         LogoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogoutTableViewCell"];
-        
         if (cell == nil) {
-            
             cell = [[[NSBundle mainBundle] loadNibNamed:@"LogoutTableViewCell" owner:self options:nil] lastObject];
-            
         }
-        
         return cell;
-        
     }
-    
     return nil;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -322,9 +282,7 @@
     if (indexPath.section == 0) {
         
         UserInfoViewController *user = [[UserInfoViewController alloc] init];
-        
         user.hidesBottomBarWhenPushed = YES;
-        
         [self.navigationController pushViewController:user animated:YES];
         
     } else if (indexPath.section == 1) {
@@ -335,9 +293,15 @@
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
             
-        } else {
+        } else if (indexPath.row == 1) {
             
             QRReaderViewController *controller = [[QRReaderViewController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+        } else if (indexPath.row == 2) {
+            
+            STRedPacketListController *controller = [[STRedPacketListController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }

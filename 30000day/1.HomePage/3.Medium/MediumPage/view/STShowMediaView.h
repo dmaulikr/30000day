@@ -12,8 +12,7 @@
 @interface STShowMediaView : UIView
 
 @property (nonatomic,assign) id delegate;
-
-@property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
+@property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index,UIImage *image);//0第2个，1表示第2个，2表示第3个
 @property (nonatomic,copy) void (^videoClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
 
 //mediumModel 可以是经过处理的，也可以是没经过处理的

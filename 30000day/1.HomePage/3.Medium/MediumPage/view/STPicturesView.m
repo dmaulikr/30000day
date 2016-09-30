@@ -82,6 +82,9 @@
         imageView_first.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_first = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFirstAction)];
         [imageView_first addGestureRecognizer:tap_first];
+        //长按事件
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFirstAction)];
+        [imageView_first addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_first) {
@@ -100,6 +103,9 @@
         imageView_second.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_second = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSecondAction)];
         [imageView_second addGestureRecognizer:tap_second];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressSecondAction)];
+        [imageView_second addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_second) {
@@ -118,6 +124,9 @@
         imageView_third.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_third = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapThirdAction)];
         [imageView_third addGestureRecognizer:tap_third];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressThirdAction)];
+        [imageView_third addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_third) {
@@ -137,6 +146,9 @@
         imageView_fourth.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_fourth = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFourthAction)];
         [imageView_fourth addGestureRecognizer:tap_fourth];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressFourthAction)];
+        [imageView_fourth addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_fourth) {
@@ -156,6 +168,9 @@
         imageView_fifth.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_fifth = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFifthAction)];
         [imageView_fifth addGestureRecognizer:tap_fifth];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressFifthAction)];
+        [imageView_fifth addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_fifth) {
@@ -175,6 +190,9 @@
         imageView_sixth.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_sixth = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSixthAction)];
         [imageView_sixth addGestureRecognizer:tap_sixth];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressSixthAction)];
+        [imageView_sixth addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_sixth) {
@@ -194,6 +212,9 @@
         imageView_seventh.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_seventh = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSeventhAction)];
         [imageView_seventh addGestureRecognizer:tap_seventh];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressSeventhAction)];
+        [imageView_seventh addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_seventh) {
@@ -213,6 +234,9 @@
         imageView_eighth.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_eighth = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapEighthAction)];
         [imageView_eighth addGestureRecognizer:tap_eighth];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressEighthAction)];
+        [imageView_eighth addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_eighth) {
@@ -232,6 +256,9 @@
         imageView_ninth.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap_ninth = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapNinthAction)];
         [imageView_ninth addGestureRecognizer:tap_ninth];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longpressNinthAction)];
+        [imageView_ninth addGestureRecognizer:longPress];
     }
     
     if (!self.coverImageView_ninth) {
@@ -297,55 +324,109 @@
 
 - (void)tapFirstAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(0);
+        self.pictureClickBlock(0,self.imageView_first.image);
     }
 }
 
 - (void)tapSecondAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(1);
+        self.pictureClickBlock(1,self.imageView_second.image);
     }
 }
 
 - (void)tapThirdAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(2);
+        self.pictureClickBlock(2,self.imageView_third.image);
     }
 }
 
 - (void)tapFourthAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(3);
+        self.pictureClickBlock(3,self.imageView_fourth.image);
     }
 }
 
 - (void)tapFifthAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(4);
+        self.pictureClickBlock(4,self.imageView_fifth.image);
     }
 }
 
 - (void)tapSixthAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(5);
+        self.pictureClickBlock(5,self.imageView_sixth.image);
     }
 }
 
 - (void)tapSeventhAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(6);
+        self.pictureClickBlock(6,self.imageView_seventh.image);
     }
 }
 
 - (void)tapEighthAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(7);
+        self.pictureClickBlock(7,self.imageView_eighth.image);
     }
 }
 
 - (void)tapNinthAction {
     if (self.pictureClickBlock) {
-        self.pictureClickBlock(8);
+        self.pictureClickBlock(8,self.imageView_ninth.image);
+    }
+}
+//长按
+- (void)longPressFirstAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(0,self.imageView_first.image);
+    }
+}
+
+- (void)longpressSecondAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(1,self.imageView_second.image);
+    }
+}
+
+- (void)longpressThirdAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(2,self.imageView_third.image);
+    }
+}
+
+- (void)longpressFourthAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(3,self.imageView_fourth.image);
+    }
+}
+
+- (void)longpressFifthAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(4,self.imageView_fifth.image);
+    }
+}
+
+- (void)longpressSixthAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(5,self.imageView_sixth.image);
+    }
+}
+
+- (void)longpressSeventhAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(6,self.imageView_seventh.image);
+    }
+}
+
+- (void)longpressEighthAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(7,self.imageView_eighth.image);
+    }
+}
+
+- (void)longpressNinthAction {
+    if (self.longPressBlock) {
+        self.longPressBlock(8,self.imageView_ninth.image);
     }
 }
 

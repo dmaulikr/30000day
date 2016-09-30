@@ -11,7 +11,8 @@
 
 @interface STPicturesView : UIView
 
-@property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index);//0第2个，1表示第2个，2表示第3个
+@property (nonatomic,copy) void (^pictureClickBlock)(NSInteger index,UIImage *image);//显示图片的index
+@property (nonatomic,copy) void (^longPressBlock)(NSInteger index,UIImage *image);//显示图片的index
 //根据图片URL数组来算出图片视图有多高
 + (CGFloat)heightPicturesViewWith:(NSMutableArray <STPicturesModel *>*)pictureURLArray;
 //显示图片

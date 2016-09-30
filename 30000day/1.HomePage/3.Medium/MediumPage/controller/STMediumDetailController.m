@@ -67,6 +67,7 @@
     //2.settingView
     STSettingView *settingView = [[STSettingView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT - [STSettingView heightView:self.mixedMediumModel], self.view.width, [STSettingView heightView:self.mixedMediumModel])];
     settingView.delegate = self;
+    settingView.visibleType = self.visibleType;
     [settingView configureViewWithModel:self.mixedMediumModel];
     [self.view addSubview:settingView];
     self.settingView = settingView;
