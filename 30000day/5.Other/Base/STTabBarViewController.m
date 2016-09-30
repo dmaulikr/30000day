@@ -30,6 +30,7 @@
             controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"seleteMedium"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         } else if (i == 3) {
             controller.tabBarItem.selectedImage = [[UIImage imageNamed:@"selectMy"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            controller.tabBarItem.image = [[UIImage imageNamed:@"my"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         }
     }
 #pragma mark ---- 以下修改app和底部tabBarItem角标的方法

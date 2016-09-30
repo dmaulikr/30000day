@@ -27,75 +27,54 @@
 #import "STRedPacketListController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @end
 
 @implementation MyTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = @"我的";
+    self.tableViewStyle = STRefreshTableViewGroup;
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
-    
-//    self.tableViewStyle = STRefreshTableViewGroup;
-//    [self.tableView setDataSource:self];
-//    [self.tableView setDelegate:self];
-//    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//    [self showHeadRefresh:YES showFooterRefresh:NO];
-//    self.isShowBackItem = NO;
+    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [self showHeadRefresh:YES showFooterRefresh:NO];
+    self.isShowBackItem = NO;
     
     //监听个人信息管理模型发出的通知
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
-    
 //    [self loadEmail];
 }
 
-
-
 #pragma ---
 #pragma mark --- 上啦刷新和下拉刷新
-
 - (void)headerRefreshing {
-    
     [self loadUserInformation];
 }
 
 - (void)reloadData:(NSNotification *)notification {
-    
     [self.tableView reloadData];
 }
 
 - (void)loadUserInformation {
-    
     [self.dataHandler postSignInWithPassword:[Common readAppDataForKey:KEY_SIGNIN_USER_PASSWORD]
                                    loginName:[Common readAppDataForKey:KEY_SIGNIN_USER_NAME]
                           isPostNotification:YES
                             isFromThirdParty:[NSNumber numberWithInteger:[Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY]]
                                         type:[Common readAppDataForKey:KEY_LOGIN_TYPE]
                                      success:^(BOOL success) {
-                                         
                                          //获取用户的email
 //                                         [self loadEmail];
-                                         
                                          [self.tableView.mj_header endRefreshing];
-                                         
                                      } failure:^(NSError *error) {
                                          
                                          NSString *errorString = [error userInfo][NSLocalizedDescriptionKey];
-                                         
                                          if ([errorString isEqualToString:@"账户无效，请重新登录"]) {
-                                             
                                              [self showToast:@"账户无效"];
                                              [self jumpToSignInViewController];
-                                             
                                          } else  {
-                                             
                                              [self showToast:@"网络繁忙，请再次刷新"];
                                          }
-                                         
                                          [self.tableView.mj_header endRefreshing];
                                      }];
 }
@@ -103,7 +82,6 @@
 
 //跳到登录控制器
 - (void)jumpToSignInViewController {
-    
     SignInViewController *logview = [[SignInViewController alloc] init];
     STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -116,30 +94,20 @@
     [STDataHandler sendVerificationUserEmailWithUserId:[Common readAppDataForKey:KEY_SIGNIN_USER_UID] success:^(NSDictionary *verificationDictionary) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           
             if ([Common isObjectNull:verificationDictionary]) {
-                
                 [STUserAccountHandler userProfile].email = @"未绑定邮箱";
-                
             } else {
-                
                 [STUserAccountHandler userProfile].email = verificationDictionary[@"email"];
             }
-            
             [self.tableView.mj_header endRefreshing];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         });
         
     } failure:^(NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           
             [self.tableView.mj_header endRefreshing];
-            
             [MTProgressHUD hideHUD:[UIApplication sharedApplication].keyWindow];
-            
         });
         
     }];
@@ -294,13 +262,10 @@
             [self.navigationController pushViewController:controller animated:YES];
             
         } else if (indexPath.row == 1) {
-            
             QRReaderViewController *controller = [[QRReaderViewController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
-            
         } else if (indexPath.row == 2) {
-            
             STRedPacketListController *controller = [[STRedPacketListController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
@@ -309,55 +274,38 @@
     } else if (indexPath.section == 2) {
         
         if (indexPath.row == 0) {
-            
             SecurityViewController *stc = [[SecurityViewController alloc] init];
             stc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:stc animated:YES];
-            
         } else if (indexPath.row == 1) {
-          
             SetUpViewController *suc = [[SetUpViewController alloc] init];
             suc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:suc animated:YES];
         }
-        
     } else if (indexPath.section == 3) {
         
         AgreementWebViewController *controller = [[AgreementWebViewController alloc] init];
-    
         if (indexPath.row == 0) {
-            
             controller.type = 0;
-            
         } else {
-        
             controller.type = 1;
-        
         }
-        
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
-        
     } else if (indexPath.section == 4) {
-        
         AboutTableViewController *controller = [[AboutTableViewController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
-        
     } else if (indexPath.section == 5) {
-        
         [self cancelAction];
     }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)cancelAction {
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定注销？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         //***********退出登录  *****/
@@ -368,7 +316,6 @@
         [Common readAppIntegerDataForKey:KEY_IS_THIRDPARTY];
         
         [[CDChatManager sharedManager] closeWithCallback: ^(BOOL succeeded, NSError *error) {
-            
         }];
         
         //清空推送别名
@@ -379,15 +326,11 @@
         SignInViewController *logview = [[SignInViewController alloc] init];
         STNavigationController *navigationController = [[STNavigationController alloc] initWithRootViewController:logview];
         [self presentViewController:navigationController animated:YES completion:nil];
-        
     }]];
-    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-
 - (void)dealloc {
-    
     [STNotificationCenter removeObserver:self name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
 }
 
