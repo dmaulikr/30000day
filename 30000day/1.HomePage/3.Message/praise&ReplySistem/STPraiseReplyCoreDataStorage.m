@@ -6,127 +6,135 @@
 //  Copyright © 2016年 GuoJia. All rights reserved.
 //
 
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 #import "NSManagedObject+handler.h"
 #import "PraiseReplyStorageObject.h"
 #import "CDChatManager.h"
 #import "UserInformationModel.h"
+#import "STCoreDataStorageProtected.h"
 
 typedef void(^OperationResult)(NSError *error);
-static STPraiseReplyStorageManager *instance;
+static STPraiseReplyCoreDataStorage *instance;
 
-@interface STPraiseReplyStorageManager ()
-
-@property (readonly, strong, nonatomic) NSOperationQueue *queue;
-@property (readonly ,strong, nonatomic) NSManagedObjectContext *bgObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *mainObjectContext;
-@property (nonatomic, copy)NSString *modelName;
-@property (nonatomic, copy)NSString *dbFileName;
+@interface STPraiseReplyCoreDataStorage ()
 
 @end
 
-@implementation STPraiseReplyStorageManager
+@implementation STPraiseReplyCoreDataStorage
 
-+ (STPraiseReplyStorageManager *)shareManager {
++ (STPraiseReplyCoreDataStorage *)shareStorage {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[STPraiseReplyStorageManager alloc] init];
-        [instance configModel:@"StorageSystem" DbFile:@"StorageSystem.sqlite"];
+        
+        instance = [[STPraiseReplyCoreDataStorage alloc] initWithDatabaseFilename:nil storeOptions:nil];
+        
     });
     return instance;
 }
 
-- (void)configModel:(NSString *)model DbFile:(NSString *)filename {
-    _modelName = model;
-    _dbFileName = filename;
-    [self initCoreDataStack];
-}
-
-- (void)initCoreDataStack {
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _bgObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [_bgObjectContext setPersistentStoreCoordinator:coordinator];
-        _mainObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [_mainObjectContext setParentContext:_bgObjectContext];
-    }
-}
-
-- (NSManagedObjectContext *)createPrivateObjectContext {
-    NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [ctx setParentContext:_mainObjectContext];
-    return ctx;
-}
-
-- (NSManagedObjectModel *)managedObjectModel {
-    NSManagedObjectModel *managedObjectModel;
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:_modelName withExtension:@"momd"];
-    managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return managedObjectModel;
-}
-
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+- (void)commonInit {
+    [super commonInit];
     
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = nil;
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:_dbFileName];
-    NSError *error = nil;
-    
-    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
-                                       NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
-                                       NSInferMappingModelAutomaticallyOption, nil];
-    
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:optionsDictionary error:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    return persistentStoreCoordinator;
+    // This method is invoked by all public init methods of the superclass
+//    autoRemovePreviousDatabaseFile = NO;
+//    autoRecreateDatabaseFile = YES;
 }
 
-- (NSURL *)applicationDocumentsDirectory {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+- (void)dealloc {
+#if !OS_OBJECT_USE_OBJC
+    if (parentQueue)
+        dispatch_release(parentQueue);
+#endif
 }
-
-- (NSError *)save:(OperationResult)handler {
-    NSError *error;
-    if ([_mainObjectContext hasChanges]) {
-        [_mainObjectContext save:&error];
-        [_bgObjectContext performBlock:^{
-            __block NSError *inner_error = nil;
-            [_bgObjectContext save:&inner_error];
-            if (handler) {
-                [_mainObjectContext performBlock:^{
-                    handler(error);
-                }];
-            }
-        }];
-    }
-    return error;
-}
-
-//**********************************
 
 //新增或者刷新消息数组
 - (void)addPraiseReplyWith:(NSArray <AVIMTypedMessage *>*)messageArray visibleType:(NSNumber *)visibleType {
+    // 苹果官方给出方法
+//    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//    [context setParentContext:self.mainThreadManagedObjectContext];
+//    [context performBlock:^{
+//        NSLog(@"----%@",[NSThread currentThread].description);
+//        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+//            
+//            for (int i = 0; i <messageArray.count ; i++) {
+//                AVIMTypedMessage *message = messageArray[i];
+//                PraiseReplyStorageModel *model = [[PraiseReplyStorageModel alloc] init];
+//                model.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
+//                model.userId = STUserAccountHandler.userProfile.userId;
+//                model.readState = @1;
+//                model.messageId = message.messageId;
+//                model.messageType = [NSNumber numberWithUnsignedInteger:message.mediaType];
+//                model.visibleType = visibleType;
+//                
+//                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:context];
+//                PraiseReplyStorageObject *object = (PraiseReplyStorageObject *)
+//                [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+//                object.metaData = model.metaData;
+//                object.readState = @1;
+//                object.userId = model.userId;
+//                object.messageId = model.messageId;
+//                object.messageType = model.messageType;
+//                object.visibleType = model.visibleType;
+//                
+//                [context insertObject:object];
+//            }
+//            
+//            NSError *error = nil;
+//            if (![context save:&error]) {
+//                NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+//                abort();
+//            }
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                [self.mainThreadManagedObjectContext performBlockAndWait:^{
+//                    NSError *error = nil;
+//                    if (![self.mainThreadManagedObjectContext save:&error]) {
+//                        NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+//                        abort();
+//                    } else {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            [STNotificationCenter postNotificationName:STSameBodyReplyPraiseSendNotification object:visibleType];
+//                        });
+//                    }
+//                }];
+//            });
+//        }
+//    }];
     
-    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
-        for (int i = 0; i <messageArray.count ; i++) {
-            AVIMTypedMessage *message = messageArray[i];
-            PraiseReplyStorageModel *model = [[PraiseReplyStorageModel alloc] init];
-            model.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
-            model.userId = STUserAccountHandler.userProfile.userId;
-            model.readState = @1;
-            model.messageId = message.messageId;
-            model.messageType = [NSNumber numberWithUnsignedInteger:message.mediaType];
-            model.visibleType = visibleType;
-            [self _addObjectWithModel:model];
-        }
-        [self save:^(NSError *error) {
-            if ([Common isObjectNull:error]) {
-                [STNotificationCenter postNotificationName:STSameBodyReplyPraiseSendNotification object:visibleType];
+    //xmppp协议所使用的方法
+    [self scheduleBlock:^{
+        
+        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+
+            for (int i = 0; i <messageArray.count ; i++) {
+                AVIMTypedMessage *message = messageArray[i];
+                PraiseReplyStorageModel *model = [[PraiseReplyStorageModel alloc] init];
+                model.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
+                model.userId = STUserAccountHandler.userProfile.userId;
+                model.readState = @1;
+                model.messageId = message.messageId;
+                model.messageType = [NSNumber numberWithUnsignedInteger:message.mediaType];
+                model.visibleType = visibleType;
+
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.managedObjectContext];
+                PraiseReplyStorageObject *object = (PraiseReplyStorageObject *)
+                [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext];
+                object.metaData = model.metaData;
+                object.readState = @1;
+                object.userId = model.userId;
+                object.messageId = model.messageId;
+                object.messageType = model.messageType;
+                object.visibleType = model.visibleType;
+                
+                [self.managedObjectContext insertObject:object];
+                [self save];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [STNotificationCenter postNotificationName:STSameBodyReplyPraiseSendNotification object:visibleType];
+                });
             }
-        }];
-    }
+        }
+    }];
 }
 
 - (void)markMessageWith:(NSArray <AVIMTypedMessage *>*)messageArray visibleType:(NSNumber *)visibleType readState:(NSNumber *)readState {
@@ -147,37 +155,28 @@ static STPraiseReplyStorageManager *instance;
     }
 }
 
-- (void)_addObjectWithModel:(PraiseReplyStorageModel *)model {
-    PraiseReplyStorageObject *object = [PraiseReplyStorageObject createObjectWithMainContext:self.mainObjectContext];
-    object.metaData = model.metaData;
-    object.readState = @1;
-    object.userId = model.userId;
-    object.messageId = model.messageId;
-    object.messageType = model.messageType;
-    object.visibleType = model.visibleType;
-}
-
 - (void)_setIsReadedWithModel:(NSArray <PraiseReplyStorageModel *>*)array {
     
-    for (int i = 0; i < array.count; i++) {
-        PraiseReplyStorageModel *model = array[i];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND messageId == %@ AND visibleType == %@",model.userId,model.messageId,model.visibleType];
-        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
-        NSArray *dataArray = [PraiseReplyStorageObject filterWithContext:[STPraiseReplyStorageManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:0 limit:0];
-        if (dataArray.count) {
-            PraiseReplyStorageObject *object = dataArray[0];
-            object.readState = model.readState;
+    [self executeBlock:^{
+        for (int i = 0; i < array.count; i++) {
+            PraiseReplyStorageModel *model = array[i];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND messageId == %@ AND visibleType == %@",model.userId,model.messageId,model.visibleType];
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
+            NSArray *dataArray = [PraiseReplyStorageObject filterWithContext:[self managedObjectContext] predicate:predicate orderby:@[descriptor] offset:0 limit:0];
+            if (dataArray.count) {
+                PraiseReplyStorageObject *object = dataArray[0];
+                object.readState = model.readState;
+            }
         }
-    }
-    [self save:nil];
+        [self save];
+    }];
 }
 
 - (NSArray <AVIMPraiseMessage *>*)getPraiseMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit {
-    
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@99,visibleType];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
-        NSArray *dataArray = [PraiseReplyStorageObject _filterWithContext:[STPraiseReplyStorageManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:offset limit:limit];
+        NSArray *dataArray = [PraiseReplyStorageObject _filterWithContext:self.mainThreadManagedObjectContext predicate:predicate orderby:@[descriptor] offset:offset limit:limit];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (int i = 0; i <dataArray.count ; i++) {
             PraiseReplyStorageObject *object = dataArray[i];
@@ -191,10 +190,11 @@ static STPraiseReplyStorageManager *instance;
 }
 
 - (NSArray <AVIMPraiseMessage *>*)geReplyMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit {
+
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@98,visibleType];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
-        NSArray *dataArray = [PraiseReplyStorageObject _filterWithContext:[STPraiseReplyStorageManager shareManager].mainObjectContext predicate:predicate orderby:@[descriptor] offset:offset limit:limit];
+        NSArray *dataArray = [PraiseReplyStorageObject _filterWithContext:self.mainThreadManagedObjectContext predicate:predicate orderby:@[descriptor] offset:offset limit:limit];
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (int i = 0; i <dataArray.count ; i++) {
             PraiseReplyStorageObject *object = dataArray[i];
@@ -252,7 +252,7 @@ static STPraiseReplyStorageManager *instance;
         model.originalNickName = originalNickName;
         model.userId = userId;
         //发送消息
-        [STPraiseReplyStorageManager sendPraiseReplyMessageWith:message memberClientIdArray:userIdArray userInformationModel:model callBack:^(BOOL success, NSError *error, AVIMConversation *conversation) {
+        [STPraiseReplyCoreDataStorage sendPraiseReplyMessageWith:message memberClientIdArray:userIdArray userInformationModel:model callBack:^(BOOL success, NSError *error, AVIMConversation *conversation) {
         }];
     }
 }
@@ -276,7 +276,7 @@ static STPraiseReplyStorageManager *instance;
         model.originalNickName = originalNickName;
         model.userId = userId;
         //发送消息
-        [STPraiseReplyStorageManager sendPraiseReplyMessageWith:message memberClientIdArray:userIdArray userInformationModel:model callBack:^(BOOL success, NSError *error, AVIMConversation *conversation) {
+        [STPraiseReplyCoreDataStorage sendPraiseReplyMessageWith:message memberClientIdArray:userIdArray userInformationModel:model callBack:^(BOOL success, NSError *error, AVIMConversation *conversation) {
         }];
     }
 }

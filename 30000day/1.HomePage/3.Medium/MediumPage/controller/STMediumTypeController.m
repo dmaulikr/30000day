@@ -15,7 +15,7 @@
 #import "STShowMediumTableViewCell.h"
 #import "STMediumModel+category.h"
 #import "STChooseItemManager.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 #import "STShowReplyPraiseView.h"
 #import "STShowReplyPraiseController.h"
 
@@ -59,8 +59,8 @@
 
 //查询是否有人给你发信息&同是判断底部的tabBarItem是否显示红色
 - (void)querySameBodyReplyPraise {
-    self.praiseArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
-    self.replyArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
+    self.praiseArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
+    self.replyArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
     [self judgeTabBarItemIsShowRed];
     [self.tableView reloadData];
 }
@@ -324,7 +324,7 @@
         STShowReplyPraiseView *view =  [STShowReplyPraiseView showReplyPraiseView];
         //点击了回复视图
         [view setReplyBlock:^(NSArray<AVIMReplyMessage *> *messageArray) {
-            [[STPraiseReplyStorageManager shareManager] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
+            [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
             [self querySameBodyReplyPraise];
             STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
             controller.visibleType = self.visibleType;
@@ -334,7 +334,7 @@
         }];
         //点击了点赞视图
         [view setPraiseBlock:^(NSArray<AVIMPraiseMessage *> *messageArray) {
-            [[STPraiseReplyStorageManager shareManager] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
+            [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
             [self querySameBodyReplyPraise];
             STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
             controller.visibleType = self.visibleType;

@@ -12,7 +12,7 @@
 #import "InformationCommentModel.h"
 #import "UIImageView+WebCache.h"
 #import "MTProgressHUD.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 
 @interface STPlaceHoldView : UIView
 @property (nonatomic,strong) UILabel *label;
@@ -107,7 +107,7 @@
                         [self searchCommentsWithPid:-1 busiType:1];
                         //发送消息
                         if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
-                            [STPraiseReplyStorageManager sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:self.userId originHeadImg:self.originHeadImg originalNickName:self.originNickName visibleType:self.visibleType];
+                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:self.userId originHeadImg:self.originHeadImg originalNickName:self.originNickName visibleType:self.visibleType];
                         }
                     }
                     [self hideHUD:YES];
@@ -314,7 +314,7 @@
                         [self cellDataProcessing:checkReplyButton index:indexPath];
                         //发送消息
                         if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
-                            [STPraiseReplyStorageManager sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[NSNumber numberWithLongLong:[commentModel.userId longLongValue]] originHeadImg:commentModel.headImg originalNickName:commentModel.nickName visibleType:self.visibleType];
+                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[NSNumber numberWithLongLong:[commentModel.userId longLongValue]] originHeadImg:commentModel.headImg originalNickName:commentModel.nickName visibleType:self.visibleType];
                         }
                     }
                 });

@@ -7,7 +7,7 @@
 //
 
 #import "STShowReplyPraiseController.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 #import "STShowReplyPraiseTableViewCell.h"
 #import "AVIMPraiseMessage.h"
 #import "UIImageView+WebCache.h"
@@ -38,17 +38,17 @@
 
 - (void)popController {
     if ([self.messageType isEqualToNumber:@99]) {//
-        [[STPraiseReplyStorageManager shareManager] markMessageWith:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0] visibleType:self.visibleType readState:@0];//标记成过渡消息
+        [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0] visibleType:self.visibleType readState:@0];//标记成过渡消息
     } else {
-        [[STPraiseReplyStorageManager shareManager] markMessageWith:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0] visibleType:self.visibleType readState:@0];//标记成过渡消息
+        [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0] visibleType:self.visibleType readState:@0];//标记成过渡消息
     }
 }
 
 - (void)getStorageData {
     if ([self.messageType isEqualToNumber:@99]) {
-        self.dataArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0]];
+        self.dataArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0]];
     } else {
-        self.dataArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0]];
+        self.dataArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@2 offset:0 limit:0]];
     }
     [self.tableView reloadData];
     self.currentPage = 0;
@@ -63,9 +63,9 @@
 - (void)footerRereshing {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     if ([self.messageType isEqualToNumber:@99]) {
-        [array addObjectsFromArray:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@0 offset:self.currentPage limit:10]];
+        [array addObjectsFromArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@0 offset:self.currentPage limit:10]];
     } else {
-        [array addObjectsFromArray:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@0 offset:self.currentPage limit:10]];
+        [array addObjectsFromArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@0 offset:self.currentPage limit:10]];
     }
     if (array.count) {
         [self.tableView.mj_footer setState:MJRefreshStateIdle];

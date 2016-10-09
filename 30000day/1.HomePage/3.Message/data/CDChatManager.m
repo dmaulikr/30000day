@@ -15,7 +15,7 @@
 #import "CDChatManager_Internal.h"
 #import "AVIMNoticationMessage.h"
 #import "CDMediaMessageManager.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 
 static CDChatManager *instance;
 
@@ -383,11 +383,11 @@ static CDChatManager *instance;
         }
         [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
     } else if (message.mediaType == 98) {//回复类型消息
-        [[STPraiseReplyStorageManager shareManager] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
+        [[STPraiseReplyCoreDataStorage shareStorage] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
 //        NSLog(@"%@",message.attributes);
     } else if (message.mediaType == 99) {//点赞类型消息
         NSData *data = [message.content dataUsingEncoding:NSUTF8StringEncoding];
-        [[STPraiseReplyStorageManager shareManager] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
+        [[STPraiseReplyCoreDataStorage shareStorage] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
         NSDictionary *dict = message.attributes;
         NSLog(@"---%@",message.attributes);
     }

@@ -311,8 +311,8 @@
 		B86277431D9918880020E313 /* STRedPacketListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86277411D9918880020E313 /* STRedPacketListCell.xib */; };
 		B86277461D9A5BF50020E313 /* AVIMPraiseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277451D9A5BF50020E313 /* AVIMPraiseMessage.m */; };
 		B86277491D9A5CFD0020E313 /* AVIMReplyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277481D9A5CFD0020E313 /* AVIMReplyMessage.m */; };
-		B86277651D9A6D660020E313 /* STPraiseReplyStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277641D9A6D660020E313 /* STPraiseReplyStorageManager.m */; };
-		B862776F1D9A6F3A0020E313 /* StorageSystem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B862776D1D9A6F3A0020E313 /* StorageSystem.xcdatamodeld */; };
+		B86277651D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */; };
+		B862776F1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */; };
 		B86277871D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */; };
 		B862778A1D9A768E0020E313 /* PraiseReplyStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277891D9A768E0020E313 /* PraiseReplyStorageObject.m */; };
 		B862778D1D9A7A120020E313 /* PraiseReplyStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B862778C1D9A7A120020E313 /* PraiseReplyStorageModel.m */; };
@@ -463,6 +463,7 @@
 		B8BD78941CC2478200362C89 /* STRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78931CC2478200362C89 /* STRequest.m */; };
 		B8BD78971CC24DDF00362C89 /* STApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78961CC24DDF00362C89 /* STApiRequest.m */; };
 		B8BD789A1CC24FC500362C89 /* STNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD78991CC24FC500362C89 /* STNetworkAgent.m */; };
+		B8CA50BC1DA8C9060028AEB2 /* STCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CA50BB1DA8C9060028AEB2 /* STCoreDataStorage.m */; };
 		B8D67A061C72ED8100805EE2 /* ShareAnimatonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */; };
 		B8D67A081C72ED9000805EE2 /* ShareAnimatonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */; };
 		B8D67A1D1C7420B000805EE2 /* SearchFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D67A1B1C7420B000805EE2 /* SearchFriendsTableViewCell.m */; };
@@ -1231,9 +1232,9 @@
 		B86277451D9A5BF50020E313 /* AVIMPraiseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMPraiseMessage.m; sourceTree = "<group>"; };
 		B86277471D9A5CFD0020E313 /* AVIMReplyMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVIMReplyMessage.h; sourceTree = "<group>"; };
 		B86277481D9A5CFD0020E313 /* AVIMReplyMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVIMReplyMessage.m; sourceTree = "<group>"; };
-		B86277631D9A6D660020E313 /* STPraiseReplyStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPraiseReplyStorageManager.h; sourceTree = "<group>"; };
-		B86277641D9A6D660020E313 /* STPraiseReplyStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPraiseReplyStorageManager.m; sourceTree = "<group>"; };
-		B862776E1D9A6F3A0020E313 /* StorageSystem.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorageSystem.xcdatamodel; sourceTree = "<group>"; };
+		B86277631D9A6D660020E313 /* STPraiseReplyCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPraiseReplyCoreDataStorage.h; sourceTree = "<group>"; };
+		B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPraiseReplyCoreDataStorage.m; sourceTree = "<group>"; };
+		B862776E1D9A6F3A0020E313 /* STPraiseReply.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPraiseReply.xcdatamodel; sourceTree = "<group>"; };
 		B86277781D9A71310020E313 /* 30000day-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "30000day-Bridging-Header.h"; sourceTree = "<group>"; };
 		B86277851D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PraiseReplyStorageObject+CoreDataProperties.h"; sourceTree = "<group>"; };
 		B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PraiseReplyStorageObject+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -1510,6 +1511,9 @@
 		B8BD78961CC24DDF00362C89 /* STApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STApiRequest.m; sourceTree = "<group>"; };
 		B8BD78981CC24FC500362C89 /* STNetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STNetworkAgent.h; sourceTree = "<group>"; };
 		B8BD78991CC24FC500362C89 /* STNetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STNetworkAgent.m; sourceTree = "<group>"; };
+		B8CA50B81DA8C8BD0028AEB2 /* STCoreDataStorageProtected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataStorageProtected.h; sourceTree = "<group>"; };
+		B8CA50BA1DA8C9060028AEB2 /* STCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCoreDataStorage.h; sourceTree = "<group>"; };
+		B8CA50BB1DA8C9060028AEB2 /* STCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCoreDataStorage.m; sourceTree = "<group>"; };
 		B8D67A041C72ED8100805EE2 /* ShareAnimatonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAnimatonView.h; sourceTree = "<group>"; };
 		B8D67A051C72ED8100805EE2 /* ShareAnimatonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAnimatonView.m; sourceTree = "<group>"; };
 		B8D67A071C72ED9000805EE2 /* ShareAnimatonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareAnimatonView.xib; sourceTree = "<group>"; };
@@ -2846,15 +2850,15 @@
 		B862774A1D9A67A40020E313 /* praise&ReplySystem */ = {
 			isa = PBXGroup;
 			children = (
-				B862776D1D9A6F3A0020E313 /* StorageSystem.xcdatamodeld */,
+				B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */,
 				B86277881D9A768E0020E313 /* PraiseReplyStorageObject.h */,
 				B86277891D9A768E0020E313 /* PraiseReplyStorageObject.m */,
 				B86277851D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.h */,
 				B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */,
 				B862778B1D9A7A120020E313 /* PraiseReplyStorageModel.h */,
 				B862778C1D9A7A120020E313 /* PraiseReplyStorageModel.m */,
-				B86277631D9A6D660020E313 /* STPraiseReplyStorageManager.h */,
-				B86277641D9A6D660020E313 /* STPraiseReplyStorageManager.m */,
+				B86277631D9A6D660020E313 /* STPraiseReplyCoreDataStorage.h */,
+				B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */,
 			);
 			name = "praise&ReplySystem";
 			path = "praise&ReplySistem";
@@ -4152,6 +4156,9 @@
 				B89216C21C6075150023F8A8 /* UserAccountHandler.m */,
 				B8BD78831CC1E6F700362C89 /* STManager.h */,
 				B8BD78841CC1E6F700362C89 /* STManager.m */,
+				B8CA50BA1DA8C9060028AEB2 /* STCoreDataStorage.h */,
+				B8CA50BB1DA8C9060028AEB2 /* STCoreDataStorage.m */,
+				B8CA50B81DA8C8BD0028AEB2 /* STCoreDataStorageProtected.h */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -6023,7 +6030,7 @@
 				B665F8D41CC4BF5200070458 /* ZLCollectionCell.m in Sources */,
 				B83B7A7C1CAD099F00D2CC6A /* QGRecordDetailSwitchHeadView.m in Sources */,
 				B87F9D681C6B423D00468ACA /* TextFieldCellTableViewCell.m in Sources */,
-				B86277651D9A6D660020E313 /* STPraiseReplyStorageManager.m in Sources */,
+				B86277651D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m in Sources */,
 				B665F8D61CC4BF5200070458 /* ZLPhotoActionSheet.m in Sources */,
 				B8695ABD1C74A6E8001B4B95 /* WeatherInformationModel.m in Sources */,
 				F57A23F81D24C73400FBEF7C /* ShareTableViewCell.m in Sources */,
@@ -6035,7 +6042,7 @@
 				B8F73C381C96519F0063CC60 /* InformationViewController.m in Sources */,
 				B8FD3E171C8A7903007BCA6B /* XHWaterDropRefresh.m in Sources */,
 				B8FD3E0D1C8A7903007BCA6B /* SETextMagnifierCaret.m in Sources */,
-				B862776F1D9A6F3A0020E313 /* StorageSystem.xcdatamodeld in Sources */,
+				B862776F1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld in Sources */,
 				B610FAD51CEAC17E00097C72 /* LifeDescendFactorsTableViewCell.m in Sources */,
 				B612DD8E1CAD36C4004C428C /* CompanyCommodityViewController.m in Sources */,
 				B6C9BD631CD84F8A00172B6C /* ThirdPartyLandingViewController.m in Sources */,
@@ -6072,6 +6079,7 @@
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
 				B8FD3DCD1C8A7903007BCA6B /* Emoji.m in Sources */,
 				B80137A21CD9D68100ED0566 /* SettingBirthdayView.m in Sources */,
+				B8CA50BC1DA8C9060028AEB2 /* STCoreDataStorage.m in Sources */,
 				B6D59D591C8EAB4B0082BCAC /* JinSuoDetailsTableViewCell.m in Sources */,
 				B6E30CAC1CE1CF4E00C510A5 /* PromoteAgeTableViewCell.m in Sources */,
 				B665F8DB1CC4BF5200070458 /* ZLSelectPhotoModel.m in Sources */,
@@ -6415,13 +6423,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B862776D1D9A6F3A0020E313 /* StorageSystem.xcdatamodeld */ = {
+		B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				B862776E1D9A6F3A0020E313 /* StorageSystem.xcdatamodel */,
+				B862776E1D9A6F3A0020E313 /* STPraiseReply.xcdatamodel */,
 			);
-			currentVersion = B862776E1D9A6F3A0020E313 /* StorageSystem.xcdatamodel */;
-			path = StorageSystem.xcdatamodeld;
+			currentVersion = B862776E1D9A6F3A0020E313 /* STPraiseReply.xcdatamodel */;
+			path = STPraiseReply.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

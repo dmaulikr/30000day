@@ -13,7 +13,7 @@
 #import "STMediumCommentController.h"
 #import "STMediumTypeController.h"
 #import "UIImage+WF.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
 #import "AVIMPraiseMessage.h"
 #import "UserInformationModel.h"
 
@@ -61,7 +61,7 @@
             controller.userId = [weakSelf.mixedMediumModel getOriginMediumModel].writerId;
             controller.originNickName = [weakSelf.mixedMediumModel getOriginMediumModel].originalNickName;
             controller.originHeadImg = [weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg;
-            controller.visibleType = self.visibleType;
+            controller.visibleType = weakSelf.visibleType;
             STMediumTypeController *superController = (STMediumTypeController *)weakSelf.delegate;
             [superController.navigationController pushViewController:controller animated:YES];
         }];
@@ -124,7 +124,7 @@
                             
                             if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
                                 //发送点赞消息
-                                [STPraiseReplyStorageManager sendPraiseMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[weakSelf.mixedMediumModel getOriginMediumModel].writerId originHeadImg:[weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg originalNickName:[weakSelf.mixedMediumModel getOriginMediumModel].originalNickName visibleType:self.visibleType];
+                                [STPraiseReplyCoreDataStorage sendPraiseMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[weakSelf.mixedMediumModel getOriginMediumModel].writerId originHeadImg:[weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg originalNickName:[weakSelf.mixedMediumModel getOriginMediumModel].originalNickName visibleType:self.visibleType];
                             }
                         }
                         [self setNeedsLayout];

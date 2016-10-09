@@ -8,7 +8,8 @@
 
 #import "STTabBarViewController.h"
 #import "CDChatManager.h"
-#import "STPraiseReplyStorageManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
+
 
 @interface STTabBarViewController ()
 
@@ -77,10 +78,10 @@
 
 //查询是否有人给你发信息
 - (void)querySameBodyReplyPraise:(NSNotification *)notification {
-    NSMutableArray *replyArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
-    NSMutableArray *praiseArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
-    NSMutableArray *replyArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] getPraiseMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
-    NSMutableArray *praiseArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyStorageManager shareManager] geReplyMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
+    NSMutableArray *replyArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
+    NSMutableArray *praiseArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
+    NSMutableArray *replyArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
+    NSMutableArray *praiseArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
     if (replyArray_1.count || praiseArray_1.count || replyArray_2.count || praiseArray_2.count ) {
         NSArray *controllerArray = self.viewControllers;
         UIViewController *controller = controllerArray[2];

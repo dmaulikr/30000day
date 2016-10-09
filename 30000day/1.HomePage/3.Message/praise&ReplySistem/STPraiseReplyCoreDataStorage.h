@@ -10,10 +10,11 @@
 #import "PraiseReplyStorageModel.h"
 #import "AVIMPraiseMessage.h"
 #import "AVIMReplyMessage.h"
+#import "STCoreDataStorage.h"
 
-@interface STPraiseReplyStorageManager : NSObject
+@interface STPraiseReplyCoreDataStorage : STCoreDataStorage
 
-+ (STPraiseReplyStorageManager *)shareManager;
++ (STPraiseReplyCoreDataStorage *)shareStorage;
 //新增或者刷新消息数组
 - (void)addPraiseReplyWith:(NSArray <AVIMTypedMessage *>*)messageArray visibleType:(NSNumber *)visibleType;
 //批量标记消息(readState:0：阅读过 1：没阅读过 2：过渡类型)
