@@ -10,11 +10,12 @@
 #import "UIImageView+WebCache.h"
 
 #define Margin_min 3
-#define Heigh 50
+#define Heigh 60
 
 @interface STShowURLView ()
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *titleLabel;//标题label
+@property (nonatomic,strong) UILabel *textLabel;//内容label
 @property (nonatomic,strong) UIImageView *imageView;
 @property (nonatomic,strong) STShowURLModel *showURLModel;
 
@@ -47,6 +48,19 @@
         [label addGestureRecognizer:tap];
     }
     
+    if (!self.textLabel) {
+        UILabel *label = [[UILabel alloc] init];
+        label.textColor = LOWBLUECOLOR;
+        label.font = [UIFont systemFontOfSize:15.0f];
+        [self addSubview:label];
+        self.textLabel = label;
+        label.backgroundColor = [UIColor blueColor];
+        //添加点击事件
+        label.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+        [label addGestureRecognizer:tap];
+    }
+    
     if (!self.imageView) {
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -59,7 +73,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [imageView addGestureRecognizer:tap];
     }
-    self.backgroundColor =  RGBACOLOR(247, 247, 247, 1);
+    self.backgroundColor =  RGBACOLOR(245, 245, 245, 1);
 }
 
 //点击行动
@@ -92,26 +106,29 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
-    self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
-    
     if ([self.showURLModel.title isEqualToString:@"网页链接"]) {
         
         if ([Common isObjectNull:self.showURLModel.imageURLString]) {//图片是空的
             self.imageView.hidden = YES;
+            self.textLabel.hidden = YES;
             self.titleLabel.frame = CGRectMake(0,0,self.width,self.height);
             self.backgroundColor = [UIColor clearColor];
         } else {
             self.imageView.hidden = NO;
+            self.textLabel.hidden = NO;
             self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
-            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
+            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+            self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
             self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
         }
         
     } else {
         
         self.imageView.hidden = NO;
+        self.textLabel.hidden = NO;
         self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
-        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, Heigh - 2 * Margin_min);
+        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+        self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
         self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
     }
 }

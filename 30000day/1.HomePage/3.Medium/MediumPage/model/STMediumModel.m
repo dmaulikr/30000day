@@ -104,7 +104,7 @@
 
 + (void)getModelWeMediaType:(NSString *)weMediaType infoContent:(NSString *)infoContent model:(STMediumModel *)mediumModel {
     if ([weMediaType isEqualToString:@"2"]) {//表示是特殊的链接类型，需要特殊处理
-        
+#warning 这里需要配合服务器进行修改-- ；；；
         NSArray *array = [infoContent componentsSeparatedByString:@";"];
         if (array.count == 3) {
             
