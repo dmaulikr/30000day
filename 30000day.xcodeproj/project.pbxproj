@@ -250,6 +250,11 @@
 		B804FDB81C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B804FD171C8AC9A900DFD1CF /* weChatBubble_Sending_Solid@2x.png */; };
 		B808FB581C7718D20000449C /* UserLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB571C7718D20000449C /* UserLifeModel.m */; };
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
+		B8098BBC1DAB8CB800B9FD37 /* STMediumRemindDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */; };
+		B8098BBF1DAB987000B9FD37 /* STMediumSift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8098BBD1DAB987000B9FD37 /* STMediumSift.xcdatamodeld */; };
+		B8098BC21DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */; };
+		B8098BDD1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */; };
+		B8098BE01DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */; };
 		B80A37D01D9BAECF001E36E3 /* STShowReplyPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */; };
 		B80A37D21D9BAF96001E36E3 /* STShowReplyPraiseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */; };
 		B80A37D51D9CB67C001E36E3 /* STShowReplyPraiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */; };
@@ -1129,6 +1134,15 @@
 		B808FB571C7718D20000449C /* UserLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLifeModel.m; sourceTree = "<group>"; };
 		B808FB5A1C780D250000449C /* GetFactorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFactorModel.h; sourceTree = "<group>"; };
 		B808FB5B1C780D250000449C /* GetFactorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFactorModel.m; sourceTree = "<group>"; };
+		B8098BBA1DAB8CB800B9FD37 /* STMediumRemindDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumRemindDetailController.h; sourceTree = "<group>"; };
+		B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumRemindDetailController.m; sourceTree = "<group>"; };
+		B8098BBE1DAB987000B9FD37 /* STMediumSift.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STMediumSift.xcdatamodel; sourceTree = "<group>"; };
+		B8098BC01DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSiftCoreDataStorage.h; sourceTree = "<group>"; };
+		B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSiftCoreDataStorage.m; sourceTree = "<group>"; };
+		B8098BDB1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSiftCoreDataObject.h; sourceTree = "<group>"; };
+		B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSiftCoreDataObject.m; sourceTree = "<group>"; };
+		B8098BDE1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumVisibleTypeCoreDataObject.h; sourceTree = "<group>"; };
+		B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumVisibleTypeCoreDataObject.m; sourceTree = "<group>"; };
 		B80A37CE1D9BAECF001E36E3 /* STShowReplyPraiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowReplyPraiseView.h; sourceTree = "<group>"; };
 		B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowReplyPraiseView.m; sourceTree = "<group>"; };
 		B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STShowReplyPraiseView.xib; sourceTree = "<group>"; };
@@ -2943,6 +2957,8 @@
 				B87A5BDE1D73D6370066B21E /* STMediumCommentController.m */,
 				B80A37D31D9CB67C001E36E3 /* STShowReplyPraiseController.h */,
 				B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */,
+				B8098BBA1DAB8CB800B9FD37 /* STMediumRemindDetailController.h */,
+				B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3085,6 +3101,13 @@
 				B87A5C221D73D6370066B21E /* STChooseItemObject.m */,
 				B87A5C231D73D6370066B21E /* STRestrictingManager.h */,
 				B87A5C241D73D6370066B21E /* STRestrictingManager.m */,
+				B8098BBD1DAB987000B9FD37 /* STMediumSift.xcdatamodeld */,
+				B8098BC01DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.h */,
+				B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */,
+				B8098BDB1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.h */,
+				B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */,
+				B8098BDE1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.h */,
+				B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5893,6 +5916,7 @@
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
 				F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
+				B8098BDD1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m in Sources */,
 				B87A5C521D73D6370066B21E /* STChooseItemCell.m in Sources */,
 				F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
@@ -5943,6 +5967,7 @@
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,
 				B8FD3E2B1C8A7903007BCA6B /* XHRefreshView.m in Sources */,
 				B86277461D9A5BF50020E313 /* AVIMPraiseMessage.m in Sources */,
+				B8098BC21DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */,
 				B8FD3E111C8A7903007BCA6B /* SETextView.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
@@ -6017,6 +6042,7 @@
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
+				B8098BE01DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
 				B87A5C451D73D6370066B21E /* STRelayTableViewCell.m in Sources */,
@@ -6053,6 +6079,7 @@
 				B89216B11C5F3EEA0023F8A8 /* STDataHandler.m in Sources */,
 				B8F6482E1C93A9C3001A3119 /* ShopDetailViewController.m in Sources */,
 				B85C1E941D7912A800D3700F /* STChooseView.m in Sources */,
+				B8098BBC1DAB8CB800B9FD37 /* STMediumRemindDetailController.m in Sources */,
 				B6DDB5001CB796800026322A /* InformationCommentViewController.m in Sources */,
 				B6F043331CC6184F002DF26E /* InformationCommentModel.m in Sources */,
 				B61A4FC01CA13E0C000EAF4C /* CommentModel.m in Sources */,
@@ -6065,6 +6092,7 @@
 				B886ADEC1CB4A32E005E262A /* MyOrderModel.m in Sources */,
 				B8FD3E121C8A7903007BCA6B /* XHImageViewer.m in Sources */,
 				B6E2C0541D5319D50097975B /* MenuTableViewCell.m in Sources */,
+				B8098BBF1DAB987000B9FD37 /* STMediumSift.xcdatamodeld in Sources */,
 				B8F6E3AD1CBCD40B000CC117 /* ShopAnnotation.m in Sources */,
 				B8FFC4401D38B8CD008806A9 /* NSManagedObject+handler.m in Sources */,
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
@@ -6423,6 +6451,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B8098BBD1DAB987000B9FD37 /* STMediumSift.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B8098BBE1DAB987000B9FD37 /* STMediumSift.xcdatamodel */,
+			);
+			currentVersion = B8098BBE1DAB987000B9FD37 /* STMediumSift.xcdatamodel */;
+			path = STMediumSift.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
