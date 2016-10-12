@@ -37,8 +37,8 @@
 @interface AppDelegate ()  {
     BMKMapManager *_mapManager;
 }
-@property (nonatomic) HKHealthStore *healthStore1;
 
+@property (nonatomic) HKHealthStore *healthStore1;
 @property (nonatomic,strong) AVAudioSession *session;
 
 @end
@@ -82,9 +82,7 @@
     [AVIMNoticationMessage registerSubclass];//注册通知类型消息
     [AVIMPraiseMessage registerSubclass];//注册点赞类型消息
     [AVIMReplyMessage registerSubclass];//注册回复类型消息
-    
-    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
-    }];
+    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:nil];//登录leanCloud并设置账号数据库
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -130,9 +128,7 @@
      if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
          
          if (notification.repeatInterval != NSCalendarUnitYear) {//半年的提醒
-             
              [[UIApplication sharedApplication] cancelLocalNotification:notification];
-             
          } else {
              
          }
@@ -140,9 +136,7 @@
      } else {
          
          if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {//半年
-            
              [[UIApplication sharedApplication] cancelLocalNotification:notification];
-             
          } else {//1年
 
          }

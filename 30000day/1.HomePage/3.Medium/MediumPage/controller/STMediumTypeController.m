@@ -18,6 +18,7 @@
 #import "STPraiseReplyCoreDataStorage.h"
 #import "STShowReplyPraiseView.h"
 #import "STShowReplyPraiseController.h"
+#import "STMediumRemindListController.h"
 
 @interface STMediumTypeController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -326,9 +327,13 @@
         [view setReplyBlock:^(NSArray<AVIMReplyMessage *> *messageArray) {
             [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
             [self querySameBodyReplyPraise];
-            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
-            controller.visibleType = self.visibleType;
-            controller.messageType = @98;
+//            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
+//            controller.visibleType = self.visibleType;
+//            controller.messageType = @98;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            
+            STMediumRemindListController *controller = [[STMediumRemindListController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }];
@@ -336,9 +341,13 @@
         [view setPraiseBlock:^(NSArray<AVIMPraiseMessage *> *messageArray) {
             [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
             [self querySameBodyReplyPraise];
-            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
-            controller.visibleType = self.visibleType;
-            controller.messageType = @99;
+//            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
+//            controller.visibleType = self.visibleType;
+//            controller.messageType = @99;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            
+            STMediumRemindListController *controller = [[STMediumRemindListController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }];

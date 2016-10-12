@@ -26,11 +26,10 @@
 #import "STRemindManager.h"
 #import "PriceModel.h"//价格模型
 #import "ActivityModel.h"//活动模型
-
+#import "_0000day-Swift.h"//OC代码引用Swift代码
 
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloudIM.h>
-
 
 #ifdef DEBUG
 #define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
@@ -212,7 +211,7 @@
 #define  Find_DENOUNCETYPES              @"/wemedia/findDenounceTypes"           //获取举报类型
 #define  COMMIT_DENOUNCE                 @"/wemedia/commitDenounce"              //提交举报
 #define  PRIVACYLINK                     @"/STManager/infomation/privacyLink"    //隐私保护
-
+#define  SEARCH_MY_RELATIVE              @"/user/searchMyRelativeMessages"      //查询别人对用户点赞和回复消息
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
 #define USER_ID                    @"userId"

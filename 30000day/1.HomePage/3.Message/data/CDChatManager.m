@@ -61,17 +61,17 @@ static CDChatManager *instance;
 }
 
 - (void)openWithClientId:(NSString *)clientId callback:(AVIMBooleanResultBlock)callback {
-    
     _clientId = clientId;
+    
     NSString *dbPath = [self databasePathWithUserId:_clientId];
     [[CDConversationStore store] setupStoreWithDatabasePath:dbPath];
     [[CDFailedMessageStore store] setupStoreWithDatabasePath:dbPath];
+    
     self.client = [[AVIMClient alloc] initWithClientId:clientId];//开启单点登录
     self.client.delegate = self;
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
-            
             self.connect = YES;
             callback(succeeded, error);
         }
@@ -282,9 +282,7 @@ static CDChatManager *instance;
     if (timestamp == 0) {
         // sdk 会设置好 timestamp
         [conversation queryMessagesWithLimit:limit callback:callback];
-        
     } else {
-        
         [conversation queryMessagesBeforeId:nil timestamp:timestamp limit:limit callback:callback];
     }
 }
@@ -384,12 +382,8 @@ static CDChatManager *instance;
         [[CDMediaMessageManager shareManager] addMediaMessageWithModel:model];
     } else if (message.mediaType == 98) {//回复类型消息
         [[STPraiseReplyCoreDataStorage shareStorage] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
-//        NSLog(@"%@",message.attributes);
     } else if (message.mediaType == 99) {//点赞类型消息
-        NSData *data = [message.content dataUsingEncoding:NSUTF8StringEncoding];
         [[STPraiseReplyCoreDataStorage shareStorage] addPraiseReplyWith:@[message] visibleType:[message.attributes objectForKey:VISIBLETYPE]];
-        NSDictionary *dict = message.attributes;
-        NSLog(@"---%@",message.attributes);
     }
 }
 

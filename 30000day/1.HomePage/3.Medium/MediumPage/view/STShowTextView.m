@@ -37,6 +37,7 @@
     if (!self.displayTextView) {
         SETextView *displayTextView = [[SETextView alloc] initWithFrame:CGRectZero];
         displayTextView.backgroundColor = [UIColor clearColor];
+        displayTextView.highlightedTextColor = [UIColor darkGrayColor];
         displayTextView.selectable = NO;
         displayTextView.lineSpacing = 2;
         displayTextView.font = [UIFont systemFontOfSize:15.0f];

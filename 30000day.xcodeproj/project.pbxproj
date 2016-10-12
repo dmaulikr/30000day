@@ -252,9 +252,14 @@
 		B808FB5C1C780D250000449C /* GetFactorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B808FB5B1C780D250000449C /* GetFactorModel.m */; };
 		B8098BBC1DAB8CB800B9FD37 /* STMediumRemindDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */; };
 		B8098BBF1DAB987000B9FD37 /* STMediumSift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8098BBD1DAB987000B9FD37 /* STMediumSift.xcdatamodeld */; };
-		B8098BC21DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */; };
-		B8098BDD1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */; };
-		B8098BE01DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */; };
+		B8098BE31DACC09900B9FD37 /* STMediumRemindListController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BE21DACC09900B9FD37 /* STMediumRemindListController.m */; };
+		B8098BE61DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BE51DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m */; };
+		B8098BE91DACCF9700B9FD37 /* STMediumRemindListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098BE81DACCF9700B9FD37 /* STMediumRemindListModel.m */; };
+		B8098C0D1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098C0C1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.m */; };
+		B8098C121DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C0E1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataClass.swift */; };
+		B8098C131DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C0F1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift */; };
+		B8098C141DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C101DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift */; };
+		B8098C151DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */; };
 		B80A37D01D9BAECF001E36E3 /* STShowReplyPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */; };
 		B80A37D21D9BAF96001E36E3 /* STShowReplyPraiseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */; };
 		B80A37D51D9CB67C001E36E3 /* STShowReplyPraiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */; };
@@ -1137,12 +1142,18 @@
 		B8098BBA1DAB8CB800B9FD37 /* STMediumRemindDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumRemindDetailController.h; sourceTree = "<group>"; };
 		B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumRemindDetailController.m; sourceTree = "<group>"; };
 		B8098BBE1DAB987000B9FD37 /* STMediumSift.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STMediumSift.xcdatamodel; sourceTree = "<group>"; };
-		B8098BC01DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSiftCoreDataStorage.h; sourceTree = "<group>"; };
-		B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSiftCoreDataStorage.m; sourceTree = "<group>"; };
-		B8098BDB1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSiftCoreDataObject.h; sourceTree = "<group>"; };
-		B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSiftCoreDataObject.m; sourceTree = "<group>"; };
-		B8098BDE1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumVisibleTypeCoreDataObject.h; sourceTree = "<group>"; };
-		B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumVisibleTypeCoreDataObject.m; sourceTree = "<group>"; };
+		B8098BE11DACC09900B9FD37 /* STMediumRemindListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumRemindListController.h; sourceTree = "<group>"; };
+		B8098BE21DACC09900B9FD37 /* STMediumRemindListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumRemindListController.m; sourceTree = "<group>"; };
+		B8098BE41DACC8C500B9FD37 /* STMediumRemindListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumRemindListTableViewCell.h; sourceTree = "<group>"; };
+		B8098BE51DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumRemindListTableViewCell.m; sourceTree = "<group>"; };
+		B8098BE71DACCF9700B9FD37 /* STMediumRemindListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumRemindListModel.h; sourceTree = "<group>"; };
+		B8098BE81DACCF9700B9FD37 /* STMediumRemindListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumRemindListModel.m; sourceTree = "<group>"; };
+		B8098C0B1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumSiftCoreDataStorage.h; sourceTree = "<group>"; };
+		B8098C0C1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumSiftCoreDataStorage.m; sourceTree = "<group>"; };
+		B8098C0E1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumSiftCoreDataObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B8098C0F1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumSiftCoreDataObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B8098C101DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumVisibleTypeCoreDataObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B80A37CE1D9BAECF001E36E3 /* STShowReplyPraiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowReplyPraiseView.h; sourceTree = "<group>"; };
 		B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowReplyPraiseView.m; sourceTree = "<group>"; };
 		B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STShowReplyPraiseView.xib; sourceTree = "<group>"; };
@@ -1249,7 +1260,6 @@
 		B86277631D9A6D660020E313 /* STPraiseReplyCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPraiseReplyCoreDataStorage.h; sourceTree = "<group>"; };
 		B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPraiseReplyCoreDataStorage.m; sourceTree = "<group>"; };
 		B862776E1D9A6F3A0020E313 /* STPraiseReply.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPraiseReply.xcdatamodel; sourceTree = "<group>"; };
-		B86277781D9A71310020E313 /* 30000day-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "30000day-Bridging-Header.h"; sourceTree = "<group>"; };
 		B86277851D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PraiseReplyStorageObject+CoreDataProperties.h"; sourceTree = "<group>"; };
 		B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PraiseReplyStorageObject+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B86277881D9A768E0020E313 /* PraiseReplyStorageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PraiseReplyStorageObject.h; sourceTree = "<group>"; };
@@ -2959,6 +2969,8 @@
 				B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */,
 				B8098BBA1DAB8CB800B9FD37 /* STMediumRemindDetailController.h */,
 				B8098BBB1DAB8CB800B9FD37 /* STMediumRemindDetailController.m */,
+				B8098BE11DACC09900B9FD37 /* STMediumRemindListController.h */,
+				B8098BE21DACC09900B9FD37 /* STMediumRemindListController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2976,6 +2988,8 @@
 				B85C1E9F1D79285E00D3700F /* STDenounceModel.m */,
 				B8A2BFC31D8E7C5B00617A8D /* STPicturesModel.h */,
 				B8A2BFC41D8E7C5B00617A8D /* STPicturesModel.m */,
+				B8098BE71DACCF9700B9FD37 /* STMediumRemindListModel.h */,
+				B8098BE81DACCF9700B9FD37 /* STMediumRemindListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2983,6 +2997,8 @@
 		B87A5BEC1D73D6370066B21E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8098BE41DACC8C500B9FD37 /* STMediumRemindListTableViewCell.h */,
+				B8098BE51DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m */,
 				B80A37D61D9CBEB1001E36E3 /* STShowReplyPraiseTableViewCell.h */,
 				B80A37D71D9CBEB1001E36E3 /* STShowReplyPraiseTableViewCell.m */,
 				B80A37D81D9CBEB1001E36E3 /* STShowReplyPraiseTableViewCell.xib */,
@@ -3102,12 +3118,12 @@
 				B87A5C231D73D6370066B21E /* STRestrictingManager.h */,
 				B87A5C241D73D6370066B21E /* STRestrictingManager.m */,
 				B8098BBD1DAB987000B9FD37 /* STMediumSift.xcdatamodeld */,
-				B8098BC01DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.h */,
-				B8098BC11DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m */,
-				B8098BDB1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.h */,
-				B8098BDC1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m */,
-				B8098BDE1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.h */,
-				B8098BDF1DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m */,
+				B8098C0E1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataClass.swift */,
+				B8098C0F1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift */,
+				B8098C101DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift */,
+				B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */,
+				B8098C0B1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.h */,
+				B8098C0C1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3193,7 +3209,6 @@
 				B88C912C1C59F2260089BEAE /* Products */,
 				12F348AE78061F2F59F9AD2C /* Pods */,
 				2B3E1B6A3876F650B59C8A8F /* Frameworks */,
-				B86277781D9A71310020E313 /* 30000day-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5729,6 +5744,7 @@
 				B8FD3DF51C8A7903007BCA6B /* XHMessageVideoConverPhotoFactory.m in Sources */,
 				F5A988911D5D722500731288 /* SelectFriendViewController.m in Sources */,
 				F50C5D6B1D461CE40040E727 /* SportsFunction+CoreDataProperties.m in Sources */,
+				B8098C0D1DAD345000B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */,
 				B8FD3E221C8A7903007BCA6B /* XHVoiceRecordHUD.m in Sources */,
 				B8FD3E051C8A7903007BCA6B /* SELineLayout.m in Sources */,
 				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
@@ -5738,6 +5754,7 @@
 				B6E931A81D5877AF00F0CBB4 /* SuccessViewController.m in Sources */,
 				B86EFC861D115FAF007A2108 /* DeleteRemindTableViewCell.m in Sources */,
 				B8FD3DE11C8A7903007BCA6B /* XHLocationHelper.m in Sources */,
+				B8098BE61DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m in Sources */,
 				B81306BF1CB4AC980051C4BA /* MyOrderTableViewCell.m in Sources */,
 				B87A5C381D73D6370066B21E /* STContentView.m in Sources */,
 				B612DD8A1CAD1A4D004C428C /* ProductTypeModel.m in Sources */,
@@ -5751,6 +5768,7 @@
 				B89216E71C634E650023F8A8 /* AddFriendsViewController.m in Sources */,
 				B8F719AE1CEDFAC5000D859D /* GetFactorObject+CoreDataProperties.m in Sources */,
 				B8F6E9761D02CD0400AD6745 /* TZPhotoPickerController.m in Sources */,
+				B8098C131DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift in Sources */,
 				B886ADE51CB3C5F4005E262A /* Win5SwitchTitleView.m in Sources */,
 				B8FD3DF11C8A7903007BCA6B /* XHHTTPClient.m in Sources */,
 				B8FD3E031C8A7903007BCA6B /* SECompatibility.m in Sources */,
@@ -5898,6 +5916,7 @@
 				F50C5D601D461C8F0040E727 /* SportsFunctionViewController.m in Sources */,
 				B8FD3E2A1C8A7903007BCA6B /* XHRefreshControl.m in Sources */,
 				B6E2C0551D5319D50097975B /* MenuView.m in Sources */,
+				B8098C151DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift in Sources */,
 				B8695AB11C748150001B4B95 /* ChartTableViewCell.m in Sources */,
 				B87A5C531D73D6370066B21E /* STChooseItemSettingCell.m in Sources */,
 				B8695AC01C755975001B4B95 /* PersonHeadView.m in Sources */,
@@ -5916,7 +5935,6 @@
 				B60435F31CB6077B00752CCB /* InformationModel.m in Sources */,
 				F5A4F8811D0D3BE300B18988 /* IntroduceView.m in Sources */,
 				B8FD3DCE1C8A7903007BCA6B /* EmojiEmoticons.m in Sources */,
-				B8098BDD1DABA23A00B9FD37 /* STMediumSiftCoreDataObject.m in Sources */,
 				B87A5C521D73D6370066B21E /* STChooseItemCell.m in Sources */,
 				F5A3719E1D2F8C3B007FFB90 /* SportInformationTable.m in Sources */,
 				B88C91EB1C5B05FC0089BEAE /* NSObject+SBJson.m in Sources */,
@@ -5925,6 +5943,7 @@
 				B6DDB4FA1CB784360026322A /* ShareInformationView.m in Sources */,
 				B886ADE01CB3C344005E262A /* MyOrderViewController.m in Sources */,
 				B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */,
+				B8098C121DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataClass.swift in Sources */,
 				B8FD3E471C8A7BBA007BCA6B /* NSDate+DateTools.m in Sources */,
 				B8B3F4EB1C9A58C400834533 /* CityTableViewCell.m in Sources */,
 				F50C5D6D1D461CE40040E727 /* SportsFunctionModel.m in Sources */,
@@ -5948,6 +5967,7 @@
 				B8F2D9381C5B6E40002C7712 /* BEMCircle.m in Sources */,
 				B612DD831CACFE21004C428C /* ShopTitleTableViewCell.m in Sources */,
 				F5F8E7EC1D1792CA00B96756 /* CountDownTableViewCell.m in Sources */,
+				B8098C141DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift in Sources */,
 				B601197B1C9404BC0061AD89 /* CommentOptionsTableViewCell.m in Sources */,
 				B8FD3E231C8A7903007BCA6B /* XHEmotionCollectionViewCell.m in Sources */,
 				B87A5C431D73D6370066B21E /* STSendMediumController.m in Sources */,
@@ -5967,7 +5987,6 @@
 				B8FD3DD91C8A7903007BCA6B /* UIImage+XHAnimatedFaceGif.m in Sources */,
 				B8FD3E2B1C8A7903007BCA6B /* XHRefreshView.m in Sources */,
 				B86277461D9A5BF50020E313 /* AVIMPraiseMessage.m in Sources */,
-				B8098BC21DAB989F00B9FD37 /* STMediumSiftCoreDataStorage.m in Sources */,
 				B8FD3E111C8A7903007BCA6B /* SETextView.m in Sources */,
 				B8365A4C1C70820200063269 /* UIView+Extension.m in Sources */,
 				B8F2D8E71C5B3A5D002C7712 /* HealthySetUpViewController.m in Sources */,
@@ -6008,6 +6027,7 @@
 				B8FD3CC11C8A77EB007BCA6B /* CDFailedMessageStore.m in Sources */,
 				B8FD3E071C8A7903007BCA6B /* SESelectionGrabber.m in Sources */,
 				B88C91B91C5B00500089BEAE /* MyTableViewController.m in Sources */,
+				B8098BE91DACCF9700B9FD37 /* STMediumRemindListModel.m in Sources */,
 				B6BC9C7A1CF58D7C00030D64 /* NSString+Chinese.m in Sources */,
 				B88C91F21C5B05FC0089BEAE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				B8F648AA1C9498F0001A3119 /* ShopViewController.m in Sources */,
@@ -6042,7 +6062,6 @@
 				B8F2DA4A1C5F3D04002C7712 /* SignInViewController.m in Sources */,
 				B8FCA7BD1D2CAEAF00CA6D91 /* CDMediaMessageObject+CoreDataProperties.m in Sources */,
 				F5C611281D1BAEED00EBB8AE /* NewFriendsHeadView.m in Sources */,
-				B8098BE01DABA2BF00B9FD37 /* STMediumVisibleTypeCoreDataObject.m in Sources */,
 				B8FD3E421C8A7BBA007BCA6B /* DTError.m in Sources */,
 				B8F719A91CEDDE12000D859D /* STCoreDataHandler.m in Sources */,
 				B87A5C451D73D6370066B21E /* STRelayTableViewCell.m in Sources */,
@@ -6098,6 +6117,7 @@
 				B665F8DC1CC4BF5200070458 /* ZLShowBigImgViewController.m in Sources */,
 				B6F66DA71CBB4AF40064DB11 /* InformationDetailDownView.m in Sources */,
 				B86EFCA41D154DC4007A2108 /* IDMCaptionView.m in Sources */,
+				B8098BE31DACC09900B9FD37 /* STMediumRemindListController.m in Sources */,
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */,
@@ -6307,6 +6327,7 @@
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTA54FV6AY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6353,9 +6374,10 @@
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "30000day-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6372,6 +6394,7 @@
 				CODE_SIGN_ENTITLEMENTS = 30000day/30000day.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TTA54FV6AY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6418,9 +6441,10 @@
 					"$(PROJECT_DIR)/30000day/5.Other/ThirdPart/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutian.30000day;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "30000day-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

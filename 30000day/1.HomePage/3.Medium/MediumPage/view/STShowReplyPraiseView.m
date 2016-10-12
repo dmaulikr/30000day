@@ -72,7 +72,8 @@
         self.backgroundView_fist.hidden = NO;
         self.imageView_fist.hidden = NO;
         self.titleLabel_first.hidden = NO;
-        self.titleLabel_first.text = [NSString stringWithFormat:@"%lu条回复",(unsigned long)replyArray.count];
+//        self.titleLabel_first.text = [NSString stringWithFormat:@"%lu条回复",(unsigned long)replyArray.count];
+        self.titleLabel_first.text = @"回复了你";
         AVIMReplyMessage *lastMessage = [replyArray lastObject];
         [self.imageView_fist sd_setImageWithURL:[NSURL URLWithString:[lastMessage.attributes objectForKey:ORIGINAL_IMG_URL]] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 1)] options:SDWebImageContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -89,7 +90,8 @@
         self.backgroundView_second.hidden = NO;
         self.imageView_second.hidden = NO;
         self.titleLabel_second.hidden = NO;
-        self.titleLabel_second.text = [NSString stringWithFormat:@"%lu条点赞",(unsigned long)praiseArray.count];
+//        self.titleLabel_second.text = [NSString stringWithFormat:@"%lu条点赞",(unsigned long)praiseArray.count];
+        self.titleLabel_second.text = @"点赞了你";
         AVIMPraiseMessage *lastMessage = [praiseArray lastObject];
         NSString *imageURLString = [lastMessage.attributes objectForKey:ORIGINAL_IMG_URL];
         if ([imageURLString isKindOfClass:[NSString class]]) {

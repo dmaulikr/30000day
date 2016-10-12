@@ -86,6 +86,7 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
 @class PriceModel;
 @class STMediumDetailModel;
 @class STDenounceModel;
+@class STMediumRemindListModel;
 
 @interface STDataHandler : NSObject
 
@@ -129,7 +130,6 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
                                 type:(NSString *)type
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;
-
 
 //***** 用户注册 *****/
 //提醒:注册成功会发通知
@@ -464,7 +464,6 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure;
 
-
 //*****************************************评论*********************/
 + (void)sendSaveCommentWithBusiId:(NSInteger)busiId
                          busiType:(NSInteger)busiType
@@ -691,4 +690,12 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
                               content:(NSString *)content//举报内容
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
+
+//**************获取别人对用户的评论和回复(用来提醒)消息
++ (void)sendSearchMyRelativeWithUserId:(NSNumber *)userId
+                           currentPage:(NSInteger)currentPage
+                        success:(void (^)(NSMutableArray <STMediumRemindListModel *>*dataArray))success
+                        failure:(void (^)(NSError *error))failure;
+
+
 @end
