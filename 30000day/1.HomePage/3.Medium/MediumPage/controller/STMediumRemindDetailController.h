@@ -10,4 +10,6 @@
 
 @interface STMediumRemindDetailController : STRefreshViewController
 
+@property (nonatomic,strong) NSNumber *weMediaId;
+
 @end

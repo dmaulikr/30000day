@@ -83,10 +83,13 @@
 }
 
 - (void)configureCellWithOriginMediumModel:(STMediumModel *)originMediumModel {
-    self.originMediumModel = originMediumModel;
     
-    [self.showMediaView showMediumModel:originMediumModel isRelay:YES];
-    [self setNeedsLayout];
+    if (![Common isObjectNull:originMediumModel]) {
+        self.originMediumModel = originMediumModel;
+        
+        [self.showMediaView showMediumModel:originMediumModel isRelay:YES];
+        [self setNeedsLayout];
+    }
 }
 
 - (NSMutableArray *)getPhotoModel {

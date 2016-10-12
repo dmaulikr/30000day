@@ -256,15 +256,17 @@
 
 - (void)cofigCellWithModel:(STMediumModel *)mediumModel isRelay:(BOOL)isRelay {
     
-    self.mediumModel = mediumModel;
-    self.isRelay = isRelay;
-    
-    [self.avatarView sd_setImageWithURL:[NSURL URLWithString:mediumModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    self.nameLabel.text = mediumModel.originalNickName;
-    self.timeLabel.text = [[NSDate dateWithTimeIntervalSince1970:[mediumModel.createTime longLongValue] / 1000] timeAgoSinceNow];
-    [self.showMediaView showMediumModel:mediumModel isRelay:isRelay];
-    [self.typeLabel setAttributedText:[self getTypeString:mediumModel.infoTypeName]];
-    [self setNeedsLayout];
+    if (![Common isObjectNull:mediumModel]) {
+        self.mediumModel = mediumModel;
+        self.isRelay = isRelay;
+        
+        [self.avatarView sd_setImageWithURL:[NSURL URLWithString:mediumModel.originalHeadImg] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        self.nameLabel.text = mediumModel.originalNickName;
+        self.timeLabel.text = [[NSDate dateWithTimeIntervalSince1970:[mediumModel.createTime longLongValue] / 1000] timeAgoSinceNow];
+        [self.showMediaView showMediumModel:mediumModel isRelay:isRelay];
+        [self.typeLabel setAttributedText:[self getTypeString:mediumModel.infoTypeName]];
+        [self setNeedsLayout];
+    }
 }
 
 - (NSAttributedString *)getTypeString:(NSString *)infoType {

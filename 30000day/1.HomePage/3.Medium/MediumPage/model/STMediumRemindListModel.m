@@ -11,7 +11,7 @@
 @implementation STMediumRemindListModel
 
 + (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
-    return @{@"currentId":@"id"};
+    return @{@"currentId":@"id",@"weMediaId":@"busiId"};
 }
 
 @end

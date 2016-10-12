@@ -211,7 +211,10 @@
 #define  Find_DENOUNCETYPES              @"/wemedia/findDenounceTypes"           //获取举报类型
 #define  COMMIT_DENOUNCE                 @"/wemedia/commitDenounce"              //提交举报
 #define  PRIVACYLINK                     @"/STManager/infomation/privacyLink"    //隐私保护
-#define  SEARCH_MY_RELATIVE              @"/user/searchMyRelativeMessages"      //查询别人对用户点赞和回复消息
+#define  SEARCH_MY_RELATIVE              @"/user/searchMyRelativeMessages"      //查询别人对用户点赞和回复消息(用在提醒模块)
+#define  SHOW_MEDIA_COMMENT_DETAILS      @"/user/showMediaCommentDetails"       //获取评论列表(用在提醒模块)
+#define  SHOW_MEDIA_INFO                 @"/user/showMediaInfo"//获取自媒体详情(用在提醒模块)
+
 //凌云conversation里面用到的宏
 #define NICK_NAME                  @"nickName"
 #define USER_ID                    @"userId"

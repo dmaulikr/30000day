@@ -9,6 +9,7 @@
 #import "STMediumRemindListController.h"
 #import "STMediumRemindListModel.h"
 #import "STMediumRemindListTableViewCell.h"
+#import "STMediumRemindDetailController.h"
 
 @interface STMediumRemindListController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -105,6 +106,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [STMediumRemindListTableViewCell heightWithWithListModel:[self.dataArray objectAtIndex:indexPath.row]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    STMediumRemindDetailController *controller = [[STMediumRemindDetailController alloc] init];
+    controller.hidesBottomBarWhenPushed = YES;
+    STMediumRemindListModel *model =  [self.dataArray objectAtIndex:indexPath.row];
+    controller.weMediaId = model.weMediaId;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

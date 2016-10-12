@@ -11,7 +11,7 @@
 @interface STMediumRemindListModel : NSObject
 
 @property (nonatomic,strong) NSNumber *createTime;//创建时间
-@property (nonatomic,strong) NSNumber *busiId;
+@property (nonatomic,strong) NSNumber *weMediaId;//指向的自媒体的id
 @property (nonatomic,strong) NSNumber *currentId;//当前的id
 @property (nonatomic,copy)   NSString *isClickLike;//1：点赞，nil:表示回复或者评论
 @property (nonatomic,copy)   NSString *headImg;

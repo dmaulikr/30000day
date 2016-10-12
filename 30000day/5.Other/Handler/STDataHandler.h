@@ -87,6 +87,9 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
 @class STMediumDetailModel;
 @class STDenounceModel;
 @class STMediumRemindListModel;
+@class STMediumCommentModel;
+@class STMediumRemindListDetailModel;
+@class STMediumModel;
 
 @interface STDataHandler : NSObject
 
@@ -691,11 +694,21 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
 
-//**************获取别人对用户的评论和回复(用来提醒)消息
+//**************获取别人对用户的评论和回复(提醒模块)消息*******//
 + (void)sendSearchMyRelativeWithUserId:(NSNumber *)userId
                            currentPage:(NSInteger)currentPage
                         success:(void (^)(NSMutableArray <STMediumRemindListModel *>*dataArray))success
                         failure:(void (^)(NSError *error))failure;
 
+//*************获取评论列表接口(提醒模块)*************/
++ (void)sendShowMediaCommentListWithWeMediaId:(NSNumber *)weMediaId
+                                     currentPage:(NSInteger)currentPage
+                                         success:(void (^)(NSMutableArray <STMediumCommentModel *>*dataArray))success
+                                         failure:(void (^)(NSError *error))failure;
+
+//*************获取自媒体详情(提醒模块里)*************/
++ (void)sendShowMediaInfoWithWeMediaId:(NSNumber *)weMediaId
+                                         success:(void (^)(STMediumModel *model))success
+                                         failure:(void (^)(NSError *error))failure;
 
 @end

@@ -41,6 +41,7 @@
 #import "STDenounceModel.h"
 #import "SearchVersionManager.h"
 #import "STMediumRemindListModel.h"
+#import "STMediumCommentModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -5037,7 +5038,7 @@ static dispatch_once_t onceToken;
     }];
 }
 
-//**************获取别人对用户的评论和回复(用来提醒)消息
+//**************获取别人对用户的评论和回复(提醒模块)消息
 + (void)sendSearchMyRelativeWithUserId:(NSNumber *)userId
                            currentPage:(NSInteger)currentPage
                                success:(void (^)(NSMutableArray <STMediumRemindListModel *>*dataArray))success
@@ -5067,6 +5068,83 @@ static dispatch_once_t onceToken;
                 [dataArray addObject:[STMediumRemindListModel yy_modelWithJSON:dictionary]];
             }
             success(dataArray);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//*************获取评论列表接口（提醒模块）*************/
++ (void)sendShowMediaCommentListWithWeMediaId:(NSNumber *)weMediaId
+                                     currentPage:(NSInteger)currentPage
+                                         success:(void (^)(NSMutableArray <STMediumCommentModel *>*dataArray))success
+                                         failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    [params addParameter:@(currentPage) forKey:@"currentPage"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SHOW_MEDIA_COMMENT_DETAILS];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SHOW_MEDIA_COMMENT_DETAILS] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *array = recvDic[@"value"];
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < array.count; i++) {
+                NSDictionary *dictionary = array[i];
+                [dataArray addObject:[STMediumCommentModel yy_modelWithJSON:dictionary]];
+            }
+            success(dataArray);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//*************获取自媒体详情(提醒模块里)*************/
++ (void)sendShowMediaInfoWithWeMediaId:(NSNumber *)weMediaId
+                               success:(void (^)(STMediumModel *model))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SHOW_MEDIA_INFO];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SHOW_MEDIA_INFO] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            NSDictionary *dictionary = recvDic[@"value"];
+            if (![Common isObjectNull:dictionary]) {
+                NSArray *array = [STMediumModel getMediumModelArrayWithDictionaryArray:@[dictionary]];
+                if (array.count) {
+                    success(array[0]);
+                } else {
+                    failure([Common errorWithString:@"获取数据有误"]);
+                }
+            }
         } else {
             failure([Common errorWithString:parsedObject[@"msg"]]);
         }

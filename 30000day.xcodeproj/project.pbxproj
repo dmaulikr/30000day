@@ -260,6 +260,8 @@
 		B8098C131DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C0F1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift */; };
 		B8098C141DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C101DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift */; };
 		B8098C151DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */; };
+		B8098C181DAE0E6A00B9FD37 /* STMediumCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098C171DAE0E6A00B9FD37 /* STMediumCommentModel.m */; };
+		B8098C1B1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098C1A1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m */; };
 		B80A37D01D9BAECF001E36E3 /* STShowReplyPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */; };
 		B80A37D21D9BAF96001E36E3 /* STShowReplyPraiseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */; };
 		B80A37D51D9CB67C001E36E3 /* STShowReplyPraiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */; };
@@ -1154,6 +1156,10 @@
 		B8098C0F1DAD377E00B9FD37 /* STMediumSiftCoreDataObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumSiftCoreDataObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B8098C101DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumVisibleTypeCoreDataObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B8098C161DAE0E6A00B9FD37 /* STMediumCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumCommentModel.h; sourceTree = "<group>"; };
+		B8098C171DAE0E6A00B9FD37 /* STMediumCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumCommentModel.m; sourceTree = "<group>"; };
+		B8098C191DAE1AF600B9FD37 /* STMediumCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumCommentTableViewCell.h; sourceTree = "<group>"; };
+		B8098C1A1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumCommentTableViewCell.m; sourceTree = "<group>"; };
 		B80A37CE1D9BAECF001E36E3 /* STShowReplyPraiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowReplyPraiseView.h; sourceTree = "<group>"; };
 		B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowReplyPraiseView.m; sourceTree = "<group>"; };
 		B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STShowReplyPraiseView.xib; sourceTree = "<group>"; };
@@ -2990,6 +2996,8 @@
 				B8A2BFC41D8E7C5B00617A8D /* STPicturesModel.m */,
 				B8098BE71DACCF9700B9FD37 /* STMediumRemindListModel.h */,
 				B8098BE81DACCF9700B9FD37 /* STMediumRemindListModel.m */,
+				B8098C161DAE0E6A00B9FD37 /* STMediumCommentModel.h */,
+				B8098C171DAE0E6A00B9FD37 /* STMediumCommentModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2997,6 +3005,8 @@
 		B87A5BEC1D73D6370066B21E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				B8098C191DAE1AF600B9FD37 /* STMediumCommentTableViewCell.h */,
+				B8098C1A1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m */,
 				B8098BE41DACC8C500B9FD37 /* STMediumRemindListTableViewCell.h */,
 				B8098BE51DACC8C500B9FD37 /* STMediumRemindListTableViewCell.m */,
 				B80A37D61D9CBEB1001E36E3 /* STShowReplyPraiseTableViewCell.h */,
@@ -3008,6 +3018,8 @@
 				B85C1E8A1D782F4C00D3700F /* STDetailSettingView.h */,
 				B85C1E8B1D782F4C00D3700F /* STDetailSettingView.m */,
 				B85C1E8C1D782F4C00D3700F /* STDetailSettingView.xib */,
+				B85C1E9B1D79243400D3700F /* STDenounceTableViewCell.h */,
+				B85C1E9C1D79243400D3700F /* STDenounceTableViewCell.m */,
 				B87A5BED1D73D6370066B21E /* STContentView.h */,
 				B87A5BEE1D73D6370066B21E /* STContentView.m */,
 				B87A5BFE1D73D6370066B21E /* STVideoView.h */,
@@ -3031,8 +3043,6 @@
 				B87A5BFD1D73D6370066B21E /* STShowMediumTableViewCell.m */,
 				B87A5BF21D73D6370066B21E /* STMediumSettingTableViewCell.h */,
 				B87A5BF31D73D6370066B21E /* STMediumSettingTableViewCell.m */,
-				B85C1E9B1D79243400D3700F /* STDenounceTableViewCell.h */,
-				B85C1E9C1D79243400D3700F /* STDenounceTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5736,6 +5746,7 @@
 				B8FA522B1C802CE100498E34 /* AddContentTableViewCell.m in Sources */,
 				F5AC5B961D30F1230043E313 /* SportTrajectoryLookViewController.m in Sources */,
 				B88C91EE1C5B05FC0089BEAE /* SBJsonStreamParserAccumulator.m in Sources */,
+				B8098C181DAE0E6A00B9FD37 /* STMediumCommentModel.m in Sources */,
 				B8FD3DEC1C8A7903007BCA6B /* XHDisplayMediaViewController.m in Sources */,
 				B87A5C391D73D6370066B21E /* STMediumSendSuperCell.m in Sources */,
 				B8F2D9291C5B6DF2002C7712 /* MDRadialProgressView.m in Sources */,
@@ -5925,6 +5936,7 @@
 				F52C6C2D1D2E5943008933D2 /* SportTableViewCell.m in Sources */,
 				B8FD3E0A1C8A7903007BCA6B /* SETextGeometry.m in Sources */,
 				B88C91ED1C5B05FC0089BEAE /* SBJsonStreamParser.m in Sources */,
+				B8098C1B1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m in Sources */,
 				B86EFCA91D154DC4007A2108 /* IDMTapDetectingImageView.m in Sources */,
 				B862773E1D9917540020E313 /* STRedPacketListController.m in Sources */,
 				B89216D11C61F6960023F8A8 /* LogoutTableViewCell.m in Sources */,
