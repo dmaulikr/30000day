@@ -15,10 +15,11 @@
 @property (nonatomic,strong) NSNumber *currentId;//当前的id
 @property (nonatomic,copy)   NSString *isClickLike;//1：点赞，nil:表示回复或者评论
 @property (nonatomic,copy)   NSString *headImg;
-@property (nonatomic,copy)   NSString *mediaImage;//用来显示一张图片，微信是这么做的
+@property (nonatomic,copy)   NSString *mediaJsonStr;
 @property (nonatomic,copy)   NSString *nickName;//昵称
 @property (nonatomic,copy)   NSString *remark;//评论的内容
 @property (nonatomic,strong) NSNumber *pId;
+@property (nonatomic,strong) NSNumber *visibleType;//公开还是好友那里,用在回复是发送消息
 
 @end
 

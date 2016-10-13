@@ -176,12 +176,10 @@
     return [dictionary mj_JSONString];
 }
 
-+ (NSMutableArray *)pictureArrayWith:(NSString *)mediaJsonString {
++ (NSMutableArray <STPicturesModel *>*)pictureArrayWith:(NSString *)mediaJsonString {
     
     if ([Common isObjectNull:mediaJsonString]) {
-        
         return [[NSMutableArray alloc] init];
-        
     } else {
         
         NSDictionary *dictionary = [mediaJsonString mj_JSONObject];
@@ -212,12 +210,10 @@
     }
 }
 
-+ (NSMutableArray *)videoArrayWith:(NSString *)mediaJsonString {
++ (NSMutableArray <STPicturesModel *>*)videoArrayWith:(NSString *)mediaJsonString {
     
     if ([Common isObjectNull:mediaJsonString]) {
-        
         return [[NSMutableArray alloc] init];
-        
     } else {
         
         NSDictionary *dictionary = [mediaJsonString mj_JSONObject];

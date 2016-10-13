@@ -33,5 +33,7 @@
 + (NSMutableArray <STMediumModel *>*)getMediumModelArrayWithDictionaryArray:(NSArray *)jsonArray;
 + (NSInteger)getNumberOfRow:(STMediumModel *)meiumModel;
 - (STMediumModel *)getOriginMediumModel;//获取原创的模型，假如该模型数据是条转发数据，那么就可以获取到
-
+//解析字符串
++ (NSMutableArray <STPicturesModel *>*)pictureArrayWith:(NSString *)mediaJsonString;
++ (NSMutableArray <STPicturesModel *>*)videoArrayWith:(NSString *)mediaJsonString;
 @end

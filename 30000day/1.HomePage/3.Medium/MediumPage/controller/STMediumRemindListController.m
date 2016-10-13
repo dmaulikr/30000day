@@ -114,6 +114,7 @@
     controller.hidesBottomBarWhenPushed = YES;
     STMediumRemindListModel *model =  [self.dataArray objectAtIndex:indexPath.row];
     controller.weMediaId = model.weMediaId;
+    controller.visibleType = model.visibleType;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

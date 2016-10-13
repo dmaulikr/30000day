@@ -20,10 +20,24 @@
 @property (nonatomic,copy)   NSString *responserRemark;
 @property (nonatomic,copy)   NSString *isClickLike;//1：点赞，nil:表示回复或者评论
 
+//用来回复的
+@property (nonatomic,strong) NSNumber *busiId;
+@property (nonatomic,copy)   NSString *busiType;
+@property (nonatomic,strong) NSNumber *currentId;//当前id
+@property (nonatomic,strong) NSNumber *commenterId;
+@property (nonatomic,strong) NSNumber *responserId;
+@property (nonatomic,strong) NSNumber *visibleType;
+
+//用来显示的
 - (NSMutableAttributedString *)getAttributeName;
 - (NSString *)getDisplayHeadImg;
 - (NSNumber *)getDisplayTime;
 - (NSMutableAttributedString *)getDisplayContent;
+
+//用来发送leanCloud消息的
+- (NSString *)headImgUsedByLeanCloud;
+- (NSString *)nickNameUsedByLeanCloud;
+- (NSNumber *)userIdUsedByLeanCloud;
 
 //"commenter": "GuoJia",
 //"commenterCreateTime": 1476175703000,
@@ -33,6 +47,5 @@
 //"responserCreateTime": 1476178322000,
 //"responserHeadImg": "http://121.196.223.175:89/images/default.png",
 //"responserRemark": "我们在这里等你们呢、在线指导书、在于我们是否该如何选择适合自己的人和爱的人和你在哪里！我们的爱吃辣的食物、在哪里、"
-
 
 @end

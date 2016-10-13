@@ -10,6 +10,10 @@
 
 @implementation STMediumCommentModel
 
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper {
+    return @{@"currentId":@"id"};
+}
+
 - (NSMutableAttributedString *)getAttributeName {
     
     if ([Common isObjectNull:self.responser]) {
@@ -25,10 +29,10 @@
 }
 
 - (NSString *)getDisplayHeadImg {
-    if (self.responserHeadImg) {
-        return self.responserHeadImg;
-    } else {
+    if ([Common isObjectNull:self.responserHeadImg]) {
         return self.commenterHeadImg;
+    } else {
+        return self.responserHeadImg;
     }
 }
 
@@ -41,10 +45,35 @@
 }
 
 - (NSMutableAttributedString *)getDisplayContent {
-    if (self.responserRemark) {
+    if (![Common isObjectNull:self.responserRemark]) {
         return [[NSMutableAttributedString alloc] initWithString:self.responserRemark attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
     } else {
         return [[NSMutableAttributedString alloc] initWithString:self.commenterRemark attributes:@{NSForegroundColorAttributeName : [UIColor darkGrayColor]}];
+    }
+}
+
+//用来发送leanCloud消息的
+- (NSString *)headImgUsedByLeanCloud {
+    if ([Common isObjectNull:self.responserHeadImg]) {
+        return self.commenterHeadImg;
+    } else {
+        return self.responserHeadImg;
+    }
+}
+
+- (NSString *)nickNameUsedByLeanCloud {
+    if ([Common isObjectNull:self.responser]) {
+        return self.commenter;
+    } else {
+        return self.responser;
+    }
+}
+
+- (NSNumber *)userIdUsedByLeanCloud {
+    if ([Common isObjectNull:self.responserId] || [self.responserId isEqualToNumber:@0]) {
+        return self.commenterId;
+    } else {
+        return self.responserId;
     }
 }
 

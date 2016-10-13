@@ -469,7 +469,7 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
 
 //*****************************************评论*********************/
 + (void)sendSaveCommentWithBusiId:(NSInteger)busiId
-                         busiType:(NSInteger)busiType
+                         busiType:(NSInteger)busiType 
                            userId:(NSInteger)userId
                            remark:(NSString *)remark
                               pid:(NSInteger)pid

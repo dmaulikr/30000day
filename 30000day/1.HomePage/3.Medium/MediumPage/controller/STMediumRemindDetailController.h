@@ -11,5 +11,6 @@
 @interface STMediumRemindDetailController : STRefreshViewController
 
 @property (nonatomic,strong) NSNumber *weMediaId;
+@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
 
 @end

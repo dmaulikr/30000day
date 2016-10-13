@@ -15,4 +15,5 @@
 @property (nonatomic,copy)   NSString   *originHeadImg;//第一层发送自媒体的人的头像，用在回复是发送消息
 @property (nonatomic,copy)   NSString   *originNickName;//第一层发送自媒体的人的昵称，用在回复是发送消息
 @property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
+
 @end

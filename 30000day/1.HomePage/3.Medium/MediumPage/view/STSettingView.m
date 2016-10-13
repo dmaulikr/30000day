@@ -16,6 +16,7 @@
 #import "STPraiseReplyCoreDataStorage.h"
 #import "AVIMPraiseMessage.h"
 #import "UserInformationModel.h"
+#import "STMediumRemindDetailController.h"
 
 #define Margin 10
 #define Comment_view_height 30
@@ -55,14 +56,20 @@
         
         __weak typeof(self) weakSelf = self;
         [self.comment_view setClickBlock:^{
-            STMediumCommentController *controller = [[STMediumCommentController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            controller.weMediaId = [[weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId integerValue];
-            controller.userId = [weakSelf.mixedMediumModel getOriginMediumModel].writerId;
-            controller.originNickName = [weakSelf.mixedMediumModel getOriginMediumModel].originalNickName;
-            controller.originHeadImg = [weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg;
-            controller.visibleType = weakSelf.visibleType;
+//            STMediumCommentController *controller = [[STMediumCommentController alloc] init];
+//            controller.hidesBottomBarWhenPushed = YES;
+//            controller.weMediaId = [[weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId integerValue];
+//            controller.userId = [weakSelf.mixedMediumModel getOriginMediumModel].writerId;
+//            controller.originNickName = [weakSelf.mixedMediumModel getOriginMediumModel].originalNickName;
+//            controller.originHeadImg = [weakSelf.mixedMediumModel getOriginMediumModel].originalHeadImg;
+//            controller.visibleType = weakSelf.visibleType;
             STMediumTypeController *superController = (STMediumTypeController *)weakSelf.delegate;
+//            [superController.navigationController pushViewController:controller animated:YES];
+            
+            STMediumRemindDetailController *controller = [[STMediumRemindDetailController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            controller.visibleType = weakSelf.visibleType;
+            controller.weMediaId = [weakSelf.mixedMediumModel getOriginMediumModel].mediumMessageId;
             [superController.navigationController pushViewController:controller animated:YES];
         }];
         [self addSubview:self.comment_view];

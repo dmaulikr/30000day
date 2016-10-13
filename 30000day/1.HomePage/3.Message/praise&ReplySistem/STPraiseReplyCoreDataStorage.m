@@ -109,23 +109,16 @@ static STPraiseReplyCoreDataStorage *instance;
 
             for (int i = 0; i <messageArray.count ; i++) {
                 AVIMTypedMessage *message = messageArray[i];
-                PraiseReplyStorageModel *model = [[PraiseReplyStorageModel alloc] init];
-                model.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
-                model.userId = STUserAccountHandler.userProfile.userId;
-                model.readState = @1;
-                model.messageId = message.messageId;
-                model.messageType = [NSNumber numberWithUnsignedInteger:message.mediaType];
-                model.visibleType = visibleType;
-
+                
                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.managedObjectContext];
                 PraiseReplyStorageObject *object = (PraiseReplyStorageObject *)
                 [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext];
-                object.metaData = model.metaData;
+                object.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
                 object.readState = @1;
-                object.userId = model.userId;
-                object.messageId = model.messageId;
-                object.messageType = model.messageType;
-                object.visibleType = model.visibleType;
+                object.userId = STUserAccountHandler.userProfile.userId;
+                object.messageId = message.messageId;
+                object.messageType = [NSNumber numberWithUnsignedInteger:message.mediaType];
+                object.visibleType = visibleType;
                 
                 [self.managedObjectContext insertObject:object];
                 [self save];
