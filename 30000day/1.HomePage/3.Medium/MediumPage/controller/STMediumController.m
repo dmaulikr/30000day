@@ -12,6 +12,7 @@
 #import "STChooseSettingController.h"
 #import "STSendMediumController.h"
 #import "STChooseSettingController.h"
+#import "JSBadgeView.h"
 
 #define BUTTON_WIDTH    45.000000
 #define BUTTON_HEIGHT   39.000000
@@ -30,6 +31,12 @@
 @property (nonatomic,strong) UIView *bottomScrollView;//滚动的小视图
 @property (nonatomic,strong) UIButton *addFriendsButton;//添加好友
 @property (nonatomic,strong) UIButton *settingButton;//设置按钮
+
+@property (nonatomic,strong) JSBadgeView *friendsBadgeView;//好友最新消息角标图
+@property (nonatomic,strong) JSBadgeView *publicBadgeView;//公开人角标图
+
+@property (nonatomic,assign) BOOL friendsFlag;
+@property (nonatomic,assign) BOOL publicFlag;
 
 @end
 
@@ -54,6 +61,10 @@
     _scrollView.bounces = NO;
     [self.view addSubview:_scrollView];
     
+    //设置值
+    self.friendsFlag = NO;
+    self.publicFlag = NO;
+    
     //设置子控制器
     //好友
     STMediumTypeController *friendsController = [[STMediumTypeController alloc] init];
@@ -61,12 +72,38 @@
     [friendsController.view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:friendsController.view];
     [self addChildViewController:friendsController];
+    [friendsController setShowRedBadgeBlock:^(BOOL isShow, NSNumber *visibleType,NSNumber *messageType) {
+        
+        self.friendsFlag = isShow;
+        
+        if (isShow) {
+            self.friendsBadgeView.badgeText = @" ";
+        } else {
+            self.friendsBadgeView.badgeText = nil;
+        }
+        
+        //判断底部分栏控制器按钮是否显示红色
+        [self judgeTabBarItemIsShowRedColer];
+    }];
+    
     //公开的
     STMediumTypeController *publicController = [[STMediumTypeController alloc] init];
     publicController.visibleType = @2;
     [publicController.view setFrame:CGRectMake(SCREEN_WIDTH * 1, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:publicController.view];
     [self addChildViewController:publicController];
+    [publicController setShowRedBadgeBlock:^(BOOL isShow, NSNumber *visibleType,NSNumber *messageType) {
+        
+        self.publicFlag = isShow;
+        
+        if (isShow) {
+            self.publicBadgeView.badgeText = @" ";
+        } else {
+            self.publicBadgeView.badgeText = nil;
+        }
+        //判断底部分栏控制器按钮是否显示红色
+        [self judgeTabBarItemIsShowRedColer];
+    }];
     //私有的
     STMediumTypeController *privateController = [[STMediumTypeController alloc] init];
     privateController.visibleType = @0;
@@ -89,6 +126,15 @@
     [STNotificationCenter addObserver:self selector:@selector(setMediumTypeController:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
 }
 
+- (void)judgeTabBarItemIsShowRedColer {
+    
+    if (self.friendsFlag || self.publicFlag) {
+        self.navigationController.tabBarItem.badgeValue = @"";
+    } else {
+        self.navigationController.tabBarItem.badgeValue = nil;
+    }
+}
+
 - (void)setMediumTypeController:(NSNotification *)notification {
     NSNumber *visibleType = notification.object;
     
@@ -100,6 +146,27 @@
         [self tapButton:self.publicButton];
     }
 }
+
+- (JSBadgeView *)friendsBadgeView {
+    
+    if (_friendsBadgeView == nil) {
+        _friendsBadgeView = [[JSBadgeView alloc] initWithParentView:self.friendsCircleButton alignment:JSBadgeViewAlignmentTopRight];
+        _friendsBadgeView.badgePositionAdjustment = CGPointMake(-1.0f, 10.0f);
+    }
+    
+    return _friendsBadgeView;
+}
+
+- (JSBadgeView *)publicBadgeView {
+    
+    if (_publicBadgeView == nil) {
+        _publicBadgeView = [[JSBadgeView alloc] initWithParentView:self.publicButton alignment:JSBadgeViewAlignmentTopRight];
+        _publicBadgeView.badgePositionAdjustment = CGPointMake(-1.0f, 10.0f);
+    }
+    
+    return _publicBadgeView;
+}
+
 
 - (void)createButton {
     

@@ -26,6 +26,8 @@
 #import "AVIMNoticationMessage.h"
 #import "CDConversationStore.h"
 #import "CDFailedMessageStore.h"
+#import "AVIMPraiseMessage.h"
+#import "AVIMReplyMessage.h"
 
 #define kApplicationId @"m7baukzusy3l5coew0b3em5uf4df5i2krky0ypbmee358yon"
 #define kClientKey @"2e46velw0mqrq3hl2a047yjtpxn32frm0m253k258xo63ft9"
@@ -35,8 +37,8 @@
 @interface AppDelegate ()  {
     BMKMapManager *_mapManager;
 }
-@property (nonatomic) HKHealthStore *healthStore1;
 
+@property (nonatomic) HKHealthStore *healthStore1;
 @property (nonatomic,strong) AVAudioSession *session;
 
 @end
@@ -72,14 +74,15 @@
     /******** UMeng分享 ********/
     [UMSocialData setAppKey:@"56c6d04f67e58e0833000755"];
     [UMSocialWechatHandler setWXAppId:@"wx18ea1411855f610f" appSecret:@"b8edc3cdc6e18f7a91983233470f3a48" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" RedirectURL:@"http://www.30000day.com"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2624326542" secret:@"98178595e96935ce73d888dee1973805" RedirectURL:@"http://www.30000day.com"];
     [UMSocialQQHandler  setQQWithAppId:@"1105319699" appKey:@"ICTHVJyulerm5QOo" url:@"http://a.app.qq.com/o/simple.jsp?pkgname=com.shutian.ttd"];
     
     //***********************************初始化LeanCloud*********************************//
     [AVOSCloud setApplicationId:@"0t5NyhngDJQBB3x5S8KEIUWT-gzGzoHsz" clientKey:@"nNXF4pHFlb6d3TydcNE5ohdq"];
-    [AVIMNoticationMessage registerSubclass];
-    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:^(BOOL succeeded, NSError *error) {
-    }];
+    [AVIMNoticationMessage registerSubclass];//注册通知类型消息
+    [AVIMPraiseMessage registerSubclass];//注册点赞类型消息
+    [AVIMReplyMessage registerSubclass];//注册回复类型消息
+    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",[Common readAppDataForKey:KEY_SIGNIN_USER_UID]] callback:nil];//登录leanCloud并设置账号数据库
     
     //********要使用百度地图，请先启动BaiduMapManager ********/、
     _mapManager = [[BMKMapManager alloc] init];
@@ -125,9 +128,7 @@
      if ([Common isObjectNull:[[Common readAppDataForKey:CHECK_REPEAT] stringValue]]) {//无记录
          
          if (notification.repeatInterval != NSCalendarUnitYear) {//半年的提醒
-             
              [[UIApplication sharedApplication] cancelLocalNotification:notification];
-             
          } else {
              
          }
@@ -135,9 +136,7 @@
      } else {
          
          if ([[Common readAppDataForKey:CHECK_REPEAT] isEqualToNumber:@0]) {//半年
-            
              [[UIApplication sharedApplication] cancelLocalNotification:notification];
-             
          } else {//1年
 
          }

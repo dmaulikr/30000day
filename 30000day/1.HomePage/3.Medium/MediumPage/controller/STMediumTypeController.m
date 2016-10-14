@@ -15,11 +15,16 @@
 #import "STShowMediumTableViewCell.h"
 #import "STMediumModel+category.h"
 #import "STChooseItemManager.h"
+#import "STPraiseReplyCoreDataStorage.h"
+#import "STShowReplyPraiseView.h"
+#import "STMediumRemindListController.h"
 
 @interface STMediumTypeController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,assign) NSInteger currentPage;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *praiseArray;
+@property (nonatomic,strong) NSMutableArray *replyArray;
 
 @end
 
@@ -27,14 +32,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self configUI];
-    
     //登录成功刷新
     [STNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:STUserAccountHandlerUseProfileDidChangeNotification object:nil];
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediaSuccessSendNotification object:nil];
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
+    [STNotificationCenter addObserver:self selector:@selector(sameReplyPraise:) name:STSameBodyReplyPraiseSendNotification object:nil];
+    
     [self headerRefreshing];
+    [self asynQueryMessageFromCoreDataStorage];
 }
 
 - (void)reloadData:(NSNotification *)notification {
@@ -42,6 +48,49 @@
     if ([visibleType isEqualToNumber:self.visibleType]) {
         [self.tableView.mj_header beginRefreshing];
     }
+}
+
+//监视有人给你发来点赞和回复的消息
+- (void)sameReplyPraise:(NSNotification *)notification {
+    NSNumber *visibleType = notification.object;
+    if ([visibleType isEqualToNumber:self.visibleType]) {
+//        [self querySameBodyReplyPraise];
+        [self asynQueryMessageFromCoreDataStorage];
+    }
+}
+
+//判断底部的tabBarItem是否显示红色
+- (void)judgeTabBarItemIsShowRed:(NSNumber *)messageType {
+    
+    if (self.praiseArray.count || self.replyArray.count) {
+        if (self.showRedBadgeBlock) {
+            self.showRedBadgeBlock(YES,self.visibleType,messageType);
+        }
+    } else {
+        if (self.showRedBadgeBlock) {
+            self.showRedBadgeBlock(NO,self.visibleType,messageType);
+        }
+    }
+}
+
+- (void)asynQueryMessageFromCoreDataStorage {
+    //查询点赞消息
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetPraiseMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.praiseArray = dataArray;
+            [self judgeTabBarItemIsShowRed:@99];
+            [self.tableView reloadData];
+        });
+    }];
+    
+    //查询
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetReplyMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.replyArray = dataArray;
+            [self judgeTabBarItemIsShowRed:@98];
+            [self.tableView reloadData];
+        });
+    }];
 }
 
 - (void)configUI {
@@ -142,7 +191,6 @@
                 });
                 
             } failure:^(NSError *error) {
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self showToast:[Common errorStringWithError:error optionalString:@"上拉加载更多失败"]];
                     [self.tableView.mj_footer endRefreshing];
@@ -237,6 +285,8 @@
                 cell = [[STMediumSettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STMediumSettingTableViewCell"];
             }
             cell.delegate = self;
+            STMediumModel *model = self.dataArray[indexPath.section];
+            cell.visibleType = model.visibleType;
             [cell cofigCellWithModel:self.dataArray[indexPath.section]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -261,6 +311,8 @@
                 cell = [[STMediumSettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STMediumSettingTableViewCell"];
             }
             cell.delegate = self;
+            STMediumModel *model = self.dataArray[indexPath.section];
+            cell.visibleType = model.visibleType;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell cofigCellWithModel:self.dataArray[indexPath.section]];
             return cell;
@@ -271,32 +323,62 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([STMediumModel getNumberOfRow:self.dataArray[indexPath.section]] == 3) {
-        
         if (indexPath.row == 0) {
-            
             return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isRelay:NO];
-            
         } else if (indexPath.row == 1) {
-            
             STMediumModel *model = self.dataArray[indexPath.section];
             return [STShowMediumSpecialTableView heightMediumCellWithOriginMediumModel:[model getOriginMediumModel]];
-            
         } else {
-            
             return [STMediumSettingTableViewCell heightMediumCellWith:self.dataArray[indexPath.section]];
         }
-        
     } else {
         
         if (indexPath.row == 0) {
-            
             return [STShowMediumTableViewCell heightMediumCellWith:self.dataArray[indexPath.section] isRelay:NO];
-            
         } else {
-            
             return [STMediumSettingTableViewCell heightMediumCellWith:self.dataArray[indexPath.section]];
         }
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        STShowReplyPraiseView *view =  [STShowReplyPraiseView showReplyPraiseView];
+        //点击了回复视图
+        [view setReplyBlock:^(NSArray<AVIMReplyMessage *> *messageArray) {
+            [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
+            [self asynQueryMessageFromCoreDataStorage];
+//            [self querySameBodyReplyPraise];
+//            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
+//            controller.visibleType = self.visibleType;
+//            controller.messageType = @98;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            
+            STMediumRemindListController *controller = [[STMediumRemindListController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }];
+        //点击了点赞视图
+        [view setPraiseBlock:^(NSArray<AVIMPraiseMessage *> *messageArray) {
+            [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
+            [self asynQueryMessageFromCoreDataStorage];
+//            [self querySameBodyReplyPraise];
+//            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
+//            controller.visibleType = self.visibleType;
+//            controller.messageType = @99;
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            
+            STMediumRemindListController *controller = [[STMediumRemindListController alloc] init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+        }];
+        
+        [view configureViewWithReplyArray:self.replyArray praiseArray:self.praiseArray];
+        return view;
+    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -318,7 +400,6 @@
             [controller setDeleteBock:^{
                 [self headerRefreshing];
             }];
-            
             
         } else if (indexPath.row == 1) {
             
@@ -362,7 +443,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 0.01f;
+        return [STShowReplyPraiseView heightReplyPraiseViewWithReplyArray:self.replyArray praiseArray:self.praiseArray];
     }
     return 3.5f;
 }

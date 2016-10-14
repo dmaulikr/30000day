@@ -200,13 +200,12 @@
     if ([Common isObjectNull:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]]) {
         
         //查询conversation
-        [[CDChatManager sharedManager] fetchConversationWithOtherId:[NSString stringWithFormat:@"%@",self.informationModel.userId] attributes:[UserInformationModel attributesDictionay:self.informationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
+        [[CDChatManager sharedManager] createConversationWithMembers:@[[NSString stringWithFormat:@"%@",self.informationModel.userId],[CDChatManager sharedManager].client.clientId] type:CDConversationTypeSingle unique:YES attributes:[UserInformationModel attributesDictionay:self.informationModel userProfile:STUserAccountHandler.userProfile] callback:^(AVIMConversation *conversation, NSError *error) {
             
             if ([self filterError:error]) {
                 [[CDIMService service] pushToChatRoomByConversation:conversation fromNavigationController:self.navigationController];
             }
         }];
-        
     } else {
         [self showToast:[UserInformationModel errorStringWithModel:self.informationModel userProfile:STUserAccountHandler.userProfile]];
     }

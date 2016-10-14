@@ -12,6 +12,7 @@
 @interface STMediumSettingTableViewCell : UITableViewCell
 
 @property (nonatomic,weak) id delegate;
+@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
 + (CGFloat)heightMediumCellWith:(STMediumModel *)mixedMediumModel;
 - (void)cofigCellWithModel:(STMediumModel *)mixedMediumModel;
 

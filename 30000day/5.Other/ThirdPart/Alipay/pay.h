@@ -10,7 +10,7 @@
 
 @protocol payResultStatusDelegate <NSObject>
 
--(void)resultStatus:(NSString *)status;
+- (void)resultStatus:(NSString *)status;
 
 @end
 

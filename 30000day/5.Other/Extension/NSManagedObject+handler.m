@@ -11,7 +11,6 @@
 @implementation NSManagedObject (handler)
 
 + (id)createObjectWithMainContext:(NSManagedObjectContext *)mainContext {
-    
     NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
     return [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:mainContext];
 }
@@ -29,6 +28,37 @@
     }
     
     return results;
+}
+
++ (NSArray *)_filterWithContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit {
+    NSFetchRequest *fetchRequest = [self _makeRequest:context predicate:predicate orderby:orders offset:offset limit:limit];
+    NSError *error = nil;
+    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"error: %@", error);
+        return @[];
+    }
+    return results;
+}
+
++ (NSFetchRequest *)_makeRequest:(NSManagedObjectContext *)ctx predicate:(NSPredicate *)predicate orderby:(NSArray *)sortArray offset:(int)offset limit:(int)limit {
+    
+    NSString *className = [NSString stringWithUTF8String:object_getClassName(self)];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:className inManagedObjectContext:ctx]];
+    if (predicate) {
+        [fetchRequest setPredicate:predicate];
+    }
+    if (sortArray) {
+        [fetchRequest setSortDescriptors:sortArray];
+    }
+    if ( offset >= 0 ) {
+        [fetchRequest setFetchOffset:offset];
+    }
+    if (limit > 0) {
+        [fetchRequest setFetchLimit:limit];
+    }
+    return fetchRequest;
 }
 
 + (NSFetchRequest *)makeRequest:(NSManagedObjectContext *)ctx predicate:(NSPredicate *)predicate orderby:(NSArray *)sortArray offset:(int)offset limit:(int)limit {

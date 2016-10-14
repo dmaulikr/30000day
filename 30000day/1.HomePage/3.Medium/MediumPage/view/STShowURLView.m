@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 
 #define Margin_min 3
-#define Heigh 60
+#define Heigh 70
 
 @interface STShowURLView ()
 
@@ -50,11 +50,11 @@
     
     if (!self.textLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.textColor = LOWBLUECOLOR;
-        label.font = [UIFont systemFontOfSize:15.0f];
+        label.textColor = [UIColor lightGrayColor];
+        label.font = [UIFont systemFontOfSize:13.0f];
+        label.numberOfLines = 2;
         [self addSubview:label];
         self.textLabel = label;
-        label.backgroundColor = [UIColor blueColor];
         //添加点击事件
         label.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
@@ -84,8 +84,15 @@
 }
 
 - (void)showURLViewWithShowURLModel:(STShowURLModel *)showURLModel {
+    
     self.showURLModel = showURLModel;
+    
+    //主标题
     self.titleLabel.text = showURLModel.title;
+    
+    //副标题
+    self.textLabel.text = showURLModel.subTitle;
+    
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:showURLModel.imageURLString] placeholderImage:[Common imageWithColor:RGBACOLOR(230, 230, 230, 230)]];
     [self setNeedsLayout];
 }
@@ -115,21 +122,33 @@
             self.backgroundColor = [UIColor clearColor];
         } else {
             self.imageView.hidden = NO;
-            self.textLabel.hidden = NO;
+            self.textLabel.hidden = [Common isObjectNull:self.showURLModel.subTitle] ? YES : NO;
             self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
-            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
-            self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
-            self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+            
+            if ([Common isObjectNull:self.showURLModel.subTitle]) {
+                self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min,0,self.width - self.imageView.width - Margin_min - Margin_min,self.height);
+            } else {
+                self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+                self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+            }
+            
+            self.backgroundColor = RGBACOLOR(240, 240, 240, 1);
         }
         
     } else {
         
         self.imageView.hidden = NO;
-        self.textLabel.hidden = NO;
+        self.textLabel.hidden = [Common isObjectNull:self.showURLModel.subTitle] ? YES : NO;
         self.imageView.frame = CGRectMake(Margin_min, Margin_min, Heigh - 2 * Margin_min, Heigh - 2 * Margin_min);
-        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
-        self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
-        self.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+        
+        if ([Common isObjectNull:self.showURLModel.subTitle]) {
+            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min,0,self.width - self.imageView.width - Margin_min - Margin_min,self.height);
+        } else {
+            self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, Margin_min,self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+            self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + Margin_min, CGRectGetMaxY(self.titleLabel.frame), self.width - self.imageView.width - Margin_min - Margin_min, (Heigh - 2 * Margin_min) / 2.0f);
+        }
+        
+        self.backgroundColor = RGBACOLOR(240, 240, 240, 1);
     }
 }
 

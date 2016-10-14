@@ -25,7 +25,6 @@
         
         NSDictionary *dictionary = jsonArray[i];
         if ([dictionary[@"isShare"] isEqualToString:@"0"]) {//0原创
-            
             //设置模型
             STMediumModel *model = [[STMediumModel alloc] init];
             model.originalHeadImg = dictionary[@"writerHeadImg"];
@@ -47,6 +46,7 @@
             model.isClickLike = dictionary[@"isClickLike"];
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
+            model.visibleType = dictionary[@"visibleType"];
             //设置数据
             [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:model];
             
@@ -70,6 +70,7 @@
             model.isClickLike = dictionary[@"isClickLike"];
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
+            model.visibleType = dictionary[@"visibleType"];
             
             STMediumModel *subModel = [[STMediumModel alloc] init];//被转发的自媒体
             subModel.originalHeadImg = dictionary[@"writerHeadImg"];
@@ -91,6 +92,7 @@
             subModel.isClickLike = dictionary[@"isClickLike"];
             subModel.infoTypeId = dictionary[@"infoTypeId"];
             subModel.infoTypeName   = dictionary[@"infoTypeName"];
+            subModel.visibleType = dictionary[@"visibleType"];
             
             //设置数据
             [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:subModel];
@@ -104,9 +106,11 @@
 
 + (void)getModelWeMediaType:(NSString *)weMediaType infoContent:(NSString *)infoContent model:(STMediumModel *)mediumModel {
     if ([weMediaType isEqualToString:@"2"]) {//表示是特殊的链接类型，需要特殊处理
+
 #warning 这里需要配合服务器进行修改-- ；；；
+
         NSArray *array = [infoContent componentsSeparatedByString:@";"];
-        if (array.count == 3) {
+        if (array.count == 3) {//原来的，最后一个网页地址
             
             NSString *string = array[1];
             NSError *error;
@@ -131,6 +135,33 @@
                 mediumModel.weMediaType = @"2";
                 mediumModel.infoContent = [NSString stringWithFormat:@"%@;;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],array[2]];
             }
+            
+        } else if (array.count == 4) {//新加的，最后一个是副标题
+            
+            NSString *string = array[1];
+            NSError *error;
+            NSString *regulaStr = @"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?";
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
+                                                                                   options:NSRegularExpressionCaseInsensitive
+                                                                                     error:&error];
+            NSArray *arrayOfAllMatches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
+            
+            if (arrayOfAllMatches.count) {
+                
+                NSTextCheckingResult *match = arrayOfAllMatches[0];
+                NSString *substringForMatch = [string substringWithRange:match.range];
+                if ([Common isObjectNull:substringForMatch]) {//空了
+                    mediumModel.weMediaType = @"2";
+                    mediumModel.infoContent = [NSString stringWithFormat:@"%@;;%@;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],array[2],array[3]];
+                } else {//有图片
+                    mediumModel.infoContent = [NSString stringWithFormat:@"%@;%@;%@;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],substringForMatch,array[2],array[3]];
+                    mediumModel.weMediaType = @"2";
+                }
+            } else {
+                mediumModel.weMediaType = @"2";
+                mediumModel.infoContent = [NSString stringWithFormat:@"%@;;%@;%@",[Common isObjectNull:array[0]] ? @"网页链接":array[0],array[2],array[3]];
+            }
+            
         } else {//服务器解析链接问题，这时候需要特殊处理
             mediumModel.weMediaType = @"2";
             mediumModel.infoContent = [NSString stringWithFormat:@"网页链接;;%@",[array lastObject]];
@@ -177,12 +208,10 @@
     return [dictionary mj_JSONString];
 }
 
-+ (NSMutableArray *)pictureArrayWith:(NSString *)mediaJsonString {
++ (NSMutableArray <STPicturesModel *>*)pictureArrayWith:(NSString *)mediaJsonString {
     
     if ([Common isObjectNull:mediaJsonString]) {
-        
         return [[NSMutableArray alloc] init];
-        
     } else {
         
         NSDictionary *dictionary = [mediaJsonString mj_JSONObject];
@@ -213,12 +242,10 @@
     }
 }
 
-+ (NSMutableArray *)videoArrayWith:(NSString *)mediaJsonString {
++ (NSMutableArray <STPicturesModel *>*)videoArrayWith:(NSString *)mediaJsonString {
     
     if ([Common isObjectNull:mediaJsonString]) {
-        
         return [[NSMutableArray alloc] init];
-        
     } else {
         
         NSDictionary *dictionary = [mediaJsonString mj_JSONObject];

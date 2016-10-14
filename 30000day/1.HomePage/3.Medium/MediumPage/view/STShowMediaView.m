@@ -53,13 +53,30 @@
         STPicturesView *picturesView = [[STPicturesView alloc] init];
         [self addSubview:picturesView];
         //代码块回调
-        [picturesView setPictureClickBlock:^(NSInteger indext) {
+        [picturesView setPictureClickBlock:^(NSInteger indext,UIImage *image) {
             
             if (self.pictureClickBlock) {
-                self.pictureClickBlock(indext);
+                self.pictureClickBlock(indext,image);
             }
         }];
         self.picturesView = picturesView;
+        //长按
+        [picturesView setLongPressBlock:^(NSInteger index, UIImage *image) {
+            
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存到相册" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
+                [self.delegate showHUDWithContent:@"正在保存" animated:YES];
+                UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            }];
+            
+            [controller addAction:cancelAction];
+            if (image) {
+                [controller addAction:saveAction];
+            }
+            [self.delegate presentViewController:controller animated:YES completion:nil];
+            
+        }];
     }
     //视频
     if (!self.videoView) {
@@ -90,6 +107,17 @@
         }];
     }
 }
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    [self.delegate hideHUD:YES];
+    if (!error) {
+        [self.delegate showToast:@"保存成功"];
+    } else {
+        [self.delegate showToast:@"保存失败"];
+    }
+}
+
 
 - (void)setDelegate:(id)delegate {
     _delegate = delegate;
@@ -149,6 +177,11 @@
         } else if (array.count == 2) {//无图片
             model.title = array[0];
             model.URLString = array[1];
+        } else if (array.count == 4) {//新加的，有加副标题
+            model.title = array[0];
+            model.imageURLString = array[1];
+            model.URLString = array[2];
+            model.subTitle = array[3];
         }
     }
     return model;

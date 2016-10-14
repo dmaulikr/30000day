@@ -40,6 +40,8 @@
 #import "STMediumDetailModel.h"
 #import "STDenounceModel.h"
 #import "SearchVersionManager.h"
+#import "STMediumRemindListModel.h"
+#import "STMediumCommentModel.h"
 
 #import "SBJson.h"
 #import "AFNetworking.h"
@@ -73,17 +75,16 @@
 
 @end
 
+static int executeNumber = 0;
+static id handler = nil;
+static dispatch_once_t onceToken;
+
 @implementation STDataHandler
 
 + (STDataHandler *)sharedHandler {
-    
-    static id handler = nil;
-    static dispatch_once_t onceToken;
-
     dispatch_once(&onceToken, ^{
         handler = [[self alloc] init];
     });
-    
     return handler;
 }
 
@@ -361,7 +362,7 @@
 //    }];
 
 
-     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:loginName forKey:@"loginName"];
     [parameters addParameter:isFromThirdParty forKey:@"isFromThirdParty"];
     [parameters addParameter:password forKey:@"password"];
@@ -386,25 +387,6 @@
                                                                 //设置个人信息
                                                                 [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:loginName password:password isFromThirdParty:isFromThirdParty postNotification:isPostNotification];
 
-                                                                //登录凌云服务器
-                                                                [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
-                                                                    
-                                                                    if (succeeded) {
-                                                                        
-                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                            
-                                                                            [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-                                                                            NSLog(@"---连接凌云聊天服务器成功");
-                                                                        });
-                                                                        
-                                                                    } else {
-                                                                        
-                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                            failure(error);
-                                                                        });
-                                                                    }
-                                                                }];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                                     success(YES);
                                                                 });
@@ -506,6 +488,28 @@
     
     //新加的，去查询本地数据库是否保存了自媒体数据
     [[SearchVersionManager shareManager] changeAccountLoadWeMediaInfoTypes];
+    //*******************登录凌云服务器*********************//
+    executeNumber = 0;//登录之前先把这个数设置成0
+    [self signInLeanCloudWithUserId:STUserAccountHandler.userProfile.userId];
+}
+
+//********登录凌云服务器************//
+- (void)signInLeanCloudWithUserId:(NSNumber *)number {
+    //登录凌云服务器
+    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",number] callback: ^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
+            });
+        } else {
+            //只设置执行5次
+            if (executeNumber <= 100) {
+                executeNumber += 1;
+                [self signInLeanCloudWithUserId:number];
+            }
+        }
+    }];
 }
 
 //********** 用户注册************/
@@ -540,26 +544,7 @@
                 
                     //设置个人信息
                     [self setUserInformationWithDictionary:[NSMutableDictionary dictionaryWithDictionary:jsonDictionary] userName:phoneNumber password:password  isFromThirdParty:@0 postNotification:YES];
-                    
-                    //登录凌云服务器
-                    [[CDChatManager sharedManager] openWithClientId:[NSString stringWithFormat:@"%@",STUserAccountHandler.userProfile.userId] callback: ^(BOOL succeeded, NSError *error) {
-                        
-                        if (succeeded) {
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                
-                                [STNotificationCenter postNotificationName:STDidSuccessConnectLeanCloudViewSendNotification object:nil];
-                                NSLog(@"---连接凌云聊天服务器成功");
-                            });
-                            
-                        } else {
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                failure(error);
-                            });
-                        }
-                    }];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     success(YES);
                 });
@@ -689,8 +674,6 @@
                                     success:(void (^)(BOOL success))success
                                     failure:(void (^)(NSError *))failure {
 
-    
-    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters addParameter:userId forKey:@"userId"];
     [parameters addParameter:nickName forKey:@"nickName"];//昵称
@@ -700,7 +683,6 @@
     [parameters addParameter:memo forKey:@"memo"];//个人简介
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.completionQueue = dispatch_queue_create("sendUpdateUserInformationWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -1948,11 +1930,8 @@
                            failure:(void (^)(NSError *error))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:data forKey:@"data"];
-    
     [Common urlStringWithDictionary:params withString:UPDATE_STAT_USERLLFE];
 
     STApiRequest *request = [STApiRequest requestWithMethod:STRequestMethodGet
@@ -1961,29 +1940,21 @@
                                                     success:^(id responseObject) {
                                                         
                                                         NSError *localError = nil;
-                                                        
                                                         id parsedObject = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&localError];
                                                         
                                                         if (localError == nil) {
                                                             
                                                             NSDictionary *recvDic = (NSDictionary *)parsedObject;
-                                                            
                                                             if ([recvDic[@"code"] isEqualToNumber:@0]) {
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     success(YES);
-                                                                    
                                                                 });
                                                                 
                                                             } else {
                                                                 
                                                                 NSError *failureError = [[NSError alloc] initWithDomain:@"reverse-DNS" code:10000 userInfo:@{NSLocalizedDescriptionKey:parsedObject[@"msg"]}];
-                                                                
                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                    
                                                                     failure(failureError);
-                                                                    
                                                                 });
                                                                 
                                                             }
@@ -2021,17 +1992,12 @@
                                  failure:(void (^)(NSError *))failure{
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     [params addParameter:userId forKey:@"userId"];
-    
     [params addParameter:email forKey:@"email"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.completionQueue = dispatch_queue_create("sendUploadUserSendEmailWithUserId",DISPATCH_QUEUE_PRIORITY_DEFAULT);
-    
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,UPDATE_USER_SENDEMAIL] parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -3828,7 +3794,6 @@
     [params addParameter:userId forKey:@"userId"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.completionQueue = dispatch_queue_create("sendGetDefeatData", DISPATCH_QUEUE_PRIORITY_DEFAULT);
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
@@ -5064,6 +5029,122 @@
                 failure([Common errorWithString:parsedObject[@"msg"]]);
             }
             
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//**************获取别人对用户的评论和回复(提醒模块)消息
++ (void)sendSearchMyRelativeWithUserId:(NSNumber *)userId
+                           currentPage:(NSInteger)currentPage
+                               success:(void (^)(NSMutableArray <STMediumRemindListModel *>*dataArray))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:userId forKey:@"userId"];
+    [params addParameter:@(currentPage) forKey:@"currentPage"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SEARCH_MY_RELATIVE];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SEARCH_MY_RELATIVE] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *array = recvDic[@"value"];
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < array.count; i++) {
+                NSDictionary *dictionary = array[i];
+                [dataArray addObject:[STMediumRemindListModel yy_modelWithJSON:dictionary]];
+            }
+            success(dataArray);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//*************获取评论列表接口（提醒模块）*************/
++ (void)sendShowMediaCommentListWithWeMediaId:(NSNumber *)weMediaId
+                                     currentPage:(NSInteger)currentPage
+                                         success:(void (^)(NSMutableArray <STMediumCommentModel *>*dataArray))success
+                                         failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    [params addParameter:@(currentPage) forKey:@"currentPage"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SHOW_MEDIA_COMMENT_DETAILS];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SHOW_MEDIA_COMMENT_DETAILS] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            
+            NSArray *array = recvDic[@"value"];
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            for (int i = 0; i < array.count; i++) {
+                NSDictionary *dictionary = array[i];
+                [dataArray addObject:[STMediumCommentModel yy_modelWithJSON:dictionary]];
+            }
+            success(dataArray);
+        } else {
+            failure([Common errorWithString:parsedObject[@"msg"]]);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+//*************获取自媒体详情(提醒模块里)*************/
++ (void)sendShowMediaInfoWithWeMediaId:(NSNumber *)weMediaId
+                               success:(void (^)(STMediumModel *model))success
+                               failure:(void (^)(NSError *error))failure {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params addParameter:weMediaId forKey:@"weMediaId"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [Common urlStringWithDictionary:params withString:SHOW_MEDIA_INFO];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",ST_API_SERVER,SHOW_MEDIA_INFO] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *recvDic = (NSDictionary *)parsedObject;
+        
+        if ([recvDic[@"code"] isEqualToNumber:@0]) {
+            NSDictionary *dictionary = recvDic[@"value"];
+            if (![Common isObjectNull:dictionary]) {
+                NSArray *array = [STMediumModel getMediumModelArrayWithDictionaryArray:@[dictionary]];
+                if (array.count) {
+                    success(array[0]);
+                } else {
+                    failure([Common errorWithString:@"获取数据有误"]);
+                }
+            }
         } else {
             failure([Common errorWithString:parsedObject[@"msg"]]);
         }

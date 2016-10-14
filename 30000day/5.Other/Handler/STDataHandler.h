@@ -75,6 +75,8 @@ static NSString *const STSendMediumControllerViewDidMove = @"STSendMediumControl
 static NSString *const STWeMediumOpenControllerFetchTypeChange = @"STWeMediumOpenControllerFetchTypeChange";
 //自媒体数据更新、下载完全
 static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
+//有人给你点赞或者回复
+static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReplyPraiseSendNotification";
 
 @class STNetError;
 @class WeatherInformationModel;
@@ -84,6 +86,10 @@ static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
 @class PriceModel;
 @class STMediumDetailModel;
 @class STDenounceModel;
+@class STMediumRemindListModel;
+@class STMediumCommentModel;
+@class STMediumRemindListDetailModel;
+@class STMediumModel;
 
 @interface STDataHandler : NSObject
 
@@ -128,7 +134,6 @@ static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *))failure;
 
-
 //***** 用户注册 *****/
 //提醒:注册成功会发通知
 //提醒:并且会循环设置个人健康因素，直到成功
@@ -138,7 +143,6 @@ static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
                       mobileToken:(NSString *)mobileToken//校验后获取的验证码
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *))failure;
-
 
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
 + (void)getMyFriendsWithUserId:(NSString *)userId
@@ -462,10 +466,9 @@ static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
                               success:(void (^)(InformationDetails *success))success
                               failure:(void (^)(NSError *error))failure;
 
-
 //*****************************************评论*********************/
 + (void)sendSaveCommentWithBusiId:(NSInteger)busiId
-                         busiType:(NSInteger)busiType
+                         busiType:(NSInteger)busiType //0，商品，1,咨询或者自媒体，2评论，3
                            userId:(NSInteger)userId
                            remark:(NSString *)remark
                               pid:(NSInteger)pid
@@ -689,4 +692,22 @@ static NSString *const STWeMediumDataLoadSuccess = @"STWeMediumDataLoadSuccess";
                               content:(NSString *)content//举报内容
                              success:(void (^)(BOOL success))success
                              failure:(void (^)(NSError *error))failure;
+
+//**************获取别人对用户的评论和回复(提醒模块)消息*******//
++ (void)sendSearchMyRelativeWithUserId:(NSNumber *)userId
+                           currentPage:(NSInteger)currentPage
+                        success:(void (^)(NSMutableArray <STMediumRemindListModel *>*dataArray))success
+                        failure:(void (^)(NSError *error))failure;
+
+//*************获取评论列表接口(提醒模块)*************/
++ (void)sendShowMediaCommentListWithWeMediaId:(NSNumber *)weMediaId
+                                     currentPage:(NSInteger)currentPage
+                                         success:(void (^)(NSMutableArray <STMediumCommentModel *>*dataArray))success
+                                         failure:(void (^)(NSError *error))failure;
+
+//*************获取自媒体详情(提醒模块里)*************/
++ (void)sendShowMediaInfoWithWeMediaId:(NSNumber *)weMediaId
+                                         success:(void (^)(STMediumModel *model))success
+                                         failure:(void (^)(NSError *error))failure;
+
 @end

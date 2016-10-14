@@ -17,6 +17,8 @@ typedef id(^AsyncProcess)(NSManagedObjectContext *ctx, NSString *className);
 
 + (id)createObjectWithMainContext:(NSManagedObjectContext *)mainContext;
 + (NSArray *)filterWithContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;
++ (NSArray *)_filterWithContext:(NSManagedObjectContext *)context predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit;//新扩展，和上面区别就是 offset limit
+
 + (void)filterWithMainContext:(NSManagedObjectContext *)mainContext withPrivateContext:(NSManagedObjectContext *)privateContext predicate:(NSPredicate *)predicate orderby:(NSArray *)orders offset:(int)offset limit:(int)limit on:(ListResult)handler;
 + (void)deleteObjectWithMainContext:(NSManagedObjectContext *)mainContext object:(id)object;
 //+ (id)one:(NSPredicate *)predicate;
@@ -26,5 +28,7 @@ typedef id(^AsyncProcess)(NSManagedObjectContext *ctx, NSString *className);
 
 
 //+ (void)async:(AsyncProcess)processBlock result:(ListResult)resultBlock;
+
+
 
 @end

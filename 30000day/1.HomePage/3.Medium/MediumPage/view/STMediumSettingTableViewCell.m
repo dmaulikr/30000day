@@ -46,6 +46,7 @@
 }
 //配置
 - (void)cofigCellWithModel:(STMediumModel *)mixedMediumModel {
+    self.settingView.visibleType = self.visibleType;
     [self.settingView configureViewWithModel:mixedMediumModel];
 }
 

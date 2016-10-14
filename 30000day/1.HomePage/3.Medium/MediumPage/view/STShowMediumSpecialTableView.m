@@ -54,7 +54,7 @@
         self.showMediaView = showMediaView;
         
         __weak typeof(self) weakSelf = self;
-        [showMediaView setPictureClickBlock:^(NSInteger index) {//点击事件的回调
+        [showMediaView setPictureClickBlock:^(NSInteger index,UIImage *image) {//点击事件的回调
             
             if (weakSelf.originMediumModel.picturesArray.count >= index + 1) {
                 [weakSelf configCallbackActionWith:weakSelf.originMediumModel.picturesArray[index]];
@@ -83,10 +83,13 @@
 }
 
 - (void)configureCellWithOriginMediumModel:(STMediumModel *)originMediumModel {
-    self.originMediumModel = originMediumModel;
     
-    [self.showMediaView showMediumModel:originMediumModel isRelay:YES];
-    [self setNeedsLayout];
+    if (![Common isObjectNull:originMediumModel]) {
+        self.originMediumModel = originMediumModel;
+        
+        [self.showMediaView showMediumModel:originMediumModel isRelay:YES];
+        [self setNeedsLayout];
+    }
 }
 
 - (NSMutableArray *)getPhotoModel {
@@ -145,9 +148,12 @@
         browser.usePopAnimation = YES;
         [browser setInitialPageIndex:[self indexOfPhotoWithRemotoPhotoURLString:model.mediaURLString]];
         browser.delegate = self;
-        
+        //点击
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
         [browser.view addGestureRecognizer:tap];
+        //长按
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction)];
+        [browser.view addGestureRecognizer:longPress];
         
         [self.delegate presentViewController:browser animated:YES completion:nil];
         self.browser = browser;
@@ -165,6 +171,35 @@
 
 - (void)tapAction {
     [self.browser dismissViewControllerAnimated:YES completion:nil];
+}
+
+//长按保存
+- (void)longPressAction {
+    IDMPhoto *photo = [self.browser photoAtIndex:_chooseImageMessageIndex];
+    UIImage *image = [photo underlyingImage];
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:@"保存到相册" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
+        [self.delegate showHUDWithContent:@"正在保存" animated:YES];
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }];
+    
+    [controller addAction:cancelAction];
+    if (image) {
+        [controller addAction:saveAction];
+    }
+    [self.browser presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+    [self.delegate hideHUD:YES];
+    if (!error) {
+        [self.delegate showToast:@"保存成功"];
+    } else {
+        [self.delegate showToast:@"保存失败"];
+    }
 }
 
 #pragma mark --- IDMPhotoBrowserDelegate

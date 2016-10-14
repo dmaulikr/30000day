@@ -474,8 +474,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
-        
-        [self showToast:@"网络不给力，请稍后再试"];
+        [self showToast:@"暂未链接聊天服务器，请稍后再试"];
         return;
     }
     
@@ -555,7 +554,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
         
-        [self showToast:@"网络不给力，请稍后再试"];
+        [self showToast:@"暂未链接聊天服务器，请稍后再试"];
         [self hideHUD:YES];
         return;
     }
@@ -662,8 +661,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 - (void)didSendVoice:(NSString *)voicePath voiceDuration:(NSString *)voiceDuration fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
-        
-        [self showToast:@"网络不给力，请稍后再试"];
+        [self showToast:@"暂未链接聊天服务器，请稍后再试"];
         return;
     }
     
@@ -675,8 +673,7 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 - (void)didSendEmotion:(NSString *)emotion fromSender:(NSString *)sender onDate:(NSDate *)date {
     
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
-        
-        [self showToast:@"网络不给力，请稍后再试"];
+        [self showToast:@"暂未链接聊天服务器，请稍后再试"];
         return;
     }
     
@@ -701,12 +698,9 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 }
 
 - (void)didSendGeoLocationsPhoto:(UIImage *)geoLocationsPhoto geolocations:(NSString *)geolocations location:(CLLocation *)location fromSender:(NSString *)sender onDate:(NSDate *)date {
-    
     if ([CDChatManager sharedManager].client.status != AVIMClientStatusOpened) {
-        
         return;
     }
-    
     [self finishSendMessageWithBubbleMessageType:XHBubbleMessageMediaTypeLocalPosition];
 }
 
@@ -716,21 +710,15 @@ static CFTimeInterval const _timeInterval = 10.00000;//发送图片和视频消�
 - (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        
         return YES;
-        
     } else {
-        
         XHMessage *msg = [self.messages objectAtIndex:indexPath.row];
         XHMessage *lastMsg = [self.messages objectAtIndex:indexPath.row - 1];
         int interval = [msg.timestamp timeIntervalSinceDate:lastMsg.timestamp];
         
         if (interval > 60 * 3) {
-            
             return YES;
-            
         } else {
-            
             return NO;
         }
     }

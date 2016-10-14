@@ -12,6 +12,7 @@
 #import "InformationCommentModel.h"
 #import "UIImageView+WebCache.h"
 #import "MTProgressHUD.h"
+#import "STPraiseReplyCoreDataStorage.h"
 
 @interface STPlaceHoldView : UIView
 @property (nonatomic,strong) UILabel *label;
@@ -104,6 +105,10 @@
                     if (success) {
                         [self showToast:@"评论成功"];
                         [self searchCommentsWithPid:-1 busiType:1];
+                        //发送消息
+                        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:self.userId originHeadImg:self.originHeadImg originalNickName:self.originNickName visibleType:self.visibleType];
+                        }
                     }
                     [self hideHUD:YES];
                 });
@@ -294,7 +299,6 @@
 - (void)commentWithIndexPathRow:(NSIndexPath *)indexPath changeStatusButton:(UIButton *)checkReplyButton {
     
     [self refreshControllerInputViewHide];
-    
     [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag) {
         
         if (message != nil) {
@@ -308,6 +312,10 @@
                         [self showToast:@"回复成功"];
                         commentModel.countCommentNum = [NSString stringWithFormat:@"%d",[commentModel.countCommentNum intValue] + 1];
                         [self cellDataProcessing:checkReplyButton index:indexPath];
+                        //发送消息
+                        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[NSNumber numberWithLongLong:[commentModel.userId longLongValue]] originHeadImg:commentModel.headImg originalNickName:commentModel.nickName visibleType:self.visibleType];
+                        }
                     }
                 });
                 

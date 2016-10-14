@@ -16,5 +16,7 @@
 @property (nonatomic,assign) BOOL isOriginWedia;//YES:表示原创自媒体，NO表示转发的自媒体
 @property (nonatomic,strong) NSNumber *writerId;//本条自媒体发送者id
 @property (nonatomic,copy)   void (^deleteBock)();
+//后加的
+@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
 
 @end

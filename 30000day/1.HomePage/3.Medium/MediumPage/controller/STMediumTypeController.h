@@ -9,5 +9,8 @@
 #import "STRefreshViewController.h"
 
 @interface STMediumTypeController : STRefreshViewController
+
 @property (nonatomic,strong) NSNumber *visibleType;//0自己，1好友 2公开
+@property (nonatomic,copy) void (^showRedBadgeBlock)(BOOL isShow,NSNumber *visibleType,NSNumber *messageType);
+
 @end

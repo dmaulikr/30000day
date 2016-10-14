@@ -74,6 +74,7 @@ typedef void (^CDRecentConversationsCallback)(NSArray *conversations, NSInteger 
  *  @param callback 回调。当网络错误或签名错误会发生 error 回调。
  */
 - (void)openWithClientId:(NSString *)clientId callback:(AVIMBooleanResultBlock)callback;
+
 /**
  *  关闭一个聊天终端，注销的时候使用
  */

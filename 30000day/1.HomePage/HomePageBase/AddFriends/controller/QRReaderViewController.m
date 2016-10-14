@@ -222,7 +222,7 @@
     [[UILabel alloc] initWithFrame:CGRectMake((readerFrame.size.width - viewFinderSize.width)/2,
                                               (readerFrame.size.height + viewFinderSize.height)/2 + 20,
                                               viewFinderSize.width, 30)];
-    self.infoLabel.text = @"将取景框对准二维码放入中即可自动扫描";
+    self.infoLabel.text = @"将取景框对准二维码放入即可自动扫描";
     self.infoLabel.font = [UIFont systemFontOfSize:13.0];
     self.infoLabel.layer.cornerRadius = self.infoLabel.frame.size.height / 2;
     self.infoLabel.layer.backgroundColor = [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5] CGColor];
