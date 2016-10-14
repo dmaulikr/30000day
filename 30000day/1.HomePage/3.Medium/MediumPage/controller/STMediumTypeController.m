@@ -17,7 +17,6 @@
 #import "STChooseItemManager.h"
 #import "STPraiseReplyCoreDataStorage.h"
 #import "STShowReplyPraiseView.h"
-#import "STShowReplyPraiseController.h"
 #import "STMediumRemindListController.h"
 
 @interface STMediumTypeController () <UITableViewDataSource,UITableViewDelegate>
@@ -39,8 +38,8 @@
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediaSuccessSendNotification object:nil];
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
     [STNotificationCenter addObserver:self selector:@selector(sameReplyPraise:) name:STSameBodyReplyPraiseSendNotification object:nil];
+    
     [self headerRefreshing];
-//    [self querySameBodyReplyPraise];
     [self asynQueryMessageFromCoreDataStorage];
 }
 
@@ -60,24 +59,16 @@
     }
 }
 
-//查询是否有人给你发信息&同是判断底部的tabBarItem是否显示红色
-//- (void)querySameBodyReplyPraise {
-//    self.praiseArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
-//    self.replyArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
-//    [self judgeTabBarItemIsShowRed];
-//    [self.tableView reloadData];
-//}
 //判断底部的tabBarItem是否显示红色
-- (void)judgeTabBarItemIsShowRed {
+- (void)judgeTabBarItemIsShowRed:(NSNumber *)messageType {
+    
     if (self.praiseArray.count || self.replyArray.count) {
-        self.navigationController.tabBarItem.badgeValue = @"";
         if (self.showRedBadgeBlock) {
-            self.showRedBadgeBlock(YES,self.visibleType);
+            self.showRedBadgeBlock(YES,self.visibleType,messageType);
         }
     } else {
-        self.navigationController.tabBarItem.badgeValue = nil;
         if (self.showRedBadgeBlock) {
-            self.showRedBadgeBlock(NO,self.visibleType);
+            self.showRedBadgeBlock(NO,self.visibleType,messageType);
         }
     }
 }
@@ -87,7 +78,7 @@
     [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetPraiseMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.praiseArray = dataArray;
-            [self judgeTabBarItemIsShowRed];
+            [self judgeTabBarItemIsShowRed:@99];
             [self.tableView reloadData];
         });
     }];
@@ -96,7 +87,7 @@
     [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetReplyMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.replyArray = dataArray;
-            [self judgeTabBarItemIsShowRed];
+            [self judgeTabBarItemIsShowRed:@98];
             [self.tableView reloadData];
         });
     }];

@@ -13,12 +13,22 @@
 
 @interface STTabBarViewController ()
 
+@property (nonatomic,assign) BOOL praiseFlag_1;
+@property (nonatomic,assign) BOOL replyFlag_1;
+@property (nonatomic,assign) BOOL praiseFlag_2;
+@property (nonatomic,assign) BOOL replyFlag_2;
+
 @end
 
 @implementation STTabBarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.praiseFlag_1 = NO;
+    self.replyFlag_1 = NO;
+    self.praiseFlag_2 = NO;
+    self.replyFlag_2 = NO;
     
     NSArray *controllerArray = self.viewControllers;
     for (int i = 0; i < controllerArray.count; i++) {
@@ -77,12 +87,45 @@
 }
 
 //查询是否有人给你发信息
-- (void)querySameBodyReplyPraise:(NSNotification *)notification {
-    NSMutableArray *replyArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
-    NSMutableArray *praiseArray_1 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0]];
-    NSMutableArray *replyArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
-    NSMutableArray *praiseArray_2 = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0]];
-    if (replyArray_1.count || praiseArray_1.count || replyArray_2.count || praiseArray_2.count ) {
+- (void)querySameBodyReplyPraise:(NSNotification *)notification {    
+    //自己人
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetPraiseMessageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.praiseFlag_1 = dataArray.count ? YES : NO;
+            [self judgeIsShowTabbarItemRedColor];
+        });
+        
+    }];
+    
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetReplyMessageArrayWithVisibleType:@1 readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.replyFlag_1 = dataArray.count ? YES : NO;
+            [self judgeIsShowTabbarItemRedColor];
+        });
+    }];
+    
+    //公开
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetPraiseMessageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.praiseFlag_2 = dataArray.count ? YES : NO;
+            [self judgeIsShowTabbarItemRedColor];
+        });
+    }];
+    
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetReplyMessageArrayWithVisibleType:@2 readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.replyFlag_2 = dataArray.count ? YES : NO;
+            [self judgeIsShowTabbarItemRedColor];
+        });
+    }];
+}
+
+- (void)judgeIsShowTabbarItemRedColor {
+    if (self.praiseFlag_1 || self.replyFlag_1 || self.praiseFlag_2 || self.replyFlag_2) {
         NSArray *controllerArray = self.viewControllers;
         UIViewController *controller = controllerArray[2];
         controller.tabBarItem.badgeValue = @"";

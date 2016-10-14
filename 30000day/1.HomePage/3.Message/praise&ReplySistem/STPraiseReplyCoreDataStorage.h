@@ -26,8 +26,8 @@
 //发送回复消息
 + (void)sendReplyMessage:(NSNumber *)currentUserId currentOriginHeadImg:(NSString *)currentOriginHeadImg currentOriginNickName:(NSString *)currentOriginNickName userId:(NSNumber *)userId originHeadImg:(NSString *)originalHeadImg originalNickName:(NSString *)originalNickName visibleType:(NSNumber *)visibleType;
 
-- (NSArray <AVIMPraiseMessage *>*)getPraiseMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
-- (NSArray <AVIMReplyMessage *>*)geReplyMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
+//- (NSArray <AVIMPraiseMessage *>*)getPraiseMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
+//- (NSArray <AVIMReplyMessage *>*)geReplyMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
 
 - (void)scheduleGetPraiseMessageArrayWithVisibleType:(NSNumber *)visibleType
                                            readState:(NSNumber *)readState

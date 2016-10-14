@@ -7,8 +7,6 @@
 //
 
 #import "STPraiseReplyCoreDataStorage.h"
-#import "NSManagedObject+handler.h"
-//#import "PraiseReplyStorageObject.h"
 #import "CDChatManager.h"
 #import "UserInformationModel.h"
 #import "STCoreDataStorageProtected.h"
