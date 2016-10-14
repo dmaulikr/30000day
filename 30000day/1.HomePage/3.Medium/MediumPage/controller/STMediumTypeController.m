@@ -40,7 +40,8 @@
     [STNotificationCenter addObserver:self selector:@selector(reloadData:) name:STWeMediumOpenControllerFetchTypeChange object:nil];
     [STNotificationCenter addObserver:self selector:@selector(sameReplyPraise:) name:STSameBodyReplyPraiseSendNotification object:nil];
     [self headerRefreshing];
-    [self querySameBodyReplyPraise];
+//    [self querySameBodyReplyPraise];
+    [self asynQueryMessageFromCoreDataStorage];
 }
 
 - (void)reloadData:(NSNotification *)notification {
@@ -54,24 +55,51 @@
 - (void)sameReplyPraise:(NSNotification *)notification {
     NSNumber *visibleType = notification.object;
     if ([visibleType isEqualToNumber:self.visibleType]) {
-        [self querySameBodyReplyPraise];
+//        [self querySameBodyReplyPraise];
+        [self asynQueryMessageFromCoreDataStorage];
     }
 }
 
 //查询是否有人给你发信息&同是判断底部的tabBarItem是否显示红色
-- (void)querySameBodyReplyPraise {
-    self.praiseArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
-    self.replyArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
-    [self judgeTabBarItemIsShowRed];
-    [self.tableView reloadData];
-}
+//- (void)querySameBodyReplyPraise {
+//    self.praiseArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] getPraiseMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
+//    self.replyArray = [[NSMutableArray alloc] initWithArray:[[STPraiseReplyCoreDataStorage shareStorage] geReplyMesssageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0]];
+//    [self judgeTabBarItemIsShowRed];
+//    [self.tableView reloadData];
+//}
 //判断底部的tabBarItem是否显示红色
 - (void)judgeTabBarItemIsShowRed {
     if (self.praiseArray.count || self.replyArray.count) {
         self.navigationController.tabBarItem.badgeValue = @"";
+        if (self.showRedBadgeBlock) {
+            self.showRedBadgeBlock(YES,self.visibleType);
+        }
     } else {
         self.navigationController.tabBarItem.badgeValue = nil;
+        if (self.showRedBadgeBlock) {
+            self.showRedBadgeBlock(NO,self.visibleType);
+        }
     }
+}
+
+- (void)asynQueryMessageFromCoreDataStorage {
+    //查询点赞消息
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetPraiseMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.praiseArray = dataArray;
+            [self judgeTabBarItemIsShowRed];
+            [self.tableView reloadData];
+        });
+    }];
+    
+    //查询
+    [[STPraiseReplyCoreDataStorage shareStorage] scheduleGetReplyMessageArrayWithVisibleType:self.visibleType readState:@1 offset:0 limit:0 success:^(NSMutableArray<AVIMPraiseMessage *> *dataArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.replyArray = dataArray;
+            [self judgeTabBarItemIsShowRed];
+            [self.tableView reloadData];
+        });
+    }];
 }
 
 - (void)configUI {
@@ -266,7 +294,8 @@
                 cell = [[STMediumSettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STMediumSettingTableViewCell"];
             }
             cell.delegate = self;
-            cell.visibleType = self.visibleType;
+            STMediumModel *model = self.dataArray[indexPath.section];
+            cell.visibleType = model.visibleType;
             [cell cofigCellWithModel:self.dataArray[indexPath.section]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -291,7 +320,8 @@
                 cell = [[STMediumSettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"STMediumSettingTableViewCell"];
             }
             cell.delegate = self;
-            cell.visibleType = self.visibleType;
+            STMediumModel *model = self.dataArray[indexPath.section];
+            cell.visibleType = model.visibleType;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell cofigCellWithModel:self.dataArray[indexPath.section]];
             return cell;
@@ -326,7 +356,8 @@
         //点击了回复视图
         [view setReplyBlock:^(NSArray<AVIMReplyMessage *> *messageArray) {
             [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
-            [self querySameBodyReplyPraise];
+            [self asynQueryMessageFromCoreDataStorage];
+//            [self querySameBodyReplyPraise];
 //            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
 //            controller.visibleType = self.visibleType;
 //            controller.messageType = @98;
@@ -340,7 +371,8 @@
         //点击了点赞视图
         [view setPraiseBlock:^(NSArray<AVIMPraiseMessage *> *messageArray) {
             [[STPraiseReplyCoreDataStorage shareStorage] markMessageWith:messageArray visibleType:self.visibleType readState:@2];//标记成过渡消息
-            [self querySameBodyReplyPraise];
+            [self asynQueryMessageFromCoreDataStorage];
+//            [self querySameBodyReplyPraise];
 //            STShowReplyPraiseController *controller = [[STShowReplyPraiseController alloc] init];
 //            controller.visibleType = self.visibleType;
 //            controller.messageType = @99;

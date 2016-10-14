@@ -16,13 +16,9 @@
 @interface PersonScrollViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) UIView *buttonParentView;
-
 @property (nonatomic,strong) UIScrollView *scrollView;
-
 @property (nonatomic,strong) UIButton *friendButton;
-
 @property (nonatomic,strong) UIButton *addFriendButton;
-
 @property (nonatomic,strong) UIView *bottomScrollView;
 
 @end
@@ -33,7 +29,6 @@
     [super viewDidLoad];
     
     [self createButton];
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -77,22 +72,15 @@
     
 }
 
-- (UIButton *)buttonWithTitle:(NSString*)title numberAndTag:(int)tag {
+- (UIButton *)buttonWithTitle:(NSString *)title numberAndTag:(int)tag {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
     [button setTitle:title forState:UIControlStateNormal];
-    
     button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
-    
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
-    
     button.tag = tag;
-    
     return button;
-    
 }
 
 #pragma mark 按钮监听方法
@@ -101,9 +89,7 @@
     [_scrollView setContentOffset:CGPointMake(button.tag * SCREEN_WIDTH, 0) animated:YES];
     
     [UIView animateWithDuration:0.3 animations:^{
-        
         [_bottomScrollView setFrame:CGRectMake(button.frame.origin.x, 42, 65 , 2)];
-        
     }];
     
     [self buttonTitleChange:button.tag];
@@ -141,8 +127,6 @@
             break;
     }
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

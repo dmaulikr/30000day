@@ -25,7 +25,6 @@
         
         NSDictionary *dictionary = jsonArray[i];
         if ([dictionary[@"isShare"] isEqualToString:@"0"]) {//0原创
-            
             //设置模型
             STMediumModel *model = [[STMediumModel alloc] init];
             model.originalHeadImg = dictionary[@"writerHeadImg"];
@@ -47,6 +46,7 @@
             model.isClickLike = dictionary[@"isClickLike"];
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
+            model.visibleType = dictionary[@"visibleType"];
             //设置数据
             [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:model];
             
@@ -70,6 +70,7 @@
             model.isClickLike = dictionary[@"isClickLike"];
             model.infoTypeId = dictionary[@"infoTypeId"];
             model.infoTypeName   = dictionary[@"infoTypeName"];
+            model.visibleType = dictionary[@"visibleType"];
             
             STMediumModel *subModel = [[STMediumModel alloc] init];//被转发的自媒体
             subModel.originalHeadImg = dictionary[@"writerHeadImg"];
@@ -91,6 +92,7 @@
             subModel.isClickLike = dictionary[@"isClickLike"];
             subModel.infoTypeId = dictionary[@"infoTypeId"];
             subModel.infoTypeName   = dictionary[@"infoTypeName"];
+            subModel.visibleType = dictionary[@"visibleType"];
             
             //设置数据
             [STMediumModel getModelWeMediaType:dictionary[@"weMediaType"] infoContent:dictionary[@"infoContent"] model:subModel];

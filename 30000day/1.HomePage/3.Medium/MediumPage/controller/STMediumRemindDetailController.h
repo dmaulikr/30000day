@@ -11,6 +11,6 @@
 @interface STMediumRemindDetailController : STRefreshViewController
 
 @property (nonatomic,strong) NSNumber *weMediaId;
-@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,用在回复是发送消息
+@property (nonatomic,strong) NSNumber   *visibleType;//公开还是好友那里,（LeanCloud发送提醒消息用到）
 
 @end

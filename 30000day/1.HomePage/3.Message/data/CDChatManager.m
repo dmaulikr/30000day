@@ -61,14 +61,15 @@ static CDChatManager *instance;
 }
 
 - (void)openWithClientId:(NSString *)clientId callback:(AVIMBooleanResultBlock)callback {
-    _clientId = clientId;
-    
+    if ([Common isObjectNull:clientId])
+        return;
     NSString *dbPath = [self databasePathWithUserId:_clientId];
     [[CDConversationStore store] setupStoreWithDatabasePath:dbPath];
     [[CDFailedMessageStore store] setupStoreWithDatabasePath:dbPath];
     
     self.client = [[AVIMClient alloc] initWithClientId:clientId];//开启单点登录
     self.client.delegate = self;
+    _clientId = clientId;
     [self.client openWithCallback:^(BOOL succeeded, NSError *error) {
         
         if (callback) {
@@ -85,27 +86,16 @@ static CDChatManager *instance;
 #pragma mark ---- 新加的
 - (void)fetchConversationWithOtherId:(NSString *)otherId attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    if ([Common isObjectNull:self.client]) {//非空的
-        NSLog(@"聊天服务器没有初始化");
-    } else {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        [array addObject:self.client.clientId];
-        [array addObject:otherId];
-        [self fetchConversationWithMembers:array type:CDConversationTypeSingle attributes:attributes callback:callback];
-    }
+    [self fetchConversationWithMembers:@[self.client.clientId,otherId] type:CDConversationTypeSingle attributes:attributes callback:callback];
 }
 
 - (void)fetchConversationWithMembers:(NSArray *)members type:(CDConversationType)type attributes:(NSDictionary *)attributes callback:(AVIMConversationResultBlock)callback {
     
-    if ([members containsObject:self.clientId] == NO) {
-        NSLog(@"members should contain myself");
-    } else {
-        NSSet *set = [NSSet setWithArray:members];
-        if (set.count != members.count) {//有重复定义的值
-            NSLog(@"The array has duplicate value");
-        } else {//无重复定义的值
-            [self createConversationWithMembers:members type:type unique:YES attributes:attributes callback:callback];
-        }
+    NSSet *set = [NSSet setWithArray:members];
+    if (set.count != members.count) {//有重复定义的值
+        NSLog(@"The array has duplicate value");
+    } else {//无重复定义的值
+        [self createConversationWithMembers:members type:type unique:YES attributes:attributes callback:callback];
     }
 }
 

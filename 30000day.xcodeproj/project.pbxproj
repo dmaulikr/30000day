@@ -262,6 +262,8 @@
 		B8098C151DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C111DAD377E00B9FD37 /* STMediumVisibleTypeCoreDataObject+CoreDataProperties.swift */; };
 		B8098C181DAE0E6A00B9FD37 /* STMediumCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098C171DAE0E6A00B9FD37 /* STMediumCommentModel.m */; };
 		B8098C1B1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8098C1A1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m */; };
+		B8098C221DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C201DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataClass.swift */; };
+		B8098C231DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8098C211DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataProperties.swift */; };
 		B80A37D01D9BAECF001E36E3 /* STShowReplyPraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */; };
 		B80A37D21D9BAF96001E36E3 /* STShowReplyPraiseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */; };
 		B80A37D51D9CB67C001E36E3 /* STShowReplyPraiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A37D41D9CB67C001E36E3 /* STShowReplyPraiseController.m */; };
@@ -325,8 +327,6 @@
 		B86277491D9A5CFD0020E313 /* AVIMReplyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277481D9A5CFD0020E313 /* AVIMReplyMessage.m */; };
 		B86277651D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */; };
 		B862776F1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */; };
-		B86277871D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */; };
-		B862778A1D9A768E0020E313 /* PraiseReplyStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B86277891D9A768E0020E313 /* PraiseReplyStorageObject.m */; };
 		B862778D1D9A7A120020E313 /* PraiseReplyStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B862778C1D9A7A120020E313 /* PraiseReplyStorageModel.m */; };
 		B8695AA21C745586001B4B95 /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8695AA01C745586001B4B95 /* SearchResultTableViewCell.m */; };
 		B8695AA31C745586001B4B95 /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8695AA11C745586001B4B95 /* SearchResultTableViewCell.xib */; };
@@ -1160,6 +1160,8 @@
 		B8098C171DAE0E6A00B9FD37 /* STMediumCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumCommentModel.m; sourceTree = "<group>"; };
 		B8098C191DAE1AF600B9FD37 /* STMediumCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMediumCommentTableViewCell.h; sourceTree = "<group>"; };
 		B8098C1A1DAE1AF600B9FD37 /* STMediumCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STMediumCommentTableViewCell.m; sourceTree = "<group>"; };
+		B8098C201DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PraiseReplyStorageObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B8098C211DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PraiseReplyStorageObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B80A37CE1D9BAECF001E36E3 /* STShowReplyPraiseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STShowReplyPraiseView.h; sourceTree = "<group>"; };
 		B80A37CF1D9BAECF001E36E3 /* STShowReplyPraiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STShowReplyPraiseView.m; sourceTree = "<group>"; };
 		B80A37D11D9BAF96001E36E3 /* STShowReplyPraiseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = STShowReplyPraiseView.xib; sourceTree = "<group>"; };
@@ -1266,10 +1268,6 @@
 		B86277631D9A6D660020E313 /* STPraiseReplyCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPraiseReplyCoreDataStorage.h; sourceTree = "<group>"; };
 		B86277641D9A6D660020E313 /* STPraiseReplyCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPraiseReplyCoreDataStorage.m; sourceTree = "<group>"; };
 		B862776E1D9A6F3A0020E313 /* STPraiseReply.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPraiseReply.xcdatamodel; sourceTree = "<group>"; };
-		B86277851D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PraiseReplyStorageObject+CoreDataProperties.h"; sourceTree = "<group>"; };
-		B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PraiseReplyStorageObject+CoreDataProperties.m"; sourceTree = "<group>"; };
-		B86277881D9A768E0020E313 /* PraiseReplyStorageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PraiseReplyStorageObject.h; sourceTree = "<group>"; };
-		B86277891D9A768E0020E313 /* PraiseReplyStorageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PraiseReplyStorageObject.m; sourceTree = "<group>"; };
 		B862778B1D9A7A120020E313 /* PraiseReplyStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PraiseReplyStorageModel.h; sourceTree = "<group>"; };
 		B862778C1D9A7A120020E313 /* PraiseReplyStorageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PraiseReplyStorageModel.m; sourceTree = "<group>"; };
 		B8695A9F1C745586001B4B95 /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
@@ -2881,10 +2879,8 @@
 			isa = PBXGroup;
 			children = (
 				B862776D1D9A6F3A0020E313 /* STPraiseReply.xcdatamodeld */,
-				B86277881D9A768E0020E313 /* PraiseReplyStorageObject.h */,
-				B86277891D9A768E0020E313 /* PraiseReplyStorageObject.m */,
-				B86277851D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.h */,
-				B86277861D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m */,
+				B8098C201DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataClass.swift */,
+				B8098C211DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataProperties.swift */,
 				B862778B1D9A7A120020E313 /* PraiseReplyStorageModel.h */,
 				B862778C1D9A7A120020E313 /* PraiseReplyStorageModel.m */,
 				B86277631D9A6D660020E313 /* STPraiseReplyCoreDataStorage.h */,
@@ -5760,6 +5756,7 @@
 				B8FD3E051C8A7903007BCA6B /* SELineLayout.m in Sources */,
 				B86EFC7E1D10F52F007A2108 /* STFriendsViewController.m in Sources */,
 				B8FD3DDE1C8A7903007BCA6B /* XHAudioPlayerHelper.m in Sources */,
+				B8098C221DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataClass.swift in Sources */,
 				B88C91F11C5B05FC0089BEAE /* SBJsonStreamWriter.m in Sources */,
 				F52C6C261D2E5398008933D2 /* MotionData.m in Sources */,
 				B6E931A81D5877AF00F0CBB4 /* SuccessViewController.m in Sources */,
@@ -6008,7 +6005,6 @@
 				B8FD3DD81C8A7903007BCA6B /* UIImage+Utility.m in Sources */,
 				B87A5C3B1D73D6370066B21E /* STMediumSettingTableViewCell.m in Sources */,
 				B8FD3E0E1C8A7903007BCA6B /* SETextMagnifierRanged.m in Sources */,
-				B86277871D9A75C70020E313 /* PraiseReplyStorageObject+CoreDataProperties.m in Sources */,
 				B8FD3DD11C8A7903007BCA6B /* NSString+MessageInputView.m in Sources */,
 				B8F2D9201C5B5F4D002C7712 /* CalendarViewController.m in Sources */,
 				B8F719A31CEDD7FB000D859D /* HealthModel.xcdatamodeld in Sources */,
@@ -6133,7 +6129,6 @@
 				B612DD921CAD37E7004C428C /* CompanyCommodityModel.m in Sources */,
 				B8F73C591C968CC20063CC60 /* ReportViewController.m in Sources */,
 				B86A104D1CC8CE5E00D3E01B /* SearchWriterViewController.m in Sources */,
-				B862778A1D9A768E0020E313 /* PraiseReplyStorageObject.m in Sources */,
 				B80137841CD8499B00ED0566 /* PersonSettingViewController.m in Sources */,
 				B88C91F61C5B05FC0089BEAE /* SBJsonWriter.m in Sources */,
 				B6A5E7601C61AA5000A4322D /* MainPageBaseViewController.m in Sources */,
@@ -6177,6 +6172,7 @@
 				B8B3F4E01C9A4C1A00834533 /* CityViewController.m in Sources */,
 				B6E548BA1CF065D800002650 /* FactorVerificationView.m in Sources */,
 				B8F2D8B31C5B378F002C7712 /* UserInfoViewController.m in Sources */,
+				B8098C231DB0B8FD00B9FD37 /* PraiseReplyStorageObject+CoreDataProperties.swift in Sources */,
 				B8F648861C942C9F001A3119 /* PersonInformationTableViewCell.m in Sources */,
 				B8BD78971CC24DDF00362C89 /* STApiRequest.m in Sources */,
 				B88C91EF1C5B05FC0089BEAE /* SBJsonStreamParserAdapter.m in Sources */,

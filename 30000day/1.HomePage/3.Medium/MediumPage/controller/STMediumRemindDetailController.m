@@ -207,7 +207,7 @@
             self.placeholder = [NSString stringWithFormat:@"回复%@",[model nickNameUsedByLeanCloud]];
             [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag)     {
                 [self showHUDWithContent:@"正在回复" animated:YES];
-                [STDataHandler sendSaveCommentWithBusiId:model.busiId.integerValue busiType:2 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:model.currentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+                [STDataHandler sendSaveCommentWithBusiId:model.busiId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:model.currentId.integerValue isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
             
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (success) {

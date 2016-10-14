@@ -29,4 +29,17 @@
 - (NSArray <AVIMPraiseMessage *>*)getPraiseMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
 - (NSArray <AVIMReplyMessage *>*)geReplyMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit;
 
+- (void)scheduleGetPraiseMessageArrayWithVisibleType:(NSNumber *)visibleType
+                                           readState:(NSNumber *)readState
+                                              offset:(int)offset
+                                               limit:(int)limit
+                                              success:(void (^)(NSMutableArray <AVIMPraiseMessage *>*dataArray))success;
+
+- (void)scheduleGetReplyMessageArrayWithVisibleType:(NSNumber *)visibleType
+                                           readState:(NSNumber *)readState
+                                              offset:(int)offset
+                                               limit:(int)limit
+                                             success:(void (^)(NSMutableArray <AVIMPraiseMessage *>*dataArray))success;
+
+
 @end

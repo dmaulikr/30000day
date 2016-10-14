@@ -144,7 +144,6 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
                           success:(void (^)(BOOL success))success
                           failure:(void (^)(NSError *))failure;
 
-
 //**** 获取好友(dataArray存储的是UserInformationModel) *****/
 + (void)getMyFriendsWithUserId:(NSString *)userId
                          order:(NSString *)order
@@ -469,7 +468,7 @@ static NSString *const STSameBodyReplyPraiseSendNotification = @"STSameBodyReply
 
 //*****************************************评论*********************/
 + (void)sendSaveCommentWithBusiId:(NSInteger)busiId
-                         busiType:(NSInteger)busiType 
+                         busiType:(NSInteger)busiType //0，商品，1,咨询或者自媒体，2评论，3
                            userId:(NSInteger)userId
                            remark:(NSString *)remark
                               pid:(NSInteger)pid

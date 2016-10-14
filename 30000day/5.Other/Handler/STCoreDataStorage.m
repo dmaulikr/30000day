@@ -763,7 +763,6 @@ static NSMutableSet *databaseFileNames;
 - (void)maybeSave:(int64_t)currentPendingRequests
 {
     NSAssert(dispatch_get_specific(storageQueueTag), @"Invoked on incorrect queue");
-    NSLog(@"----%@",[NSThread currentThread].description);
     
     if ([[self managedObjectContext] hasChanges])
     {
