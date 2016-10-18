@@ -33,13 +33,50 @@
 - (void)configureUI {
     self.title = @"详情";
     self.tableViewStyle = STRefreshTableViewPlain;
-    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 50 - 64);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self  showHeadRefresh:YES showFooterRefresh:YES];
     self.isShowInputView = YES;
     self.isShowMedio = NO;
     self.currentPage = 1;
+    //添加一个按钮
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendButton setTitle:@"评论一番吧" forState:UIControlStateNormal];
+    [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    sendButton.backgroundColor = LOWBLUECOLOR;
+    sendButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
+    [sendButton addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendButton];
+}
+
+- (void)sendAction {
+    self.placeholder = @"评论一番吧";
+    [self refreshControllerInputViewHide];
+    [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:10] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag)     {
+        [self showHUDWithContent:@"正在上传评论" animated:YES];
+        [STDataHandler sendSaveCommentWithBusiId:self.weMediaId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    [self showToast:@"评论成功"];
+                    [self hideHUD:YES];
+                    [self loadMediaCommentDataHead];
+                    //发送消息
+                    if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+                        [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[self.model getOriginMediumModel].writerId originHeadImg:[self.model getOriginMediumModel].originalHeadImg originalNickName:[self.model getOriginMediumModel].originalNickName visibleType:self.visibleType];
+                    }
+                }
+            });
+            
+        } failure:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showToast:@"回复失败"];
+                [self hideHUD:YES];
+            });
+        }];
+    }];
+    
 }
 
 - (void)headerRefreshing {
@@ -175,35 +212,35 @@
     
     if (indexPath.section == 0) {
         
-        self.placeholder = @"评论一番吧";
-        [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag)     {
-            [self showHUDWithContent:@"正在上传评论" animated:YES];
-            [STDataHandler sendSaveCommentWithBusiId:self.weMediaId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (success) {
-                        [self showToast:@"评论成功"];
-                        [self hideHUD:YES];
-                        [self loadMediaCommentDataHead];
-                        //发送消息
-                        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
-                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[self.model getOriginMediumModel].writerId originHeadImg:[self.model getOriginMediumModel].originalHeadImg originalNickName:[self.model getOriginMediumModel].originalNickName visibleType:self.visibleType];
-                        }
-                    }
-                });
-                
-            } failure:^(NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showToast:@"回复失败"];
-                    [self hideHUD:YES];
-                });
-            }];
-        }];
+//        self.placeholder = @"评论一番吧";
+//        [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag)     {
+//            [self showHUDWithContent:@"正在上传评论" animated:YES];
+//            [STDataHandler sendSaveCommentWithBusiId:self.weMediaId.integerValue busiType:1 userId:STUserAccountHandler.userProfile.userId.integerValue remark:message pid:-1 isHideName:NO numberStar:0 commentPhotos:nil success:^(BOOL success) {
+//                
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    if (success) {
+//                        [self showToast:@"评论成功"];
+//                        [self hideHUD:YES];
+//                        [self loadMediaCommentDataHead];
+//                        //发送消息
+//                        if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+//                            [STPraiseReplyCoreDataStorage sendReplyMessage:STUserAccountHandler.userProfile.userId currentOriginHeadImg:STUserAccountHandler.userProfile.headImg currentOriginNickName:STUserAccountHandler.userProfile.nickName userId:[self.model getOriginMediumModel].writerId originHeadImg:[self.model getOriginMediumModel].originalHeadImg originalNickName:[self.model getOriginMediumModel].originalNickName visibleType:self.visibleType];
+//                        }
+//                    }
+//                });
+//                
+//            } failure:^(NSError *error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self showToast:@"回复失败"];
+//                    [self hideHUD:YES];
+//                });
+//            }];
+//        }];
         
     } else if (indexPath.section == 1) {
         
         STMediumCommentModel *model = [self.dataArray objectAtIndex:indexPath.row];
-        if ([Common isObjectNull:model.isClickLike] && ![[model userIdUsedByLeanCloud] isEqualToNumber:STUserAccountHandler.userProfile.userId]) {//不能回复自己
+        if ([Common isObjectNull:model.isClickLike]) {//不能回复自己
             self.placeholder = [NSString stringWithFormat:@"回复%@",[model nickNameUsedByLeanCloud]];
             [self refreshControllerInputViewShowWithFlag:[NSNumber numberWithInteger:indexPath.row] sendButtonDidClick:^(NSString *message, NSMutableArray *imageArray, NSNumber *flag)     {
                 [self showHUDWithContent:@"正在回复" animated:YES];

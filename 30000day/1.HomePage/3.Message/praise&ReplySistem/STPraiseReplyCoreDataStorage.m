@@ -130,10 +130,12 @@ static STPraiseReplyCoreDataStorage *instance;
 }
 
 - (void)markMessageWith:(NSArray <AVIMTypedMessage *>*)messageArray visibleType:(NSNumber *)visibleType readState:(NSNumber *)readState {
+    
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (int i = 0; i <messageArray.count ; i++) {
             AVIMTypedMessage *message = messageArray[i];
+            
             PraiseReplyStorageModel *model = [[PraiseReplyStorageModel alloc] init];
             model.metaData = [NSKeyedArchiver archivedDataWithRootObject:message];
             model.userId = STUserAccountHandler.userProfile.userId;
@@ -172,14 +174,18 @@ static STPraiseReplyCoreDataStorage *instance;
 }
 
 - (NSArray <AVIMPraiseMessage *>*)getPraiseMesssageArrayWithVisibleType:(NSNumber *)visibleType readState:(NSNumber *)readState offset:(int)offset limit:(int)limit {
+    
     if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@99,visibleType];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
+        
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:[NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.mainThreadManagedObjectContext]];
         request.predicate = predicate;
         request.sortDescriptors = @[descriptor];
         request.fetchOffset = offset;
+        
         if ( offset >= 0 ) {
             [request setFetchOffset:offset];
         }
@@ -190,6 +196,7 @@ static STPraiseReplyCoreDataStorage *instance;
         NSError *error = nil;
         NSArray *dataArray = [self.mainThreadManagedObjectContext executeFetchRequest:request error:&error];
         NSMutableArray *array = [[NSMutableArray alloc] init];
+        
         for (int i = 0; i <dataArray.count ; i++) {
             PraiseReplyStorageObject *object = dataArray[i];
             AVIMReplyMessage *message = [NSKeyedUnarchiver unarchiveObjectWithData:object.metaData];
@@ -207,14 +214,17 @@ static STPraiseReplyCoreDataStorage *instance;
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@98,visibleType];
         NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
+        
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:[NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.mainThreadManagedObjectContext]];
         request.predicate = predicate;
         request.sortDescriptors = @[descriptor];
         request.fetchOffset = offset;
+        
         if ( offset >= 0 ) {
             [request setFetchOffset:offset];
         }
+        
         if (limit > 0) {
             [request setFetchLimit:limit];
         }
@@ -222,6 +232,7 @@ static STPraiseReplyCoreDataStorage *instance;
         NSError *error = nil;
         NSArray *dataArray = [self.mainThreadManagedObjectContext executeFetchRequest:request error:&error];
         NSMutableArray *array = [[NSMutableArray alloc] init];
+        
         for (int i = 0; i <dataArray.count ; i++) {
             PraiseReplyStorageObject *object = dataArray[i];
             AVIMReplyMessage *message = [NSKeyedUnarchiver unarchiveObjectWithData:object.metaData];
@@ -243,16 +254,20 @@ static STPraiseReplyCoreDataStorage *instance;
     [self scheduleBlock:^{
        
         if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+            
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@99,visibleType];
             NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
+            
             NSFetchRequest *request = [[NSFetchRequest alloc] init];
             [request setEntity:[NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.managedObjectContext]];
             request.predicate = predicate;
             request.sortDescriptors = @[descriptor];
             request.fetchOffset = offset;
+            
             if ( offset >= 0 ) {
                 [request setFetchOffset:offset];
             }
+            
             if (limit > 0) {
                 [request setFetchLimit:limit];
             }
@@ -280,13 +295,16 @@ static STPraiseReplyCoreDataStorage *instance;
     [self scheduleBlock:^{
         
         if (![Common isObjectNull:STUserAccountHandler.userProfile.userId]) {
+            
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userId == %@ AND readState == %@ AND messageType == %@ AND visibleType == %@",STUserAccountHandler.userProfile.userId,readState,@98,visibleType];
             NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"messageId" ascending:YES];
+            
             NSFetchRequest *request = [[NSFetchRequest alloc] init];
             [request setEntity:[NSEntityDescription entityForName:@"PraiseReplyStorageObject" inManagedObjectContext:self.managedObjectContext]];
             request.predicate = predicate;
             request.sortDescriptors = @[descriptor];
             request.fetchOffset = offset;
+            
             if ( offset >= 0 ) {
                 [request setFetchOffset:offset];
             }
@@ -297,6 +315,7 @@ static STPraiseReplyCoreDataStorage *instance;
             NSError *error = nil;
             NSArray *dataArray = [self.managedObjectContext executeFetchRequest:request error:&error];
             NSMutableArray *array = [[NSMutableArray alloc] init];
+            
             for (int i = 0; i <dataArray.count ; i++) {
                 PraiseReplyStorageObject *object = dataArray[i];
                 AVIMReplyMessage *message = [NSKeyedUnarchiver unarchiveObjectWithData:object.metaData];
