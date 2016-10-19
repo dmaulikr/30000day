@@ -39,55 +39,54 @@
 }
 
 /**
- * Initializes a core data storage instance, backed by SQLite, with the given database store filename.
- * It is recommended your database filname use the "sqlite" file extension (e.g. "XMPPRoster.sqlite").
- * If you pass nil, a default database filename is automatically used.
- * This default is derived from the classname,
- * meaning subclasses will get a default database filename derived from the subclass classname.
+ * 初始化一个核心数据存储实例,SQLite的支持下,与给定的数据库存储文件名。
+ * 建议数据库filname使用文件扩展名(如“sqlite”。“XMPPRoster.sqlite”)。
+ * 如果你通过nil,文件名会自动使用默认数据库。
+ * 这个默认来源于类名,
+ * 意味着子类将默认数据库文件名来自该子类名称。
  *
- * If you attempt to create an instance of this class with the same databaseFileName as another existing instance,
- * this method will return nil.
+ * 如果您尝试创建该类的实例相同的databaseFileName作为另一个现有的实例,这个方法将返回nil。
  **/
 - (id)initWithDatabaseFilename:(NSString *)databaseFileName storeOptions:(NSDictionary *)storeOptions;
 
 /**
- * Initializes a core data storage instance, backed by an in-memory store.
+ * 初始化一个核心数据存储实例,由一个内存中的存储。
  **/
 - (id)initWithInMemoryStore;
 
 /**
- * Readonly access to the databaseFileName used during initialization.
- * If nil was passed to the init method, returns the actual databaseFileName being used (the default filename).
+ * 只读存取databaseFileName初始化期间使用。
+ * 如果nil是传递给init方法,返回实际databaseFileName(默认文件名)使用。
  **/
 @property (readonly) NSString *databaseFileName;
 
 /**
- * Readonly access to the databaseOptions used during initialization.
- * If nil was passed to the init method, returns the actual databaseOptions being used (the default databaseOptions).
+ * 只读存取databaseOptions初始化期间使用。
+ * 如果nil是传递给init方法,返回实际databaseOptions(默认databaseOptions)使用。
  **/
 @property (readonly) NSDictionary *storeOptions;
 
 /**
- * The saveThreshold specifies the maximum number of unsaved changes to NSManagedObjects before a save is triggered.
+ * saveThreshold指定的最大数量未保存的更改nsmanagedobject保存之前触发。
  *
- * Since NSManagedObjectContext retains any changed objects until they are saved to disk
- * it is an important memory management concern to keep the number of changed objects within a healthy range.
+ * 自NSManagedObjectContext保留任何改变对象,直到他们保存到磁盘
+ * 这是一个重要的内存管理关注改变对象的数量保持在健康的范围。
  *
- * Default 500
+ * 500(默认)
  **/
 @property (readwrite) NSUInteger saveThreshold;
 
 /**
- * Provides access to the the thread-safe components of the CoreData stack.
+ * 提供访问的线程安全组件CoreData堆栈。
  *
- * Please note:
- * The managedObjectContext is private to the storageQueue.
- * If you're on the main thread you can use the mainThreadManagedObjectContext.
- * Otherwise you must create and use your own managedObjectContext.
+ * 请注意:
+ * 获取storageQueue是私人的。
+ * 如果你在主线程可以使用mainThreadManagedObjectContext。
+ * 否则你必须创建和使用自己的获取。
  *
- * If you think you can simply add a property for the private managedObjectContext,
- * then you need to go read the documentation for core data,
- * specifically the section entitled "Concurrency with Core Data".
+ * 如果你认为你可以简单地添加一个属性为私营,获取
+ * 然后你需要去阅读核心数据的文档,
+ * 专门一节题为“与核心数据并发性”。
  *
  * @see mainThreadManagedObjectContext
  **/
@@ -95,41 +94,40 @@
 @property (strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 /**
- * Convenience method to get a managedObjectContext appropriate for use on the main thread.
- * This context should only be used from the main thread.
+ * 方便的方法去获取适合使用在主线程。
+ * 这里应该只用于从主线程。
  *
- * NSManagedObjectContext is a light-weight thread-UNsafe component of the CoreData stack.
- * Thus a managedObjectContext should only be accessed from a single thread, or from a serialized queue.
+ * NSManagedObjectContext CoreData堆栈是一个轻量级的线程不安全的组成部分。
+ * 因此获取只能从一个线程访问,或从一个序列化的队列。
  *
- * A managedObjectContext is associated with a persistent store.
- * In most cases the persistent store is an sqlite database file.
- * So think of a managedObjectContext as a thread-specific cache for the underlying database.
+ * 获取与持久化存储。
+ * 在大多数情况下,持久化存储是一个sqlite数据库文件。
+ * 所以想获取作为底层数据库表的缓存。
  *
- * This method lazily creates a proper managedObjectContext,
- * associated with the persistent store of this instance,
- * and configured to automatically merge changesets from other threads.
+ * 此方法懒洋洋地创建一个适当的获取,
+ * 与持久性存储的实例相关联,
+ * 和配置为自动从其他线程合并变更集。
  **/
 @property (strong, readonly) NSManagedObjectContext *mainThreadManagedObjectContext;
 
 /**
- * The Previous Database File is removed before creating a persistant store.
+ * 之前的数据库文件是之前创建一个持久性存储中删除。
  *
- * Default NO
+ * 默认 NO
  **/
-
 @property (readwrite) BOOL autoRemovePreviousDatabaseFile;
 
 /**
- * The Database File is automatically recreated if the persistant store cannot read it e.g. the model changed or the file became corrupt.
- * For greater control overide didNotAddPersistentStoreWithPath:
+ * 自动重新创建数据库文件如果持久性存储不能读它如模型更改或文件变得腐败。
+ *  For greater control overide  didNotAddPersistentStoreWithPath:
  *
- * Default NO
+ * 默认NO
  **/
 @property (readwrite) BOOL autoRecreateDatabaseFile;
 
 /**
- * This method calls setAllowsExternalBinaryDataStorage:YES for all Binary Data Attributes in the Managed Object Model.
- * On OS Versions that do not support external binary data storage, this property does nothing.
+ * 这个方法调用setAllowsExternalBinaryDataStorage:是的所有二进制数据属性的管理对象模型。
+ * 操作系统版本不支持外部的二进制数据存储,这个属性没有。
  *
  * Default NO
  **/

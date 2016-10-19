@@ -10,4 +10,6 @@
 
 @interface STMediumSiftCoreDataStorage : STCoreDataStorage
 
++ (STMediumSiftCoreDataStorage *)shareStorage;
+
 @end

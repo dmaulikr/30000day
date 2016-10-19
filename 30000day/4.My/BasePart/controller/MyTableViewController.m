@@ -24,7 +24,6 @@
 #import "AboutTableViewController.h"
 #import "QuickResponseCodeViewController.h"
 #import "QRReaderViewController.h"
-#import "STRedPacketListController.h"
 
 @interface MyTableViewController () <UITableViewDataSource,UITableViewDelegate>
 @end
@@ -263,10 +262,6 @@
             
         } else if (indexPath.row == 1) {
             QRReaderViewController *controller = [[QRReaderViewController alloc] init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-        } else if (indexPath.row == 2) {
-            STRedPacketListController *controller = [[STRedPacketListController alloc] init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];
         }
